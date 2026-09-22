@@ -1,7 +1,6 @@
-# TxtRPG Phase 1–205 통합 릴리스 인덱스
+# TxtRPG Phase 1–235 통합 릴리스 인덱스
 
-기준 통합본: Phase 191–205
-소스 파일 수: 146
+기준 통합본: Phase 221–235
 
 ## 범위
 - Phase 1–23: 엔진 기초, 저장, 시간, 이동, NPC, 정보, 경제
@@ -15,24 +14,19 @@
 - Phase 161–175: 대륙권 정치·교역망
 - Phase 176–190: 거시 정세 → 동적 기회 인과망
 - Phase 191–205: 플레이어 행동 → 조직/NPC 반응 → 세계 반응 폐루프
+- Phase 206–220: 사건 추적, 증거 기반 해결
+- Phase 221–235: 사건 분기, 위험 판정, 선택 결과의 세계 상태 환류
 
 ## 검증
-- 기존 회귀 테스트 및 신규 Phase 테스트 포함
-- Worker parity / 결정론 / 장기 시뮬레이션 테스트 포함
-- 최신 단계에서 JavaScript 118개 문법 검사 및 HTML script 76개 참조 검사 수행
+- 전체 통합 시나리오 PASS
+- Phase 206–220 기능/결정론/Worker parity/365일 장기 테스트 PASS
+- 신규 사건 분기 기능 PASS
+- historySeq 1,185까지 단조 증가 확인
+- JavaScript syntax 검사 PASS
 
-## 완전한 소스 스냅샷
-전체 146개 파일은 현재 작업 환경의 Phase 191–205 통합본에 보존되어 있다.
-GitHub 커넥터의 로컬 디렉터리 직접 업로드 제약 때문에 아래 해시로 스냅샷을 식별한다.
+## 릴리스 기록
+- [Phase 206–220](docs/phase206-220-release.md)
+- [Phase 221–235](docs/phase221-235-release.md)
 
-- ZIP: ade6e2d0b2c3203ea8e5e636d8fdb5be8053e79b6f5c8fb8513fb33725c74f31
-- tar.gz: be74154102f15b3b85674b78a25d11ab02635f02ec9ed30281a35e1da3fc1b77
-
-
-## Phase 206–220
-- 사건 추적과 증거 기반 해결
-- ReactiveWorldSystem → CaseworkSystem
-- 계약/NPC/증거/조직 반응 연결
-- Save Schema 91
-- 전체 회귀 48/48 PASS
-- [Phase 206–220 릴리스 기록](docs/phase206-220-release.md)
+## 소스 스냅샷
+전체 작업 소스는 최신 통합 ZIP으로 보존하며, GitHub 커넥터에서 로컬 디렉터리 전체를 단일 Git tree로 직접 업로드할 수 없는 환경에서는 릴리스 기록과 변경된 텍스트 파일을 실제 커밋으로 우선 반영합니다.
