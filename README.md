@@ -11,6 +11,11 @@
 - Microsoft Edge 로컬 환경을 기준으로 IndexedDB + Web Worker + Canvas 기반 구현
 - 대규모 데이터는 청크 로딩, 가상화, 캐시, bulk transaction으로 관리
 
+## 릴리스 기록
+- [Phase 1–205 통합 릴리스 인덱스](PHASES_1_205_RELEASE_INDEX.md)
+- [Phase 1–205 파일 목록](docs/phase1-205-file-manifest.md)
+- [Phase 1–205 소스 스냅샷 식별 정보](docs/phase1-205-snapshot.md)
+
 ## 문서
 
 ### 아키텍처
