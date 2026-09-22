@@ -37,3 +37,13 @@
 ## 프로젝트 원칙
 
 세계관 문서와 구현 문서를 분리하고, 설정은 데이터화하여 게임 엔진과 독립적으로 관리한다.
+
+## Latest Development — Phase 206–220
+
+사건 추적과 증거 기반 해결 계층을 추가했습니다. `ReactiveWorldSystem`의 세계 반응을 `CaseworkSystem`이 지속 사건으로 추적하며, 계약·NPC 자율행동·증거가 사건 진행과 해결 결과에 연결됩니다.
+
+- Save Schema: 91
+- 전체 회귀 테스트: 48/48 PASS
+- JS syntax: 79개 PASS
+- HTML script: 78개, 누락 0
+- 상세 기록: [Phase 206–220](docs/phase206-220-release.md)
