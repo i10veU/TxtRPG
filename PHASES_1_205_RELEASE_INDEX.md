@@ -27,3 +27,12 @@ GitHub 커넥터의 로컬 디렉터리 직접 업로드 제약 때문에 아래
 
 - ZIP: ade6e2d0b2c3203ea8e5e636d8fdb5be8053e79b6f5c8fb8513fb33725c74f31
 - tar.gz: be74154102f15b3b85674b78a25d11ab02635f02ec9ed30281a35e1da3fc1b77
+
+
+## Phase 206–220
+- 사건 추적과 증거 기반 해결
+- ReactiveWorldSystem → CaseworkSystem
+- 계약/NPC/증거/조직 반응 연결
+- Save Schema 91
+- 전체 회귀 48/48 PASS
+- [Phase 206–220 릴리스 기록](docs/phase206-220-release.md)
