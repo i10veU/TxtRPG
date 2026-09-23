@@ -64,6 +64,9 @@ jobs:
       - name: Economy regression
         run: node tests/phase260-economy.js
 
+      - name: Information regression
+        run: node tests/phase261-information.js
+
   browser:
     name: Browser smoke
     needs: unit
