@@ -60,6 +60,8 @@ jobs:
         run: node tests/phase267-case-consequences.js
       - name: Economic pressure regression
         run: node tests/phase268-economic-pressure.js
+      - name: NPC relations regression
+        run: node tests/phase269-npc-relations.js
 
   browser:
     name: Browser smoke
