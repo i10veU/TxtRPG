@@ -50,6 +50,8 @@ jobs:
 
       - name: Organization regression
         run: node tests/phase263-organizations.js
+      - name: Goal dynamics regression
+        run: node tests/phase264-goal-dynamics.js
 
   browser:
     name: Browser smoke
