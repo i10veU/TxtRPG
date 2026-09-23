@@ -25,7 +25,7 @@ assert(RPG && RPG.Core && RPG.Data);
 
 const state = RPG.Core.createDefaultState(RPG.Data.npcs);
 RPG.Core.ensureEconomy(state);
-assert.strictEqual(state.schemaVersion, 4);
+assert.strictEqual(state.schemaVersion, 5);
 assert.strictEqual(RPG.Core.getGrainPrice(state), 10);
 
 state.world.grainSupply = 20;
