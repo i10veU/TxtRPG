@@ -24,6 +24,15 @@ AnonymousRPG.UI = AnonymousRPG.UI || {};
     return "적대";
   }
 
+  function marketLabel(state) {
+    const economy = state.world.economy || {};
+    if (state.world.flags && state.world.flags.marketCrisis) return "위기";
+    const stock = Number(economy.stock && economy.stock.grain) || 0;
+    const price = Number(economy.prices && economy.prices.grain) || 10;
+    if (stock <= 8 || price >= 18) return "압박";
+    return "안정";
+  }
+
   function panel(title, state) {
     const overlay = document.querySelector(".overlay");
     if (!overlay) return;
@@ -64,6 +73,7 @@ AnonymousRPG.UI = AnonymousRPG.UI || {};
     document.getElementById("overlayMoney").textContent = state.player.money;
     document.getElementById("overlayGrain").textContent = (Number(economy.prices.grain) || 10) + "G";
     document.getElementById("overlayGrainStock").textContent = Number(economy.stock.grain) || 0;
+    document.getElementById("overlayMarketPressure").textContent = marketLabel(state);
 
     document.getElementById("inventoryList").innerHTML =
       Object.entries(state.player.inventory).map(function (entry) {
@@ -76,12 +86,11 @@ AnonymousRPG.UI = AnonymousRPG.UI || {};
       const stateText = npc.lastAction || npc.goal || "";
       const goalState = npc.goalState;
       const goalText = goalState
-        ? " · " + (goalState.status === "blocked" ? "중단" : "목표") + " " +
-          goalState.progress + "/" + goalState.target + " · 우선 " + goalState.priority
+        ? " · " + (goalState.status === "blocked" ? "중단" : "목표") + " " + goalState.progress + "/" + goalState.target + " · 우선 " + goalState.priority
         : "";
       return "<li><span>" + esc(npc.name) + "</span><small>" +
-        esc(npcPlace ? npcPlace.name : npc.place) + " · " +
-        esc(faction) + " · " + esc(stateText) + esc(goalText) + "</small></li>";
+        esc(npcPlace ? npcPlace.name : npc.place) + " · " + esc(faction) + " · " +
+        esc(stateText) + esc(goalText) + "</small></li>";
     });
     document.getElementById("npcList").innerHTML = npcList.join("") || "<li>없음</li>";
 
@@ -95,10 +104,7 @@ AnonymousRPG.UI = AnonymousRPG.UI || {};
     const discovered = Array.from(new Set(state.world.discovered));
     const openCases = state.world.cases
       .filter(function (entry) { return entry.status === "open"; })
-      .map(function (entry) {
-        return "사건 · " + Data.caseDefinitions[entry.id].title;
-      });
-
+      .map(function (entry) { return "사건 · " + Data.caseDefinitions[entry.id].title; });
     document.getElementById("knownList").innerHTML =
       discovered.concat(openCases).map(function (item) {
         return "<li><span>" + esc(item) + "</span></li>";
@@ -109,28 +115,21 @@ AnonymousRPG.UI = AnonymousRPG.UI || {};
     }) : [];
     document.getElementById("rumorList").innerHTML =
       rumors.slice(0, 8).map(function (rumor) {
-        return "<li><span>" + esc(rumor.text) + "</span><small>" +
-          "확신 " + Math.round(rumor.confidence * 100) + "% · " +
-          esc(rumor.sources.join(",")) + "</small></li>";
+        return "<li><span>" + esc(rumor.text) + "</span><small>확신 " + Math.round(rumor.confidence * 100) + "% · " + esc(rumor.sources.join(",")) + "</small></li>";
       }).join("") || "<li>아직 없음</li>";
 
     const organizations = state.world.organizations || {};
     document.getElementById("organizationList").innerHTML =
       Object.keys(organizations).map(function (id) {
         const org = organizations[id];
-        return "<li><span>" + esc(org.name || id) + "</span><small>" +
-          "D" + esc(org.lastDecisionDay + 1) + " · 압력 " + esc(org.goalPressure || 0) + " · " +
-          esc(org.lastAction || "대기") + "</small></li>";
+        return "<li><span>" + esc(org.name || id) + "</span><small>D" + esc(org.lastDecisionDay + 1) + " · 압력 " + esc(org.goalPressure || 0) + " · " + esc(org.lastAction || "대기") + "</small></li>";
       }).join("") || "<li>아직 없음</li>";
 
-    document.getElementById("storyBody").innerHTML =
-      state.log.map(function (turn) {
-        return '<article class="turn">' +
-          '<div class="time">' + esc(turn.time) + "</div>" +
-          (turn.action ? '<div class="actionText">&gt; ' + esc(turn.action) + "</div>" : "") +
-          '<div class="' + (turn.system ? "system" : "narrative") + '">' +
-          esc(turn.narrative) + "</div></article>";
-      }).join("");
+    document.getElementById("storyBody").innerHTML = state.log.map(function (turn) {
+      return '<article class="turn"><div class="time">' + esc(turn.time) + "</div>" +
+        (turn.action ? '<div class="actionText">&gt; ' + esc(turn.action) + "</div>" : "") +
+        '<div class="' + (turn.system ? "system" : "narrative") + '">' + esc(turn.narrative) + "</div></article>";
+    }).join("");
 
     const storyBody = document.getElementById("storyBody");
     if (storyBody) storyBody.scrollTop = storyBody.scrollHeight;
