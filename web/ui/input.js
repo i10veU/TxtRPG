@@ -5,6 +5,8 @@ AnonymousRPG.UI.bindInput = function (dispatch) {
   const form = document.getElementById("actionForm");
   const input = document.getElementById("actionInput");
   const close = document.getElementById("overlayClose");
+  const history = [];
+  let historyIndex = -1;
 
   if (close) {
     close.addEventListener("click", AnonymousRPG.UI.closePanel);
@@ -14,9 +16,40 @@ AnonymousRPG.UI.bindInput = function (dispatch) {
     event.preventDefault();
     const text = input.value.trim();
     if (!text) return;
+
+    if (history[history.length - 1] !== text) history.push(text);
+    if (history.length > 30) history.shift();
+    historyIndex = -1;
+
     dispatch(text);
     input.value = "";
     input.focus();
+  });
+
+  input.addEventListener("keydown", function (event) {
+    if (event.key === "ArrowUp") {
+      if (!history.length) return;
+      event.preventDefault();
+      historyIndex = historyIndex < 0
+        ? history.length - 1
+        : Math.max(0, historyIndex - 1);
+      input.value = history[historyIndex];
+      input.setSelectionRange(input.value.length, input.value.length);
+      return;
+    }
+
+    if (event.key === "ArrowDown") {
+      if (!history.length || historyIndex < 0) return;
+      event.preventDefault();
+      historyIndex += 1;
+      if (historyIndex >= history.length) {
+        historyIndex = -1;
+        input.value = "";
+      } else {
+        input.value = history[historyIndex];
+        input.setSelectionRange(input.value.length, input.value.length);
+      }
+    }
   });
 
   document.addEventListener("keydown", function (event) {
