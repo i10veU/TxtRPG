@@ -25,6 +25,9 @@ self.onmessage = function (event) {
     if (message.type === "ACTION") {
       if (!state) throw new Error("Worker not initialized");
       const result = AnonymousRPG.Core.resolveAction(state, message.text);
+      if (result.narrative) {
+        AnonymousRPG.Core.appendLog(state, result.narrative, result.action);
+      }
       reply("UPDATE", { state: state, result: result });
       return;
     }
@@ -37,6 +40,8 @@ self.onmessage = function (event) {
     if (message.type === "RESET") {
       state = AnonymousRPG.Core.createDefaultState(AnonymousRPG.Data.npcs);
       AnonymousRPG.Data.ensureCases(state);
+      AnonymousRPG.Core.appendLog(state, "비가 그친 새벽이다. 젖은 돌바닥 위로 사람들이 하루를 시작했다. 누구도 당신을 기다리지 않는다.");
+      AnonymousRPG.Core.appendLog(state, "북문 시장에서는 가게마다 곡물 가격이 조금씩 다르다. 광장 건너편에서는 경비대원이 상인의 저울을 확인하고 있다.");
       reply("READY", { state: state });
       return;
     }
