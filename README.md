@@ -18,6 +18,18 @@
 - [Phase 221–235](docs/phase221-235-release.md)
 - [Phase 236–250](docs/phase236-250-release.md)
 - [Phase 251 엔진화](docs/phase251-engineization.md)
+- [Phase 1–205 파일 목록](docs/phase1-205-file-manifest.md)
+
+## 문서
+
+### 아키텍처
+
+- [오프라인 Edge RPG 아키텍처](docs/architecture/offline-edge-architecture.md)
+
+### 세계관
+
+- [무명의 연대기 — 세계관 설계 원칙](docs/world/world-design-principles.md)
+- [세계관 연구 적용 메모](docs/world/source-analysis.md)
 
 ## 실행
 
@@ -50,3 +62,7 @@ web/ 아래에서 상태, 데이터, 입력, 렌더링, 저장, Worker를 분리
 3. 동적 경제·조직 시스템 재통합
 4. 사건 간 인과망 확장
 5. 대규모 데이터 저장/장기 시뮬레이션 회귀 테스트
+
+## 프로젝트 원칙
+
+세계관 문서와 구현 문서를 분리하고, 설정은 데이터화하여 게임 엔진과 독립적으로 관리한다.
