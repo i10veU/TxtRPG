@@ -48,28 +48,28 @@ assert.strictEqual(eventsAt600.length, 0);
 assert.strictEqual(state.world.npcSimulationMinute, 360);
 assert.strictEqual(state.npcs.orel.place, "alley");
 
+const grainBefore = state.world.grainSupply;
 state.world.minutes = 390;
 RPG.Core.simulateNPCs(state);
 assert.strictEqual(state.world.npcSimulationMinute, 390);
-assert.strictEqual(state.npcs.orel.place, "market");
-assert.strictEqual(state.npcs.orel.lastTick, 390);
-const securityAfterFirstTick = state.world.security;
+assert.strictEqual(state.world.grainSupply, grainBefore + 1);
+assert.strictEqual(state.npcs.orel.place, "alley");
 
 RPG.Core.simulateNPCs(state);
 assert.strictEqual(state.world.npcSimulationMinute, 390);
-assert.strictEqual(state.world.security, securityAfterFirstTick);
-assert.strictEqual(state.npcs.orel.lastTick, 390);
+assert.strictEqual(state.world.grainSupply, grainBefore + 1);
 
 state.world.minutes = 405;
 RPG.Core.simulateNPCs(state);
 assert.strictEqual(state.world.npcSimulationMinute, 405);
-assert.strictEqual(state.world.security, securityAfterFirstTick);
-assert.strictEqual(state.npcs.orel.lastTick, 390);
+assert.strictEqual(state.world.grainSupply, grainBefore + 1);
+assert.strictEqual(state.npcs.orel.place, "alley");
 
 state.world.minutes = 420;
 RPG.Core.simulateNPCs(state);
 assert.strictEqual(state.world.npcSimulationMinute, 420);
-assert.strictEqual(state.world.security, securityAfterFirstTick + 1);
+assert.strictEqual(state.world.grainSupply, grainBefore + 2);
+assert.strictEqual(state.npcs.orel.place, "market");
 assert.strictEqual(state.npcs.orel.lastTick, 420);
 
 const legacy = JSON.parse(JSON.stringify(state));
