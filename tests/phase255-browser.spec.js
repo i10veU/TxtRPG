@@ -22,6 +22,11 @@ test.describe("TxtRPG browser runtime", () => {
     await expect(page.locator("#npcList li")).toHaveCount(7);
     await expect(page.locator("#relationList li")).toHaveCount(6);
     await expect(page.locator("#organizationList li")).toHaveCount(6);
+    await page.keyboard.press("3");
+    await expect(page.locator("#overlayTitle")).toHaveText("NPC");
+    await expect(page.locator("#npcList li")).toHaveCount(7);
+    await expect(page.locator("#npcList")).toContainText("목표 0/3");
+    await page.keyboard.press("Escape");
 
     await expect.poll(async () => {
       return page.evaluate(() => {
@@ -47,7 +52,9 @@ test.describe("TxtRPG browser runtime", () => {
         minutes: state.world.minutes,
         npcSimulationMinute: state.world.npcSimulationMinute,
         grainSupply: state.world.grainSupply,
-        factionSimulationDay: state.world.factionSimulationDay
+        factionSimulationDay: state.world.factionSimulationDay,
+        goalProgress: state.npcs.mara.goalState.progress,
+        goalStatus: state.npcs.mara.goalState.status
       };
     });
 
@@ -77,6 +84,8 @@ test.describe("TxtRPG browser runtime", () => {
     expect(after.grainSupply).toBeGreaterThan(before.grainSupply);
     expect(after.npcActions.length).toBeGreaterThan(0);
     expect(after.factionSimulationDay).toBe(after.day);
+    expect(after.goalProgress).toBeGreaterThan(0);
+    expect(["active", "blocked"]).toContain(after.goalStatus);
 
     await page.keyboard.press("6");
     await expect(page.locator(".overlay")).toHaveClass(/is-open/);
