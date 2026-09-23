@@ -42,15 +42,14 @@ assert(Object.values(RPG.Data.npcs).every(npc => Array.isArray(npc.schedule) && 
 let state = RPG.Core.createDefaultState(RPG.Data.npcs);
 RPG.Data.ensureCases(state);
 RPG.Core.appendLog(state, "초기 상태");
-
 assert.strictEqual(state.world.cases.length, 0);
 
-const npcBefore = state.npcs.ibrahim.place;
-const simEvents = RPG.Core.simulateNPCs(state, 240);
-assert(simEvents.length > 0);
-assert(state.npcs.ibrahim.lastTick >= 0);
-assert(state.npcs.ibrahim.lastAction);
-assert(npcBefore === "market");
+state.world.minutes = 420;
+const events = RPG.Core.simulateNPCs(state, 30);
+assert(Array.isArray(events));
+assert.strictEqual(state.npcs.orel.place, "market");
+assert(state.npcs.orel.lastAction === "시장 시설 수리");
+assert(typeof state.npcs.orel.lastTick === "number");
 
 let result = RPG.Core.resolveAction(state, "기록관으로 이동");
 assert(state.player.place === "archive");
