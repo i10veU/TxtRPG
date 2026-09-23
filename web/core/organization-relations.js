@@ -1,7 +1,7 @@
 window.AnonymousRPG = window.AnonymousRPG || {};
 AnonymousRPG.Core = AnonymousRPG.Core || {};
 
-(function (Core) {
+(function (Core, Data) {
   const PAIRS = {
     "merchants:rural": {
       a: "merchants",
@@ -116,6 +116,11 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
         adjustPressure(state, pair.a, -1);
         adjustPressure(state, pair.b, -1);
         state.world.tension = Core.clamp(state.world.tension + 1, 0, 100);
+        if (Core.recordEventSignal) {
+          Core.recordEventSignal(state, "organizationConflict:" + key, pair.a + "+" + pair.b, absoluteMinute, pair.conflictText);
+        }
+        state.world.flags.factionConflict = true;
+        if (Data && Data.ensureCases) Data.ensureCases(state);
         events.push(pair.conflictText);
       } else {
         record.score = Core.clamp(record.score + (record.score > 0 ? 1 : record.score < 0 ? -1 : 0), -100, 100);
@@ -132,10 +137,11 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     });
 
     state.world.organizationRelationDay = day;
+    if (Data && Data.ensureCases) Data.ensureCases(state);
     return events;
   }
 
   Core.ensureOrganizationRelations = ensure;
   Core.simulateOrganizationRelations = simulate;
   Core.organizationRelationDefinitions = PAIRS;
-})(AnonymousRPG.Core);
+})(AnonymousRPG.Core, AnonymousRPG.Data);
