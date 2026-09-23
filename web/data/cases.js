@@ -10,7 +10,7 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
     "grain-warehouse": {
       title: "닫힌 창고의 곡물",
       summary: "곡물 부족과 함께 일부 창고의 출입이 비정상적으로 줄었다.",
-      trigger: function (state) { return state.world.flags.warehouseSuspicion; },
+      trigger: function (state) { return Boolean(state.world.flags.warehouseSuspicion || Core.hasEventSignal(state, "warehouseSuspicion")); },
       choices: [
         { id: "audit", label: "공식 장부 대조", risk: 1, run: function (state) {
           state.world.trustInAdministration += 3;
@@ -38,7 +38,7 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
     "night-cargo": {
       title: "시간표 밖의 배",
       summary: "예정표에 없는 선박의 움직임이 야간 부두에서 포착됐다.",
-      trigger: function (state) { return state.world.flags.nightCargo; },
+      trigger: function (state) { return Boolean(state.world.flags.nightCargo || Core.hasEventSignal(state, "nightCargo")); },
       choices: [
         { id: "report", label: "경비대에 보고", risk: 1, run: function (state) {
           state.world.security += 3;
@@ -64,7 +64,7 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
     "land-record": {
       title: "서로 다른 토지 기록",
       summary: "같은 토지 번호가 서로 다른 소유자와 날짜로 기록되어 있다.",
-      trigger: function (state) { return state.world.flags.recordInconsistency; },
+      trigger: function (state) { return Boolean(state.world.flags.recordInconsistency || Core.hasEventSignal(state, "recordInconsistency")); },
       choices: [
         { id: "archive", label: "기록관에 정식 보존 요청", risk: 1, run: function (state) {
           state.world.trustInAdministration += 4;

@@ -40,6 +40,8 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
         warehouseSuspicion: false,
         ruralDelegation: false
       },
+      eventSignals: {},
+      eventHistory: [],
       discovered: [],
       cases: []
     },
@@ -59,6 +61,26 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     return state.world.day * 1440 + state.world.minutes;
   }
 
+  function normalizeSignalMap(input) {
+    const output = {};
+    if (!input || typeof input !== "object") return output;
+
+    Object.keys(input).forEach(function (key) {
+      const value = Number(input[key]);
+      if (Number.isFinite(value) && value > 0) output[key] = Math.floor(value);
+    });
+    return output;
+  }
+
+  function normalizeEventHistory(input) {
+    if (!Array.isArray(input)) return [];
+    return input.filter(function (entry) {
+      return entry && typeof entry === "object" &&
+        typeof entry.signal === "string" &&
+        typeof entry.source === "string";
+    }).slice(-80);
+  }
+
   function normalizeState(input) {
     const state = Object.assign(clone(DEFAULT_STATE), input || {});
     state.player = Object.assign(clone(DEFAULT_STATE.player), input && input.player || {});
@@ -66,6 +88,8 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     state.world = Object.assign(clone(DEFAULT_STATE.world), input && input.world || {});
     state.world.relations = Object.assign({}, DEFAULT_RELATIONS, input && input.world && input.world.relations || {});
     state.world.flags = Object.assign({}, DEFAULT_STATE.world.flags, input && input.world && input.world.flags || {});
+    state.world.eventSignals = normalizeSignalMap(input && input.world && input.world.eventSignals);
+    state.world.eventHistory = normalizeEventHistory(input && input.world && input.world.eventHistory);
     state.world.discovered = Array.isArray(state.world.discovered) ? state.world.discovered : [];
     state.world.cases = Array.isArray(state.world.cases) ? state.world.cases : [];
     state.npcs = input && input.npcs && typeof input.npcs === "object" ? input.npcs : {};
@@ -125,6 +149,35 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     return state.world.relations[faction];
   }
 
+  function recordEventSignal(state, signal, source, absoluteTime, text) {
+    if (!state.world.eventSignals) state.world.eventSignals = {};
+    if (!state.world.eventHistory) state.world.eventHistory = [];
+
+    const key = String(signal || "").trim();
+    if (!key) return 0;
+
+    const nextCount = (Number(state.world.eventSignals[key]) || 0) + 1;
+    state.world.eventSignals[key] = nextCount;
+
+    state.world.eventHistory.push({
+      signal: key,
+      source: String(source || "unknown"),
+      minute: Number(absoluteTime) || absoluteMinute(state),
+      text: text ? String(text) : null,
+      count: nextCount
+    });
+
+    if (state.world.eventHistory.length > 80) {
+      state.world.eventHistory.splice(0, state.world.eventHistory.length - 80);
+    }
+
+    return nextCount;
+  }
+
+  function hasEventSignal(state, signal) {
+    return Boolean(state && state.world && Number(state.world.eventSignals && state.world.eventSignals[signal]) > 0);
+  }
+
   function advanceTime(state, minutes, rng) {
     state.world.minutes += Math.max(0, minutes);
     while (state.world.minutes >= 1440) {
@@ -146,6 +199,8 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
   Core.advanceTime = advanceTime;
   Core.appendLog = appendLog;
   Core.adjustRelation = adjustRelation;
+  Core.recordEventSignal = recordEventSignal;
+  Core.hasEventSignal = hasEventSignal;
   Core.getAbsoluteMinute = absoluteMinute;
   Core.DEFAULT_RELATIONS = DEFAULT_RELATIONS;
 })(AnonymousRPG.Core);
