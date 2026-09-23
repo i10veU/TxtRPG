@@ -40,7 +40,7 @@ assert(Object.keys(RPG.Data.npcs).length === 7);
 assert(Object.values(RPG.Data.npcs).every(npc => Array.isArray(npc.schedule) && npc.schedule.length > 0));
 
 let state = RPG.Core.createDefaultState(RPG.Data.npcs);
-assert.strictEqual(state.schemaVersion, 3);
+assert.strictEqual(state.schemaVersion, 5);
 assert.strictEqual(state.world.npcSimulationMinute, 360);
 
 const eventsAt600 = RPG.Core.simulateNPCs(state, 1);
