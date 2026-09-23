@@ -15,6 +15,7 @@ function runAction(text) {
   const elapsed = Math.max(0, after - before);
   const npcEvents = AnonymousRPG.Core.simulateNPCs(state, elapsed);
   const organizationEvents = AnonymousRPG.Core.simulateOrganizations(state, after);
+  const relationshipEvents = AnonymousRPG.Core.simulateOrganizationRelations ? AnonymousRPG.Core.simulateOrganizationRelations(state, after) : [];
   const economyEvent = AnonymousRPG.Core.simulateEconomy(state, after);
 
   if (result.narrative) AnonymousRPG.Core.appendLog(state, result.narrative, result.action);
@@ -22,6 +23,9 @@ function runAction(text) {
     AnonymousRPG.Core.appendLog(state, event, null, true);
   });
   organizationEvents.forEach(function (event) {
+    AnonymousRPG.Core.appendLog(state, event, null, true);
+  });
+  relationshipEvents.forEach(function (event) {
     AnonymousRPG.Core.appendLog(state, event, null, true);
   });
   if (economyEvent) AnonymousRPG.Core.appendLog(state, economyEvent, null, true);
@@ -39,6 +43,7 @@ self.onmessage = function (event) {
       }
       AnonymousRPG.Core.ensureEconomy(state);
       AnonymousRPG.Core.ensureOrganizations(state);
+      if (AnonymousRPG.Core.ensureOrganizationRelations) AnonymousRPG.Core.ensureOrganizationRelations(state);
       if (AnonymousRPG.Core.ensureNPCGoals) AnonymousRPG.Core.ensureNPCGoals(state);
       AnonymousRPG.Data.ensureCases(state);
       reply("READY", { state: state });
@@ -61,6 +66,7 @@ self.onmessage = function (event) {
       state = AnonymousRPG.Core.createDefaultState(AnonymousRPG.Data.npcs);
       AnonymousRPG.Core.ensureEconomy(state);
       AnonymousRPG.Core.ensureOrganizations(state);
+      if (AnonymousRPG.Core.ensureOrganizationRelations) AnonymousRPG.Core.ensureOrganizationRelations(state);
       if (AnonymousRPG.Core.ensureNPCGoals) AnonymousRPG.Core.ensureNPCGoals(state);
       AnonymousRPG.Data.ensureCases(state);
       AnonymousRPG.Core.appendLog(state, "비가 그친 새벽이다. 젖은 돌바닥 위로 사람들이 하루를 시작했다. 누구도 당신을 기다리지 않는다.");
