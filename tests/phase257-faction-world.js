@@ -27,6 +27,7 @@ state.world.minutes = 360;
 state.world.npcSimulationMinute = 360;
 state.world.factionSimulationDay = -1;
 state.world.tension = 60;
+state.world.security = 35;
 state.world.grainSupply = 35;
 state.world.relations.merchants = -50;
 state.world.relations.guard = -50;
