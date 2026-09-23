@@ -2,8 +2,17 @@ window.AnonymousRPG = window.AnonymousRPG || {};
 AnonymousRPG.Core = AnonymousRPG.Core || {};
 
 (function (Core) {
+  const DEFAULT_RELATIONS = {
+    merchants: 0,
+    guard: 0,
+    archive: 0,
+    rural: 0,
+    innkeepers: 0,
+    workers: 0
+  };
+
   const DEFAULT_STATE = {
-    schemaVersion: 1,
+    schemaVersion: 2,
     player: {
       name: "에바 로셀",
       hp: 10,
@@ -22,6 +31,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
       security: 62,
       trustInAdministration: 68,
       rumorPressure: 0,
+      relations: DEFAULT_RELATIONS,
       flags: {
         marketRumor: false,
         recordInconsistency: false,
@@ -49,12 +59,16 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     state.player = Object.assign(clone(DEFAULT_STATE.player), input && input.player || {});
     state.player.inventory = Object.assign({}, DEFAULT_STATE.player.inventory, input && input.player && input.player.inventory || {});
     state.world = Object.assign(clone(DEFAULT_STATE.world), input && input.world || {});
+    state.world.relations = Object.assign({}, DEFAULT_RELATIONS, input && input.world && input.world.relations || {});
     state.world.flags = Object.assign({}, DEFAULT_STATE.world.flags, input && input.world && input.world.flags || {});
     state.world.discovered = Array.isArray(state.world.discovered) ? state.world.discovered : [];
     state.world.cases = Array.isArray(state.world.cases) ? state.world.cases : [];
     state.npcs = input && input.npcs && typeof input.npcs === "object" ? input.npcs : {};
     state.log = Array.isArray(state.log) ? state.log : [];
-    state.schemaVersion = 1;
+    state.schemaVersion = 2;
+    Object.keys(DEFAULT_RELATIONS).forEach(function (faction) {
+      state.world.relations[faction] = clamp(Number(state.world.relations[faction]) || 0, -100, 100);
+    });
     state.world.grainSupply = clamp(Number(state.world.grainSupply) || 0, 0, 100);
     state.world.tension = clamp(Number(state.world.tension) || 0, 0, 100);
     state.world.security = clamp(Number(state.world.security) || 0, 0, 100);
@@ -90,6 +104,13 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     if (state.log.length > 60) state.log.shift();
   }
 
+  function adjustRelation(state, faction, delta) {
+    if (!Object.prototype.hasOwnProperty.call(DEFAULT_RELATIONS, faction)) return 0;
+    const current = Number(state.world.relations[faction]) || 0;
+    state.world.relations[faction] = clamp(current + delta, -100, 100);
+    return state.world.relations[faction];
+  }
+
   function advanceTime(state, minutes, rng) {
     state.world.minutes += Math.max(0, minutes);
     while (state.world.minutes >= 1440) {
@@ -110,4 +131,6 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
   Core.getClock = getClock;
   Core.advanceTime = advanceTime;
   Core.appendLog = appendLog;
+  Core.adjustRelation = adjustRelation;
+  Core.DEFAULT_RELATIONS = DEFAULT_RELATIONS;
 })(AnonymousRPG.Core);
