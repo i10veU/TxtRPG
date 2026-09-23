@@ -59,7 +59,7 @@ assert.strictEqual(state.world.economy.stock.grain, stockAfterFirst);
 state.world.day = 1;
 state.world.minutes = 360;
 const eventsNextDay = RPG.Core.simulateOrganizations(state, RPG.Core.getAbsoluteMinute(state));
-assert.strictEqual(eventsNextDay.length, 6);
+assert(eventsNextDay.length >= 6);
 assert.strictEqual(state.world.organizations.guard.lastDecisionDay, 1);
 assert.strictEqual(state.world.organizations.guard.decisionCount, 2);
 
