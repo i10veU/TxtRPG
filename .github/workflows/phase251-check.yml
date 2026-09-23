@@ -54,6 +54,8 @@ jobs:
         run: node tests/phase264-goal-dynamics.js
       - name: Organization relations regression
         run: node tests/phase265-organization-relations.js
+      - name: Organization event bridge regression
+        run: node tests/phase266-organization-events.js
 
   browser:
     name: Browser smoke
