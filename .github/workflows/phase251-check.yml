@@ -65,7 +65,7 @@ jobs:
       - name: NPC relations regression
         run: node tests/phase269-npc-relations.js
       - name: Regional economy regression
-        run: node tests/phase270-regional-economy.js
+        run: node tests/phase271-regional-economy-regression.js
       - name: Case causality regression
         run: node tests/phase271-case-causality.js
 
