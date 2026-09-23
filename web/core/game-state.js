@@ -118,7 +118,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     state.world.cases = Array.isArray(state.world.cases) ? state.world.cases : [];
     state.npcs = input && input.npcs && typeof input.npcs === "object" ? input.npcs : {};
     state.log = Array.isArray(state.log) ? state.log : [];
-    state.schemaVersion = 4;
+    state.schemaVersion = 5;
 
     Object.keys(DEFAULT_RELATIONS).forEach(function (faction) {
       state.world.relations[faction] = clamp(Number(state.world.relations[faction]) || 0, -100, 100);
