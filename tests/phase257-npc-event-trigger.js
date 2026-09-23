@@ -48,8 +48,8 @@ assert.strictEqual(state.world.eventHistory.length, 2);
 assert.strictEqual(state.world.cases.filter(entry => entry.status === "open").length, 2);
 assert(state.world.cases.some(entry => entry.id === "grain-warehouse"));
 assert(state.world.cases.some(entry => entry.id === "land-record"));
-assert(firstEvents.some(event => event.includes("창고 장부")));
-assert(firstEvents.some(event => event.includes("토지 번호")));
+assert(state.world.eventHistory.some(event => event.text && event.text.includes("창고 장부")));
+assert(state.world.eventHistory.some(event => event.text && event.text.includes("토지 번호")));
 
 const historyCount = state.world.eventHistory.length;
 const signalCount = state.world.eventSignals.warehouseSuspicion;
