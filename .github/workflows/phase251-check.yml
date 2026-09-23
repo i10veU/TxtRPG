@@ -61,6 +61,9 @@ jobs:
       - name: Worker faction parity regression
         run: node tests/phase259-worker-faction-parity.js
 
+      - name: Economy regression
+        run: node tests/phase260-economy.js
+
   browser:
     name: Browser smoke
     needs: unit
