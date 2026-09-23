@@ -73,6 +73,8 @@ test.describe("TxtRPG browser runtime", () => {
         npcSimulationMinute: state.world.npcSimulationMinute,
         grainSupply: state.world.grainSupply,
         factionSimulationDay: state.world.factionSimulationDay,
+        goalProgress: state.npcs.mara.goalState.progress,
+        goalStatus: state.npcs.mara.goalState.status,
         npcActions: Object.values(state.npcs).map((npc) => npc.lastAction).filter(Boolean)
       };
     });
