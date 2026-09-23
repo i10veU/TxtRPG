@@ -160,6 +160,39 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     };
   }
 
+  function regionalEconomyCommand(state, text) {
+    if (!/^(?:지역자원|지역경제|목재|어물|목재 시세|어물 시세|목재 가격|어물 가격|목재 구매|목재 사|목재 판매|목재 팔|어물 구매|어물 사|어물 판매|어물 팔)(?:\s*\d+)?$/.test(text.trim())) return null;
+    if (!Core.ensureRegionalEconomy) return { narrative: "지역 경제가 아직 초기화되지 않았다.", action: text, changed: false };
+    Core.ensureRegionalEconomy(state);
+    const normalized = text.replace(/\s+/g, " ").trim();
+    if (/^지역자원$|^지역경제$/.test(normalized)) {
+      const r = state.world.regionalEconomy;
+      return {
+        narrative: "목재 " + r.prices.wood + "G·시장 " + r.market.wood + " / 어물 " + r.prices.fish + "G·시장 " + r.market.fish +
+          " / 목재로 " + r.routes["hills:market"].reliability + "% / 어물로 " + r.routes["riverside:market"].reliability + "%",
+        action: text,
+        changed: false
+      };
+    }
+
+    const good = normalized.indexOf("목재") === 0 ? "wood" : "fish";
+    if (/시세$|가격$/.test(normalized)) {
+      return {
+        narrative: (good === "wood" ? "목재" : "어물") + " 시세는 " + state.world.regionalEconomy.prices[good] +
+          "골드, 시장 재고는 " + state.world.regionalEconomy.market[good] + "개다.",
+        action: text,
+        changed: false
+      };
+    }
+
+    const match = normalized.match(/^(목재|어물)\s*(구매|사|판매|팔)\s*(\d+)?$/);
+    if (!match) return null;
+    if (state.player.place !== "market") return { narrative: "지역 자원 거래는 북문 시장에서만 할 수 있다.", action: text, changed: false };
+    const type = match[2] === "판매" || match[2] === "팔" ? "sell" : "buy";
+    const result = Core.tradeRegionalGood(state, type, good, Number(match[3]) || 1);
+    return { narrative: result.text, action: text, changed: result.changed };
+  }
+
   function economyCommand(state, text) {
     if (typeof Core.ensureEconomy !== "function" || typeof Core.tradeGrain !== "function" || typeof Core.getGrainPrice !== "function") return null;
     const normalized = text.replace(/\s+/g, " ").trim();
@@ -179,6 +212,8 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     const input = String(text || "").trim();
     if (!input) return { narrative: "", action: "", changed: false };
     if (typeof Core.ensureEconomy === "function") Core.ensureEconomy(state);
+    const regionalEconomy = regionalEconomyCommand(state, input);
+    if (regionalEconomy) return regionalEconomy;
     const economy = economyCommand(state, input);
     if (economy) return economy;
     const organizationRelations = organizationRelationCommand(state, input);
