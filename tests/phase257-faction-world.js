@@ -47,7 +47,8 @@ state.world.minutes = 420;
 RPG.Core.simulateNPCs(state);
 assert.strictEqual(state.world.relations.merchants, before);
 
-state.world.minutes = 1800;
+state.world.day = 1;
+state.world.minutes = 360;
 RPG.Core.simulateNPCs(state);
 assert.strictEqual(state.world.day, 1);
 assert(state.world.factionSimulationDay >= 1);
