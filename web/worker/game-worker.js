@@ -1,6 +1,6 @@
 self.AnonymousRPG = self.AnonymousRPG || {};
 const window = self;
-importScripts("../core/game-state.js", "../data/npcs.js", "../data/places.js", "../data/cases.js", "../core/economy-world.js", "../core/faction-world.js", "../core/organization-world.js", "../core/npc-goals.js", "../core/npc-relations.js", "../core/action-resolver.js", "../core/npc-simulation.js");
+importScripts("../core/game-state.js", "../data/npcs.js", "../data/places.js", "../data/cases.js", "../core/economy-world.js", "../core/regional-economy.js", "../core/faction-world.js", "../core/organization-world.js", "../core/npc-goals.js", "../core/npc-relations.js", "../core/action-resolver.js", "../core/npc-simulation.js");
 
 let state = null;
 
@@ -18,6 +18,7 @@ function runAction(text) {
   const relationshipEvents = AnonymousRPG.Core.simulateOrganizationRelations ? AnonymousRPG.Core.simulateOrganizationRelations(state, after) : [];
   const npcRelationEvents = AnonymousRPG.Core.simulateNPCRelations ? AnonymousRPG.Core.simulateNPCRelations(state, after) : [];
   const economyEvent = AnonymousRPG.Core.simulateEconomy(state, after);
+  const regionalEconomyEvent = AnonymousRPG.Core.simulateRegionalEconomy ? AnonymousRPG.Core.simulateRegionalEconomy(state, after) : null;
 
   if (result.narrative) AnonymousRPG.Core.appendLog(state, result.narrative, result.action);
   npcEvents.forEach(function (event) {
@@ -33,6 +34,7 @@ function runAction(text) {
     AnonymousRPG.Core.appendLog(state, event, null, true);
   });
   if (economyEvent) AnonymousRPG.Core.appendLog(state, economyEvent, null, true);
+  if (regionalEconomyEvent) AnonymousRPG.Core.appendLog(state, regionalEconomyEvent, null, true);
   return { result: result, npcEvents: npcEvents, economyEvent: economyEvent };
 }
 
@@ -46,6 +48,7 @@ self.onmessage = function (event) {
         state.npcs = AnonymousRPG.Core.clone(AnonymousRPG.Data.npcs);
       }
       AnonymousRPG.Core.ensureEconomy(state);
+      if (AnonymousRPG.Core.ensureRegionalEconomy) AnonymousRPG.Core.ensureRegionalEconomy(state);
       AnonymousRPG.Core.ensureOrganizations(state);
       if (AnonymousRPG.Core.ensureOrganizationRelations) AnonymousRPG.Core.ensureOrganizationRelations(state);
       if (AnonymousRPG.Core.ensureNPCRelations) AnonymousRPG.Core.ensureNPCRelations(state);
