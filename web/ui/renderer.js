@@ -99,6 +99,16 @@ AnonymousRPG.UI = AnonymousRPG.UI || {};
         return "<li><span>" + esc(item) + "</span></li>";
       }).join("") || "<li>없음</li>";
 
+    const rumors = Array.isArray(state.world.rumors) ? state.world.rumors.slice().sort(function (a, b) {
+      return (b.lastSeenDay - a.lastSeenDay) || (b.confidence - a.confidence);
+    }) : [];
+    document.getElementById("rumorList").innerHTML =
+      rumors.slice(0, 8).map(function (rumor) {
+        return "<li><span>" + esc(rumor.text) + "</span><small>" +
+          "확신 " + Math.round(rumor.confidence * 100) + "% · " +
+          esc(rumor.sources.join(",")) + "</small></li>";
+      }).join("") || "<li>아직 없음</li>";
+
     document.getElementById("storyBody").innerHTML =
       state.log.map(function (turn) {
         return '<article class="turn">' +
