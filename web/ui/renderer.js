@@ -129,6 +129,16 @@ AnonymousRPG.UI = AnonymousRPG.UI || {};
         return "<li><span>" + esc(org.name || id) + "</span><small>D" + esc(org.lastDecisionDay + 1) + " · 압력 " + esc(org.goalPressure || 0) + " · " + esc(org.lastAction || "대기") + "</small></li>";
       }).join("") || "<li>아직 없음</li>";
 
+    const history = Array.isArray(state.world.caseHistory) ? state.world.caseHistory.slice().reverse() : [];
+    const followups = state.world.cases.filter(function (entry) {
+      return entry.status === "open" && ["grain-aftershock", "trade-route-aftershock", "faction-aftershock"].includes(entry.id);
+    });
+    document.getElementById("causalityList").innerHTML = history.slice(0, 8).map(function (entry) {
+      return "<li><span>" + esc(entry.caseId) + " → " + esc(entry.choiceId || "-") + "</span><small>" + esc(entry.status === "resolved" ? "해결" : "실패") + " · D" + esc(entry.resolutionDay + 1) + "</small></li>";
+    }).concat(followups.map(function (entry) {
+      return "<li><span>후속 · " + esc(Data.caseDefinitions[entry.id].title) + "</span><small>선택 대기</small></li>";
+    })).join("") || "<li>아직 연결된 사건이 없음</li>";
+
     document.getElementById("storyBody").innerHTML = state.log.map(function (turn) {
       return '<article class="turn"><div class="time">' + esc(turn.time) + "</div>" +
         (turn.action ? '<div class="actionText">&gt; ' + esc(turn.action) + "</div>" : "") +
