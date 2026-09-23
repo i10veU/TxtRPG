@@ -103,6 +103,7 @@ window.AnonymousRPG = window.AnonymousRPG || {};
 
     RPG.Core.ensureEconomy(state);
     RPG.Core.ensureOrganizations(state);
+    if (RPG.Core.ensureNPCGoals) RPG.Core.ensureNPCGoals(state);
     RPG.Data.ensureCases(state);
 
     if (!state.log.length) {
@@ -136,6 +137,7 @@ window.AnonymousRPG = window.AnonymousRPG || {};
       state = RPG.Core.createDefaultState(RPG.Data.npcs);
       RPG.Core.ensureEconomy(state);
       RPG.Core.ensureOrganizations(state);
+      if (RPG.Core.ensureNPCGoals) RPG.Core.ensureNPCGoals(state);
       RPG.Data.ensureCases(state);
       RPG.UI.render(state);
       persist();
