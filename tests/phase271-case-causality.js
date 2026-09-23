@@ -50,7 +50,7 @@ assert(state.world.cases.some(entry => entry.id === "grain-aftershock"));
 const chain = RPG.Core.resolveAction(state, "연쇄사건");
 assert(chain && chain.narrative.includes("grain-warehouse"));
 
-const second = RPG.Data.resolveCase(state, "grain-aftershock", "trace");
+const second = RPG.Data.resolveCase(state, "grain-aftershock", "publish");
 assert(second);
 assert(state.world.caseHistory.some(entry => entry.caseId === "grain-aftershock"));
 
