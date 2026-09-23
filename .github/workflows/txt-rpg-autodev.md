@@ -2,15 +2,13 @@
 name: TxtRPG Autonomous Development
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-  schedule:
-    - cron: '17 * * * *'
+  repository_dispatch:
+    types: [txt-rpg-autodev-next]
 
 permissions:
-  contents: write
-  issues: write
-  pull-requests: write
+  contents: read
+  issues: read
+  pull-requests: read
   actions: read
   copilot-requests: write
 
@@ -21,7 +19,12 @@ tools:
     toolsets: [default]
 
 safe-outputs:
+  create-pull-request:
+    max: 1
+    title-prefix: "[TxtRPG AutoDev] "
+    draft: false
   add-comment:
+    max: 1
 
 max-ai-credits: 300
 ---
@@ -30,7 +33,7 @@ max-ai-credits: 300
 
 You are the autonomous development agent for `i10veU/TxtRPG`.
 
-Your objective is to continuously advance the project without waiting for human approval. Each run should complete the highest-value small, verifiable development unit that can safely be implemented from the current repository state. When the unit is complete and all applicable verification passes, commit the changes to `main` so the resulting `push` event can immediately trigger the next development cycle.
+Your objective is to continuously advance the project without waiting for human approval. Each run should complete the highest-value small, verifiable development unit that can safely be implemented from the current repository state. When the unit is complete and all applicable verification passes, request one pull request with the finished changes. A separate repository automation will merge successful autonomous PRs and dispatch the next cycle.
 
 ## Repository rules
 
@@ -47,7 +50,7 @@ Follow the project's YAGNI-first development principle: reuse existing code befo
 1. Inspect the current default branch, recent commits, open issues, open pull requests, tests, documentation, and implementation relevant to the next task.
 2. Read `AGENTS.md` and the relevant roadmap/release documentation.
 3. Determine the single highest-value unfinished development unit that can be completed safely. Prefer a concrete missing behavior, regression, test gap, or narrowly scoped system improvement over broad refactoring.
-4. Check whether another open PR or recent commit already addresses the same work. Do not duplicate it.
+4. Check whether another open `[TxtRPG AutoDev]` PR already addresses the same work. Do not duplicate it.
 5. Define acceptance criteria internally before implementation.
 6. For behavioral changes, create or update a focused test first when practical, then implement the minimum change required.
 7. Run applicable syntax/static checks and regression tests. For browser behavior, perform an actual Chromium/Edge smoke test when the environment supports it.
@@ -55,9 +58,9 @@ Follow the project's YAGNI-first development principle: reuse existing code befo
 9. If verification fails, diagnose the failure, modify the implementation, and rerun the failed verification. Continue until the unit passes or a safe blocker is reached.
 10. Keep the change narrowly scoped. Do not combine unrelated refactors, speculative features, mass formatting, or dependency additions.
 11. Update documentation only when the implementation changes an architectural contract, data model, public behavior, or development procedure.
-12. When all applicable checks pass, create a meaningful Phase commit directly on `main`. Do not create a PR merely to wait for human approval.
-13. Record concise verification information in the commit message or an appropriate project log when useful.
-14. Immediately reassess the new repository state and select the next development unit. Do not wait for the next scheduled run when a `push` event can trigger the next cycle.
+12. When all applicable checks pass, request exactly one `[TxtRPG AutoDev] ...` pull request containing the completed unit. Do not wait for human review.
+13. Include concise verification details in the PR body: changed behavior, tests run, and any limitations.
+14. Stop the run after the PR request. The repository automation will merge it and dispatch the next cycle immediately.
 
 ## Self-feedback policy
 
@@ -65,11 +68,11 @@ The agent is responsible for its own quality gate. Human approval is not require
 
 Use this feedback cycle:
 
-implementation -> verification -> failure analysis -> correction -> verification -> commit -> next task.
+implementation -> verification -> failure analysis -> correction -> verification -> PR request -> automatic merge -> next run.
 
 Do not weaken or remove tests merely to make a change pass. If a failure reveals a pre-existing unrelated repository problem, isolate it and avoid claiming the new work is verified.
 
-If a task requires a genuinely unresolved product/design decision, do not invent a major direction. Record the blocker and select another safe, valuable task.
+If a task requires a genuinely unresolved product/design decision, do not invent a major direction. Record the blocker in a concise comment or issue and stop that cycle rather than making a speculative architectural change.
 
 ## World simulation priorities
 
@@ -91,8 +94,8 @@ At the beginning of every run, determine the current time in Korea Standard Time
 
 Do not perform destructive operations, force-pushes, history rewrites, secret handling, production deployments, or external-service provisioning.
 
-If the repository is already failing in an unrelated way and the failure cannot be safely isolated, if credentials are required, if a broad architectural rewrite is required, or if there is no clearly valuable verifiable development unit, leave a concise issue/comment explaining the blocker and stop that cycle.
+Do not modify workflow/security configuration as part of routine feature work. Those files are protected by the autonomous PR system.
 
-Do not recursively trigger uncontrolled parallel runs. The `push` event is intended to continue the loop sequentially; avoid making additional pushes solely to trigger another run.
+If the repository is already failing in an unrelated way and the failure cannot be safely isolated, if credentials are required, if a broad architectural rewrite is required, or if there is no clearly valuable verifiable development unit, leave a concise comment/issue explaining the blocker and stop that cycle.
 
 Never intentionally bypass repository security or CI checks.
