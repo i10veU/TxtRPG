@@ -4,6 +4,21 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
 (function (Data, Core) {
   function pushUnique(list, value) { if (!list.includes(value)) list.push(value); }
 
+  function adjustOrganizationPair(state, key, delta) {
+    const relation = state.world.organizationRelations && state.world.organizationRelations[key];
+    if (!relation) return;
+    relation.score = Core.clamp((Number(relation.score) || 0) + delta, -100, 100);
+    relation.mode = delta > 0 ? "cooperation" : delta < 0 ? "conflict" : relation.mode;
+    relation.lastReason = "플레이어가 사건에 개입했다.";
+  }
+
+  function adjustOrganizationPressure(state, ids, delta) {
+    ids.forEach(function (id) {
+      const org = state.world.organizations && state.world.organizations[id];
+      if (org) org.goalPressure = Core.clamp((Number(org.goalPressure) || 0) + delta, -2, 2);
+    });
+  }
+
   Data.caseDefinitions = {
     "grain-warehouse": {
       title: "닫힌 창고의 곡물", summary: "곡물 부족과 함께 일부 창고의 출입이 비정상적으로 줄었다.",
@@ -44,6 +59,10 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
           state.world.tension = Math.max(0, state.world.tension - 8);
           Core.adjustRelation(state, "merchants", 2); Core.adjustRelation(state, "guard", 2); Core.adjustRelation(state, "archive", 1);
           Core.adjustRelation(state, "rural", 1); Core.adjustRelation(state, "innkeepers", 1); Core.adjustRelation(state, "workers", 1);
+          Object.keys(state.world.organizationRelations || {}).forEach(function (key) {
+            adjustOrganizationPair(state, key, 8);
+          });
+          adjustOrganizationPressure(state, ["merchants", "guard", "archive", "rural", "innkeepers", "workers"], 1);
           pushUnique(state.world.discovered, "factionCouncil");
           return "대표들이 즉시 화해하지는 않았지만 서로의 손해를 확인했다. 도시 전체의 긴장이 한 단계 낮아졌다.";
         } },
@@ -51,12 +70,21 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
           state.world.tension += 4;
           Core.adjustRelation(state, "guard", 3); Core.adjustRelation(state, "merchants", -2);
           Core.adjustRelation(state, "workers", -1); Core.adjustRelation(state, "innkeepers", -1);
+          Object.keys(state.world.organizationRelations || {}).forEach(function (key) {
+            adjustOrganizationPair(state, key, -6);
+          });
+          adjustOrganizationPressure(state, ["guard"], 1);
+          adjustOrganizationPressure(state, ["merchants", "workers", "innkeepers"], -1);
           pushUnique(state.world.discovered, "factionAlignment");
           return "당신의 입장이 분명해졌다. 지지한 쪽은 호의적으로 반응했지만 다른 집단과의 거리는 벌어졌다.";
         } },
         { id: "expose", label: "충돌의 원인이 된 기록과 거래를 공개", risk: 5, run: function (state) {
           state.world.trustInAdministration += 5; state.world.tension += 2; state.world.rumorPressure += 2;
           Core.adjustRelation(state, "archive", 4); Core.adjustRelation(state, "merchants", -3); Core.adjustRelation(state, "guard", -1);
+          adjustOrganizationPair(state, "archive:innkeepers", 4);
+          adjustOrganizationPair(state, "merchants:rural", -4);
+          adjustOrganizationPressure(state, ["archive"], 2);
+          adjustOrganizationPressure(state, ["innkeepers", "merchants"], -1);
           pushUnique(state.world.discovered, "publicLedger");
           return "문서와 거래 기록을 공개했다. 숨겨진 이해관계가 드러났지만 도시의 소문도 걷잡을 수 없이 커졌다.";
         } }
