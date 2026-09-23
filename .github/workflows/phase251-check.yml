@@ -27,6 +27,8 @@ jobs:
         run: node tests/phase256-npc-routine-cadence.js
       - name: NPC event trigger regression
         run: node tests/phase257-npc-event-trigger.js
+      - name: Faction world regression
+        run: node tests/phase257-faction-world.js
       - name: Install browser test runner
         run: npm install --no-save @playwright/test@1.55.0
       - name: Install Chromium
