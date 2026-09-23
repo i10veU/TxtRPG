@@ -25,12 +25,16 @@ window.AnonymousRPG = window.AnonymousRPG || {};
     const after = RPG.Core.getAbsoluteMinute(state);
     const npcEvents = RPG.Core.simulateNPCs(state, Math.max(0, after - before));
     const organizationEvents = RPG.Core.simulateOrganizations(state, after);
+    const relationshipEvents = RPG.Core.simulateOrganizationRelations ? RPG.Core.simulateOrganizationRelations(state, after) : [];
     const economyEvent = RPG.Core.simulateEconomy(state, after);
     if (result.narrative) RPG.Core.appendLog(state, result.narrative, result.action);
     npcEvents.forEach(function (event) {
       RPG.Core.appendLog(state, event, null, true);
     });
     organizationEvents.forEach(function (event) {
+      RPG.Core.appendLog(state, event, null, true);
+    });
+    relationshipEvents.forEach(function (event) {
       RPG.Core.appendLog(state, event, null, true);
     });
     if (economyEvent) RPG.Core.appendLog(state, economyEvent, null, true);
@@ -103,6 +107,7 @@ window.AnonymousRPG = window.AnonymousRPG || {};
 
     RPG.Core.ensureEconomy(state);
     RPG.Core.ensureOrganizations(state);
+    if (RPG.Core.ensureOrganizationRelations) RPG.Core.ensureOrganizationRelations(state);
     if (RPG.Core.ensureNPCGoals) RPG.Core.ensureNPCGoals(state);
     RPG.Data.ensureCases(state);
 
@@ -137,6 +142,7 @@ window.AnonymousRPG = window.AnonymousRPG || {};
       state = RPG.Core.createDefaultState(RPG.Data.npcs);
       RPG.Core.ensureEconomy(state);
       RPG.Core.ensureOrganizations(state);
+      if (RPG.Core.ensureOrganizationRelations) RPG.Core.ensureOrganizationRelations(state);
       if (RPG.Core.ensureNPCGoals) RPG.Core.ensureNPCGoals(state);
       RPG.Data.ensureCases(state);
       RPG.UI.render(state);
