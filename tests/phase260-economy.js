@@ -61,7 +61,7 @@ assert.strictEqual(blocked.changed, false);
 
 const legacy = RPG.Core.normalizeState({ player: { money: 18 }, world: { grainSupply: 72 } });
 assert(legacy.world.economy);
-assert.strictEqual(legacy.schemaVersion, 4);
+assert.strictEqual(legacy.schemaVersion, 5);
 
 const longRun = RPG.Core.createDefaultState(RPG.Data.npcs);
 RPG.Core.ensureEconomy(longRun);
