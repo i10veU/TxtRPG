@@ -21,9 +21,7 @@ const files = [
 const context = { window: {}, console, Math, JSON, Object, Array, String, Number, Boolean, Date };
 context.window = context;
 vm.createContext(context);
-for (const file of files) {
-  vm.runInContext(fs.readFileSync(path.join(root, file), "utf8"), context, { filename: file });
-}
+for (const file of files) vm.runInContext(fs.readFileSync(path.join(root, file), "utf8"), context, { filename: file });
 
 const RPG = context.AnonymousRPG;
 assert(RPG && RPG.Core && RPG.Data);
@@ -51,7 +49,7 @@ assert.strictEqual(state.world.organizationRelationDay, 0);
 assert.strictEqual(state.world.organizationRelations["merchants:rural"].mode, "cooperation");
 
 const second = RPG.Core.simulateOrganizationRelations(state, RPG.Core.getAbsoluteMinute(state));
-assert.deepStrictEqual(second, []);
+assert.strictEqual(second.length, 0);
 
 state.world.day = 1;
 state.world.minutes = 360;
