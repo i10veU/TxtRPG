@@ -50,6 +50,7 @@ assert.strictEqual(state.world.relations.merchants, before);
 
 state.world.day = 1;
 state.world.minutes = 360;
+state.world.grainSupply = 0;
 RPG.Core.simulateNPCs(state);
 assert.strictEqual(state.world.day, 1);
 assert.strictEqual(state.world.factionSimulationDay, 1);
