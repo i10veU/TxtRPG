@@ -105,7 +105,8 @@ AnonymousRPG.UI = AnonymousRPG.UI || {};
           esc(turn.narrative) + "</div></article>";
       }).join("");
 
-    window.scrollTo(0, document.body.scrollHeight);
+    const storyBody = document.getElementById("storyBody");
+    if (storyBody) storyBody.scrollTop = storyBody.scrollHeight;
   };
 
   UI.addTurn = function (state, narrative, action, system) {
