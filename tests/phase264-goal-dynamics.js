@@ -69,6 +69,8 @@ assert.strictEqual(state.npcs.mara.goalState.status, "active");
 
 state.npcs.mara.goalState.status = "blocked";
 state.npcs.mara.goalState.blockedAt = RPG.Core.getAbsoluteMinute(state) - 1440;
+state.world.grainSupply = 90;
+state.world.tension = 80;
 state.world.day = 3;
 state.world.minutes = 360;
 const replanEvents = RPG.Core.simulateOrganizations(state, RPG.Core.getAbsoluteMinute(state));
