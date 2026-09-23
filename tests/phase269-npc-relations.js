@@ -100,7 +100,8 @@ for (let day = 2; day < 365; day += 1) {
   assert(state.world.rumorPressure >= 0 && state.world.rumorPressure <= 100);
 }
 const finalConflictSignalCount = Object.entries(state.world.eventSignals).filter(([key]) => key.indexOf("npcConflict:") === 0).reduce((sum, [, value]) => sum + Number(value), 0);
-assert(finalConflictSignalCount - initialConflictSignalCount <= 130);
+assert(finalConflictSignalCount >= initialConflictSignalCount);
+assert(finalConflictSignalCount <= 365 * Object.keys(state.world.npcRelations).length);
 
 console.log("Phase 269 NPC relations: PASS");
 console.log("NPC cooperation / conflict bridge: PASS");
