@@ -49,12 +49,11 @@ AnonymousRPG.UI.bindInput = function (dispatch) {
 
     const panels = {
       "1":["STATUS","status"], "2":["INVENTORY","inventory"], "3":["NPC","npc"],
-      "4":["FACTIONS","faction"], "5":["CASES","cases"], "6":["RUMORS","rumors"], "7":["ORGANIZATIONS","organizations"]
+      "4":["FACTIONS","faction"], "5":["CASES","cases"], "6":["RUMORS","rumors"],
+      "7":["ORGANIZATIONS","organizations"], "8":["CAUSALITY","causality"]
     };
     const item = panels[event.key];
 
-    // When the command field is empty, numeric keys remain usable as UI shortcuts.
-    // Once text has been entered, the key is treated as normal command input.
     if (event.target === input && input.value.length > 0) return;
     if (!item) return;
 
