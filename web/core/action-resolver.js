@@ -18,7 +18,10 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
   function inspect(state) {
     Core.advanceTime(state, 10);
     const place = state.player.place;
-    if (place === "market") return "곡물 가격은 현재 " + Core.getGrainPrice(state) + "골드다. 시장 재고는 " + state.world.economy.stock.grain + "개다.";
+    if (place === "market") {
+      if (typeof Core.getGrainPrice === "function" && state.world.economy) return "곡물 가격은 현재 " + Core.getGrainPrice(state) + "골드다. 시장 재고는 " + state.world.economy.stock.grain + "개다.";
+      return "곡물 가격은 대략 " + (state.world.grainSupply < 60 ? 13 : 10) + " 정도로 보인다.";
+    }
     if (place === "riverside") return state.world.flags.nightCargo ? "젖은 밧줄과 화물 자국 사이로 예정표와 맞지 않는 흔적이 보인다." : "젖은 밧줄과 화물 자국, 배에서 흘러나온 물자 냄새가 섞여 있다.";
     if (place === "archive") return state.world.flags.recordInconsistency ? "같은 토지 번호가 서로 다른 소유자와 연결되어 있다." : "공개 열람실의 장부들은 정돈되어 있다.";
     if (place === "hills") return state.world.grainSupply < 60 ? "농촌의 출하량이 줄었다. 흉작만으로 설명하기 어려운 분위기다." : "수확기 직전의 농촌이다. 운송로와 저장고가 중요해 보인다.";
@@ -78,6 +81,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
   }
 
   function economyCommand(state, text) {
+    if (typeof Core.ensureEconomy !== "function" || typeof Core.tradeGrain !== "function" || typeof Core.getGrainPrice !== "function") return null;
     const normalized = text.replace(/\s+/g, " ").trim();
     if (/^(곡물|시세|곡물 가격|시장 가격)$/.test(normalized)) {
       Core.ensureEconomy(state);
@@ -94,7 +98,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
   Core.resolveAction = function (state, text) {
     const input = String(text || "").trim();
     if (!input) return { narrative: "", action: "", changed: false };
-    Core.ensureEconomy(state);
+    if (typeof Core.ensureEconomy === "function") Core.ensureEconomy(state);
     const economy = economyCommand(state, input);
     if (economy) return economy;
     let result = caseCommand(state, input);
