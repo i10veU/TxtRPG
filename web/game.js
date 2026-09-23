@@ -29,6 +29,7 @@ window.AnonymousRPG = window.AnonymousRPG || {};
     const npcRelationEvents = RPG.Core.simulateNPCRelations ? RPG.Core.simulateNPCRelations(state, after) : [];
     const economyEvent = RPG.Core.simulateEconomy(state, after);
     const regionalEconomyEvent = RPG.Core.simulateRegionalEconomy ? RPG.Core.simulateRegionalEconomy(state, after) : null;
+    const caseCausalityEvent = RPG.Core.simulateCaseCausality ? RPG.Core.simulateCaseCausality(state, after) : null;
     if (result.narrative) RPG.Core.appendLog(state, result.narrative, result.action);
     npcEvents.forEach(function (event) {
       RPG.Core.appendLog(state, event, null, true);
@@ -44,6 +45,7 @@ window.AnonymousRPG = window.AnonymousRPG || {};
     });
     if (economyEvent) RPG.Core.appendLog(state, economyEvent, null, true);
     if (regionalEconomyEvent) RPG.Core.appendLog(state, regionalEconomyEvent, null, true);
+    if (caseCausalityEvent) RPG.Core.appendLog(state, caseCausalityEvent, null, true);
     RPG.UI.render(state);
     queuePersist();
   }
@@ -117,6 +119,7 @@ window.AnonymousRPG = window.AnonymousRPG || {};
     if (RPG.Core.ensureOrganizationRelations) RPG.Core.ensureOrganizationRelations(state);
     if (RPG.Core.ensureNPCRelations) RPG.Core.ensureNPCRelations(state);
     if (RPG.Core.ensureNPCGoals) RPG.Core.ensureNPCGoals(state);
+    if (RPG.Core.ensureCaseCausality) RPG.Core.ensureCaseCausality(state);
     RPG.Data.ensureCases(state);
 
     if (!state.log.length) {
@@ -152,6 +155,7 @@ window.AnonymousRPG = window.AnonymousRPG || {};
       RPG.Core.ensureOrganizations(state);
       if (RPG.Core.ensureOrganizationRelations) RPG.Core.ensureOrganizationRelations(state);
       if (RPG.Core.ensureNPCGoals) RPG.Core.ensureNPCGoals(state);
+      if (RPG.Core.ensureCaseCausality) RPG.Core.ensureCaseCausality(state);
       RPG.Data.ensureCases(state);
       RPG.UI.render(state);
       persist();
