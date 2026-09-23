@@ -111,6 +111,15 @@ AnonymousRPG.UI = AnonymousRPG.UI || {};
           esc(rumor.sources.join(",")) + "</small></li>";
       }).join("") || "<li>아직 없음</li>";
 
+    const organizations = state.world.organizations || {};
+    document.getElementById("organizationList").innerHTML =
+      Object.keys(organizations).map(function (id) {
+        const org = organizations[id];
+        return "<li><span>" + esc(org.name || id) + "</span><small>" +
+          "D" + esc(org.lastDecisionDay + 1) + " · " +
+          esc(org.lastAction || "대기") + "</small></li>";
+      }).join("") || "<li>아직 없음</li>";
+
     document.getElementById("storyBody").innerHTML =
       state.log.map(function (turn) {
         return '<article class="turn">' +
