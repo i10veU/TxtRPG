@@ -42,6 +42,12 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     if (sentiment <= -60 && routine && routine.effect === "rumor") state.world.rumorPressure += 1;
   }
 
+  function emitRoutineSignal(state, npc, routine, absoluteMinute) {
+    if (!routine || !routine.signal) return null;
+    Core.recordEventSignal(state, routine.signal, npc.name, absoluteMinute, routine.signalText);
+    return routine.signalText || (npc.name + "의 행동에서 새로운 정황이 발생했다.");
+  }
+
   function simulateTick(state, absoluteMinute) {
     const hour = Math.floor((absoluteMinute % 1440) / 60);
     const events = [];
@@ -64,6 +70,9 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
       npc.lastTick = absoluteMinute;
       npc.activeRoutineKey = key;
 
+      if (entered && routine.signal) {
+        events.push(npc.name + ": " + emitRoutineSignal(state, npc, routine, absoluteMinute));
+      }
       if (entered && moved && routine.announce) {
         events.push(npc.name + "이(가) " + Data.places[routine.place].name + "으로 이동했다.");
       }
@@ -107,6 +116,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     }
 
     state.world.npcSimulationMinute = end;
+    Data.ensureCases(state);
     return events.length > 8 ? events.slice(-8) : events;
   };
 })(AnonymousRPG.Core, AnonymousRPG.Data);
