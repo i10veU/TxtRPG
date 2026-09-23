@@ -9,7 +9,7 @@ AnonymousRPG.Data.npcs = {
   jonas: { name: "요나스 크렐", place: "riverside", trust: 0, faction: "workers", role: "부두 노동자", goal: "부두의 이상 화물 확인", schedule: [
     { from: 6, to: 12, place: "riverside", action: "하역 작업", announce: false },
     { from: 12, to: 18, place: "riverside", action: "화물 목록 대조", effect: "rumor", announce: true },
-    { from: 18, to: 24, place: "riverside", action: "야간 선박 감시", effect: "rumor", announce: true }
+    { from: 18, to: 24, place: "riverside", action: "야간 선박 감시", effect: "rumor", announce: true, signal: "nightCargo", signalText: "예정표에 없는 선박의 움직임을 포착했다." }
   ]},
   serin: { name: "세린 오르도", place: "archive", trust: 0, faction: "archive", role: "기록관", goal: "오류가 있는 기록 추적", schedule: [
     { from: 7, to: 13, place: "archive", action: "공문서 대조", announce: false },
