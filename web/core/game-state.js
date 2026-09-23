@@ -11,8 +11,15 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     workers: 0
   };
 
+  const DEFAULT_ECONOMY = {
+    prices: { grain: 10 },
+    stock: { grain: 24 },
+    simulationDay: -1,
+    tradeVolume: 0
+  };
+
   const DEFAULT_STATE = {
-    schemaVersion: 3,
+    schemaVersion: 4,
     player: {
       name: "에바 로셀",
       hp: 10,
@@ -34,6 +41,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
       trustInAdministration: 68,
       rumorPressure: 0,
       relations: DEFAULT_RELATIONS,
+      economy: DEFAULT_ECONOMY,
       flags: {
         marketRumor: false,
         recordInconsistency: false,
@@ -78,6 +86,9 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     state.player.inventory = Object.assign({}, DEFAULT_STATE.player.inventory, input && input.player && input.player.inventory || {});
     state.world = Object.assign(clone(DEFAULT_STATE.world), input && input.world || {});
     state.world.relations = Object.assign({}, DEFAULT_RELATIONS, input && input.world && input.world.relations || {});
+    state.world.economy = Object.assign(clone(DEFAULT_ECONOMY), input && input.world && input.world.economy || {});
+    state.world.economy.prices = Object.assign({}, DEFAULT_ECONOMY.prices, input && input.world && input.world.economy && input.world.economy.prices || {});
+    state.world.economy.stock = Object.assign({}, DEFAULT_ECONOMY.stock, input && input.world && input.world.economy && input.world.economy.stock || {});
     state.world.flags = Object.assign({}, DEFAULT_STATE.world.flags, input && input.world && input.world.flags || {});
     state.world.eventSignals = normalizeSignalMap(input && input.world && input.world.eventSignals);
     state.world.eventHistory = normalizeEventHistory(input && input.world && input.world.eventHistory);
@@ -85,11 +96,15 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     state.world.cases = Array.isArray(state.world.cases) ? state.world.cases : [];
     state.npcs = input && input.npcs && typeof input.npcs === "object" ? input.npcs : {};
     state.log = Array.isArray(state.log) ? state.log : [];
-    state.schemaVersion = 3;
+    state.schemaVersion = 4;
 
     Object.keys(DEFAULT_RELATIONS).forEach(function (faction) {
       state.world.relations[faction] = clamp(Number(state.world.relations[faction]) || 0, -100, 100);
     });
+    state.world.economy.prices.grain = clamp(Number(state.world.economy.prices.grain) || 10, 4, 30);
+    state.world.economy.stock.grain = clamp(Number(state.world.economy.stock.grain) || 0, 0, 100);
+    state.world.economy.simulationDay = Number.isFinite(Number(state.world.economy.simulationDay)) ? Number(state.world.economy.simulationDay) : -1;
+    state.world.economy.tradeVolume = Math.max(0, Number(state.world.economy.tradeVolume) || 0);
     state.world.grainSupply = clamp(Number(state.world.grainSupply) || 0, 0, 100);
     state.world.tension = clamp(Number(state.world.tension) || 0, 0, 100);
     state.world.security = clamp(Number(state.world.security) || 0, 0, 100);
@@ -169,4 +184,5 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
   Core.hasEventSignal = hasEventSignal;
   Core.getAbsoluteMinute = absoluteMinute;
   Core.DEFAULT_RELATIONS = DEFAULT_RELATIONS;
+  Core.DEFAULT_ECONOMY = DEFAULT_ECONOMY;
 })(AnonymousRPG.Core);
