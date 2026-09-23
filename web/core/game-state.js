@@ -19,7 +19,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
   };
 
   const DEFAULT_STATE = {
-    schemaVersion: 4,
+    schemaVersion: 5,
     player: {
       name: "에바 로셀",
       hp: 10,
@@ -53,6 +53,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
       eventSignals: {},
       eventHistory: [],
       rumors: [],
+      organizations: {},
       discovered: [],
       cases: []
     },
@@ -114,6 +115,9 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     state.world.eventSignals = normalizeSignalMap(input && input.world && input.world.eventSignals);
     state.world.eventHistory = normalizeEventHistory(input && input.world && input.world.eventHistory);
     state.world.rumors = normalizeRumors(input && input.world && input.world.rumors);
+    state.world.organizations = input && input.world && input.world.organizations && typeof input.world.organizations === "object"
+      ? input.world.organizations
+      : {};
     state.world.discovered = Array.isArray(state.world.discovered) ? state.world.discovered : [];
     state.world.cases = Array.isArray(state.world.cases) ? state.world.cases : [];
     state.npcs = input && input.npcs && typeof input.npcs === "object" ? input.npcs : {};
