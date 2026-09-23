@@ -21,7 +21,7 @@ window.AnonymousRPG = window.AnonymousRPG || {};
 
   function fallbackAction(text) {
     const result = RPG.Core.resolveAction(state, text);
-    RPG.UI.addTurn(state, result.narrative, result.action);
+    if (result.narrative) RPG.Core.appendLog(state, result.narrative, result.action);
     RPG.UI.render(state);
     queuePersist();
   }
@@ -63,9 +63,6 @@ window.AnonymousRPG = window.AnonymousRPG || {};
 
       if (message.type === "UPDATE") {
         state = RPG.Core.normalizeState(message.payload.state);
-        if (message.payload.result && message.payload.result.narrative) {
-          RPG.UI.addTurn(state, message.payload.result.narrative, message.payload.result.action);
-        }
         RPG.UI.render(state);
         queuePersist();
         return;
