@@ -82,6 +82,41 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
         } }
       ]
     },
+    "npc-dispute": {
+      title: "갈라진 사람들", summary: "서로 가까이 일하던 인물들의 목표가 충돌하기 시작했다.",
+      trigger: function (state) {
+        const signals = state.world.eventSignals || {};
+        return Object.keys(signals).some(function (key) {
+          return key.indexOf("npcConflict:") === 0 && Number(signals[key]) > 0;
+        });
+      },
+      choices: [
+        { id: "mediate", label: "두 사람의 작업을 조정", risk: 2, run: function (state) {
+          state.world.tension = Math.max(0, Number(state.world.tension || 0) - 3);
+          Object.keys(state.world.npcRelations || {}).forEach(function (key) {
+            const relation = state.world.npcRelations[key];
+            if (relation.mode === "conflict") relation.score = Core.clamp(relation.score + 10, -100, 100);
+          });
+          state.world.rumorPressure = Math.max(0, Number(state.world.rumorPressure || 0) - 1);
+          pushUnique(state.world.discovered, "npcMediation");
+          return "두 인물의 작업 순서를 다시 맞췄다. 당장은 충돌이 줄어들었다.";
+        } },
+        { id: "side", label: "한 사람의 목표를 우선", risk: 3, run: function (state) {
+          state.world.tension = Core.clamp(Number(state.world.tension || 0) + 2, 0, 100);
+          Object.keys(state.world.npcRelations || {}).forEach(function (key) {
+            const relation = state.world.npcRelations[key];
+            if (relation.mode === "conflict") relation.score = Core.clamp(relation.score - 4, -100, 100);
+          });
+          pushUnique(state.world.discovered, "npcAlignment");
+          return "한 사람의 작업을 우선시했다. 단기 목표는 빨라졌지만 두 인물의 거리는 벌어졌다.";
+        } },
+        { id: "observe", label: "개입하지 않고 지켜보기", risk: 0, run: function (state) {
+          state.world.rumorPressure = Core.clamp(Number(state.world.rumorPressure || 0) + 1, 0, 100);
+          pushUnique(state.world.discovered, "npcObservation");
+          return "당장 개입하지 않았다. 두 사람의 다음 선택을 관찰할 여지가 생겼다.";
+        } }
+      ]
+    },
     "market-crisis": {
       title: "흔들리는 곡물 시장", summary: "높아진 곡물 가격과 줄어든 시장 재고가 도시 생활비를 압박하고 있다.",
       trigger: function (state) { return Boolean(state.world.flags.marketCrisis || Core.hasEventSignal(state, "marketCrisis")); },
