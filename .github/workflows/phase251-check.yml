@@ -48,6 +48,9 @@ jobs:
       - name: NPC goal regression
         run: node tests/phase262-npc-goals.js
 
+      - name: Organization regression
+        run: node tests/phase263-organizations.js
+
   browser:
     name: Browser smoke
     needs: unit
