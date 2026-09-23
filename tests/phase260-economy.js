@@ -63,6 +63,22 @@ const legacy = RPG.Core.normalizeState({ player: { money: 18 }, world: { grainSu
 assert(legacy.world.economy);
 assert.strictEqual(legacy.schemaVersion, 4);
 
+const longRun = RPG.Core.createDefaultState(RPG.Data.npcs);
+RPG.Core.ensureEconomy(longRun);
+for (let day = 0; day < 365; day += 1) {
+  longRun.world.day = day;
+  longRun.world.minutes = 360;
+  longRun.world.grainSupply = Math.max(0, Math.min(100, 72 - Math.floor(day / 9)));
+  longRun.world.tension = (day * 7) % 101;
+  longRun.world.security = 30 + ((day * 11) % 61);
+  longRun.world.economy.simulationDay = day - 1;
+  RPG.Core.simulateEconomy(longRun, RPG.Core.getAbsoluteMinute(longRun));
+  assert(longRun.world.economy.prices.grain >= 4 && longRun.world.economy.prices.grain <= 30);
+  assert(longRun.world.economy.stock.grain >= 0 && longRun.world.economy.stock.grain <= 100);
+}
+assert.strictEqual(longRun.world.day, 364);
+
 console.log("Phase 260 dynamic economy: PASS");
 console.log("Daily price simulation and legacy save normalization: PASS");
 console.log("Market buy/sell state transitions: PASS");
+console.log("365-day economy stability simulation: PASS");
