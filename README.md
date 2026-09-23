@@ -23,6 +23,7 @@
 - [Phase 255 브라우저 런타임 스모크 테스트](docs/phase255-browser-smoke.md)
 - [Phase 256 NPC 일정 효과/알림 주기 분리](docs/phase256-npc-routine-cadence.md)
 - [Phase 257 NPC 사건 Trigger 연결](docs/phase257-npc-event-triggers.md)
+- [Phase 258 세력 세계 압력 통합](docs/phase258-faction-world.md)
 - [Phase 1–205 파일 목록](docs/phase1-205-file-manifest.md)
 
 ## 문서
@@ -65,6 +66,8 @@ NPC는 플레이어의 행동과 함께 흐른 시간을 기준으로 30분 단�
 NPC 일정의 생산·치안·소문 같은 효과는 활동 중인 30분 틱마다 유지하고, 일정 진입을 알리는 서술은 같은 활동에서 반복하지 않도록 분리되어 있다.
 
 NPC 일정은 필요할 때 event signal을 생성하며, 이 신호는 기존 사건 Trigger와 연결되어 NPC의 자율 행동이 새로운 사건을 열 수 있다.
+
+세력 세계 압력 계산은 Worker와 fallback 모두에서 하루 1회 수행되며, 자원·치안·긴장 상태가 세력 관계와 충돌 플래그에 반영된다.
 
 브라우저 smoke test는 실제 Chromium에서 Worker 실행, IndexedDB 저장, 액션 처리, 페이지 새로고침 후 복원을 검증한다.
 
