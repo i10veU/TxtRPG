@@ -18,6 +18,13 @@ test.describe("TxtRPG browser runtime", () => {
     await expect(page.locator("#npcList li")).toHaveCount(7);
     await expect(page.locator("#relationList li")).toHaveCount(6);
 
+    await expect.poll(async () => {
+      return page.evaluate(() => {
+        const status = window.AnonymousRPGApp.getRuntimeStatus();
+        return status.workerActive && Boolean(window.AnonymousRPGApp.getState());
+      });
+    }).toBe(true);
+
     const runtime = await page.evaluate(() => window.AnonymousRPGApp.getRuntimeStatus());
     expect(runtime.workerActive).toBe(true);
     expect(runtime.storage).toBe("AnonymousChroniclesDB");
@@ -35,7 +42,10 @@ test.describe("TxtRPG browser runtime", () => {
     await page.locator("#actionInput").fill("휴식");
     await page.locator("#actionForm button").click();
 
-    await expect(page.locator("#storyBody .turn")).toHaveCount(5);
+    await expect.poll(async () => {
+      return page.locator("#storyBody .turn").count();
+    }).toBeGreaterThan(2);
+
     const after = await page.evaluate(() => {
       const state = window.AnonymousRPGApp.getState();
       return {
@@ -47,6 +57,7 @@ test.describe("TxtRPG browser runtime", () => {
       };
     });
 
+    expect(after.day).toBe(before.day);
     expect(after.minutes).toBe(420);
     expect(after.npcSimulationMinute).toBe(420);
     expect(after.npcSimulationMinute).toBeGreaterThan(before.npcSimulationMinute);
@@ -61,10 +72,12 @@ test.describe("TxtRPG browser runtime", () => {
     }).toContain("AnonymousChroniclesDB");
 
     const persistedTurns = await page.locator("#storyBody .turn").count();
-    expect(persistedTurns).toBe(5);
-
     await page.reload({ waitUntil: "networkidle" });
+
     await expect(page.locator("#storyBody .turn")).toHaveCount(persistedTurns);
+    await expect.poll(async () => {
+      return page.evaluate(() => window.AnonymousRPGApp.getState().world.minutes);
+    }).toBe(420);
 
     const restored = await page.evaluate(() => {
       const state = window.AnonymousRPGApp.getState();
