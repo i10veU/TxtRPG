@@ -1,6 +1,6 @@
 self.AnonymousRPG = self.AnonymousRPG || {};
 const window = self;
-importScripts("../core/game-state.js", "../data/npcs.js", "../data/places.js", "../data/cases.js", "../core/faction-world.js", "../core/action-resolver.js", "../core/npc-simulation.js");
+importScripts("../core/game-state.js", "../data/npcs.js", "../data/places.js", "../data/cases.js", "../core/economy-world.js", "../core/faction-world.js", "../core/action-resolver.js", "../core/npc-simulation.js");
 
 let state = null;
 
@@ -14,12 +14,14 @@ function runAction(text) {
   const after = AnonymousRPG.Core.getAbsoluteMinute(state);
   const elapsed = Math.max(0, after - before);
   const npcEvents = AnonymousRPG.Core.simulateNPCs(state, elapsed);
+  const economyEvent = AnonymousRPG.Core.simulateEconomy(state, after);
 
   if (result.narrative) AnonymousRPG.Core.appendLog(state, result.narrative, result.action);
   npcEvents.forEach(function (event) {
     AnonymousRPG.Core.appendLog(state, event, null, true);
   });
-  return { result: result, npcEvents: npcEvents };
+  if (economyEvent) AnonymousRPG.Core.appendLog(state, economyEvent, null, true);
+  return { result: result, npcEvents: npcEvents, economyEvent: economyEvent };
 }
 
 self.onmessage = function (event) {
@@ -31,6 +33,7 @@ self.onmessage = function (event) {
       if (!state.npcs || Object.keys(state.npcs).length === 0) {
         state.npcs = AnonymousRPG.Core.clone(AnonymousRPG.Data.npcs);
       }
+      AnonymousRPG.Core.ensureEconomy(state);
       AnonymousRPG.Data.ensureCases(state);
       reply("READY", { state: state });
       return;
@@ -39,7 +42,7 @@ self.onmessage = function (event) {
     if (message.type === "ACTION") {
       if (!state) throw new Error("Worker not initialized");
       const outcome = runAction(message.text);
-      reply("UPDATE", { state: state, result: outcome.result, npcEvents: outcome.npcEvents });
+      reply("UPDATE", { state: state, result: outcome.result, npcEvents: outcome.npcEvents, economyEvent: outcome.economyEvent });
       return;
     }
 
@@ -50,6 +53,7 @@ self.onmessage = function (event) {
 
     if (message.type === "RESET") {
       state = AnonymousRPG.Core.createDefaultState(AnonymousRPG.Data.npcs);
+      AnonymousRPG.Core.ensureEconomy(state);
       AnonymousRPG.Data.ensureCases(state);
       AnonymousRPG.Core.appendLog(state, "비가 그친 새벽이다. 젖은 돌바닥 위로 사람들이 하루를 시작했다. 누구도 당신을 기다리지 않는다.");
       AnonymousRPG.Core.appendLog(state, "북문 시장에서는 가게마다 곡물 가격이 조금씩 다르다. 광장 건너편에서는 경비대원이 상인의 저울을 확인하고 있다.");
