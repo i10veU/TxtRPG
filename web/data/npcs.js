@@ -1,11 +1,58 @@
 window.AnonymousRPG = window.AnonymousRPG || {};
 AnonymousRPG.Data = AnonymousRPG.Data || {};
 AnonymousRPG.Data.npcs = {
-  mara: { name: "마라 벨라스", place: "market", trust: 0, role: "상인", goal: "안정적인 곡물 공급 유지" },
-  jonas: { name: "요나스 크렐", place: "riverside", trust: 0, role: "부두 노동자", goal: "부두의 이상 화물 확인" },
-  serin: { name: "세린 오르도", place: "archive", trust: 0, role: "기록관", goal: "오류가 있는 기록 추적" },
-  darma: { name: "다르마 누르", place: "hills", trust: 0, role: "농민 대표", goal: "농촌 운송로 유지" },
-  ibrahim: { name: "이브라힘 살릭", place: "market", trust: 0, role: "경비대원", goal: "시장 치안 유지" },
-  marta: { name: "마르타 켈", place: "alley", trust: 0, role: "여관 주인", goal: "소문과 손님의 흐름 관리" },
-  orel: { name: "오렐 다브", place: "alley", trust: 0, role: "수리공", goal: "도시 시설 수리" }
+  mara: {
+    name: "마라 벨라스", place: "market", trust: 0, role: "상인", goal: "안정적인 곡물 공급 유지",
+    schedule: [
+      { from: 6, to: 12, place: "market", action: "시장 거래", effect: "grain", announce: false },
+      { from: 12, to: 15, place: "alley", action: "창고 장부 확인", effect: "grain", announce: true },
+      { from: 15, to: 20, place: "market", action: "곡물 판매", effect: "grain", announce: false }
+    ]
+  },
+  jonas: {
+    name: "요나스 크렐", place: "riverside", trust: 0, role: "부두 노동자", goal: "부두의 이상 화물 확인",
+    schedule: [
+      { from: 6, to: 12, place: "riverside", action: "하역 작업", announce: false },
+      { from: 12, to: 18, place: "riverside", action: "화물 목록 대조", effect: "rumor", announce: true },
+      { from: 18, to: 24, place: "riverside", action: "야간 선박 감시", effect: "rumor", announce: true }
+    ]
+  },
+  serin: {
+    name: "세린 오르도", place: "archive", trust: 0, role: "기록관", goal: "오류가 있는 기록 추적",
+    schedule: [
+      { from: 7, to: 13, place: "archive", action: "공문서 대조", announce: false },
+      { from: 13, to: 18, place: "archive", action: "토지 기록 조사", effect: "rumor", announce: true }
+    ]
+  },
+  darma: {
+    name: "다르마 누르", place: "hills", trust: 0, role: "농민 대표", goal: "농촌 운송로 유지",
+    schedule: [
+      { from: 5, to: 11, place: "hills", action: "농촌 생산 확인", effect: "grain", announce: false },
+      { from: 11, to: 17, place: "market", action: "운송 협상", effect: "grain", announce: true },
+      { from: 17, to: 21, place: "hills", action: "마을 회의", effect: "tension", announce: false }
+    ]
+  },
+  ibrahim: {
+    name: "이브라힘 살릭", place: "market", trust: 0, role: "경비대원", goal: "시장 치안 유지",
+    schedule: [
+      { from: 6, to: 14, place: "market", action: "시장 순찰", effect: "security", announce: false },
+      { from: 14, to: 20, place: "alley", action: "골목 순찰", effect: "security", announce: true },
+      { from: 20, to: 24, place: "market", action: "야간 경계", effect: "security", announce: true }
+    ]
+  },
+  marta: {
+    name: "마르타 켈", place: "alley", trust: 0, role: "여관 주인", goal: "소문과 손님의 흐름 관리",
+    schedule: [
+      { from: 6, to: 12, place: "alley", action: "여관 준비", announce: false },
+      { from: 12, to: 18, place: "alley", action: "손님 응대", effect: "rumor", announce: true },
+      { from: 18, to: 24, place: "alley", action: "손님들의 소문 기록", effect: "rumor", announce: true }
+    ]
+  },
+  orel: {
+    name: "오렐 다브", place: "alley", trust: 0, role: "수리공", goal: "도시 시설 수리",
+    schedule: [
+      { from: 7, to: 13, place: "market", action: "시장 시설 수리", effect: "repair", announce: true },
+      { from: 13, to: 19, place: "riverside", action: "부두 시설 수리", effect: "repair", announce: true }
+    ]
+  }
 };
