@@ -59,34 +59,53 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
           state.world.tension = Math.max(0, state.world.tension - 8);
           Core.adjustRelation(state, "merchants", 2); Core.adjustRelation(state, "guard", 2); Core.adjustRelation(state, "archive", 1);
           Core.adjustRelation(state, "rural", 1); Core.adjustRelation(state, "innkeepers", 1); Core.adjustRelation(state, "workers", 1);
-          Object.keys(state.world.organizationRelations || {}).forEach(function (key) {
-            adjustOrganizationPair(state, key, 8);
-          });
+          Object.keys(state.world.organizationRelations || {}).forEach(function (key) { adjustOrganizationPair(state, key, 8); });
           adjustOrganizationPressure(state, ["merchants", "guard", "archive", "rural", "innkeepers", "workers"], 1);
           pushUnique(state.world.discovered, "factionCouncil");
           return "대표들이 즉시 화해하지는 않았지만 서로의 손해를 확인했다. 도시 전체의 긴장이 한 단계 낮아졌다.";
         } },
         { id: "side", label: "한 세력의 요구를 공개적으로 지지", risk: 4, run: function (state) {
           state.world.tension += 4;
-          Core.adjustRelation(state, "guard", 3); Core.adjustRelation(state, "merchants", -2);
-          Core.adjustRelation(state, "workers", -1); Core.adjustRelation(state, "innkeepers", -1);
-          Object.keys(state.world.organizationRelations || {}).forEach(function (key) {
-            adjustOrganizationPair(state, key, -6);
-          });
-          adjustOrganizationPressure(state, ["guard"], 1);
-          adjustOrganizationPressure(state, ["merchants", "workers", "innkeepers"], -1);
+          Core.adjustRelation(state, "guard", 3); Core.adjustRelation(state, "merchants", -2); Core.adjustRelation(state, "workers", -1); Core.adjustRelation(state, "innkeepers", -1);
+          Object.keys(state.world.organizationRelations || {}).forEach(function (key) { adjustOrganizationPair(state, key, -6); });
+          adjustOrganizationPressure(state, ["guard"], 1); adjustOrganizationPressure(state, ["merchants", "workers", "innkeepers"], -1);
           pushUnique(state.world.discovered, "factionAlignment");
           return "당신의 입장이 분명해졌다. 지지한 쪽은 호의적으로 반응했지만 다른 집단과의 거리는 벌어졌다.";
         } },
         { id: "expose", label: "충돌의 원인이 된 기록과 거래를 공개", risk: 5, run: function (state) {
           state.world.trustInAdministration += 5; state.world.tension += 2; state.world.rumorPressure += 2;
           Core.adjustRelation(state, "archive", 4); Core.adjustRelation(state, "merchants", -3); Core.adjustRelation(state, "guard", -1);
-          adjustOrganizationPair(state, "archive:innkeepers", 4);
-          adjustOrganizationPair(state, "merchants:rural", -4);
-          adjustOrganizationPressure(state, ["archive"], 2);
-          adjustOrganizationPressure(state, ["innkeepers", "merchants"], -1);
+          adjustOrganizationPair(state, "archive:innkeepers", 4); adjustOrganizationPair(state, "merchants:rural", -4);
+          adjustOrganizationPressure(state, ["archive"], 2); adjustOrganizationPressure(state, ["innkeepers", "merchants"], -1);
           pushUnique(state.world.discovered, "publicLedger");
           return "문서와 거래 기록을 공개했다. 숨겨진 이해관계가 드러났지만 도시의 소문도 걷잡을 수 없이 커졌다.";
+        } }
+      ]
+    },
+    "market-crisis": {
+      title: "흔들리는 곡물 시장", summary: "높아진 곡물 가격과 줄어든 시장 재고가 도시 생활비를 압박하고 있다.",
+      trigger: function (state) { return Boolean(state.world.flags.marketCrisis || Core.hasEventSignal(state, "marketCrisis")); },
+      choices: [
+        { id: "ration", label: "공공 배급을 우선하도록 설득", risk: 2, run: function (state) {
+          state.world.tension = Math.max(0, state.world.tension - 5);
+          state.world.economy.stock.grain = Core.clamp(state.world.economy.stock.grain + 8, 0, 100);
+          Core.adjustRelation(state, "workers", 3); Core.adjustRelation(state, "innkeepers", 2); Core.adjustRelation(state, "merchants", -2); Core.adjustRelation(state, "rural", 1);
+          pushUnique(state.world.discovered, "grainRationing");
+          return "남아 있던 곡물을 우선 배급하는 방안이 채택됐다. 생활권의 불안은 낮아졌지만 상인회는 시장 개입을 달가워하지 않았다.";
+        } },
+        { id: "contract", label: "상인회와 장기 공급 계약을 협상", risk: 3, run: function (state) {
+          state.world.grainSupply = Core.clamp(Number(state.world.grainSupply || 0) + 6, 0, 100);
+          state.world.economy.stock.grain = Core.clamp(state.world.economy.stock.grain + 5, 0, 100);
+          Core.adjustRelation(state, "merchants", 4); Core.adjustRelation(state, "rural", 2); Core.adjustRelation(state, "workers", -1);
+          pushUnique(state.world.discovered, "grainContract");
+          return "상인회가 농촌 운송로에 선지급 조건을 걸고 공급 계약을 받아들였다. 당장은 시장이 숨을 돌릴 여지가 생겼다.";
+        } },
+        { id: "open", label: "창고 재고와 거래 장부를 공개", risk: 5, run: function (state) {
+          state.world.trustInAdministration = Core.clamp(Number(state.world.trustInAdministration || 0) + 5, 0, 100);
+          state.world.rumorPressure = Core.clamp(Number(state.world.rumorPressure || 0) - 2, 0, 100);
+          Core.adjustRelation(state, "archive", 4); Core.adjustRelation(state, "merchants", -4); Core.adjustRelation(state, "guard", 1);
+          pushUnique(state.world.discovered, "grainLedger");
+          return "재고와 거래 장부가 공개됐다. 공급망의 병목이 드러났고 기록관은 신뢰를 높였지만 상인회와의 관계는 악화됐다.";
         } }
       ]
     }
