@@ -21,6 +21,7 @@
 - [Phase 252 NPC 자율 시뮬레이션](docs/phase252-npc-simulation.md)
 - [Phase 254 NPC 틱 중복 수정](docs/phase254-npc-tick-fix.md)
 - [Phase 255 브라우저 런타임 스모크 테스트](docs/phase255-browser-smoke.md)
+- [Phase 256 NPC 일정 효과/알림 주기 분리](docs/phase256-npc-routine-cadence.md)
 - [Phase 1–205 파일 목록](docs/phase1-205-file-manifest.md)
 
 ## 문서
@@ -58,7 +59,9 @@ web/ 아래에서 상태, 데이터, 입력, 렌더링, 저장, Worker를 분리
 
 기존 localStorage 세이브는 IndexedDB로 최초 1회 자동 마이그레이션하며 IndexedDB를 사용할 수 없는 환경에서는 기존 키를 fallback으로 사용합니다.
 
-NPC는 플레이어의 행동과 함께 흐른 시간을 기준으로 30분 단위 자율 시뮬레이션을 수행하며, 현재 위치와 최근 행동을 UI에 표시합니다.
+NPC는 플레이어의 행동과 함께 흐른 시간을 기준으로 30분 단위 자율 시뮬레이션을 수행하며, 현재 위치와 최근 행동을 UI에 표시한다.
+
+NPC 일정의 생산·치안·소문 같은 효과는 활동 중인 30분 틱마다 유지하고, 일정 진입을 알리는 서술은 같은 활동에서 반복하지 않도록 분리되어 있다.
 
 브라우저 smoke test는 실제 Chromium에서 Worker 실행, IndexedDB 저장, 액션 처리, 페이지 새로고침 후 복원을 검증한다.
 

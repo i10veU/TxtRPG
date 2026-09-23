@@ -13,6 +13,11 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     return null;
   }
 
+  function routineKey(routine) {
+    if (!routine) return null;
+    return [routine.from, routine.to, routine.place, routine.action].join(":");
+  }
+
   function moveNpc(state, npc, target) {
     if (!target || npc.place === target) return false;
     npc.place = target;
@@ -44,21 +49,28 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     Object.keys(state.npcs).forEach(function (id) {
       const npc = state.npcs[id];
       const routine = scheduleFor(npc, hour);
-      if (!routine) return;
 
+      if (!routine) {
+        npc.activeRoutineKey = null;
+        return;
+      }
+
+      const key = routineKey(routine);
+      const entered = npc.activeRoutineKey !== key;
       const moved = moveNpc(state, npc, routine.place);
       const effect = applyRoutineEffect(state, id, npc, routine);
       applyFactionDrift(state, npc, routine);
       npc.lastAction = routine.action;
       npc.lastTick = absoluteMinute;
+      npc.activeRoutineKey = key;
 
-      if (moved && routine.announce) {
+      if (entered && moved && routine.announce) {
         events.push(npc.name + "이(가) " + Data.places[routine.place].name + "으로 이동했다.");
       }
-      if (effect && routine.announce) {
+      if (entered && effect && routine.announce) {
         events.push(npc.name + "이(가) " + routine.action + "을(를) 했다.");
       }
-      if (routine.announce && npc.faction && Number(state.world.relations[npc.faction]) <= -60) {
+      if (entered && routine.announce && npc.faction && Number(state.world.relations[npc.faction]) <= -60) {
         events.push(npc.name + "이(가) 당신에 대한 경계를 주변에 퍼뜨렸다.");
       }
     });
