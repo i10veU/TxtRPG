@@ -1,0 +1,101 @@
+const { test, expect } = require("@playwright/test");
+
+test.describe("TxtRPG browser runtime", () => {
+  test("boots through Worker, renders state, and persists through IndexedDB", async ({ page }) => {
+    const pageErrors = [];
+    const consoleErrors = [];
+
+    page.on("pageerror", (error) => pageErrors.push(error.message));
+    page.on("console", (message) => {
+      if (message.type() === "error") consoleErrors.push(message.text());
+    });
+
+    await page.goto("http://127.0.0.1:4173/", { waitUntil: "networkidle" });
+
+    await expect(page).toHaveTitle(/무명의 연대기/);
+    await expect(page.locator("#storyBody .turn")).toHaveCount(2);
+    await expect(page.locator("#location")).toHaveText(/세르카/);
+    await expect(page.locator("#npcList li")).toHaveCount(7);
+    await expect(page.locator("#relationList li")).toHaveCount(6);
+
+    await expect.poll(async () => {
+      return page.evaluate(() => {
+        const status = window.AnonymousRPGApp.getRuntimeStatus();
+        return status.workerActive && Boolean(window.AnonymousRPGApp.getState());
+      });
+    }).toBe(true);
+
+    const runtime = await page.evaluate(() => window.AnonymousRPGApp.getRuntimeStatus());
+    expect(runtime.workerActive).toBe(true);
+    expect(runtime.storage).toBe("AnonymousChroniclesDB");
+
+    const before = await page.evaluate(() => {
+      const state = window.AnonymousRPGApp.getState();
+      return {
+        day: state.world.day,
+        minutes: state.world.minutes,
+        npcSimulationMinute: state.world.npcSimulationMinute,
+        grainSupply: state.world.grainSupply
+      };
+    });
+
+    await page.locator("#actionInput").fill("휴식");
+    await page.locator("#actionForm button").click();
+
+    await expect.poll(async () => {
+      return page.locator("#storyBody .turn").count();
+    }).toBeGreaterThan(2);
+
+    const after = await page.evaluate(() => {
+      const state = window.AnonymousRPGApp.getState();
+      return {
+        day: state.world.day,
+        minutes: state.world.minutes,
+        npcSimulationMinute: state.world.npcSimulationMinute,
+        grainSupply: state.world.grainSupply,
+        npcActions: Object.values(state.npcs).map((npc) => npc.lastAction).filter(Boolean)
+      };
+    });
+
+    expect(after.day).toBe(before.day);
+    expect(after.minutes).toBe(420);
+    expect(after.npcSimulationMinute).toBe(420);
+    expect(after.npcSimulationMinute).toBeGreaterThan(before.npcSimulationMinute);
+    expect(after.grainSupply).toBeGreaterThan(before.grainSupply);
+    expect(after.npcActions.length).toBeGreaterThan(0);
+
+    await expect.poll(async () => {
+      return page.evaluate(async () => {
+        const names = await indexedDB.databases();
+        return names.map((entry) => entry.name);
+      });
+    }).toContain("AnonymousChroniclesDB");
+
+    const persistedTurns = await page.locator("#storyBody .turn").count();
+    await page.reload({ waitUntil: "networkidle" });
+
+    await expect(page.locator("#storyBody .turn")).toHaveCount(persistedTurns);
+    await expect.poll(async () => {
+      return page.evaluate(() => window.AnonymousRPGApp.getState().world.minutes);
+    }).toBe(420);
+
+    const restored = await page.evaluate(() => {
+      const state = window.AnonymousRPGApp.getState();
+      const runtime = window.AnonymousRPGApp.getRuntimeStatus();
+      return {
+        minutes: state.world.minutes,
+        npcSimulationMinute: state.world.npcSimulationMinute,
+        grainSupply: state.world.grainSupply,
+        workerActive: runtime.workerActive
+      };
+    });
+
+    expect(restored.minutes).toBe(420);
+    expect(restored.npcSimulationMinute).toBe(420);
+    expect(restored.grainSupply).toBe(after.grainSupply);
+    expect(restored.workerActive).toBe(true);
+
+    expect(pageErrors).toEqual([]);
+    expect(consoleErrors).toEqual([]);
+  });
+});

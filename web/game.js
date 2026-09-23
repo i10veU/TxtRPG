@@ -113,6 +113,12 @@ window.AnonymousRPG = window.AnonymousRPG || {};
 
   window.AnonymousRPGApp = {
     getState: function () { return state; },
+    getRuntimeStatus: function () {
+      return {
+        workerActive: Boolean(worker),
+        storage: RPG.Storage.databaseName
+      };
+    },
     save: persist,
     reset: function () {
       if (worker) {
