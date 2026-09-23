@@ -77,6 +77,11 @@ test.describe("TxtRPG browser runtime", () => {
     expect(after.npcActions.length).toBeGreaterThan(0);
     expect(after.factionSimulationDay).toBe(after.day);
 
+    await page.keyboard.press("6");
+    await expect(page.locator(".overlay")).toHaveClass(/is-open/);
+    await expect(page.locator("#overlayTitle")).toHaveText("RUMORS");
+    await page.keyboard.press("Escape");
+
     await expect.poll(async () => {
       return page.evaluate(async () => {
         const names = await indexedDB.databases();
