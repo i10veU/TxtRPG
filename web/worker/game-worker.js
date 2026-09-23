@@ -1,4 +1,5 @@
 self.AnonymousRPG = self.AnonymousRPG || {};
+const window = self;
 importScripts("../core/game-state.js", "../data/npcs.js", "../data/places.js", "../data/cases.js", "../core/action-resolver.js");
 
 let state = null;
