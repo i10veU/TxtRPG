@@ -27,6 +27,13 @@ test.describe("TxtRPG browser runtime", () => {
     await expect(page.locator("#npcList li")).toHaveCount(7);
     await expect(page.locator("#npcList")).toContainText("목표 0/3");
     await page.keyboard.press("Escape");
+    await page.locator("#actionInput").fill("인물관계");
+    await page.locator("#actionForm button").click();
+    await expect(page.locator("#storyBody")).toContainText("↔");
+    await page.locator("#actionInput").fill("지역자원");
+    await page.locator("#actionForm button").click();
+    await expect(page.locator("#storyBody")).toContainText("목재");
+    await expect(page.locator("#storyBody")).toContainText("어물");
 
     await expect.poll(async () => {
       return page.evaluate(() => {
