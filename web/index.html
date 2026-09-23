@@ -74,7 +74,11 @@
         <ul id="organizationList" class="compact-list"></ul>
       </section>
 
-      <div class="overlay__help">1 상태 · 2 소지품 · 3 인물 · 4 세력 · 5 사건 · 6 소문 · 7 조직 · ESC 닫기</div>
+      <section class="overlay__panel" data-panel="causality">
+        <ul id="causalityList" class="compact-list"></ul>
+      </section>
+
+      <div class="overlay__help">1 상태 · 2 소지품 · 3 인물 · 4 세력 · 5 사건 · 6 소문 · 7 조직 · 8 연쇄 · ESC 닫기</div>
     </aside>
   </section>
 </main>
@@ -92,6 +96,7 @@
 <script src="core/npc-relations.js" defer></script>
 <script src="core/action-resolver.js" defer></script>
 <script src="core/npc-simulation.js" defer></script>
+<script src="core/case-causality.js" defer></script>
 <script src="storage/idb-storage.js" defer></script>
 <script src="ui/renderer.js" defer></script>
 <script src="ui/input.js" defer></script>
