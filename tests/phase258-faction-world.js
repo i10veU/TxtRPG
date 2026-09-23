@@ -36,7 +36,7 @@ assert.strictEqual(state.world.factionSimulationDay, -1);
 assert.strictEqual(state.world.flags.factionConflict, false);
 
 const first = RPG.Core.simulateFactionWorld(state, 360);
-assert.deepStrictEqual(first, []);
+assert.strictEqual(first.length, 0);
 assert.strictEqual(state.world.factionSimulationDay, 0);
 assert.strictEqual(state.world.relations.rural, 1);
 assert.strictEqual(state.world.relations.innkeepers, 1);
@@ -45,7 +45,7 @@ const ruralAfterFirst = state.world.relations.rural;
 const innkeepersAfterFirst = state.world.relations.innkeepers;
 const second = RPG.Core.simulateFactionWorld(state, 720);
 
-assert.deepStrictEqual(second, []);
+assert.strictEqual(second.length, 0);
 assert.strictEqual(state.world.relations.rural, ruralAfterFirst);
 assert.strictEqual(state.world.relations.innkeepers, innkeepersAfterFirst);
 
