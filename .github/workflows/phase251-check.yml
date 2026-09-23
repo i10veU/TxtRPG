@@ -2,7 +2,7 @@ name: Phase 251 Runtime Check
 
 on:
   push:
-    branches: [main, phase-251-engineization, phase-252-npc-simulation, phase-254-npc-tick-fix, phase-255-browser-smoke]
+    branches: [main, phase-251-engineization, phase-252-npc-simulation, phase-254-npc-tick-fix, phase-255-browser-smoke, phase-256-npc-routine-cadence]
   pull_request:
   workflow_dispatch:
 
@@ -23,6 +23,8 @@ jobs:
         run: node tests/phase251-engineization.js
       - name: NPC tick regression
         run: node tests/phase254-npc-tick.js
+      - name: NPC routine cadence regression
+        run: node tests/phase256-npc-routine-cadence.js
       - name: Install browser test runner
         run: npm install --no-save @playwright/test@1.55.0
       - name: Install Chromium
