@@ -12,7 +12,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
   };
 
   const DEFAULT_STATE = {
-    schemaVersion: 2,
+    schemaVersion: 3,
     player: {
       name: "에바 로셀",
       hp: 10,
@@ -26,6 +26,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     world: {
       day: 0,
       minutes: 360,
+      npcSimulationMinute: 360,
       grainSupply: 72,
       tension: 25,
       security: 62,
@@ -54,6 +55,10 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     return Math.max(min, Math.min(max, value));
   }
 
+  function absoluteMinute(state) {
+    return state.world.day * 1440 + state.world.minutes;
+  }
+
   function normalizeState(input) {
     const state = Object.assign(clone(DEFAULT_STATE), input || {});
     state.player = Object.assign(clone(DEFAULT_STATE.player), input && input.player || {});
@@ -65,14 +70,23 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     state.world.cases = Array.isArray(state.world.cases) ? state.world.cases : [];
     state.npcs = input && input.npcs && typeof input.npcs === "object" ? input.npcs : {};
     state.log = Array.isArray(state.log) ? state.log : [];
-    state.schemaVersion = 2;
+    state.schemaVersion = 3;
+
     Object.keys(DEFAULT_RELATIONS).forEach(function (faction) {
       state.world.relations[faction] = clamp(Number(state.world.relations[faction]) || 0, -100, 100);
     });
+
     state.world.grainSupply = clamp(Number(state.world.grainSupply) || 0, 0, 100);
     state.world.tension = clamp(Number(state.world.tension) || 0, 0, 100);
     state.world.security = clamp(Number(state.world.security) || 0, 0, 100);
     state.world.trustInAdministration = clamp(Number(state.world.trustInAdministration) || 0, 0, 100);
+
+    const currentAbsolute = absoluteMinute(state);
+    const savedSimulationMinute = Number(input && input.world && input.world.npcSimulationMinute);
+    state.world.npcSimulationMinute = Number.isFinite(savedSimulationMinute)
+      ? Math.min(savedSimulationMinute, currentAbsolute)
+      : currentAbsolute;
+
     state.player.hp = clamp(Number(state.player.hp) || 0, 0, state.player.maxHp);
     state.player.fatigue = clamp(Number(state.player.fatigue) || 0, 0, state.player.maxFatigue);
     return state;
@@ -132,5 +146,6 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
   Core.advanceTime = advanceTime;
   Core.appendLog = appendLog;
   Core.adjustRelation = adjustRelation;
+  Core.getAbsoluteMinute = absoluteMinute;
   Core.DEFAULT_RELATIONS = DEFAULT_RELATIONS;
 })(AnonymousRPG.Core);

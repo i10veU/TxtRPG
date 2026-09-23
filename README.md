@@ -18,6 +18,7 @@
 - [Phase 221–235](docs/phase221-235-release.md)
 - [Phase 236–250](docs/phase236-250-release.md)
 - [Phase 251 엔진화](docs/phase251-engineization.md)
+- [Phase 254 NPC 틱 중복 수정](docs/phase254-npc-tick-fix.md)
 - [Phase 252 NPC 자율 시뮬레이션](docs/phase252-npc-simulation.md)
 - [Phase 1–205 파일 목록](docs/phase1-205-file-manifest.md)
 
