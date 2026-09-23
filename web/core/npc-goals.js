@@ -195,7 +195,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     goal.lastReviewMinute = Number(absoluteMinute);
     goal.lastReviewReason = reason || "목표 재계획";
     goal.replanCount += 1;
-    goal.replanCooldownUntil = Number(absoluteMinute) + 4320;
+    goal.replanCooldownUntil = Number(absoluteMinute) + 10080;
     npc.goal = goal.goalText;
 
     return npc.name + "이(가) 목표를 재계획했다: " + oldText + " → " + goal.goalText;
