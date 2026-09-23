@@ -1,6 +1,6 @@
 self.AnonymousRPG = self.AnonymousRPG || {};
 const window = self;
-importScripts("../core/game-state.js", "../data/npcs.js", "../data/places.js", "../data/cases.js", "../core/action-resolver.js", "../core/npc-simulation.js");
+importScripts("../core/game-state.js", "../data/npcs.js", "../data/places.js", "../data/cases.js", "../core/faction-world.js", "../core/action-resolver.js", "../core/npc-simulation.js");
 
 let state = null;
 
@@ -14,12 +14,16 @@ function runAction(text) {
   const after = AnonymousRPG.Core.getAbsoluteMinute(state);
   const elapsed = Math.max(0, after - before);
   const npcEvents = AnonymousRPG.Core.simulateNPCs(state, elapsed);
+  const factionEvents = AnonymousRPG.Core.simulateFactionWorld(state, after);
 
   if (result.narrative) AnonymousRPG.Core.appendLog(state, result.narrative, result.action);
   npcEvents.forEach(function (event) {
     AnonymousRPG.Core.appendLog(state, event, null, true);
   });
-  return { result: result, npcEvents: npcEvents };
+  factionEvents.forEach(function (event) {
+    AnonymousRPG.Core.appendLog(state, event, null, true);
+  });
+  return { result: result, npcEvents: npcEvents, factionEvents: factionEvents };
 }
 
 self.onmessage = function (event) {
