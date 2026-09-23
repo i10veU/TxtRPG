@@ -3,7 +3,7 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
 AnonymousRPG.Data.npcs = {
   mara: { name: "마라 벨라스", place: "market", trust: 0, faction: "merchants", role: "상인", goal: "안정적인 곡물 공급 유지", schedule: [
     { from: 6, to: 12, place: "market", action: "시장 거래", effect: "grain", announce: false },
-    { from: 12, to: 15, place: "alley", action: "창고 장부 확인", effect: "grain", announce: true },
+    { from: 12, to: 15, place: "alley", action: "창고 장부 확인", effect: "grain", announce: true, signal: "warehouseSuspicion", signalText: "창고 장부에서 재고 불일치 정황을 발견했다." },
     { from: 15, to: 20, place: "market", action: "곡물 판매", effect: "grain", announce: false }
   ]},
   jonas: { name: "요나스 크렐", place: "riverside", trust: 0, faction: "workers", role: "부두 노동자", goal: "부두의 이상 화물 확인", schedule: [
@@ -13,7 +13,7 @@ AnonymousRPG.Data.npcs = {
   ]},
   serin: { name: "세린 오르도", place: "archive", trust: 0, faction: "archive", role: "기록관", goal: "오류가 있는 기록 추적", schedule: [
     { from: 7, to: 13, place: "archive", action: "공문서 대조", announce: false },
-    { from: 13, to: 18, place: "archive", action: "토지 기록 조사", effect: "rumor", announce: true }
+    { from: 13, to: 18, place: "archive", action: "토지 기록 조사", effect: "rumor", announce: true, signal: "recordInconsistency", signalText: "같은 토지 번호가 서로 다른 소유자와 날짜로 기록된 흔적을 확인했다." }
   ]},
   darma: { name: "다르마 누르", place: "hills", trust: 0, faction: "rural", role: "농민 대표", goal: "농촌 운송로 유지", schedule: [
     { from: 5, to: 11, place: "hills", action: "농촌 생산 확인", effect: "grain", announce: false },
