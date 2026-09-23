@@ -18,6 +18,7 @@
 - [Phase 221–235](docs/phase221-235-release.md)
 - [Phase 236–250](docs/phase236-250-release.md)
 - [Phase 251 엔진화](docs/phase251-engineization.md)
+- [Phase 252 NPC 자율 시뮬레이션](docs/phase252-npc-simulation.md)
 - [Phase 1–205 파일 목록](docs/phase1-205-file-manifest.md)
 
 ## 문서
@@ -47,7 +48,7 @@ web/index.html을 Edge/Chromium 계열 브라우저에서 열면 현재 TXT RPG 
 
 web/ 아래에서 상태, 데이터, 입력, 렌더링, 저장, Worker를 분리하여 유지합니다.
 
-- core/: 상태 및 액션 해석
+- core/: 상태, 액션 해석, NPC 시뮬레이션
 - data/: 지역/NPC/사건 데이터
 - storage/: IndexedDB 저장 계층
 - worker/: 게임 시뮬레이션
@@ -55,13 +56,16 @@ web/ 아래에서 상태, 데이터, 입력, 렌더링, 저장, Worker를 분리
 
 기존 localStorage 세이브는 IndexedDB로 최초 1회 자동 마이그레이션하며 IndexedDB를 사용할 수 없는 환경에서는 기존 키를 fallback으로 사용합니다.
 
+NPC는 플레이어의 행동과 함께 흐른 시간을 기준으로 30분 단위 자율 시뮬레이션을 수행하며, 현재 위치와 최근 행동을 UI에 표시합니다.
+
 ## 다음 단계
 
-1. Worker 기반 NPC 자율 틱 구현
-2. NPC 일정/목표/관계 데이터화
-3. 동적 경제·조직 시스템 재통합
-4. 사건 간 인과망 확장
-5. 대규모 데이터 저장/장기 시뮬레이션 회귀 테스트
+1. NPC 목표를 구조화하고 관계/소문 시스템 연결
+2. NPC 행동이 사건 Trigger를 직접 발생시키도록 연결
+3. 조직 단위 의사결정 추가
+4. 동적 경제 시스템 재통합
+5. 사건 간 인과망 확장
+6. 대규모 데이터 저장/장기 시뮬레이션 회귀 테스트
 
 ## 프로젝트 원칙
 

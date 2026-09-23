@@ -20,8 +20,14 @@ window.AnonymousRPG = window.AnonymousRPG || {};
   }
 
   function fallbackAction(text) {
+    const before = RPG.Core.getAbsoluteMinute(state);
     const result = RPG.Core.resolveAction(state, text);
+    const after = RPG.Core.getAbsoluteMinute(state);
+    const npcEvents = RPG.Core.simulateNPCs(state, Math.max(0, after - before));
     if (result.narrative) RPG.Core.appendLog(state, result.narrative, result.action);
+    npcEvents.forEach(function (event) {
+      RPG.Core.appendLog(state, event, null, true);
+    });
     RPG.UI.render(state);
     queuePersist();
   }
@@ -38,7 +44,7 @@ window.AnonymousRPG = window.AnonymousRPG || {};
     if (!worker) return;
     worker.terminate();
     worker = null;
-    RPG.UI.addTurn(state, "게임 워커를 사용할 수 없어 메인 스레드 호환 모드로 전환했다.", null, true);
+    RPG.Core.appendLog(state, "게임 워커를 사용할 수 없어 메인 스레드 호환 모드로 전환했다.", null, true);
     RPG.UI.render(state);
     queuePersist();
   }
@@ -69,7 +75,7 @@ window.AnonymousRPG = window.AnonymousRPG || {};
       }
 
       if (message.type === "ERROR") {
-        RPG.UI.addTurn(state, "시뮬레이션 오류: " + message.payload.message, null, true);
+        RPG.Core.appendLog(state, "시뮬레이션 오류: " + message.payload.message, null, true);
         RPG.UI.render(state);
         queuePersist();
       }

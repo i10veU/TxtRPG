@@ -1,11 +1,25 @@
 self.AnonymousRPG = self.AnonymousRPG || {};
 const window = self;
-importScripts("../core/game-state.js", "../data/npcs.js", "../data/places.js", "../data/cases.js", "../core/action-resolver.js");
+importScripts("../core/game-state.js", "../data/npcs.js", "../data/places.js", "../data/cases.js", "../core/action-resolver.js", "../core/npc-simulation.js");
 
 let state = null;
 
 function reply(type, payload) {
   self.postMessage({ type: type, payload: payload || {} });
+}
+
+function runAction(text) {
+  const before = AnonymousRPG.Core.getAbsoluteMinute(state);
+  const result = AnonymousRPG.Core.resolveAction(state, text);
+  const after = AnonymousRPG.Core.getAbsoluteMinute(state);
+  const elapsed = Math.max(0, after - before);
+  const npcEvents = AnonymousRPG.Core.simulateNPCs(state, elapsed);
+
+  if (result.narrative) AnonymousRPG.Core.appendLog(state, result.narrative, result.action);
+  npcEvents.forEach(function (event) {
+    AnonymousRPG.Core.appendLog(state, event, null, true);
+  });
+  return { result: result, npcEvents: npcEvents };
 }
 
 self.onmessage = function (event) {
@@ -24,11 +38,8 @@ self.onmessage = function (event) {
 
     if (message.type === "ACTION") {
       if (!state) throw new Error("Worker not initialized");
-      const result = AnonymousRPG.Core.resolveAction(state, message.text);
-      if (result.narrative) {
-        AnonymousRPG.Core.appendLog(state, result.narrative, result.action);
-      }
-      reply("UPDATE", { state: state, result: result });
+      const outcome = runAction(message.text);
+      reply("UPDATE", { state: state, result: outcome.result, npcEvents: outcome.npcEvents });
       return;
     }
 

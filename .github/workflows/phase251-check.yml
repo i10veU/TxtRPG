@@ -1,6 +1,8 @@
 name: Phase 251 Runtime Check
 
 on:
+  push:
+    branches: [main, phase-251-engineization, phase-252-npc-simulation]
   pull_request:
   workflow_dispatch:
 

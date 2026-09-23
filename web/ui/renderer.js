@@ -33,6 +33,14 @@ AnonymousRPG.UI = AnonymousRPG.UI || {};
       known.map(function (item) { return "<li>" + esc(item) + "</li>"; }).join("") ||
       "<li>아직 없음</li>";
 
+    const npcList = Object.values(state.npcs).map(function (npc) {
+      const npcPlace = Data.places[npc.place];
+      return '<li><span>' + esc(npc.name) + '</span><small>' +
+        esc(npcPlace ? npcPlace.name : npc.place) + ' · ' + esc(npc.lastAction || npc.goal) +
+        '</small></li>';
+    });
+    document.getElementById("npcList").innerHTML = npcList.join("") || "<li>없음</li>";
+
     document.getElementById("storyBody").innerHTML = state.log.map(function (turn) {
       return '<article class="turn">' +
         '<div class="time">' + esc(turn.time) + '</div>' +
