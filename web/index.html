@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>무명의 연대기 — TXT RPG</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main class="game">
+<section class="story">
+<header class="story__header"><h1>무명의 연대기</h1><div id="location">세르카 · 도시 북문 시장</div></header>
+<div id="storyBody" class="story__body" aria-live="polite"></div>
+<form id="actionForm" class="action"><span>&gt;</span><input id="actionInput" autocomplete="off" maxlength="300" placeholder="조사 / 이동 / 대화 / 사건목록 / 사건분기 1"><button>실행</button></form>
+</section>
+<aside class="status">
+<section><small>TIME</small><div id="dateText"></div><div id="timeText"></div></section>
+<section><small>PLAYER</small><div>돈 <b id="moneyText"></b></div><div>체력 <b id="hpText"></b></div><div>피로 <b id="fatigueText"></b></div></section>
+<section><small>INVENTORY</small><ul id="inventoryList"></ul></section>
+<section><small>DISCOVERED / CASES</small><ul id="knownList"></ul></section>
+</aside>
+</main>
+<script src="game.js" defer></script>
+</body>
+</html>
