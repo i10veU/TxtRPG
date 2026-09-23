@@ -62,6 +62,8 @@ jobs:
         run: node tests/phase268-economic-pressure.js
       - name: NPC relations regression
         run: node tests/phase269-npc-relations.js
+      - name: Regional economy regression
+        run: node tests/phase270-regional-economy.js
 
   browser:
     name: Browser smoke
