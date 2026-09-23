@@ -80,6 +80,22 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     return Data.resolveCase(state, caseId, choiceId);
   }
 
+  function npcGoalCommand(state, text) {
+    if (!/^인물목표$|^npc목표$|^목표목록$/i.test(text.trim())) return null;
+    if (Core.ensureNPCGoals) Core.ensureNPCGoals(state);
+    const entries = Object.keys(state.npcs || {}).map(function (id) {
+      const npc = state.npcs[id];
+      const goal = npc.goalState;
+      return (goal.status === "complete" ? "✓ " : "· ") +
+        npc.name + " — " + npc.goal + " [" + goal.progress + "/" + goal.target + "]";
+    });
+    return {
+      narrative: entries.join(" / ") || "확인할 인물 목표가 없다.",
+      action: text,
+      changed: false
+    };
+  }
+
   function rumorCommand(state, text) {
     if (!/^소문(?:목록)?$|^rumors?$/i.test(text.trim())) return null;
     const rumors = Array.isArray(state.world.rumors) ? state.world.rumors.slice().sort(function (a, b) {
@@ -117,6 +133,8 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     if (economy) return economy;
     const rumor = rumorCommand(state, input);
     if (rumor) return rumor;
+    const npcGoal = npcGoalCommand(state, input);
+    if (npcGoal) return npcGoal;
     let result = caseCommand(state, input);
     if (result !== null) {
       if (typeof result === "string") return { narrative: result, action: input, changed: true };
