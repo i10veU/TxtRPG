@@ -119,7 +119,7 @@ AnonymousRPG.UI = AnonymousRPG.UI || {};
       Object.keys(organizations).map(function (id) {
         const org = organizations[id];
         return "<li><span>" + esc(org.name || id) + "</span><small>" +
-          "D" + esc(org.lastDecisionDay + 1) + " · " +
+          "D" + esc(org.lastDecisionDay + 1) + " · 압력 " + esc(org.goalPressure || 0) + " · " +
           esc(org.lastAction || "대기") + "</small></li>";
       }).join("") || "<li>아직 없음</li>";
 
