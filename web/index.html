@@ -2,25 +2,72 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>무명의 연대기 — TXT RPG</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<main class="game">
-<section class="story">
-<header class="story__header"><h1>무명의 연대기</h1><div id="location">세르카 · 도시 북문 시장</div></header>
-<div id="storyBody" class="story__body" aria-live="polite"></div>
-<form id="actionForm" class="action"><span>&gt;</span><input id="actionInput" autocomplete="off" maxlength="300" placeholder="조사 / 이동 / 대화 / 사건목록 / 사건분기 1"><button>실행</button></form>
-</section>
-<aside class="status">
-<section><small>TIME</small><div id="dateText"></div><div id="timeText"></div></section>
-<section><small>PLAYER</small><div>돈 <b id="moneyText"></b></div><div>체력 <b id="hpText"></b></div><div>피로 <b id="fatigueText"></b></div></section>
-<section><small>INVENTORY</small><ul id="inventoryList"></ul></section>
-<section><small>WORLD ACTORS</small><ul id="npcList"></ul></section>
-<section><small>DISCOVERED / CASES</small><ul id="knownList"></ul></section>
-</aside>
+<main class="desktop-stage">
+  <section class="game" aria-label="무명의 연대기 게임 화면">
+    <header class="topbar">
+      <span id="location">세르카 · 북문 시장</span>
+      <span id="timeText">06:00</span>
+    </header>
+
+    <section class="story">
+      <div id="dateText" class="date-text"></div>
+      <div id="storyBody" class="story__body" aria-live="polite"></div>
+    </section>
+
+    <section class="hud">
+      <div class="hud__stats">
+        <span>HP <b id="hpText">10/10</b></span>
+        <span>F <b id="fatigueText">2/10</b></span>
+        <span>G <b id="moneyText">18</b></span>
+      </div>
+      <form id="actionForm" class="action">
+        <span>&gt;</span>
+        <input id="actionInput" autocomplete="off" maxlength="300" placeholder="명령" aria-label="게임 명령">
+        <button type="submit" aria-label="실행">↵</button>
+      </form>
+    </section>
+
+    <aside class="overlay" aria-hidden="true">
+      <div class="overlay__head">
+        <span id="overlayTitle">STATUS</span>
+        <button id="overlayClose" type="button">×</button>
+      </div>
+
+      <section class="overlay__panel" data-panel="status">
+        <div class="mini-grid">
+          <span>DAY</span><b id="overlayDay">1</b>
+          <span>TIME</span><b id="overlayTime">06:00</b>
+          <span>HP</span><b id="overlayHp">10/10</b>
+          <span>FATIGUE</span><b id="overlayFatigue">2/10</b>
+          <span>GOLD</span><b id="overlayMoney">18</b>
+        </div>
+      </section>
+
+      <section class="overlay__panel" data-panel="inventory">
+        <ul id="inventoryList" class="compact-list"></ul>
+      </section>
+
+      <section class="overlay__panel" data-panel="npc">
+        <ul id="npcList" class="compact-list"></ul>
+      </section>
+
+      <section class="overlay__panel" data-panel="faction">
+        <ul id="relationList" class="compact-list"></ul>
+      </section>
+
+      <section class="overlay__panel" data-panel="cases">
+        <ul id="knownList" class="compact-list"></ul>
+      </section>
+
+      <div class="overlay__help">1 상태 · 2 소지품 · 3 인물 · 4 세력 · 5 사건 · ESC 닫기</div>
+    </aside>
+  </section>
 </main>
+
 <script src="core/game-state.js" defer></script>
 <script src="data/places.js" defer></script>
 <script src="data/npcs.js" defer></script>
