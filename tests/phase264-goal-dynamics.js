@@ -101,8 +101,8 @@ for (let day = 4; day < 365; day += 1) {
   assert(Object.values(state.npcs).every((npc) => npc.goalState.progress >= 0));
   assert(Object.values(state.npcs).every((npc) => npc.goalState.target >= 1));
 }
-assert(state.npcs.mara.goalState.replanCount < 150);
-assert(state.npcs.marta.goalState.replanCount < 150);
+assert(state.npcs.mara.goalState.replanCount < 70);
+assert(state.npcs.marta.goalState.replanCount < 70);
 
 console.log("Phase 264 organization-linked NPC goals: PASS");
 console.log("Goal blocking / resume / replanning: PASS");
