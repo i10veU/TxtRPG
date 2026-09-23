@@ -77,7 +77,10 @@ body{
 .story__body{
   height:calc(100% - 8px);
   padding:3px 5px 4px;
-  overflow:hidden;
+  overflow-y:auto;
+  overflow-x:hidden;
+  scrollbar-width:thin;
+  scrollbar-color:var(--line) transparent;
   display:flex;
   flex-direction:column;
   justify-content:flex-end;
@@ -85,6 +88,7 @@ body{
 .turn{
   margin:0 0 4px;
   color:var(--text);
+  flex:0 0 auto;
 }
 .turn:last-child{margin-bottom:0}
 .time{
@@ -101,8 +105,6 @@ body{
   text-overflow:ellipsis;
 }
 .narrative{
-  max-height:34px;
-  overflow:hidden;
   color:var(--text);
   font:7px/1.35 "Noto Serif KR",serif;
   word-break:keep-all;
