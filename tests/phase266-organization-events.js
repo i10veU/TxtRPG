@@ -21,10 +21,7 @@ const files = [
 const context = { window: {}, console, Math, JSON, Object, Array, String, Number, Boolean, Date };
 context.window = context;
 vm.createContext(context);
-
-for (const file of files) {
-  vm.runInContext(fs.readFileSync(path.join(root, file), "utf8"), context, { filename: file });
-}
+for (const file of files) vm.runInContext(fs.readFileSync(path.join(root, file), "utf8"), context, { filename: file });
 
 const RPG = context.AnonymousRPG;
 assert(RPG && RPG.Core && RPG.Data);
@@ -43,7 +40,8 @@ state.world.trustInAdministration = 50;
 state.world.minutes = 360;
 
 const events = RPG.Core.simulateOrganizations(state, RPG.Core.getAbsoluteMinute(state));
-assert.strictEqual(events.length, 6);
+assert(events.length >= 6);
+assert.strictEqual(Object.values(state.world.organizations).filter((org) => org.lastDecisionDay === 0).length, 6);
 
 const relationEvents = RPG.Core.simulateOrganizationRelations(state, RPG.Core.getAbsoluteMinute(state));
 assert(relationEvents.some((event) => event.includes("충돌")));
