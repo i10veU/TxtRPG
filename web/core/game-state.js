@@ -52,6 +52,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
       },
       eventSignals: {},
       eventHistory: [],
+      rumors: [],
       discovered: [],
       cases: []
     },
@@ -80,6 +81,26 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     }).slice(-80);
   }
 
+  function normalizeRumors(input) {
+    if (!Array.isArray(input)) return [];
+    return input.filter(function (entry) {
+      return entry && typeof entry === "object" &&
+        typeof entry.id === "string" &&
+        typeof entry.text === "string" &&
+        Array.isArray(entry.sources);
+    }).map(function (entry) {
+      return {
+        id: entry.id,
+        text: entry.text,
+        sources: entry.sources.slice(0, 8).map(String),
+        confidence: clamp(Number(entry.confidence) || 0.4, 0, 1),
+        firstSeenDay: Math.max(0, Number(entry.firstSeenDay) || 0),
+        lastSeenDay: Math.max(0, Number(entry.lastSeenDay) || 0),
+        confirmations: Math.max(1, Number(entry.confirmations) || 1)
+      };
+    }).slice(-30);
+  }
+
   function normalizeState(input) {
     const state = Object.assign(clone(DEFAULT_STATE), input || {});
     state.player = Object.assign(clone(DEFAULT_STATE.player), input && input.player || {});
@@ -92,6 +113,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     state.world.flags = Object.assign({}, DEFAULT_STATE.world.flags, input && input.world && input.world.flags || {});
     state.world.eventSignals = normalizeSignalMap(input && input.world && input.world.eventSignals);
     state.world.eventHistory = normalizeEventHistory(input && input.world && input.world.eventHistory);
+    state.world.rumors = normalizeRumors(input && input.world && input.world.rumors);
     state.world.discovered = Array.isArray(state.world.discovered) ? state.world.discovered : [];
     state.world.cases = Array.isArray(state.world.cases) ? state.world.cases : [];
     state.npcs = input && input.npcs && typeof input.npcs === "object" ? input.npcs : {};
@@ -152,12 +174,53 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     if (!key) return 0;
     const nextCount = (Number(state.world.eventSignals[key]) || 0) + 1;
     state.world.eventSignals[key] = nextCount;
-    state.world.eventHistory.push({ signal: key, source: String(source || "unknown"), minute: Number(absoluteTime) || absoluteMinute(state), text: text ? String(text) : null, count: nextCount });
+    const sourceName = String(source || "unknown");
+    const minute = Number(absoluteTime) || absoluteMinute(state);
+    state.world.eventHistory.push({ signal: key, source: sourceName, minute: minute, text: text ? String(text) : null, count: nextCount });
+    if (text) recordRumor(state, key, sourceName, minute, text);
     if (state.world.eventHistory.length > 80) state.world.eventHistory.splice(0, state.world.eventHistory.length - 80);
     return nextCount;
   }
 
   function hasEventSignal(state, signal) { return Boolean(state && state.world && Number(state.world.eventSignals && state.world.eventSignals[signal]) > 0); }
+
+  function recordRumor(state, signal, source, absoluteTime, text) {
+    if (!state.world.rumors) state.world.rumors = [];
+    const id = String(signal || "").trim();
+    const rumorText = String(text || "").trim();
+    if (!id || !rumorText) return null;
+
+    const day = Math.floor((Number(absoluteTime) || absoluteMinute(state)) / 1440);
+    let rumor = state.world.rumors.find(function (entry) { return entry.id === id; });
+
+    if (!rumor) {
+      rumor = {
+        id: id,
+        text: rumorText,
+        sources: [String(source || "unknown")],
+        confidence: 0.45,
+        firstSeenDay: day,
+        lastSeenDay: day,
+        confirmations: 1
+      };
+      state.world.rumors.push(rumor);
+    } else {
+      const sourceName = String(source || "unknown");
+      if (!rumor.sources.includes(sourceName)) {
+        rumor.sources.push(sourceName);
+        rumor.sources = rumor.sources.slice(-8);
+        rumor.confirmations += 1;
+        rumor.confidence = clamp(rumor.confidence + 0.15, 0, 0.95);
+      } else {
+        rumor.confidence = clamp(rumor.confidence + 0.03, 0, 0.9);
+      }
+      rumor.lastSeenDay = day;
+      rumor.text = rumorText;
+    }
+
+    if (state.world.rumors.length > 30) state.world.rumors.splice(0, state.world.rumors.length - 30);
+    return rumor;
+  }
 
   function advanceTime(state, minutes, rng) {
     state.world.minutes += Math.max(0, minutes);
@@ -182,6 +245,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
   Core.adjustRelation = adjustRelation;
   Core.recordEventSignal = recordEventSignal;
   Core.hasEventSignal = hasEventSignal;
+  Core.recordRumor = recordRumor;
   Core.getAbsoluteMinute = absoluteMinute;
   Core.DEFAULT_RELATIONS = DEFAULT_RELATIONS;
   Core.DEFAULT_ECONOMY = DEFAULT_ECONOMY;
