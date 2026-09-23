@@ -80,6 +80,16 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     };
   }
 
+  function appendLog(state, narrative, action, system) {
+    state.log.push({
+      time: (state.world.day + 1) + "일째 · " + getClock(state).text,
+      narrative: narrative,
+      action: action || null,
+      system: Boolean(system)
+    });
+    if (state.log.length > 60) state.log.shift();
+  }
+
   function advanceTime(state, minutes, rng) {
     state.world.minutes += Math.max(0, minutes);
     while (state.world.minutes >= 1440) {
@@ -99,4 +109,5 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
   Core.createDefaultState = createDefaultState;
   Core.getClock = getClock;
   Core.advanceTime = advanceTime;
+  Core.appendLog = appendLog;
 })(AnonymousRPG.Core);
