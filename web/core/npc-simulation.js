@@ -66,6 +66,9 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
       const moved = moveNpc(state, npc, routine.place);
       const effect = applyRoutineEffect(state, id, npc, routine);
       applyFactionDrift(state, npc, routine);
+      const goalEvent = entered && Core.progressNPCGoal
+        ? Core.progressNPCGoal(state, id, 1, absoluteMinute, routine.action)
+        : null;
       npc.lastAction = routine.action;
       npc.lastTick = absoluteMinute;
       npc.activeRoutineKey = key;
@@ -82,6 +85,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
       if (entered && routine.announce && npc.faction && Number(state.world.relations[npc.faction]) <= -60) {
         events.push(npc.name + "이(가) 당신에 대한 경계를 주변에 퍼뜨렸다.");
       }
+      if (goalEvent) events.push(goalEvent);
     });
 
     if (Core.simulateFactionWorld) {
@@ -95,6 +99,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
 
   Core.simulateNPCs = function (state) {
     if (!state || !state.npcs) return [];
+    if (Core.ensureNPCGoals) Core.ensureNPCGoals(state);
 
     const end = Core.getAbsoluteMinute(state);
     let cursor = Number(state.world.npcSimulationMinute);
