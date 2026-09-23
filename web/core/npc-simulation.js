@@ -4,8 +4,6 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
 (function (Core, Data) {
   const STEP_MINUTES = 30;
 
-  function absoluteMinute(state) { return state.world.day * 1440 + state.world.minutes; }
-
   function scheduleFor(npc, hour) {
     const schedule = npc.schedule || [];
     for (let i = 0; i < schedule.length; i += 1) {
@@ -39,39 +37,64 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     if (sentiment <= -60 && routine && routine.effect === "rumor") state.world.rumorPressure += 1;
   }
 
-  function simulateTick(state, absolute) {
-    const hour = Math.floor((absolute % 1440) / 60);
+  function simulateTick(state, absoluteMinute) {
+    const hour = Math.floor((absoluteMinute % 1440) / 60);
     const events = [];
+
     Object.keys(state.npcs).forEach(function (id) {
       const npc = state.npcs[id];
       const routine = scheduleFor(npc, hour);
       if (!routine) return;
+
       const moved = moveNpc(state, npc, routine.place);
       const effect = applyRoutineEffect(state, id, npc, routine);
       applyFactionDrift(state, npc, routine);
       npc.lastAction = routine.action;
-      npc.lastTick = absolute;
-      if (moved && routine.announce) events.push(npc.name + "이(가) " + Data.places[routine.place].name + "으로 이동했다.");
-      if (effect && routine.announce) events.push(npc.name + "이(가) " + routine.action + "을(를) 했다.");
+      npc.lastTick = absoluteMinute;
+
+      if (moved && routine.announce) {
+        events.push(npc.name + "이(가) " + Data.places[routine.place].name + "으로 이동했다.");
+      }
+      if (effect && routine.announce) {
+        events.push(npc.name + "이(가) " + routine.action + "을(를) 했다.");
+      }
       if (routine.announce && npc.faction && Number(state.world.relations[npc.faction]) <= -60) {
         events.push(npc.name + "이(가) 당신에 대한 경계를 주변에 퍼뜨렸다.");
       }
     });
+
     return events;
   }
 
-  Core.simulateNPCs = function (state, elapsedMinutes) {
-    const elapsed = Math.max(0, Number(elapsedMinutes) || 0);
-    if (!elapsed || !state.npcs) return [];
-    const end = absoluteMinute(state);
-    const start = Math.max(0, end - elapsed);
-    const firstTick = Math.ceil(start / STEP_MINUTES) * STEP_MINUTES;
-    const events = [];
-    for (let tick = firstTick; tick <= end; tick += STEP_MINUTES) {
-      simulateTick(state, tick).forEach(function (event) { events.push(event); });
+  Core.simulateNPCs = function (state) {
+    if (!state || !state.npcs) return [];
+
+    const end = Core.getAbsoluteMinute(state);
+    let cursor = Number(state.world.npcSimulationMinute);
+
+    if (!Number.isFinite(cursor)) {
+      cursor = end;
     }
+
+    if (cursor > end) {
+      cursor = end;
+    }
+
+    if (cursor === end) {
+      state.world.npcSimulationMinute = end;
+      return [];
+    }
+
+    const firstTick = Math.floor(cursor / STEP_MINUTES) * STEP_MINUTES + STEP_MINUTES;
+    const events = [];
+
+    for (let tick = firstTick; tick <= end; tick += STEP_MINUTES) {
+      simulateTick(state, tick).forEach(function (event) {
+        events.push(event);
+      });
+    }
+
+    state.world.npcSimulationMinute = end;
     return events.length > 8 ? events.slice(-8) : events;
   };
-
-  Core.getAbsoluteMinute = absoluteMinute;
 })(AnonymousRPG.Core, AnonymousRPG.Data);
