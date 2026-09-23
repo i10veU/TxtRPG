@@ -84,6 +84,12 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
       }
     });
 
+    if (Core.simulateFactionWorld) {
+      Core.simulateFactionWorld(state, absoluteMinute).forEach(function (event) {
+        events.push(event);
+      });
+    }
+
     return events;
   }
 
@@ -93,14 +99,8 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     const end = Core.getAbsoluteMinute(state);
     let cursor = Number(state.world.npcSimulationMinute);
 
-    if (!Number.isFinite(cursor)) {
-      cursor = end;
-    }
-
-    if (cursor > end) {
-      cursor = end;
-    }
-
+    if (!Number.isFinite(cursor)) cursor = end;
+    if (cursor > end) cursor = end;
     if (cursor === end) {
       state.world.npcSimulationMinute = end;
       return [];
