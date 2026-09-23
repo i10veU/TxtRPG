@@ -1,7 +1,7 @@
 window.AnonymousRPG = window.AnonymousRPG || {};
 AnonymousRPG.UI = AnonymousRPG.UI || {};
 
-AnonymousRPG.UI.bindInput = function (worker) {
+AnonymousRPG.UI.bindInput = function (dispatch) {
   const form = document.getElementById("actionForm");
   const input = document.getElementById("actionInput");
 
@@ -9,7 +9,7 @@ AnonymousRPG.UI.bindInput = function (worker) {
     event.preventDefault();
     const text = input.value.trim();
     if (!text) return;
-    worker.postMessage({ type: "ACTION", text: text });
+    dispatch(text);
     input.value = "";
     input.focus();
   });
