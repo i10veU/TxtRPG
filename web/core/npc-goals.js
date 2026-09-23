@@ -208,10 +208,9 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     if (!npc || !npc.goalState || npc.goalState.status !== "active") return null;
 
     const goal = npc.goalState;
-    if (!isRelevantRoutine(goal, reason)) return null;
-
     const reviewEvent = review(state, id, absoluteMinute);
     if (goal.status !== "active") return reviewEvent;
+    if (!isRelevantRoutine(goal, reason)) return reviewEvent;
 
     const pressure = organizationPressure(state, npc);
     const multiplier = pressure >= 2 ? 2 : 1;
