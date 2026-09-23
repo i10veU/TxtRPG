@@ -27,6 +27,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
       day: 0,
       minutes: 360,
       npcSimulationMinute: 360,
+      factionSimulationDay: -1,
       grainSupply: 72,
       tension: 25,
       security: 62,
@@ -38,7 +39,8 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
         recordInconsistency: false,
         nightCargo: false,
         warehouseSuspicion: false,
-        ruralDelegation: false
+        ruralDelegation: false,
+        factionConflict: false
       },
       eventSignals: {},
       eventHistory: [],
@@ -49,22 +51,13 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     log: []
   };
 
-  function clone(value) {
-    return JSON.parse(JSON.stringify(value));
-  }
-
-  function clamp(value, min, max) {
-    return Math.max(min, Math.min(max, value));
-  }
-
-  function absoluteMinute(state) {
-    return state.world.day * 1440 + state.world.minutes;
-  }
+  function clone(value) { return JSON.parse(JSON.stringify(value)); }
+  function clamp(value, min, max) { return Math.max(min, Math.min(max, value)); }
+  function absoluteMinute(state) { return state.world.day * 1440 + state.world.minutes; }
 
   function normalizeSignalMap(input) {
     const output = {};
     if (!input || typeof input !== "object") return output;
-
     Object.keys(input).forEach(function (key) {
       const value = Number(input[key]);
       if (Number.isFinite(value) && value > 0) output[key] = Math.floor(value);
@@ -75,9 +68,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
   function normalizeEventHistory(input) {
     if (!Array.isArray(input)) return [];
     return input.filter(function (entry) {
-      return entry && typeof entry === "object" &&
-        typeof entry.signal === "string" &&
-        typeof entry.source === "string";
+      return entry && typeof entry === "object" && typeof entry.signal === "string" && typeof entry.source === "string";
     }).slice(-80);
   }
 
@@ -99,7 +90,6 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     Object.keys(DEFAULT_RELATIONS).forEach(function (faction) {
       state.world.relations[faction] = clamp(Number(state.world.relations[faction]) || 0, -100, 100);
     });
-
     state.world.grainSupply = clamp(Number(state.world.grainSupply) || 0, 0, 100);
     state.world.tension = clamp(Number(state.world.tension) || 0, 0, 100);
     state.world.security = clamp(Number(state.world.security) || 0, 0, 100);
@@ -107,9 +97,9 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
 
     const currentAbsolute = absoluteMinute(state);
     const savedSimulationMinute = Number(input && input.world && input.world.npcSimulationMinute);
-    state.world.npcSimulationMinute = Number.isFinite(savedSimulationMinute)
-      ? Math.min(savedSimulationMinute, currentAbsolute)
-      : currentAbsolute;
+    state.world.npcSimulationMinute = Number.isFinite(savedSimulationMinute) ? Math.min(savedSimulationMinute, currentAbsolute) : currentAbsolute;
+    const savedFactionDay = Number(input && input.world && input.world.factionSimulationDay);
+    state.world.factionSimulationDay = Number.isFinite(savedFactionDay) ? savedFactionDay : -1;
 
     state.player.hp = clamp(Number(state.player.hp) || 0, 0, state.player.maxHp);
     state.player.fatigue = clamp(Number(state.player.fatigue) || 0, 0, state.player.maxFatigue);
@@ -125,20 +115,11 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
   function getClock(state) {
     const h = Math.floor(state.world.minutes / 60);
     const minute = state.world.minutes % 60;
-    return {
-      text: String(h).padStart(2, "0") + ":" + String(minute).padStart(2, "0"),
-      part: h < 6 ? "심야" : h < 9 ? "이른 아침" : h < 12 ? "오전" :
-        h < 14 ? "정오" : h < 18 ? "오후" : h < 21 ? "해질녘" : "밤"
-    };
+    return { text: String(h).padStart(2, "0") + ":" + String(minute).padStart(2, "0"), part: h < 6 ? "심야" : h < 9 ? "이른 아침" : h < 12 ? "오전" : h < 14 ? "정오" : h < 18 ? "오후" : h < 21 ? "해질녘" : "밤" };
   }
 
   function appendLog(state, narrative, action, system) {
-    state.log.push({
-      time: (state.world.day + 1) + "일째 · " + getClock(state).text,
-      narrative: narrative,
-      action: action || null,
-      system: Boolean(system)
-    });
+    state.log.push({ time: (state.world.day + 1) + "일째 · " + getClock(state).text, narrative: narrative, action: action || null, system: Boolean(system) });
     if (state.log.length > 60) state.log.shift();
   }
 
@@ -152,31 +133,16 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
   function recordEventSignal(state, signal, source, absoluteTime, text) {
     if (!state.world.eventSignals) state.world.eventSignals = {};
     if (!state.world.eventHistory) state.world.eventHistory = [];
-
     const key = String(signal || "").trim();
     if (!key) return 0;
-
     const nextCount = (Number(state.world.eventSignals[key]) || 0) + 1;
     state.world.eventSignals[key] = nextCount;
-
-    state.world.eventHistory.push({
-      signal: key,
-      source: String(source || "unknown"),
-      minute: Number(absoluteTime) || absoluteMinute(state),
-      text: text ? String(text) : null,
-      count: nextCount
-    });
-
-    if (state.world.eventHistory.length > 80) {
-      state.world.eventHistory.splice(0, state.world.eventHistory.length - 80);
-    }
-
+    state.world.eventHistory.push({ signal: key, source: String(source || "unknown"), minute: Number(absoluteTime) || absoluteMinute(state), text: text ? String(text) : null, count: nextCount });
+    if (state.world.eventHistory.length > 80) state.world.eventHistory.splice(0, state.world.eventHistory.length - 80);
     return nextCount;
   }
 
-  function hasEventSignal(state, signal) {
-    return Boolean(state && state.world && Number(state.world.eventSignals && state.world.eventSignals[signal]) > 0);
-  }
+  function hasEventSignal(state, signal) { return Boolean(state && state.world && Number(state.world.eventSignals && state.world.eventSignals[signal]) > 0); }
 
   function advanceTime(state, minutes, rng) {
     state.world.minutes += Math.max(0, minutes);
