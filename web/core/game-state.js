@@ -56,6 +56,8 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
       organizations: {},
       organizationRelations: {},
       organizationRelationDay: -1,
+      npcRelations: {},
+      npcRelationDay: -1,
       discovered: [],
       cases: []
     },
@@ -125,6 +127,11 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
       : {};
     const relationDay = Number(input && input.world && input.world.organizationRelationDay);
     state.world.organizationRelationDay = Number.isFinite(relationDay) ? relationDay : -1;
+    state.world.npcRelations = input && input.world && input.world.npcRelations && typeof input.world.npcRelations === "object"
+      ? input.world.npcRelations
+      : {};
+    const npcRelationDay = Number(input && input.world && input.world.npcRelationDay);
+    state.world.npcRelationDay = Number.isFinite(npcRelationDay) ? npcRelationDay : -1;
     state.world.discovered = Array.isArray(state.world.discovered) ? state.world.discovered : [];
     state.world.cases = Array.isArray(state.world.cases) ? state.world.cases : [];
     state.npcs = input && input.npcs && typeof input.npcs === "object" ? input.npcs : {};
