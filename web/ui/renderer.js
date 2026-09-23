@@ -88,8 +88,12 @@ AnonymousRPG.UI = AnonymousRPG.UI || {};
       const goalText = goalState
         ? " · " + (goalState.status === "blocked" ? "중단" : "목표") + " " + goalState.progress + "/" + goalState.target + " · 우선 " + goalState.priority
         : "";
+      const npcId = Object.keys(state.npcs).find(function (id) { return state.npcs[id] === npc; });
+      const relationCount = Object.keys(state.world.npcRelations || {}).filter(function (key) {
+        return key.split(":").includes(npcId);
+      }).length;
       return "<li><span>" + esc(npc.name) + "</span><small>" +
-        esc(npcPlace ? npcPlace.name : npc.place) + " · " + esc(faction) + " · " +
+        esc(npcPlace ? npcPlace.name : npc.place) + " · " + esc(faction) + " · 관계 " + relationCount + " · " +
         esc(stateText) + esc(goalText) + "</small></li>";
     });
     document.getElementById("npcList").innerHTML = npcList.join("") || "<li>없음</li>";
