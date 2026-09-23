@@ -1,29 +1,7 @@
 name: TxtRPG Runtime CI
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - "web/**"
-      - "tests/**"
-      - ".github/workflows/**"
-      - "package.json"
-      - "package-lock.json"
-  pull_request:
-    paths:
-      - "web/**"
-      - "tests/**"
-      - ".github/workflows/**"
-      - "package.json"
-      - "package-lock.json"
   workflow_dispatch:
-
-concurrency:
-  group: txtrpg-runtime-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
-permissions:
-  contents: read
 
 jobs:
   unit:
