@@ -68,6 +68,7 @@ const conflictEvents = RPG.Core.simulateNPCRelations(state, RPG.Core.getAbsolute
 assert(conflictEvents.some((event) => event.includes("충돌") || event.includes("대립") || event.includes("마찰")));
 assert(Object.keys(state.world.eventSignals).some((key) => key.indexOf("npcConflict:") === 0));
 assert(state.world.rumors.some((rumor) => rumor.id.indexOf("npcConflict:") === 0));
+const initialConflictSignalCount = Object.entries(state.world.eventSignals).filter(([key]) => key.indexOf("npcConflict:") === 0).reduce((sum, [, value]) => sum + Number(value), 0);
 
 RPG.Data.ensureCases(state);
 const dispute = state.world.cases.find((entry) => entry.id === "npc-dispute");
@@ -95,7 +96,11 @@ for (let day = 2; day < 365; day += 1) {
     assert(relation.score >= -100 && relation.score <= 100);
     assert(["cooperation", "conflict", "neutral"].includes(relation.mode));
   }
+  assert(state.world.tension >= 0 && state.world.tension <= 100);
+  assert(state.world.rumorPressure >= 0 && state.world.rumorPressure <= 100);
 }
+const finalConflictSignalCount = Object.entries(state.world.eventSignals).filter(([key]) => key.indexOf("npcConflict:") === 0).reduce((sum, [, value]) => sum + Number(value), 0);
+assert(finalConflictSignalCount - initialConflictSignalCount <= 130);
 
 console.log("Phase 269 NPC relations: PASS");
 console.log("NPC cooperation / conflict bridge: PASS");
