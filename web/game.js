@@ -28,6 +28,7 @@ window.AnonymousRPG = window.AnonymousRPG || {};
     const relationshipEvents = RPG.Core.simulateOrganizationRelations ? RPG.Core.simulateOrganizationRelations(state, after) : [];
     const npcRelationEvents = RPG.Core.simulateNPCRelations ? RPG.Core.simulateNPCRelations(state, after) : [];
     const economyEvent = RPG.Core.simulateEconomy(state, after);
+    const regionalEconomyEvent = RPG.Core.simulateRegionalEconomy ? RPG.Core.simulateRegionalEconomy(state, after) : null;
     if (result.narrative) RPG.Core.appendLog(state, result.narrative, result.action);
     npcEvents.forEach(function (event) {
       RPG.Core.appendLog(state, event, null, true);
@@ -42,6 +43,7 @@ window.AnonymousRPG = window.AnonymousRPG || {};
       RPG.Core.appendLog(state, event, null, true);
     });
     if (economyEvent) RPG.Core.appendLog(state, economyEvent, null, true);
+    if (regionalEconomyEvent) RPG.Core.appendLog(state, regionalEconomyEvent, null, true);
     RPG.UI.render(state);
     queuePersist();
   }
@@ -110,6 +112,7 @@ window.AnonymousRPG = window.AnonymousRPG || {};
       : RPG.Core.createDefaultState(RPG.Data.npcs);
 
     RPG.Core.ensureEconomy(state);
+    if (RPG.Core.ensureRegionalEconomy) RPG.Core.ensureRegionalEconomy(state);
     RPG.Core.ensureOrganizations(state);
     if (RPG.Core.ensureOrganizationRelations) RPG.Core.ensureOrganizationRelations(state);
     if (RPG.Core.ensureNPCRelations) RPG.Core.ensureNPCRelations(state);
