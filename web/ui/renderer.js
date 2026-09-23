@@ -48,6 +48,7 @@ AnonymousRPG.UI = AnonymousRPG.UI || {};
   UI.render = function (state) {
     const place = Data.places[state.player.place];
     const clock = Core.getClock(state);
+    const economy = state.world.economy || { prices: { grain: 10 }, stock: { grain: 24 } };
 
     document.getElementById("location").textContent = "세르카 · " + (place ? place.name : state.player.place);
     document.getElementById("dateText").textContent = "183 · " + (state.world.day + 1) + "일";
@@ -61,6 +62,8 @@ AnonymousRPG.UI = AnonymousRPG.UI || {};
     document.getElementById("overlayHp").textContent = state.player.hp + "/" + state.player.maxHp;
     document.getElementById("overlayFatigue").textContent = state.player.fatigue + "/" + state.player.maxFatigue;
     document.getElementById("overlayMoney").textContent = state.player.money;
+    document.getElementById("overlayGrain").textContent = (Number(economy.prices.grain) || 10) + "G";
+    document.getElementById("overlayGrainStock").textContent = Number(economy.stock.grain) || 0;
 
     document.getElementById("inventoryList").innerHTML =
       Object.entries(state.player.inventory).map(function (entry) {
