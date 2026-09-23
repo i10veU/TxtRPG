@@ -67,7 +67,8 @@ AnonymousRPG.UI.bindInput = function (dispatch) {
       "3":["NPC","npc"],
       "4":["FACTIONS","faction"],
       "5":["CASES","cases"],
-      "6":["RUMORS","rumors"]
+      "6":["RUMORS","rumors"],
+      "7":["ORGANIZATIONS","organizations"]
     };
 
     const item = panels[event.key];
