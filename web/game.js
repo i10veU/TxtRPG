@@ -24,10 +24,12 @@ window.AnonymousRPG = window.AnonymousRPG || {};
     const result = RPG.Core.resolveAction(state, text);
     const after = RPG.Core.getAbsoluteMinute(state);
     const npcEvents = RPG.Core.simulateNPCs(state, Math.max(0, after - before));
+    const economyEvent = RPG.Core.simulateEconomy(state, after);
     if (result.narrative) RPG.Core.appendLog(state, result.narrative, result.action);
     npcEvents.forEach(function (event) {
       RPG.Core.appendLog(state, event, null, true);
     });
+    if (economyEvent) RPG.Core.appendLog(state, economyEvent, null, true);
     RPG.UI.render(state);
     queuePersist();
   }
@@ -95,6 +97,7 @@ window.AnonymousRPG = window.AnonymousRPG || {};
       ? RPG.Core.normalizeState(loaded.state)
       : RPG.Core.createDefaultState(RPG.Data.npcs);
 
+    RPG.Core.ensureEconomy(state);
     RPG.Data.ensureCases(state);
 
     if (!state.log.length) {
@@ -126,6 +129,7 @@ window.AnonymousRPG = window.AnonymousRPG || {};
         return;
       }
       state = RPG.Core.createDefaultState(RPG.Data.npcs);
+      RPG.Core.ensureEconomy(state);
       RPG.Data.ensureCases(state);
       RPG.UI.render(state);
       persist();
