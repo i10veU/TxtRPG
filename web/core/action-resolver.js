@@ -112,6 +112,33 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     return { narrative: lines.join(" / "), action: text, changed: false };
   }
 
+  function organizationRelationCommand(state, text) {
+    if (!/^(?:조직관계|관계망|조직협력|조직충돌)$/.test(text.trim())) return null;
+    if (!Core.ensureOrganizationRelations) {
+      return { narrative: "조직 관계망이 아직 초기화되지 않았다.", action: text, changed: false };
+    }
+    Core.ensureOrganizationRelations(state);
+    const names = {
+      merchants: "상인회",
+      rural: "농촌 대표단",
+      guard: "경비대",
+      workers: "노동자 조합",
+      archive: "기록관",
+      innkeepers: "여관망"
+    };
+    const lines = Object.keys(state.world.organizationRelations).map(function (key) {
+      const relation = state.world.organizationRelations[key];
+      const parts = key.split(":");
+      const mode = relation.mode === "cooperation" ? "협력" : relation.mode === "conflict" ? "충돌" : "중립";
+      return names[parts[0]] + " ↔ " + names[parts[1]] + " [" + mode + " " + relation.score + "]";
+    });
+    return {
+      narrative: lines.join(" / ") || "조직 관계가 아직 기록되지 않았다.",
+      action: text,
+      changed: false
+    };
+  }
+
   function economyCommand(state, text) {
     if (typeof Core.ensureEconomy !== "function" || typeof Core.tradeGrain !== "function" || typeof Core.getGrainPrice !== "function") return null;
     const normalized = text.replace(/\s+/g, " ").trim();
@@ -133,6 +160,8 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     if (typeof Core.ensureEconomy === "function") Core.ensureEconomy(state);
     const economy = economyCommand(state, input);
     if (economy) return economy;
+    const organizationRelations = organizationRelationCommand(state, input);
+    if (organizationRelations) return organizationRelations;
     const rumor = rumorCommand(state, input);
     if (rumor) return rumor;
     const npcGoal = npcGoalCommand(state, input);
