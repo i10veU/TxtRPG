@@ -16,6 +16,7 @@ function runAction(text) {
   const npcEvents = AnonymousRPG.Core.simulateNPCs(state, elapsed);
   const organizationEvents = AnonymousRPG.Core.simulateOrganizations(state, after);
   const relationshipEvents = AnonymousRPG.Core.simulateOrganizationRelations ? AnonymousRPG.Core.simulateOrganizationRelations(state, after) : [];
+  const npcRelationEvents = AnonymousRPG.Core.simulateNPCRelations ? AnonymousRPG.Core.simulateNPCRelations(state, after) : [];
   const economyEvent = AnonymousRPG.Core.simulateEconomy(state, after);
 
   if (result.narrative) AnonymousRPG.Core.appendLog(state, result.narrative, result.action);
@@ -26,6 +27,9 @@ function runAction(text) {
     AnonymousRPG.Core.appendLog(state, event, null, true);
   });
   relationshipEvents.forEach(function (event) {
+    AnonymousRPG.Core.appendLog(state, event, null, true);
+  });
+  npcRelationEvents.forEach(function (event) {
     AnonymousRPG.Core.appendLog(state, event, null, true);
   });
   if (economyEvent) AnonymousRPG.Core.appendLog(state, economyEvent, null, true);
@@ -44,6 +48,7 @@ self.onmessage = function (event) {
       AnonymousRPG.Core.ensureEconomy(state);
       AnonymousRPG.Core.ensureOrganizations(state);
       if (AnonymousRPG.Core.ensureOrganizationRelations) AnonymousRPG.Core.ensureOrganizationRelations(state);
+      if (AnonymousRPG.Core.ensureNPCRelations) AnonymousRPG.Core.ensureNPCRelations(state);
       if (AnonymousRPG.Core.ensureNPCGoals) AnonymousRPG.Core.ensureNPCGoals(state);
       AnonymousRPG.Data.ensureCases(state);
       reply("READY", { state: state });
