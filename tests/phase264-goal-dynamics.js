@@ -76,6 +76,7 @@ state.world.minutes = 360;
 const replanEvents = RPG.Core.simulateOrganizations(state, RPG.Core.getAbsoluteMinute(state));
 assert(replanEvents.some((event) => event.includes("목표를 재계획했다")));
 assert.strictEqual(state.npcs.mara.goalState.replanCount, 1);
+assert(state.npcs.mara.goalState.replanCooldownUntil > RPG.Core.getAbsoluteMinute(state));
 assert.notStrictEqual(state.npcs.mara.goalState.goalText, "");
 
 state.npcs.mara.goalState.status = "active";
@@ -100,6 +101,8 @@ for (let day = 4; day < 365; day += 1) {
   assert(Object.values(state.npcs).every((npc) => npc.goalState.progress >= 0));
   assert(Object.values(state.npcs).every((npc) => npc.goalState.target >= 1));
 }
+assert(state.npcs.mara.goalState.replanCount < 150);
+assert(state.npcs.marta.goalState.replanCount < 150);
 
 console.log("Phase 264 organization-linked NPC goals: PASS");
 console.log("Goal blocking / resume / replanning: PASS");
