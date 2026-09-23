@@ -38,10 +38,12 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
         recordInconsistency: false,
         nightCargo: false,
         warehouseSuspicion: false,
-        ruralDelegation: false
+        ruralDelegation: false,
+        factionConflict: false
       },
       eventSignals: {},
       eventHistory: [],
+      factionSimulationDay: -1,
       discovered: [],
       cases: []
     },
@@ -90,6 +92,9 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     state.world.flags = Object.assign({}, DEFAULT_STATE.world.flags, input && input.world && input.world.flags || {});
     state.world.eventSignals = normalizeSignalMap(input && input.world && input.world.eventSignals);
     state.world.eventHistory = normalizeEventHistory(input && input.world && input.world.eventHistory);
+    state.world.factionSimulationDay = Number.isFinite(Number(input && input.world && input.world.factionSimulationDay))
+      ? Math.floor(Number(input.world.factionSimulationDay))
+      : -1;
     state.world.discovered = Array.isArray(state.world.discovered) ? state.world.discovered : [];
     state.world.cases = Array.isArray(state.world.cases) ? state.world.cases : [];
     state.npcs = input && input.npcs && typeof input.npcs === "object" ? input.npcs : {};
