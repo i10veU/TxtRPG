@@ -52,7 +52,7 @@ assert(state.world.rumorPressure >= 1);
 const securityAfterFirst = state.world.security;
 const stockAfterFirst = state.world.economy.stock.grain;
 const eventsSecond = RPG.Core.simulateOrganizations(state, RPG.Core.getAbsoluteMinute(state));
-assert.deepStrictEqual(eventsSecond, []);
+assert.strictEqual(eventsSecond.length, 0);
 assert.strictEqual(state.world.security, securityAfterFirst);
 assert.strictEqual(state.world.economy.stock.grain, stockAfterFirst);
 
