@@ -43,9 +43,10 @@ let state = RPG.Core.createDefaultState(RPG.Data.npcs);
 assert.strictEqual(state.schemaVersion, 3);
 assert.strictEqual(state.world.npcSimulationMinute, 360);
 
-const eventsAt630 = RPG.Core.simulateNPCs(state, 1);
-assert.strictEqual(eventsAt630.length, 0);
+const eventsAt600 = RPG.Core.simulateNPCs(state, 1);
+assert.strictEqual(eventsAt600.length, 0);
 assert.strictEqual(state.world.npcSimulationMinute, 360);
+assert.strictEqual(state.npcs.orel.place, "alley");
 
 state.world.minutes = 390;
 RPG.Core.simulateNPCs(state);
