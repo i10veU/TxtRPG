@@ -58,6 +58,8 @@ jobs:
         run: node tests/phase266-organization-events.js
       - name: Case consequence regression
         run: node tests/phase267-case-consequences.js
+      - name: Economic pressure regression
+        run: node tests/phase268-economic-pressure.js
 
   browser:
     name: Browser smoke
