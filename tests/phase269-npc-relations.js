@@ -54,7 +54,7 @@ assert.strictEqual(state.world.npcRelationDay, 0);
 assert(Object.values(state.world.npcRelations).some((entry) => entry.mode === "cooperation"));
 
 const secondEvents = RPG.Core.simulateNPCRelations(state, RPG.Core.getAbsoluteMinute(state));
-assert.deepStrictEqual(secondEvents, []);
+assert.strictEqual(secondEvents.length, 0);
 
 state.world.day = 1;
 state.world.minutes = 360;
