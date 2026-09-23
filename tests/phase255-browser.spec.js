@@ -12,6 +12,10 @@ test.describe("TxtRPG browser runtime", () => {
 
     await page.goto("http://127.0.0.1:4173/", { waitUntil: "networkidle" });
 
+    const screen = await page.locator(".game").boundingBox();
+    expect(screen.width).toBe(100);
+    expect(screen.height).toBe(200);
+
     await expect(page).toHaveTitle(/무명의 연대기/);
     await expect(page.locator("#storyBody .turn")).toHaveCount(2);
     await expect(page.locator("#location")).toHaveText(/세르카/);
@@ -28,6 +32,12 @@ test.describe("TxtRPG browser runtime", () => {
     const runtime = await page.evaluate(() => window.AnonymousRPGApp.getRuntimeStatus());
     expect(runtime.workerActive).toBe(true);
     expect(runtime.storage).toBe("AnonymousChroniclesDB");
+
+    await page.keyboard.press("1");
+    await expect(page.locator(".overlay")).toHaveClass(/is-open/);
+    await expect(page.locator("#overlayTitle")).toHaveText("STATUS");
+    await page.keyboard.press("Escape");
+    await expect(page.locator(".overlay")).not.toHaveClass(/is-open/);
 
     const before = await page.evaluate(() => {
       const state = window.AnonymousRPGApp.getState();
