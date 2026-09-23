@@ -80,6 +80,20 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     return Data.resolveCase(state, caseId, choiceId);
   }
 
+  function rumorCommand(state, text) {
+    if (!/^소문(?:목록)?$|^rumors?$/i.test(text.trim())) return null;
+    const rumors = Array.isArray(state.world.rumors) ? state.world.rumors.slice().sort(function (a, b) {
+      return (b.lastSeenDay - a.lastSeenDay) || (b.confidence - a.confidence);
+    }) : [];
+    if (!rumors.length) {
+      return { narrative: "아직 뚜렷한 소문을 들은 적이 없다.", action: text, changed: false };
+    }
+    const lines = rumors.slice(0, 6).map(function (rumor, index) {
+      return (index + 1) + ". " + rumor.text + " [확신 " + Math.round(rumor.confidence * 100) + "%]";
+    });
+    return { narrative: lines.join(" / "), action: text, changed: false };
+  }
+
   function economyCommand(state, text) {
     if (typeof Core.ensureEconomy !== "function" || typeof Core.tradeGrain !== "function" || typeof Core.getGrainPrice !== "function") return null;
     const normalized = text.replace(/\s+/g, " ").trim();
@@ -101,6 +115,8 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     if (typeof Core.ensureEconomy === "function") Core.ensureEconomy(state);
     const economy = economyCommand(state, input);
     if (economy) return economy;
+    const rumor = rumorCommand(state, input);
+    if (rumor) return rumor;
     let result = caseCommand(state, input);
     if (result !== null) {
       if (typeof result === "string") return { narrative: result, action: input, changed: true };
