@@ -52,23 +52,23 @@ const grainBefore = state.world.grainSupply;
 state.world.minutes = 390;
 RPG.Core.simulateNPCs(state);
 assert.strictEqual(state.world.npcSimulationMinute, 390);
-assert.strictEqual(state.world.grainSupply, grainBefore + 1);
+assert.strictEqual(state.world.grainSupply, grainBefore + 2);
 assert.strictEqual(state.npcs.orel.place, "alley");
 
 RPG.Core.simulateNPCs(state);
 assert.strictEqual(state.world.npcSimulationMinute, 390);
-assert.strictEqual(state.world.grainSupply, grainBefore + 1);
+assert.strictEqual(state.world.grainSupply, grainBefore + 2);
 
 state.world.minutes = 405;
 RPG.Core.simulateNPCs(state);
 assert.strictEqual(state.world.npcSimulationMinute, 405);
-assert.strictEqual(state.world.grainSupply, grainBefore + 1);
+assert.strictEqual(state.world.grainSupply, grainBefore + 2);
 assert.strictEqual(state.npcs.orel.place, "alley");
 
 state.world.minutes = 420;
 RPG.Core.simulateNPCs(state);
 assert.strictEqual(state.world.npcSimulationMinute, 420);
-assert.strictEqual(state.world.grainSupply, grainBefore + 2);
+assert.strictEqual(state.world.grainSupply, grainBefore + 4);
 assert.strictEqual(state.npcs.orel.place, "market");
 assert.strictEqual(state.npcs.orel.lastTick, 420);
 
