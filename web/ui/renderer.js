@@ -18,7 +18,7 @@ AnonymousRPG.UI = AnonymousRPG.UI || {};
     document.getElementById("fatigueText").textContent = state.player.fatigue + "/" + state.player.maxFatigue;
 
     document.getElementById("inventoryList").innerHTML = Object.entries(state.player.inventory).map(function (entry) {
-      return "<li><span>" + esc(entry[0]) + "</span><b>" + esc(entry[1]) + "</b></li>";
+      return '<li><span>' + esc(entry[0]) + '</span><b>' + esc(entry[1]) + '</b></li>';
     }).join("");
 
     const discovered = Array.from(new Set(state.world.discovered));
@@ -34,10 +34,10 @@ AnonymousRPG.UI = AnonymousRPG.UI || {};
       "<li>아직 없음</li>";
 
     document.getElementById("storyBody").innerHTML = state.log.map(function (turn) {
-      return "<article class="turn">" +
-        "<div class="time">" + esc(turn.time) + "</div>" +
-        (turn.action ? "<div class="actionText">" + esc(turn.action) + "</div>" : "") +
-        "<div class="" + (turn.system ? "system" : "narrative") + "">" + esc(turn.narrative) + "</div>" +
+      return '<article class="turn">' +
+        '<div class="time">' + esc(turn.time) + '</div>' +
+        (turn.action ? '<div class="actionText">' + esc(turn.action) + '</div>' : "") +
+        '<div class="' + (turn.system ? "system" : "narrative") + '">' + esc(turn.narrative) + '</div>' +
         "</article>";
     }).join("");
 
