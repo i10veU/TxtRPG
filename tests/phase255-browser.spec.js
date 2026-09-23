@@ -21,6 +21,7 @@ test.describe("TxtRPG browser runtime", () => {
     await expect(page.locator("#location")).toHaveText(/세르카/);
     await expect(page.locator("#npcList li")).toHaveCount(7);
     await expect(page.locator("#relationList li")).toHaveCount(6);
+    await expect(page.locator("#organizationList li")).toHaveCount(6);
 
     await expect.poll(async () => {
       return page.evaluate(() => {
