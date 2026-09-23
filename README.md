@@ -23,6 +23,7 @@
 - [Phase 255 브라우저 런타임 스모크 테스트](docs/phase255-browser-smoke.md)
 - [Phase 256 NPC 일정 효과/알림 주기 분리](docs/phase256-npc-routine-cadence.md)
 - [Phase 257 NPC 사건 Trigger 연결](docs/phase257-npc-event-triggers.md)
+- [Phase 257 세력 압력과 연쇄 사건](docs/phase257-faction-world.md)
 - [Phase 1–205 파일 목록](docs/phase1-205-file-manifest.md)
 
 ## 문서
@@ -52,7 +53,7 @@ web/index.html을 Edge/Chromium 계열 브라우저에서 열면 현재 TXT RPG 
 
 web/ 아래에서 상태, 데이터, 입력, 렌더링, 저장, Worker를 분리하여 유지합니다.
 
-- core/: 상태, 액션 해석, NPC 시뮬레이션
+- core/: 상태, 액션 해석, NPC/세력 시뮬레이션
 - data/: 지역/NPC/사건 데이터
 - storage/: IndexedDB 저장 계층
 - worker/: 게임 시뮬레이션
@@ -66,16 +67,17 @@ NPC 일정의 생산·치안·소문 같은 효과는 활동 중인 30분 틱마
 
 NPC 일정은 필요할 때 event signal을 생성하며, 이 신호는 기존 사건 Trigger와 연결되어 NPC의 자율 행동이 새로운 사건을 열 수 있다.
 
+세력 관계는 곡물·치안·긴장·행정 신뢰·소문 압력에 따라 하루 단위로 변화하며, 적대 세력이 동시에 늘어나면 세력 충돌 사건이 생성된다. 충돌 사건의 선택은 다시 세력 관계와 세계 상태에 영향을 준다.
+
 브라우저 smoke test는 실제 Chromium에서 Worker 실행, IndexedDB 저장, 액션 처리, 페이지 새로고침 후 복원을 검증한다.
 
 ## 다음 단계
 
 1. NPC 목표를 구조화하고 관계/소문 시스템 연결
-2. NPC 행동이 사건 Trigger를 직접 발생시키도록 연결
-3. 조직 단위 의사결정 추가
-4. 동적 경제 시스템 재통합
-5. 사건 간 인과망 확장
-6. 대규모 데이터 저장/장기 시뮬레이션 회귀 테스트
+2. 조직 단위 의사결정 추가
+3. 동적 경제 시스템 재통합
+4. 사건 간 인과망 확장
+5. 대규모 데이터 저장/장기 시뮬레이션 회귀 테스트
 
 ## 프로젝트 원칙
 
