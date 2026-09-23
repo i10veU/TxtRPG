@@ -86,8 +86,10 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     const entries = Object.keys(state.npcs || {}).map(function (id) {
       const npc = state.npcs[id];
       const goal = npc.goalState;
-      return (goal.status === "complete" ? "✓ " : "· ") +
-        npc.name + " — " + npc.goal + " [" + goal.progress + "/" + goal.target + "]";
+      const marker = goal.status === "complete" ? "✓ " : goal.status === "blocked" ? "! " : "· ";
+      const reason = goal.blockedReason ? " · " + goal.blockedReason : "";
+      return marker + npc.name + " — " + (goal.goalText || npc.goal) +
+        " [" + goal.progress + "/" + goal.target + "] 우선 " + goal.priority + reason;
     });
     return {
       narrative: entries.join(" / ") || "확인할 인물 목표가 없다.",
