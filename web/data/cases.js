@@ -34,7 +34,11 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
     },
     "faction-conflict": {
       title: "갈라진 도시의 이해관계", summary: "서로 다른 세력이 같은 문제를 두고 공개적으로 충돌하기 시작했다.",
-      trigger: function (state) { return Boolean(state.world.flags.factionConflict); },
+      trigger: function (state) {
+        const signals = state.world.eventSignals || {};
+        const organizationConflict = Object.keys(signals).some(function (key) { return key.indexOf("organizationConflict:") === 0 && Number(signals[key]) > 0; });
+        return Boolean(state.world.flags.factionConflict || organizationConflict);
+      },
       choices: [
         { id: "mediate", label: "세력 대표들을 한자리에 모아 중재", risk: 3, run: function (state) {
           state.world.tension = Math.max(0, state.world.tension - 8);
