@@ -98,10 +98,10 @@ AnonymousRPG.UI = AnonymousRPG.UI || {};
 
     document.getElementById("storyBody").innerHTML =
       state.log.map(function (turn) {
-        return "<article class="turn">" +
-          "<div class="time">" + esc(turn.time) + "</div>" +
-          (turn.action ? "<div class="actionText">&gt; " + esc(turn.action) + "</div>" : "") +
-          "<div class="" + (turn.system ? "system" : "narrative") + "">" +
+        return '<article class="turn">' +
+          '<div class="time">' + esc(turn.time) + "</div>" +
+          (turn.action ? '<div class="actionText">&gt; ' + esc(turn.action) + "</div>" : "") +
+          '<div class="' + (turn.system ? "system" : "narrative") + '">' +
           esc(turn.narrative) + "</div></article>";
       }).join("");
 
