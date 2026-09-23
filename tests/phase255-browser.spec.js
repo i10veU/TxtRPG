@@ -35,7 +35,8 @@ test.describe("TxtRPG browser runtime", () => {
         day: state.world.day,
         minutes: state.world.minutes,
         npcSimulationMinute: state.world.npcSimulationMinute,
-        grainSupply: state.world.grainSupply
+        grainSupply: state.world.grainSupply,
+        factionSimulationDay: state.world.factionSimulationDay
       };
     });
 
@@ -53,6 +54,7 @@ test.describe("TxtRPG browser runtime", () => {
         minutes: state.world.minutes,
         npcSimulationMinute: state.world.npcSimulationMinute,
         grainSupply: state.world.grainSupply,
+        factionSimulationDay: state.world.factionSimulationDay,
         npcActions: Object.values(state.npcs).map((npc) => npc.lastAction).filter(Boolean)
       };
     });
@@ -63,6 +65,7 @@ test.describe("TxtRPG browser runtime", () => {
     expect(after.npcSimulationMinute).toBeGreaterThan(before.npcSimulationMinute);
     expect(after.grainSupply).toBeGreaterThan(before.grainSupply);
     expect(after.npcActions.length).toBeGreaterThan(0);
+    expect(after.factionSimulationDay).toBe(after.day);
 
     await expect.poll(async () => {
       return page.evaluate(async () => {
@@ -86,6 +89,7 @@ test.describe("TxtRPG browser runtime", () => {
         minutes: state.world.minutes,
         npcSimulationMinute: state.world.npcSimulationMinute,
         grainSupply: state.world.grainSupply,
+        factionSimulationDay: state.world.factionSimulationDay,
         workerActive: runtime.workerActive
       };
     });
@@ -93,6 +97,7 @@ test.describe("TxtRPG browser runtime", () => {
     expect(restored.minutes).toBe(420);
     expect(restored.npcSimulationMinute).toBe(420);
     expect(restored.grainSupply).toBe(after.grainSupply);
+    expect(restored.factionSimulationDay).toBe(0);
     expect(restored.workerActive).toBe(true);
 
     expect(pageErrors).toEqual([]);
