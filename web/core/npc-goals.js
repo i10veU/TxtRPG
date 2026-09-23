@@ -65,6 +65,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
       lastReviewMinute: null,
       lastReviewReason: null,
       replanCount: 0,
+      replanCooldownUntil: null,
       completedGoals: []
     };
   }
@@ -98,6 +99,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
       goal.lastReviewMinute = goal.lastReviewMinute == null ? null : Number(goal.lastReviewMinute);
       goal.lastReviewReason = goal.lastReviewReason || null;
       goal.replanCount = Math.max(0, Number(goal.replanCount) || 0);
+      goal.replanCooldownUntil = goal.replanCooldownUntil == null ? null : Number(goal.replanCooldownUntil);
       goal.completedGoals = Array.isArray(goal.completedGoals) ? goal.completedGoals.slice(-8) : [];
 
       if (goal.status === "active" && goal.progress >= goal.target) {
@@ -134,7 +136,8 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
         return npc.name + "의 목표가 일시 중단됐다: " + goal.goalText;
       }
       goal.lastReviewReason = goal.blockedReason || "조직 압력으로 중단됨";
-      if (goal.blockedAt != null && minute - goal.blockedAt >= 1440) {
+      if (goal.blockedAt != null && minute - goal.blockedAt >= 1440 &&
+          (goal.replanCooldownUntil == null || minute >= goal.replanCooldownUntil)) {
         return replan(state, id, minute, "중단 상태가 하루 이상 지속됐다.");
       }
       return null;
@@ -192,6 +195,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     goal.lastReviewMinute = Number(absoluteMinute);
     goal.lastReviewReason = reason || "목표 재계획";
     goal.replanCount += 1;
+    goal.replanCooldownUntil = Number(absoluteMinute) + 4320;
     npc.goal = goal.goalText;
 
     return npc.name + "이(가) 목표를 재계획했다: " + oldText + " → " + goal.goalText;
@@ -268,6 +272,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     goal.lastProgressMinute = null;
     goal.lastReviewMinute = absoluteMinute;
     goal.lastReviewReason = "선행 목표 완료 후 다음 목표를 설정했다.";
+    goal.replanCooldownUntil = null;
     npc.goal = goal.goalText;
     return "다음 목표는 " + goal.goalText + "이다.";
   }
