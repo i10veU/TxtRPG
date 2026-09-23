@@ -75,7 +75,10 @@ AnonymousRPG.UI = AnonymousRPG.UI || {};
       const faction = npc.faction ? factionNames[npc.faction] : "무소속";
       const stateText = npc.lastAction || npc.goal || "";
       const goalState = npc.goalState;
-      const goalText = goalState ? " · 목표 " + goalState.progress + "/" + goalState.target : "";
+      const goalText = goalState
+        ? " · " + (goalState.status === "blocked" ? "중단" : "목표") + " " +
+          goalState.progress + "/" + goalState.target + " · 우선 " + goalState.priority
+        : "";
       return "<li><span>" + esc(npc.name) + "</span><small>" +
         esc(npcPlace ? npcPlace.name : npc.place) + " · " +
         esc(faction) + " · " + esc(stateText) + esc(goalText) + "</small></li>";
