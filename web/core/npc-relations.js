@@ -54,7 +54,8 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
           lastDay: -1,
           cooperationCount: 0,
           conflictCount: 0,
-          lastReason: null
+          lastReason: null,
+          lastImpactDay: -4
         };
       } else {
         current.score = Core.clamp(Number(current.score) || 0, -100, 100);
@@ -125,14 +126,16 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
         relation.lastReason = "개인 목표의 우선순위가 충돌했다.";
         adjustGoalPressure(state, edge.a, -1);
         adjustGoalPressure(state, edge.b, -1);
-        state.world.tension = Core.clamp(Number(state.world.tension || 0) + 1, 0, 100);
-        state.world.rumorPressure = Core.clamp(Number(state.world.rumorPressure || 0) + 1, 0, 100);
-
-        if (Core.recordEventSignal) {
-          Core.recordEventSignal(state, "npcConflict:" + key, a.name + "+" + b.name, absoluteMinute, edge.conflictText);
+        const impactReady = day - relation.lastImpactDay >= 3;
+        if (impactReady) {
+          state.world.tension = Core.clamp(Number(state.world.tension || 0) + 1, 0, 100);
+          state.world.rumorPressure = Core.clamp(Number(state.world.rumorPressure || 0) + 1, 0, 100);
+          relation.lastImpactDay = day;
+          if (Core.recordEventSignal) {
+            Core.recordEventSignal(state, "npcConflict:" + key, a.name + "+" + b.name, absoluteMinute, edge.conflictText);
+          }
+          events.push(edge.conflictText);
         }
-
-        events.push(edge.conflictText);
         reviewGoal(state, edge.a, absoluteMinute, events);
         reviewGoal(state, edge.b, absoluteMinute, events);
       } else {
