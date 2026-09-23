@@ -82,6 +82,45 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
         } }
       ]
     },
+    "trade-route": {
+      title: "끊기는 교역로", summary: "지역에서 시장으로 이어지는 물자 운송이 불안정해지고 있다.",
+      trigger: function (state) {
+        const signals = state.world.eventSignals || {};
+        return Object.keys(signals).some(function (key) {
+          return key.indexOf("tradeRouteCrisis:") === 0 && Number(signals[key]) > 0;
+        });
+      },
+      choices: [
+        { id: "guard", label: "경비대를 교역로에 배치", risk: 2, run: function (state) {
+          Object.keys(state.world.regionalEconomy.routes || {}).forEach(function (key) {
+            const route = state.world.regionalEconomy.routes[key];
+            if (route.reliability < 70) route.reliability = Core.clamp(route.reliability + 18, 0, 100);
+          });
+          state.world.security = Core.clamp(Number(state.world.security || 0) + 3, 0, 100);
+          Core.adjustRelation(state, "guard", 3);
+          pushUnique(state.world.discovered, "guardedTradeRoutes");
+          return "주요 교역로에 경비가 붙었다. 운송 지연은 줄어들기 시작했다.";
+        } },
+        { id: "workers", label: "노동자 조합에 운송 시설 보수 요청", risk: 2, run: function (state) {
+          Object.keys(state.world.regionalEconomy.routes || {}).forEach(function (key) {
+            const route = state.world.regionalEconomy.routes[key];
+            if (route.reliability < 80) route.reliability = Core.clamp(route.reliability + 12, 0, 100);
+          });
+          state.world.security = Core.clamp(Number(state.world.security || 0) + 1, 0, 100);
+          Core.adjustRelation(state, "workers", 3);
+          pushUnique(state.world.discovered, "tradeRouteRepair");
+          return "노동자 조합이 부두와 운송 시설을 보수하기 시작했다.";
+        } },
+        { id: "market", label: "상인회와 대체 공급 계약", risk: 3, run: function (state) {
+          state.world.regionalEconomy.market.wood += 4;
+          state.world.regionalEconomy.market.fish += 4;
+          state.world.rumorPressure = Math.max(0, Number(state.world.rumorPressure || 0) - 1);
+          Core.adjustRelation(state, "merchants", 3);
+          pushUnique(state.world.discovered, "alternativeSupply");
+          return "상인회가 임시 공급선을 마련했다. 시장 재고가 먼저 안정됐다.";
+        } }
+      ]
+    },
     "npc-dispute": {
       title: "갈라진 사람들", summary: "서로 가까이 일하던 인물들의 목표가 충돌하기 시작했다.",
       trigger: function (state) {
