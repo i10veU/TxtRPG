@@ -49,7 +49,7 @@ AnonymousRPG.UI = AnonymousRPG.UI || {};
     const place = Data.places[state.player.place];
     const clock = Core.getClock(state);
 
-    document.getElementById("location").textContent = place ? place.name : state.player.place;
+    document.getElementById("location").textContent = "세르카 · " + (place ? place.name : state.player.place);
     document.getElementById("dateText").textContent = "183 · " + (state.world.day + 1) + "일";
     document.getElementById("timeText").textContent = clock.text;
     document.getElementById("moneyText").textContent = state.player.money;
