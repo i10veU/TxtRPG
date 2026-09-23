@@ -74,9 +74,11 @@ AnonymousRPG.UI = AnonymousRPG.UI || {};
       const npcPlace = Data.places[npc.place];
       const faction = npc.faction ? factionNames[npc.faction] : "무소속";
       const stateText = npc.lastAction || npc.goal || "";
+      const goalState = npc.goalState;
+      const goalText = goalState ? " · 목표 " + goalState.progress + "/" + goalState.target : "";
       return "<li><span>" + esc(npc.name) + "</span><small>" +
         esc(npcPlace ? npcPlace.name : npc.place) + " · " +
-        esc(faction) + " · " + esc(stateText) + "</small></li>";
+        esc(faction) + " · " + esc(stateText) + esc(goalText) + "</small></li>";
     });
     document.getElementById("npcList").innerHTML = npcList.join("") || "<li>없음</li>";
 
