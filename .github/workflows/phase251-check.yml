@@ -67,6 +67,9 @@ jobs:
       - name: Information regression
         run: node tests/phase261-information.js
 
+      - name: NPC goal regression
+        run: node tests/phase262-npc-goals.js
+
   browser:
     name: Browser smoke
     needs: unit
