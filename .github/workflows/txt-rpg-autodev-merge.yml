@@ -1,0 +1,86 @@
+name: TxtRPG AutoDev Merge and Continue
+
+on:
+  workflow_run:
+    workflows: ["TxtRPG Autonomous Development"]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+jobs:
+  merge-and-continue:
+    if: >-
+      ${{
+        github.event_name == 'workflow_dispatch' ||
+        github.event.workflow_run.conclusion == 'success'
+      }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check campaign deadline
+        id: deadline
+        shell: bash
+        run: |
+          deadline=$(TZ=Asia/Seoul date -d '2026-09-24 10:00:00' +%s)
+          now=$(date +%s)
+          if [ "$now" -ge "$deadline" ]; then
+            echo "active=false" >> "$GITHUB_OUTPUT"
+            echo "TxtRPG autonomous development campaign has reached its deadline."
+          else
+            echo "active=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Find latest autonomous PR
+        if: steps.deadline.outputs.active == 'true'
+        id: pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          pr=$(gh pr list \
+            --repo "$GITHUB_REPOSITORY" \
+            --state open \
+            --base main \
+            --json number,title,createdAt \
+            --jq '[.[] | select(.title | startswith("[TxtRPG AutoDev] "))] | sort_by(.createdAt) | last | .number')
+
+          if [ -z "$pr" ] || [ "$pr" = "null" ]; then
+            echo "found=false" >> "$GITHUB_OUTPUT"
+            echo "No autonomous PR found."
+            exit 0
+          fi
+
+          echo "found=true" >> "$GITHUB_OUTPUT"
+          echo "number=$pr" >> "$GITHUB_OUTPUT"
+          echo "Found autonomous PR #$pr"
+
+      - name: Merge autonomous PR
+        if: steps.deadline.outputs.active == 'true' && steps.pr.outputs.found == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ steps.pr.outputs.number }}
+        shell: bash
+        run: |
+          gh pr merge "$PR_NUMBER" \
+            --repo "$GITHUB_REPOSITORY" \
+            --squash \
+            --delete-branch
+
+      - name: Start next autonomous cycle
+        if: steps.deadline.outputs.active == 'true' && steps.pr.outputs.found == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          gh api \
+            --method POST \
+            -H 'Accept: application/vnd.github+json' \
+            "/repos/$GITHUB_REPOSITORY/dispatches" \
+            -f event_type='txt-rpg-autodev-next'
+
+      - name: Report idle cycle
+        if: steps.deadline.outputs.active == 'true' && steps.pr.outputs.found != 'true'
+        run: echo 'No autonomous PR was produced; no next cycle was dispatched.'
