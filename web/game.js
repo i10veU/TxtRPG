@@ -24,8 +24,12 @@ window.AnonymousRPG = window.AnonymousRPG || {};
     const result = RPG.Core.resolveAction(state, text);
     const after = RPG.Core.getAbsoluteMinute(state);
     const npcEvents = RPG.Core.simulateNPCs(state, Math.max(0, after - before));
+    const factionEvents = RPG.Core.simulateFactionWorld(state, after);
     if (result.narrative) RPG.Core.appendLog(state, result.narrative, result.action);
     npcEvents.forEach(function (event) {
+      RPG.Core.appendLog(state, event, null, true);
+    });
+    factionEvents.forEach(function (event) {
       RPG.Core.appendLog(state, event, null, true);
     });
     RPG.UI.render(state);
