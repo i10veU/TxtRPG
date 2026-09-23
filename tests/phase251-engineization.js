@@ -39,6 +39,8 @@ assert(Object.keys(RPG.Data.npcs).length === 7);
 
 let state = RPG.Core.createDefaultState(RPG.Data.npcs);
 RPG.Data.ensureCases(state);
+RPG.Core.appendLog(state, "초기 상태");
+
 assert.strictEqual(state.world.cases.length, 0);
 
 let result = RPG.Core.resolveAction(state, "기록관으로 이동");
@@ -62,9 +64,12 @@ assert(result.narrative.includes("판정"));
 assert(state.world.cases.some(c => c.id === "land-record"));
 
 for (let i = 0; i < 300; i += 1) {
-  RPG.Core.resolveAction(state, i % 2 === 0 ? "조사" : "휴식");
+  const action = i % 2 === 0 ? "조사" : "휴식";
+  const turn = RPG.Core.resolveAction(state, action);
+  RPG.Core.appendLog(state, turn.narrative, turn.action);
 }
-assert(state.log.length === 0);
+assert(state.log.length === 60);
+assert(state.log[state.log.length - 1].action);
 assert(state.world.day >= beforeDay);
 
 console.log("Phase 251 core regression: PASS");
