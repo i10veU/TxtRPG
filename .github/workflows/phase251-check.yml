@@ -1,43 +1,96 @@
-name: Phase 251 Runtime Check
+name: TxtRPG Runtime CI
 
 on:
   push:
-    branches: [main, phase-251-engineization, phase-252-npc-simulation, phase-254-npc-tick-fix, phase-255-browser-smoke, phase-256-npc-routine-cadence, phase-257-npc-event-triggers, phase-259-worker-faction-parity-v2]
+    branches: [main]
+    paths:
+      - "web/**"
+      - "tests/**"
+      - ".github/workflows/**"
+      - "package.json"
+      - "package-lock.json"
   pull_request:
+    paths:
+      - "web/**"
+      - "tests/**"
+      - ".github/workflows/**"
+      - "package.json"
+      - "package-lock.json"
   workflow_dispatch:
 
+concurrency:
+  group: txtrpg-runtime-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
 jobs:
-  check:
+  unit:
+    name: Unit & regression
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+
       - name: Syntax check
         shell: bash
         run: |
           set -e
           find web -name '*.js' -print0 | xargs -0 -n1 node --check
+
       - name: Core regression
         run: node tests/phase251-engineization.js
+
       - name: NPC tick regression
         run: node tests/phase254-npc-tick.js
+
       - name: NPC routine cadence regression
         run: node tests/phase256-npc-routine-cadence.js
+
       - name: NPC event trigger regression
         run: node tests/phase257-npc-event-trigger.js
+
       - name: Faction world regression
         run: node tests/phase257-faction-world.js
+
       - name: Worker faction parity regression
         run: node tests/phase259-worker-faction-parity.js
+
+  browser:
+    name: Browser smoke
+    needs: unit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-chromium-1.55.0-${{ runner.os }}-${{ runner.arch }}
+
       - name: Install browser test runner
-        run: npm install --no-save @playwright/test@1.55.0
+        run: npm install --no-save --no-package-lock @playwright/test@1.55.0
+
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
+
       - name: Start web server
+        shell: bash
         run: |
+          set -e
           nohup python3 -m http.server 4173 --directory web >/tmp/txtrpg-http.log 2>&1 &
           echo $! > /tmp/txtrpg-http.pid
+
       - name: Browser smoke regression
         run: npx playwright test tests/phase255-browser.spec.js --reporter=line
