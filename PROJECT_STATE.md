@@ -32,6 +32,7 @@ Build a large-scale offline-first text RPG in the browser where the player disco
 - Storage loads normalize legacy/incomplete saves at the IndexedDB and localStorage boundaries and rewrite the normalized state, covered by a three-path regression test
 - Storage saves normalize once before IndexedDB writes, keep record metadata aligned with the normalized schema, and use the same normalized snapshot for localStorage fallback writes without mutating caller state
 - The first-session tutorial now advances through market inspection, archive travel, and goal discovery; campaign state records active/won/lost outcomes, blocks terminal actions, and is normalized for persistence
+- Terminal `won`/`lost` campaign states are regression-tested across IndexedDB and both localStorage fallback paths, including restored action blocking and time preservation
 
 ## Current next milestones
 
