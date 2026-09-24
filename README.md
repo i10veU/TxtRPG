@@ -38,6 +38,7 @@
 - [Phase 271 사건 인과망과 후속 사건](docs/phase271-case-causality.md)
 - [Phase 274 후속 사건 조직 목표 압력](docs/phase274-case-causality-goal-impact.md)
 - [Phase 275 NPC 충돌 후속 사건](docs/phase275-npc-causality.md)
+- [Phase 276 지역 사건과 장기 NPC 목표](docs/phase276-regional-goal-causality.md)
 - [Phase 1–205 파일 목록](docs/phase1-205-file-manifest.md)
 
 ## 문서
