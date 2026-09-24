@@ -2,6 +2,8 @@
 name: TxtRPG Autonomous Development
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 * * * *'
   repository_dispatch:
     types: [txt-rpg-autodev-next]
 
@@ -120,4 +122,4 @@ Never intentionally bypass repository security or CI checks.
 
 The generated lock workflow must remain synchronized with this source file; workflow-source changes are compiled before the next autonomous cycle is retried.
 
-<!-- compiler retrigger: Copilot SDK mode isolation experiment -->
+<!-- compiler retrigger: scheduled autonomous cycle fallback -->
