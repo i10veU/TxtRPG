@@ -40,6 +40,7 @@
 - [Phase 275 NPC 충돌 후속 사건](docs/phase275-npc-causality.md)
 - [Phase 276 지역 사건과 장기 NPC 목표](docs/phase276-regional-goal-causality.md)
 - [Phase 277 Worker/fallback reset parity](docs/phase277-reset-parity.md)
+- [Phase 278 지연 사건 후폭풍 장기 검증](docs/phase278-case-aftermath-stress.md)
 - [Phase 1–205 파일 목록](docs/phase1-205-file-manifest.md)
 
 ## 문서
