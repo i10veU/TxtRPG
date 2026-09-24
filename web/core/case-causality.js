@@ -146,6 +146,48 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
       };
     }
 
+    if (!Data.caseDefinitions["npc-dispute-aftershock"]) {
+      Data.caseDefinitions["npc-dispute-aftershock"] = {
+        title: "남은 말의 후폭풍",
+        summary: "인물 간 충돌을 봉합한 뒤에도 관계와 조직의 우선순위가 다음 날까지 흔들린다.",
+        trigger: function (state) {
+          const history = lastHistory(state, "npc-dispute");
+          return Boolean(history && history.status === "resolved" && state.world.day >= history.resolutionDay + 1);
+        },
+        choices: [
+          { id: "record", label: "세린과 마르타의 기록 대조를 맡긴다", risk: 2, run: function (state) {
+            const relation = state.world.npcRelations && state.world.npcRelations["serin:marta"];
+            if (relation) relation.score = Core.clamp((Number(relation.score) || 0) + 10, -100, 100);
+            state.world.trustInAdministration = Core.clamp(Number(state.world.trustInAdministration || 0) + 2, 0, 100);
+            state.world.rumorPressure = Math.max(0, Number(state.world.rumorPressure || 0) - 1);
+            Core.adjustRelation(state, "archive", 2);
+            Core.adjustRelation(state, "innkeepers", 1);
+            applyGoalPressure(state, { archive: 1, innkeepers: 1 });
+            return "세린과 마르타가 소문과 기록을 다시 대조했다. 관계는 회복됐지만 두 조직의 업무 우선순위가 높아졌다.";
+          } },
+          { id: "work", label: "마라와 오렐의 작업 순서를 다시 맞춘다", risk: 3, run: function (state) {
+            const relation = state.world.npcRelations && state.world.npcRelations["mara:orel"];
+            if (relation) relation.score = Core.clamp((Number(relation.score) || 0) + 10, -100, 100);
+            state.world.tension = Math.max(0, Number(state.world.tension || 0) - 2);
+            Core.adjustRelation(state, "merchants", 2);
+            Core.adjustRelation(state, "workers", 2);
+            applyGoalPressure(state, { merchants: 1, workers: 1 });
+            return "마라와 오렐의 작업 순서를 다시 맞췄다. 시장 시설은 안정됐지만 상인회와 노동자 조합의 요구가 동시에 커졌다.";
+          } },
+          { id: "guard", label: "이브라힘에게 충돌 현장 중재를 맡긴다", risk: 4, run: function (state) {
+            const relation = state.world.npcRelations && state.world.npcRelations["ibrahim:orel"];
+            if (relation) relation.score = Core.clamp((Number(relation.score) || 0) + 10, -100, 100);
+            state.world.security = Core.clamp(Number(state.world.security || 0) + 3, 0, 100);
+            state.world.tension = Core.clamp(Number(state.world.tension || 0) + 1, 0, 100);
+            Core.adjustRelation(state, "guard", 2);
+            Core.adjustRelation(state, "workers", -1);
+            applyGoalPressure(state, { guard: 1, workers: -1 });
+            return "이브라힘이 충돌 현장의 중재를 맡았다. 치안은 회복됐지만 노동자 조합은 감시를 부담스러워했다.";
+          } }
+        ]
+      };
+    }
+
     if (!Data.caseDefinitions["faction-aftershock"]) {
       Data.caseDefinitions["faction-aftershock"] = {
         title: "깨진 합의의 잔여물",
@@ -190,7 +232,7 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
     state.world.caseCausalityDay = day;
     Data.ensureCases(state);
     const open = state.world.cases.filter(function (entry) {
-      return entry.status === "open" && ["grain-aftershock", "trade-route-aftershock", "faction-aftershock"].includes(entry.id);
+      return entry.status === "open" && ["grain-aftershock", "trade-route-aftershock", "faction-aftershock", "npc-dispute-aftershock"].includes(entry.id);
     });
     if (!open.length) return null;
     return "이전 사건의 결과가 새로운 문제로 이어졌다. 후속 사건을 확인할 수 있다.";
