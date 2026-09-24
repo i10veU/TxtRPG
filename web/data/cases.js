@@ -24,7 +24,7 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
       title: "닫힌 창고의 곡물", summary: "곡물 부족과 함께 일부 창고의 출입이 비정상적으로 줄었다.",
       trigger: function (state) { return Boolean(state.world.flags.warehouseSuspicion || Core.hasEventSignal(state, "warehouseSuspicion")); },
       choices: [
-        { id: "audit", label: "공식 장부 대조", risk: 1, run: function (state) { state.world.trustInAdministration += 3; state.world.grainSupply += 4; Core.adjustRelation(state, "archive", 2); Core.adjustRelation(state, "merchants", -1); return "공식 기록을 대조한 결과 일부 재고 차이가 확인됐다. 기록관은 협조적이었지만 일부 상인은 불편해했다."; } },
+        { id: "audit", label: "공식 장부 대조", risk: 1, causalImpact: { goalPressure: { archive: 1, merchants: -1 } }, run: function (state) { state.world.trustInAdministration += 3; state.world.grainSupply += 4; Core.adjustRelation(state, "archive", 2); Core.adjustRelation(state, "merchants", -1); return "공식 기록을 대조한 결과 일부 재고 차이가 확인됐다. 기록관은 협조적이었지만 일부 상인은 불편해했다."; } },
         { id: "negotiate", label: "상인과 비공식 협상", risk: 2, run: function (state) { state.player.money += 5; state.world.grainSupply += 2; Core.adjustRelation(state, "merchants", 3); Core.adjustRelation(state, "archive", -2); return "상인들과 직접 조건을 맞췄다. 당장의 공급은 안정됐지만 공식 기록에는 빈틈이 남았다."; } },
         { id: "force", label: "창고를 강제로 확인", risk: 4, run: function (state) { state.world.security -= 5; state.world.tension += 5; Core.adjustRelation(state, "guard", -3); Core.adjustRelation(state, "merchants", -4); return "강제로 문을 열었다. 숨겨진 물량 일부는 확인했지만 상인과 경비대 모두 경계하기 시작했다."; } }
       ]
@@ -91,7 +91,7 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
         });
       },
       choices: [
-        { id: "guard", label: "경비대를 교역로에 배치", risk: 2, run: function (state) {
+        { id: "guard", label: "경비대를 교역로에 배치", risk: 2, causalImpact: { regional: { routes: { "hills:market": 4, "riverside:market": 4 } }, goalPressure: { guard: 1, merchants: -1 } }, run: function (state) {
           Object.keys(state.world.regionalEconomy.routes || {}).forEach(function (key) {
             const route = state.world.regionalEconomy.routes[key];
             if (route.reliability < 70) route.reliability = Core.clamp(route.reliability + 18, 0, 100);
@@ -101,7 +101,7 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
           pushUnique(state.world.discovered, "guardedTradeRoutes");
           return "주요 교역로에 경비가 붙었다. 운송 지연은 줄어들기 시작했다.";
         } },
-        { id: "workers", label: "노동자 조합에 운송 시설 보수 요청", risk: 2, run: function (state) {
+        { id: "workers", label: "노동자 조합에 운송 시설 보수 요청", risk: 2, causalImpact: { regional: { routes: { "hills:market": 3, "riverside:market": 3 }, market: { wood: 2, fish: 2 } }, goalPressure: { workers: 1, merchants: -1 } }, run: function (state) {
           Object.keys(state.world.regionalEconomy.routes || {}).forEach(function (key) {
             const route = state.world.regionalEconomy.routes[key];
             if (route.reliability < 80) route.reliability = Core.clamp(route.reliability + 12, 0, 100);
@@ -111,7 +111,7 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
           pushUnique(state.world.discovered, "tradeRouteRepair");
           return "노동자 조합이 부두와 운송 시설을 보수하기 시작했다.";
         } },
-        { id: "market", label: "상인회와 대체 공급 계약", risk: 3, run: function (state) {
+        { id: "market", label: "상인회와 대체 공급 계약", risk: 3, causalImpact: { regional: { routes: { "hills:market": 2, "riverside:market": 2 }, market: { wood: 3, fish: 3 } }, goalPressure: { merchants: 1, rural: 1, workers: -1 } }, run: function (state) {
           state.world.regionalEconomy.market.wood += 4;
           state.world.regionalEconomy.market.fish += 4;
           state.world.rumorPressure = Math.max(0, Number(state.world.rumorPressure || 0) - 1);

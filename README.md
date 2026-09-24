@@ -36,6 +36,7 @@
 - [Phase 269 NPC 개인 관계망과 갈등](docs/phase269-npc-relations.md)
 - [Phase 270 지역 자원과 교역로](docs/phase270-regional-economy.md)
 - [Phase 271 사건 인과망과 후속 사건](docs/phase271-case-causality.md)
+- [Phase 273 사건 후속 효과 브리지](docs/phase273-causal-aftermath.md)
 - [Phase 1–205 파일 목록](docs/phase1-205-file-manifest.md)
 
 ## 문서
@@ -124,7 +125,7 @@ NPC event signal은 출처와 확인 횟수를 가진 소문으로도 저장되�
 
 ## 다음 단계
 
-1. 사건 인과망을 지역 변화·NPC 장기 목표까지 확장
+1. 장기 시뮬레이션에서 사건 후속 효과와 Worker/fallback 동등성 검증
 2. IndexedDB 엔티티 분리와 장기 시뮬레이션 스트레스 테스트
 3. 장기 플레이를 위한 플레이어 목표·퀘스트 발견 계층 강화
 4. 최종 게임 루프·튜토리얼·엔딩/장기 플레이 구조 검증

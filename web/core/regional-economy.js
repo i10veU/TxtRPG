@@ -101,7 +101,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
       r.market[id] = Core.clamp(r.market[id] + flow - 2, 0, 100);
       route.flow = flow;
 
-      if (route.reliability < 45 || r.market[id] < 7) {
+      if (route.reliability < 45 || (r.market[id] < 7 && route.lastDay >= 0)) {
         signalRouteCrisis(state, routeKey, absoluteMinute);
         events.push(good.name + " 교역로의 공급이 불안정하다.");
       }

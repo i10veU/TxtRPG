@@ -6,6 +6,13 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
   function ensure(state) {
     const world = state.world;
     world.caseHistory = Array.isArray(world.caseHistory) ? world.caseHistory : [];
+    world.caseHistory = world.caseHistory.filter(function (entry) {
+      return entry && typeof entry === "object" && typeof entry.caseId === "string";
+    }).map(function (entry) {
+      if (entry.causalImpact && typeof entry.causalImpact !== "object") entry.causalImpact = null;
+      if (entry.causalAppliedDay != null && !Number.isFinite(Number(entry.causalAppliedDay))) entry.causalAppliedDay = null;
+      return entry;
+    });
     world.caseCausalityDay = Number.isFinite(Number(world.caseCausalityDay)) ? Number(world.caseCausalityDay) : -1;
   }
 
@@ -32,13 +39,20 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
       return item.caseId === caseId && item.resolutionDay === state.world.day && item.choiceId === (entry.branch || choiceId);
     });
     if (already) return;
+    const resolvedChoiceId = entry.branch || choiceId || null;
+    const definition = Data.caseDefinitions[caseId];
+    const choice = definition && Array.isArray(definition.choices)
+      ? definition.choices.find(function (item) { return item.id === resolvedChoiceId; })
+      : null;
     state.world.caseHistory.push({
       caseId: caseId,
-      choiceId: entry.branch || choiceId || null,
+      choiceId: resolvedChoiceId,
       status: entry.status,
       resolutionDay: state.world.day,
       resolutionMinute: Core.getAbsoluteMinute(state),
-      outcome: typeof result === "string" ? result.slice(0, 180) : null
+      outcome: typeof result === "string" ? result.slice(0, 180) : null,
+      causalImpact: choice && choice.causalImpact ? Core.clone(choice.causalImpact) : null,
+      causalAppliedDay: null
     });
     if (state.world.caseHistory.length > 40) state.world.caseHistory.shift();
   }
@@ -160,15 +174,48 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
     }
   }
 
+  function applyCausalImpact(state, history, day) {
+    if (history.status !== "resolved" || !history.causalImpact || history.causalAppliedDay != null || day < Number(history.resolutionDay) + 1) return false;
+    const impact = history.causalImpact;
+    if (impact.regional && typeof Core.ensureRegionalEconomy === "function") {
+      Core.ensureRegionalEconomy(state);
+      const regional = state.world.regionalEconomy;
+      Object.keys(impact.regional.routes || {}).forEach(function (key) {
+        if (!regional.routes[key]) return;
+        regional.routes[key].reliability = Core.clamp(Number(regional.routes[key].reliability || 0) + Number(impact.regional.routes[key] || 0), 0, 100);
+      });
+      Object.keys(impact.regional.market || {}).forEach(function (key) {
+        if (!Object.prototype.hasOwnProperty.call(regional.market, key)) return;
+        regional.market[key] = Core.clamp(Number(regional.market[key] || 0) + Number(impact.regional.market[key] || 0), 0, 100);
+      });
+    }
+    const affectedOrganizations = Object.keys(impact.goalPressure || {});
+    if (affectedOrganizations.length) {
+      if (typeof Core.ensureOrganizations === "function") Core.ensureOrganizations(state);
+      affectedOrganizations.forEach(function (id) {
+        const organization = state.world.organizations && state.world.organizations[id];
+        if (organization) organization.goalPressure = Core.clamp(Number(organization.goalPressure || 0) + Number(impact.goalPressure[id] || 0), -2, 2);
+      });
+      if (typeof Core.ensureNPCGoals === "function") Core.ensureNPCGoals(state);
+      if (typeof Core.reviewNPCGoal === "function") Object.keys(state.npcs || {}).forEach(function (id) {
+        if (affectedOrganizations.includes(state.npcs[id].faction)) Core.reviewNPCGoal(state, id, Number(day) * 1440);
+      });
+    }
+    history.causalAppliedDay = day;
+    return true;
+  }
+
   function simulate(state, absoluteMinute) {
     ensure(state);
     const day = Math.floor(Number(absoluteMinute) / 1440);
     if (state.world.caseCausalityDay === day) return null;
     state.world.caseCausalityDay = day;
+    const applied = state.world.caseHistory.some(function (history) { return applyCausalImpact(state, history, day); });
     Data.ensureCases(state);
     const open = state.world.cases.filter(function (entry) {
       return entry.status === "open" && ["grain-aftershock", "trade-route-aftershock", "faction-aftershock"].includes(entry.id);
     });
+    if (applied) return "지난 사건의 여파가 지역 경제와 인물 목표에 반영됐다. 후속 사건을 확인할 수 있다.";
     if (!open.length) return null;
     return "이전 사건의 결과가 새로운 문제로 이어졌다. 후속 사건을 확인할 수 있다.";
   }
