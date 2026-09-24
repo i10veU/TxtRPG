@@ -25,10 +25,11 @@ Build a large-scale offline-first text RPG in the browser where the player disco
 - Event history, follow-up triggers, and grain/faction/trade-route/NPC-dispute consequences that apply both organization pressure and durable NPC goal progress
 - Command-based player goal discovery from open cases and high-confidence rumors
 - Browser smoke coverage for Worker, IndexedDB, actions, reload/restore
+- Worker and fallback reset paths initialize regional economy and NPC relationship state consistently
 
 ## Current next milestones
 
-1. Extend event causality from NPC disputes into regional changes and longer-term NPC goal consequences.
+1. Stress-test delayed case aftermath across long simulations and Worker/fallback parity.
 2. Separate IndexedDB entities where justified and stress-test long simulations.
 3. Expand goal discovery from command hints into deeper multi-step quest chains.
 4. Validate the complete game loop, tutorial, and long-play/end-state structure.
