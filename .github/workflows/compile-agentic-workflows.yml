@@ -1,0 +1,66 @@
+name: Compile Agentic Workflows
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/*.md"
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: compile-agentic-workflows
+  cancel-in-progress: true
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install gh-aw CLI
+        uses: github/gh-aw/actions/setup-cli@main
+        with:
+          version: v0.89.17
+
+      - name: Compile TxtRPG AutoDev
+        run: gh aw compile .github/workflows/txt-rpg-autodev.md
+
+      - name: Validate TxtRPG AutoDev
+        run: gh aw validate .github/workflows/txt-rpg-autodev.md
+
+      - name: Commit compiled workflow
+        id: commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add .github/workflows/txt-rpg-autodev.lock.yml
+
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "Compiled workflow is already up to date."
+            exit 0
+          fi
+
+          git commit -m "Compile TxtRPG autonomous development workflow"
+          git push origin HEAD:main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Start next autonomous cycle
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh api \
+            --method POST \
+            -H "Accept: application/vnd.github+json" \
+            "/repos/$GITHUB_REPOSITORY/dispatches" \
+            -f event_type="txt-rpg-autodev-next"
