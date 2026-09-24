@@ -37,11 +37,12 @@ Build a large-scale offline-first text RPG in the browser where the player disco
 - IndexedDB schema version 2 stores meta, world, and simulation snapshots in one transaction, migrates legacy monolithic saves, and preserves localStorage fallback behavior
 - Repeated entity-snapshot save/load cycles are covered by a 100-cycle alternating-state stress test, including stale-data isolation and independent entity-record recovery
 - Finale-ready and canonical terminal campaign states are covered through IndexedDB and both localStorage fallback paths, including restored terminal action blocking
+- Browser coverage now seeds a finale-ready state, completes the canonical ending through the Worker, verifies terminal persistence after reload, and confirms post-ending actions remain blocked
 
 ## Current next milestones
 
-1. Extend the validated tutorial/end-state contract into a complete long-play and ending structure.
-2. Add browser-level coverage for finale progression and restored terminal states.
+1. Extend browser coverage from the canonical finale path to representative long-play case progression.
+2. Continue bounded save/restore stress checks as new ending content is added.
 
 ## Agent ownership
 

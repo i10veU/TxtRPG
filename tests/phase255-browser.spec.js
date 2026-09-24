@@ -142,4 +142,60 @@ test.describe("TxtRPG browser runtime", () => {
     expect(pageErrors).toEqual([]);
     expect(consoleErrors).toEqual([]);
   });
+
+  test("progresses through the finale and restores the terminal state", async ({ page }) => {
+    const pageErrors = [];
+    const consoleErrors = [];
+    page.on("pageerror", (error) => pageErrors.push(error.message));
+    page.on("console", (message) => {
+      if (message.type() === "error") consoleErrors.push(message.text());
+    });
+
+    await page.goto("http://127.0.0.1:4173/", { waitUntil: "networkidle" });
+    await expect.poll(async () => {
+      return page.evaluate(() => Boolean(window.AnonymousRPGApp.getState()));
+    }).toBe(true);
+
+    await page.evaluate(async () => {
+      const state = window.AnonymousRPGApp.getState();
+      state.world.tutorial = { step: 4, completed: true };
+      state.world.campaignPhase = "finale-ready";
+      state.world.finaleReady = true;
+      state.world.ending = null;
+      state.world.gameStatus = "active";
+      await window.AnonymousRPGApp.save();
+    });
+    await page.reload({ waitUntil: "networkidle" });
+
+    await expect.poll(async () => page.evaluate(() => {
+      const world = window.AnonymousRPGApp.getState().world;
+      return [world.gameStatus, world.campaignPhase, world.finaleReady, world.ending];
+    })).toEqual(["active", "finale-ready", true, null]);
+
+    const beforeFinale = await page.evaluate(() => window.AnonymousRPG.Core.getAbsoluteMinute(window.AnonymousRPGApp.getState()));
+    await page.locator("#actionInput").fill("결말");
+    await page.locator("#actionForm button").click();
+    await expect.poll(async () => page.evaluate(() => {
+      const world = window.AnonymousRPGApp.getState().world;
+      return [world.gameStatus, world.campaignPhase, world.finaleReady, world.ending];
+    })).toEqual(["won", "complete", true, "canonical"]);
+    await expect(page.locator("#storyBody")).toContainText("당신은 첫 번째 사건의 결과를 받아들였다.");
+
+    await page.evaluate(() => window.AnonymousRPGApp.save());
+    await page.reload({ waitUntil: "networkidle" });
+    await expect.poll(async () => page.evaluate(() => {
+      const world = window.AnonymousRPGApp.getState().world;
+      return [world.gameStatus, world.campaignPhase, world.finaleReady, world.ending];
+    })).toEqual(["won", "complete", true, "canonical"]);
+
+    await page.locator("#actionInput").fill("휴식");
+    await page.locator("#actionForm button").click();
+    await expect.poll(async () => page.evaluate(() => window.AnonymousRPG.Core.getAbsoluteMinute(window.AnonymousRPGApp.getState())))
+      .toBe(beforeFinale);
+    await expect(page.locator("#storyBody")).toContainText("이 여정은 이미 결말에 도달했다.");
+
+    expect(pageErrors).toEqual([]);
+    expect(consoleErrors).toEqual([]);
+  });
+
 });
