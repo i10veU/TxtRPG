@@ -23,6 +23,7 @@ Build a large-scale offline-first text RPG in the browser where the player disco
 - Information/rumor provenance and confidence
 - NPC relationship/conflict network
 - Event history, follow-up triggers, and grain/faction/trade-route consequence pressure on NPC goals
+- Case-causality integration validation with normalized save/restore state and production resolver coverage
 - Command-based player goal discovery from open cases and high-confidence rumors
 - Browser smoke coverage for Worker, IndexedDB, actions, reload/restore
 

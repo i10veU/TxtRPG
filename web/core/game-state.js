@@ -86,6 +86,25 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     }).slice(-80);
   }
 
+  function normalizeCaseHistory(input) {
+    if (!Array.isArray(input)) return [];
+    return input.filter(function (entry) {
+      return entry && typeof entry === "object" &&
+        typeof entry.caseId === "string" &&
+        (entry.status === "resolved" || entry.status === "failed") &&
+        Number.isFinite(Number(entry.resolutionDay));
+    }).map(function (entry) {
+      return {
+        caseId: entry.caseId,
+        choiceId: typeof entry.choiceId === "string" ? entry.choiceId : null,
+        status: entry.status,
+        resolutionDay: Math.max(0, Math.floor(Number(entry.resolutionDay))),
+        resolutionMinute: Number.isFinite(Number(entry.resolutionMinute)) ? Math.max(0, Number(entry.resolutionMinute)) : null,
+        outcome: typeof entry.outcome === "string" ? entry.outcome.slice(0, 180) : null
+      };
+    }).slice(-40);
+  }
+
   function normalizeRumors(input) {
     if (!Array.isArray(input)) return [];
     return input.filter(function (entry) {
@@ -119,6 +138,9 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     state.world.eventSignals = normalizeSignalMap(input && input.world && input.world.eventSignals);
     state.world.eventHistory = normalizeEventHistory(input && input.world && input.world.eventHistory);
     state.world.rumors = normalizeRumors(input && input.world && input.world.rumors);
+    state.world.caseHistory = normalizeCaseHistory(input && input.world && input.world.caseHistory);
+    const caseCausalityDay = Number(input && input.world && input.world.caseCausalityDay);
+    state.world.caseCausalityDay = Number.isFinite(caseCausalityDay) ? Math.floor(caseCausalityDay) : -1;
     state.world.organizations = input && input.world && input.world.organizations && typeof input.world.organizations === "object"
       ? input.world.organizations
       : {};

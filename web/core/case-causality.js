@@ -213,7 +213,7 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
   if (typeof originalResolveCase === "function" && !Data.resolveCase._causalityWrapped) {
     const wrapped = function (state, caseId, choiceId) {
       const result = originalResolveCase(state, caseId, choiceId);
-      recordResolution(state, caseId, choiceId, result && result.narrative ? result.narrative : result);
+      recordResolution(state, caseId, choiceId, result && (result.text || result.narrative) ? (result.text || result.narrative) : result);
       return result;
     };
     wrapped._causalityWrapped = true;

@@ -37,6 +37,7 @@
 - [Phase 270 지역 자원과 교역로](docs/phase270-regional-economy.md)
 - [Phase 271 사건 인과망과 후속 사건](docs/phase271-case-causality.md)
 - [Phase 274 후속 사건 조직 목표 압력](docs/phase274-case-causality-goal-impact.md)
+- [Phase 275 사건 인과망 통합 경계](docs/phase275-case-causality-integration.md)
 - [Phase 1–205 파일 목록](docs/phase1-205-file-manifest.md)
 
 ## 문서
