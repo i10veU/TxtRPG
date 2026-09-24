@@ -49,6 +49,24 @@
 - [무명의 연대기 — 세계관 설계 원칙](docs/world/world-design-principles.md)
 - [세계관 연구 적용 메모](docs/world/source-analysis.md)
 
+## Agent 개발 체계
+
+TxtRPG는 GitHub Copilot custom agents를 역할별로 사용한다.
+
+- `txtrpg-director`: 전체 작업 분해, 우선순위, 통합 관리
+- `txtrpg-lore`: 세계관·NPC·조직·지역·사건·퀘스트·정보
+- `txtrpg-engine`: 게임 상태·시뮬레이션·IndexedDB·Worker·경제·이벤트
+- `txtrpg-ui`: HTML/CSS/Canvas·입력·렌더링
+- `txtrpg-qa`: 테스트·회귀·브라우저 smoke·보안 검증
+
+운영 기준은 `.github/copilot-instructions.md`, 현재 프로젝트 상태는 `PROJECT_STATE.md`에 기록한다. 각 Agent 프로필은 `.github/agents/`에 있다.
+
+표준 개발 흐름은 다음과 같다.
+
+`Inspect → Plan → Issue → Implement → Test → Review → Integrate → Update Project State`
+
+Agent가 다른 Agent에게 작업을 넘겼다고 주장하는 것만으로 완료로 간주하지 않는다. 실제 변경, 테스트 결과, PR 또는 커밋이 확인되어야 한다.
+
 ## 실행
 
 web/index.html을 Edge/Chromium 계열 브라우저에서 열면 현재 TXT RPG 프로토타입을 실행할 수 있습니다.
