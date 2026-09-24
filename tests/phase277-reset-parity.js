@@ -8,7 +8,7 @@ const coreFiles = [
   "web/core/game-state.js", "web/data/places.js", "web/data/npcs.js", "web/data/cases.js",
   "web/core/economy-world.js", "web/core/regional-economy.js", "web/core/faction-world.js",
   "web/core/organization-world.js", "web/core/npc-goals.js", "web/core/organization-relations.js",
-  "web/core/npc-relations.js", "web/core/action-resolver.js", "web/core/npc-simulation.js",
+  "web/core/npc-relations.js", "web/core/player-quests.js", "web/core/action-resolver.js", "web/core/npc-simulation.js",
   "web/core/case-causality.js"
 ];
 
@@ -28,6 +28,7 @@ function initializeFallback(RPG) {
   RPG.Core.ensureNPCGoals(state);
   RPG.Core.ensureCaseCausality(state);
   RPG.Data.ensureCases(state);
+  RPG.Core.updatePlayerQuests(state, RPG.Data.caseDefinitions);
   return state;
 }
 
@@ -61,6 +62,8 @@ assert.deepStrictEqual(Object.keys(workerState.world.npcRelations).sort(), Objec
 assert.strictEqual(workerState.world.regionalEconomy.simulationDay, fallbackState.world.regionalEconomy.simulationDay);
 assert.strictEqual(workerState.world.npcRelations.simulationDay, fallbackState.world.npcRelations.simulationDay);
 assert.deepStrictEqual(workerState.world.cases.map((entry) => entry.id), fallbackState.world.cases.map((entry) => entry.id));
+assert.deepStrictEqual(Object.keys(workerState.world.playerQuests.chains).sort(), Object.keys(fallbackState.world.playerQuests.chains).sort());
+assert.strictEqual(JSON.stringify(workerState.world.playerQuests.chains["grain-warehouse"].steps.map((step) => step.status)), JSON.stringify(fallbackState.world.playerQuests.chains["grain-warehouse"].steps.map((step) => step.status)));
 assert.deepStrictEqual(Object.keys(workerState.npcs).sort(), Object.keys(fallbackState.npcs).sort());
 
 console.log("Phase 277 reset parity: PASS");
