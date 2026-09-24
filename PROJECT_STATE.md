@@ -36,11 +36,12 @@ Build a large-scale offline-first text RPG in the browser where the player disco
 - Long-play campaign progression no longer ends on arbitrary quest completion; the canonical grain case and aftermath unlock an explicit, persisted finale command and time preservation
 - IndexedDB schema version 2 stores meta, world, and simulation snapshots in one transaction, migrates legacy monolithic saves, and preserves localStorage fallback behavior
 - Repeated entity-snapshot save/load cycles are covered by a 100-cycle alternating-state stress test, including stale-data isolation and independent entity-record recovery
+- Finale-ready and canonical terminal campaign states are covered through IndexedDB and both localStorage fallback paths, including restored terminal action blocking
 
 ## Current next milestones
 
 1. Extend the validated tutorial/end-state contract into a complete long-play and ending structure.
-2. Strengthen long-play persistence coverage around finale progression and restored terminal states.
+2. Add browser-level coverage for finale progression and restored terminal states.
 
 ## Agent ownership
 
