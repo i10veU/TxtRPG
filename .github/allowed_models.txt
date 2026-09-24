@@ -1,0 +1,3 @@
+# Restrict AutoDev to the Copilot model available through the current policy.
+fallback: gpt-5.3-codex
+gpt-5.3-codex
