@@ -114,3 +114,5 @@ If the repository is already failing in an unrelated way and the failure cannot 
 Never intentionally bypass repository security or CI checks.
 
 The generated lock workflow must remain synchronized with this source file; workflow-source changes are compiled before the next autonomous cycle is retried.
+
+<!-- compiler retrigger: use GH_AW_GITHUB_TOKEN for workflow-capable pushes -->
