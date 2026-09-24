@@ -41,6 +41,7 @@
 - [Phase 276 지역 사건과 장기 NPC 목표](docs/phase276-regional-goal-causality.md)
 - [Phase 277 Worker/fallback reset parity](docs/phase277-reset-parity.md)
 - [Phase 278 지연 사건 후폭풍 장기 검증](docs/phase278-case-aftermath-stress.md)
+- [Phase 279 플레이어 목표 연쇄](docs/phase279-player-quest-chains.md)
 - [Phase 1–205 파일 목록](docs/phase1-205-file-manifest.md)
 
 ## 문서
@@ -129,9 +130,9 @@ NPC event signal은 출처와 확인 횟수를 가진 소문으로도 저장되�
 
 ## 다음 단계
 
-1. 사건 인과망을 지역 변화·NPC 장기 목표까지 확장
-2. IndexedDB 엔티티 분리와 장기 시뮬레이션 스트레스 테스트
-3. 장기 플레이를 위한 플레이어 목표·퀘스트 발견 계층 강화
+1. IndexedDB 엔티티 분리와 장기 시뮬레이션 스트레스 테스트
+2. 플레이어 목표 연쇄를 사건 후속 결과·다단계 발견으로 확장
+3. 최종 게임 루프·튜토리얼·엔딩/장기 플레이 구조 검증
 4. 최종 게임 루프·튜토리얼·엔딩/장기 플레이 구조 검증
 
 ## 프로젝트 원칙

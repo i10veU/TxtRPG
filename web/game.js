@@ -30,6 +30,7 @@ window.AnonymousRPG = window.AnonymousRPG || {};
     const economyEvent = RPG.Core.simulateEconomy(state, after);
     const regionalEconomyEvent = RPG.Core.simulateRegionalEconomy ? RPG.Core.simulateRegionalEconomy(state, after) : null;
     const caseCausalityEvent = RPG.Core.simulateCaseCausality ? RPG.Core.simulateCaseCausality(state, after) : null;
+    if (RPG.Core.updatePlayerQuests) RPG.Core.updatePlayerQuests(state, RPG.Data.caseDefinitions);
     if (result.narrative) RPG.Core.appendLog(state, result.narrative, result.action);
     npcEvents.forEach(function (event) {
       RPG.Core.appendLog(state, event, null, true);
@@ -121,6 +122,7 @@ window.AnonymousRPG = window.AnonymousRPG || {};
     if (RPG.Core.ensureNPCGoals) RPG.Core.ensureNPCGoals(state);
     if (RPG.Core.ensureCaseCausality) RPG.Core.ensureCaseCausality(state);
     RPG.Data.ensureCases(state);
+    if (RPG.Core.updatePlayerQuests) RPG.Core.updatePlayerQuests(state, RPG.Data.caseDefinitions);
 
     if (!state.log.length) {
       RPG.UI.addTurn(state, "비가 그친 새벽이다. 젖은 돌바닥 위로 사람들이 하루를 시작했다. 누구도 당신을 기다리지 않는다.");
