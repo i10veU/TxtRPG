@@ -143,6 +143,85 @@ test.describe("TxtRPG browser runtime", () => {
     expect(consoleErrors).toEqual([]);
   });
 
+  test("drives a case chain through the Worker and restores mid-campaign progress", async ({ page }) => {
+    const pageErrors = [];
+    const consoleErrors = [];
+    page.on("pageerror", (error) => pageErrors.push(error.message));
+    page.on("console", (message) => {
+      if (message.type() === "error") consoleErrors.push(message.text());
+    });
+
+    await page.addInitScript(() => {
+      localStorage.clear();
+      indexedDB.deleteDatabase("AnonymousChroniclesDB");
+    });
+    await page.goto("http://127.0.0.1:4173/", { waitUntil: "networkidle" });
+    await expect.poll(async () => page.evaluate(() => Boolean(window.AnonymousRPGApp.getState()))).toBe(true);
+
+    async function command(text) {
+      const turnsBefore = await page.locator("#storyBody .turn").count();
+      await page.locator("#actionInput").fill(text);
+      await page.locator("#actionForm button").click();
+      await expect.poll(async () => page.locator("#storyBody .turn").count()).toBeGreaterThan(turnsBefore);
+    }
+
+    await command("시장 조사");
+    await command("기록관으로 이동");
+    await command("목표추천");
+    await expect.poll(async () => page.evaluate(() => {
+      const world = window.AnonymousRPGApp.getState().world;
+      return [world.tutorial.completed, world.campaignPhase];
+    })).toEqual([true, "long-play"]);
+
+    await page.evaluate(async () => {
+      window.AnonymousRPGApp.getState().world.flags.warehouseSuspicion = true;
+      await window.AnonymousRPGApp.save();
+    });
+    await page.reload({ waitUntil: "networkidle" });
+    await command("사건목록");
+    await expect.poll(async () => page.evaluate(() => window.AnonymousRPGApp.getState().world.cases.some((entry) => entry.id === "grain-warehouse" && entry.status === "open"))).toBe(true);
+    await command("사건분기 grain-warehouse audit");
+    await expect.poll(async () => page.evaluate(() => {
+      const state = window.AnonymousRPGApp.getState();
+      return [state.world.cases.find((entry) => entry.id === "grain-warehouse").status, state.world.caseHistory.some((entry) => entry.caseId === "grain-warehouse")];
+    })).toEqual(["resolved", true]);
+
+    await command("잠");
+    await command("잠");
+    await command("잠");
+    await expect.poll(async () => page.evaluate(() => window.AnonymousRPGApp.getState().world.cases.some((entry) => entry.id === "grain-aftershock" && entry.status === "open"))).toBe(true);
+    await command("사건분기 grain-aftershock publish");
+    await expect.poll(async () => page.evaluate(() => {
+      const state = window.AnonymousRPGApp.getState();
+      const chain = state.world.playerQuests.chains["grain-warehouse"];
+      return [state.world.cases.find((entry) => entry.id === "grain-aftershock").status, chain.status, state.world.finaleReady];
+    })).toEqual(["resolved", "complete", true]);
+
+    const beforeReload = await page.evaluate(() => {
+      const state = window.AnonymousRPGApp.getState();
+      return {
+        phase: state.world.campaignPhase,
+        history: state.world.caseHistory.map((entry) => entry.caseId),
+        questStatus: state.world.playerQuests.chains["grain-warehouse"].status,
+        finaleReady: state.world.finaleReady
+      };
+    });
+    await page.evaluate(() => window.AnonymousRPGApp.save());
+    await page.reload({ waitUntil: "networkidle" });
+    await expect.poll(async () => page.evaluate(() => {
+      const state = window.AnonymousRPGApp.getState();
+      return {
+        phase: state.world.campaignPhase,
+        history: state.world.caseHistory.map((entry) => entry.caseId),
+        questStatus: state.world.playerQuests.chains["grain-warehouse"].status,
+        finaleReady: state.world.finaleReady
+      };
+    })).toEqual(beforeReload);
+
+    expect(pageErrors).toEqual([]);
+    expect(consoleErrors).toEqual([]);
+  });
+
   test("progresses through the finale and restores the terminal state", async ({ page }) => {
     const pageErrors = [];
     const consoleErrors = [];
