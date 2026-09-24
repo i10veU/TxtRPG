@@ -19,6 +19,7 @@ engine:
   version: "1.0.87"
   model: gpt-5.6
   copilot-sdk: true
+  custom-agent: .github/agents/director.agent.md
 
 network: defaults
 
