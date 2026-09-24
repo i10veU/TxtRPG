@@ -2,6 +2,8 @@ window.AnonymousRPG = window.AnonymousRPG || {};
 AnonymousRPG.Core = AnonymousRPG.Core || {};
 
 (function (Core, Data) {
+  const REST_MINUTES = 60;
+
   function placeFromText(text) {
     const aliases = [["시장", "market"], ["부두", "riverside"], ["강", "riverside"], ["골목", "alley"], ["여관", "alley"], ["기록관", "archive"], ["기록", "archive"], ["농촌", "hills"], ["언덕", "hills"]];
     for (let i = 0; i < aliases.length; i += 1) if (text.includes(aliases[i][0])) return aliases[i][1];
@@ -243,7 +245,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
       if (state.world.grainSupply < 58 && state.world.tension >= 35) state.world.flags.warehouseSuspicion = true;
     } else if (/대화|말을|묻|설득|협상/.test(input)) result = talk(state, input);
     else if (/휴식|쉬어|쉬다/.test(input)) {
-      Core.advanceTime(state, 60);
+      Core.advanceTime(state, REST_MINUTES);
       state.player.fatigue = Core.clamp(state.player.fatigue - 2, 0, state.player.maxFatigue);
       result = "잠시 쉬었다.";
     } else if (/잠|잔다|숙면/.test(input)) {
