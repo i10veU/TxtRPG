@@ -14,7 +14,7 @@ permissions:
 
 engine:
   id: copilot
-  model: gpt-5.4
+  model: auto
 
 network: defaults
 
