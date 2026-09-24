@@ -8,7 +8,7 @@ const files = [
   "web/core/game-state.js", "web/data/places.js", "web/data/npcs.js", "web/data/cases.js",
   "web/core/economy-world.js", "web/core/regional-economy.js", "web/core/faction-world.js",
   "web/core/organization-world.js", "web/core/npc-goals.js", "web/core/organization-relations.js",
-  "web/core/npc-relations.js", "web/core/action-resolver.js", "web/core/npc-simulation.js",
+  "web/core/npc-relations.js", "web/core/player-quests.js", "web/core/action-resolver.js", "web/core/npc-simulation.js",
   "web/core/case-causality.js"
 ];
 
@@ -45,6 +45,7 @@ function runFallback(actions) {
     RPG.Core.simulateEconomy(state, after);
     RPG.Core.simulateRegionalEconomy(state, after);
     RPG.Core.simulateCaseCausality(state, after);
+    RPG.Core.applyCampaignProgress(state, RPG.Data.caseDefinitions);
   });
   return { RPG, state };
 }
