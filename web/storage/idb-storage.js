@@ -51,11 +51,17 @@ AnonymousRPG.Storage = AnonymousRPG.Storage || {};
     });
   }
 
+  function cloneForNormalization(state) {
+    if (!state || typeof state !== "object") return state;
+    return JSON.parse(JSON.stringify(state));
+  }
+
   function normalize(state) {
+    const input = cloneForNormalization(state);
     if (AnonymousRPG.Core && typeof AnonymousRPG.Core.normalizeState === "function") {
-      return AnonymousRPG.Core.normalizeState(state);
+      return AnonymousRPG.Core.normalizeState(input);
     }
-    return state;
+    return input;
   }
 
   function wasChanged(original, normalized) {
@@ -99,13 +105,14 @@ AnonymousRPG.Storage = AnonymousRPG.Storage || {};
   }
 
   async function saveState(state) {
+    const normalizedState = normalize(state);
     try {
       const db = await open();
-      await put(db, state);
+      await put(db, normalizedState);
       db.close();
       return "indexeddb";
     } catch (error) {
-      localStorage.setItem(LEGACY_KEY, JSON.stringify(state));
+      localStorage.setItem(LEGACY_KEY, JSON.stringify(normalizedState));
       return "localstorage-fallback";
     }
   }
