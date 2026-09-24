@@ -31,10 +31,8 @@ jobs:
             echo "No campaign deadline is configured; continuing."
             exit 0
           fi
-
           deadline=$(TZ=Asia/Seoul date -d "$DEADLINE_KST" +%s)
           now=$(date +%s)
-
           if [ "$now" -ge "$deadline" ]; then
             echo "active=false" >> "$GITHUB_OUTPUT"
             echo "TxtRPG autonomous development campaign has reached its configured deadline."
@@ -82,7 +80,6 @@ jobs:
               | sort_by(.createdAt)
               | last
               | .number // empty')
-
           if [ -n "$pr" ]; then
             echo "found=true" >> "$GITHUB_OUTPUT"
             echo "number=$pr" >> "$GITHUB_OUTPUT"
@@ -101,23 +98,39 @@ jobs:
         run: |
           set -euo pipefail
           echo "Waiting for Runtime CI on PR #$PR_NUMBER..."
+          fallback=false
           for attempt in {1..30}; do
-            count=$(gh pr view "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --json statusCheckRollup --jq '.statusCheckRollup | length')
+            checks=$(gh pr view "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --json statusCheckRollup --jq '.statusCheckRollup')
+            count=$(printf '%s' "$checks" | jq 'length')
             if [ "$count" -gt 0 ]; then
-              echo "Detected $count PR check(s)."
-              gh pr checks "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --watch --fail-fast
-              exit 0
+              action_required=$(printf '%s' "$checks" | jq '[.[] | select((.conclusion // "") == "ACTION_REQUIRED")] | length')
+              failed=$(printf '%s' "$checks" | jq '[.[] | select((.conclusion // "") == "FAILURE" or (.conclusion // "") == "CANCELLED")] | length')
+              pending=$(printf '%s' "$checks" | jq '[.[] | select((.status // "") != "COMPLETED")] | length')
+              echo "checks=$count action_required=$action_required failed=$failed pending=$pending"
+              if [ "$action_required" -gt 0 ] || [ "$failed" -gt 0 ]; then
+                fallback=true
+                break
+              fi
+              if [ "$pending" -eq 0 ]; then
+                success=$(printf '%s' "$checks" | jq '[.[] | select((.conclusion // "") == "SUCCESS")] | length')
+                if [ "$success" -gt 0 ]; then
+                  echo "Existing PR checks completed successfully."
+                  exit 0
+                fi
+                fallback=true
+                break
+              fi
             fi
             sleep 10
           done
 
-          echo "PR checks did not appear. GitHub marked the pull_request Runtime CI as action_required, so dispatching the same Runtime CI workflow manually on the PR branch as a safe fallback."
+          echo "Using manual Runtime CI fallback because the PR check is unavailable, action-required, or failed before producing a usable result."
           head_ref=$(gh pr view "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --json headRefName --jq '.headRefName')
           gh workflow run phase251-check.yml --repo "$GITHUB_REPOSITORY" --ref "$head_ref"
 
           run_id=""
           for attempt in {1..30}; do
-            run_id=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow phase251-check.yml --branch "$head_ref" --limit 5 --json databaseId,status,conclusion,createdAt --jq 'sort_by(.createdAt) | last | .databaseId // empty')
+            run_id=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow phase251-check.yml --branch "$head_ref" --limit 10 --json databaseId,status,conclusion,createdAt --jq 'sort_by(.createdAt) | last | .databaseId // empty')
             if [ -n "$run_id" ]; then
               echo "Dispatched Runtime CI run #$run_id on $head_ref."
               break
@@ -138,10 +151,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          gh pr merge "$PR_NUMBER" \
-            --repo "$GITHUB_REPOSITORY" \
-            --squash \
-            --delete-branch
+          gh pr merge "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --squash --delete-branch
 
       - name: Check whether main advanced during a PR-less cycle
         if: steps.deadline.outputs.active == 'true' && steps.pr.outputs.found != 'true' && github.event_name == 'workflow_run'
@@ -168,15 +178,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if [ -z "$GH_TOKEN" ]; then
-            echo 'Missing GH_AW_CI_TRIGGER_TOKEN (or GH_AW_GITHUB_TOKEN) required for cross-workflow dispatch.' >&2
-            exit 1
-          fi
-          gh api \
-            --method POST \
-            -H 'Accept: application/vnd.github+json' \
-            "/repos/$GITHUB_REPOSITORY/dispatches" \
-            -f event_type='txt-rpg-autodev-next'
+          gh api --method POST -H 'Accept: application/vnd.github+json' \
+            "/repos/$GITHUB_REPOSITORY/dispatches" -f event_type='txt-rpg-autodev-next'
           echo 'Next autonomous cycle dispatched after autonomous PR merge.'
 
       - name: Continue after externally merged autonomous change
@@ -186,15 +189,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if [ -z "$GH_TOKEN" ]; then
-            echo 'Missing GH_AW_CI_TRIGGER_TOKEN (or GH_AW_GITHUB_TOKEN) required for cross-workflow dispatch.' >&2
-            exit 1
-          fi
-          gh api \
-            --method POST \
-            -H 'Accept: application/vnd.github+json' \
-            "/repos/$GITHUB_REPOSITORY/dispatches" \
-            -f event_type='txt-rpg-autodev-next'
+          gh api --method POST -H 'Accept: application/vnd.github+json' \
+            "/repos/$GITHUB_REPOSITORY/dispatches" -f event_type='txt-rpg-autodev-next'
           echo 'Next autonomous cycle dispatched because main advanced without an open PR.'
 
       - name: Report idle cycle
