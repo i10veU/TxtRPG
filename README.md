@@ -45,6 +45,7 @@
 - [Phase 280 사건 후폭풍 목표 연쇄](docs/phase280-quest-aftermath.md)
 - [Phase 281 fallback reset 목표 연쇄 parity](docs/phase281-fallback-quest-parity.md)
 - [Phase 282 persistence-boundary state normalization](docs/phase282-storage-normalization.md)
+- [Phase 283 persistence save-boundary normalization](docs/phase283-storage-save-normalization.md)
 - [Phase 1–205 파일 목록](docs/phase1-205-file-manifest.md)
 
 ## 문서

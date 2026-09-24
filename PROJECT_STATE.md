@@ -30,6 +30,7 @@ Build a large-scale offline-first text RPG in the browser where the player disco
 - Player case goals are persisted as idempotent quest chains through root-case aftermath, with legacy two-step saves migrated safely and actionable recommendations exposed only as follow-up cases open
 - Main-thread fallback reset initializes and persists the same player quest chains as Worker reset, covered by an app-level regression test
 - Storage loads normalize legacy/incomplete saves at the IndexedDB and localStorage boundaries and rewrite the normalized state, covered by a three-path regression test
+- Storage saves normalize once before IndexedDB writes, keep record metadata aligned with the normalized schema, and use the same normalized snapshot for localStorage fallback writes without mutating caller state
 
 ## Current next milestones
 
