@@ -152,8 +152,10 @@ window.AnonymousRPG = window.AnonymousRPG || {};
       }
       state = RPG.Core.createDefaultState(RPG.Data.npcs);
       RPG.Core.ensureEconomy(state);
+      if (RPG.Core.ensureRegionalEconomy) RPG.Core.ensureRegionalEconomy(state);
       RPG.Core.ensureOrganizations(state);
       if (RPG.Core.ensureOrganizationRelations) RPG.Core.ensureOrganizationRelations(state);
+      if (RPG.Core.ensureNPCRelations) RPG.Core.ensureNPCRelations(state);
       if (RPG.Core.ensureNPCGoals) RPG.Core.ensureNPCGoals(state);
       if (RPG.Core.ensureCaseCausality) RPG.Core.ensureCaseCausality(state);
       RPG.Data.ensureCases(state);

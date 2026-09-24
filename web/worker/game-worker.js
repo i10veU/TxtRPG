@@ -76,8 +76,10 @@ self.onmessage = function (event) {
     if (message.type === "RESET") {
       state = AnonymousRPG.Core.createDefaultState(AnonymousRPG.Data.npcs);
       AnonymousRPG.Core.ensureEconomy(state);
+      if (AnonymousRPG.Core.ensureRegionalEconomy) AnonymousRPG.Core.ensureRegionalEconomy(state);
       AnonymousRPG.Core.ensureOrganizations(state);
       if (AnonymousRPG.Core.ensureOrganizationRelations) AnonymousRPG.Core.ensureOrganizationRelations(state);
+      if (AnonymousRPG.Core.ensureNPCRelations) AnonymousRPG.Core.ensureNPCRelations(state);
       if (AnonymousRPG.Core.ensureNPCGoals) AnonymousRPG.Core.ensureNPCGoals(state);
       if (AnonymousRPG.Core.ensureCaseCausality) AnonymousRPG.Core.ensureCaseCausality(state);
       AnonymousRPG.Data.ensureCases(state);
