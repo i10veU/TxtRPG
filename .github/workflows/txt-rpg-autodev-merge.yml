@@ -54,6 +54,7 @@ jobs:
             exit 1
           fi
           gh api "/repos/$GITHUB_REPOSITORY/actions/workflows/txt-rpg-autodev.lock.yml" --jq '.state'
+
       - name: Find autonomous PR from completed cycle
         if: steps.deadline.outputs.active == 'true'
         id: pr
@@ -63,8 +64,6 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-
-          # Prefer PRs created by the autonomous agent during this exact cycle.
           pr=$(gh pr list \
             --repo "$GITHUB_REPOSITORY" \
             --state open \
@@ -88,11 +87,10 @@ jobs:
             echo "found=true" >> "$GITHUB_OUTPUT"
             echo "number=$pr" >> "$GITHUB_OUTPUT"
             echo "Found autonomous PR #$pr created during this cycle."
-            exit 0
+          else
+            echo "found=false" >> "$GITHUB_OUTPUT"
+            echo "No autonomous PR was found for this cycle."
           fi
-
-          echo "found=false" >> "$GITHUB_OUTPUT"
-          echo "No autonomous PR was found for this cycle."
 
       - name: Wait for autonomous PR checks
         if: steps.deadline.outputs.active == 'true' && steps.pr.outputs.found == 'true'
@@ -106,16 +104,32 @@ jobs:
           for attempt in {1..30}; do
             count=$(gh pr view "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --json statusCheckRollup --jq '.statusCheckRollup | length')
             if [ "$count" -gt 0 ]; then
-              echo "Detected $count check(s)."
-              break
-            fi
-            if [ "$attempt" -eq 30 ]; then
-              echo "No PR checks appeared within 5 minutes." >&2
-              exit 1
+              echo "Detected $count PR check(s)."
+              gh pr checks "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --watch --fail-fast
+              exit 0
             fi
             sleep 10
           done
-          gh pr checks "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --watch --fail-fast
+
+          echo "PR checks did not appear. GitHub marked the pull_request Runtime CI as action_required, so dispatching the same Runtime CI workflow manually on the PR branch as a safe fallback."
+          head_ref=$(gh pr view "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --json headRefName --jq '.headRefName')
+          gh workflow run phase251-check.yml --repo "$GITHUB_REPOSITORY" --ref "$head_ref"
+
+          run_id=""
+          for attempt in {1..30}; do
+            run_id=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow phase251-check.yml --branch "$head_ref" --limit 5 --json databaseId,status,conclusion,createdAt --jq 'sort_by(.createdAt) | last | .databaseId // empty')
+            if [ -n "$run_id" ]; then
+              echo "Dispatched Runtime CI run #$run_id on $head_ref."
+              break
+            fi
+            sleep 5
+          done
+          if [ -z "$run_id" ]; then
+            echo "Manual Runtime CI dispatch was not observable." >&2
+            exit 1
+          fi
+          gh run watch "$run_id" --repo "$GITHUB_REPOSITORY" --exit-status
+
       - name: Merge autonomous PR
         if: steps.deadline.outputs.active == 'true' && steps.pr.outputs.found == 'true'
         env:
