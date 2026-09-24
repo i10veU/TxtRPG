@@ -20,15 +20,24 @@ jobs:
       }}
     runs-on: ubuntu-latest
     steps:
-      - name: Check campaign deadline
+      - name: Check optional campaign deadline
         id: deadline
+        env:
+          DEADLINE_KST: ${{ vars.TXTRPG_AUTODEV_DEADLINE_KST }}
         shell: bash
         run: |
-          deadline=$(TZ=Asia/Seoul date -d '2026-09-24 10:00:00' +%s)
+          if [ -z "$DEADLINE_KST" ]; then
+            echo "active=true" >> "$GITHUB_OUTPUT"
+            echo "No campaign deadline is configured; continuing."
+            exit 0
+          fi
+
+          deadline=$(TZ=Asia/Seoul date -d "$DEADLINE_KST" +%s)
           now=$(date +%s)
+
           if [ "$now" -ge "$deadline" ]; then
             echo "active=false" >> "$GITHUB_OUTPUT"
-            echo "TxtRPG autonomous development campaign has reached its deadline."
+            echo "TxtRPG autonomous development campaign has reached its configured deadline."
           else
             echo "active=true" >> "$GITHUB_OUTPUT"
           fi
@@ -40,12 +49,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: bash
         run: |
-          pr=$(gh pr list \
-            --repo "$GITHUB_REPOSITORY" \
-            --state open \
-            --base main \
-            --json number,title,createdAt \
-            --jq '[.[] | select(.title | startswith("[TxtRPG AutoDev] "))] | sort_by(.createdAt) | last | .number')
+          pr=$(gh pr list             --repo "$GITHUB_REPOSITORY"             --state open             --base main             --json number,title,createdAt             --jq '[.[] | select(.title | startswith("[TxtRPG AutoDev] "))] | sort_by(.createdAt) | last | .number')
 
           if [ -z "$pr" ] || [ "$pr" = "null" ]; then
             echo "found=false" >> "$GITHUB_OUTPUT"
@@ -64,10 +68,7 @@ jobs:
           PR_NUMBER: ${{ steps.pr.outputs.number }}
         shell: bash
         run: |
-          gh pr merge "$PR_NUMBER" \
-            --repo "$GITHUB_REPOSITORY" \
-            --squash \
-            --delete-branch
+          gh pr merge "$PR_NUMBER"             --repo "$GITHUB_REPOSITORY"             --squash             --delete-branch
 
       - name: Start next autonomous cycle
         if: steps.deadline.outputs.active == 'true' && steps.pr.outputs.found == 'true'
@@ -75,11 +76,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: bash
         run: |
-          gh api \
-            --method POST \
-            -H 'Accept: application/vnd.github+json' \
-            "/repos/$GITHUB_REPOSITORY/dispatches" \
-            -f event_type='txt-rpg-autodev-next'
+          gh api             --method POST             -H 'Accept: application/vnd.github+json'             "/repos/$GITHUB_REPOSITORY/dispatches"             -f event_type='txt-rpg-autodev-next'
 
       - name: Report idle cycle
         if: steps.deadline.outputs.active == 'true' && steps.pr.outputs.found != 'true'
