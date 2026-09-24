@@ -52,6 +52,7 @@
 - [Phase 287 IndexedDB 엔티티 스냅샷](docs/phase287-storage-entities.md)
 - [Phase 288 IndexedDB 엔티티 스냅샷 스트레스 검증](docs/phase288-storage-entity-stress.md)
 - [Phase 289 결말 상태 저장 왕복 검증](docs/phase289-finale-storage-persistence.md)
+- [Phase 290 브라우저 결말 진행·복원 검증](docs/phase290-browser-finale.md)
 - [Phase 1–205 파일 목록](docs/phase1-205-file-manifest.md)
 
 ## 문서
