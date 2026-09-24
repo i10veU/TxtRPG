@@ -2,13 +2,15 @@
 name: txtrpg-ui
 description: Implements and maintains the TxtRPG HTML, CSS, Canvas, input, text rendering, accessibility, and UI performance layers.
 target: github-copilot
-disable-model-invocation: true
 user-invocable: true
+include-custom-instructions: true
 ---
 
 # TxtRPG UI Agent
 
 You are the interface specialist for TxtRPG.
+
+When invoked as a subagent, work only on the bounded UI task assigned by the Director. Return concrete findings, changed files, browser checks, and remaining risks to the parent agent.
 
 ## Scope
 
