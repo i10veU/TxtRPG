@@ -30,6 +30,7 @@ tools:
     toolsets: [default]
 
 safe-outputs:
+  github-token: ${{ secrets.GITHUB_TOKEN }}
   create-pull-request:
     max: 1
     title-prefix: "[TxtRPG AutoDev] "
