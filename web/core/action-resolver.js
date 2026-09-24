@@ -112,6 +112,46 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     return { narrative: lines.join(" / "), action: text, changed: false };
   }
 
+  function playerGoalCommand(state, text) {
+    if (!/^(?:목표추천|다음목표|단서|단서목록|퀘스트|quest|goals?)$/i.test(text.trim())) return null;
+    Data.ensureCases(state);
+    const leads = [];
+    const openCases = (state.world.cases || []).filter(function (entry) { return entry.status === "open"; });
+    openCases.sort(function (a, b) {
+      return (a.createdDay - b.createdDay) || String(a.id).localeCompare(String(b.id));
+    });
+    openCases.slice(0, 3).forEach(function (entry) {
+      const def = Data.caseDefinitions[entry.id];
+      if (!def) return;
+      leads.push("사건: " + def.title + " (사건분기 " + entry.id + ")");
+    });
+
+    const rumors = Array.isArray(state.world.rumors) ? state.world.rumors.slice().sort(function (a, b) {
+      return (b.confidence - a.confidence) || (b.lastSeenDay - a.lastSeenDay);
+    }) : [];
+    const rumorLeads = rumors.filter(function (rumor) {
+      return Number(rumor.confidence) >= 0.55;
+    }).slice(0, 2).map(function (rumor) {
+      if (rumor.id === "warehouseSuspicion") return "시장 조사 후 사건목록을 확인해 창고 단서를 추적한다.";
+      if (rumor.id === "recordInconsistency") return "기록관으로 이동해 조사하거나 세린과 대화해 기록 단서를 확장한다.";
+      if (rumor.id === "nightCargo") return "해질녘 이후 부두를 조사해 야간 화물 단서를 확인한다.";
+      if (rumor.id.indexOf("tradeRouteCrisis:") === 0) return "지역자원과 목재/어물 시세를 확인해 교역로 위기의 원인을 추적한다.";
+      if (rumor.id.indexOf("organizationConflict:") === 0) return "조직관계를 점검하고 사건목록에서 세력 충돌 사건을 우선 처리한다.";
+      if (rumor.id.indexOf("npcConflict:") === 0) return "인물관계를 확인하고 충돌 중인 인물 주변에서 대화를 시도한다.";
+      return "소문: " + rumor.text;
+    });
+    rumorLeads.forEach(function (lead) {
+      if (!leads.includes(lead)) leads.push(lead);
+    });
+
+    if (Number(state.world.tension) >= 70) leads.push("도시 긴장이 높다. 경비대와 관련 사건을 우선 처리해 충돌 확산을 막는다.");
+    if (Number(state.world.trustInAdministration) <= 35) leads.push("행정 신뢰가 낮다. 기록관·경비대와 협력 가능한 선택지를 우선한다.");
+
+    const lines = leads.slice(0, 5);
+    if (!lines.length) lines.push("아직 뚜렷한 단서가 없다. 시장 조사·소문·사건목록으로 다음 목표를 탐색한다.");
+    return { narrative: lines.map(function (line, index) { return (index + 1) + ". " + line; }).join(" / "), action: text, changed: false };
+  }
+
   function organizationRelationCommand(state, text) {
     if (!/^(?:조직관계|관계망|조직협력|조직충돌)$/.test(text.trim())) return null;
     if (!Core.ensureOrganizationRelations) {
@@ -222,6 +262,8 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     if (npcRelations) return npcRelations;
     const rumor = rumorCommand(state, input);
     if (rumor) return rumor;
+    const playerGoal = playerGoalCommand(state, input);
+    if (playerGoal) return playerGoal;
     const npcGoal = npcGoalCommand(state, input);
     if (npcGoal) return npcGoal;
     let result = caseCommand(state, input);
