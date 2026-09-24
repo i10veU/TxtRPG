@@ -62,6 +62,9 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
       cases: [],
       playerQuests: { chains: {} },
       tutorial: { step: 0, completed: false },
+      campaignPhase: "tutorial",
+      finaleReady: false,
+      ending: null,
       gameStatus: "active"
     },
     npcs: {},
@@ -149,6 +152,12 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
       completed: Boolean(tutorial && tutorial.completed)
     };
     if (state.world.tutorial.completed) state.world.tutorial.step = 4;
+    const campaignPhase = input && input.world && input.world.campaignPhase;
+    state.world.campaignPhase = ["tutorial", "long-play", "finale-ready", "complete"].includes(campaignPhase)
+      ? campaignPhase
+      : (state.world.tutorial.completed ? "long-play" : "tutorial");
+    state.world.finaleReady = Boolean(input && input.world && input.world.finaleReady);
+    state.world.ending = input && input.world && typeof input.world.ending === "string" ? input.world.ending : null;
     state.world.gameStatus = ["active", "won", "lost"].includes(input && input.world && input.world.gameStatus)
       ? input.world.gameStatus
       : "active";

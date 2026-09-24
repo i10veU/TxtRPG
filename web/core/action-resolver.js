@@ -263,6 +263,10 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     if (!state.world.tutorial) state.world.tutorial = { step: 0, completed: false };
     if (state.world.tutorial.step === 2 && /^(?:목표추천|다음목표|단서|퀘스트|사건목록|사건 목록)$/i.test(input)) state.world.tutorial.step = 3;
     if (typeof Core.ensureEconomy === "function") Core.ensureEconomy(state);
+    if (/^(?:결말|최종결말|마무리|ending|finale)$/i.test(input) && typeof Core.resolveFinale === "function") {
+      const finale = Core.resolveFinale(state);
+      return { narrative: finale.narrative, action: input, changed: finale.changed };
+    }
     const regionalEconomy = regionalEconomyCommand(state, input);
     if (regionalEconomy) return regionalEconomy;
     const economy = economyCommand(state, input);

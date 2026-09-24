@@ -126,13 +126,16 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
       return events;
     }
 
-    const complete = Object.keys(state.world.playerQuests.chains).some(function (id) {
-      return state.world.playerQuests.chains[id].status === "complete";
-    });
-    if (complete) {
-      state.world.gameStatus = "won";
-      events.push("첫 번째 사건의 연쇄를 끝까지 매듭지었다. 세르카의 내일은 당신의 선택 위에 놓였다.");
-      return events;
+    if (tutorial.completed && state.world.campaignPhase === "tutorial") {
+      state.world.campaignPhase = "long-play";
+      events.push("기본 안내를 마쳤다. 이제 열린 사건과 소문을 따라 세르카의 운명을 선택할 수 있다.");
+    }
+
+    const canonical = state.world.playerQuests.chains["grain-warehouse"];
+    if (canonical && canonical.status === "complete" && !state.world.finaleReady) {
+      state.world.finaleReady = true;
+      state.world.campaignPhase = "finale-ready";
+      events.push("첫 번째 사건의 연쇄를 끝까지 매듭지었다. 이제 결말을 선택할 수 있다.");
     }
 
     if (tutorial.completed) return events;
@@ -141,10 +144,20 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
       tutorial.step = 4;
       tutorial.completed = true;
       events.push("기본 안내를 마쳤다. 이제 열린 사건과 소문을 따라 세르카의 운명을 선택할 수 있다.");
+      state.world.campaignPhase = "long-play";
     }
     return events;
   }
 
+  function resolveFinale(state) {
+    if (!state.world.finaleReady) return { narrative: "아직 결말을 선택할 때가 아니다. 첫 번째 사건의 연쇄를 먼저 끝내야 한다.", changed: false };
+    state.world.gameStatus = "won";
+    state.world.campaignPhase = "complete";
+    state.world.ending = "canonical";
+    return { narrative: "당신은 첫 번째 사건의 결과를 받아들였다. 세르카의 내일은 당신의 선택 위에 놓였다.", changed: true };
+  }
+
+  Core.resolveFinale = resolveFinale;
   Core.ensurePlayerQuests = ensure;
   Core.applyCampaignProgress = applyCampaignProgress;
   Core.updatePlayerQuests = update;
