@@ -116,10 +116,14 @@ jobs:
       - name: Start next autonomous cycle after merge
         if: steps.deadline.outputs.active == 'true' && steps.pr.outputs.found == 'true'
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_AW_CI_TRIGGER_TOKEN || secrets.GH_AW_GITHUB_TOKEN }}
         shell: bash
         run: |
           set -euo pipefail
+          if [ -z "$GH_TOKEN" ]; then
+            echo 'Missing GH_AW_CI_TRIGGER_TOKEN (or GH_AW_GITHUB_TOKEN) required for cross-workflow dispatch.' >&2
+            exit 1
+          fi
           gh api \
             --method POST \
             -H 'Accept: application/vnd.github+json' \
@@ -130,10 +134,14 @@ jobs:
       - name: Continue after externally merged autonomous change
         if: steps.deadline.outputs.active == 'true' && steps.pr.outputs.found != 'true' && steps.advanced.outputs.advanced == 'true'
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_AW_CI_TRIGGER_TOKEN || secrets.GH_AW_GITHUB_TOKEN }}
         shell: bash
         run: |
           set -euo pipefail
+          if [ -z "$GH_TOKEN" ]; then
+            echo 'Missing GH_AW_CI_TRIGGER_TOKEN (or GH_AW_GITHUB_TOKEN) required for cross-workflow dispatch.' >&2
+            exit 1
+          fi
           gh api \
             --method POST \
             -H 'Accept: application/vnd.github+json' \
