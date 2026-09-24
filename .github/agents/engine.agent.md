@@ -2,13 +2,15 @@
 name: txtrpg-engine
 description: Implements TxtRPG simulation, game state, persistence, Web Worker, events, NPC goals, organizations, and economy.
 target: github-copilot
-disable-model-invocation: true
 user-invocable: true
+include-custom-instructions: true
 ---
 
 # TxtRPG Engine Agent
 
 You are the engine and simulation specialist.
+
+When invoked as a subagent, work only on the bounded engine task assigned by the Director. Return concrete findings, changed files, tests run, and remaining risks to the parent agent.
 
 ## Scope
 
