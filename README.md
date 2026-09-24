@@ -42,6 +42,7 @@
 - [Phase 277 Worker/fallback reset parity](docs/phase277-reset-parity.md)
 - [Phase 278 지연 사건 후폭풍 장기 검증](docs/phase278-case-aftermath-stress.md)
 - [Phase 279 플레이어 목표 연쇄](docs/phase279-player-quest-chains.md)
+- [Phase 280 사건 후폭풍 목표 연쇄](docs/phase280-quest-aftermath.md)
 - [Phase 1–205 파일 목록](docs/phase1-205-file-manifest.md)
 
 ## 문서
@@ -124,7 +125,7 @@ NPC event signal은 출처와 확인 횟수를 가진 소문으로도 저장되�
 
 동적 경제는 곡물을 기본 시장 상품으로 사용하고, 지역 경제 모듈에서 목재·어물을 별도 지역 자원으로 확장한다. 구릉·부두의 생산량이 교역로 신뢰도와 시장 재고에 따라 이동하며 지역 자원 가격이 변한다. 가격·재고가 임계치를 넘으면 시장 위기 신호가 생성되어 상인회·농촌·노동자·여관망의 관계와 긴장·소문 압력을 변화시키며, `market-crisis` 사건으로 플레이어의 개입을 요구한다. 지역 교역로의 신뢰도가 낮아지면 `tradeRouteCrisis:*` 신호가 생성되고 `trade-route` 사건으로 연결된다. NPC 사이에도 별도 관계망이 존재하며 협력·갈등이 조직 목표 압력과 `npc-dispute` 사건으로 연결된다.
 
-해결된 사건은 `caseHistory`에 선택과 결과를 남기며, 원 사건의 선택 결과가 다음 날 이후 후속 사건 Trigger로 이어진다. 현재 곡물 창고·교역로·세력 충돌 사건에 후속 사건이 연결되어 `연쇄사건` 명령과 8번 패널에서 인과 흐름을 확인할 수 있다.
+해결된 사건은 `caseHistory`에 선택과 결과를 남기며, 원 사건의 선택 결과가 다음 날 이후 후속 사건 Trigger로 이어진다. 현재 곡물 창고·교역로·세력 충돌·NPC 충돌 사건에 후속 사건이 연결되어 `연쇄사건` 명령과 8번 패널에서 인과 흐름을 확인할 수 있다. 플레이어 목표 연쇄는 후속 사건까지 진행되어 원 사건의 결과가 완료될 때까지 유지된다.
 
 브라우저 smoke test는 실제 Chromium에서 Worker 실행, IndexedDB 저장, 액션 처리, 페이지 새로고침 후 복원을 검증한다.
 

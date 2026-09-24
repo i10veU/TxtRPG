@@ -131,7 +131,7 @@ AnonymousRPG.UI = AnonymousRPG.UI || {};
 
     const history = Array.isArray(state.world.caseHistory) ? state.world.caseHistory.slice().reverse() : [];
     const followups = state.world.cases.filter(function (entry) {
-      return entry.status === "open" && ["grain-aftershock", "trade-route-aftershock", "faction-aftershock"].includes(entry.id);
+      return entry.status === "open" && ["grain-aftershock", "trade-route-aftershock", "faction-aftershock", "npc-dispute-aftershock"].includes(entry.id);
     });
     document.getElementById("causalityList").innerHTML = history.slice(0, 8).map(function (entry) {
       return "<li><span>" + esc(entry.caseId) + " → " + esc(entry.choiceId || "-") + "</span><small>" + esc(entry.status === "resolved" ? "해결" : "실패") + " · D" + esc(entry.resolutionDay + 1) + "</small></li>";
