@@ -161,6 +161,7 @@ window.AnonymousRPG = window.AnonymousRPG || {};
       if (RPG.Core.ensureNPCGoals) RPG.Core.ensureNPCGoals(state);
       if (RPG.Core.ensureCaseCausality) RPG.Core.ensureCaseCausality(state);
       RPG.Data.ensureCases(state);
+      if (RPG.Core.updatePlayerQuests) RPG.Core.updatePlayerQuests(state, RPG.Data.caseDefinitions);
       RPG.UI.render(state);
       persist();
     }
