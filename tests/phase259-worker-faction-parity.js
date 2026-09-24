@@ -62,6 +62,8 @@ assert.strictEqual(ready.payload.state.world.factionSimulationDay, -1);
 const update = send("ACTION", { text: "휴식" });
 assert.strictEqual(update.type, "UPDATE");
 assert.strictEqual(update.payload.state.world.factionSimulationDay, 0);
+assert.strictEqual(update.payload.state.world.minutes, 420);
+assert.strictEqual(update.payload.state.world.npcSimulationMinute, 420);
 assert.strictEqual(update.payload.state.world.flags.factionConflict, true);
 assert(update.payload.state.log.some(function (entry) {
   return entry.system && entry.narrative.includes("세력 간 긴장이 높아졌다");

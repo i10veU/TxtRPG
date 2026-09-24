@@ -1,6 +1,6 @@
 self.AnonymousRPG = self.AnonymousRPG || {};
 const window = self;
-importScripts("../core/game-state.js", "../data/npcs.js", "../data/places.js", "../data/cases.js", "../core/economy-world.js", "../core/regional-economy.js", "../core/faction-world.js", "../core/organization-world.js", "../core/npc-goals.js", "../core/npc-relations.js", "../core/action-resolver.js", "../core/npc-simulation.js", "../core/case-causality.js");
+importScripts("../core/game-state.js", "../data/npcs.js", "../data/places.js", "../data/cases.js", "../core/economy-world.js", "../core/regional-economy.js", "../core/faction-world.js", "../core/organization-world.js", "../core/npc-goals.js", "../core/organization-relations.js", "../core/npc-relations.js", "../core/action-resolver.js", "../core/npc-simulation.js", "../core/case-causality.js");
 
 let state = null;
 
