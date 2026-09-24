@@ -44,6 +44,7 @@
 - [Phase 279 플레이어 목표 연쇄](docs/phase279-player-quest-chains.md)
 - [Phase 280 사건 후폭풍 목표 연쇄](docs/phase280-quest-aftermath.md)
 - [Phase 281 fallback reset 목표 연쇄 parity](docs/phase281-fallback-quest-parity.md)
+- [Phase 282 persistence-boundary state normalization](docs/phase282-storage-normalization.md)
 - [Phase 1–205 파일 목록](docs/phase1-205-file-manifest.md)
 
 ## 문서
