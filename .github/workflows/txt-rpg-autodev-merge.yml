@@ -69,8 +69,8 @@ jobs:
             --repo "$GITHUB_REPOSITORY" \
             --state open \
             --base main \
-            --json number,title,createdAt,headRefName,author \
-            --jq --arg started "$RUN_STARTED_AT" '
+            --json number,title,createdAt,headRefName,author | \
+            jq -r --arg started "$RUN_STARTED_AT" '
               [.[]
                 | select(.createdAt >= $started)
                 | select(
