@@ -55,6 +55,8 @@ Follow the project's YAGNI-first development principle: reuse existing code befo
 
 ## Autonomous loop
 
+Act as the TxtRPG Director for this workflow. Use the repository custom agents under `.github/agents/` as the development team. For every meaningful implementation cycle, explicitly delegate at least one bounded task to the specialist whose scope matches the work, and delegate final verification to `txtrpg-qa` when the change is behavioral. Do not merely describe a handoff: actually invoke the custom sub-agent and use its returned findings or repository changes. Record the specialist delegation and verification outcome in the PR body or cycle output.
+
 1. Inspect the current default branch, recent commits, open issues, open pull requests, tests, documentation, and implementation relevant to the next task.
 2. Read `AGENTS.md` and the relevant roadmap/release documentation.
 3. Determine the single highest-value unfinished development unit that can be completed safely. Prefer a concrete missing behavior, regression, test gap, or narrowly scoped system improvement over broad refactoring.
