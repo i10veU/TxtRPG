@@ -3,6 +3,8 @@ window.AnonymousRPG = window.AnonymousRPG || {};
 (function (RPG) {
   let state = null;
   let worker = null;
+  let workerReady = false;
+  let pendingActions = [];
   let saveTimer = null;
 
   async function persist() {
@@ -52,6 +54,10 @@ window.AnonymousRPG = window.AnonymousRPG || {};
 
   function dispatchAction(text) {
     if (worker) {
+      if (!workerReady) {
+        pendingActions.push(text);
+        return;
+      }
       worker.postMessage({ type: "ACTION", text: text });
       return;
     }
@@ -62,6 +68,9 @@ window.AnonymousRPG = window.AnonymousRPG || {};
     if (!worker) return;
     worker.terminate();
     worker = null;
+    workerReady = false;
+    pendingActions.forEach(fallbackAction);
+    pendingActions = [];
     RPG.Core.appendLog(state, "게임 워커를 사용할 수 없어 메인 스레드 호환 모드로 전환했다.", null, true);
     RPG.UI.render(state);
     queuePersist();
@@ -80,8 +89,14 @@ window.AnonymousRPG = window.AnonymousRPG || {};
 
       if (message.type === "READY") {
         state = RPG.Core.normalizeState(message.payload.state);
+        workerReady = true;
         RPG.UI.render(state);
         queuePersist();
+        const actions = pendingActions;
+        pendingActions = [];
+        actions.forEach(function (text) {
+          worker.postMessage({ type: "ACTION", text: text });
+        });
         return;
       }
 
@@ -103,6 +118,7 @@ window.AnonymousRPG = window.AnonymousRPG || {};
       handleWorkerFailure();
     };
 
+    workerReady = false;
     worker.postMessage({ type: "INIT", state: initialState });
     return true;
   }
