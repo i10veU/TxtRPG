@@ -51,27 +51,48 @@ AnonymousRPG.Storage = AnonymousRPG.Storage || {};
     });
   }
 
+  function normalize(state) {
+    if (AnonymousRPG.Core && typeof AnonymousRPG.Core.normalizeState === "function") {
+      return AnonymousRPG.Core.normalizeState(state);
+    }
+    return state;
+  }
+
+  function wasChanged(original, normalized) {
+    return JSON.stringify(original) !== JSON.stringify(normalized);
+  }
+
   async function loadState() {
     try {
       const db = await open();
-      const state = await get(db);
+      const savedState = await get(db);
       db.close();
-      if (state) return { state: state, source: "indexeddb" };
+      if (savedState) {
+        const state = normalize(savedState);
+        if (wasChanged(savedState, state)) {
+          const db2 = await open();
+          await put(db2, state);
+          db2.close();
+        }
+        return { state: state, source: "indexeddb" };
+      }
 
       const legacyRaw = localStorage.getItem(LEGACY_KEY);
       if (legacyRaw) {
-        const legacyState = JSON.parse(legacyRaw);
+        const state = normalize(JSON.parse(legacyRaw));
         const db2 = await open();
-        await put(db2, legacyState);
+        await put(db2, state);
         db2.close();
-        return { state: legacyState, source: "migrated-localstorage" };
+        return { state: state, source: "migrated-localstorage" };
       }
 
       return { state: null, source: "empty" };
     } catch (error) {
       const legacyRaw = localStorage.getItem(LEGACY_KEY);
       if (legacyRaw) {
-        return { state: JSON.parse(legacyRaw), source: "localstorage-fallback" };
+        const state = normalize(JSON.parse(legacyRaw));
+        localStorage.setItem(LEGACY_KEY, JSON.stringify(state));
+        return { state: state, source: "localstorage-fallback" };
       }
       throw error;
     }
