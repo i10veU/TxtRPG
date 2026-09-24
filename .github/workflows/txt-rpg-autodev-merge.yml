@@ -42,29 +42,45 @@ jobs:
             echo "active=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Find latest autonomous PR
+      - name: Find autonomous PR from completed cycle
         if: steps.deadline.outputs.active == 'true'
         id: pr
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_STARTED_AT: ${{ github.event.workflow_run.run_started_at }}
         shell: bash
         run: |
+          set -euo pipefail
+
+          # Prefer PRs created by the autonomous agent during this exact cycle.
           pr=$(gh pr list \
             --repo "$GITHUB_REPOSITORY" \
             --state open \
             --base main \
             --json number,title,createdAt,headRefName,author \
-            --jq '[.[] | select((.headRefName | startswith("autodev/")) or (.headRefName | startswith("copilot/")) or (.author.login == "Copilot"))] | sort_by(.createdAt) | last | .number')
+            --jq --arg started "$RUN_STARTED_AT" '
+              [.[]
+                | select(.createdAt >= $started)
+                | select(
+                    (.headRefName | startswith("autodev/"))
+                    or (.headRefName | startswith("copilot/"))
+                    or (.author.login == "Copilot")
+                    or (.title | startswith("[TxtRPG AutoDev] "))
+                  )
+              ]
+              | sort_by(.createdAt)
+              | last
+              | .number // empty')
 
-          if [ -z "$pr" ] || [ "$pr" = "null" ]; then
-            echo "found=false" >> "$GITHUB_OUTPUT"
-            echo "No autonomous PR found."
+          if [ -n "$pr" ]; then
+            echo "found=true" >> "$GITHUB_OUTPUT"
+            echo "number=$pr" >> "$GITHUB_OUTPUT"
+            echo "Found autonomous PR #$pr created during this cycle."
             exit 0
           fi
 
-          echo "found=true" >> "$GITHUB_OUTPUT"
-          echo "number=$pr" >> "$GITHUB_OUTPUT"
-          echo "Found autonomous PR #$pr"
+          echo "found=false" >> "$GITHUB_OUTPUT"
+          echo "No autonomous PR was found for this cycle."
 
       - name: Merge autonomous PR
         if: steps.deadline.outputs.active == 'true' && steps.pr.outputs.found == 'true'
@@ -73,23 +89,58 @@ jobs:
           PR_NUMBER: ${{ steps.pr.outputs.number }}
         shell: bash
         run: |
+          set -euo pipefail
           gh pr merge "$PR_NUMBER" \
             --repo "$GITHUB_REPOSITORY" \
             --squash \
             --delete-branch
 
-      - name: Start next autonomous cycle
+      - name: Check whether main advanced during a PR-less cycle
+        if: steps.deadline.outputs.active == 'true' && steps.pr.outputs.found != 'true' && github.event_name == 'workflow_run'
+        id: advanced
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CYCLE_SHA: ${{ github.event.workflow_run.head_sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          main_sha=$(gh api "/repos/$GITHUB_REPOSITORY/commits/main" --jq '.sha')
+          if [ "$main_sha" != "$CYCLE_SHA" ]; then
+            echo "advanced=true" >> "$GITHUB_OUTPUT"
+            echo "main advanced from $CYCLE_SHA to $main_sha; a PR was likely merged elsewhere."
+          else
+            echo "advanced=false" >> "$GITHUB_OUTPUT"
+            echo "main did not advance during this cycle."
+          fi
+
+      - name: Start next autonomous cycle after merge
         if: steps.deadline.outputs.active == 'true' && steps.pr.outputs.found == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: bash
         run: |
+          set -euo pipefail
           gh api \
             --method POST \
             -H 'Accept: application/vnd.github+json' \
             "/repos/$GITHUB_REPOSITORY/dispatches" \
             -f event_type='txt-rpg-autodev-next'
+          echo 'Next autonomous cycle dispatched after autonomous PR merge.'
+
+      - name: Continue after externally merged autonomous change
+        if: steps.deadline.outputs.active == 'true' && steps.pr.outputs.found != 'true' && steps.advanced.outputs.advanced == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh api \
+            --method POST \
+            -H 'Accept: application/vnd.github+json' \
+            "/repos/$GITHUB_REPOSITORY/dispatches" \
+            -f event_type='txt-rpg-autodev-next'
+          echo 'Next autonomous cycle dispatched because main advanced without an open PR.'
 
       - name: Report idle cycle
-        if: steps.deadline.outputs.active == 'true' && steps.pr.outputs.found != 'true'
-        run: echo 'No autonomous PR was produced; no next cycle was dispatched.'
+        if: steps.deadline.outputs.active == 'true' && steps.pr.outputs.found != 'true' && steps.advanced.outputs.advanced != 'true'
+        run: echo 'No autonomous PR was produced and main did not advance; no next cycle dispatched.'
