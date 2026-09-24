@@ -16,6 +16,7 @@ engine:
   id: copilot
   version: "1.0.87"
   model: gpt-5.6
+  copilot-sdk: true
 
 network: defaults
 
@@ -67,9 +68,13 @@ Follow the project's YAGNI-first development principle: reuse existing code befo
 13. Include concise verification details in the PR body: changed behavior, tests run, and any limitations.
 14. Stop the run after the PR request. The repository automation will merge it and dispatch the next cycle immediately.
 
+## Current blocker priority
+
+The repository currently has a known Browser smoke regression where the `rest` action leaves `world.minutes` at 360 when the smoke test expects 420. Treat this as the first investigation target unless a newer, more severe blocker exists. Trace the actual `rest` -> time advancement path, the browser/fallback path, and the test contract before changing anything. Do not weaken the test merely to make CI green. If the game contract says rest should advance time, fix the minimum implementation defect; if the test contract is stale, update it only with concrete evidence from the existing game specification and behavior.
+
 ## Editing reliability fallback
 
-The Copilot Edit tool has exhibited a repeatable Responses API `400 Invalid input[N].id: ctc_call_... Expected an ID that begins with fc` failure in this environment. To avoid that failure path, **do not use the built-in Edit tool for repository file modifications**. Use shell commands instead (prefer Python, Node.js, or Perl scripts that perform exact, deterministic replacements; use heredocs only for deliberate complete-file rewrites). After every shell edit, immediately inspect `git diff --check` and the relevant diff before continuing.
+The Copilot Edit tool has exhibited a repeatable Responses API `400 Invalid input[N].id: ctc_call_... Expected an ID that begins with fc` failure in this environment. This workflow now uses Copilot SDK mode as an isolation experiment. If the same ID error occurs, **do not use the built-in Edit tool for repository file modifications**. Use shell commands instead (prefer Python, Node.js, or Perl scripts that perform exact, deterministic replacements; use heredocs only for deliberate complete-file rewrites). After every shell edit, immediately inspect `git diff --check` and the relevant diff before continuing.
 
 If a shell edit fails, diagnose it and retry with a more precise deterministic edit. Do not fall back to the built-in Edit tool. If any other tool-call/session error occurs, do not repeatedly resume a poisoned session; continue the work through shell-based edits and fresh verification where possible.
 
@@ -115,4 +120,4 @@ Never intentionally bypass repository security or CI checks.
 
 The generated lock workflow must remain synchronized with this source file; workflow-source changes are compiled before the next autonomous cycle is retried.
 
-<!-- compiler retrigger: use GH_AW_GITHUB_TOKEN for workflow-capable pushes -->
+<!-- compiler retrigger: Copilot SDK mode isolation experiment -->
