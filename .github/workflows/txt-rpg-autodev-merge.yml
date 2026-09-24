@@ -49,7 +49,12 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: bash
         run: |
-          pr=$(gh pr list             --repo "$GITHUB_REPOSITORY"             --state open             --base main             --json number,title,createdAt             --jq '[.[] | select(.title | startswith("[TxtRPG AutoDev] "))] | sort_by(.createdAt) | last | .number')
+          pr=$(gh pr list \
+            --repo "$GITHUB_REPOSITORY" \
+            --state open \
+            --base main \
+            --json number,title,createdAt,headRefName,author \
+            --jq '[.[] | select((.headRefName | startswith("autodev/")) or (.headRefName | startswith("copilot/")) or (.author.login == "Copilot"))] | sort_by(.createdAt) | last | .number')
 
           if [ -z "$pr" ] || [ "$pr" = "null" ]; then
             echo "found=false" >> "$GITHUB_OUTPUT"
@@ -68,7 +73,10 @@ jobs:
           PR_NUMBER: ${{ steps.pr.outputs.number }}
         shell: bash
         run: |
-          gh pr merge "$PR_NUMBER"             --repo "$GITHUB_REPOSITORY"             --squash             --delete-branch
+          gh pr merge "$PR_NUMBER" \
+            --repo "$GITHUB_REPOSITORY" \
+            --squash \
+            --delete-branch
 
       - name: Start next autonomous cycle
         if: steps.deadline.outputs.active == 'true' && steps.pr.outputs.found == 'true'
@@ -76,7 +84,11 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: bash
         run: |
-          gh api             --method POST             -H 'Accept: application/vnd.github+json'             "/repos/$GITHUB_REPOSITORY/dispatches"             -f event_type='txt-rpg-autodev-next'
+          gh api \
+            --method POST \
+            -H 'Accept: application/vnd.github+json' \
+            "/repos/$GITHUB_REPOSITORY/dispatches" \
+            -f event_type='txt-rpg-autodev-next'
 
       - name: Report idle cycle
         if: steps.deadline.outputs.active == 'true' && steps.pr.outputs.found != 'true'
