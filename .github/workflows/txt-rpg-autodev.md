@@ -14,7 +14,7 @@ permissions:
 
 engine:
   id: copilot
-  model: auto
+  model: gpt-5.6
 
 network: defaults
 
@@ -75,6 +75,8 @@ Use this feedback cycle:
 implementation -> verification -> failure analysis -> correction -> verification -> PR request -> automatic merge -> next run.
 
 Do not weaken or remove tests merely to make a change pass. If a failure reveals a pre-existing unrelated repository problem, isolate it and avoid claiming the new work is verified.
+
+If the same implementation or verification failure persists after five correction attempts, do not continue looping. Record the blocker with the concrete failure evidence and stop that cycle. Escalate only when the blocker is material to project progress.
 
 If a task requires a genuinely unresolved product/design decision, do not invent a major direction. Record the blocker in a concise comment or issue and stop that cycle rather than making a speculative architectural change.
 
