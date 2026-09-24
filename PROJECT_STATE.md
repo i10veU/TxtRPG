@@ -22,7 +22,7 @@ Build a large-scale offline-first text RPG in the browser where the player disco
 - Dynamic grain economy plus regional resources/trade routes
 - Information/rumor provenance and confidence
 - NPC relationship/conflict network
-- Event history, follow-up triggers, and grain/faction/trade-route/NPC-dispute consequence pressure on NPC goals
+- Event history, follow-up triggers, and grain/faction/trade-route/NPC-dispute consequences that apply both organization pressure and durable NPC goal progress
 - Command-based player goal discovery from open cases and high-confidence rumors
 - Browser smoke coverage for Worker, IndexedDB, actions, reload/restore
 

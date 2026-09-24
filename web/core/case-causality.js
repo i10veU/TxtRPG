@@ -66,6 +66,14 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
     });
   }
 
+  function applyGoalProgress(state, entries) {
+    if (typeof Core.progressNPCGoal !== "function") return;
+    const minute = Core.getAbsoluteMinute(state);
+    entries.forEach(function (entry) {
+      Core.progressNPCGoal(state, entry.npcId, entry.amount || 1, minute, entry.reason);
+    });
+  }
+
   function installFollowupCases() {
     Data.caseDefinitions = Data.caseDefinitions || {};
 
@@ -83,6 +91,7 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
             Core.adjustRelation(state, "archive", 3);
             Core.adjustRelation(state, "merchants", -2);
             applyGoalPressure(state, { archive: 1, merchants: -1 });
+            applyGoalProgress(state, [{ npcId: "serin", reason: "공문서 대조" }]);
             state.world.rumorPressure = Core.clamp(Number(state.world.rumorPressure || 0) + 1, 0, 100);
             return "이전 사건의 재고 차이를 공개 기록으로 남겼다. 기록관은 신뢰했지만 상인회는 감시를 경계했다.";
           } },
@@ -92,12 +101,14 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
             Core.adjustRelation(state, "merchants", 3);
             Core.adjustRelation(state, "archive", -1);
             applyGoalPressure(state, { merchants: 1, archive: -1 });
+            applyGoalProgress(state, [{ npcId: "mara", reason: "시장 거래" }]);
             return "상인회와 손실을 조정했다. 시장은 빠르게 안정됐지만 기록관에는 설명되지 않은 빈틈이 남았다.";
           } },
           { id: "trace", label: "재고가 사라진 경로를 다시 추적한다", risk: 4, run: function (state) {
             state.world.rumorPressure = Core.clamp(Number(state.world.rumorPressure || 0) + 2, 0, 100);
             Core.adjustRelation(state, "guard", 1);
             applyGoalPressure(state, { guard: 1 });
+            applyGoalProgress(state, [{ npcId: "jonas", reason: "화물 목록 대조" }]);
             state.world.discovered = Array.isArray(state.world.discovered) ? state.world.discovered : [];
             if (!state.world.discovered.includes("grainLedgerTrail")) state.world.discovered.push("grainLedgerTrail");
             addSignal(state, "grainLedgerTrail");
@@ -121,6 +132,7 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
             Core.adjustRelation(state, "archive", 2);
             Core.adjustRelation(state, "merchants", -1);
             applyGoalPressure(state, { archive: 1, merchants: -1 });
+            applyGoalProgress(state, [{ npcId: "serin", reason: "공문서 대조" }]);
             return "대체 공급 계약을 조사했다. 계약의 조건은 투명해졌지만 상인회와의 협상이 느려졌다.";
           } },
           { id: "renew", label: "임시 공급선을 장기 계약으로 전환한다", risk: 3, run: function (state) {
@@ -131,6 +143,11 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
             Core.adjustRelation(state, "merchants", 2);
             Core.adjustRelation(state, "workers", 1);
             applyGoalPressure(state, { merchants: 1, workers: 1 });
+            applyGoalProgress(state, [
+              { npcId: "mara", reason: "시장 거래" },
+              { npcId: "orel", reason: "부두 시설 수리" },
+              { npcId: "jonas", reason: "화물 목록 대조" }
+            ]);
             return "임시 공급선을 장기 계약으로 전환했다. 운송은 안정됐지만 기존 교역상들의 불만이 남았다.";
           } },
           { id: "local", label: "지역 생산자에게 직접 구매한다", risk: 4, run: function (state) {
@@ -140,6 +157,10 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
             Core.adjustRelation(state, "rural", 2);
             Core.adjustRelation(state, "workers", 2);
             applyGoalPressure(state, { rural: 1, workers: 1 });
+            applyGoalProgress(state, [
+              { npcId: "darma", reason: "운송 협상" },
+              { npcId: "orel", reason: "부두 시설 수리" }
+            ]);
             return "지역 생산자와 직접 거래했다. 시장 재고가 회복되고 생산자 쪽 신뢰가 높아졌다.";
           } }
         ]
