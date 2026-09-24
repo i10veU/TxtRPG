@@ -82,6 +82,28 @@ jobs:
           echo "found=false" >> "$GITHUB_OUTPUT"
           echo "No autonomous PR was found for this cycle."
 
+      - name: Wait for autonomous PR checks
+        if: steps.deadline.outputs.active == 'true' && steps.pr.outputs.found == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ steps.pr.outputs.number }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "Waiting for Runtime CI on PR #$PR_NUMBER..."
+          for attempt in {1..30}; do
+            count=$(gh pr view "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --json statusCheckRollup --jq '.statusCheckRollup | length')
+            if [ "$count" -gt 0 ]; then
+              echo "Detected $count check(s)."
+              break
+            fi
+            if [ "$attempt" -eq 30 ]; then
+              echo "No PR checks appeared within 5 minutes." >&2
+              exit 1
+            fi
+            sleep 10
+          done
+          gh pr checks "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --watch --fail-fast
       - name: Merge autonomous PR
         if: steps.deadline.outputs.active == 'true' && steps.pr.outputs.found == 'true'
         env:
