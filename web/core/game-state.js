@@ -60,7 +60,9 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
       npcRelationDay: -1,
       discovered: [],
       cases: [],
-      playerQuests: { chains: {} }
+      playerQuests: { chains: {} },
+      tutorial: { step: 0, completed: false },
+      gameStatus: "active"
     },
     npcs: {},
     log: []
@@ -141,6 +143,15 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     state.world.playerQuests.chains = state.world.playerQuests.chains && typeof state.world.playerQuests.chains === "object"
       ? state.world.playerQuests.chains
       : {};
+    const tutorial = input && input.world && input.world.tutorial;
+    state.world.tutorial = {
+      step: Math.max(0, Math.min(4, Number(tutorial && tutorial.step) || 0)),
+      completed: Boolean(tutorial && tutorial.completed)
+    };
+    if (state.world.tutorial.completed) state.world.tutorial.step = 4;
+    state.world.gameStatus = ["active", "won", "lost"].includes(input && input.world && input.world.gameStatus)
+      ? input.world.gameStatus
+      : "active";
     state.npcs = input && input.npcs && typeof input.npcs === "object" ? input.npcs : {};
     state.log = Array.isArray(state.log) ? state.log : [];
     state.schemaVersion = 5;

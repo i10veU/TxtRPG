@@ -112,7 +112,41 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     return Object.keys(ensure(state).chains).map(function (id) { return ensure(state).chains[id]; });
   }
 
+  function applyCampaignProgress(state, definitions) {
+    update(state, definitions);
+    const tutorial = state.world.tutorial || { step: 0, completed: false };
+    const status = state.world.gameStatus || "active";
+    const events = [];
+    if (status !== "active") return events;
+
+    if (Number(state.player.hp) <= 0) {
+      state.player.hp = 0;
+      state.world.gameStatus = "lost";
+      events.push("당신은 더 이상 몸을 움직일 수 없다. 이번 여정은 여기서 끝났다.");
+      return events;
+    }
+
+    const complete = Object.keys(state.world.playerQuests.chains).some(function (id) {
+      return state.world.playerQuests.chains[id].status === "complete";
+    });
+    if (complete) {
+      state.world.gameStatus = "won";
+      events.push("첫 번째 사건의 연쇄를 끝까지 매듭지었다. 세르카의 내일은 당신의 선택 위에 놓였다.");
+      return events;
+    }
+
+    if (tutorial.completed) return events;
+    const next = Math.max(0, Math.min(4, Number(tutorial.step) || 0));
+    if (next >= 3) {
+      tutorial.step = 4;
+      tutorial.completed = true;
+      events.push("기본 안내를 마쳤다. 이제 열린 사건과 소문을 따라 세르카의 운명을 선택할 수 있다.");
+    }
+    return events;
+  }
+
   Core.ensurePlayerQuests = ensure;
+  Core.applyCampaignProgress = applyCampaignProgress;
   Core.updatePlayerQuests = update;
   Core.listPlayerQuests = list;
 })(AnonymousRPG.Core);

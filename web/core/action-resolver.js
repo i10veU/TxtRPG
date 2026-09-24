@@ -257,6 +257,11 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
   Core.resolveAction = function (state, text) {
     const input = String(text || "").trim();
     if (!input) return { narrative: "", action: "", changed: false };
+    if (state.world.gameStatus && state.world.gameStatus !== "active") {
+      return { narrative: state.world.gameStatus === "won" ? "이 여정은 이미 결말에 도달했다." : "당신은 쓰러져 더 이상 행동할 수 없다.", action: input, changed: false };
+    }
+    if (!state.world.tutorial) state.world.tutorial = { step: 0, completed: false };
+    if (state.world.tutorial.step === 2 && /^(?:목표추천|다음목표|단서|퀘스트|사건목록|사건 목록)$/i.test(input)) state.world.tutorial.step = 3;
     if (typeof Core.ensureEconomy === "function") Core.ensureEconomy(state);
     const regionalEconomy = regionalEconomyCommand(state, input);
     if (regionalEconomy) return regionalEconomy;
@@ -303,6 +308,11 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
       Core.advanceTime(state, 15);
       result = "당신은 " + input + "을(를) 시도했다. 당장 눈에 띄는 결과는 없었다.";
     }
+    if (!state.world.tutorial) state.world.tutorial = { step: 0, completed: false };
+    const tutorial = state.world.tutorial;
+    if (tutorial.step === 0 && state.player.place === "market" && /조사|확인|관찰|살펴|수색/.test(input)) tutorial.step = 1;
+    else if (tutorial.step === 1 && state.player.place === "archive" && /이동|가자|간다/.test(input)) tutorial.step = 2;
+    else if (tutorial.step === 2 && /^(?:목표추천|다음목표|단서|퀘스트|사건목록|사건 목록)$/i.test(input)) tutorial.step = 3;
     Data.ensureCases(state);
     state.world.trustInAdministration = Core.clamp(state.world.trustInAdministration, 0, 100);
     state.world.security = Core.clamp(state.world.security, 0, 100);

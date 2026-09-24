@@ -20,7 +20,9 @@ function runAction(text) {
   const economyEvent = AnonymousRPG.Core.simulateEconomy(state, after);
   const regionalEconomyEvent = AnonymousRPG.Core.simulateRegionalEconomy ? AnonymousRPG.Core.simulateRegionalEconomy(state, after) : null;
   const caseCausalityEvent = AnonymousRPG.Core.simulateCaseCausality ? AnonymousRPG.Core.simulateCaseCausality(state, after) : null;
-  if (AnonymousRPG.Core.updatePlayerQuests) AnonymousRPG.Core.updatePlayerQuests(state, AnonymousRPG.Data.caseDefinitions);
+  const campaignEvents = AnonymousRPG.Core.applyCampaignProgress
+    ? AnonymousRPG.Core.applyCampaignProgress(state, AnonymousRPG.Data.caseDefinitions)
+    : (AnonymousRPG.Core.updatePlayerQuests ? (AnonymousRPG.Core.updatePlayerQuests(state, AnonymousRPG.Data.caseDefinitions), []) : []);
 
   if (result.narrative) AnonymousRPG.Core.appendLog(state, result.narrative, result.action);
   npcEvents.forEach(function (event) {
@@ -38,6 +40,7 @@ function runAction(text) {
   if (economyEvent) AnonymousRPG.Core.appendLog(state, economyEvent, null, true);
   if (regionalEconomyEvent) AnonymousRPG.Core.appendLog(state, regionalEconomyEvent, null, true);
   if (caseCausalityEvent) AnonymousRPG.Core.appendLog(state, caseCausalityEvent, null, true);
+  campaignEvents.forEach(function (event) { AnonymousRPG.Core.appendLog(state, event, null, true); });
   return { result: result, npcEvents: npcEvents, economyEvent: economyEvent };
 }
 

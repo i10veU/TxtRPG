@@ -31,10 +31,11 @@ Build a large-scale offline-first text RPG in the browser where the player disco
 - Main-thread fallback reset initializes and persists the same player quest chains as Worker reset, covered by an app-level regression test
 - Storage loads normalize legacy/incomplete saves at the IndexedDB and localStorage boundaries and rewrite the normalized state, covered by a three-path regression test
 - Storage saves normalize once before IndexedDB writes, keep record metadata aligned with the normalized schema, and use the same normalized snapshot for localStorage fallback writes without mutating caller state
+- The first-session tutorial now advances through market inspection, archive travel, and goal discovery; campaign state records active/won/lost outcomes, blocks terminal actions, and is normalized for persistence
 
 ## Current next milestones
 
-1. Validate the complete game loop, tutorial, and long-play/end-state structure.
+1. Extend the validated tutorial/end-state contract into a complete long-play and ending structure.
 2. Separate IndexedDB entities where justified and stress-test long simulations.
 
 ## Agent ownership
