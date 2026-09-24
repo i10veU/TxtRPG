@@ -59,6 +59,27 @@ After editing:
 - For browser/runtime changes, perform the existing smoke-test path when available.
 - Report what was tested and any limitations.
 
+## Autonomous operation and human escalation
+
+TxtRPG is intended to run as an autonomous development pipeline. Routine successful work must NOT request human review, approval, or confirmation beyond the platform's unavoidable Copilot task-completion notification.
+
+Agents should self-review, run verification, fix ordinary failures, and continue iterating without waiting for the owner.
+
+Escalate to the owner only when a material blocker or high-impact report requires a human decision. Examples include:
+
+- security vulnerability, secret exposure, or unsafe permission change;
+- data-loss risk or an irreversible migration;
+- corruption of persistent game state or save compatibility;
+- an unresolved regression after reasonable repair attempts;
+- a conflict with an established non-negotiable invariant or world-canon rule;
+- a major architectural decision with multiple materially different valid choices;
+- inability to proceed because required information or credentials are unavailable;
+- a release-blocking failure that cannot be safely repaired within scope.
+
+For escalation, create or update a clearly labeled GitHub issue/report and explicitly `@mention` the owner with a concise explanation, evidence, impact, and the decision needed. Do not @mention the owner for ordinary test failures that the agent can repair, routine PR completion, or successful milestones.
+
+Do not treat a PR review request generated automatically by GitHub as evidence that human review is required. The repository policy is autonomous operation; agents must continue verification and integration without waiting for the owner unless an escalation condition above is met.
+
 ## Git rules
 
 - Work on a task-specific branch.
