@@ -34,11 +34,12 @@ Build a large-scale offline-first text RPG in the browser where the player disco
 - The first-session tutorial now advances through market inspection, archive travel, and goal discovery; campaign state records active/won/lost outcomes, blocks terminal actions, and is normalized for persistence
 - Terminal `won`/`lost` campaign states are regression-tested across IndexedDB and both localStorage fallback paths, including restored action blocking
 - Long-play campaign progression no longer ends on arbitrary quest completion; the canonical grain case and aftermath unlock an explicit, persisted finale command and time preservation
+- IndexedDB schema version 2 stores meta, world, and simulation snapshots in one transaction, migrates legacy monolithic saves, and preserves localStorage fallback behavior
 
 ## Current next milestones
 
-1. Extend the validated tutorial/end-state contract into a complete long-play and ending structure.
-2. Separate IndexedDB entities where justified and stress-test long simulations.
+1. Stress-test long simulations across repeated entity-snapshot save/load cycles.
+2. Extend the validated tutorial/end-state contract into a complete long-play and ending structure.
 
 ## Agent ownership
 

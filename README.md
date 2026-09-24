@@ -49,6 +49,7 @@
 - [Phase 284 game loop tutorial and end states](docs/phase284-game-loop.md)
 - [Phase 285 terminal-state persistence](docs/phase285-terminal-persistence.md)
 - [Phase 286 장기 플레이와 결말 게이트](docs/phase286-long-play-ending.md)
+- [Phase 287 IndexedDB 엔티티 스냅샷](docs/phase287-storage-entities.md)
 - [Phase 1–205 파일 목록](docs/phase1-205-file-manifest.md)
 
 ## 문서
@@ -137,7 +138,7 @@ NPC event signal은 출처와 확인 횟수를 가진 소문으로도 저장되�
 
 ## 다음 단계
 
-1. IndexedDB 엔티티 분리와 장기 시뮬레이션 스트레스 테스트
+1. 장기 시뮬레이션 저장/복원 스트레스 테스트와 엔티티 경계 보강
 2. 플레이어 목표 연쇄를 사건 후속 결과·다단계 발견으로 확장
 3. 최종 게임 루프·튜토리얼·엔딩/장기 플레이 구조 검증
 4. 최종 게임 루프·튜토리얼·엔딩/장기 플레이 구조 검증
