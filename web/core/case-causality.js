@@ -82,6 +82,7 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
             state.world.trustInAdministration = Core.clamp(Number(state.world.trustInAdministration || 0) + 3, 0, 100);
             Core.adjustRelation(state, "archive", 3);
             Core.adjustRelation(state, "merchants", -2);
+            applyGoalPressure(state, { archive: 1, merchants: -1 });
             state.world.rumorPressure = Core.clamp(Number(state.world.rumorPressure || 0) + 1, 0, 100);
             return "이전 사건의 재고 차이를 공개 기록으로 남겼다. 기록관은 신뢰했지만 상인회는 감시를 경계했다.";
           } },
@@ -90,11 +91,13 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
             state.world.grainSupply = Core.clamp(Number(state.world.grainSupply || 0) + 2, 0, 100);
             Core.adjustRelation(state, "merchants", 3);
             Core.adjustRelation(state, "archive", -1);
+            applyGoalPressure(state, { merchants: 1, archive: -1 });
             return "상인회와 손실을 조정했다. 시장은 빠르게 안정됐지만 기록관에는 설명되지 않은 빈틈이 남았다.";
           } },
           { id: "trace", label: "재고가 사라진 경로를 다시 추적한다", risk: 4, run: function (state) {
             state.world.rumorPressure = Core.clamp(Number(state.world.rumorPressure || 0) + 2, 0, 100);
             Core.adjustRelation(state, "guard", 1);
+            applyGoalPressure(state, { guard: 1 });
             state.world.discovered = Array.isArray(state.world.discovered) ? state.world.discovered : [];
             if (!state.world.discovered.includes("grainLedgerTrail")) state.world.discovered.push("grainLedgerTrail");
             addSignal(state, "grainLedgerTrail");
@@ -158,6 +161,7 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
               const relation = state.world.organizationRelations[key];
               relation.score = Core.clamp((Number(relation.score) || 0) + 3, -100, 100);
             });
+            applyGoalPressure(state, { merchants: 1, guard: 1, archive: 1, rural: 1, innkeepers: 1, workers: 1 });
             return "지난 합의의 조건을 다시 공개했다. 일부 불만은 남았지만 조직 간 오해가 줄었다.";
           } },
           { id: "enforce", label: "경비대에 합의 이행을 맡긴다", risk: 3, run: function (state) {
@@ -165,11 +169,13 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
             state.world.tension = Core.clamp(Number(state.world.tension || 0) + 2, 0, 100);
             Core.adjustRelation(state, "guard", 3);
             Core.adjustRelation(state, "workers", -2);
+            applyGoalPressure(state, { guard: 1, workers: -1 });
             return "경비대가 합의 이행을 감시하기 시작했다. 질서는 회복됐지만 노동자 조합은 압박으로 받아들였다.";
           } },
           { id: "withdraw", label: "당분간 모든 세력에서 거리를 둔다", risk: 1, run: function (state) {
             state.world.rumorPressure = Math.max(0, Number(state.world.rumorPressure || 0) - 2);
             state.world.tension = Math.max(0, Number(state.world.tension || 0) - 1);
+            applyGoalPressure(state, { merchants: -1, guard: -1, archive: -1, rural: -1, innkeepers: -1, workers: -1 });
             return "직접적인 개입을 멈췄다. 단기적인 긴장은 줄었지만 문제를 해결할 영향력도 약해졌다.";
           } }
         ]
