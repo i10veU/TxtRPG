@@ -105,3 +105,5 @@ Do not modify workflow/security configuration as part of routine feature work. T
 If the repository is already failing in an unrelated way and the failure cannot be safely isolated, if credentials are required, if a broad architectural rewrite is required, or if there is no clearly valuable verifiable development unit, leave a concise comment/issue explaining the blocker and stop that cycle.
 
 Never intentionally bypass repository security or CI checks.
+
+The generated lock workflow must remain synchronized with this source file; workflow-source changes are compiled before the next autonomous cycle is retried.
