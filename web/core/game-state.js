@@ -59,7 +59,8 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
       npcRelations: {},
       npcRelationDay: -1,
       discovered: [],
-      cases: []
+      cases: [],
+      playerQuests: { chains: {} }
     },
     npcs: {},
     log: []
@@ -134,6 +135,12 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     state.world.npcRelationDay = Number.isFinite(npcRelationDay) ? npcRelationDay : -1;
     state.world.discovered = Array.isArray(state.world.discovered) ? state.world.discovered : [];
     state.world.cases = Array.isArray(state.world.cases) ? state.world.cases : [];
+    state.world.playerQuests = input && input.world && input.world.playerQuests && typeof input.world.playerQuests === "object"
+      ? input.world.playerQuests
+      : { chains: {} };
+    state.world.playerQuests.chains = state.world.playerQuests.chains && typeof state.world.playerQuests.chains === "object"
+      ? state.world.playerQuests.chains
+      : {};
     state.npcs = input && input.npcs && typeof input.npcs === "object" ? input.npcs : {};
     state.log = Array.isArray(state.log) ? state.log : [];
     state.schemaVersion = 5;

@@ -115,7 +115,13 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
   function playerGoalCommand(state, text) {
     if (!/^(?:목표추천|다음목표|단서|단서목록|퀘스트|quest|goals?)$/i.test(text.trim())) return null;
     Data.ensureCases(state);
+    if (Core.updatePlayerQuests) Core.updatePlayerQuests(state, Data.caseDefinitions);
     const leads = [];
+    const quests = Core.listPlayerQuests ? Core.listPlayerQuests(state, Data.caseDefinitions) : [];
+    quests.filter(function (quest) { return quest.status !== "complete"; }).slice(0, 3).forEach(function (quest) {
+      const step = quest.steps[quest.currentStep];
+      if (step) leads.push("퀘스트: " + quest.title + " — " + step.text);
+    });
     const openCases = (state.world.cases || []).filter(function (entry) { return entry.status === "open"; });
     openCases.sort(function (a, b) {
       return (a.createdDay - b.createdDay) || String(a.id).localeCompare(String(b.id));

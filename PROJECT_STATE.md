@@ -27,11 +27,12 @@ Build a large-scale offline-first text RPG in the browser where the player disco
 - Browser smoke coverage for Worker, IndexedDB, actions, reload/restore
 - Worker and fallback reset paths initialize regional economy and NPC relationship state consistently
 - Delayed case aftermath is covered by a 120-day Worker/fallback parity and bounded-state stress test
+- Player case goals are persisted as two-step, idempotent quest chains and exposed through actionable goal recommendations
 
 ## Current next milestones
 
 1. Separate IndexedDB entities where justified and stress-test long simulations.
-2. Expand goal discovery from command hints into deeper multi-step quest chains.
+2. Expand quest chains into case aftermath and deeper multi-step discovery.
 3. Validate the complete game loop, tutorial, and long-play/end-state structure.
 
 ## Agent ownership
