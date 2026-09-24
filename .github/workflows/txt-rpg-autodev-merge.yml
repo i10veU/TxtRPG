@@ -42,6 +42,18 @@ jobs:
             echo "active=true" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Validate cycle trigger token
+        if: steps.deadline.outputs.active == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GH_AW_CI_TRIGGER_TOKEN || secrets.GH_AW_GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -z "$GH_TOKEN" ]; then
+            echo 'Missing GH_AW_CI_TRIGGER_TOKEN (or GH_AW_GITHUB_TOKEN) required for autonomous cycle chaining.' >&2
+            exit 1
+          fi
+          gh api "/repos/$GITHUB_REPOSITORY/actions/workflows/txt-rpg-autodev.lock.yml" --jq '.state'
       - name: Find autonomous PR from completed cycle
         if: steps.deadline.outputs.active == 'true'
         id: pr
