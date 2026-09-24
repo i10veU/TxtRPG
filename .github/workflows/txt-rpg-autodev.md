@@ -14,6 +14,7 @@ permissions:
 
 engine:
   id: copilot
+  version: "1.0.87"
   model: gpt-5.6
 
 network: defaults
@@ -65,6 +66,12 @@ Follow the project's YAGNI-first development principle: reuse existing code befo
 12. When all applicable checks pass, request exactly one `[TxtRPG AutoDev] ...` pull request containing the completed unit. Do not wait for human review.
 13. Include concise verification details in the PR body: changed behavior, tests run, and any limitations.
 14. Stop the run after the PR request. The repository automation will merge it and dispatch the next cycle immediately.
+
+## Editing reliability fallback
+
+The Copilot Edit tool has exhibited a repeatable Responses API `400 Invalid input[N].id: ctc_call_... Expected an ID that begins with fc` failure in this environment. To avoid that failure path, **do not use the built-in Edit tool for repository file modifications**. Use shell commands instead (prefer Python, Node.js, or Perl scripts that perform exact, deterministic replacements; use heredocs only for deliberate complete-file rewrites). After every shell edit, immediately inspect `git diff --check` and the relevant diff before continuing.
+
+If a shell edit fails, diagnose it and retry with a more precise deterministic edit. Do not fall back to the built-in Edit tool. If any other tool-call/session error occurs, do not repeatedly resume a poisoned session; continue the work through shell-based edits and fresh verification where possible.
 
 ## Self-feedback policy
 
