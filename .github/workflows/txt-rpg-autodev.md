@@ -12,6 +12,10 @@ permissions:
   actions: read
   copilot-requests: write
 
+engine:
+  id: copilot
+  model: gpt-5
+
 network: defaults
 
 tools:
@@ -84,11 +88,11 @@ Preserve deterministic behavior between Worker and fallback paths whenever both 
 
 Prefer data-driven world content and compatibility with existing storage schemas.
 
-## Time boundary
+## Campaign boundary
 
-The autonomous development campaign is intended to run only until `2026-09-24 10:00 KST`.
+The autonomous development campaign has no fixed built-in expiration. It continues until the repository owner disables the workflow or sets the repository variable `TXTRPG_AUTODEV_DEADLINE_KST`.
 
-At the beginning of every run, determine the current time in Korea Standard Time. If it is at or after `2026-09-24 10:00 KST`, do not modify project code and stop. The time check is a hard stop even if work remains.
+When `TXTRPG_AUTODEV_DEADLINE_KST` is set, interpret it as a Korea Standard Time timestamp such as `2026-09-25 10:00:00`. At or after that time, do not modify project code and stop the cycle. The merge/continue automation enforces the same boundary.
 
 ## Safety and stop conditions
 
