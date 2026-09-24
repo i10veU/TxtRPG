@@ -64,13 +64,18 @@ test.describe("TxtRPG browser runtime", () => {
         goalStatus: state.npcs.mara.goalState.status
       };
     });
+    const turnsBeforeRest = await page.locator("#storyBody .turn").count();
 
     await page.locator("#actionInput").fill("휴식");
     await page.locator("#actionForm button").click();
 
     await expect.poll(async () => {
+      return page.evaluate(() => window.AnonymousRPGApp.getState().world.minutes);
+    }).toBe(before.minutes + 60);
+
+    await expect.poll(async () => {
       return page.locator("#storyBody .turn").count();
-    }).toBeGreaterThan(2);
+    }).toBeGreaterThan(turnsBeforeRest);
 
     const after = await page.evaluate(() => {
       const state = window.AnonymousRPGApp.getState();
@@ -87,7 +92,7 @@ test.describe("TxtRPG browser runtime", () => {
     });
 
     expect(after.day).toBe(before.day);
-    expect(after.minutes).toBe(420);
+    expect(after.minutes).toBe(before.minutes + 60);
     expect(after.npcSimulationMinute).toBe(420);
     expect(after.npcSimulationMinute).toBeGreaterThan(before.npcSimulationMinute);
     expect(after.grainSupply).toBeGreaterThan(before.grainSupply);
