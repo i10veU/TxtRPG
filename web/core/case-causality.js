@@ -52,6 +52,20 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
     state.world.eventSignals[signal] = (Number(state.world.eventSignals[signal]) || 0) + 1;
   }
 
+  function applyGoalPressure(state, changes) {
+    if (typeof Core.ensureOrganizations === "function") Core.ensureOrganizations(state);
+    const minute = Core.getAbsoluteMinute(state);
+    Object.keys(changes).forEach(function (organizationId) {
+      const organization = state.world.organizations && state.world.organizations[organizationId];
+      if (!organization) return;
+      organization.goalPressure = Core.clamp((Number(organization.goalPressure) || 0) + Number(changes[organizationId]), -2, 2);
+      if (typeof Core.reviewNPCGoal !== "function") return;
+      Object.keys(state.npcs || {}).forEach(function (npcId) {
+        if (state.npcs[npcId].faction === organizationId) Core.reviewNPCGoal(state, npcId, minute);
+      });
+    });
+  }
+
   function installFollowupCases() {
     Data.caseDefinitions = Data.caseDefinitions || {};
 
@@ -103,6 +117,7 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
             state.world.trustInAdministration = Core.clamp(Number(state.world.trustInAdministration || 0) + 2, 0, 100);
             Core.adjustRelation(state, "archive", 2);
             Core.adjustRelation(state, "merchants", -1);
+            applyGoalPressure(state, { archive: 1, merchants: -1 });
             return "대체 공급 계약을 조사했다. 계약의 조건은 투명해졌지만 상인회와의 협상이 느려졌다.";
           } },
           { id: "renew", label: "임시 공급선을 장기 계약으로 전환한다", risk: 3, run: function (state) {
@@ -112,6 +127,7 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
             });
             Core.adjustRelation(state, "merchants", 2);
             Core.adjustRelation(state, "workers", 1);
+            applyGoalPressure(state, { merchants: 1, workers: 1 });
             return "임시 공급선을 장기 계약으로 전환했다. 운송은 안정됐지만 기존 교역상들의 불만이 남았다.";
           } },
           { id: "local", label: "지역 생산자에게 직접 구매한다", risk: 4, run: function (state) {
@@ -120,6 +136,7 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
             state.world.regionalEconomy.market.fish = Core.clamp(Number(state.world.regionalEconomy.market.fish || 0) + 5, 0, 100);
             Core.adjustRelation(state, "rural", 2);
             Core.adjustRelation(state, "workers", 2);
+            applyGoalPressure(state, { rural: 1, workers: 1 });
             return "지역 생산자와 직접 거래했다. 시장 재고가 회복되고 생산자 쪽 신뢰가 높아졌다.";
           } }
         ]
