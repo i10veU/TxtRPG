@@ -38,11 +38,12 @@ Build a large-scale offline-first text RPG in the browser where the player disco
 - Repeated entity-snapshot save/load cycles are covered by a 100-cycle alternating-state stress test, including stale-data isolation and independent entity-record recovery
 - Finale-ready and canonical terminal campaign states are covered through IndexedDB and both localStorage fallback paths, including restored terminal action blocking
 - Browser coverage now seeds a finale-ready state, completes the canonical ending through the Worker, verifies terminal persistence after reload, and confirms post-ending actions remain blocked
+- Browser coverage now restores an active long-play state, resolves the warehouse case and delayed grain aftermath through the Worker, and verifies the four-step quest chain and finale gate after reload
 
 ## Current next milestones
 
-1. Extend browser coverage from the canonical finale path to representative long-play case progression.
-2. Continue bounded save/restore stress checks as new ending content is added.
+1. Continue bounded save/restore stress checks as new ending content is added.
+2. Expand representative long-play coverage to non-canonical case chains when new ending content warrants it.
 
 ## Agent ownership
 
