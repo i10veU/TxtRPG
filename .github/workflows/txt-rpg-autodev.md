@@ -58,7 +58,7 @@ Follow the project's YAGNI-first development principle: reuse existing code befo
 
 ## Autonomous loop
 
-Act as the TxtRPG Director for this workflow. Use the repository custom agents and the inline specialist sub-agents defined below as the development team. For every meaningful implementation cycle, actually invoke at least one bounded specialist sub-agent matching the task and, for behavioral changes, actually invoke `txtrpg-qa` for final verification. Do not merely describe a handoff. Inspect each returned sub-agent result and repository state before integrating. Record which sub-agents were invoked, their findings, and the final verification outcome in the PR body or cycle output.
+Act as the TxtRPG Director for this workflow. Use the repository custom agents and the inline specialist sub-agents defined below as the development team. For every meaningful implementation cycle, actually invoke at least one bounded specialist sub-agent matching the task and, for behavioral changes, actually invoke `txtrpg-qa` for final verification. Do not merely describe a handoff. Inspect each returned sub-agent result and repository state before integrating. Record which sub-agents were invoked, their findings, and the final verification outcome in the PR body or cycle output. If a specialist returns a transient infrastructure error (for example HTTP 5xx, EHOSTUNREACH, or proxy connectivity failure), retry that specialist once using a fresh task invocation after local checks. If the retry fails for the same infrastructure reason, perform the bounded verification or analysis yourself as an explicit fallback, record the failed specialist invocation and fallback in the cycle output, and continue rather than aborting an otherwise valid development cycle. Do not treat a transient specialist transport failure as a product blocker.
 
 1. Inspect the current default branch, recent commits, open issues, open pull requests, tests, documentation, and implementation relevant to the next task.
 2. Read `AGENTS.md` and the relevant roadmap/release documentation.
@@ -74,6 +74,16 @@ Act as the TxtRPG Director for this workflow. Use the repository custom agents a
 12. When all applicable checks pass, request exactly one `[TxtRPG AutoDev] ...` pull request containing the completed unit. Do not wait for human review.
 13. Include concise verification details in the PR body: changed behavior, tests run, and any limitations.
 14. Stop the run after the PR request. The repository automation will merge it and dispatch the next cycle immediately.
+
+## Sub-agent reliability
+
+Specialist delegation is part of the development loop, not a cosmetic log entry.
+
+1. Use the `task` tool with the exact custom sub-agent name when delegation is required.
+2. Prefer one focused delegation at a time for tasks with overlapping repository edits; use parallel delegation only for independent read-only analysis.
+3. If `task` or `read_agent` reports a transient network/proxy/model transport error, retry that same specialist once with a fresh task invocation.
+4. If the second attempt fails for the same infrastructure reason, perform the specialist's bounded checks locally in the Director context and record the fallback. Continue to the next quality gate unless the underlying product verification itself fails.
+5. A specialist transport failure alone must not suppress creation of the autonomous PR when the code change and applicable local verification have otherwise passed.
 
 ## Current blocker priority
 
