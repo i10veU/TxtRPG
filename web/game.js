@@ -3,6 +3,8 @@ window.AnonymousRPG = window.AnonymousRPG || {};
 (function (RPG) {
   let state = null;
   let worker = null;
+  let workerReady = false;
+  let queuedActions = [];
   let saveTimer = null;
 
   async function persist() {
@@ -52,26 +54,42 @@ window.AnonymousRPG = window.AnonymousRPG || {};
 
   function dispatchAction(text) {
     if (worker) {
+      if (!workerReady) {
+        queuedActions.push(text);
+        return;
+      }
       worker.postMessage({ type: "ACTION", text: text });
       return;
     }
     fallbackAction(text);
   }
 
+  function flushQueuedActions() {
+    const pending = queuedActions;
+    queuedActions = [];
+    pending.forEach(dispatchAction);
+  }
+
   function handleWorkerFailure() {
     if (!worker) return;
     worker.terminate();
     worker = null;
+    workerReady = false;
     RPG.Core.appendLog(state, "게임 워커를 사용할 수 없어 메인 스레드 호환 모드로 전환했다.", null, true);
     RPG.UI.render(state);
     queuePersist();
+    const pending = queuedActions;
+    queuedActions = [];
+    pending.forEach(fallbackAction);
   }
 
   function bootWorker(initialState) {
+    workerReady = false;
     try {
       worker = new Worker("worker/game-worker.js");
     } catch (error) {
       worker = null;
+      workerReady = false;
       return false;
     }
 
@@ -80,8 +98,10 @@ window.AnonymousRPG = window.AnonymousRPG || {};
 
       if (message.type === "READY") {
         state = RPG.Core.normalizeState(message.payload.state);
+        workerReady = true;
         RPG.UI.render(state);
         queuePersist();
+        flushQueuedActions();
         return;
       }
 
@@ -93,6 +113,10 @@ window.AnonymousRPG = window.AnonymousRPG || {};
       }
 
       if (message.type === "ERROR") {
+        if (!workerReady) {
+          handleWorkerFailure();
+          return;
+        }
         RPG.Core.appendLog(state, "시뮬레이션 오류: " + message.payload.message, null, true);
         RPG.UI.render(state);
         queuePersist();
@@ -141,6 +165,7 @@ window.AnonymousRPG = window.AnonymousRPG || {};
     getRuntimeStatus: function () {
       return {
         workerActive: Boolean(worker),
+        workerReady: workerReady,
         storage: RPG.Storage.databaseName
       };
     },

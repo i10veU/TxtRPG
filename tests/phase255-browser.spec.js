@@ -38,7 +38,7 @@ test.describe("TxtRPG browser runtime", () => {
     await expect.poll(async () => {
       return page.evaluate(() => {
         const status = window.AnonymousRPGApp.getRuntimeStatus();
-        return status.workerActive && Boolean(window.AnonymousRPGApp.getState());
+        return status.workerReady && Boolean(window.AnonymousRPGApp.getState());
       });
     }).toBe(true);
 
