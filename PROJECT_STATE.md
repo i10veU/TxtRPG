@@ -55,7 +55,7 @@ Build a large-scale offline-first text RPG in the browser where the player disco
 
 ## Latest known baseline
 
-Main currently contains the existing phase history through the economic/information/organization/NPC relationship/case-causality work described in `README.md`, plus the repository's existing gh-aw/autodev tooling work.
+Main currently contains the existing phase history through the economic/information/organization/NPC relationship/case-causality work described in `README.md`, plus the repository's existing gh-aw/autodev tooling work. The regional economy now distinguishes healthy-route startup replenishment from degraded-route supply crises, preserving crisis signals for low-reliability routes while avoiding a false crisis on the first daily simulation.
 
 ## How to update this file
 
