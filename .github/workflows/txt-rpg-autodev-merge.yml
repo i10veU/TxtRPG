@@ -98,7 +98,6 @@ jobs:
         run: |
           set -euo pipefail
           echo "Waiting for Runtime CI on PR #$PR_NUMBER..."
-          fallback=false
           for attempt in {1..30}; do
             checks=$(gh pr view "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --json statusCheckRollup --jq '.statusCheckRollup')
             count=$(printf '%s' "$checks" | jq 'length')
@@ -107,17 +106,13 @@ jobs:
               failed=$(printf '%s' "$checks" | jq '[.[] | select((.conclusion // "") == "FAILURE" or (.conclusion // "") == "CANCELLED")] | length')
               pending=$(printf '%s' "$checks" | jq '[.[] | select((.status // "") != "COMPLETED")] | length')
               echo "checks=$count action_required=$action_required failed=$failed pending=$pending"
-              if [ "$action_required" -gt 0 ] || [ "$failed" -gt 0 ]; then
-                fallback=true
-                break
-              fi
+              if [ "$action_required" -gt 0 ] || [ "$failed" -gt 0 ]; then break; fi
               if [ "$pending" -eq 0 ]; then
                 success=$(printf '%s' "$checks" | jq '[.[] | select((.conclusion // "") == "SUCCESS")] | length')
                 if [ "$success" -gt 0 ]; then
                   echo "Existing PR checks completed successfully."
                   exit 0
                 fi
-                fallback=true
                 break
               fi
             fi
@@ -126,21 +121,23 @@ jobs:
 
           echo "Using manual Runtime CI fallback because the PR check is unavailable, action-required, or failed before producing a usable result."
           head_ref=$(gh pr view "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --json headRefName --jq '.headRefName')
-          gh workflow run phase251-check.yml --repo "$GITHUB_REPOSITORY" --ref "$head_ref"
-
-          run_id=""
-          for attempt in {1..30}; do
-            run_id=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow phase251-check.yml --branch "$head_ref" --limit 10 --json databaseId,status,conclusion,createdAt --jq 'sort_by(.createdAt) | last | .databaseId // empty')
-            if [ -n "$run_id" ]; then
-              echo "Dispatched Runtime CI run #$run_id on $head_ref."
-              break
-            fi
-            sleep 5
-          done
+          dispatch_output=$(gh workflow run phase251-check.yml --repo "$GITHUB_REPOSITORY" --ref "$head_ref" 2>&1)
+          printf '%s\n' "$dispatch_output"
+          run_id=$(printf '%s\n' "$dispatch_output" | grep -oE 'https://github.com/[^[:space:]]+/actions/runs/[0-9]+' | tail -1 | sed 's#.*/##' || true)
+          if [ -z "$run_id" ]; then
+            echo "Manual Runtime CI dispatch did not return a workflow run URL; resolving the newest run created after dispatch."
+            dispatch_epoch=$(date +%s)
+            for attempt in {1..30}; do
+              run_id=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow phase251-check.yml --branch "$head_ref" --limit 20 --json databaseId,createdAt --jq --argjson now "$dispatch_epoch" '[.[] | select((.createdAt | fromdateiso8601) >= $now)] | sort_by(.createdAt) | last | .databaseId // empty')
+              if [ -n "$run_id" ]; then break; fi
+              sleep 5
+            done
+          fi
           if [ -z "$run_id" ]; then
             echo "Manual Runtime CI dispatch was not observable." >&2
             exit 1
           fi
+          echo "Watching dispatched Runtime CI run #$run_id on $head_ref."
           gh run watch "$run_id" --repo "$GITHUB_REPOSITORY" --exit-status
 
       - name: Merge autonomous PR
