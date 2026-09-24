@@ -47,6 +47,7 @@
 - [Phase 282 persistence-boundary state normalization](docs/phase282-storage-normalization.md)
 - [Phase 283 persistence save-boundary normalization](docs/phase283-storage-save-normalization.md)
 - [Phase 284 game loop tutorial and end states](docs/phase284-game-loop.md)
+- [Phase 285 terminal-state persistence](docs/phase285-terminal-persistence.md)
 - [Phase 1–205 파일 목록](docs/phase1-205-file-manifest.md)
 
 ## 문서
