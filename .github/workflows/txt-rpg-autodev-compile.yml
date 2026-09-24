@@ -45,3 +45,20 @@ jobs:
           git add .github/workflows/txt-rpg-autodev.lock.yml .github/aw/actions-lock.json .github/agents/agentic-workflows.md .github/skills/agentic-workflows/SKILL.md .gitattributes
           git commit -m 'chore: compile autonomous workflow'
           git push
+
+      - name: Start AutoDev validation cycle
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GH_AW_CI_TRIGGER_TOKEN || secrets.GH_AW_GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "$GH_TOKEN" ]; then
+            echo 'Missing GH_AW_CI_TRIGGER_TOKEN (or GH_AW_GITHUB_TOKEN) required to start the autonomous cycle after workflow compilation.' >&2
+            exit 1
+          fi
+          gh api \
+            --method POST \
+            -H 'Accept: application/vnd.github+json' \
+            "/repos/$GITHUB_REPOSITORY/dispatches" \
+            -f event_type='txt-rpg-autodev-next'
+          echo 'Started AutoDev validation cycle after workflow compilation.'
