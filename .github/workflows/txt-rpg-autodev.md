@@ -77,7 +77,7 @@ Act as the TxtRPG Director for this workflow. Use the repository custom agents u
 
 ## Current blocker priority
 
-The repository currently has a known Browser smoke regression where the `rest` action leaves `world.minutes` at 360 when the smoke test expects 420. Treat this as the first investigation target unless a newer, more severe blocker exists. Trace the actual `rest` -> time advancement path, the browser/fallback path, and the test contract before changing anything. Do not weaken the test merely to make CI green. If the game contract says rest should advance time, fix the minimum implementation defect; if the test contract is stale, update it only with concrete evidence from the existing game specification and behavior.
+The former Browser smoke regression around `rest` and the 360-to-420 minute assertion has been resolved and is no longer a standing blocker. Do not rework that path unless a fresh regression reproduces it. For any newer failure, trace the actual runtime path, browser/fallback path, and test contract before changing anything. Do not weaken tests merely to make CI green. If a game-contract defect exists, fix the minimum implementation defect; if a test contract is stale, update it only with concrete evidence from the existing game specification and behavior.
 
 ## Editing reliability fallback
 
