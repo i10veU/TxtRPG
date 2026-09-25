@@ -15,6 +15,11 @@
   - `nextLife`: 사망 이후 continuity outcome(같은 세계/같은 세계의 미래/다른 세계) 결정 슬롯
 - continuity 결정은 deterministic hash로 1회 결정되며, 이미 결정된 값은 재요청해도 재추첨하지 않는다.
 - 플레이어 HP가 0이 되는 기존 `lost` 경계에서 생 종료(`life-ended`)와 continuity 결정을 기록한다.
+- `Core.beginNextLife`로 종료된 생에서만 다음 생을 시작할 수 있게 했다.
+  - 이전 생의 `knowledge.traces`는 자동 상속하지 않고 비운다.
+  - `history.lifeEvents`와 `history.persistentConsequences`는 유지되어 이전 생의 결과가 세계 흔적으로 남는다.
+  - `same-world-later`는 저장된 목표 절대 시간으로 월드 시계를 이동해 재로드 후에도 동일한 시간축 결과를 재현한다.
+  - `different-world`는 기본적으로 `explicitConnection: null`로 시작해 인과 독립을 기본값으로 둔다.
 - 이 단계에서는 멀티월드 콘텐츠/이동/상호작용은 구현하지 않고, 미래 확장을 위한 데이터 경계만 도입했다.
 
 ## 검증

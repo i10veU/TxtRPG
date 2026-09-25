@@ -73,5 +73,98 @@ const roundTrip = Core.normalizeState(JSON.parse(JSON.stringify(state)));
 assert.strictEqual(JSON.stringify(roundTrip.world.continuity.nextLife), persistedDecision);
 assert.strictEqual(roundTrip.world.continuity.history.lifeEvents.some((entry) => entry.type === "life-ended"), true);
 
+const endedRecordKeepsLifeClosed = Core.normalizeState({
+  world: {
+    gameStatus: "active",
+    continuity: {
+      life: { lifeId: "life:9", ordinal: 9, status: "active" },
+      history: {
+        lifeEvents: [{ type: "life-ended", lifeId: "life:9", absoluteMinute: 2010, detail: "death" }]
+      }
+    }
+  }
+});
+assert.strictEqual(endedRecordKeepsLifeClosed.world.continuity.life.status, "ended");
+assert.strictEqual(endedRecordKeepsLifeClosed.world.continuity.life.endReason, "recorded-ended");
+
+const sameWorldState = Core.createDefaultState({});
+sameWorldState.player.hp = 0;
+sameWorldState.world.day = 5;
+sameWorldState.world.minutes = 600;
+Core.applyCampaignProgress(sameWorldState, {});
+sameWorldState.world.continuity.history.persistentConsequences.push({
+  id: "cons:warehouse-scar",
+  text: "창고 봉인 흔적이 남아 있다.",
+  sourceWorldId: sameWorldState.world.continuity.identity.worldId,
+  discovered: false
+});
+sameWorldState.world.continuity.knowledge.traces.push({
+  id: "trace:legacy-note",
+  type: "direct",
+  text: "이전 생의 단서",
+  worldId: sameWorldState.world.continuity.identity.worldId,
+  day: sameWorldState.world.day,
+  confidence: 0.9
+});
+sameWorldState.world.continuity.nextLife = {
+  resolved: true,
+  outcome: "same-world",
+  decidedAtAbsoluteMinute: Core.getAbsoluteMinute(sameWorldState),
+  decisionHash: 71,
+  targetWorldId: sameWorldState.world.continuity.identity.worldId,
+  targetAbsoluteMinute: Core.getAbsoluteMinute(sameWorldState),
+  explicitConnection: null
+};
+const firstLifeId = sameWorldState.world.continuity.life.lifeId;
+const nextLife = Core.beginNextLife(sameWorldState, {});
+assert(nextLife);
+assert.strictEqual(nextLife.status, "active");
+assert.strictEqual(nextLife.lifeId === firstLifeId, false);
+assert.strictEqual(sameWorldState.world.gameStatus, "active");
+assert.strictEqual(sameWorldState.world.continuity.identity.worldId, "world:serka:primary");
+assert.strictEqual(sameWorldState.world.continuity.history.persistentConsequences.length, 1);
+assert.strictEqual(sameWorldState.world.continuity.knowledge.traces.length, 0);
+assert.strictEqual(sameWorldState.world.continuity.nextLife.resolved, false);
+assert.strictEqual(
+  sameWorldState.world.continuity.history.lifeEvents.some((entry) => entry.type === "life-started" && entry.lifeId === nextLife.lifeId),
+  true
+);
+
+const sameWorldLater = Core.createDefaultState({});
+sameWorldLater.player.hp = 0;
+sameWorldLater.world.day = 2;
+sameWorldLater.world.minutes = 120;
+Core.applyCampaignProgress(sameWorldLater, {});
+const baseMinute = Core.getAbsoluteMinute(sameWorldLater);
+sameWorldLater.world.continuity.nextLife = {
+  resolved: true,
+  outcome: "same-world-later",
+  decidedAtAbsoluteMinute: baseMinute,
+  decisionHash: 19,
+  targetWorldId: sameWorldLater.world.continuity.identity.worldId,
+  targetAbsoluteMinute: baseMinute + 720,
+  explicitConnection: null
+};
+Core.beginNextLife(sameWorldLater, {});
+assert.strictEqual(Core.getAbsoluteMinute(sameWorldLater), baseMinute + 720);
+assert.strictEqual(sameWorldLater.world.continuity.life.startedAtAbsoluteMinute, baseMinute + 720);
+
+const differentWorld = Core.createDefaultState({});
+differentWorld.player.hp = 0;
+Core.applyCampaignProgress(differentWorld, {});
+differentWorld.world.continuity.nextLife = {
+  resolved: true,
+  outcome: "different-world",
+  decidedAtAbsoluteMinute: Core.getAbsoluteMinute(differentWorld),
+  decisionHash: 12345,
+  targetWorldId: "world:new-frontier",
+  targetAbsoluteMinute: Core.getAbsoluteMinute(differentWorld),
+  explicitConnection: null
+};
+Core.beginNextLife(differentWorld, {});
+assert.strictEqual(differentWorld.world.continuity.identity.worldId, "world:new-frontier");
+assert.strictEqual(differentWorld.world.continuity.identity.parentWorldId, null);
+assert.strictEqual(differentWorld.world.continuity.identity.explicitConnection, null);
+
 console.log("Phase 292 world continuity model: PASS");
 console.log("World/life/timeline/history/knowledge continuity model is normalized, life termination is bounded, and continuity outcomes persist without reroll: PASS");
