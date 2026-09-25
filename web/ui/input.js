@@ -13,7 +13,7 @@ AnonymousRPG.UI.bindInput = function (dispatch) {
   shortcutButtons.forEach(function (button) {
     button.addEventListener("click", function () {
       AnonymousRPG.UI.openPanel(button.dataset.panelTitle || "STATUS", button.dataset.panelKey || "status");
-      input.focus();
+      if (input) input.focus();
     });
   });
 

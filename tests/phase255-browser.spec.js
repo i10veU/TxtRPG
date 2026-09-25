@@ -78,9 +78,7 @@ test.describe("TxtRPG browser runtime", () => {
     await page.locator("#actionForm button").click();
     await page.locator("#actionInput").fill("조사");
     await page.locator("#actionForm button").click();
-    await page.locator("#actionInput").fill("사건목록");
-    await page.locator("#actionForm button").click();
-    await expect(page.locator("#storyBody")).toContainText("water-ledger");
+    await expect(page.locator("#storyBody")).toContainText("동문 진료소");
 
     await expect.poll(async () => {
       return page.evaluate(() => {

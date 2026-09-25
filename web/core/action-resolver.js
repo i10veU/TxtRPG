@@ -303,8 +303,13 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
       result = inspect(state);
       if (state.player.place === "archive") state.world.flags.recordInconsistency = true;
       if (state.player.place === "riverside" && Core.getClock(state).part === "밤") state.world.flags.nightCargo = true;
-      if (state.player.place === "clinic" || state.player.place === "watchtower") state.world.flags.waterLedgerGap = true;
-      if (state.player.place === "foundry") state.world.flags.foundryWaterStress = true;
+      if (state.player.place === "clinic" || state.player.place === "watchtower") {
+        if (Core.hasEventSignal(state, "waterLedgerGap") || state.world.flags.foundryWaterStress) state.world.flags.waterLedgerGap = true;
+      }
+      if (state.player.place === "foundry" && Core.hasEventSignal(state, "foundryWaterStress")) {
+        state.world.flags.foundryWaterStress = true;
+        state.world.flags.waterLedgerGap = true;
+      }
       if (state.world.grainSupply < 58 && state.world.tension >= 35) state.world.flags.warehouseSuspicion = true;
     } else if (/대화|말을|묻|설득|협상/.test(input)) result = talk(state, input);
     else if (/휴식|쉬어|쉬다/.test(input)) {
