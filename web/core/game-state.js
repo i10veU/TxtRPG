@@ -674,7 +674,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     }
     continuity.history.lifeEvents.push({
       type: "life-started",
-      absoluteMinute: absoluteMinute(state),
+      absoluteMinute: normalizedStartMinute,
       lifeId: continuity.life.lifeId,
       detail: "from:" + priorLifeId
     });

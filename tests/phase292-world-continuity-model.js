@@ -211,6 +211,10 @@ assert.strictEqual(
   differentWorld.world.continuity.history.lifeEvents.filter((entry) => entry.type === "life-started").length,
   1
 );
+assert.strictEqual(
+  differentWorld.world.continuity.history.lifeEvents.find((entry) => entry.type === "life-started").absoluteMinute,
+  differentWorld.world.continuity.life.startedAtAbsoluteMinute
+);
 
 console.log("Phase 292 world continuity model: PASS");
 console.log("World/life/timeline/history/knowledge continuity model is normalized, life termination is bounded, and continuity outcomes persist without reroll: PASS");
