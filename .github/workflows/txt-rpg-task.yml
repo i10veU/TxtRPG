@@ -1,4 +1,4 @@
-name: TxtRPG Task → Copilot → Verify
+name: TxtRPG Task → Issue → Agent
 
 on:
   workflow_dispatch:
@@ -7,6 +7,11 @@ on:
         description: "What should Copilot implement?"
         required: true
         type: string
+      agent:
+        description: "Custom agent profile to select when assigning the issue"
+        required: false
+        type: string
+        default: "txtrpg-engine"
       acceptance:
         description: "Optional acceptance criteria"
         required: false
@@ -27,6 +32,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
           TASK: ${{ inputs.task }}
+          AGENT: ${{ inputs.agent }}
           ACCEPTANCE: ${{ inputs.acceptance }}
         shell: bash
         run: |
@@ -34,8 +40,13 @@ jobs:
 
           acceptance="${ACCEPTANCE:-Define concrete acceptance criteria before implementation and verify them before opening the PR.}"
           body=$(cat <<EOF
-          ## Task
+          ## Objective
           ${TASK}
+
+          ## Suggested Copilot custom agent
+          \`${AGENT}\`
+
+          > Assign the issue to Copilot from the GitHub Issue **Assignees** menu and select the suggested custom agent. The custom-agent choice is intentionally made through GitHub's supported agent-assignment UI rather than an undocumented REST payload.
 
           ## Acceptance criteria
           ${acceptance}
@@ -43,27 +54,16 @@ jobs:
           ## Implementation rules
           - Inspect the current repository, recent commits, relevant docs, and tests before editing.
           - Select the smallest coherent implementation, not necessarily the smallest patch.
-          - Larger patches are explicitly allowed when they form a coherent playable improvement and are thoroughly verified.
-          - Follow AGENTS.md and the repository's YAGNI/Ponytail principles.
+          - Larger patches are allowed when they form a coherent playable improvement and are thoroughly verified.
+          - Follow AGENTS.md and repository YAGNI/Ponytail principles.
           - Preserve offline-first Edge/Chromium operation.
           - Preserve IndexedDB compatibility and Worker/fallback parity when relevant.
           - Add or update focused regression tests before/alongside behavior changes where practical.
-          - Favor systemic world interactions and meaningful consequences over static content volume.
-          - Favor a simple, restrained, high-quality text-first UI over decorative complexity.
-          - Treat zero uncaught game/runtime errors and zero relevant regression failures as a hard quality gate.
           - Run applicable syntax, focused regression, full regression, and browser verification.
-          - Distinguish environment/tooling failures from product defects; never hide or reinterpret a failed verification as success.
-          - If verification fails, diagnose the specific cause and make a bounded corrective attempt rather than repeatedly applying speculative changes.
-          - If the design is redundant, harmful, or unnecessarily complex, remove or simplify it rather than preserving it solely because it was newly implemented.
-          - Create a Pull Request when the implementation is coherent and verified.
-          - If repository permissions and branch protection permit and all required gates pass, the automation may merge the change.
-          - After a successful verified merge, the automation may select and start the next appropriate development task.
-          - Do not wait for a separate human approval step.
-
-          ## Automation quality policy
-          - Do not optimize for line count, issue count, or Phase number.
-          - Optimize for world depth, systemic interaction density, UI clarity, reliability, and maintainability.
-          - Re-check the resulting game flow after integrating new systems because previously passing features can regress through interaction effects.
+          - Distinguish environment/tooling failures from product defects.
+          - If verification fails, diagnose the cause and make bounded corrective attempts.
+          - Create a reviewable Pull Request when implementation and verification are complete.
+          - Do not claim success from an unverified implementation.
           EOF
           )
 
@@ -79,27 +79,4 @@ jobs:
           issue_url=$(jq -r '.html_url' <<< "$response")
           echo "issue_number=${issue_number}" >> "$GITHUB_OUTPUT"
           echo "Created issue #${issue_number}: ${issue_url}"
-
-      - name: Assign Copilot coding agent
-        env:
-          GH_TOKEN: ${{ secrets.GH_COPILOT_TOKEN }}
-          REPO: ${{ github.repository }}
-          ISSUE_NUMBER: ${{ steps.issue.outputs.issue_number }}
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          if [[ -z "${GH_TOKEN}" ]]; then
-            echo "GH_COPILOT_TOKEN repository secret is required for Copilot agent assignment." >&2
-            exit 1
-          fi
-
-          curl --fail-with-body -sS \
-            -X POST \
-            -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer ${GH_TOKEN}" \
-            -H "X-GitHub-Api-Version: 2022-11-28" \
-            "https://api.github.com/repos/${REPO}/issues/${ISSUE_NUMBER}/assignees" \
-            --data-binary "$(jq -n --arg repo "$REPO" '{assignees:["copilot-swe-agent[bot]"],agent_assignment:{target_repo:$repo,base_branch:"main",custom_instructions:"Implement only the requested task. Inspect current state first. Iterate through test, browser, save/load, and parity verification as applicable. Prefer meaningful world/system interaction and restrained high-quality UI. Large coherent patches are allowed. Remove or simplify redundant complexity when justified. Do not stop for human approval; create a reviewable PR and continue when all repository automation gates permit it. Never claim success when verification failed.",custom_agent:"",model:""}}')"
-
-          echo "Assigned Copilot coding agent to issue #${ISSUE_NUMBER}."
+          echo "Assign Copilot from the issue Assignees menu and choose custom agent: ${AGENT}"
