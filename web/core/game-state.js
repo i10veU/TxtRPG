@@ -637,9 +637,11 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
       ? Math.max(nextAbsoluteMinute, currentAbsoluteMinute)
       : nextAbsoluteMinute;
     const priorWorldId = continuity.identity.worldId;
-    const nextWorldId = typeof nextLife.targetWorldId === "string" && nextLife.targetWorldId.trim()
+    const targetWorldId = typeof nextLife.targetWorldId === "string" && nextLife.targetWorldId.trim()
       ? nextLife.targetWorldId.trim()
-      : priorWorldId;
+      : null;
+    if (nextLife.outcome === "different-world" && (!targetWorldId || targetWorldId === priorWorldId)) return null;
+    const nextWorldId = targetWorldId || priorWorldId;
     const crossedWorld = nextLife.outcome === "different-world" && nextWorldId !== priorWorldId;
     if (crossedWorld) {
       continuity.identity.worldId = nextWorldId;

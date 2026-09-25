@@ -171,6 +171,18 @@ assert.strictEqual(sameWorldLaterPastTarget.world.continuity.life.startedAtAbsol
 const differentWorld = Core.createDefaultState({});
 differentWorld.player.hp = 0;
 Core.applyCampaignProgress(differentWorld, {});
+const invalidDifferentWorld = JSON.parse(JSON.stringify(differentWorld));
+invalidDifferentWorld.world.continuity.nextLife = {
+  resolved: true,
+  outcome: "different-world",
+  decidedAtAbsoluteMinute: Core.getAbsoluteMinute(invalidDifferentWorld),
+  decisionHash: 777,
+  targetWorldId: invalidDifferentWorld.world.continuity.identity.worldId,
+  targetAbsoluteMinute: Core.getAbsoluteMinute(invalidDifferentWorld),
+  explicitConnection: null
+};
+assert.strictEqual(Core.beginNextLife(invalidDifferentWorld, {}), null);
+assert.strictEqual(invalidDifferentWorld.world.continuity.life.status, "ended");
 differentWorld.world.continuity.history.persistentConsequences.push({
   id: "cons:legacy",
   text: "이전 세계의 흔적",
