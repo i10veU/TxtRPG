@@ -632,6 +632,10 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     const nextAbsoluteMinute = Number.isFinite(Number(nextLife.targetAbsoluteMinute))
       ? Math.max(0, Math.floor(Number(nextLife.targetAbsoluteMinute)))
       : absoluteMinute(state);
+    const currentAbsoluteMinute = absoluteMinute(state);
+    const normalizedStartMinute = nextLife.outcome === "same-world-later"
+      ? Math.max(nextAbsoluteMinute, currentAbsoluteMinute)
+      : nextAbsoluteMinute;
     const priorWorldId = continuity.identity.worldId;
     const nextWorldId = typeof nextLife.targetWorldId === "string" && nextLife.targetWorldId.trim()
       ? nextLife.targetWorldId.trim()
@@ -648,7 +652,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     continuity.life.ordinal = Math.max(1, Number(continuity.life.ordinal) || 1) + 1;
     continuity.life.lifeId = "life:" + continuity.life.ordinal;
     continuity.life.status = "active";
-    continuity.life.startedAtAbsoluteMinute = nextAbsoluteMinute;
+    continuity.life.startedAtAbsoluteMinute = normalizedStartMinute;
     continuity.life.endedAtAbsoluteMinute = null;
     continuity.life.endReason = null;
     continuity.knowledge.traces = [];
@@ -656,10 +660,10 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     state.world.ending = null;
     continuity.timeline.continuityDecision = null;
     resetNextLifeSlot(continuity);
-    if (nextLife.outcome === "same-world-later" && nextAbsoluteMinute > absoluteMinute(state)) {
-      state.world.day = Math.floor(nextAbsoluteMinute / 1440);
-      state.world.minutes = nextAbsoluteMinute % 1440;
-      state.world.npcSimulationMinute = nextAbsoluteMinute;
+    if (nextLife.outcome === "same-world-later" && normalizedStartMinute > currentAbsoluteMinute) {
+      state.world.day = Math.floor(normalizedStartMinute / 1440);
+      state.world.minutes = normalizedStartMinute % 1440;
+      state.world.npcSimulationMinute = normalizedStartMinute;
       state.world.factionSimulationDay = state.world.day - 1;
     }
     continuity.history.lifeEvents.push({

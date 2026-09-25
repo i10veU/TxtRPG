@@ -149,6 +149,25 @@ Core.beginNextLife(sameWorldLater, {});
 assert.strictEqual(Core.getAbsoluteMinute(sameWorldLater), baseMinute + 720);
 assert.strictEqual(sameWorldLater.world.continuity.life.startedAtAbsoluteMinute, baseMinute + 720);
 
+const sameWorldLaterPastTarget = Core.createDefaultState({});
+sameWorldLaterPastTarget.player.hp = 0;
+sameWorldLaterPastTarget.world.day = 4;
+sameWorldLaterPastTarget.world.minutes = 360;
+Core.applyCampaignProgress(sameWorldLaterPastTarget, {});
+const pastTargetCurrentMinute = Core.getAbsoluteMinute(sameWorldLaterPastTarget);
+sameWorldLaterPastTarget.world.continuity.nextLife = {
+  resolved: true,
+  outcome: "same-world-later",
+  decidedAtAbsoluteMinute: pastTargetCurrentMinute,
+  decisionHash: 29,
+  targetWorldId: sameWorldLaterPastTarget.world.continuity.identity.worldId,
+  targetAbsoluteMinute: pastTargetCurrentMinute - 120,
+  explicitConnection: null
+};
+Core.beginNextLife(sameWorldLaterPastTarget, {});
+assert.strictEqual(Core.getAbsoluteMinute(sameWorldLaterPastTarget), pastTargetCurrentMinute);
+assert.strictEqual(sameWorldLaterPastTarget.world.continuity.life.startedAtAbsoluteMinute, pastTargetCurrentMinute);
+
 const differentWorld = Core.createDefaultState({});
 differentWorld.player.hp = 0;
 Core.applyCampaignProgress(differentWorld, {});
