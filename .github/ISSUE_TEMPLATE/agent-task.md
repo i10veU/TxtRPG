@@ -9,13 +9,15 @@ labels: [agent-task]
 
 <!-- State the desired behavior or artifact in one sentence. -->
 
-## Owner
+## Agent
 
-- [ ] txtrpg-director
-- [ ] txtrpg-lore
-- [ ] txtrpg-engine
-- [ ] txtrpg-ui
-- [ ] txtrpg-qa
+<!-- Choose the matching custom agent when assigning the issue in GitHub. The checkbox is documentation only. -->
+
+- [ ] txtrpg-director — planning / task selection
+- [ ] txtrpg-lore — world and content
+- [ ] txtrpg-engine — simulation / persistence / Worker
+- [ ] txtrpg-ui — browser UI / interaction
+- [ ] txtrpg-qa — verification
 
 ## Context
 
@@ -42,6 +44,7 @@ labels: [agent-task]
 - Expected test/check:
 - Regression risk:
 - Browser/runtime check if applicable:
+- Persistence/parity check if applicable:
 
 ## Dependencies
 
