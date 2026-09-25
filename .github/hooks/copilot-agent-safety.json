@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "hooks": {
+    "preToolUse": [
+      {
+        "type": "command",
+        "matcher": "bash",
+        "bash": "python3 -c 'import json,sys; p=json.load(sys.stdin); a=str(p.get(\"toolArgs\",\"\")); blocked=(\"git push origin main\" in a or \"git push origin HEAD:main\" in a or \"git push origin refs/heads/main\" in a or \"git push --force origin main\" in a or \"git push --force-with-lease origin main\" in a); print(json.dumps({\"permissionDecision\":\"deny\",\"permissionDecisionReason\":\"TxtRPG Copilot tasks must publish changes through a reviewable branch/PR. Direct pushes to main are blocked by repository policy.\"}) if blocked else print(\"{}\")'",
+        "timeoutSec": 5
+      }
+    ]
+  }
+}
