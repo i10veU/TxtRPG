@@ -59,6 +59,22 @@ After editing:
 - For browser/runtime changes, perform the existing smoke-test path when available.
 - Report what was tested and any limitations.
 
+## Copilot agent operating model
+
+Use GitHub's native agent workflow as the default orchestration layer instead of building a parallel task queue.
+
+`Issue -> Copilot/custom agent -> branch -> implementation -> verification -> PR`
+
+- Issues are the durable task contract. Include objective, context, scope, out-of-scope items, acceptance criteria, dependencies, and verification.
+- When assigning an Issue to Copilot on GitHub, select the appropriate repository custom agent from the agent dropdown. The assignment UI is authoritative for choosing the custom agent; do not rely on undocumented REST payloads to select an agent.
+- The assigned agent receives the Issue title, description, and comments that exist at assignment time. If requirements change after assignment, record the authoritative follow-up in the resulting PR or start a new task rather than assuming the agent will reread later Issue comments.
+- Prefer one coherent agent task over multiple overlapping tasks. Use parallel sessions only when work can be isolated safely.
+- Custom agents in `.github/agents/` define role-specific behavior; skills in `.github/skills/` define reusable procedures loaded when relevant.
+- Repository-wide rules belong here. Detailed task-specific procedures belong in Skills.
+- Third-party coding agents such as Codex or Claude may be used when enabled, but they follow the same repository instructions, verification gates, and PR discipline.
+- Use the Copilot app's isolated worktrees/sandboxes for parallel work rather than sharing a mutable working tree.
+- Use Plan mode for materially ambiguous or architectural work; use implementation agents only after the intended scope and acceptance criteria are clear.
+
 ## Autonomous operation and human escalation
 
 TxtRPG is intended to run as an autonomous development pipeline. Routine successful work must NOT request human review, approval, or confirmation beyond the platform's unavoidable Copilot task-completion notification.
