@@ -124,7 +124,9 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
 
     if (Number(state.player.hp) <= 0) {
       state.player.hp = 0;
+      if (typeof Core.markLifeTerminated === "function") Core.markLifeTerminated(state, "death");
       state.world.gameStatus = "lost";
+      if (typeof Core.resolveNextLifeOutcome === "function") Core.resolveNextLifeOutcome(state, "life:death");
       events.push("당신은 더 이상 몸을 움직일 수 없다. 이번 여정은 여기서 끝났다.");
       return events;
     }
