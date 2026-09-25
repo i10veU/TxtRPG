@@ -1,0 +1,91 @@
+name: TxtRPG Task → Copilot → Review
+
+on:
+  workflow_dispatch:
+    inputs:
+      task:
+        description: "What should Copilot implement?"
+        required: true
+        type: string
+      acceptance:
+        description: "Optional acceptance criteria"
+        required: false
+        type: string
+        default: ""
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  create-task:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create and assign Copilot task
+        env:
+          GH_TOKEN: ${{ secrets.GH_AW_AGENT_TOKEN }}
+          REPO: ${{ github.repository }}
+          TASK: ${{ inputs.task }}
+          ACCEPTANCE: ${{ inputs.acceptance }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ -z "${GH_TOKEN}" ]]; then
+            echo "GH_AW_AGENT_TOKEN is not configured. A fine-grained PAT with Copilot agent assignment support is required." >&2
+            exit 1
+          fi
+
+          python - <<'PY' > /tmp/issue.json
+          import json, os
+
+          task = os.environ["TASK"].strip()
+          acceptance = os.environ["ACCEPTANCE"].strip()
+
+          body = f'''## Task
+          {task}
+
+          ## Acceptance criteria
+          {acceptance if acceptance else "Define concrete acceptance criteria before implementation and verify them before opening the PR."}
+
+          ## Implementation rules
+          - Inspect the current repository before editing.
+          - Make the smallest safe change using the existing architecture.
+          - Follow `AGENTS.md` and the repository's YAGNI/Ponytail principles.
+          - Preserve offline-first Edge/Chromium operation.
+          - Preserve IndexedDB compatibility and Worker/fallback parity when relevant.
+          - Add or update focused regression tests for changed behavior.
+          - Run applicable syntax, regression, and browser verification.
+          - Create a Pull Request when implementation and verification are complete.
+          - Do not merge the Pull Request.
+
+          ## Human boundary
+          The repository owner reviews the resulting Pull Request and decides whether to request changes or merge it.
+          '''
+
+          print(json.dumps({
+              "title": task[:120],
+              "body": body,
+              "assignees": ["copilot-swe-agent[bot]"],
+              "agent_assignment": {
+                  "target_repo": os.environ["REPO"],
+                  "base_branch": "main",
+                  "custom_instructions": "Implement only the requested task. Do not merge. Return a reviewable pull request with verification results.",
+                  "custom_agent": "",
+                  "model": ""
+              }
+          }))
+          PY
+
+          response=$(curl --fail-with-body -sS \
+            -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/${REPO}/issues" \
+            --data-binary @/tmp/issue.json)
+
+          issue_url=$(python -c 'import json,sys; print(json.load(sys.stdin)["html_url"])' <<< "$response")
+          issue_number=$(python -c 'import json,sys; print(json.load(sys.stdin)["number"])' <<< "$response")
+
+          echo "Created and assigned issue #${issue_number}: ${issue_url}"
