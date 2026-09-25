@@ -1,6 +1,6 @@
 ---
 name: copilot-issue-association
-description: Associate an already-created GitHub Issue with a Copilot coding agent, including selecting the appropriate custom agent, preserving task context, applying least-privilege agent configuration, preparing the cloud-agent environment, and verifying the resulting agent session or pull request. Use when an existing TxtRPG Issue is ready for Copilot execution.
+description: Associate an already-created GitHub Issue with a Copilot coding agent, including selecting a verified custom agent, preserving task context, applying least-privilege agent configuration, preparing the cloud-agent environment, and verifying the resulting agent session or pull request. Use when an existing TxtRPG Issue is ready for Copilot execution.
 ---
 
 # Copilot Issue Association
@@ -17,7 +17,7 @@ Preferred execution order:
 
 1. Receive an existing GitHub Issue created by the TxtRPG Issue Creation workflow/chat.
 2. Read the Issue and verify that it contains a concrete task contract: goal, scope, constraints, acceptance criteria, and verification requirements.
-3. Determine the smallest specialized TxtRPG custom agent that fully covers the task.
+3. Determine the smallest **verified** TxtRPG custom agent that fully covers the task. A name alone is not evidence that an agent exists.
 4. Preflight the selected custom agent profile and repository instructions.
 5. Verify that the Copilot cloud-agent development environment is configured for the repository's verification needs.
 6. Prefer the normal GitHub **Assignees → Copilot** flow when a human is performing the association.
@@ -48,7 +48,11 @@ Therefore:
 
 ## Agent selection
 
-Choose the smallest specialized agent that fully covers the task.
+Choose the smallest **existing and verified** specialized agent that fully covers the task.
+
+The repository currently does **not** contain a `.github/agents/` directory on the association branch. Therefore names such as `txtrpg-director`, `txtrpg-lore`, `txtrpg-engine`, `txtrpg-ui`, and `txtrpg-qa` are planning labels only and must not be passed as `customAgent` values until their actual agent profiles exist and have been validated.
+
+When profiles are added, prefer the following intended mappings:
 
 - `txtrpg-director`: task decomposition, planning, and routing; do not use it as a default implementation agent.
 - `txtrpg-lore`: world, lore, narrative data, systemic content, and consistency work.
@@ -56,13 +60,11 @@ Choose the smallest specialized agent that fully covers the task.
 - `txtrpg-ui`: browser UI, interaction, accessibility, rendering, and input behavior.
 - `txtrpg-qa`: verification, regression analysis, browser smoke tests, and release-readiness checks.
 
-These names are intended mappings, not proof that the profiles exist. Verify the actual `.github/agents/*.agent.md` profiles before selecting one. If the repository does not contain a requested profile, do not pretend that the custom agent exists.
-
 If a task crosses domains, prefer one primary implementation agent and explicitly state the secondary verification responsibilities already defined by the Issue. Do not create multiple competing implementation sessions for the same files unless the work is intentionally isolated.
 
 ## Agent profile preflight
 
-Before association, inspect the selected `.github/agents/*.agent.md` profile when it is available on the branch/base used by the Copilot surface.
+Before association, inspect the selected `.github/agents/*.agent.md` or `.github/agents/*.md` profile when it is available on the branch/base used by the Copilot surface.
 
 Verify:
 
@@ -85,6 +87,17 @@ Before association, verify that the setup file exists on the branch/default cont
 
 If private resources or MCP servers later require credentials, use GitHub **Agents secrets and variables**. Never place secret values in an Issue, Skill, agent profile, setup workflow, or repository file.
 
+## Hook availability preflight
+
+Repository hooks are not a branch-local safety guarantee for cloud-agent execution. GitHub's current documentation requires hook configuration to be present on the repository's **default branch** before Copilot cloud agent will execute those hooks.
+
+Therefore:
+
+- Treat `.github/hooks/copilot-agent-safety.json` on this feature branch as configuration under review, not as an active guard for a cloud-agent session started before merge.
+- Never claim that the `main` push guard is active merely because the hook exists in the association branch.
+- Once the hook is merged to the default branch, verify its JSON and behavior before relying on it as a guardrail.
+- Hooks supplement, but do not replace, branch protection/rulesets, CI, and human review.
+
 ## Context layering
 
 Treat context as a hierarchy rather than copying the same instructions into every layer:
@@ -104,7 +117,7 @@ Do not paste repository-wide rules into the assignment message merely to increas
 
 Use repository-wide instructions for rules that apply to nearly every task. Use Agent Skills for specialized procedures that should be loaded only when relevant. Use hooks for deterministic controls that must run at a lifecycle point regardless of model interpretation. Use MCP only when an external capability is actually required.
 
-For this association workflow, the repository hook `.github/hooks/copilot-agent-safety.json` blocks direct `git push` operations targeting `main`. This is a deterministic guard for the Issue → branch → PR workflow; it does not replace CI, branch protection, or human review.
+For this association workflow, `.github/hooks/copilot-agent-safety.json` is intended to block direct `git push` operations targeting `main`. This is a deterministic guard for the Issue → branch → PR workflow, but it is only effective for cloud-agent sessions after the hook configuration is present on the default branch. It does not replace CI, branch protection, or human review.
 
 Do not put ordinary prose policy into a hook when an instruction or Skill is sufficient. Hooks are reserved for machine-enforceable checks and should remain small, deterministic, and fail-safe.
 
