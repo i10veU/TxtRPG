@@ -29,7 +29,7 @@ Preferred execution order:
 
 For API-based assignment, first verify that Copilot cloud agent is enabled for the repository and that Copilot is returned as an assignable actor. For GraphQL, use the currently documented feature headers required by the assignment API. Treat preview API behavior as subject to change.
 
-### Assignment API versus Agent Tasks API
+## Assignment API versus Agent Tasks API
 
 GitHub also provides a separate Agent Tasks API that can start a cloud-agent task directly with a prompt and optionally create a pull request. That API is **not a replacement for this Issue-driven workflow**: it creates an agent task independently of the Issue association contract. Use it only for a deliberately separate automation that already has an equivalent task contract. For TxtRPG development Issues, prefer Issue assignment so the Issue remains the canonical work item and the assignment is traceable from Issue → agent → PR.
 
@@ -50,17 +50,21 @@ Therefore:
 
 Choose the smallest **existing and verified** specialized agent that fully covers the task.
 
-The repository currently does **not** contain a `.github/agents/` directory on the association branch. Therefore names such as `txtrpg-director`, `txtrpg-lore`, `txtrpg-engine`, `txtrpg-ui`, and `txtrpg-qa` are planning labels only and must not be passed as `customAgent` values until their actual agent profiles exist and have been validated.
+The association branch now contains five TxtRPG custom agents adapted from the role-specialization patterns in `msitarzewski/agency-agents`. They are project-specific rewrites, not verbatim imports:
 
-When profiles are added, prefer the following intended mappings:
-
-- `txtrpg-director`: task decomposition, planning, and routing; do not use it as a default implementation agent.
-- `txtrpg-lore`: world, lore, narrative data, systemic content, and consistency work.
+- `txtrpg-director`: planning, decomposition, dependency analysis, and routing. Read/search only; do not use as the default implementation agent.
+- `txtrpg-lore`: worldbuilding, lore, narrative systems, dialogue, and systemic content.
 - `txtrpg-engine`: game state, simulation, persistence, workers, deterministic logic, and engine behavior.
-- `txtrpg-ui`: browser UI, interaction, accessibility, rendering, and input behavior.
-- `txtrpg-qa`: verification, regression analysis, browser smoke tests, and release-readiness checks.
+- `txtrpg-ui`: browser UI, interaction, accessibility, rendering, input behavior, and browser verification.
+- `txtrpg-qa`: evidence-driven verification, regression analysis, browser smoke tests, and release-readiness checks.
 
-If a task crosses domains, prefer one primary implementation agent and explicitly state the secondary verification responsibilities already defined by the Issue. Do not create multiple competing implementation sessions for the same files unless the work is intentionally isolated.
+Select one primary implementation agent for a normal Issue. Use `txtrpg-director` first only when the Issue is genuinely broad or ambiguous and planning/decomposition is required. Do not launch competing implementation agents against the same files.
+
+### Agency-Agents adaptation policy
+
+`msitarzewski/agency-agents` is used as a **design reference**, not as a dependency or bulk agent import. Its game-development division contains specialized Game Designer, Narrative Designer, Economy Designer, Level Designer, and related roles, while its engineering/testing divisions include Minimal Change Engineer, Codebase Onboarding Engineer, Code Reviewer, Reality Checker, and Evidence Collector patterns. Those roles are useful for shaping TxtRPG agents, but only the subset that maps cleanly to the current repository should become repository agents.
+
+Do not copy unrelated agency roles, personalities, platform-specific instructions, or tool configurations into TxtRPG merely because they exist upstream.
 
 ## Agent profile preflight
 
@@ -70,8 +74,8 @@ Verify:
 
 - `description` clearly matches the task domain.
 - The prompt does not duplicate or contradict repository-wide policy.
-- `target` includes `github-copilot` when the profile is intended for GitHub.com/cloud-agent use, or is omitted when cross-surface use is intentional.
-- `tools` is explicitly scoped when the agent does not need every available tool. An omitted `tools` field grants access to all available tools, so do not omit it casually for specialized agents.
+- `target: github-copilot` is appropriate for these repository agents.
+- `tools` is explicitly scoped. An omitted `tools` field grants access to all available tools, so do not omit it casually for specialized agents.
 - `mcp-servers` is present only when the agent actually needs an MCP capability.
 - Any `model` selection is intentional and compatible with the target surface; do not add a model merely to force a preference.
 
