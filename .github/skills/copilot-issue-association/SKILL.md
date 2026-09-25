@@ -5,30 +5,42 @@ description: Associate an already-created GitHub Issue with a Copilot coding age
 
 # Copilot Issue Association
 
-Use this skill only for the **Issue → Copilot coding-agent association** step.
+Use this skill for the **Issue → Copilot coding-agent association and handoff** step. Issue creation remains outside this skill.
 
 ## Core rule
 
-The Issue is created and specified by the separate **TxtRPG Issue Creation** workflow/chat. This skill must not create, modify, or duplicate Issues unless a later GitHub-supported feature explicitly requires a minimal association-side update.
+The Issue is created and specified by the separate **TxtRPG Issue Creation** workflow/chat. Do not create, duplicate, or rewrite the Issue merely to prepare it for Copilot.
 
-Use GitHub's supported Issue assignment flow. Do not invent or depend on undocumented REST payloads, bot usernames, or `agent_assignment` request bodies.
+Use GitHub's documented Copilot assignment mechanisms. GitHub currently documents both the GitHub UI and the Issues REST/GraphQL APIs for assigning an existing Issue to Copilot with an optional `agent_assignment`/`agentAssignment` configuration. Do not treat that API as undocumented. It is currently a public-preview capability, so verify current documentation and API behavior before relying on it in automation.
 
-The supported cloud-agent flow is:
+Preferred execution order:
 
 1. Receive an existing GitHub Issue created by the TxtRPG Issue Creation workflow/chat.
 2. Read the Issue and verify that it contains a concrete task contract: goal, scope, constraints, acceptance criteria, and verification requirements.
 3. Determine the smallest specialized TxtRPG custom agent that fully covers the task.
 4. Preflight the selected custom agent profile and repository instructions.
 5. Verify that the Copilot cloud-agent development environment is configured for the repository's verification needs.
-6. Open the Issue's **Assignees** control.
-7. Select **Copilot**.
-8. In the assignment dialog, choose the target repository/base branch and, when available, the appropriate custom agent.
-9. Add task-specific instructions only when they are not already expressed by the Issue or repository instructions.
-10. Start the Copilot task.
-11. Verify that Copilot created a working branch/session and subsequently a pull request.
-12. Validate the resulting PR with repository CI and required review gates.
+6. Prefer the normal GitHub **Assignees → Copilot** flow when a human is performing the association.
+7. When this workflow is being automated, use only the documented REST/GraphQL Issues API and its Copilot assignment fields. Do not invent payloads or infer undocumented endpoints.
+8. When assigning through the API, preserve the intended `target_repo`/`targetRepositoryId`, `base_branch`/`baseRef`, and, when explicitly selected, `custom_agent`/`customAgent` and `model`. Keep `custom_instructions`/`customInstructions` limited to task-specific guidance that is not already encoded in the Issue or repository configuration.
+9. Start the Copilot task and verify the resulting assignment/session rather than assuming the API call succeeded.
+10. Verify that Copilot created a working branch/session and subsequently a pull request.
+11. Validate the resulting PR with repository CI and required review gates.
+
+For API-based assignment, first verify that Copilot cloud agent is enabled for the repository and that Copilot is returned as an assignable actor. For GraphQL, use the currently documented feature headers required by the assignment API. Treat preview API behavior as subject to change.
 
 Do not create a second Issue merely because association has not yet started.
+
+## Issue context boundary
+
+Copilot receives the Issue title, description, existing comments, and additional assignment instructions **at assignment time**. Later Issue comments are not automatically incorporated into that assigned task.
+
+Therefore:
+
+- Finish the task contract before association.
+- Do not use a later Issue comment as the primary way to change requirements after assignment.
+- Put post-assignment corrections, new requirements, and review feedback on the resulting PR or in a supported Copilot session follow-up.
+- If the requirement materially changes, stop and reassess whether the existing task should continue before requesting more work.
 
 ## Agent selection
 
@@ -39,6 +51,8 @@ Choose the smallest specialized agent that fully covers the task.
 - `txtrpg-engine`: game state, simulation, persistence, workers, deterministic logic, and engine behavior.
 - `txtrpg-ui`: browser UI, interaction, accessibility, rendering, and input behavior.
 - `txtrpg-qa`: verification, regression analysis, browser smoke tests, and release-readiness checks.
+
+These names are intended mappings, not proof that the profiles exist. Verify the actual `.github/agents/*.agent.md` files before selecting one. If the repository does not contain a requested profile, do not pretend that the custom agent exists.
 
 If a task crosses domains, prefer one primary implementation agent and explicitly state the secondary verification responsibilities already defined by the Issue. Do not create multiple competing implementation sessions for the same files unless the work is intentionally isolated.
 
@@ -110,13 +124,21 @@ Check for:
 - A PR generated from the task.
 - CI checks on the resulting PR.
 
-Do not claim that an Issue is associated merely because the Issue exists or because an assignment request was attempted.
+When using the API, record the returned Issue state and, where available, the assignment configuration. If no session/PR starts, distinguish service, permission, preview-API, configuration, and task failures before retrying.
+
+## Post-assignment steering
+
+For an existing Copilot-created PR, use PR comments and supported `@copilot` follow-ups for bounded corrections. Copilot can continue work on the PR and, for a PR created by a custom agent, subsequent `@copilot` requests can continue using that same agent.
+
+Batch related review feedback into a single review where practical instead of triggering many independent correction sessions.
+
+Do not use Issue comments after association as the primary steering mechanism because the assigned Issue context is fixed at assignment time.
 
 ## Failure handling
 
 ### Copilot is not available in Assignees
 
-Report the blocking condition and check the repository/account Copilot eligibility and organization/repository policies. Do not emulate the assignment with an undocumented API request.
+Report the blocking condition and check the repository/account Copilot eligibility and organization/repository policies. If automation is being used, verify that the documented API reports Copilot as an assignable actor before attempting assignment.
 
 ### Custom agent is not listed
 
@@ -132,19 +154,21 @@ Update `.github/workflows/copilot-setup-steps.yml` through repository configurat
 
 ### Assignment appears successful but no work starts
 
-Inspect the Issue and repository state first. Distinguish Copilot service/permission/configuration problems from repository build or task problems. Do not repeatedly reassign the same Issue without identifying the cause.
+Inspect the Issue, assignment response/state, and repository state first. Distinguish Copilot service/permission/preview-API/configuration problems from repository build or task problems. Do not repeatedly reassign the same Issue without identifying the cause.
 
 ### Agent creates a PR but verification fails
 
-Treat the failed verification as authoritative. Route the failure back to the same Issue/PR with the concrete failure output and request a bounded correction. Never reinterpret a failed check as success.
+Treat the failed verification as authoritative. Use the concrete CI failure to drive a bounded correction on the PR. GitHub also provides a **Fix with Copilot** path for failing Actions runs; use that only when the failure is within the agent's task scope. Never reinterpret a failed check as success.
 
 ## Automation boundary
 
 Issue creation is intentionally outside this Skill. The **TxtRPG Issue Creation** workflow/chat is the sole source of new development Issues for this process.
 
-This Skill performs no Issue-generation workflow and must not rely on an undocumented REST request such as assigning `copilot-swe-agent[bot]` with an `agent_assignment` payload.
+This Skill may associate an already-created Issue using GitHub's documented UI or documented REST/GraphQL Copilot assignment APIs. It must not create a replacement Issue as an association workaround.
 
-If a future GitHub-supported API exposes first-class Copilot assignment, update this Skill only after verifying the behavior against current GitHub documentation.
+## Work-size gate
+
+Prefer one focused Issue → one primary agent → one branch/PR lifecycle. If the Issue combines multiple independently testable subsystems or is too broad to validate in one bounded session, return it to Issue planning for decomposition instead of launching several competing implementation sessions.
 
 ## TxtRPG quality gate
 
