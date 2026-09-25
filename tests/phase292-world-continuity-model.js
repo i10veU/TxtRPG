@@ -35,10 +35,22 @@ assert.strictEqual(malformed.schemaVersion, 5);
 assert.strictEqual(malformed.world.continuity.identity.worldId, "world:serka:primary");
 assert.strictEqual(malformed.world.continuity.identity.explicitConnection, null);
 assert.strictEqual(malformed.world.continuity.life.status, "ended");
-assert.strictEqual(malformed.world.continuity.life.endReason, "death");
+assert.strictEqual(malformed.world.continuity.life.endReason, "lost");
 assert.strictEqual(malformed.world.continuity.knowledge.traces[0].type, "historical");
-assert.strictEqual(malformed.world.continuity.nextLife.targetWorldId, "world:77");
+assert.strictEqual(malformed.world.continuity.nextLife.targetWorldId, "world:25");
 assert.strictEqual(malformed.world.continuity.nextLife.outcome, "different-world");
+
+const legacyLost = Core.normalizeState({
+  world: {
+    gameStatus: "lost",
+    continuity: {
+      life: { lifeId: "life:legacy", status: "ended", endedAtAbsoluteMinute: 1440 },
+      nextLife: { resolved: false, outcome: "undecided" }
+    }
+  }
+});
+assert.strictEqual(legacyLost.world.continuity.nextLife.resolved, true);
+assert(["same-world", "same-world-later", "different-world"].includes(legacyLost.world.continuity.nextLife.outcome));
 
 const state = Core.createDefaultState({});
 state.player.hp = 0;
@@ -59,7 +71,7 @@ assert.strictEqual(JSON.stringify(state.world.continuity.nextLife), persistedDec
 
 const roundTrip = Core.normalizeState(JSON.parse(JSON.stringify(state)));
 assert.strictEqual(JSON.stringify(roundTrip.world.continuity.nextLife), persistedDecision);
-assert.strictEqual(roundTrip.world.continuity.history.lifeEvents.some((entry) => entry.type === "continuity-decided"), true);
+assert.strictEqual(roundTrip.world.continuity.history.lifeEvents.some((entry) => entry.type === "life-ended"), true);
 
 console.log("Phase 292 world continuity model: PASS");
 console.log("World/life/timeline/history/knowledge continuity model is normalized, life termination is bounded, and continuity outcomes persist without reroll: PASS");

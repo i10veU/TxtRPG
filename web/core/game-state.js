@@ -19,6 +19,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
   };
 
   const CONTINUITY_OUTCOMES = ["same-world", "same-world-later", "different-world"];
+  const CONTINUITY_DECISIONS = ["undecided"].concat(CONTINUITY_OUTCOMES);
   const TRACE_TYPES = ["direct", "historical", "social", "indirect", "forgotten"];
 
   const DEFAULT_CONTINUITY = {
@@ -244,6 +245,32 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     return { lifeEvents: lifeEvents, persistentConsequences: persistentConsequences };
   }
 
+  function hashSeededText(seed, context) {
+    const raw = String(seed || "") + ":" + String(context || "");
+    let hash = 2166136261;
+    for (let i = 0; i < raw.length; i += 1) {
+      hash ^= raw.charCodeAt(i);
+      hash = Math.imul(hash, 16777619);
+    }
+    return hash >>> 0;
+  }
+
+  function normalizeExplicitConnection(input) {
+    if (!input || typeof input !== "object") return null;
+    const raw = input;
+    const type = typeof raw.type === "string" ? raw.type.slice(0, 40) : "";
+    const sourceWorldId = typeof raw.sourceWorldId === "string" ? raw.sourceWorldId.slice(0, 80) : "";
+    const targetWorldId = typeof raw.targetWorldId === "string" ? raw.targetWorldId.slice(0, 80) : "";
+    const reason = typeof raw.reason === "string" ? raw.reason.slice(0, 180) : "";
+    if (!type) return null;
+    return {
+      type: type,
+      sourceWorldId: sourceWorldId || null,
+      targetWorldId: targetWorldId || null,
+      reason: reason || null
+    };
+  }
+
   function normalizeWorldContinuity(input, state) {
     const value = input && typeof input === "object" ? input : {};
     const identityInput = value.identity && typeof value.identity === "object" ? value.identity : {};
@@ -259,7 +286,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
       ? identityInput.worldId.trim()
       : DEFAULT_CONTINUITY.identity.worldId;
     const lifeStatus = ["active", "ended"].includes(lifeInput.status) ? lifeInput.status : "active";
-    const outcome = CONTINUITY_OUTCOMES.includes(nextLifeInput.outcome) ? nextLifeInput.outcome : "undecided";
+    const outcome = CONTINUITY_DECISIONS.includes(nextLifeInput.outcome) ? nextLifeInput.outcome : "undecided";
     const resolved = Boolean(nextLifeInput.resolved) && outcome !== "undecided";
     const continuity = clone(DEFAULT_CONTINUITY);
     continuity.identity.worldId = worldId;
@@ -272,9 +299,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     continuity.identity.parentWorldId = typeof identityInput.parentWorldId === "string" && identityInput.parentWorldId.trim()
       ? identityInput.parentWorldId.trim()
       : null;
-    continuity.identity.explicitConnection = identityInput.explicitConnection && typeof identityInput.explicitConnection === "object"
-      ? identityInput.explicitConnection
-      : null;
+    continuity.identity.explicitConnection = normalizeExplicitConnection(identityInput.explicitConnection);
     continuity.life.lifeId = typeof lifeInput.lifeId === "string" && lifeInput.lifeId.trim() ? lifeInput.lifeId.trim() : "life:1";
     continuity.life.ordinal = Math.max(1, Math.floor(Number(lifeInput.ordinal) || 1));
     continuity.life.status = lifeStatus;
@@ -291,7 +316,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     continuity.timeline.continuitySeed = typeof timelineInput.continuitySeed === "string" && timelineInput.continuitySeed.trim()
       ? timelineInput.continuitySeed.trim()
       : ("seed:" + worldId);
-    continuity.timeline.continuityDecision = CONTINUITY_OUTCOMES.includes(timelineInput.continuityDecision)
+    continuity.timeline.continuityDecision = CONTINUITY_DECISIONS.includes(timelineInput.continuityDecision)
       ? timelineInput.continuityDecision
       : null;
     continuity.history = history;
@@ -310,19 +335,37 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     continuity.nextLife.targetAbsoluteMinute = Number.isFinite(Number(nextLifeInput.targetAbsoluteMinute))
       ? Math.max(0, Math.floor(Number(nextLifeInput.targetAbsoluteMinute)))
       : null;
-    continuity.nextLife.explicitConnection = nextLifeInput.explicitConnection && typeof nextLifeInput.explicitConnection === "object"
-      ? nextLifeInput.explicitConnection
-      : null;
+    continuity.nextLife.explicitConnection = normalizeExplicitConnection(nextLifeInput.explicitConnection);
     if (state.world.gameStatus === "lost" && continuity.life.status !== "ended") {
       continuity.life.status = "ended";
       continuity.life.endedAtAbsoluteMinute = continuity.life.endedAtAbsoluteMinute === null ? currentAbsoluteMinute : continuity.life.endedAtAbsoluteMinute;
-      continuity.life.endReason = continuity.life.endReason || "death";
+      continuity.life.endReason = continuity.life.endReason || "lost";
     }
     if (continuity.nextLife.resolved && continuity.nextLife.outcome !== "undecided" && !continuity.nextLife.targetWorldId) {
-      continuity.nextLife.targetWorldId = continuity.nextLife.outcome === "different-world" ? ("world:" + continuity.nextLife.decisionHash) : worldId;
+      continuity.nextLife.targetWorldId = continuity.nextLife.outcome === "different-world"
+        ? ("world:" + Number(continuity.nextLife.decisionHash || 0).toString(36))
+        : worldId;
     }
     if (continuity.nextLife.resolved && continuity.nextLife.outcome !== "undecided" && continuity.nextLife.targetAbsoluteMinute === null) {
       continuity.nextLife.targetAbsoluteMinute = continuity.nextLife.decidedAtAbsoluteMinute;
+    }
+    if (state.world.gameStatus === "lost" && continuity.life.status === "ended" && !continuity.nextLife.resolved) {
+      const seed = continuity.timeline.continuitySeed || ("seed:" + worldId);
+      const basisMinute = continuity.life.endedAtAbsoluteMinute === null ? currentAbsoluteMinute : continuity.life.endedAtAbsoluteMinute;
+      const hash = hashSeededText(seed, "normalize:" + continuity.life.lifeId + ":" + basisMinute);
+      const normalizedOutcome = CONTINUITY_OUTCOMES[hash % CONTINUITY_OUTCOMES.length];
+      continuity.nextLife.resolved = true;
+      continuity.nextLife.outcome = normalizedOutcome;
+      continuity.nextLife.decisionHash = hash;
+      continuity.nextLife.decidedAtAbsoluteMinute = basisMinute;
+      continuity.nextLife.targetWorldId = normalizedOutcome === "different-world"
+        ? ("world:" + hash.toString(36))
+        : worldId;
+      continuity.nextLife.targetAbsoluteMinute = normalizedOutcome === "same-world-later"
+        ? basisMinute + ((hash % 5) + 1) * 720
+        : basisMinute;
+      continuity.nextLife.explicitConnection = null;
+      continuity.timeline.continuityDecision = normalizedOutcome;
     }
     return continuity;
   }
@@ -500,13 +543,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
   }
 
   function continuityHash(seed, context) {
-    const raw = String(seed || "") + ":" + String(context || "");
-    let hash = 2166136261;
-    for (let i = 0; i < raw.length; i += 1) {
-      hash ^= raw.charCodeAt(i);
-      hash = Math.imul(hash, 16777619);
-    }
-    return hash >>> 0;
+    return hashSeededText(seed, context);
   }
 
   function ensureContinuity(state) {
