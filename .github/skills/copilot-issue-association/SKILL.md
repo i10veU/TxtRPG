@@ -1,6 +1,6 @@
 ---
 name: copilot-issue-association
-description: Associate an already-created GitHub Issue with a Copilot coding agent, including selecting the appropriate custom agent, preserving task context, and verifying the resulting agent session or pull request. Use when an existing TxtRPG Issue is ready for Copilot execution.
+description: Associate an already-created GitHub Issue with a Copilot coding agent, including selecting the appropriate custom agent, preserving task context, applying least-privilege agent configuration, and verifying the resulting agent session or pull request. Use when an existing TxtRPG Issue is ready for Copilot execution.
 ---
 
 # Copilot Issue Association
@@ -18,13 +18,14 @@ The supported cloud-agent flow is:
 1. Receive an existing GitHub Issue created by the TxtRPG Issue Creation workflow/chat.
 2. Read the Issue and verify that it contains a concrete task contract: goal, scope, constraints, acceptance criteria, and verification requirements.
 3. Determine the smallest specialized TxtRPG custom agent that fully covers the task.
-4. Open the Issue's **Assignees** control.
-5. Select **Copilot**.
-6. In the assignment dialog, choose the target repository/base branch and, when available, the appropriate custom agent.
-7. Add task-specific instructions only when they are not already expressed by the Issue or repository instructions.
-8. Start the Copilot task.
-9. Verify that Copilot created a working branch/session and subsequently a pull request.
-10. Validate the resulting PR with repository CI and required review gates.
+4. Preflight the selected custom agent profile and repository instructions.
+5. Open the Issue's **Assignees** control.
+6. Select **Copilot**.
+7. In the assignment dialog, choose the target repository/base branch and, when available, the appropriate custom agent.
+8. Add task-specific instructions only when they are not already expressed by the Issue or repository instructions.
+9. Start the Copilot task.
+10. Verify that Copilot created a working branch/session and subsequently a pull request.
+11. Validate the resulting PR with repository CI and required review gates.
 
 Do not create a second Issue merely because association has not yet started.
 
@@ -40,39 +41,39 @@ Choose the smallest specialized agent that fully covers the task.
 
 If a task crosses domains, prefer one primary implementation agent and explicitly state the secondary verification responsibilities already defined by the Issue. Do not create multiple competing implementation sessions for the same files unless the work is intentionally isolated.
 
-## Issue contract
+## Agent profile preflight
 
-The association step expects the existing Issue to contain:
+Before association, inspect the selected `.github/agents/*.agent.md` profile when it is available on the branch/base used by the Copilot surface.
 
-```markdown
-## Goal
+Verify:
 
-## Scope
+- `description` clearly matches the task domain.
+- The prompt does not duplicate or contradict repository-wide policy.
+- `target` includes `github-copilot` when the profile is intended for GitHub.com/cloud-agent use, or is omitted when cross-surface use is intentional.
+- `tools` is explicitly scoped when the agent does not need every available tool. An omitted `tools` field grants access to all available tools, so do not omit it casually for specialized agents.
+- `mcp-servers` is present only when the agent actually needs an MCP capability.
+- Any `model` selection is intentional and compatible with the target surface; do not add a model merely to force a preference.
 
-## Constraints
+If the profile is missing or invalid, do not compensate by creating a transient prompt that pretends the custom agent exists. Report the configuration problem and return it to repository configuration work.
 
-## Acceptance criteria
+## Context layering
 
-## Verification
-```
+Treat context as a hierarchy rather than copying the same instructions into every layer:
 
-The Issue is the task contract. Do not move critical requirements into a transient assignment message merely to compensate for an incomplete Issue. If the contract is materially incomplete, return the Issue to the Issue Creation workflow rather than inventing requirements here.
+1. `.github/copilot-instructions.md` — rules that apply broadly to repository work.
+2. `AGENTS.md` and path-specific repository instructions — local engineering policy.
+3. Custom agent profile — role, expertise, tool scope, and behavior.
+4. Relevant Agent Skills — detailed procedures loaded only when applicable.
+5. Issue — the concrete task contract and acceptance criteria.
+6. Optional Copilot Space — curated background context for large or cross-cutting tasks when a Space already exists or is deliberately created for that purpose.
 
-## Repository context
+The Issue remains the authoritative contract for the requested change. A Space or other contextual source must not silently override explicit Issue requirements.
 
-The assigned agent must respect, in order:
-
-1. `.github/copilot-instructions.md`
-2. `AGENTS.md` and other repository instructions applicable to the changed paths
-3. the selected custom agent profile
-4. relevant Agent Skills
-5. the Issue-specific requirements
-
-When these conflict, do not silently choose a convenient interpretation. Resolve the conflict using repository policy and the narrowest safe change.
+Do not paste repository-wide rules into the assignment message merely to increase prompt size. Reference the existing repository configuration instead.
 
 ## Skills, hooks, and tools
 
-Use repository-wide instructions for rules that apply to nearly every task. Use Agent Skills for specialized procedures that should be loaded only when relevant. Use hooks for deterministic controls that must run at a lifecycle point regardless of model interpretation.
+Use repository-wide instructions for rules that apply to nearly every task. Use Agent Skills for specialized procedures that should be loaded only when relevant. Use hooks for deterministic controls that must run at a lifecycle point regardless of model interpretation. Use MCP only when an external capability is actually required.
 
 For this association workflow, the repository hook `.github/hooks/copilot-agent-safety.json` blocks direct `git push` operations targeting `main`. This is a deterministic guard for the Issue → branch → PR workflow; it does not replace CI, branch protection, or human review.
 
@@ -101,6 +102,10 @@ Report the blocking condition and check the repository/account Copilot eligibili
 ### Custom agent is not listed
 
 Check that the profile exists under `.github/agents/`, has valid frontmatter, is available to the relevant Copilot surface, and that the repository branch containing the profile is available to that surface. Do not assume a custom agent name alone is sufficient to create an assignment.
+
+### Custom agent has excessive tool access
+
+Prefer fixing the agent profile's `tools` declaration rather than compensating in the Issue prompt. Least privilege belongs in the reusable agent definition.
 
 ### Assignment appears successful but no work starts
 
