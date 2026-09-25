@@ -621,14 +621,14 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
   }
 
   function beginNextLife(state, options) {
-    let continuity = ensureContinuity(state);
+    const continuity = ensureContinuity(state);
     if (continuity.life.status !== "ended") return null;
+    if (!continuity.nextLife.resolved || !CONTINUITY_OUTCOMES.includes(continuity.nextLife.outcome)) return null;
     const priorLifeId = continuity.life.lifeId;
     if (!hasLifeEndedRecord(continuity.history, continuity.life.lifeId)) {
       pushLifeEvent(state, "life-ended", continuity.life.endReason || "unknown");
     }
-    const nextLife = resolveNextLifeOutcome(state, options && options.contextKey);
-    continuity = ensureContinuity(state);
+    const nextLife = clone(continuity.nextLife);
     const nextAbsoluteMinute = Number.isFinite(Number(nextLife.targetAbsoluteMinute))
       ? Math.max(0, Math.floor(Number(nextLife.targetAbsoluteMinute)))
       : absoluteMinute(state);
@@ -649,6 +649,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
       continuity.identity.explicitConnection = normalizeExplicitConnection(nextLife.explicitConnection);
       continuity.timeline.worldStartAbsoluteMinute = nextAbsoluteMinute;
       continuity.timeline.continuitySeed = "seed:" + nextWorldId;
+      continuity.timeline.continuityDecision = null;
       continuity.history.lifeEvents = [];
       continuity.history.persistentConsequences = [];
     }
