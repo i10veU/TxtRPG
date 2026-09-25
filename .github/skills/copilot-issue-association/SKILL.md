@@ -29,6 +29,10 @@ Preferred execution order:
 
 For API-based assignment, first verify that Copilot cloud agent is enabled for the repository and that Copilot is returned as an assignable actor. For GraphQL, use the currently documented feature headers required by the assignment API. Treat preview API behavior as subject to change.
 
+### Assignment API versus Agent Tasks API
+
+GitHub also provides a separate Agent Tasks API that can start a cloud-agent task directly with a prompt and optionally create a pull request. That API is **not a replacement for this Issue-driven workflow**: it creates an agent task independently of the Issue association contract. Use it only for a deliberately separate automation that already has an equivalent task contract. For TxtRPG development Issues, prefer Issue assignment so the Issue remains the canonical work item and the assignment is traceable from Issue → agent → PR.
+
 Do not create a second Issue merely because association has not yet started.
 
 ## Issue context boundary
@@ -52,7 +56,7 @@ Choose the smallest specialized agent that fully covers the task.
 - `txtrpg-ui`: browser UI, interaction, accessibility, rendering, and input behavior.
 - `txtrpg-qa`: verification, regression analysis, browser smoke tests, and release-readiness checks.
 
-These names are intended mappings, not proof that the profiles exist. Verify the actual `.github/agents/*.agent.md` files before selecting one. If the repository does not contain a requested profile, do not pretend that the custom agent exists.
+These names are intended mappings, not proof that the profiles exist. Verify the actual `.github/agents/*.agent.md` profiles before selecting one. If the repository does not contain a requested profile, do not pretend that the custom agent exists.
 
 If a task crosses domains, prefer one primary implementation agent and explicitly state the secondary verification responsibilities already defined by the Issue. Do not create multiple competing implementation sessions for the same files unless the work is intentionally isolated.
 
