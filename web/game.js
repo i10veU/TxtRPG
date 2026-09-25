@@ -4,6 +4,9 @@ window.AnonymousRPG = window.AnonymousRPG || {};
   let state = null;
   let worker = null;
   let saveTimer = null;
+  let workerReady = false;
+  let workerBusy = false;
+  let pendingActions = [];
 
   async function persist() {
     if (!state) return;
@@ -56,7 +59,14 @@ window.AnonymousRPG = window.AnonymousRPG || {};
 
   function dispatchAction(text) {
     if (worker) {
-      worker.postMessage({ type: "ACTION", text: text });
+      pendingActions.push(text);
+      if (workerReady && !workerBusy) {
+        const next = pendingActions.shift();
+        if (next) {
+          workerBusy = true;
+          worker.postMessage({ type: "ACTION", text: next });
+        }
+      }
       return;
     }
     fallbackAction(text);
@@ -66,8 +76,13 @@ window.AnonymousRPG = window.AnonymousRPG || {};
     if (!worker) return;
     worker.terminate();
     worker = null;
+    workerReady = false;
+    workerBusy = false;
     RPG.Core.appendLog(state, "게임 워커를 사용할 수 없어 메인 스레드 호환 모드로 전환했다.", null, true);
     RPG.UI.render(state);
+    while (pendingActions.length) {
+      fallbackAction(pendingActions.shift());
+    }
     queuePersist();
   }
 
@@ -79,27 +94,38 @@ window.AnonymousRPG = window.AnonymousRPG || {};
       return false;
     }
 
+    workerReady = false;
+    workerBusy = false;
+    pendingActions = [];
+
     worker.onmessage = function (event) {
       const message = event.data || {};
 
       if (message.type === "READY") {
         state = RPG.Core.normalizeState(message.payload.state);
+        workerReady = true;
+        workerBusy = false;
         RPG.UI.render(state);
         queuePersist();
+        if (pendingActions.length) dispatchAction(pendingActions.shift());
         return;
       }
 
       if (message.type === "UPDATE") {
         state = RPG.Core.normalizeState(message.payload.state);
+        workerBusy = false;
         RPG.UI.render(state);
         queuePersist();
+        if (pendingActions.length) dispatchAction(pendingActions.shift());
         return;
       }
 
       if (message.type === "ERROR") {
+        workerBusy = false;
         RPG.Core.appendLog(state, "시뮬레이션 오류: " + message.payload.message, null, true);
         RPG.UI.render(state);
         queuePersist();
+        if (pendingActions.length) dispatchAction(pendingActions.shift());
       }
     };
 

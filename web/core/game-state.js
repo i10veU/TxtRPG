@@ -60,6 +60,14 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
       organizationRelationDay: -1,
       npcRelations: {},
       npcRelationDay: -1,
+      waterAftermath: {
+        active: false,
+        policy: null,
+        stage: 0,
+        startedDay: -1,
+        lastAdvanceDay: -1,
+        lastNarratedDay: -1
+      },
       discovered: [],
       cases: [],
       playerQuests: { chains: {} },
@@ -114,6 +122,42 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     }).slice(-30);
   }
 
+  function normalizeCaseHistory(input) {
+    if (!Array.isArray(input)) return [];
+    return input.filter(function (entry) {
+      return entry && typeof entry === "object" && typeof entry.caseId === "string";
+    }).map(function (entry) {
+      const day = Number(entry.resolutionDay);
+      const minute = Number(entry.resolutionMinute);
+      const status = typeof entry.status === "string" ? entry.status : "resolved";
+      return {
+        caseId: entry.caseId,
+        choiceId: typeof entry.choiceId === "string" ? entry.choiceId : null,
+        status: ["resolved", "failed"].includes(status) ? status : "resolved",
+        resolutionDay: Number.isFinite(day) ? Math.max(0, Math.floor(day)) : 0,
+        resolutionMinute: Number.isFinite(minute) ? Math.max(0, Math.floor(minute)) : 0,
+        outcome: typeof entry.outcome === "string" ? entry.outcome.slice(0, 180) : null
+      };
+    }).slice(-40);
+  }
+
+  function normalizeWaterAftermath(input) {
+    const value = input && typeof input === "object" ? input : {};
+    const policy = ["council", "enforce", "decentralize"].includes(value.policy) ? value.policy : null;
+    const stage = Core.clamp(Math.floor(Number(value.stage) || 0), 0, 3);
+    const startedDay = Number(value.startedDay);
+    const lastAdvanceDay = Number(value.lastAdvanceDay);
+    const lastNarratedDay = Number(value.lastNarratedDay);
+    return {
+      active: Boolean(value.active) && policy !== null && stage < 3,
+      policy: policy,
+      stage: stage,
+      startedDay: Number.isFinite(startedDay) ? Math.floor(startedDay) : -1,
+      lastAdvanceDay: Number.isFinite(lastAdvanceDay) ? Math.floor(lastAdvanceDay) : -1,
+      lastNarratedDay: Number.isFinite(lastNarratedDay) ? Math.floor(lastNarratedDay) : -1
+    };
+  }
+
   function normalizeState(input) {
     const state = Object.assign(clone(DEFAULT_STATE), input || {});
     state.player = Object.assign(clone(DEFAULT_STATE.player), input && input.player || {});
@@ -127,6 +171,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     state.world.eventSignals = normalizeSignalMap(input && input.world && input.world.eventSignals);
     state.world.eventHistory = normalizeEventHistory(input && input.world && input.world.eventHistory);
     state.world.rumors = normalizeRumors(input && input.world && input.world.rumors);
+    state.world.caseHistory = normalizeCaseHistory(input && input.world && input.world.caseHistory);
     state.world.organizations = input && input.world && input.world.organizations && typeof input.world.organizations === "object"
       ? input.world.organizations
       : {};
@@ -140,6 +185,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
       : {};
     const npcRelationDay = Number(input && input.world && input.world.npcRelationDay);
     state.world.npcRelationDay = Number.isFinite(npcRelationDay) ? npcRelationDay : -1;
+    state.world.waterAftermath = normalizeWaterAftermath(input && input.world && input.world.waterAftermath);
     state.world.discovered = Array.isArray(state.world.discovered) ? state.world.discovered : [];
     state.world.cases = Array.isArray(state.world.cases) ? state.world.cases : [];
     state.world.playerQuests = input && input.world && input.world.playerQuests && typeof input.world.playerQuests === "object"
@@ -178,6 +224,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     state.world.tension = clamp(Number(state.world.tension) || 0, 0, 100);
     state.world.security = clamp(Number(state.world.security) || 0, 0, 100);
     state.world.trustInAdministration = clamp(Number(state.world.trustInAdministration) || 0, 0, 100);
+    state.world.rumorPressure = clamp(Number(state.world.rumorPressure) || 0, 0, 100);
 
     const currentAbsolute = absoluteMinute(state);
     const savedSimulationMinute = Number(input && input.world && input.world.npcSimulationMinute);
