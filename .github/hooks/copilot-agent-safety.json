@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "hooks": {
+    "preToolUse": [
+      {
+        "type": "command",
+        "bash": "python3 -c 'import json,re,sys; p=json.load(sys.stdin); raw=p.get(\"toolArgs\",\"\"); a=json.loads(raw) if isinstance(raw,str) else raw; cmd=str(a.get(\"command\",\"\")) if isinstance(a,dict) else str(raw); blocked=bool(re.search(r\"\\bgit(?:\\s+-C\\s+[^\\s]+)?\\s+push\\b.*(?:^|\\s)(?:[^\\s]+:)?main(?:\\s|$)\",cmd)) or bool(re.search(r\"\\bgit(?:\\s+-C\\s+[^\\s]+)?\\s+push\\b.*\\b(?:origin|refs/heads/main)(?:\\s|$)\",cmd)); print(json.dumps({\"permissionDecision\":\"deny\",\"permissionDecisionReason\":\"TxtRPG Copilot tasks must publish changes through a reviewable branch/PR. Direct pushes targeting main are blocked by repository policy.\"}) if blocked else print(\"{}\")'",
+        "timeoutSec": 5
+      }
+    ]
+  }
+}

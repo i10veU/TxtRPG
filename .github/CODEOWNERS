@@ -1,0 +1,10 @@
+# Protect the agent and Copilot control plane.
+# Replace @i10veU with a dedicated team if the project moves to an organization.
+
+/.github/CODEOWNERS @i10veU
+/.github/agents/ @i10veU
+/.github/skills/copilot-issue-association/ @i10veU
+/.github/hooks/ @i10veU
+/.github/copilot-instructions.md @i10veU
+/.github/AGENTS.md @i10veU
+/.github/copilot-setup-steps.yml @i10veU
