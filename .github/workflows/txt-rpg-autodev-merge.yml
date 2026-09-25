@@ -1,195 +1,39 @@
-name: TxtRPG AutoDev Merge and Continue
+name: TxtRPG AutoDev Verification
 
 on:
-  workflow_run:
-    workflows: ["TxtRPG Autonomous Development"]
-    types: [completed]
+  pull_request:
+    types: [opened, synchronize, reopened]
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pull-requests: write
-  actions: write
 
 jobs:
-  merge-and-continue:
+  verify:
     if: >-
-      ${{
-        github.event_name == 'workflow_dispatch' ||
-        github.event.workflow_run.conclusion == 'success'
-      }}
+      ${{ github.event_name == 'workflow_dispatch' ||
+          startsWith(github.event.pull_request.title, '[TxtRPG AutoDev] ') }}
     runs-on: ubuntu-latest
     steps:
-      - name: Check optional campaign deadline
-        id: deadline
-        env:
-          DEADLINE_KST: ${{ vars.TXTRPG_AUTODEV_DEADLINE_KST }}
-        shell: bash
-        run: |
-          if [ -z "$DEADLINE_KST" ]; then
-            echo "active=true" >> "$GITHUB_OUTPUT"
-            echo "No campaign deadline is configured; continuing."
-            exit 0
-          fi
-          deadline=$(TZ=Asia/Seoul date -d "$DEADLINE_KST" +%s)
-          now=$(date +%s)
-          if [ "$now" -ge "$deadline" ]; then
-            echo "active=false" >> "$GITHUB_OUTPUT"
-            echo "TxtRPG autonomous development campaign has reached its configured deadline."
-          else
-            echo "active=true" >> "$GITHUB_OUTPUT"
-          fi
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Validate cycle trigger token
-        if: steps.deadline.outputs.active == 'true'
-        env:
-          GH_TOKEN: ${{ secrets.GH_AW_CI_TRIGGER_TOKEN || secrets.GH_AW_GITHUB_TOKEN }}
+      - name: Check JavaScript syntax
         shell: bash
         run: |
           set -euo pipefail
-          if [ -z "$GH_TOKEN" ]; then
-            echo 'Missing GH_AW_CI_TRIGGER_TOKEN (or GH_AW_GITHUB_TOKEN) required for autonomous cycle chaining.' >&2
-            exit 1
-          fi
-          gh api "/repos/$GITHUB_REPOSITORY/actions/workflows/txt-rpg-autodev.lock.yml" --jq '.state'
+          find web tests -type f -name '*.js' -print0 | xargs -0 -n1 node --check
 
-      - name: Find autonomous PR from completed cycle
-        if: steps.deadline.outputs.active == 'true'
-        id: pr
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RUN_STARTED_AT: ${{ github.event.workflow_run.run_started_at }}
+      - name: Run Node regression suite
         shell: bash
         run: |
           set -euo pipefail
-          pr=$(gh pr list \
-            --repo "$GITHUB_REPOSITORY" \
-            --state open \
-            --base main \
-            --json number,title,createdAt,headRefName,author | \
-            jq -r --arg started "$RUN_STARTED_AT" '
-              [.[]
-                | select(.createdAt >= $started)
-                | select(
-                    (.headRefName | startswith("autodev/"))
-                    or (.headRefName | startswith("copilot/"))
-                    or (.author.login == "Copilot")
-                    or (.title | startswith("[TxtRPG AutoDev] "))
-                  )
-              ]
-              | sort_by(.createdAt)
-              | last
-              | .number // empty')
-          if [ -n "$pr" ]; then
-            echo "found=true" >> "$GITHUB_OUTPUT"
-            echo "number=$pr" >> "$GITHUB_OUTPUT"
-            echo "Found autonomous PR #$pr created during this cycle."
-          else
-            echo "found=false" >> "$GITHUB_OUTPUT"
-            echo "No autonomous PR was found for this cycle."
-          fi
-
-      - name: Wait for autonomous PR checks
-        if: steps.deadline.outputs.active == 'true' && steps.pr.outputs.found == 'true'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_NUMBER: ${{ steps.pr.outputs.number }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          echo "Waiting for Runtime CI on PR #$PR_NUMBER..."
-          for attempt in {1..30}; do
-            checks=$(gh pr view "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --json statusCheckRollup --jq '.statusCheckRollup')
-            count=$(printf '%s' "$checks" | jq 'length')
-            if [ "$count" -gt 0 ]; then
-              action_required=$(printf '%s' "$checks" | jq '[.[] | select((.conclusion // "") == "ACTION_REQUIRED")] | length')
-              failed=$(printf '%s' "$checks" | jq '[.[] | select((.conclusion // "") == "FAILURE" or (.conclusion // "") == "CANCELLED")] | length')
-              pending=$(printf '%s' "$checks" | jq '[.[] | select((.status // "") != "COMPLETED")] | length')
-              echo "checks=$count action_required=$action_required failed=$failed pending=$pending"
-              if [ "$action_required" -gt 0 ] || [ "$failed" -gt 0 ]; then break; fi
-              if [ "$pending" -eq 0 ]; then
-                success=$(printf '%s' "$checks" | jq '[.[] | select((.conclusion // "") == "SUCCESS")] | length')
-                if [ "$success" -gt 0 ]; then
-                  echo "Existing PR checks completed successfully."
-                  exit 0
-                fi
-                break
-              fi
-            fi
-            sleep 10
+          for test in tests/*.js; do
+            node "$test"
           done
 
-          echo "Using manual Runtime CI fallback because the PR check is unavailable, action-required, or failed before producing a usable result."
-          head_ref=$(gh pr view "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --json headRefName --jq '.headRefName')
-          dispatch_output=$(gh workflow run phase251-check.yml --repo "$GITHUB_REPOSITORY" --ref "$head_ref" 2>&1)
-          printf '%s\n' "$dispatch_output"
-          run_id=$(printf '%s\n' "$dispatch_output" | grep -oE 'https://github.com/[^[:space:]]+/actions/runs/[0-9]+' | tail -1 | sed 's#.*/##' || true)
-          if [ -z "$run_id" ]; then
-            echo "Manual Runtime CI dispatch did not return a workflow run URL; resolving the newest run created after dispatch."
-            dispatch_epoch=$(date +%s)
-            for attempt in {1..30}; do
-              run_id=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow phase251-check.yml --branch "$head_ref" --limit 20 --json databaseId,createdAt --jq --argjson now "$dispatch_epoch" '[.[] | select((.createdAt | fromdateiso8601) >= $now)] | sort_by(.createdAt) | last | .databaseId // empty')
-              if [ -n "$run_id" ]; then break; fi
-              sleep 5
-            done
-          fi
-          if [ -z "$run_id" ]; then
-            echo "Manual Runtime CI dispatch was not observable." >&2
-            exit 1
-          fi
-          echo "Watching dispatched Runtime CI run #$run_id on $head_ref."
-          gh run watch "$run_id" --repo "$GITHUB_REPOSITORY" --exit-status
-
-      - name: Merge autonomous PR
-        if: steps.deadline.outputs.active == 'true' && steps.pr.outputs.found == 'true'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_NUMBER: ${{ steps.pr.outputs.number }}
-        shell: bash
+      - name: Report verification contract
         run: |
-          set -euo pipefail
-          gh pr merge "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --squash --delete-branch
-
-      - name: Check whether main advanced during a PR-less cycle
-        if: steps.deadline.outputs.active == 'true' && steps.pr.outputs.found != 'true' && github.event_name == 'workflow_run'
-        id: advanced
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CYCLE_SHA: ${{ github.event.workflow_run.head_sha }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          main_sha=$(gh api "/repos/$GITHUB_REPOSITORY/commits/main" --jq '.sha')
-          if [ "$main_sha" != "$CYCLE_SHA" ]; then
-            echo "advanced=true" >> "$GITHUB_OUTPUT"
-            echo "main advanced from $CYCLE_SHA to $main_sha; a PR was likely merged elsewhere."
-          else
-            echo "advanced=false" >> "$GITHUB_OUTPUT"
-            echo "main did not advance during this cycle."
-          fi
-
-      - name: Start next autonomous cycle after merge
-        if: steps.deadline.outputs.active == 'true' && steps.pr.outputs.found == 'true'
-        env:
-          GH_TOKEN: ${{ secrets.GH_AW_CI_TRIGGER_TOKEN || secrets.GH_AW_GITHUB_TOKEN }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          gh api --method POST -H 'Accept: application/vnd.github+json' \
-            "/repos/$GITHUB_REPOSITORY/dispatches" -f event_type='txt-rpg-autodev-next'
-          echo 'Next autonomous cycle dispatched after autonomous PR merge.'
-
-      - name: Continue after externally merged autonomous change
-        if: steps.deadline.outputs.active == 'true' && steps.pr.outputs.found != 'true' && steps.advanced.outputs.advanced == 'true'
-        env:
-          GH_TOKEN: ${{ secrets.GH_AW_CI_TRIGGER_TOKEN || secrets.GH_AW_GITHUB_TOKEN }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          gh api --method POST -H 'Accept: application/vnd.github+json' \
-            "/repos/$GITHUB_REPOSITORY/dispatches" -f event_type='txt-rpg-autodev-next'
-          echo 'Next autonomous cycle dispatched because main advanced without an open PR.'
-
-      - name: Report idle cycle
-        if: steps.deadline.outputs.active == 'true' && steps.pr.outputs.found != 'true' && steps.advanced.outputs.advanced != 'true'
-        run: echo 'No autonomous PR was produced and main did not advance; no next cycle dispatched.'
+          echo "AutoDev verification completed."
+          echo "Browser/Playwright checks remain in the repository's existing CI workflow."
