@@ -142,7 +142,7 @@ AnonymousRPG.Storage = AnonymousRPG.Storage || {};
         localStorage.setItem(LEGACY_KEY, JSON.stringify(state));
         return { state: state, source: "localstorage-fallback" };
       }
-      throw error;
+      return { state: null, source: "empty" };
     }
   }
 

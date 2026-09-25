@@ -76,6 +76,11 @@ function createHarness({ indexedState = null, indexedAvailable = true, legacySta
   assert.strictEqual(fallbackResult.state.schemaVersion, 5);
   assert.strictEqual(JSON.parse(fallback.read().legacyRaw).normalized, true);
 
+  const emptyFallback = createHarness({ indexedAvailable: false });
+  const emptyFallbackResult = await emptyFallback.storage.loadState();
+  assert.strictEqual(emptyFallbackResult.source, "empty");
+  assert.strictEqual(emptyFallbackResult.state, null);
+
   console.log("Phase 282 storage normalization: PASS");
   console.log("IndexedDB, migrated localStorage, and fallback loads normalize and persist current state: PASS");
 })().catch((error) => {
