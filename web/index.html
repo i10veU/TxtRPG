@@ -9,12 +9,25 @@
 <main class="desktop-stage">
   <section class="game" aria-label="무명의 연대기 게임 화면">
     <header class="topbar">
-      <span id="location">세르카 · 북문 시장</span>
-      <span id="timeText">06:00</span>
+      <div class="topbar__location">
+        <span id="location">세르카 · 북문 시장</span>
+        <span id="dateText" class="date-text"></span>
+      </div>
+      <span id="timeText" class="topbar__time">06:00</span>
     </header>
 
+    <nav class="panel-shortcuts" aria-label="정보 패널 바로가기">
+      <button type="button" data-panel-title="STATUS" data-panel-key="status">상태</button>
+      <button type="button" data-panel-title="INVENTORY" data-panel-key="inventory">소지품</button>
+      <button type="button" data-panel-title="NPC" data-panel-key="npc">인물</button>
+      <button type="button" data-panel-title="FACTIONS" data-panel-key="faction">세력</button>
+      <button type="button" data-panel-title="CASES" data-panel-key="cases">사건</button>
+      <button type="button" data-panel-title="RUMORS" data-panel-key="rumors">소문</button>
+      <button type="button" data-panel-title="ORGANIZATIONS" data-panel-key="organizations">조직</button>
+      <button type="button" data-panel-title="CAUSALITY" data-panel-key="causality">연쇄</button>
+    </nav>
+
     <section class="story">
-      <div id="dateText" class="date-text"></div>
       <div id="storyBody" class="story__body" aria-live="polite"></div>
     </section>
 
@@ -29,6 +42,7 @@
         <input id="actionInput" autocomplete="off" maxlength="300" placeholder="명령" aria-label="게임 명령">
         <button type="submit" aria-label="실행">↵</button>
       </form>
+      <div class="hud__hint">1~8 패널 · ESC 닫기 · ↑↓ 명령 기록</div>
     </section>
 
     <aside class="overlay" aria-hidden="true">

@@ -244,6 +244,48 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
         ]
       };
     }
+
+    if (!Data.caseDefinitions["water-ledger-aftershock"]) {
+      Data.caseDefinitions["water-ledger-aftershock"] = {
+        title: "급수선 조정의 후폭풍",
+        summary: "급수 장부 사건을 수습한 뒤에도 배급 우선순위 갈등이 이어지고 있다.",
+        trigger: function (state) {
+          const history = lastHistory(state, "water-ledger");
+          return Boolean(history && history.status === "resolved" && state.world.day >= history.resolutionDay + 1);
+        },
+        choices: [
+          { id: "council", label: "진료소·감시탑·주조장 공동 배급 회의를 연다", risk: 2, run: function (state) {
+            state.world.tension = Math.max(0, Number(state.world.tension || 0) - 3);
+            state.world.rumorPressure = Math.max(0, Number(state.world.rumorPressure || 0) - 1);
+            Core.adjustRelation(state, "guard", 1);
+            Core.adjustRelation(state, "workers", 1);
+            Core.adjustRelation(state, "innkeepers", 1);
+            applyGoalPressure(state, { guard: 1, workers: 1, innkeepers: 1 });
+            applyGoalProgress(state, [
+              { npcId: "lina", reason: "환자 기록 대조" },
+              { npcId: "kael", reason: "감시탑 급수선 점검" }
+            ]);
+            return "공동 배급 회의를 열어 우선순위를 다시 조정했다. 당장의 갈등은 줄었고 기록 공유가 시작됐다.";
+          } },
+          { id: "enforce", label: "경비대 기준으로 배급 규칙을 강제한다", risk: 3, run: function (state) {
+            state.world.security = Core.clamp(Number(state.world.security || 0) + 3, 0, 100);
+            state.world.tension = Core.clamp(Number(state.world.tension || 0) + 1, 0, 100);
+            Core.adjustRelation(state, "guard", 2);
+            Core.adjustRelation(state, "workers", -2);
+            applyGoalPressure(state, { guard: 1, workers: -1 });
+            return "경비대 기준으로 배급표를 고정했다. 질서는 빨라졌지만 현장 반발이 커졌다.";
+          } },
+          { id: "decentralize", label: "각 구역 자율 배급으로 권한을 분산한다", risk: 4, run: function (state) {
+            state.world.trustInAdministration = Core.clamp(Number(state.world.trustInAdministration || 0) - 1, 0, 100);
+            state.world.rumorPressure = Core.clamp(Number(state.world.rumorPressure || 0) + 2, 0, 100);
+            Core.adjustRelation(state, "innkeepers", 2);
+            Core.adjustRelation(state, "archive", -1);
+            applyGoalPressure(state, { innkeepers: 1, archive: -1 });
+            return "구역별 자율 배급으로 전환했다. 유연성은 높아졌지만 공식 기록의 일관성이 흔들렸다.";
+          } }
+        ]
+      };
+    }
   }
 
   function simulate(state, absoluteMinute) {
@@ -253,7 +295,7 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
     state.world.caseCausalityDay = day;
     Data.ensureCases(state);
     const open = state.world.cases.filter(function (entry) {
-      return entry.status === "open" && ["grain-aftershock", "trade-route-aftershock", "faction-aftershock", "npc-dispute-aftershock"].includes(entry.id);
+      return entry.status === "open" && ["grain-aftershock", "trade-route-aftershock", "faction-aftershock", "npc-dispute-aftershock", "water-ledger-aftershock"].includes(entry.id);
     });
     if (!open.length) return null;
     return "이전 사건의 결과가 새로운 문제로 이어졌다. 후속 사건을 확인할 수 있다.";

@@ -9,18 +9,21 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     "faction-conflict": "갈라진 도시의 이해관계",
     "trade-route": "끊기는 교역로",
     "npc-dispute": "갈라진 사람들",
+    "water-ledger": "급수 장부의 공백",
     "market-crisis": "흔들리는 곡물 시장",
     "grain-aftershock": "창고 장부의 후폭풍",
     "trade-route-aftershock": "대체 공급선의 대가",
     "faction-aftershock": "깨진 합의의 잔여물",
-    "npc-dispute-aftershock": "남은 말의 후폭풍"
+    "npc-dispute-aftershock": "남은 말의 후폭풍",
+    "water-ledger-aftershock": "급수선 조정의 후폭풍"
   };
 
   const AFTERSHOCKS = {
     "grain-warehouse": "grain-aftershock",
     "trade-route": "trade-route-aftershock",
     "faction-conflict": "faction-aftershock",
-    "npc-dispute": "npc-dispute-aftershock"
+    "npc-dispute": "npc-dispute-aftershock",
+    "water-ledger": "water-ledger-aftershock"
   };
 
   function ensure(state) {

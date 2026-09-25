@@ -33,5 +33,15 @@ AnonymousRPG.Data.npcs = {
   orel: { name: "오렐 다브", place: "alley", trust: 0, faction: "workers", role: "수리공", goal: "도시 시설 수리", schedule: [
     { from: 7, to: 13, place: "market", action: "시장 시설 수리", effect: "repair", announce: true },
     { from: 13, to: 19, place: "riverside", action: "부두 시설 수리", effect: "repair", announce: true }
+  ]},
+  lina: { name: "리나 벤", place: "clinic", trust: 0, faction: "innkeepers", role: "치료사", goal: "진료소 물자 순환 유지", schedule: [
+    { from: 6, to: 11, place: "clinic", action: "진료소 진료", effect: "security", announce: true },
+    { from: 11, to: 16, place: "market", action: "약재 조달 협상", effect: "rumor", announce: true },
+    { from: 16, to: 21, place: "clinic", action: "환자 기록 대조", effect: "rumor", announce: true, signal: "waterLedgerGap", signalText: "진료소 배급 기록과 창고 장부의 수량이 맞지 않는다는 제보가 모였다." }
+  ]},
+  kael: { name: "카엘 도른", place: "foundry", trust: 0, faction: "workers", role: "주조장 감독", goal: "주조장 가동률과 식수 배급 안정", schedule: [
+    { from: 6, to: 12, place: "foundry", action: "주조장 가동 점검", effect: "tension", announce: true },
+    { from: 12, to: 17, place: "watchtower", action: "감시탑 급수선 점검", effect: "security", announce: true },
+    { from: 17, to: 22, place: "foundry", action: "노동자 교대 조정", effect: "repair", announce: true, signal: "foundryWaterStress", signalText: "주조장과 감시탑 급수선에서 누수 흔적이 반복적으로 보고됐다." }
   ]}
 };

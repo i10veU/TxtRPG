@@ -3,7 +3,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
 
 (function (Core, Data) {
   function placeFromText(text) {
-    const aliases = [["시장", "market"], ["부두", "riverside"], ["강", "riverside"], ["골목", "alley"], ["여관", "alley"], ["기록관", "archive"], ["기록", "archive"], ["농촌", "hills"], ["언덕", "hills"]];
+    const aliases = [["시장", "market"], ["부두", "riverside"], ["강", "riverside"], ["골목", "alley"], ["여관", "alley"], ["기록관", "archive"], ["기록", "archive"], ["농촌", "hills"], ["언덕", "hills"], ["주조장", "foundry"], ["진료소", "clinic"], ["감시탑", "watchtower"], ["탑", "watchtower"]];
     for (let i = 0; i < aliases.length; i += 1) if (text.includes(aliases[i][0])) return aliases[i][1];
     return null;
   }
@@ -25,6 +25,9 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     if (place === "riverside") return state.world.flags.nightCargo ? "젖은 밧줄과 화물 자국 사이로 예정표와 맞지 않는 흔적이 보인다." : "젖은 밧줄과 화물 자국, 배에서 흘러나온 물자 냄새가 섞여 있다.";
     if (place === "archive") return state.world.flags.recordInconsistency ? "같은 토지 번호가 서로 다른 소유자와 연결되어 있다." : "공개 열람실의 장부들은 정돈되어 있다.";
     if (place === "hills") return state.world.grainSupply < 60 ? "농촌의 출하량이 줄었다. 흉작만으로 설명하기 어려운 분위기다." : "수확기 직전의 농촌이다. 운송로와 저장고가 중요해 보인다.";
+    if (place === "foundry") return state.world.flags.foundryWaterStress ? "주조장 배수로 근처에서 젖은 곡물 포대와 급수선 누수 자국이 함께 보인다." : "화로 소리와 금속 냄새가 진한 작업장이다. 급수선이 주조장 벽을 따라 이어진다.";
+    if (place === "clinic") return state.world.flags.waterLedgerGap ? "진료소 배급표의 수량과 시장 장부의 수치가 어긋나 있다." : "진료소 대기석엔 약재와 배급표가 나란히 놓여 있다.";
+    if (place === "watchtower") return state.world.flags.waterLedgerGap ? "감시탑 급수통에 붙은 인수표가 최근 며칠치만 비어 있다." : "북문 감시탑에서는 시장과 주조장으로 내려가는 길이 한눈에 보인다.";
     return "여관과 작업장, 공동 우물 주변에 사람들이 모여 있다.";
   }
 
@@ -46,7 +49,9 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
       darma: "북동쪽에서 물건이 잘 내려오지 않고 있어.",
       ibrahim: state.world.security < 50 ? "요즘 시장에서 시끄러운 일이 늘었어." : "문제 생기면 초소에 와. 직접 본 걸 말하면 된다.",
       marta: "사람들은 여관에 와서 밥보다 이야기를 더 많이 남기지.",
-      orel: "요즘 상자와 자물쇠를 고쳐달라는 주문이 많아졌어."
+      orel: "요즘 상자와 자물쇠를 고쳐달라는 주문이 많아졌어.",
+      lina: state.world.flags.waterLedgerGap ? "진료소 배급표가 맞지 않아요. 물자 흐름을 다시 확인해야 해요." : "아픈 사람보다 지친 사람이 더 많아요. 오늘도 약재가 빠듯하네요.",
+      kael: state.world.flags.foundryWaterStress ? "주조장 급수선이 새고 있어. 물자 기록까지 꼬이면 큰일이야." : "감시탑과 주조장을 잇는 선로가 버티고 있어야 도시가 돌아가지."
     };
     if (guarded) return npc.name + ": “당신과는 더 이야기하고 싶지 않아.”";
     return npc.name + ": “" + lines[id] + "”";
@@ -141,6 +146,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
       if (rumor.id === "warehouseSuspicion") return "시장 조사 후 사건목록을 확인해 창고 단서를 추적한다.";
       if (rumor.id === "recordInconsistency") return "기록관으로 이동해 조사하거나 세린과 대화해 기록 단서를 확장한다.";
       if (rumor.id === "nightCargo") return "해질녘 이후 부두를 조사해 야간 화물 단서를 확인한다.";
+      if (rumor.id === "waterLedgerGap" || rumor.id === "foundryWaterStress") return "진료소·주조장·감시탑을 조사하고 사건목록에서 급수 장부 사건을 확인한다.";
       if (rumor.id.indexOf("tradeRouteCrisis:") === 0) return "지역자원과 목재/어물 시세를 확인해 교역로 위기의 원인을 추적한다.";
       if (rumor.id.indexOf("organizationConflict:") === 0) return "조직관계를 점검하고 사건목록에서 세력 충돌 사건을 우선 처리한다.";
       if (rumor.id.indexOf("npcConflict:") === 0) return "인물관계를 확인하고 충돌 중인 인물 주변에서 대화를 시도한다.";
@@ -297,6 +303,13 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
       result = inspect(state);
       if (state.player.place === "archive") state.world.flags.recordInconsistency = true;
       if (state.player.place === "riverside" && Core.getClock(state).part === "밤") state.world.flags.nightCargo = true;
+      if (state.player.place === "clinic" || state.player.place === "watchtower") {
+        if (Core.hasEventSignal(state, "waterLedgerGap") || state.world.flags.foundryWaterStress) state.world.flags.waterLedgerGap = true;
+      }
+      if (state.player.place === "foundry" && Core.hasEventSignal(state, "foundryWaterStress")) {
+        state.world.flags.foundryWaterStress = true;
+        state.world.flags.waterLedgerGap = true;
+      }
       if (state.world.grainSupply < 58 && state.world.tension >= 35) state.world.flags.warehouseSuspicion = true;
     } else if (/대화|말을|묻|설득|협상/.test(input)) result = talk(state, input);
     else if (/휴식|쉬어|쉬다/.test(input)) {

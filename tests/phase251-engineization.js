@@ -35,8 +35,8 @@ for (const file of files) {
 
 const RPG = context.AnonymousRPG;
 assert(RPG && RPG.Core && RPG.Data);
-assert(Object.keys(RPG.Data.places).length === 5);
-assert(Object.keys(RPG.Data.npcs).length === 7);
+assert(RPG.Data.places.foundry && RPG.Data.places.clinic && RPG.Data.places.watchtower);
+assert(RPG.Data.npcs.lina && RPG.Data.npcs.kael);
 assert(Object.values(RPG.Data.npcs).every(npc => Array.isArray(npc.schedule) && npc.schedule.length > 0));
 
 let state = RPG.Core.createDefaultState(RPG.Data.npcs);

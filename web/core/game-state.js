@@ -47,6 +47,8 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
         recordInconsistency: false,
         nightCargo: false,
         warehouseSuspicion: false,
+        waterLedgerGap: false,
+        foundryWaterStress: false,
         ruralDelegation: false,
         factionConflict: false
       },
