@@ -22,6 +22,12 @@ window.AnonymousRPG = window.AnonymousRPG || {};
     saveTimer = setTimeout(persist, 40);
   }
 
+  function flushWorkerQueue() {
+    if (!worker || !workerReady || workerBusy || !pendingActions.length) return;
+    workerBusy = true;
+    worker.postMessage({ type: "ACTION", text: pendingActions.shift() });
+  }
+
   function fallbackAction(text) {
     const before = RPG.Core.getAbsoluteMinute(state);
     const result = RPG.Core.resolveAction(state, text);
@@ -60,13 +66,7 @@ window.AnonymousRPG = window.AnonymousRPG || {};
   function dispatchAction(text) {
     if (worker) {
       pendingActions.push(text);
-      if (workerReady && !workerBusy) {
-        const next = pendingActions.shift();
-        if (next) {
-          workerBusy = true;
-          worker.postMessage({ type: "ACTION", text: next });
-        }
-      }
+      flushWorkerQueue();
       return;
     }
     fallbackAction(text);
@@ -107,7 +107,7 @@ window.AnonymousRPG = window.AnonymousRPG || {};
         workerBusy = false;
         RPG.UI.render(state);
         queuePersist();
-        if (pendingActions.length) dispatchAction(pendingActions.shift());
+        flushWorkerQueue();
         return;
       }
 
@@ -116,16 +116,14 @@ window.AnonymousRPG = window.AnonymousRPG || {};
         workerBusy = false;
         RPG.UI.render(state);
         queuePersist();
-        if (pendingActions.length) dispatchAction(pendingActions.shift());
+        flushWorkerQueue();
         return;
       }
 
       if (message.type === "ERROR") {
         workerBusy = false;
         RPG.Core.appendLog(state, "시뮬레이션 오류: " + message.payload.message, null, true);
-        RPG.UI.render(state);
-        queuePersist();
-        if (pendingActions.length) dispatchAction(pendingActions.shift());
+        handleWorkerFailure();
       }
     };
 

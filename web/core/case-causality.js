@@ -42,9 +42,10 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
       return item.caseId === caseId && item.resolutionDay === state.world.day && item.choiceId === (entry.branch || choiceId);
     });
     if (already) return;
+    const selectedChoice = entry.branch || choiceId || null;
     state.world.caseHistory.push({
       caseId: caseId,
-      choiceId: entry.branch || choiceId || null,
+      choiceId: selectedChoice,
       status: entry.status,
       resolutionDay: state.world.day,
       resolutionMinute: Core.getAbsoluteMinute(state),
@@ -52,7 +53,7 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
     });
     if (state.world.caseHistory.length > 40) state.world.caseHistory.shift();
     if (caseId === "water-ledger-aftershock") {
-      const policy = ["council", "enforce", "decentralize"].includes(entry.branch) ? entry.branch : null;
+      const policy = ["council", "enforce", "decentralize"].includes(selectedChoice) ? selectedChoice : null;
       state.world.waterAftermath.active = entry.status === "resolved" && policy !== null;
       state.world.waterAftermath.policy = policy;
       state.world.waterAftermath.stage = 0;
@@ -111,39 +112,43 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
     ensureWaterAftermathFromHistory(state);
     const track = state.world.waterAftermath;
     if (!track.active || !track.policy) return null;
-    if (track.lastAdvanceDay >= day) return null;
-    if (day <= track.startedDay) return null;
+    const firstDay = Math.max(track.lastAdvanceDay + 1, track.startedDay + 1);
+    if (firstDay > day) return null;
+    let latestEvent = null;
 
-    track.lastAdvanceDay = day;
-    track.stage = Core.clamp(track.stage + 1, 0, 3);
-    if (track.policy === "council") {
-      state.world.tension = Core.clamp(Number(state.world.tension || 0) - 1, 0, 100);
-      state.world.trustInAdministration = Core.clamp(Number(state.world.trustInAdministration || 0) + 1, 0, 100);
-      state.world.rumorPressure = Core.clamp(Number(state.world.rumorPressure || 0) - 1, 0, 100);
-      applyGoalPressure(state, { guard: 1, workers: 1, innkeepers: 1 });
-    } else if (track.policy === "enforce") {
-      state.world.security = Core.clamp(Number(state.world.security || 0) + 1, 0, 100);
-      state.world.tension = Core.clamp(Number(state.world.tension || 0) + 1, 0, 100);
-      state.world.rumorPressure = Core.clamp(Number(state.world.rumorPressure || 0) + 1, 0, 100);
-      applyGoalPressure(state, { guard: 1, workers: -1 });
-    } else {
-      state.world.trustInAdministration = Core.clamp(Number(state.world.trustInAdministration || 0) - 1, 0, 100);
-      state.world.rumorPressure = Core.clamp(Number(state.world.rumorPressure || 0) + 1, 0, 100);
-      applyGoalPressure(state, { innkeepers: 1, archive: -1 });
-    }
+    for (let targetDay = firstDay; targetDay <= day && track.active; targetDay += 1) {
+      track.lastAdvanceDay = targetDay;
+      track.stage = Core.clamp(track.stage + 1, 0, 3);
+      if (track.policy === "council") {
+        state.world.tension = Core.clamp(Number(state.world.tension || 0) - 1, 0, 100);
+        state.world.trustInAdministration = Core.clamp(Number(state.world.trustInAdministration || 0) + 1, 0, 100);
+        state.world.rumorPressure = Core.clamp(Number(state.world.rumorPressure || 0) - 1, 0, 100);
+        applyGoalPressure(state, { guard: 1, workers: 1, innkeepers: 1 });
+      } else if (track.policy === "enforce") {
+        state.world.security = Core.clamp(Number(state.world.security || 0) + 1, 0, 100);
+        state.world.tension = Core.clamp(Number(state.world.tension || 0) + 1, 0, 100);
+        state.world.rumorPressure = Core.clamp(Number(state.world.rumorPressure || 0) + 1, 0, 100);
+        applyGoalPressure(state, { guard: 1, workers: -1 });
+      } else {
+        state.world.trustInAdministration = Core.clamp(Number(state.world.trustInAdministration || 0) - 1, 0, 100);
+        state.world.rumorPressure = Core.clamp(Number(state.world.rumorPressure || 0) + 1, 0, 100);
+        applyGoalPressure(state, { innkeepers: 1, archive: -1 });
+      }
 
-    const stageLabel = "급수선 후속 영향 " + track.stage + "/3";
-    const text = track.policy === "council"
-      ? "공동 배급 회의의 후속 조정이 이어지며 긴장이 서서히 낮아지고 있다."
-      : track.policy === "enforce"
-        ? "경비대 중심 배급 통제가 누적되며 질서와 현장 반발이 동시에 커지고 있다."
-        : "구역 자율 배급의 편차가 누적되며 소문과 기록 불일치가 늘고 있다.";
-    addSignal(state, "waterAftermath:" + track.policy + ":" + track.stage);
-    if (typeof Core.recordRumor === "function") {
-      Core.recordRumor(state, "waterAftermath:" + track.policy, "급수망", absoluteMinute, text);
+      const stageLabel = "급수선 후속 영향 " + track.stage + "/3";
+      const text = track.policy === "council"
+        ? "공동 배급 회의의 후속 조정이 이어지며 긴장이 서서히 낮아지고 있다."
+        : track.policy === "enforce"
+          ? "경비대 중심 배급 통제가 누적되며 질서와 현장 반발이 동시에 커지고 있다."
+          : "구역 자율 배급의 편차가 누적되며 소문과 기록 불일치가 늘고 있다.";
+      addSignal(state, "waterAftermath:" + track.policy + ":" + track.stage);
+      if (typeof Core.recordRumor === "function") {
+        Core.recordRumor(state, "waterAftermath:" + track.policy, "급수망", absoluteMinute, text);
+      }
+      latestEvent = stageLabel + " — " + text;
+      if (track.stage >= 3) track.active = false;
     }
-    if (track.stage >= 3) track.active = false;
-    return stageLabel + " — " + text;
+    return latestEvent;
   }
 
   function installFollowupCases() {

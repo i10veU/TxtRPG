@@ -125,13 +125,14 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
   function waterAftermathCommand(state, text) {
     if (!/^(?:급수상황|급수현황|물사정|물상황)$/.test(text.trim())) return null;
     const track = state.world.waterAftermath || {};
-    if (!track.policy && !(track.stage > 0)) {
+    const validPolicy = ["council", "enforce", "decentralize"].includes(track.policy) ? track.policy : null;
+    if (!validPolicy) {
       return { narrative: "급수선 후속 영향은 아직 두드러지지 않는다.", action: text, changed: false };
     }
-    const policyLabel = track.policy === "council" ? "공동 회의 배급" : track.policy === "enforce" ? "경비대 강제 배급" : "구역 자율 배급";
-    const trend = track.policy === "council"
+    const policyLabel = validPolicy === "council" ? "공동 회의 배급" : validPolicy === "enforce" ? "경비대 강제 배급" : "구역 자율 배급";
+    const trend = validPolicy === "council"
       ? "긴장이 천천히 완화되는 흐름이다."
-      : track.policy === "enforce"
+      : validPolicy === "enforce"
         ? "치안은 오르지만 현장 반발이 함께 누적되는 흐름이다."
         : "현장 유연성은 높지만 소문 편차가 커지는 흐름이다.";
     return {
