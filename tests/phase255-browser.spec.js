@@ -143,6 +143,43 @@ test.describe("TxtRPG browser runtime", () => {
     expect(consoleErrors).toEqual([]);
   });
 
+  test("queues actions submitted before Worker READY", async ({ page }) => {
+    await page.addInitScript(() => {
+      const NativeWorker = window.Worker;
+      window.Worker = class DelayedWorker {
+        constructor(url) {
+          this.worker = new NativeWorker(url);
+          this.onmessage = null;
+          this.onerror = null;
+          this.worker.onmessage = (event) => this.onmessage && this.onmessage(event);
+          this.worker.onerror = (event) => this.onerror && this.onerror(event);
+        }
+
+        postMessage(message) {
+          if (message && message.type === "INIT") {
+            setTimeout(() => this.worker.postMessage(message), 150);
+            return;
+          }
+          this.worker.postMessage(message);
+        }
+
+        terminate() {
+          return this.worker.terminate();
+        }
+      };
+    });
+
+    await page.goto("http://127.0.0.1:4173/", { waitUntil: "networkidle" });
+    await expect.poll(async () => page.evaluate(() => Boolean(window.AnonymousRPGApp.getState()))).toBe(true);
+    const before = await page.evaluate(() => window.AnonymousRPG.Core.getAbsoluteMinute(window.AnonymousRPGApp.getState()));
+    await page.locator("#actionInput").fill("휴식");
+    await page.locator("#actionForm button").click();
+
+    await expect.poll(async () => page.evaluate(() => window.AnonymousRPG.Core.getAbsoluteMinute(window.AnonymousRPGApp.getState())))
+      .toBe(before + 60);
+    await expect(page.locator("#storyBody")).toContainText("휴식");
+  });
+
   test("progresses through the finale and restores the terminal state", async ({ page }) => {
     const pageErrors = [];
     const consoleErrors = [];
