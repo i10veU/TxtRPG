@@ -336,6 +336,10 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
       ? Math.max(0, Math.floor(Number(nextLifeInput.targetAbsoluteMinute)))
       : null;
     continuity.nextLife.explicitConnection = normalizeExplicitConnection(nextLifeInput.explicitConnection);
+    if (hasLifeEndedRecord(history, continuity.life.lifeId)) {
+      continuity.life.status = "ended";
+      if (continuity.life.endReason === null) continuity.life.endReason = "recorded-ended";
+    }
     if (state.world.gameStatus === "lost" && continuity.life.status !== "ended") {
       continuity.life.status = "ended";
       continuity.life.endedAtAbsoluteMinute = continuity.life.endedAtAbsoluteMinute === null ? currentAbsoluteMinute : continuity.life.endedAtAbsoluteMinute;
@@ -546,6 +550,23 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     return hashSeededText(seed, context);
   }
 
+  function hasLifeEndedRecord(history, lifeId) {
+    if (!history || !Array.isArray(history.lifeEvents)) return false;
+    return history.lifeEvents.some(function (entry) {
+      return entry && entry.type === "life-ended" && entry.lifeId === lifeId;
+    });
+  }
+
+  function resetNextLifeSlot(continuity) {
+    continuity.nextLife.resolved = false;
+    continuity.nextLife.outcome = "undecided";
+    continuity.nextLife.decidedAtAbsoluteMinute = null;
+    continuity.nextLife.decisionHash = null;
+    continuity.nextLife.targetWorldId = null;
+    continuity.nextLife.targetAbsoluteMinute = null;
+    continuity.nextLife.explicitConnection = null;
+  }
+
   function ensureContinuity(state) {
     if (!state.world) state.world = {};
     if (!state.world.continuity || typeof state.world.continuity !== "object") {
@@ -599,6 +620,68 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     return clone(nextLife);
   }
 
+  function beginNextLife(state, options) {
+    const continuity = ensureContinuity(state);
+    if (continuity.life.status !== "ended") return null;
+    if (!continuity.nextLife.resolved || !CONTINUITY_OUTCOMES.includes(continuity.nextLife.outcome)) return null;
+    const priorLifeId = continuity.life.lifeId;
+    if (!hasLifeEndedRecord(continuity.history, continuity.life.lifeId)) {
+      pushLifeEvent(state, "life-ended", continuity.life.endReason || "unknown");
+    }
+    const nextLife = clone(continuity.nextLife);
+    const nextAbsoluteMinute = Number.isFinite(Number(nextLife.targetAbsoluteMinute))
+      ? Math.max(0, Math.floor(Number(nextLife.targetAbsoluteMinute)))
+      : absoluteMinute(state);
+    const currentAbsoluteMinute = absoluteMinute(state);
+    const normalizedStartMinute = nextLife.outcome === "same-world-later"
+      ? Math.max(nextAbsoluteMinute, currentAbsoluteMinute)
+      : nextAbsoluteMinute;
+    const priorWorldId = continuity.identity.worldId;
+    const targetWorldId = typeof nextLife.targetWorldId === "string" && nextLife.targetWorldId.trim()
+      ? nextLife.targetWorldId.trim()
+      : null;
+    if (nextLife.outcome === "different-world" && (!targetWorldId || targetWorldId === priorWorldId)) return null;
+    const nextWorldId = targetWorldId || priorWorldId;
+    const crossedWorld = nextLife.outcome === "different-world" && nextWorldId !== priorWorldId;
+    if (crossedWorld) {
+      continuity.identity.worldId = nextWorldId;
+      continuity.identity.universeId = continuity.identity.universeId || DEFAULT_CONTINUITY.identity.universeId;
+      continuity.identity.lineageRootId = nextWorldId;
+      continuity.identity.parentWorldId = null;
+      continuity.identity.explicitConnection = normalizeExplicitConnection(nextLife.explicitConnection);
+      continuity.timeline.worldStartAbsoluteMinute = nextAbsoluteMinute;
+      continuity.timeline.continuitySeed = "seed:" + nextWorldId;
+      continuity.timeline.continuityDecision = null;
+      continuity.history.lifeEvents = [];
+      continuity.history.persistentConsequences = [];
+    }
+    continuity.life.ordinal = Math.max(1, Number(continuity.life.ordinal) || 1) + 1;
+    continuity.life.lifeId = "life:" + continuity.life.ordinal;
+    continuity.life.status = "active";
+    continuity.life.startedAtAbsoluteMinute = normalizedStartMinute;
+    continuity.life.endedAtAbsoluteMinute = null;
+    continuity.life.endReason = null;
+    continuity.knowledge.traces = [];
+    state.world.gameStatus = "active";
+    state.world.ending = null;
+    continuity.timeline.continuityDecision = null;
+    resetNextLifeSlot(continuity);
+    if (nextLife.outcome === "same-world-later" && normalizedStartMinute > currentAbsoluteMinute) {
+      state.world.day = Math.floor(normalizedStartMinute / 1440);
+      state.world.minutes = normalizedStartMinute % 1440;
+      state.world.npcSimulationMinute = normalizedStartMinute;
+      state.world.factionSimulationDay = state.world.day - 1;
+    }
+    continuity.history.lifeEvents.push({
+      type: "life-started",
+      absoluteMinute: normalizedStartMinute,
+      lifeId: continuity.life.lifeId,
+      detail: "from:" + priorLifeId
+    });
+    if (continuity.history.lifeEvents.length > 40) continuity.history.lifeEvents.splice(0, continuity.history.lifeEvents.length - 40);
+    return clone(continuity.life);
+  }
+
   Core.clone = clone;
   Core.clamp = clamp;
   Core.normalizeState = normalizeState;
@@ -614,6 +697,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
   Core.ensureWorldContinuity = ensureContinuity;
   Core.markLifeTerminated = markLifeTerminated;
   Core.resolveNextLifeOutcome = resolveNextLifeOutcome;
+  Core.beginNextLife = beginNextLife;
   Core.DEFAULT_RELATIONS = DEFAULT_RELATIONS;
   Core.DEFAULT_ECONOMY = DEFAULT_ECONOMY;
 })(AnonymousRPG.Core);
