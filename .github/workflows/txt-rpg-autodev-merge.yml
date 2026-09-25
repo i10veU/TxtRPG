@@ -1,4 +1,4 @@
-name: TxtRPG AutoDev Verification
+name: TxtRPG AutoDev PR Checks
 
 on:
   pull_request:
@@ -7,33 +7,12 @@ on:
 
 permissions:
   contents: read
-  pull-requests: write
 
 jobs:
-  verify:
+  info:
     if: >-
       ${{ github.event_name == 'workflow_dispatch' ||
           startsWith(github.event.pull_request.title, '[TxtRPG AutoDev] ') }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Check JavaScript syntax
-        shell: bash
-        run: |
-          set -euo pipefail
-          find web tests -type f -name '*.js' -print0 | xargs -0 -n1 node --check
-
-      - name: Run Node regression suite
-        shell: bash
-        run: |
-          set -euo pipefail
-          for test in tests/*.js; do
-            node "$test"
-          done
-
-      - name: Report verification contract
-        run: |
-          echo "AutoDev verification completed."
-          echo "Browser/Playwright checks remain in the repository's existing CI workflow."
+      - run: echo "AutoDev PR created. The repository Runtime CI is the verification gate; this workflow performs no merge or chaining."
