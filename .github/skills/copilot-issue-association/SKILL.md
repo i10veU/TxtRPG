@@ -29,6 +29,58 @@ Preferred execution order:
 
 For API-based assignment, first verify that Copilot cloud agent is enabled for the repository and that Copilot is returned as an assignable actor. For GraphQL, use the currently documented feature headers required by the assignment API. Treat preview API behavior as subject to change.
 
+## Workflow lifecycle and orchestration
+
+The full lifecycle is defined in `WORKFLOW.md` beside this Skill. Use it as the state-machine contract rather than inventing an ad-hoc sequence for each Issue.
+
+Normal path:
+
+```text
+ISSUE_CREATED → VALIDATING → ASSOCIATING → RUNNING → PR_CREATED → VERIFYING → REVIEW_REQUIRED → APPROVED → MERGED
+```
+
+Failure or scope changes must transition through an explicit state such as `FAILED`, `CORRECTION`, `PLANNING_REQUIRED`, or `HUMAN_REVIEW`. Do not treat a model response as proof of a state transition; prefer observable GitHub state such as assignment, branch/session, PR, checks, reviews, and merge state.
+
+### Ownership / claim
+
+Keep ownership in GitHub rather than introducing a separate orchestration database:
+
+```text
+Issue         = canonical work item
+Primary agent = one verified implementation owner
+Branch        = isolated implementation workspace
+PR            = review and verification artifact
+```
+
+Prefer one focused Issue → one primary implementation agent → one branch → one PR. Do not launch competing implementation agents against the same files. If decomposition is genuinely necessary, give each child task an explicit scope and owner while retaining the parent Issue as the coordination record.
+
+### Director as orchestrator
+
+`txtrpg-director` is a planning and routing agent, not a routine implementation agent. Use it only for broad, ambiguous, cross-system, or genuinely decomposable Issues. A focused Issue should go directly to its smallest appropriate implementation agent.
+
+The Director may:
+
+- inspect repository structure;
+- identify dependencies and affected systems;
+- decompose genuinely independent work;
+- recommend a primary specialist;
+- define verification order.
+
+It should not receive routine production-code write access merely to coordinate other agents.
+
+### Human gates
+
+Require human review when:
+
+- the Issue contract materially changes after association;
+- work must be decomposed or reassigned;
+- workflow, permission, secret, or MCP configuration changes;
+- verification fails and the cause is unclear;
+- a correction would expand the Issue's scope;
+- a merge decision is required.
+
+Prefer deterministic GitHub controls such as branch protection, rulesets, required checks, and reviews over model instructions for enforcing gates.
+
 ## Assignment API versus Agent Tasks API
 
 GitHub also provides a separate Agent Tasks API that can start a cloud-agent task directly with a prompt and optionally create a pull request. That API is **not a replacement for this Issue-driven workflow**: it creates an agent task independently of the Issue association contract. Use it only for a deliberately separate automation that already has an equivalent task contract. For TxtRPG development Issues, prefer Issue assignment so the Issue remains the canonical work item and the assignment is traceable from Issue → agent → PR.
@@ -50,7 +102,7 @@ Therefore:
 
 Choose the smallest **existing and verified** specialized agent that fully covers the task.
 
-The association branch now contains five TxtRPG custom agents adapted from the role-specialization patterns in `msitarzewski/agency-agents`. They are project-specific rewrites, not verbatim imports:
+The association branch contains five TxtRPG custom agents adapted from the role-specialization patterns in `msitarzewski/agency-agents`. They are project-specific rewrites, not verbatim imports:
 
 - `txtrpg-director`: planning, decomposition, dependency analysis, and routing. Read/search only; do not use as the default implementation agent.
 - `txtrpg-lore`: worldbuilding, lore, narrative systems, dialogue, and systemic content.
