@@ -70,6 +70,14 @@ The assigned agent must respect, in order:
 
 When these conflict, do not silently choose a convenient interpretation. Resolve the conflict using repository policy and the narrowest safe change.
 
+## Skills, hooks, and tools
+
+Use repository-wide instructions for rules that apply to nearly every task. Use Agent Skills for specialized procedures that should be loaded only when relevant. Use hooks for deterministic controls that must run at a lifecycle point regardless of model interpretation.
+
+For this association workflow, the repository hook `.github/hooks/copilot-agent-safety.json` blocks direct `git push` operations targeting `main`. This is a deterministic guard for the Issue → branch → PR workflow; it does not replace CI, branch protection, or human review.
+
+Do not put ordinary prose policy into a hook when an instruction or Skill is sufficient. Hooks are reserved for machine-enforceable checks and should remain small, deterministic, and fail-safe.
+
 ## Association validation
 
 After assignment, verify the actual GitHub state rather than assuming the assignment succeeded.
