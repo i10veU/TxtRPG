@@ -1,6 +1,42 @@
 const { test, expect } = require("@playwright/test");
 
 test.describe("TxtRPG browser runtime", () => {
+  test("accepts immediate rest action during startup and keeps +60 minute contract", async ({ page }) => {
+    const pageErrors = [];
+    const consoleErrors = [];
+    page.on("pageerror", (error) => pageErrors.push(error.message));
+    page.on("console", (message) => {
+      if (message.type() === "error") consoleErrors.push(message.text());
+    });
+
+    await page.goto("http://127.0.0.1:4173/", { waitUntil: "networkidle" });
+    await expect.poll(async () => {
+      return page.evaluate(() => Boolean(window.AnonymousRPGApp.getState()));
+    }).toBe(true);
+
+    const before = await page.evaluate(() => window.AnonymousRPGApp.getState().world.minutes);
+    await page.locator("#actionInput").fill("휴식");
+    await page.locator("#actionForm button").click();
+
+    await expect.poll(async () => {
+      return page.evaluate(() => window.AnonymousRPGApp.getState().world.minutes);
+    }).toBe(before + 60);
+
+    await expect.poll(async () => {
+      return page.evaluate(() => window.AnonymousRPGApp.getRuntimeStatus().workerActive);
+    }).toBe(true);
+
+    const workerErrors = await page.evaluate(() => {
+      return window.AnonymousRPGApp.getState().log
+        .filter((entry) => typeof entry.text === "string")
+        .map((entry) => entry.text)
+        .filter((text) => text.includes("시뮬레이션 오류: Worker not initialized"));
+    });
+    expect(workerErrors).toEqual([]);
+    expect(pageErrors).toEqual([]);
+    expect(consoleErrors).toEqual([]);
+  });
+
   test("boots through Worker, renders state, and persists through IndexedDB", async ({ page }) => {
     const pageErrors = [];
     const consoleErrors = [];
