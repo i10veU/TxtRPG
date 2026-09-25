@@ -156,6 +156,38 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
         } }
       ]
     },
+    "water-ledger": {
+      title: "급수 장부의 공백", summary: "진료소·감시탑·주조장 사이의 급수 배급 기록이 서로 맞지 않는다.",
+      trigger: function (state) {
+        return Boolean(state.world.flags.waterLedgerGap || Core.hasEventSignal(state, "waterLedgerGap") || Core.hasEventSignal(state, "foundryWaterStress"));
+      },
+      choices: [
+        { id: "trace", label: "배급표와 창고 장부를 대조한다", risk: 2, run: function (state) {
+          state.world.trustInAdministration = Core.clamp(Number(state.world.trustInAdministration || 0) + 3, 0, 100);
+          state.world.rumorPressure = Math.max(0, Number(state.world.rumorPressure || 0) - 1);
+          Core.adjustRelation(state, "archive", 2);
+          Core.adjustRelation(state, "workers", 1);
+          pushUnique(state.world.discovered, "waterLedgerTrace");
+          return "배급표와 창고 장부를 대조해 누락 구간을 확인했다. 기록관과 노동자 조합이 같은 장부를 보기 시작했다.";
+        } },
+        { id: "ration", label: "감시탑 우선 배급으로 공급을 재조정한다", risk: 2, run: function (state) {
+          state.world.security = Core.clamp(Number(state.world.security || 0) + 2, 0, 100);
+          state.world.tension = Math.max(0, Number(state.world.tension || 0) - 2);
+          Core.adjustRelation(state, "guard", 2);
+          Core.adjustRelation(state, "workers", -1);
+          pushUnique(state.world.discovered, "towerRationPlan");
+          return "감시탑 우선 배급표를 적용했다. 치안은 안정됐지만 주조장 노동자들의 불만이 남았다.";
+        } },
+        { id: "market", label: "시장 상인에게 임시 물자선을 맡긴다", risk: 3, run: function (state) {
+          state.world.economy.stock.grain = Core.clamp(Number(state.world.economy.stock.grain || 0) + 4, 0, 100);
+          state.world.regionalEconomy.market.wood = Core.clamp(Number(state.world.regionalEconomy.market.wood || 0) - 2, 0, 100);
+          Core.adjustRelation(state, "merchants", 3);
+          Core.adjustRelation(state, "guard", -1);
+          pushUnique(state.world.discovered, "waterBrokerDeal");
+          return "상인회가 급수 물자선을 임시로 이어 붙였다. 시장 재고는 숨을 돌렸지만 감시탑의 경계는 높아졌다.";
+        } }
+      ]
+    },
     "market-crisis": {
       title: "흔들리는 곡물 시장", summary: "높아진 곡물 가격과 줄어든 시장 재고가 도시 생활비를 압박하고 있다.",
       trigger: function (state) { return Boolean(state.world.flags.marketCrisis || Core.hasEventSignal(state, "marketCrisis")); },

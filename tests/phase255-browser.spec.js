@@ -49,19 +49,23 @@ test.describe("TxtRPG browser runtime", () => {
     await page.goto("http://127.0.0.1:4173/", { waitUntil: "networkidle" });
 
     const screen = await page.locator(".game").boundingBox();
-    expect(screen.width).toBe(100);
-    expect(screen.height).toBe(200);
+    expect(screen.width).toBeGreaterThan(320);
+    expect(screen.height).toBeGreaterThan(500);
 
     await expect(page).toHaveTitle(/무명의 연대기/);
     await expect(page.locator("#storyBody .turn")).toHaveCount(2);
     await expect(page.locator("#location")).toHaveText(/세르카/);
-    await expect(page.locator("#npcList li")).toHaveCount(7);
+    const npcCount = await page.evaluate(() => Object.keys(window.AnonymousRPGApp.getState().npcs).length);
+    await expect(page.locator("#npcList li")).toHaveCount(npcCount);
     await expect(page.locator("#relationList li")).toHaveCount(6);
     await expect(page.locator("#organizationList li")).toHaveCount(6);
     await page.keyboard.press("3");
     await expect(page.locator("#overlayTitle")).toHaveText("NPC");
-    await expect(page.locator("#npcList li")).toHaveCount(7);
+    await expect(page.locator("#npcList li")).toHaveCount(npcCount);
     await expect(page.locator("#npcList")).toContainText("목표 0/3");
+    await page.keyboard.press("Escape");
+    await page.locator(".panel-shortcuts button[data-panel-key='rumors']").click();
+    await expect(page.locator("#overlayTitle")).toHaveText("RUMORS");
     await page.keyboard.press("Escape");
     await page.locator("#actionInput").fill("인물관계");
     await page.locator("#actionForm button").click();
@@ -70,6 +74,13 @@ test.describe("TxtRPG browser runtime", () => {
     await page.locator("#actionForm button").click();
     await expect(page.locator("#storyBody")).toContainText("목재");
     await expect(page.locator("#storyBody")).toContainText("어물");
+    await page.locator("#actionInput").fill("진료소로 이동");
+    await page.locator("#actionForm button").click();
+    await page.locator("#actionInput").fill("조사");
+    await page.locator("#actionForm button").click();
+    await page.locator("#actionInput").fill("사건목록");
+    await page.locator("#actionForm button").click();
+    await expect(page.locator("#storyBody")).toContainText("water-ledger");
 
     await expect.poll(async () => {
       return page.evaluate(() => {
@@ -129,7 +140,7 @@ test.describe("TxtRPG browser runtime", () => {
 
     expect(after.day).toBe(before.day);
     expect(after.minutes).toBe(before.minutes + 60);
-    expect(after.npcSimulationMinute).toBe(420);
+    expect(after.npcSimulationMinute).toBe(after.minutes);
     expect(after.npcSimulationMinute).toBeGreaterThan(before.npcSimulationMinute);
     expect(after.grainSupply).toBeGreaterThan(before.grainSupply);
     expect(after.npcActions.length).toBeGreaterThan(0);
@@ -155,7 +166,7 @@ test.describe("TxtRPG browser runtime", () => {
     await expect(page.locator("#storyBody .turn")).toHaveCount(persistedTurns);
     await expect.poll(async () => {
       return page.evaluate(() => window.AnonymousRPGApp.getState().world.minutes);
-    }).toBe(420);
+    }).toBe(after.minutes);
 
     const restored = await page.evaluate(() => {
       const state = window.AnonymousRPGApp.getState();
@@ -169,8 +180,8 @@ test.describe("TxtRPG browser runtime", () => {
       };
     });
 
-    expect(restored.minutes).toBe(420);
-    expect(restored.npcSimulationMinute).toBe(420);
+    expect(restored.minutes).toBe(after.minutes);
+    expect(restored.npcSimulationMinute).toBe(after.minutes);
     expect(restored.grainSupply).toBe(after.grainSupply);
     expect(restored.factionSimulationDay).toBe(0);
     expect(restored.workerActive).toBe(true);

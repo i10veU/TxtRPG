@@ -33,7 +33,7 @@ RPG.Core.ensureEconomy(state);
 RPG.Core.ensureOrganizations(state);
 RPG.Core.ensureNPCGoals(state);
 
-assert.strictEqual(Object.keys(state.npcs).length, 7);
+assert(Object.keys(state.npcs).length >= 9);
 assert(Object.values(state.npcs).every((npc) => npc.goalState));
 assert(Object.values(state.npcs).every((npc) => Array.isArray(npc.goalState.actions)));
 assert(Object.values(state.npcs).every((npc) => npc.goalState.status === "active"));

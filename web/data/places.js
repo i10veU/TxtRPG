@@ -19,6 +19,18 @@ AnonymousRPG.Data.places = {
   },
   hills: {
     name: "구릉 농촌지대",
-    travelFrom: { market: 90, riverside: 110, alley: 100, archive: 95 }
+    travelFrom: { market: 90, riverside: 110, alley: 100, archive: 95, foundry: 75, clinic: 85 }
+  },
+  foundry: {
+    name: "남부 주조장",
+    travelFrom: { market: 35, riverside: 25, alley: 20, archive: 30, hills: 75, clinic: 15, watchtower: 40 }
+  },
+  clinic: {
+    name: "동문 진료소",
+    travelFrom: { market: 25, riverside: 35, alley: 15, archive: 20, hills: 85, foundry: 15, watchtower: 30 }
+  },
+  watchtower: {
+    name: "북문 감시탑",
+    travelFrom: { market: 18, riverside: 30, alley: 22, archive: 25, foundry: 40, clinic: 30 }
   }
 };

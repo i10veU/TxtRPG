@@ -5,10 +5,17 @@ AnonymousRPG.UI.bindInput = function (dispatch) {
   const form = document.getElementById("actionForm");
   const input = document.getElementById("actionInput");
   const close = document.getElementById("overlayClose");
+  const shortcutButtons = Array.from(document.querySelectorAll(".panel-shortcuts [data-panel-key]"));
   const history = [];
   let historyIndex = -1;
 
   if (close) close.addEventListener("click", AnonymousRPG.UI.closePanel);
+  shortcutButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      AnonymousRPG.UI.openPanel(button.dataset.panelTitle || "STATUS", button.dataset.panelKey || "status");
+      input.focus();
+    });
+  });
 
   form.addEventListener("submit", function (event) {
     event.preventDefault();
