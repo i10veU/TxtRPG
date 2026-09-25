@@ -19,7 +19,7 @@
   - 이전 생의 `knowledge.traces`는 자동 상속하지 않고 비운다.
   - `history.lifeEvents`와 `history.persistentConsequences`는 유지되어 이전 생의 결과가 세계 흔적으로 남는다.
   - `same-world-later`는 저장된 목표 절대 시간으로 월드 시계를 이동해 재로드 후에도 동일한 시간축 결과를 재현한다.
-  - `different-world`는 기본적으로 `explicitConnection: null`로 시작해 인과 독립을 기본값으로 둔다.
+  - `different-world`는 기본적으로 `explicitConnection: null`로 시작하고 이전 world history/consequence를 초기화해 인과 독립을 기본값으로 둔다.
 - 이 단계에서는 멀티월드 콘텐츠/이동/상호작용은 구현하지 않고, 미래 확장을 위한 데이터 경계만 도입했다.
 
 ## 검증

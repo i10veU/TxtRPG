@@ -640,7 +640,8 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     const nextWorldId = typeof nextLife.targetWorldId === "string" && nextLife.targetWorldId.trim()
       ? nextLife.targetWorldId.trim()
       : priorWorldId;
-    if (nextLife.outcome === "different-world") {
+    const crossedWorld = nextLife.outcome === "different-world" && nextWorldId !== priorWorldId;
+    if (crossedWorld) {
       continuity.identity.worldId = nextWorldId;
       continuity.identity.universeId = continuity.identity.universeId || DEFAULT_CONTINUITY.identity.universeId;
       continuity.identity.lineageRootId = nextWorldId;
@@ -648,6 +649,8 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
       continuity.identity.explicitConnection = normalizeExplicitConnection(nextLife.explicitConnection);
       continuity.timeline.worldStartAbsoluteMinute = nextAbsoluteMinute;
       continuity.timeline.continuitySeed = "seed:" + nextWorldId;
+      continuity.history.lifeEvents = [];
+      continuity.history.persistentConsequences = [];
     }
     continuity.life.ordinal = Math.max(1, Number(continuity.life.ordinal) || 1) + 1;
     continuity.life.lifeId = "life:" + continuity.life.ordinal;

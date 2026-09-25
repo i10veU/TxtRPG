@@ -171,6 +171,12 @@ assert.strictEqual(sameWorldLaterPastTarget.world.continuity.life.startedAtAbsol
 const differentWorld = Core.createDefaultState({});
 differentWorld.player.hp = 0;
 Core.applyCampaignProgress(differentWorld, {});
+differentWorld.world.continuity.history.persistentConsequences.push({
+  id: "cons:legacy",
+  text: "이전 세계의 흔적",
+  sourceWorldId: differentWorld.world.continuity.identity.worldId,
+  discovered: true
+});
 differentWorld.world.continuity.nextLife = {
   resolved: true,
   outcome: "different-world",
@@ -184,6 +190,15 @@ Core.beginNextLife(differentWorld, {});
 assert.strictEqual(differentWorld.world.continuity.identity.worldId, "world:new-frontier");
 assert.strictEqual(differentWorld.world.continuity.identity.parentWorldId, null);
 assert.strictEqual(differentWorld.world.continuity.identity.explicitConnection, null);
+assert.strictEqual(differentWorld.world.continuity.history.persistentConsequences.length, 0);
+assert.strictEqual(
+  differentWorld.world.continuity.history.lifeEvents.filter((entry) => entry.type === "life-ended").length,
+  0
+);
+assert.strictEqual(
+  differentWorld.world.continuity.history.lifeEvents.filter((entry) => entry.type === "life-started").length,
+  1
+);
 
 console.log("Phase 292 world continuity model: PASS");
 console.log("World/life/timeline/history/knowledge continuity model is normalized, life termination is bounded, and continuity outcomes persist without reroll: PASS");
