@@ -39,14 +39,18 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     return Boolean(entry && (entry.status === "resolved" || entry.status === "failed"));
   }
 
-  function ensureAftershockSteps(chain, followupId) {
-    chain.steps = Array.isArray(chain.steps) ? chain.steps : [];
-    if (chain.steps.length < 2) {
+  function ensureBaseSteps(chain) {
+    if (!Array.isArray(chain.steps) || chain.steps.length < 2) {
       chain.steps = [
         { id: "investigate", text: "사건의 단서를 확인한다.", status: "pending" },
         { id: "resolve", text: "사건을 해결하거나 결론을 낸다.", status: "pending" }
       ];
     }
+    return chain;
+  }
+
+  function ensureAftershockSteps(chain, followupId) {
+    ensureBaseSteps(chain);
     if (!chain.steps.some(function (step) { return step.id === "aftermath-investigate"; })) {
       chain.steps.push({ id: "aftermath-investigate", text: "사건의 후속 문제를 확인한다.", status: "pending" });
     }
@@ -74,6 +78,7 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
         ]
       };
       chain.title = title;
+      ensureBaseSteps(chain);
       if (entry && entry.status === "open") chain.steps[0].status = "complete";
       if (resolved) {
         chain.steps[0].status = "complete";

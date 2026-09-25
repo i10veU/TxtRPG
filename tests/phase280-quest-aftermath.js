@@ -45,5 +45,12 @@ assert.strictEqual(JSON.stringify(state.world.playerQuests), snapshot);
 const legacy = RPG.Core.normalizeState({ world: { cases: [], playerQuests: { chains: { "grain-warehouse": { id: "case:grain-warehouse", title: "닫힌 창고의 곡물", status: "complete", currentStep: 2, steps: [{ id: "investigate", status: "complete" }, { id: "resolve", status: "complete" }] } } } } });
 RPG.Core.updatePlayerQuests(legacy, RPG.Data.caseDefinitions);
 assert.strictEqual(legacy.world.playerQuests.chains["grain-warehouse"].steps.length, 4);
+const damaged = RPG.Core.normalizeState({ world: {
+  cases: [{ id: "grain-warehouse", status: "open" }],
+  playerQuests: { chains: { "grain-warehouse": { id: "case:grain-warehouse", steps: null } } }
+} });
+RPG.Core.updatePlayerQuests(damaged, RPG.Data.caseDefinitions);
+assert.strictEqual(damaged.world.playerQuests.chains["grain-warehouse"].steps.length, 4);
+assert.strictEqual(damaged.world.playerQuests.chains["grain-warehouse"].steps[0].status, "complete");
 console.log("Phase 280 quest aftermath chains: PASS");
 console.log("Aftershock progression, outcome provenance, migration, and idempotence: PASS");

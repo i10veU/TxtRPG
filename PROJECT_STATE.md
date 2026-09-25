@@ -39,6 +39,7 @@ Build a large-scale offline-first text RPG in the browser where the player disco
 - Finale-ready and canonical terminal campaign states are covered through IndexedDB and both localStorage fallback paths, including restored terminal action blocking
 - Browser coverage now seeds a finale-ready state, completes the canonical ending through the Worker, verifies terminal persistence after reload, and confirms post-ending actions remain blocked
 - Browser coverage now restores an active long-play state, resolves the warehouse case and delayed grain aftermath through the Worker, and verifies the four-step quest chain and finale gate after reload
+- Player quest updates rebuild missing or malformed base steps from persisted saves before applying case progress, with regression coverage for damaged quest state
 
 ## Current next milestones
 

@@ -54,6 +54,7 @@
 - [Phase 289 결말 상태 저장 왕복 검증](docs/phase289-finale-storage-persistence.md)
 - [Phase 290 브라우저 결말 진행·복원 검증](docs/phase290-browser-finale.md)
 - [Phase 291 대표 장기 플레이 브라우저 진행](docs/phase291-browser-long-play.md)
+- Phase 292 손상된 플레이어 목표 저장 복구
 - [Phase 1–205 파일 목록](docs/phase1-205-file-manifest.md)
 
 ## 문서
