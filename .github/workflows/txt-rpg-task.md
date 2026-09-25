@@ -94,3 +94,5 @@ The human workflow after this run is:
 `Run workflow → review Issue/PR → request changes or merge`
 
 If no useful task can be identified, do not create a speculative task. Use the workflow's no-op output and explain why.
+
+<!-- Single-purpose reviewed task dispatcher. -->
