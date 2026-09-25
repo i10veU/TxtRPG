@@ -18,6 +18,10 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
   function inspect(state) {
     Core.advanceTime(state, 10);
     const place = state.player.place;
+    const waterAftermath = state.world.waterAftermath || {};
+    const waterStatus = waterAftermath.policy && waterAftermath.stage > 0
+      ? " 급수선 후속 영향은 " + waterAftermath.stage + "/3 단계다."
+      : "";
     if (place === "market") {
       if (typeof Core.getGrainPrice === "function" && state.world.economy) return "곡물 가격은 현재 " + Core.getGrainPrice(state) + "골드다. 시장 재고는 " + state.world.economy.stock.grain + "개다.";
       return "곡물 가격은 대략 " + (state.world.grainSupply < 60 ? 13 : 10) + " 정도로 보인다.";
@@ -25,9 +29,9 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     if (place === "riverside") return state.world.flags.nightCargo ? "젖은 밧줄과 화물 자국 사이로 예정표와 맞지 않는 흔적이 보인다." : "젖은 밧줄과 화물 자국, 배에서 흘러나온 물자 냄새가 섞여 있다.";
     if (place === "archive") return state.world.flags.recordInconsistency ? "같은 토지 번호가 서로 다른 소유자와 연결되어 있다." : "공개 열람실의 장부들은 정돈되어 있다.";
     if (place === "hills") return state.world.grainSupply < 60 ? "농촌의 출하량이 줄었다. 흉작만으로 설명하기 어려운 분위기다." : "수확기 직전의 농촌이다. 운송로와 저장고가 중요해 보인다.";
-    if (place === "foundry") return state.world.flags.foundryWaterStress ? "주조장 배수로 근처에서 젖은 곡물 포대와 급수선 누수 자국이 함께 보인다." : "화로 소리와 금속 냄새가 진한 작업장이다. 급수선이 주조장 벽을 따라 이어진다.";
-    if (place === "clinic") return state.world.flags.waterLedgerGap ? "진료소 배급표의 수량과 시장 장부의 수치가 어긋나 있다." : "진료소 대기석엔 약재와 배급표가 나란히 놓여 있다.";
-    if (place === "watchtower") return state.world.flags.waterLedgerGap ? "감시탑 급수통에 붙은 인수표가 최근 며칠치만 비어 있다." : "북문 감시탑에서는 시장과 주조장으로 내려가는 길이 한눈에 보인다.";
+    if (place === "foundry") return (state.world.flags.foundryWaterStress ? "주조장 배수로 근처에서 젖은 곡물 포대와 급수선 누수 자국이 함께 보인다." : "화로 소리와 금속 냄새가 진한 작업장이다. 급수선이 주조장 벽을 따라 이어진다.") + waterStatus;
+    if (place === "clinic") return (state.world.flags.waterLedgerGap ? "진료소 배급표의 수량과 시장 장부의 수치가 어긋나 있다." : "진료소 대기석엔 약재와 배급표가 나란히 놓여 있다.") + waterStatus;
+    if (place === "watchtower") return (state.world.flags.waterLedgerGap ? "감시탑 급수통에 붙은 인수표가 최근 며칠치만 비어 있다." : "북문 감시탑에서는 시장과 주조장으로 내려가는 길이 한눈에 보인다.") + waterStatus;
     return "여관과 작업장, 공동 우물 주변에 사람들이 모여 있다.";
   }
 
@@ -111,10 +115,31 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     if (!rumors.length) {
       return { narrative: "아직 뚜렷한 소문을 들은 적이 없다.", action: text, changed: false };
     }
+
     const lines = rumors.slice(0, 6).map(function (rumor, index) {
       return (index + 1) + ". " + rumor.text + " [확신 " + Math.round(rumor.confidence * 100) + "%]";
     });
     return { narrative: lines.join(" / "), action: text, changed: false };
+  }
+
+  function waterAftermathCommand(state, text) {
+    if (!/^(?:급수상황|급수현황|물사정|물상황)$/.test(text.trim())) return null;
+    const track = state.world.waterAftermath || {};
+    const validPolicy = ["council", "enforce", "decentralize"].includes(track.policy) ? track.policy : null;
+    if (!validPolicy) {
+      return { narrative: "급수선 후속 영향은 아직 두드러지지 않는다.", action: text, changed: false };
+    }
+    const policyLabel = validPolicy === "council" ? "공동 회의 배급" : validPolicy === "enforce" ? "경비대 강제 배급" : "구역 자율 배급";
+    const trend = validPolicy === "council"
+      ? "긴장이 천천히 완화되는 흐름이다."
+      : validPolicy === "enforce"
+        ? "치안은 오르지만 현장 반발이 함께 누적되는 흐름이다."
+        : "현장 유연성은 높지만 소문 편차가 커지는 흐름이다.";
+    return {
+      narrative: "현재 급수선 정책: " + policyLabel + " / 후속 영향 단계 " + (track.stage || 0) + "/3 / " + trend,
+      action: text,
+      changed: false
+    };
   }
 
   function playerGoalCommand(state, text) {
@@ -283,6 +308,8 @@ AnonymousRPG.Core = AnonymousRPG.Core || {};
     if (npcRelations) return npcRelations;
     const rumor = rumorCommand(state, input);
     if (rumor) return rumor;
+    const waterAftermath = waterAftermathCommand(state, input);
+    if (waterAftermath) return waterAftermath;
     const playerGoal = playerGoalCommand(state, input);
     if (playerGoal) return playerGoal;
     const npcGoal = npcGoalCommand(state, input);

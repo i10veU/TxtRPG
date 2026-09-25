@@ -7,6 +7,16 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
     const world = state.world;
     world.caseHistory = Array.isArray(world.caseHistory) ? world.caseHistory : [];
     world.caseCausalityDay = Number.isFinite(Number(world.caseCausalityDay)) ? Number(world.caseCausalityDay) : -1;
+    const current = world.waterAftermath && typeof world.waterAftermath === "object" ? world.waterAftermath : {};
+    const policy = ["council", "enforce", "decentralize"].includes(current.policy) ? current.policy : null;
+    world.waterAftermath = {
+      active: Boolean(current.active) && policy !== null && Number(current.stage) < 3,
+      policy: policy,
+      stage: Core.clamp(Math.floor(Number(current.stage) || 0), 0, 3),
+      startedDay: Number.isFinite(Number(current.startedDay)) ? Math.floor(Number(current.startedDay)) : -1,
+      lastAdvanceDay: Number.isFinite(Number(current.lastAdvanceDay)) ? Math.floor(Number(current.lastAdvanceDay)) : -1,
+      lastNarratedDay: Number.isFinite(Number(current.lastNarratedDay)) ? Math.floor(Number(current.lastNarratedDay)) : -1
+    };
   }
 
   function hasHistory(state, caseId, choiceId) {
@@ -32,15 +42,25 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
       return item.caseId === caseId && item.resolutionDay === state.world.day && item.choiceId === (entry.branch || choiceId);
     });
     if (already) return;
+    const selectedChoice = entry.branch || choiceId || null;
     state.world.caseHistory.push({
       caseId: caseId,
-      choiceId: entry.branch || choiceId || null,
+      choiceId: selectedChoice,
       status: entry.status,
       resolutionDay: state.world.day,
       resolutionMinute: Core.getAbsoluteMinute(state),
       outcome: typeof result === "string" ? result.slice(0, 180) : null
     });
     if (state.world.caseHistory.length > 40) state.world.caseHistory.shift();
+    if (caseId === "water-ledger-aftershock") {
+      const policy = ["council", "enforce", "decentralize"].includes(selectedChoice) ? selectedChoice : null;
+      state.world.waterAftermath.active = entry.status === "resolved" && policy !== null;
+      state.world.waterAftermath.policy = policy;
+      state.world.waterAftermath.stage = 0;
+      state.world.waterAftermath.startedDay = state.world.day;
+      state.world.waterAftermath.lastAdvanceDay = state.world.day - 1;
+      state.world.waterAftermath.lastNarratedDay = -1;
+    }
   }
 
   function addSignal(state, signal) {
@@ -72,6 +92,63 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
     entries.forEach(function (entry) {
       Core.progressNPCGoal(state, entry.npcId, entry.amount || 1, minute, entry.reason);
     });
+  }
+
+  function ensureWaterAftermathFromHistory(state) {
+    ensure(state);
+    const track = state.world.waterAftermath;
+    if (track.policy || track.active || track.stage > 0) return;
+    const waterHistory = lastHistory(state, "water-ledger-aftershock");
+    if (!waterHistory || waterHistory.status !== "resolved") return;
+    track.policy = ["council", "enforce", "decentralize"].includes(waterHistory.choiceId) ? waterHistory.choiceId : null;
+    if (!track.policy) return;
+    track.active = true;
+    track.stage = 0;
+    track.startedDay = Number.isFinite(Number(waterHistory.resolutionDay)) ? Number(waterHistory.resolutionDay) : state.world.day;
+    track.lastAdvanceDay = track.startedDay - 1;
+  }
+
+  function advanceWaterAftermath(state, day, absoluteMinute) {
+    ensureWaterAftermathFromHistory(state);
+    const track = state.world.waterAftermath;
+    if (!track.active || !track.policy) return null;
+    const firstDay = Math.max(track.lastAdvanceDay + 1, track.startedDay + 1);
+    if (firstDay > day) return null;
+    let latestEvent = null;
+
+    for (let targetDay = firstDay; targetDay <= day && track.active; targetDay += 1) {
+      track.lastAdvanceDay = targetDay;
+      track.stage = Core.clamp(track.stage + 1, 0, 3);
+      if (track.policy === "council") {
+        state.world.tension = Core.clamp(Number(state.world.tension || 0) - 1, 0, 100);
+        state.world.trustInAdministration = Core.clamp(Number(state.world.trustInAdministration || 0) + 1, 0, 100);
+        state.world.rumorPressure = Core.clamp(Number(state.world.rumorPressure || 0) - 1, 0, 100);
+        applyGoalPressure(state, { guard: 1, workers: 1, innkeepers: 1 });
+      } else if (track.policy === "enforce") {
+        state.world.security = Core.clamp(Number(state.world.security || 0) + 1, 0, 100);
+        state.world.tension = Core.clamp(Number(state.world.tension || 0) + 1, 0, 100);
+        state.world.rumorPressure = Core.clamp(Number(state.world.rumorPressure || 0) + 1, 0, 100);
+        applyGoalPressure(state, { guard: 1, workers: -1 });
+      } else {
+        state.world.trustInAdministration = Core.clamp(Number(state.world.trustInAdministration || 0) - 1, 0, 100);
+        state.world.rumorPressure = Core.clamp(Number(state.world.rumorPressure || 0) + 1, 0, 100);
+        applyGoalPressure(state, { innkeepers: 1, archive: -1 });
+      }
+
+      const stageLabel = "급수선 후속 영향 " + track.stage + "/3";
+      const text = track.policy === "council"
+        ? "공동 배급 회의의 후속 조정이 이어지며 긴장이 서서히 낮아지고 있다."
+        : track.policy === "enforce"
+          ? "경비대 중심 배급 통제가 누적되며 질서와 현장 반발이 동시에 커지고 있다."
+          : "구역 자율 배급의 편차가 누적되며 소문과 기록 불일치가 늘고 있다.";
+      addSignal(state, "waterAftermath:" + track.policy + ":" + track.stage);
+      if (typeof Core.recordRumor === "function") {
+        Core.recordRumor(state, "waterAftermath:" + track.policy, "급수망", absoluteMinute, text);
+      }
+      latestEvent = stageLabel + " — " + text;
+      if (track.stage >= 3) track.active = false;
+    }
+    return latestEvent;
   }
 
   function installFollowupCases() {
@@ -294,11 +371,15 @@ AnonymousRPG.Data = AnonymousRPG.Data || {};
     if (state.world.caseCausalityDay === day) return null;
     state.world.caseCausalityDay = day;
     Data.ensureCases(state);
+    const waterAftermathEvent = advanceWaterAftermath(state, day, absoluteMinute);
     const open = state.world.cases.filter(function (entry) {
       return entry.status === "open" && ["grain-aftershock", "trade-route-aftershock", "faction-aftershock", "npc-dispute-aftershock", "water-ledger-aftershock"].includes(entry.id);
     });
-    if (!open.length) return null;
-    return "이전 사건의 결과가 새로운 문제로 이어졌다. 후속 사건을 확인할 수 있다.";
+    if (open.length && waterAftermathEvent) {
+      return "이전 사건의 결과가 새로운 문제로 이어졌다. 후속 사건을 확인할 수 있다. " + waterAftermathEvent;
+    }
+    if (open.length) return "이전 사건의 결과가 새로운 문제로 이어졌다. 후속 사건을 확인할 수 있다.";
+    return waterAftermathEvent;
   }
 
   function chainCommand(state, text) {
