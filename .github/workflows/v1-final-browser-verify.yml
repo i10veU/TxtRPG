@@ -33,7 +33,7 @@ jobs:
           npx playwright test \
             tests/phase255-browser.spec.js \
             tests/phase291-browser-long-play.spec.js \
-            --reporter=line
+            --reporter=line,html
 
       - name: Upload Playwright report
         if: always()
@@ -42,4 +42,4 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 14
-          if-no-files-found: ignore
+          if-no-files-found: error
