@@ -2120,4 +2120,74 @@ function testChoiceEffect() {
 
 testChoiceEffect();
 
-console.log("V2-Core-03/04/05/06/07/08/09/10/11/12 effects.test.js: all checks passed");
+// ============================================================
+// V2-Core-13: narrate Effect (D-52 resolved -- §4.2). `handler` is
+// deliberately not implemented (§4.4 callout, no real use case) -- no
+// tests for it; the existing "unknown op -> throw" test already covers
+// {op:"handler",...} the same way it covers any other unimplemented op.
+// view() is engine-level and tested in tests/v2/core.test.js.
+// ============================================================
+
+function testNarrateEffect() {
+  // 1. 정상 생성: 상태는 전혀 바뀌지 않고 이벤트만 난다
+  const state1 = baseState({ flags: { untouched: true } });
+  const r1 = applyEffects([{ op: "narrate", textId: "txt_intro" }], ctxWith(state1));
+  assert.deepStrictEqual(r1.state, state1, "narrate must not change any part of state");
+  assert.strictEqual(r1.events.length, 1);
+  assert.strictEqual(r1.events[0].type, "narration");
+  assert.strictEqual(r1.events[0].visibility, "player");
+  assert.deepStrictEqual(r1.events[0].data, { textId: "txt_intro" });
+
+  // 2. malformed -> throw
+  const ctx2 = ctxWith(baseState());
+  [1, null, true, {}, [], undefined].forEach((bad) => {
+    assert.throws(() => applyEffects([{ op: "narrate", textId: bad }], ctx2), TypeError, "textId=" + JSON.stringify(bad));
+  });
+
+  // 3. subject 없음: actorId/targetId가 전혀 없는 ctx로도 정상 동작 (world-level, 4.1절)
+  const r3 = applyEffects([{ op: "narrate", textId: "txt_a" }], { state: baseState(), data: {} });
+  assert.strictEqual(r3.events.length, 1);
+
+  // 4. no-op 없음: 동일 textId를 반복해도 매번 이벤트가 난다 (D-52)
+  const r4 = applyEffects(
+    [{ op: "narrate", textId: "txt_a" }, { op: "narrate", textId: "txt_a" }, { op: "narrate", textId: "txt_a" }],
+    ctxWith(baseState())
+  );
+  assert.strictEqual(r4.events.length, 3, "narrate has no state to compare against, so it never no-ops");
+  assert.ok(r4.events.every((e) => e.type === "narration"));
+
+  // 5. 순차 가시성: narrate가 다른 Effect의 순서/가시성에 개입하지 않는다
+  const r5 = applyEffects(
+    [{ op: "signal", key: "a", add: 1 }, { op: "narrate", textId: "txt_b" }, { op: "signal", key: "a", add: 1 }],
+    ctxWith(baseState())
+  );
+  assert.strictEqual(r5.state.signals.a, 2);
+  assert.deepStrictEqual(
+    r5.events.map((e) => e.type),
+    ["signal.raised", "narration", "signal.raised"]
+  );
+
+  // 6. 입력 불변성
+  const state6 = deepFreeze(baseState());
+  const stateBefore6 = snapshot(state6);
+  const effects6 = deepFreeze([{ op: "narrate", textId: "txt_c" }]);
+  const effectsBefore6 = snapshot(effects6);
+  const ctx6 = deepFreeze(ctxWith(state6));
+  const result6 = applyEffects(effects6, ctx6);
+  assert.deepStrictEqual(snapshot(state6), stateBefore6, "input state must be unchanged");
+  assert.deepStrictEqual(snapshot(effects6), effectsBefore6, "input effects must be unchanged");
+  assert.notStrictEqual(result6.state, ctx6.state);
+
+  // 7. determinism
+  const runNarrate = () => applyEffects([{ op: "narrate", textId: "txt_d" }], ctxWith(baseState()));
+  assert.deepStrictEqual(runNarrate(), runNarrate(), "same (effects, ctx) must always produce the same result");
+
+  // 8. JSON round-trip
+  const result8 = runNarrate();
+  assert.deepStrictEqual(JSON.parse(JSON.stringify(result8.state)), result8.state);
+  assert.deepStrictEqual(JSON.parse(JSON.stringify(result8.events)), result8.events);
+}
+
+testNarrateEffect();
+
+console.log("V2-Core-03/04/05/06/07/08/09/10/11/12/13 effects.test.js: all checks passed");

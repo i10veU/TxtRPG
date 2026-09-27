@@ -9,7 +9,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { hashString, deriveSeed, nextUint32, rollDie } from "../../web/v2/core/rng.js";
-import { createInitialState, step } from "../../web/v2/core/engine.js";
+import { createInitialState, step, view } from "../../web/v2/core/engine.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, "..", "..");
@@ -756,4 +756,108 @@ testDayStartedEvents();
 testTriggerStage();
 testChoiceAndTriggerComposition();
 
-console.log("V2-Core-01/11/12 core.test.js: all checks passed");
+// ============================================================
+// V2-Core-13: view() (D-53/D-15 resolved -- §8.4/§1.4). `narrate` Effect is
+// tested in tests/v2/effects.test.js. `handler` is deliberately not
+// implemented (§4.4 callout) -- no tests for it here.
+// ============================================================
+
+function testView() {
+  const base = actionDataFixture();
+  const data = {
+    ...base,
+    actions: { ...base.actions, act_gated_visible: { requires: { op: "never" }, showWhenLocked: true, effects: [] } }
+  };
+  const { state: initial } = createInitialState({ worldSeed: "view-check", data });
+
+  const state = structuredClone(initial);
+  state.actors.npc_1 = {
+    id: "npc_1",
+    kind: "npc",
+    alive: true,
+    locationId: "loc_start",
+    hp: { current: 5, max: 5 },
+    money: 0,
+    inventory: {},
+    growth: {},
+    tags: []
+  };
+  state.knowledge = {
+    player_1: {
+      rum_a: { rumorId: "rum_a", factId: "fact_a", claim: "npc_x", source: "npc_c", sources: ["npc_c"], confidence: 50, confirmations: 1, firstSeenDay: 0, lastSeenDay: 0 }
+    },
+    npc_1: {
+      rum_b: { rumorId: "rum_b", factId: "fact_a", claim: "npc_y", source: "npc_d", sources: ["npc_d"], confidence: 80, confirmations: 1, firstSeenDay: 0, lastSeenDay: 0 }
+    }
+  };
+  state.relations = {
+    "npc_1:player_1": { score: 10, mode: "neutral", lastDay: 0, cooperationCount: 0, conflictCount: 0, tags: [] },
+    "player_1:npc_1": { score: -5, mode: "neutral", lastDay: 0, cooperationCount: 0, conflictCount: 0, tags: [] },
+    "npc_1:npc_2": { score: 20, mode: "neutral", lastDay: 0, cooperationCount: 0, conflictCount: 0, tags: [] }
+  };
+  state.facts = { fact_a: { value: "npc_x", since: 0 } };
+
+  const result = view(state, data);
+
+  // 1. 정확히 5개 필드만 (§8.4가 나열한 것 그대로, 새 카테고리 없음)
+  assert.deepStrictEqual(Object.keys(result).sort(), ["actions", "actor", "knowledge", "pending", "relations"]);
+
+  // 2. actor: 플레이어 자신의 전체 레코드
+  assert.deepStrictEqual(result.actor, state.actors.player_1);
+
+  // 3. knowledge: 플레이어 자신의 것만, 다른 actor의 knowledge는 절대 노출되지 않는다
+  assert.deepStrictEqual(result.knowledge, state.knowledge.player_1);
+  assert.strictEqual(result.knowledge.rum_b, undefined);
+
+  // 4. relations: 플레이어가 한쪽 끝인 edge만(방향 무관), 무관한 edge는 제외
+  assert.deepStrictEqual(Object.keys(result.relations).sort(), ["npc_1:player_1", "player_1:npc_1"]);
+  assert.strictEqual(result.relations["npc_1:npc_2"], undefined);
+
+  // 5. facts는 절대 노출되지 않는다 (§8.4)
+  assert.ok(!("facts" in result));
+
+  // 6. pending
+  assert.strictEqual(result.pending, null);
+
+  // 7. actions: requires 만족 + showWhenLocked인 잠긴 것만, reason 없음, id 오름차순
+  const actionIds = result.actions.map((a) => a.actionId);
+  assert.ok(actionIds.includes("act_rest"));
+  assert.ok(!actionIds.includes("act_gated"), "gated without showWhenLocked must be excluded entirely");
+  assert.ok(actionIds.includes("act_gated_visible"), "gated WITH showWhenLocked must still be listed");
+  const gatedEntry = result.actions.find((a) => a.actionId === "act_gated_visible");
+  assert.strictEqual(gatedEntry.available, false);
+  assert.deepStrictEqual(Object.keys(gatedEntry).sort(), ["actionId", "available"], "no failure reason ever leaked (D-06/D-15)");
+  const availableEntry = result.actions.find((a) => a.actionId === "act_rest");
+  assert.strictEqual(availableEntry.available, true);
+  assert.deepStrictEqual(actionIds, [...actionIds].sort(), "actions must be in id-ascending order (§2.6 determinism)");
+
+  // 8. state mutation 없음, RNG 소비 없음
+  const rngBefore = snapshot(state.rng);
+  const stateBefore = snapshot(state);
+  view(state, data);
+  assert.deepStrictEqual(snapshot(state), stateBefore, "view() must not mutate state");
+  assert.deepStrictEqual(state.rng, rngBefore, "view() must not consume rng");
+
+  // 9. 결과를 mutate해도 원본 state에 영향이 없다 (원본 참조 아님)
+  result.actor.money = 999999;
+  result.knowledge.rum_a.confidence = 0;
+  result.relations["npc_1:player_1"].score = 0;
+  assert.strictEqual(state.actors.player_1.money, 5, "mutating the view result must not affect state");
+  assert.strictEqual(state.knowledge.player_1.rum_a.confidence, 50);
+  assert.strictEqual(state.relations["npc_1:player_1"].score, 10);
+
+  // 10. determinism
+  assert.deepStrictEqual(view(state, data), view(state, data), "same (state, data) must always produce the same result");
+
+  // 11. JSON round-trip
+  const fresh = view(state, data);
+  assert.deepStrictEqual(JSON.parse(JSON.stringify(fresh)), fresh);
+
+  // 12. player 없는 world -> null (D-53)
+  const { state: bare } = createInitialState({ worldSeed: "view-no-player" });
+  assert.strictEqual(view(bare, {}), null);
+}
+
+testView();
+
+console.log("V2-Core-01/11/12/13 core.test.js: all checks passed");

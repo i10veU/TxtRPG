@@ -11,6 +11,10 @@
 // now also runs §2.5 stages 9 (day.started per crossed day boundary) and 10
 // (data.events trigger pass, id-ascending, once/cooldown via state.fired,
 // one pass = the "1-step chain limit").
+// V2-Core-13 (D-53/D-15): view(state, data) -- pure query, {actor,
+// knowledge, relations, pending, actions}, exactly §8.4's named categories.
+// `handler` stays deliberately unimplemented (§4.4 callout, no real use
+// case yet -- not a blocker).
 // Do not add Date/Date.now, Math.random, DOM, window, or any host API here.
 
 import { hashString } from "./rng.js";
@@ -399,4 +403,56 @@ export function step(state, action, data) {
   if (actionType === "perform") return resolvePerform(state, action, data);
   if (actionType === "move") return resolveMove(state, action, data);
   return resolveStartCharacter(state, action, data);
+}
+
+// (state, data) -> PlayerView | null (D-53, §8.4/§1.4). Pure query: no
+// mutation, no RNG. Returns exactly the 5 fields §8.4 names (no invented
+// categories) -- facts, other actors' knowledge, and internal events are
+// never included. `null` when no player actor exists yet (world never
+// bootstrapped with data.world.startTemplateId, D-47).
+export function view(state, data) {
+  const playerActorId = state.player?.actorId;
+  const actor = playerActorId !== undefined ? state.actors?.[playerActorId] : undefined;
+  if (!isPlainObject(actor)) return null;
+
+  const knowledge = structuredClone(state.knowledge?.[playerActorId] ?? {});
+
+  const relations = {};
+  if (isPlainObject(state.relations)) {
+    Object.keys(state.relations)
+      .sort()
+      .forEach((edgeKey) => {
+        const [fromId, toId] = edgeKey.split(":");
+        if (fromId === playerActorId || toId === playerActorId) {
+          relations[edgeKey] = structuredClone(state.relations[edgeKey]);
+        }
+      });
+  }
+
+  // D-15/D-53: every action whose requires is satisfied, plus locked ones
+  // that opt into showWhenLocked -- never the reason a locked one is locked.
+  const actions = [];
+  if (isPlainObject(data?.actions)) {
+    const requiresCtx = { state, data, actorId: playerActorId, contextKind: "player" };
+    Object.keys(data.actions)
+      .sort()
+      .forEach((actionId) => {
+        const def = data.actions[actionId];
+        if (!isPlainObject(def)) return;
+        const available = def.requires === undefined || evaluateCondition(def.requires, requiresCtx);
+        if (available) {
+          actions.push({ actionId, available: true });
+        } else if (def.showWhenLocked === true) {
+          actions.push({ actionId, available: false });
+        }
+      });
+  }
+
+  return {
+    actor: structuredClone(actor),
+    knowledge,
+    relations,
+    pending: state.pending ?? null,
+    actions
+  };
 }

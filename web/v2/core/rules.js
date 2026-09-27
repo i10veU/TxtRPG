@@ -28,8 +28,10 @@
 // check() (V2-Core-11, D-49): pure evaluation, not an Effect and not an
 // action -- it's invoked from within engine.js's step() while resolving a
 // `perform`/`choose`/trigger Resolvable (§2.3/§2.5 stage 7).
-// Effect (V2-Core-12): choice (D-35 resolved -- §4.2). No narrate/handler
-// yet.
+// Effect (V2-Core-12): choice (D-35 resolved -- §4.2).
+// Effect (V2-Core-13): narrate (D-52 resolved -- §4.2). `handler` is
+// deliberately not implemented (§4.4 callout) -- no real content needs it
+// yet, so no handlers.js registry exists (YAGNI, not a blocker).
 //
 // No host APIs (DOM/window/Date/Math.random/indexedDB/localStorage/fetch/
 // performance/crypto). ctx.state/data/effects/condition are never mutated
@@ -1120,6 +1122,25 @@ function applyRumorEffect(effect, workingState, events, ctx) {
   });
 }
 
+// narrate Effect (D-52 resolved, §4.2): {op, textId}. World-level, no
+// subject (§4.1 exemption list). Never touches state at all -- it doesn't
+// even look up data.texts[textId] (the UI/storage layer resolves textId to
+// content itself, per the "event references textId only" rule). Because
+// there is no stored value to compare, D-30's "no change -> no event" rule
+// has nothing to apply to: narrate always emits, every time (like
+// time.advanced on every wait, not like a state-assignment op).
+function applyNarrateEffect(effect, workingState, events) {
+  if (typeof effect.textId !== "string") {
+    throw new TypeError("narrate Effect requires a string `textId`");
+  }
+  events.push({
+    minute: workingState.time.minute,
+    type: "narration",
+    visibility: "player",
+    data: { textId: effect.textId }
+  });
+}
+
 // choice Effect (D-35 resolved, §4.2): {op, choice, sourceId?}. World-level,
 // no subject (§4.1 exemption list). `sourceId` is an opaque, content-author
 // -supplied label (same idea as rumor's `source`) -- the engine never
@@ -1193,6 +1214,8 @@ function applyOneEffect(effect, workingState, events, ctx) {
       return applyMoveEffect(effect, workingState, events, ctx);
     case "choice":
       return applyChoiceEffect(effect, workingState, events);
+    case "narrate":
+      return applyNarrateEffect(effect, workingState, events);
     default:
       throw new TypeError("Unknown Effect op: " + JSON.stringify(effect.op));
   }
