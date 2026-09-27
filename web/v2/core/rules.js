@@ -453,9 +453,11 @@ function applyItemEffect(effect, workingState, events, ctx) {
 
 const MAX_RELATION_SCORE = 100;
 const MIN_RELATION_SCORE = -100;
+const VALID_RELATION_MODES = new Set(["neutral", "cooperation", "conflict"]);
 
-// mode/tag/untag are reserved in the schema (§4.2, §7.3) but not implemented
-// here (D-37) -- only `add` (score) is.
+// relation Effect (D-43, §7.3/§4.2): add/mode/tag/untag are independently
+// validated and applied, then combined into at most one relation.changed
+// event per Effect call (D-30 stays Effect-scoped, not field-scoped).
 function applyRelationEffect(effect, workingState, events, ctx) {
   if (effect.add !== undefined && !Number.isInteger(effect.add)) {
     throw new TypeError("relation Effect's `add`, when present, must be an integer");
@@ -466,6 +468,15 @@ function applyRelationEffect(effect, workingState, events, ctx) {
   if (effect.to !== undefined && typeof effect.to !== "string") {
     throw new TypeError("relation Effect's `to`, when present, must be a string");
   }
+  if (effect.mode !== undefined && !VALID_RELATION_MODES.has(effect.mode)) {
+    throw new TypeError('relation Effect\'s `mode`, when present, must be "neutral", "cooperation", or "conflict"');
+  }
+  if (effect.tag !== undefined && typeof effect.tag !== "string") {
+    throw new TypeError("relation Effect's `tag`, when present, must be a string");
+  }
+  if (effect.untag !== undefined && typeof effect.untag !== "string") {
+    throw new TypeError("relation Effect's `untag`, when present, must be a string");
+  }
 
   // §7.3 defaults: from -> target, to -> self (resolveSubjectId's own
   // undefined-default is `self`, so `from` needs an explicit substitution).
@@ -473,32 +484,70 @@ function applyRelationEffect(effect, workingState, events, ctx) {
   const toId = resolveSubjectId(effect.to, ctx);
   if (fromId === undefined || toId === undefined) return; // D-29: skip
 
+  const edgeKey = fromId + ":" + toId;
+  const existing = workingState.relations?.[edgeKey];
+  const beforeScore = existing && Number.isInteger(existing.score) ? existing.score : 0;
+  const beforeMode = existing?.mode ?? "neutral";
+  const beforeTags = existing?.tags ?? [];
+  let cooperationCount = existing?.cooperationCount ?? 0;
+  let conflictCount = existing?.conflictCount ?? 0;
+
   const add = effect.add ?? 0;
-  if (add === 0) return; // nothing to change; no lazy edge, no event (D-30)
+  const afterScore = Math.min(MAX_RELATION_SCORE, Math.max(MIN_RELATION_SCORE, beforeScore + add));
+  const scoreDelta = afterScore - beforeScore;
+
+  // D-43: setting `mode` always sets it and, for cooperation/conflict,
+  // always bumps the counter -- regardless of whether `mode` already held
+  // that value (V1 npc-relations.js's "re-applied every day" semantics).
+  let afterMode = beforeMode;
+  let modeChanged = false;
+  if (effect.mode !== undefined) {
+    afterMode = effect.mode;
+    if (effect.mode === "cooperation") cooperationCount += 1;
+    else if (effect.mode === "conflict") conflictCount += 1;
+    modeChanged =
+      afterMode !== beforeMode ||
+      cooperationCount !== (existing?.cooperationCount ?? 0) ||
+      conflictCount !== (existing?.conflictCount ?? 0);
+  }
+
+  let afterTags = beforeTags;
+  if (effect.tag !== undefined && !afterTags.includes(effect.tag)) {
+    afterTags = [...afterTags, effect.tag].sort();
+  }
+  if (effect.untag !== undefined && afterTags.includes(effect.untag)) {
+    afterTags = afterTags.filter((t) => t !== effect.untag);
+  }
+  // Net diff against beforeTags (not two independent flags) so a tag/untag
+  // pair on the same string that cancels out is correctly seen as no change.
+  const tagsAdded = afterTags.filter((t) => !beforeTags.includes(t));
+  const tagsRemoved = beforeTags.filter((t) => !afterTags.includes(t));
+  const tagsChanged = tagsAdded.length > 0 || tagsRemoved.length > 0;
+
+  if (scoreDelta === 0 && !modeChanged && !tagsChanged) return; // D-30/D-43: nothing changed -> no edge touch, no event
 
   if (!isPlainObject(workingState.relations)) workingState.relations = {};
-  const edgeKey = fromId + ":" + toId;
-  const existing = workingState.relations[edgeKey];
-  const before = existing && Number.isInteger(existing.score) ? existing.score : 0;
-  const after = Math.min(MAX_RELATION_SCORE, Math.max(MIN_RELATION_SCORE, before + add));
-  const delta = after - before;
-  if (delta === 0) return; // clamp absorbed the whole change (D-30)
-
   const day = Math.floor(workingState.time.minute / 1440);
   workingState.relations[edgeKey] = {
-    score: after,
-    mode: existing?.mode ?? "neutral",
+    score: afterScore,
+    mode: afterMode,
     lastDay: day,
-    cooperationCount: existing?.cooperationCount ?? 0,
-    conflictCount: existing?.conflictCount ?? 0,
-    tags: existing?.tags ?? []
+    cooperationCount,
+    conflictCount,
+    tags: afterTags
   };
+
+  const data = { from: fromId, to: toId }; // two endpoints -> no single actorId (§4.2)
+  if (scoreDelta !== 0) data.delta = scoreDelta;
+  if (modeChanged) data.mode = afterMode; // absolute result, like case.updated's `stage` (not a delta)
+  if (tagsAdded.length > 0) data.tagAdded = tagsAdded[0];
+  if (tagsRemoved.length > 0) data.tagRemoved = tagsRemoved[0];
 
   events.push({
     minute: workingState.time.minute,
     type: "relation.changed",
     visibility: isPlayerActor(fromId, workingState) || isPlayerActor(toId, workingState) ? "player" : "internal",
-    data: { from: fromId, to: toId, delta } // two endpoints -> no single actorId (§4.2)
+    data
   });
 }
 

@@ -1110,4 +1110,257 @@ function testProficiencyEffect() {
 testExpEffect();
 testProficiencyEffect();
 
-console.log("V2-Core-03/04/05/06 effects.test.js: all checks passed");
+// ============================================================
+// V2-Core-07: relation mode/tag/untag (D-43 resolved -- §7.3/§4.2)
+// testRelationEffect() above (relation.add only) is left untouched --
+// its continued pass is the add-path regression check.
+// ============================================================
+
+function relationBaseState() {
+  return stateWithActors({ player_1: actorFixture(), npc_1: actorFixture({ id: "npc_1" }) });
+}
+
+// relation.mode
+function testRelationModeEffect() {
+  // 1. 정상 mode 변경 (신규 edge, cooperation 카운터 +1)
+  const r1 = applyEffects([{ op: "relation", mode: "cooperation" }], ctxWith(relationBaseState()));
+  assert.strictEqual(r1.state.relations["npc_1:player_1"].mode, "cooperation");
+  assert.strictEqual(r1.state.relations["npc_1:player_1"].cooperationCount, 1);
+  assert.strictEqual(r1.state.relations["npc_1:player_1"].conflictCount, 0);
+
+  // 2. 동일 mode(neutral) 재지정 -> no-op (카운터 없음, 값도 그대로, edge조차 생성되지 않음)
+  const r2 = applyEffects([{ op: "relation", mode: "neutral" }], ctxWith(relationBaseState()));
+  assert.strictEqual(r2.state.relations, undefined, "mode:neutral on an already-neutral (nonexistent) edge must be a pure no-op");
+  assert.strictEqual(r2.events.length, 0);
+
+  // cooperation을 반복 지정하면 mode 값은 그대로여도 카운터는 매번 증가한다 (D-43, V1 semantics) -> no-op이 아니다
+  const existingCoop = { score: 0, mode: "cooperation", lastDay: 3, cooperationCount: 2, conflictCount: 0, tags: [] };
+  const s2b = stateWithActors({ player_1: actorFixture(), npc_1: actorFixture({ id: "npc_1" }) }, { relations: { "npc_1:player_1": existingCoop } });
+  const r2b = applyEffects([{ op: "relation", mode: "cooperation" }], ctxWith(s2b));
+  assert.strictEqual(r2b.state.relations["npc_1:player_1"].cooperationCount, 3, "re-specifying the same mode still bumps the counter");
+  assert.strictEqual(r2b.events.length, 1, "the counter bump is a real change -> event fires even though `mode` itself didn't change");
+
+  // 3. malformed mode -> throw
+  const ctx3 = ctxWith(relationBaseState());
+  ["hostile", "", "COOPERATION", 1, null, true, {}].forEach((bad) => {
+    assert.throws(() => applyEffects([{ op: "relation", mode: bad }], ctx3), TypeError, "relation mode=" + JSON.stringify(bad));
+  });
+
+  // 4. 대상 부재 -> skip
+  const noTargetCtx = { state: stateWithActors({ player_1: actorFixture() }), data: {}, actorId: "player_1" };
+  const r4 = applyEffects([{ op: "relation", mode: "conflict" }], noTargetCtx);
+  assert.strictEqual(r4.events.length, 0);
+  assert.deepStrictEqual(r4.state, noTargetCtx.state);
+
+  // 5. visibility: player가 한쪽 끝이면 player, 둘 다 아니면 internal
+  const s5 = stateWithActors({ player_1: actorFixture(), npc_1: actorFixture({ id: "npc_1" }), npc_2: actorFixture({ id: "npc_2" }) });
+  assert.strictEqual(applyEffects([{ op: "relation", mode: "cooperation" }], ctxWith(s5)).events[0].visibility, "player");
+  assert.strictEqual(
+    applyEffects([{ op: "relation", from: "npc_1", to: "npc_2", mode: "cooperation" }], ctxWith(s5)).events[0].visibility,
+    "internal"
+  );
+
+  // 6. event: mode만 바뀔 때 data에는 mode만 담기고 delta/tagAdded/tagRemoved는 없다
+  const r6 = applyEffects([{ op: "relation", mode: "conflict" }], ctxWith(relationBaseState()));
+  assert.strictEqual(r6.events[0].type, "relation.changed");
+  assert.deepStrictEqual(r6.events[0].data, { from: "npc_1", to: "player_1", mode: "conflict" });
+
+  // 7. 입력 불변성
+  const state7 = deepFreeze(relationBaseState());
+  const stateBefore7 = snapshot(state7);
+  const effects7 = deepFreeze([{ op: "relation", mode: "cooperation" }]);
+  const effectsBefore7 = snapshot(effects7);
+  const ctx7 = deepFreeze(ctxWith(state7));
+  const result7 = applyEffects(effects7, ctx7);
+  assert.deepStrictEqual(snapshot(state7), stateBefore7, "input state must be unchanged");
+  assert.deepStrictEqual(snapshot(effects7), effectsBefore7, "input effects must be unchanged");
+  assert.notStrictEqual(result7.state, ctx7.state);
+  assert.strictEqual(result7.state.relations["npc_1:player_1"].mode, "cooperation");
+}
+
+// relation.tag
+function testRelationTagEffect() {
+  // 8. 신규 tag 추가
+  const r8 = applyEffects([{ op: "relation", tag: "rival" }], ctxWith(relationBaseState()));
+  assert.deepStrictEqual(r8.state.relations["npc_1:player_1"].tags, ["rival"]);
+  assert.deepStrictEqual(r8.events[0].data, { from: "npc_1", to: "player_1", tagAdded: "rival" });
+
+  // 9. 동일 tag 중복 추가 -> no-op
+  const existingTagged = { score: 0, mode: "neutral", lastDay: 0, cooperationCount: 0, conflictCount: 0, tags: ["rival"] };
+  const s9 = stateWithActors({ player_1: actorFixture(), npc_1: actorFixture({ id: "npc_1" }) }, { relations: { "npc_1:player_1": existingTagged } });
+  const r9 = applyEffects([{ op: "relation", tag: "rival" }], ctxWith(s9));
+  assert.strictEqual(r9.events.length, 0);
+  assert.deepStrictEqual(r9.state.relations["npc_1:player_1"].tags, ["rival"]);
+
+  // 10. 복수 tag: 서로 다른 tag를 순차적으로 추가
+  const r10 = applyEffects(
+    [{ op: "relation", tag: "member" }, { op: "relation", tag: "debt" }],
+    ctxWith(relationBaseState())
+  );
+  assert.deepStrictEqual(r10.state.relations["npc_1:player_1"].tags, ["debt", "member"]);
+
+  // 11. deterministic ordering: 추가 순서와 무관하게 정렬된 상태로 저장된다
+  const r11 = applyEffects(
+    [{ op: "relation", tag: "zeta" }, { op: "relation", tag: "alpha" }, { op: "relation", tag: "mid" }],
+    ctxWith(relationBaseState())
+  );
+  assert.deepStrictEqual(r11.state.relations["npc_1:player_1"].tags, ["alpha", "mid", "zeta"]);
+
+  // 12. malformed tag -> throw
+  const ctx12 = ctxWith(relationBaseState());
+  [1, null, true, {}, []].forEach((bad) => {
+    assert.throws(() => applyEffects([{ op: "relation", tag: bad }], ctx12), TypeError, "relation tag=" + JSON.stringify(bad));
+  });
+
+  // 13. 대상 부재 -> skip
+  const noTargetCtx = { state: stateWithActors({ player_1: actorFixture() }), data: {}, actorId: "player_1" };
+  const r13 = applyEffects([{ op: "relation", tag: "x" }], noTargetCtx);
+  assert.strictEqual(r13.events.length, 0);
+  assert.deepStrictEqual(r13.state, noTargetCtx.state);
+
+  // 14. visibility
+  const s14 = stateWithActors({ player_1: actorFixture(), npc_1: actorFixture({ id: "npc_1" }), npc_2: actorFixture({ id: "npc_2" }) });
+  assert.strictEqual(applyEffects([{ op: "relation", tag: "x" }], ctxWith(s14)).events[0].visibility, "player");
+  assert.strictEqual(
+    applyEffects([{ op: "relation", from: "npc_1", to: "npc_2", tag: "x" }], ctxWith(s14)).events[0].visibility,
+    "internal"
+  );
+
+  // 15. event data shape
+  const r15 = applyEffects([{ op: "relation", tag: "member" }], ctxWith(relationBaseState()));
+  assert.deepStrictEqual(Object.keys(r15.events[0].data).sort(), ["from", "tagAdded", "to"]);
+
+  // 16. 입력 불변성
+  const state16 = deepFreeze(relationBaseState());
+  const stateBefore16 = snapshot(state16);
+  const effects16 = deepFreeze([{ op: "relation", tag: "member" }]);
+  const effectsBefore16 = snapshot(effects16);
+  const ctx16 = deepFreeze(ctxWith(state16));
+  const result16 = applyEffects(effects16, ctx16);
+  assert.deepStrictEqual(snapshot(state16), stateBefore16, "input state must be unchanged");
+  assert.deepStrictEqual(snapshot(effects16), effectsBefore16, "input effects must be unchanged");
+  assert.notStrictEqual(result16.state, ctx16.state);
+}
+
+// relation.untag
+function testRelationUntagEffect() {
+  function stateWithTags(tags) {
+    const edge = { score: 0, mode: "neutral", lastDay: 0, cooperationCount: 0, conflictCount: 0, tags };
+    return stateWithActors({ player_1: actorFixture(), npc_1: actorFixture({ id: "npc_1" }) }, { relations: { "npc_1:player_1": edge } });
+  }
+
+  // 17. 기존 tag 제거
+  const r17 = applyEffects([{ op: "relation", untag: "rival" }], ctxWith(stateWithTags(["rival"])));
+  assert.deepStrictEqual(r17.state.relations["npc_1:player_1"].tags, []);
+  assert.deepStrictEqual(r17.events[0].data, { from: "npc_1", to: "player_1", tagRemoved: "rival" });
+
+  // 18. 존재하지 않는 tag 제거 -> no-op
+  const r18 = applyEffects([{ op: "relation", untag: "ghost" }], ctxWith(stateWithTags(["rival"])));
+  assert.strictEqual(r18.events.length, 0);
+  assert.deepStrictEqual(r18.state.relations["npc_1:player_1"].tags, ["rival"]);
+
+  // 19. 여러 tag 상태에서 특정 tag만 제거
+  const r19 = applyEffects([{ op: "relation", untag: "b" }], ctxWith(stateWithTags(["a", "b", "c"])));
+  assert.deepStrictEqual(r19.state.relations["npc_1:player_1"].tags, ["a", "c"]);
+
+  // 20. malformed untag -> throw
+  const ctx20 = ctxWith(stateWithTags(["rival"]));
+  [1, null, true, {}, []].forEach((bad) => {
+    assert.throws(() => applyEffects([{ op: "relation", untag: bad }], ctx20), TypeError, "relation untag=" + JSON.stringify(bad));
+  });
+
+  // 21. 대상 부재 -> skip
+  const noTargetCtx = { state: stateWithActors({ player_1: actorFixture() }), data: {}, actorId: "player_1" };
+  const r21 = applyEffects([{ op: "relation", untag: "rival" }], noTargetCtx);
+  assert.strictEqual(r21.events.length, 0);
+  assert.deepStrictEqual(r21.state, noTargetCtx.state);
+
+  // 22. visibility
+  const taggedEdge = { score: 0, mode: "neutral", lastDay: 0, cooperationCount: 0, conflictCount: 0, tags: ["x"] };
+  const s22 = stateWithActors(
+    { player_1: actorFixture(), npc_1: actorFixture({ id: "npc_1" }), npc_2: actorFixture({ id: "npc_2" }) },
+    { relations: { "npc_1:player_1": taggedEdge, "npc_1:npc_2": { ...taggedEdge } } }
+  );
+  assert.strictEqual(applyEffects([{ op: "relation", untag: "x" }], ctxWith(s22)).events[0].visibility, "player");
+  assert.strictEqual(
+    applyEffects([{ op: "relation", from: "npc_1", to: "npc_2", untag: "x" }], ctxWith(s22)).events[0].visibility,
+    "internal"
+  );
+
+  // 23. event data shape
+  const r23 = applyEffects([{ op: "relation", untag: "rival" }], ctxWith(stateWithTags(["rival"])));
+  assert.deepStrictEqual(Object.keys(r23.events[0].data).sort(), ["from", "tagRemoved", "to"]);
+
+  // 24. 입력 불변성
+  const state24 = deepFreeze(stateWithTags(["rival"]));
+  const stateBefore24 = snapshot(state24);
+  const effects24 = deepFreeze([{ op: "relation", untag: "rival" }]);
+  const effectsBefore24 = snapshot(effects24);
+  const ctx24 = deepFreeze(ctxWith(state24));
+  const result24 = applyEffects(effects24, ctx24);
+  assert.deepStrictEqual(snapshot(state24), stateBefore24, "input state must be unchanged");
+  assert.deepStrictEqual(snapshot(effects24), effectsBefore24, "input effects must be unchanged");
+  assert.notStrictEqual(result24.state, ctx24.state);
+}
+
+// integration: add -> mode -> tag -> untag, combined-field events, JSON round-trip, determinism
+function testRelationIntegration() {
+  // 25. add -> mode -> tag -> untag 순차 적용 (Effect 4개, 하나의 edge를 이어서 갱신)
+  const r25 = applyEffects(
+    [
+      { op: "relation", add: 10 },
+      { op: "relation", mode: "cooperation" },
+      { op: "relation", tag: "ally" },
+      { op: "relation", untag: "ally" }
+    ],
+    ctxWith(relationBaseState())
+  );
+  const edge25 = r25.state.relations["npc_1:player_1"];
+  assert.strictEqual(edge25.score, 10);
+  assert.strictEqual(edge25.mode, "cooperation");
+  assert.strictEqual(edge25.cooperationCount, 1);
+  assert.deepStrictEqual(edge25.tags, [], "tag then untag of the same string must leave tags empty");
+  assert.strictEqual(r25.events.length, 4, "each of the 4 sequential Effects changed something -> 4 events");
+
+  // 26. 뒤 Effect가 앞 Effect의 결과를 즉시 보는지 (같은 edge를 이어서 갱신, 새로 만들지 않음)
+  const r26 = applyEffects(
+    [
+      { op: "relation", mode: "cooperation" },
+      { op: "relation", mode: "cooperation" }
+    ],
+    ctxWith(relationBaseState())
+  );
+  assert.strictEqual(r26.state.relations["npc_1:player_1"].cooperationCount, 2, "the second Effect must see the first Effect's edge, not a fresh default");
+
+  // 한 Effect 안에서 add와 mode를 동시에 지정해도 이벤트는 1개, data에 둘 다 조건부로 담긴다 (D-43)
+  const r26b = applyEffects([{ op: "relation", add: 5, mode: "conflict" }], ctxWith(relationBaseState()));
+  assert.strictEqual(r26b.events.length, 1);
+  assert.deepStrictEqual(r26b.events[0].data, { from: "npc_1", to: "player_1", delta: 5, mode: "conflict" });
+
+  // 27. JSON round-trip
+  assert.deepStrictEqual(JSON.parse(JSON.stringify(r25.state)), r25.state);
+  assert.deepStrictEqual(JSON.parse(JSON.stringify(r25.events)), r25.events);
+
+  // 28. determinism
+  const runRelation = () =>
+    applyEffects(
+      [
+        { op: "relation", add: 10 },
+        { op: "relation", mode: "cooperation" },
+        { op: "relation", tag: "ally" }
+      ],
+      ctxWith(relationBaseState())
+    );
+  assert.deepStrictEqual(runRelation(), runRelation(), "same (effects, ctx) must always produce the same result");
+
+  // 29-30. 기존 relation.add regression / V2-Core-03~06 전체 regression은 이 파일의
+  // testRelationEffect()(변경 없음)와 tests/v2/run.js + V1 41개 전체 실행으로 확인한다
+  // (아래 verification 절 참고, 이 함수 안에서 별도로 재검증하지 않는다).
+}
+
+testRelationModeEffect();
+testRelationTagEffect();
+testRelationUntagEffect();
+testRelationIntegration();
+
+console.log("V2-Core-03/04/05/06/07 effects.test.js: all checks passed");

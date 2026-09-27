@@ -594,7 +594,7 @@ rollDie(rng, sides)    = nextUint32의 value % sides + 1
 | `money` | `{op, add, subject?}` | **구현됨.** `add`는 정수(그 외 malformed→throw). subject 해석은 위 공통 규칙. `actor.money`를 `[0, Number.MAX_SAFE_INTEGER]`로 clamp하며 변경한다 | `money.changed` (subject 기준, D-31), `data:{delta}` |
 | `time` | `{op, minutes}` | **구현됨.** `minutes`는 정수이고 0 이상이어야 한다(그 외 malformed). `state.time.minute += minutes`만 한다 — day 경계 계산과 `day.started` 발행은 `step()`의 책임이다(§2.5 9단계), `time` Effect는 만들지 않는다(D-39 확정, 이전 초안의 "day 경계 기록"은 폐기). `minutes:0`은 no-op(이벤트 없음) | `time.advanced` (player), `data:{minutes: 실제 적용값}` |
 | `move` | `{op, to}` | 위치를 직접 설정. 연결 검사는 하지 않음 (requires가 책임) | `actor.moved` (player) |
-| `relation` | `{op, from?, to?, add?, mode?, tag?, untag?}` | **부분 구현(D-37).** 이번 범위는 `add`(score 변경)만 구현한다 — `mode`/`tag`/`untag`는 문법상 허용되지만 아직 아무 동작도 하지 않는다(다음 작업에서 구현). `add`가 있으면 정수여야 한다(그 외 malformed→throw). `from`/`to` 해석은 7.3절 기본값(`from`=target, `to`=self)과 위 공통 skip 규칙을 그대로 따른다. score를 `[-100,100]`으로 clamp하고, 실제로 바뀔 때만 edge를 lazy 생성/갱신한다(§7.1) — `add`가 없거나 0이거나 clamp로 delta가 0이면 edge를 만들지도, `lastDay`를 갱신하지도 않는다(순수 no-op, D-30 확장) | `relation.changed` (player: 플레이어가 한쪽 끝일 때 / 그 외 internal, D-31), `data:{from, to, delta}` (actorId 필드는 endpoint가 둘이라 쓰지 않는다) |
+| `relation` | `{op, from?, to?, add?, mode?, tag?, untag?}` | **구현됨(D-43, V2-Core-07).** `add`/`mode`/`tag`/`untag`는 한 Effect 안에서 임의로 조합될 수 있으며 각각 독립적으로 검증·적용된다. `add`가 있으면 정수여야 한다. `mode`가 있으면 `"neutral"`/`"cooperation"`/`"conflict"` 중 하나여야 한다(그 외 값은 malformed→throw, 7.2절의 enum을 그대로 스키마 검증에 사용). `tag`/`untag`가 있으면 각각 string이어야 한다(그 외 malformed→throw). `from`/`to` 해석은 7.3절 기본값(`from`=target, `to`=self)과 위 공통 skip 규칙을 그대로 따른다. score는 `[-100,100]`으로 clamp한다. `mode`를 지정하면 그 값으로 설정하고 `cooperation`이면 `cooperationCount`, `conflict`이면 `conflictCount`를 **지정할 때마다 무조건** +1 한다(이전 값과 같아도 증가한다 — V1 `npc-relations.js`의 매일 재적용 semantics를 그대로 유지, 7.3절). `tag`는 `tags`에 없을 때만 추가 후 재정렬하고, `untag`는 있을 때만 제거한다(둘 다 idempotent). 네 필드 중 실제로 값이 바뀐 것이 하나라도 있으면(예: `mode`를 같은 값으로 다시 지정해도 카운터가 늘면 "바뀐 것"이다) edge를 lazy 생성/갱신하고 `lastDay`를 현재 day로 설정한다 — 아무것도 실제로 바뀌지 않으면(예: `add` 없음/0, `tag`가 이미 있음, `untag`가 이미 없음, `mode`가 이미 같은 값이고 neutral이라 카운터도 없음) edge를 만들지도 갱신하지도 않는다(순수 no-op, D-30 확장) | `relation.changed` (player: 플레이어가 한쪽 끝일 때 / 그 외 internal, D-31), `data:{from, to}`에 실제로 바뀐 필드만 조건부로 추가: `delta`(score가 바뀌었을 때만), `mode`(모드/카운터가 바뀌었을 때만, 값은 delta가 아니라 결과값), `tagAdded`(태그가 실제로 새로 추가됐을 때만), `tagRemoved`(태그가 실제로 제거됐을 때만) — `trait.changed`의 `removedExclusive?`처럼 조건부 선택 필드를 쓰는 기존 패턴을 재사용한 것이며 새 이벤트 타입을 만들지 않는다 (actorId 필드는 endpoint가 둘이라 쓰지 않는다) |
 | `rumor` | `{op, rumor, source, confidence?, from?, observe?}` | 8.3절 | `rumor.learned` / `rumor.updated` (subject가 플레이어면 player) |
 | `fact` | `{op, fact, set}` | facts[fact] = { value:set, since:minute } | `fact.changed` (**internal**) |
 | `flag` | `{op, key, value}` | **구현됨.** `key`는 string, `value`는 반드시 boolean(그 외 malformed). `state.flags`가 없으면 lazy 생성. 기존 값과 같으면 no-op(이벤트 없음) — 이전 초안의 `set`(임의 JSON, null이면 삭제)은 이 4개 op 구현 범위에서 `value`(boolean 전용, 삭제 없음)로 좁혀 확정했다(D-37). 문자열/숫자 flag나 키 삭제가 필요해지면 그때 별도 op나 인자를 추가한다 | `flag.changed` (internal), `data:{key, value}` |
@@ -952,16 +952,27 @@ rollDie(rng, sides)    = nextUint32의 value % sides + 1
 
 ### 7.3 relation Effect 적용 규칙
 
-> **구현 상태 (V2-Core-04)**: `add`(score 변경)만 구현했다. `mode`/`tag`/`untag`는 아직 아무 동작도
->하지 않는다(다음 작업에서 구현). 그래서 아래 "모든 적용 시 lastDay를 설정한다"도 지금은 score가
-> 실제로 바뀔 때만 적용된다 — score delta가 0(또는 `add` 자체가 없음)이면 edge를 만들거나 갱신하지
-> 않는다(D-30 확장). `mode`/`tag`/`untag`가 생기면 "score는 안 바뀌어도 mode/tag만 바뀌는 적용"도
-> lastDay를 갱신해야 하므로, 그때 이 절을 다시 다듬는다.
+> **구현 상태 (D-43 resolved, V2-Core-07)**: `add`/`mode`/`tag`/`untag` 네 필드 모두 구현했다.
+> "모든 적용 시 lastDay를 설정한다"는 **실제로 무언가 바뀐 적용에 한해서만** 적용되는 것으로
+> 확정했다(D-30을 이 네 필드에 함께 적용한 것뿐, 새 원칙 아님) — `add` 없음/0/clamp로 delta 0,
+> `tag`가 이미 있음, `untag`가 이미 없음, `mode`가 이미 같은 값이고 카운터도 안 늘어나는 경우에는
+> edge를 만들거나 갱신하지 않는다. 네 필드는 한 Effect 안에서 임의로 조합될 수 있고, 그중 하나라도
+> 실제 변화를 만들면 edge를 한 번만 갱신하고 `relation.changed` 이벤트도 한 번만 낸다(D-30의
+> "Effect 1개당 이벤트 1개" 단위를 필드 단위가 아니라 Effect 단위로 유지) — 이벤트의 `data`는 실제로
+> 바뀐 필드만 조건부로 담는다 (4.2절 표 참고).
 
 - `add`: score에 더한 뒤 clamp한다.
-- `mode`: 지정하면 설정하고, cooperation이면 cooperationCount, conflict이면 conflictCount를 +1 한다.
-- `tag`/`untag`: tags에 추가하거나 제거하고, 정렬을 유지한다.
-- 모든 적용 시 `lastDay`를 현재 day로 설정한다.
+- `mode`: 지정하면 그 값(`"neutral"`/`"cooperation"`/`"conflict"`, 그 외는 malformed→throw)으로
+  설정한다. **지정할 때마다 무조건** cooperation이면 cooperationCount, conflict이면 conflictCount를
+  +1 한다 — 이전 값과 같은 mode를 다시 지정해도 증가한다. neutral은 아무 카운터도 늘리지 않는다.
+  (V1 `web/core/npc-relations.js`의 "매일 재적용되는 mode 판정마다 카운터가 오른다" semantics를 그대로
+  유지한 것이며, "값이 실제로 바뀔 때만 카운터가 오른다"는 별도 정책이 아니다.)
+- `tag`/`untag`: `tags`는 정렬된 고유 문자열 배열이다(7.2절). `tag`는 이미 있으면 no-op, 없으면
+  추가 후 재정렬한다. `untag`는 있으면 제거, 없으면 no-op이다. 한 Effect 안에서 `tag`와 `untag`가
+  같은 문자열을 가리켜 서로 상쇄되면(추가 직후 같은 값을 제거) `tags` 최종 결과가 적용 전과 같으므로
+  변화 없음으로 취급한다(D-30) — "추가와 제거를 각각 카운트"하지 않고 최종 배열 기준으로 판단한다.
+- 위 세 종류(`add`/`mode`/`tag,untag`) 중 하나라도 실제로 값을 바꾸면, 그 적용에서 `lastDay`를 현재
+  day로 설정한다.
 - `from` 기본값은 `target`이다 (행동 대상이 나를 어떻게 보는가). `to` 기본값은 `self`다.
   - 이유: 플레이어 행동의 결과는 대부분 "상대의 나에 대한 태도" 변화이기 때문이다.
 - 조직 소속은 `npc_a:org_b`에 tag `member`를 다는 방식으로 표현한다 (D-13에서 확정).
@@ -1141,7 +1152,7 @@ state.knowledge["player_1"]["rum_a"] = {
 | JSON 안전성 | 모든 step 결과 state가 JSON 왕복 후 deepEqual이다 |
 | invalid action | 9개 reason code 각각에서 state가 입력과 deepEqual이고, rng, time이 변하지 않으며, 이벤트는 `action.rejected` 1개다 (state에 `seq`가 없으므로 검사 대상도 아니다) |
 | Condition | 연산자마다 참, 거짓, 누락 참조 케이스를 검사한다. `and` 빈 배열은 참, `or` 빈 배열은 거짓이다. `always`/`never`는 인자 없이 고정값을 반환한다. `eq`/`neq`/`gt`/`gte`/`lt`/`lte`는 숫자·문자열·타입 불일치·selector 미해석(`undefined`) 케이스를 모두 검사한다. 알 수 없는 op/selector는 (validateData 도입 전까지는) `false`로 평가된다. player 문맥의 `fact` selector는 항상 `undefined`로 해석되는지 검사한다 |
-| Effect | 연산자마다 적용, clamp, visibility를 검사한다. Effect ↔ Event 매핑은 "변화 있으면 이벤트 1개, 없으면 0개" 규칙(4.1절 D-30)을 기준으로 검사한다. `if` 분기(when true/false, else 생략, nested)와 순차 적용(앞 결과를 뒤가 즉시 보는지, 같은 작업 사본 공유)도 검사한다. malformed Effect는 throw, `if.when`이 malformed면 `evaluateCondition`의 `false`를 정상 분기로 받아들여 throw하지 않는지 검사한다(D-28). subject 기반 op(`stat`/`hp`/`money`/`item`/`relation`/`skill`/`trait`/`unlock`)는 self/target/명시 ID 해석, 타입 오류→throw vs 해석 실패→skip(D-29), player/internal visibility(D-31)도 검사한다. `trait`의 exclusive 제거, `unlock`의 idempotent, `case`의 lazy 생성/같은 stage no-op도 검사한다. V2-Core-05 범위: `flag`/`signal`/`time`/`if`/`stat`/`hp`/`money`/`item`/`relation`(add만)/`skill`/`trait`/`unlock`/`case` 13개 구현됨. `exp`/`proficiency`는 계약 확정(D-41/D-42 resolved, 6.4절)이나 코드 미구현 — 구현 시 level/threshold cascade 순서, reward ctx의 actorId 재구성, 무한 재귀 불가능성(단조 증가+유한 상한)도 검사 대상에 추가한다. 나머지는 미구현 |
+| Effect | 연산자마다 적용, clamp, visibility를 검사한다. Effect ↔ Event 매핑은 "변화 있으면 이벤트 1개, 없으면 0개" 규칙(4.1절 D-30)을 기준으로 검사한다. `if` 분기(when true/false, else 생략, nested)와 순차 적용(앞 결과를 뒤가 즉시 보는지, 같은 작업 사본 공유)도 검사한다. malformed Effect는 throw, `if.when`이 malformed면 `evaluateCondition`의 `false`를 정상 분기로 받아들여 throw하지 않는지 검사한다(D-28). subject 기반 op(`stat`/`hp`/`money`/`item`/`relation`/`skill`/`trait`/`unlock`)는 self/target/명시 ID 해석, 타입 오류→throw vs 해석 실패→skip(D-29), player/internal visibility(D-31)도 검사한다. `trait`의 exclusive 제거, `unlock`의 idempotent, `case`의 lazy 생성/같은 stage no-op도 검사한다. `flag`/`signal`/`time`/`if`/`stat`/`hp`/`money`/`item`/`relation`(add/mode/tag/untag 전체, D-43)/`skill`/`trait`/`unlock`/`case`/`exp`/`proficiency`(D-41/D-42 resolved, 6.4절) 15개 구현됨 — exp/proficiency는 level/threshold cascade 순서, reward ctx의 actorId 재구성, 무한 재귀 불가능성(단조 증가+유한 상한)도 검사한다. relation은 mode 카운터가 값 불변에도 무조건 증가하는지, tag/untag의 idempotent·상쇄 케이스, 조건부 event data(`delta`/`mode`/`tagAdded`/`tagRemoved`)도 검사한다. 나머지(`move`/`rumor`/`fact`/`narrate`/`choice`/`handler`)는 미구현 |
 | check | rng를 고정 주입해 tier 경계값(margin = 임계값, 임계값 - 1)을 검사한다. modifier 순서, opposed, 이름 difficulty, attempts와 retryPenalty, 누락 outcome 폴백도 검사한다 |
 | Growth | 경계를 넘는 exp에서 다중 레벨업과 levelRewards를 검사한다. proficiency 임계값이 한 번만 발동하는지, skill maxRank, trait exclusive, unlock idempotent, 여러 성장체계 공존도 검사한다 |
 | RelationshipGraph | 방향성, lazy 기본값, clamp, mode 카운트, lastDay, tags 정렬, Condition 참조를 검사한다 |
@@ -1207,6 +1218,7 @@ state.knowledge["player_1"]["rum_a"] = {
 | D-40 | `engine.js`의 `wait`와 `applyEffects` 통합 여부 | **확정(이번엔 하지 않음)**: V2-Core-03에서는 `engine.js`를 수정하거나 `step()`에 연결하지 않는다. `applyEffects`는 독립적으로만 존재한다. 이벤트 형태(`time.advanced {minutes}`)만 기존 V2-Core-01과 맞춘다 |
 | D-41 | `exp` Effect의 레벨업 cascade | **확정(resolved, 6.4.1절)**: `amount≥0`(음수 malformed→throw, 디레벨 없음), level = `expTable.filter(v=>exp>=v).length`를 `level.max`로 clamp(§6.1 기존 주석 그대로), `level:null`이면 exp만 누적하고 레벨 없음, exp 상한은 `Number.MAX_SAFE_INTEGER`. `levelRewards[oldLevel+1..newLevel]`을 순서대로 depth-first 적용(reward ctx는 §9 succession과 같은 패턴으로 `actorId`만 재구성), 레벨마다 `level.up{system,from,to}` 1개. 무한 재귀는 "amount 음수 금지 + 유한한 level.max"로 구조적으로 불가능해 별도 연쇄 제한 불필요 |
 | D-42 | `proficiency` Effect의 clamp와 threshold cascade | **확정(resolved, 6.4.2절)**: `max`를 하드 clamp 상한으로 확정(`[0,max]`, 정의 없으면 상한 없음). `add≥0`(음수 malformed→throw) — 이 결정 하나로 감소/재진입/이미 넘은 threshold를 다시 넘는 문제가 전부 사라진다(단조 증가이므로 §6.4의 기존 "이전 값<at≤새 값" 규칙만으로 평생 1회 발동이 보장됨, 별도 추적 필드 불필요). `thresholds`를 `at` 오름차순 정렬 후 순서대로 depth-first 적용(reward ctx는 D-41과 동일 패턴). 무한 재귀는 D-41과 같은 이유로 구조적으로 불가능 |
+| D-43 | `relation`의 `mode`/`tag`/`untag` 스키마, 카운터, lastDay, event data (D-37 나머지 해소) | **확정(resolved, 7.3절/4.2절)**: `mode`는 7.2절 enum(`neutral`/`cooperation`/`conflict`) 중 하나가 아니면 malformed→throw. `tag`/`untag`는 string이 아니면 malformed→throw. `mode`는 지정할 때마다 무조건 설정하고, cooperation/conflict이면 해당 카운터를 이전 값과 무관하게 +1 한다(V1 `npc-relations.js`의 "매일 재적용" semantics 유지 — "값이 실제로 바뀔 때만 카운터 증가"가 아니다). `tag`/`untag`는 `tags`(정렬된 고유 배열)에 대한 idempotent 추가/제거이며, 한 Effect 안에서 같은 문자열의 `tag`+`untag`가 상쇄되면 최종 배열 기준으로 변화 없음 처리한다. `add`/`mode`/`tag`/`untag`는 한 Effect 안에서 조합 가능하며, 그중 하나라도 실제 변화를 만들면 edge를 한 번만 lazy 생성/갱신하고 `lastDay`를 갱신하며 `relation.changed` 이벤트를 정확히 1개 낸다(필드별 이벤트로 쪼개지 않음, D-30을 Effect 단위로 유지) — `data`는 `{from,to}`에 실제로 바뀐 필드(`delta`/`mode`/`tagAdded`/`tagRemoved`)만 조건부로 추가한다. 이 "조건부 선택 필드" 방식은 새 이벤트 타입이 아니라 `trait.changed`의 `removedExclusive?` 패턴을 그대로 재사용한 것이다 |
 
 ---
 
@@ -1262,5 +1274,6 @@ state.knowledge["player_1"]["rum_a"] = {
     §9 연결과 D-34(목록 중간 사망) 해결
   - 작업 7: check
   - 작업 8: `exp`/`proficiency` 구현 (계약은 D-41/D-42로 확정됨, 6.4.1/6.4.2절 — 그대로 코드로 옮긴다)
-  - 작업 9: `relation`의 `mode`/`tag`/`untag`, Fact/Rumor (`rumor`/`fact` Effect, D-24 해소)
+  - 작업 9: `relation`의 `mode`/`tag`/`untag` (D-43로 확정, V2-Core-07에서 구현), Fact/Rumor
+    (`rumor`/`fact` Effect, D-24 해소)는 여전히 다음 작업으로 남는다
   - 작업 10: 사망 계승 세부와 view
