@@ -562,12 +562,13 @@ rollDie(rng, sides)    = nextUint32의 value % sides + 1
 
 ### 4.2 연산자와 최소 스키마
 
-> **구현 상태**: `flag`, `signal`, `time`, `if`(V2-Core-03), `stat`, `hp`, `money`, `item`,
-> `relation`(add만, V2-Core-04 / mode·tag·untag 추가, D-43, V2-Core-07), `skill`, `trait`, `unlock`,
-> `case`(V2-Core-05), `exp`, `proficiency`(D-41/D-42 resolved, V2-Core-06), `fact`(D-44, V2-Core-08),
-> `rumor`(D-45/D-14 resolved, V2-Core-09)까지 17개를 실제로 구현했다(아래 스키마가 현재 확정된
-> 인자명이다, D-37). 나머지(`move`/`narrate`/`choice`/`handler`)는 아직 계약 초안 단계이며, 각각을
-> 구현하는 시점에 이 표와 4.1절의 D-26~D-30 원칙에 맞게 다시 검토·확정한다.
+> **구현 상태**: `flag`, `signal`, `time`, `if`(V2-Core-03), `stat`, `hp`(§9 사망 트리거 포함,
+> D-34, V2-Core-10), `money`, `item`, `relation`(add만, V2-Core-04 / mode·tag·untag 추가, D-43,
+> V2-Core-07), `skill`, `trait`, `unlock`, `case`(V2-Core-05), `exp`, `proficiency`(D-41/D-42
+> resolved, V2-Core-06), `fact`(D-44, V2-Core-08), `rumor`(D-45/D-14 resolved, V2-Core-09),
+> `move`(D-46, V2-Core-11)까지 18개를 실제로 구현했다(아래 스키마가 현재 확정된 인자명이다, D-37).
+> 나머지(`narrate`/`choice`/`handler`)는 아직 계약 초안 단계이며, 각각을 구현하는 시점에 이 표와
+> 4.1절의 D-26~D-30 원칙에 맞게 다시 검토·확정한다.
 >
 > **skill/trait/unlock도 D-31의 subject 기준 visibility를 따른다.** 아래 세 행의 "player" 하드코딩은
 > V2-Core-05에서 stat/hp/money/item과 동일하게 "subject 기준(대상이 현재 player actor면 player, 아니면
@@ -593,7 +594,7 @@ rollDie(rng, sides)    = nextUint32의 value % sides + 1
 | `hp` | `{op, add, subject?}` | **구현됨(§9 사망 트리거 포함, D-34 resolved, V2-Core-10).** `add`는 정수(그 외 malformed→throw). subject 해석은 위 공통 규칙. `actor.hp.current`를 `[0, actor.hp.max]`로 clamp하며 변경한다. **current가 실제로 0이 되는 전이(alive였다가 처음 0이 됨) 순간에만** `actor.alive=false`로 바꾸고 `actor.died` 이벤트를 낸다(이미 죽은 actor에게 다시 적용해도 중복 발생하지 않음). 죽은 actor가 플레이어면 `state.pending={kind:"newCharacter"}`를 설정한다. `startCharacter`/succession(§9)은 action/step() 영역이라 이번 범위 밖이다(D-40, engine.js 미변경) | `hp.changed`(subject 기준, D-31, `data:{delta}`) + 사망 전이 시 `actor.died`(subject 기준, `data:{}`) |
 | `money` | `{op, add, subject?}` | **구현됨.** `add`는 정수(그 외 malformed→throw). subject 해석은 위 공통 규칙. `actor.money`를 `[0, Number.MAX_SAFE_INTEGER]`로 clamp하며 변경한다 | `money.changed` (subject 기준, D-31), `data:{delta}` |
 | `time` | `{op, minutes}` | **구현됨.** `minutes`는 정수이고 0 이상이어야 한다(그 외 malformed). `state.time.minute += minutes`만 한다 — day 경계 계산과 `day.started` 발행은 `step()`의 책임이다(§2.5 9단계), `time` Effect는 만들지 않는다(D-39 확정, 이전 초안의 "day 경계 기록"은 폐기). `minutes:0`은 no-op(이벤트 없음) | `time.advanced` (player), `data:{minutes: 실제 적용값}` |
-| `move` | `{op, to}` | 위치를 직접 설정. 연결 검사는 하지 않음 (requires가 책임) | `actor.moved` (player) |
+| `move` | `{op, to, subject?}` | **구현됨(D-46, V2-Core-11).** `to`는 string(그 외 malformed→throw). `move`는 4.1절의 "world 전용이라 subject 무시" 목록(`fact`/`flag`/`signal`/`time`/`narrate`/`choice`/`case`/`if`)에 없으므로 subject 해석은 위 공통 규칙(기본값 self)을 그대로 따른다. `actor.locationId`를 `to`로 직접 설정한다. 연결 검사는 하지 않는다(requires/링크 requires가 책임, §2.2). 이미 같은 위치면 no-op(D-30) | `actor.moved`(subject 기준, D-31 — skill/trait/unlock이 이미 "player" 하드코딩을 subject 기준으로 갱신한 것과 같은 선례를 적용), `data:{to}` |
 | `relation` | `{op, from?, to?, add?, mode?, tag?, untag?}` | **구현됨(D-43, V2-Core-07).** `add`/`mode`/`tag`/`untag`는 한 Effect 안에서 임의로 조합될 수 있으며 각각 독립적으로 검증·적용된다. `add`가 있으면 정수여야 한다. `mode`가 있으면 `"neutral"`/`"cooperation"`/`"conflict"` 중 하나여야 한다(그 외 값은 malformed→throw, 7.2절의 enum을 그대로 스키마 검증에 사용). `tag`/`untag`가 있으면 각각 string이어야 한다(그 외 malformed→throw). `from`/`to` 해석은 7.3절 기본값(`from`=target, `to`=self)과 위 공통 skip 규칙을 그대로 따른다. score는 `[-100,100]`으로 clamp한다. `mode`를 지정하면 그 값으로 설정하고 `cooperation`이면 `cooperationCount`, `conflict`이면 `conflictCount`를 **지정할 때마다 무조건** +1 한다(이전 값과 같아도 증가한다 — V1 `npc-relations.js`의 매일 재적용 semantics를 그대로 유지, 7.3절). `tag`는 `tags`에 없을 때만 추가 후 재정렬하고, `untag`는 있을 때만 제거한다(둘 다 idempotent). 네 필드 중 실제로 값이 바뀐 것이 하나라도 있으면(예: `mode`를 같은 값으로 다시 지정해도 카운터가 늘면 "바뀐 것"이다) edge를 lazy 생성/갱신하고 `lastDay`를 현재 day로 설정한다 — 아무것도 실제로 바뀌지 않으면(예: `add` 없음/0, `tag`가 이미 있음, `untag`가 이미 없음, `mode`가 이미 같은 값이고 neutral이라 카운터도 없음) edge를 만들지도 갱신하지도 않는다(순수 no-op, D-30 확장) | `relation.changed` (player: 플레이어가 한쪽 끝일 때 / 그 외 internal, D-31), `data:{from, to}`에 실제로 바뀐 필드만 조건부로 추가: `delta`(score가 바뀌었을 때만), `mode`(모드/카운터가 바뀌었을 때만, 값은 delta가 아니라 결과값), `tagAdded`(태그가 실제로 새로 추가됐을 때만), `tagRemoved`(태그가 실제로 제거됐을 때만) — `trait.changed`의 `removedExclusive?`처럼 조건부 선택 필드를 쓰는 기존 패턴을 재사용한 것이며 새 이벤트 타입을 만들지 않는다 (actorId 필드는 endpoint가 둘이라 쓰지 않는다) |
 | `rumor` | `{op, rumor, subject?, source?, confidence?, from?, observe?}` | **구현됨(D-45/D-14 resolved, V2-Core-09).** 8.3절 — `from`이 있으면 복사 모드, `observe:true`면 관찰 모드(둘을 함께 쓰면 malformed→throw), 그 외에는 `source`+`confidence`(둘 다 필수)로 학습 모드. `rumor`은 string, `subject`/`from`은 있으면 string(4.3절 표준 subject 해석, 단 `relation`처럼 `state.actors` 레코드 존재는 요구하지 않음 — `state.knowledge`는 top-level ID-keyed 맵). `confidence`는 있으면 정수, `[0,100]`으로 clamp(D-28/D-32류) | `rumor.learned`(첫 학습) / `rumor.updated`(갱신), subject 기준 visibility(D-31), `data:{rumor, factId, claim, confidence, delta}` + 다른 claim으로 교체된 경우만 `claimChanged:true` |
 | `fact` | `{op, fact, set}` | **구현됨(D-44, V2-Core-08).** `fact`는 string, `set`은 생략 불가(어떤 JSON 값이든 허용 — `null`/`false`/`0`/`""` 포함, 8.1절)이지만 `undefined`(필드 자체가 없음)면 malformed→throw. subject를 쓰지 않는 세계 단위 op(4.1절). `state.facts`가 없으면 lazy 생성(`case`/`flag`/`signal`과 같은 패턴 — D-33이 "재확인" 대상으로 남겨둔 부분을 이걸로 확정). 기존 값과 `set`이 같으면(JSON 값 비교) `case`의 "같은 stage" no-op과 동일하게 아무 것도 바꾸지 않는다(`since`도 갱신하지 않음) | `fact.changed` (**internal**), `data:{fact, value}` (flag/case의 "키+새 값" 패턴 재사용, 새 이벤트 타입 아님) |
@@ -1090,18 +1091,20 @@ state.knowledge["player_1"]["rum_a"] = {
 
 ## 9. 사망 / 계승
 
-> **구현 상태 (D-34 resolved, V2-Core-10)**: `hp` Effect(4.2절)가 이 절의 사망 트리거(`alive=false`,
-> `actor.died`, 플레이어 사망 시 `pending`)를 구현했다. `startCharacter`와 succession Effect 적용은
-> **여전히 미구현**이다 — 이들은 action/`step()` 영역이라 `engine.js`를 건드려야 하는데, 이번 작업은
-> `engine.js`가 보호 대상이라 손댈 수 없었다(D-40 유지). 즉 사망하면 `pending`은 설정되지만
-> `startCharacter` action 자체를 처리할 `step()`이 아직 없으므로, 이 절의 나머지(계승, 새 캐릭터 생성)는
-> `engine.js`를 다루는 다음 작업(작업 6의 잔여분)에서 이어진다.
+> **구현 상태 (D-34 resolved V2-Core-10, D-47 resolved V2-Core-11)**: `hp` Effect(4.2절)가 사망
+> 트리거를 구현했다(V2-Core-10). `startCharacter`와 succession Effect 적용도 `engine.js`(이번
+> 라운드부터 보호 해제)에 구현했다(V2-Core-11, D-47). **첫 캐릭터는 `startCharacter`를 거치지
+> 않는다** — `createInitialState`가 `data.world.startTemplateId`(있으면)로 직접 `player_1`을
+> 만든다. `startCharacter`는 오직 "사망 후"(`pending.kind==="newCharacter"`)에만 쓰이며, 이때만
+> succession Effect가 적용된다(아래 D-47 참고).
 
 - 트리거: `hp` Effect로 current가 0이 되면 **즉시** `alive=false`가 되고 `actor.died` 이벤트가 발생한다.
 - 사망한 actor가 플레이어 캐릭터이면 `state.pending = {kind:"newCharacter"}`가 설정된다. 이 상태에서는 `startCharacter`만 허용한다.
 - `startCharacter`:
   - `player_<characterCount+1>` actor를 생성한다. 초기값은 `data.characterTemplates[templateId]`에서 가져온다.
   - `state.player.actorId`를 갱신하고, `characterCount`를 +1 하며, `character.started` 이벤트를 발생시킨다.
+  - **첫 캐릭터에는 쓰이지 않는다(D-47)**: `createInitialState`가 `data.world.startTemplateId`로 이미
+    `player_1`을 만들어 두므로, `startCharacter`는 오직 사망 후 재생성 경로다.
 - **세계는 유지된다**: time, facts, relations, knowledge, cases, 사망한 actor 기록이 그대로 남는다.
   NPC는 죽은 캐릭터와의 관계를 계속 "기억"한다.
 - **계승은 하드코딩하지 않는다.** 계약은 다음과 같다:
@@ -1110,6 +1113,10 @@ state.knowledge["player_1"]["rum_a"] = {
   - 이유: 무엇을 계승할지(지식, 관계, 성장 일부)는 아직 결정되지 않았다. 빈 Effect 목록이라는 확장 지점만 두면 엔진은 바뀌지 않는다.
   - 확장: "이전 캐릭터 지식 일부 계승" 같은 규칙은 handler(`succession.*`)나 향후 op로 데이터에서 켠다.
     세계 이동(멀티버스) 계승은 **별도 계약**으로 둔다. `succession`을 재사용하지 않는다 (D-16).
+  - **첫 캐릭터는 succession을 건너뛴다(D-47)** — 이전 캐릭터가 없으므로 적용할 것이 없다.
+- **사망이 일어난 그 `step()` 호출은 나머지 파이프라인(9~11단계: world 틱, trigger, `action.resolved`)을
+  계속 진행한다** — `pending`이 설정된 채로 정상 반환될 뿐, 조기 종료하지 않는다(D-34를 step() 레벨에도
+  같은 원칙으로 확장 적용, D-47). `startCharacter`는 **다음** `step()` 호출(별도 action)에서 처리된다.
 - 게임 종료 상태(`status`)는 두지 않는다. 사망해도 게임이 끝나지 않는 C안이기 때문이다 (YAGNI).
 
 ---
@@ -1156,6 +1163,36 @@ state.knowledge["player_1"]["rum_a"] = {
   }
   ```
 
+- **characterTemplate (D-47 resolved, V2-Core-11)**: 어디에도 예시가 없던 스키마였으므로,
+  이미 확정된 Actor 스키마(2.1절)의 필드 이름을 그대로 재사용해 확정한다(새 필드 이름을 만들지 않음).
+  actor의 `id`/`alive`는 항상 엔진이 계산하므로(`id="player_<n>"`, `alive=true`) 템플릿에는 없다.
+
+  ```jsonc
+  // data.characterTemplates[templateId]
+  { "kind": "player", "locationId": "loc_start", "hp": { "max": 10 },
+    "money": 0, "inventory": { }, "growth": { }, "tags": [ ] }
+  ```
+
+  - `hp.current`는 템플릿에 없다 — 새 캐릭터는 항상 `hp.max`로 시작한다(만피 시작, 그 외 규칙은
+    없음). 나머지 필드가 생략되면 Actor 스키마의 자연스러운 기본값(2.1절 예시와 동일: `money:0`,
+    `inventory:{}`, `growth:{}`, `tags:[]`)을 쓰고, `locationId`는 생략 불가(필수)다 — 위치 없는
+    actor는 `move`/`location` 계열과 앞뒤가 맞지 않는다.
+  - 템플릿은 정적 필드만 복사한다. 별도의 "생성 시 Effect 목록"은 두지 않는다(YAGNI) — 초기
+    아이템/성장은 템플릿의 `inventory`/`growth` 필드로 표현하고, 필요해지면 그때 확장한다.
+- **location (D-48 resolved, V2-Core-11)**: 이 역시 예시가 없었으므로, 3.3절이 이미 이름 붙인
+  필드(`requires`, `links[].requires`)와 Resolvable의 `minutes` 필드 이름을 그대로 재사용한다.
+
+  ```jsonc
+  // data.locations[locId]
+  { "requires": Condition,                          // 이 지역 자체에 대한 접근 조건 (생략하면 항상 허용)
+    "links": [ { "to": "loc_b", "requires": Condition, "minutes": 30 } ] }  // 나가는 단방향 연결
+  ```
+
+  - `move` action은 `data.locations[to]`가 없으면 `unknown_location`으로 reject한다(2.5절 4단계).
+  - 현재 위치에서 `to`로 가는 `links[]` 항목이 없으면(또는 있어도 `requires`가 거짓이면)
+    `requirements_not_met`으로 reject한다 — location 자체는 존재하므로 `unknown_location`이 아니다.
+  - 링크의 `minutes`(생략하면 0)는 Resolvable의 `minutes`와 같은 방식으로 Effect 적용 뒤에
+    `time` Effect로 자동 추가된다.
 - 파일 분할(세계당 JSON 한 개인지 여러 개인지)은 콘텐츠가 생길 때 정한다. 여러 개로 나누면 UI 로더가 병합한다.
 - `validateData(data)`는 다음을 검사하고 오류 목록을 반환한다: ID 형식, 참조 무결성, Condition/Effect op와 인자,
   handler 등록과 reason, player 문맥의 fact 사용 금지, Resolvable의 success/fail 필수 여부.
@@ -1196,13 +1233,13 @@ state.knowledge["player_1"]["rum_a"] = {
 | JSON 안전성 | 모든 step 결과 state가 JSON 왕복 후 deepEqual이다 |
 | invalid action | 9개 reason code 각각에서 state가 입력과 deepEqual이고, rng, time이 변하지 않으며, 이벤트는 `action.rejected` 1개다 (state에 `seq`가 없으므로 검사 대상도 아니다) |
 | Condition | 연산자마다 참, 거짓, 누락 참조 케이스를 검사한다. `and` 빈 배열은 참, `or` 빈 배열은 거짓이다. `always`/`never`는 인자 없이 고정값을 반환한다. `eq`/`neq`/`gt`/`gte`/`lt`/`lte`는 숫자·문자열·타입 불일치·selector 미해석(`undefined`) 케이스를 모두 검사한다. 알 수 없는 op/selector는 (validateData 도입 전까지는) `false`로 평가된다. player 문맥의 `fact` selector는 항상 `undefined`로 해석되는지 검사한다 |
-| Effect | 연산자마다 적용, clamp, visibility를 검사한다. Effect ↔ Event 매핑은 "변화 있으면 이벤트 1개, 없으면 0개" 규칙(4.1절 D-30)을 기준으로 검사한다. `if` 분기(when true/false, else 생략, nested)와 순차 적용(앞 결과를 뒤가 즉시 보는지, 같은 작업 사본 공유)도 검사한다. malformed Effect는 throw, `if.when`이 malformed면 `evaluateCondition`의 `false`를 정상 분기로 받아들여 throw하지 않는지 검사한다(D-28). subject 기반 op(`stat`/`hp`/`money`/`item`/`relation`/`skill`/`trait`/`unlock`)는 self/target/명시 ID 해석, 타입 오류→throw vs 해석 실패→skip(D-29), player/internal visibility(D-31)도 검사한다. `trait`의 exclusive 제거, `unlock`의 idempotent, `case`의 lazy 생성/같은 stage no-op도 검사한다. `flag`/`signal`/`time`/`if`/`stat`/`hp`/`money`/`item`/`relation`(add/mode/tag/untag 전체, D-43)/`skill`/`trait`/`unlock`/`case`/`exp`/`proficiency`(D-41/D-42 resolved, 6.4절)/`fact`(D-44)/`rumor`(D-45/D-14 resolved) 17개 구현됨 — exp/proficiency는 level/threshold cascade 순서, reward ctx의 actorId 재구성, 무한 재귀 불가능성(단조 증가+유한 상한)도 검사한다. relation은 mode 카운터가 값 불변에도 무조건 증가하는지, tag/untag의 idempotent·상쇄 케이스, 조건부 event data(`delta`/`mode`/`tagAdded`/`tagRemoved`)도 검사한다. fact는 lazy 생성, 같은 값 재설정 no-op, malformed(`set` 없음)도 검사한다. rumor는 학습/복사/관찰 세 모드, 같은 claim 재확인(신규/기존 출처), D-14 상충 claim 교체·동률 유지, `data.rules.rumor` 수치 부재 시 안전한 0-fallback, 존재하지 않는 참조 skip, `from`+`observe` 동시 지정 malformed, 정확성 미노출도 검사한다. `hp`는 D-34 resolved(V2-Core-10)로 §9 사망 트리거(alive→dead 전이에서만 1회 `actor.died`, 플레이어면 `pending` 설정, 이미 죽은 actor에게 이어지는 Effect도 평소대로 적용됨)도 검사한다. 나머지(`move`/`narrate`/`choice`/`handler`)는 미구현 |
-| check | rng를 고정 주입해 tier 경계값(margin = 임계값, 임계값 - 1)을 검사한다. modifier 순서, opposed, 이름 difficulty, attempts와 retryPenalty, 누락 outcome 폴백도 검사한다 |
+| Effect | 연산자마다 적용, clamp, visibility를 검사한다. Effect ↔ Event 매핑은 "변화 있으면 이벤트 1개, 없으면 0개" 규칙(4.1절 D-30)을 기준으로 검사한다. `if` 분기(when true/false, else 생략, nested)와 순차 적용(앞 결과를 뒤가 즉시 보는지, 같은 작업 사본 공유)도 검사한다. malformed Effect는 throw, `if.when`이 malformed면 `evaluateCondition`의 `false`를 정상 분기로 받아들여 throw하지 않는지 검사한다(D-28). subject 기반 op(`stat`/`hp`/`money`/`item`/`relation`/`skill`/`trait`/`unlock`)는 self/target/명시 ID 해석, 타입 오류→throw vs 해석 실패→skip(D-29), player/internal visibility(D-31)도 검사한다. `trait`의 exclusive 제거, `unlock`의 idempotent, `case`의 lazy 생성/같은 stage no-op도 검사한다. `flag`/`signal`/`time`/`if`/`stat`/`hp`/`money`/`item`/`relation`(add/mode/tag/untag 전체, D-43)/`skill`/`trait`/`unlock`/`case`/`exp`/`proficiency`(D-41/D-42 resolved, 6.4절)/`fact`(D-44)/`rumor`(D-45/D-14 resolved) 17개 구현됨 — exp/proficiency는 level/threshold cascade 순서, reward ctx의 actorId 재구성, 무한 재귀 불가능성(단조 증가+유한 상한)도 검사한다. relation은 mode 카운터가 값 불변에도 무조건 증가하는지, tag/untag의 idempotent·상쇄 케이스, 조건부 event data(`delta`/`mode`/`tagAdded`/`tagRemoved`)도 검사한다. fact는 lazy 생성, 같은 값 재설정 no-op, malformed(`set` 없음)도 검사한다. rumor는 학습/복사/관찰 세 모드, 같은 claim 재확인(신규/기존 출처), D-14 상충 claim 교체·동률 유지, `data.rules.rumor` 수치 부재 시 안전한 0-fallback, 존재하지 않는 참조 skip, `from`+`observe` 동시 지정 malformed, 정확성 미노출도 검사한다. `hp`는 D-34 resolved(V2-Core-10)로 §9 사망 트리거(alive→dead 전이에서만 1회 `actor.died`, 플레이어면 `pending` 설정, 이미 죽은 actor에게 이어지는 Effect도 평소대로 적용됨)도 검사한다. `move`(D-46, V2-Core-11)는 subject 기본값, 이미 같은 위치일 때 no-op, subject 기준 visibility도 검사한다. 나머지(`narrate`/`choice`/`handler`)는 미구현 |
+| check | **구현됨(D-49, V2-Core-11)**. rng를 고정 주입해 tier 경계값(margin = 임계값, 임계값 - 1)을 검사한다. modifier 순서(stat→skill→proficiency→item→trait→relation→situational), opposed, 이름 difficulty, attempts와 retryPenalty, 누락 outcome 폴백, `data.rules.check` 부재 시 5.3절 제안값 fallback도 검사한다 |
 | Growth | 경계를 넘는 exp에서 다중 레벨업과 levelRewards를 검사한다. proficiency 임계값이 한 번만 발동하는지, skill maxRank, trait exclusive, unlock idempotent, 여러 성장체계 공존도 검사한다 |
 | RelationshipGraph | 방향성, lazy 기본값, clamp, mode 카운트, lastDay, tags 정렬, Condition 참조를 검사한다 |
 | Fact/Rumor | view에 facts와 정확성이 없는지, `from` 복사가 틀린 claim을 보존하는지, 서로 다른 출처일 때만 confirmations가 오르는지, fact가 바뀌어도 지식이 유지되는지, observe가 현재 fact를 복사하는지 검사한다 |
-| 사망 | **applyEffects 범위(V2-Core-10, D-34 resolved)로 테스트됨**: hp 0 → died(전이 1회만), 플레이어 사망 시 pending newCharacter 설정, 사망 후에도 이어지는 Effect가 정상 적용됨, `alive` 필드 없는 fixture도 기본 alive로 처리. **step() 범위(engine.js)는 여전히 미구현·미테스트**: startCharacter 외 action reject, 세계 상태(time/facts/relations/knowledge/cases) 유지, 옛 edge 유지, 기본 succession 무계승 — engine.js를 다루는 다음 작업에서 테스트한다 |
-| step integration | fixture 시나리오: 이동 → 행동(check) → 선택지 → 사건 trigger → 관계와 소문 변화 → 사망 → 새 캐릭터 |
+| 사망 | **applyEffects 범위(V2-Core-10)**: hp 0 → died(전이 1회만), 플레이어 사망 시 pending newCharacter 설정, 사망 후에도 이어지는 Effect가 정상 적용됨, `alive` 필드 없는 fixture도 기본 alive로 처리. **step() 범위(D-47, V2-Core-11로 구현·테스트됨)**: `startCharacter` 외 action은 `pending_new_character`로 reject, 세계 상태(time/facts/relations/knowledge/cases) 유지, 옛 actor 기록 유지, 기본 succession(빈 배열)은 무계승, `data.rules.succession`이 있으면 적용, 사망이 일어난 step()이 나머지 파이프라인을 계속 진행함을 검사한다 |
+| step integration | **구현·테스트됨(D-47/D-48, V2-Core-11)**: `wait`/`perform`/`move`/`startCharacter` 경로(하나의 action 안에서 여러 Effect가 순차 적용되는지, RNG 소비, pending 생성/소비, 사망→pending→succession 흐름). `choose`/사건 trigger는 이번 범위 밖(D-35, 트리거 §2.5 10단계 미구현)이라 fixture 시나리오에서 제외한다 |
 | V1 회귀 | `tests/*.js` 41/41 통과 (V2 작업이 V1을 건드리지 않았다는 증거) |
 
 ### 13.3 러너 규칙
@@ -1259,12 +1296,16 @@ state.knowledge["player_1"]["rum_a"] = {
 | D-37 | 인자 이름 통일 | **재검토 후 확정** (`flag`/`signal`/`time`/`stat`/`hp`/`money`/`item`/`relation`): 강제로 하나의 이름에 통일하지 않고, op마다 자연스러운 이름을 쓴다 — `flag.value`, `signal.add`, `time.minutes`, `stat.{stat,add,subject?,system?}`, `hp.{add,subject?}`, `money.{add,subject?}`, `item.{item,add,subject?}`, `relation.{from?,to?,add?}`(`mode`/`tag`/`untag`는 문법만 예약, 미구현). 모두 4.2절 표에 이미 있던 이름을 그대로 썼다. `exp.amount` vs `add`, `proficiency`의 `id` 등 나머지 불일치는 아직 미해결이며 각 op 구현 시 정리한다 (4.2절) |
 | D-38 | 등록되지 않은 handler name | **정책만 정리, handler 자체는 미구현**: Condition의 `handler`는 Condition의 malformed 정책(false)을, Effect의 `handler`는 Effect의 malformed 정책(throw)을 따른다. 서로 다른 시스템이 각자의 기존 정책을 그대로 적용하는 것이므로 모순이 아니다 (4.4절) |
 | D-39 | `time` Effect와 day 경계 | **확정**: `time` Effect는 `minute`만 전진시키고 `day.started`를 만들지 않는다. day 경계 판정은 `step()` 9단계의 책임이다 (4.2절) |
-| D-40 | `engine.js`의 `wait`와 `applyEffects` 통합 여부 | **확정(이번엔 하지 않음)**: V2-Core-03에서는 `engine.js`를 수정하거나 `step()`에 연결하지 않는다. `applyEffects`는 독립적으로만 존재한다. 이벤트 형태(`time.advanced {minutes}`)만 기존 V2-Core-01과 맞춘다 |
+| D-40 | `engine.js`의 `wait`와 `applyEffects` 통합 여부 | **확정, V2-Core-03~10 범위 한정("이번엔 하지 않음")이었으나 V2-Core-11에서 해제됨**: V2-Core-03~10에서는 `engine.js`를 수정하거나 `step()`에 연결하지 않았다(`applyEffects`는 독립적으로만 존재). V2-Core-11부터 `engine.js` 보호가 해제되어 `step()`이 `applyEffectList`(rules.js에서 새로 export)를 재사용해 `perform`/`move`/`startCharacter`를 처리한다(D-47/D-48) |
 | D-41 | `exp` Effect의 레벨업 cascade | **확정(resolved, 6.4.1절)**: `amount≥0`(음수 malformed→throw, 디레벨 없음), level = `expTable.filter(v=>exp>=v).length`를 `level.max`로 clamp(§6.1 기존 주석 그대로), `level:null`이면 exp만 누적하고 레벨 없음, exp 상한은 `Number.MAX_SAFE_INTEGER`. `levelRewards[oldLevel+1..newLevel]`을 순서대로 depth-first 적용(reward ctx는 §9 succession과 같은 패턴으로 `actorId`만 재구성), 레벨마다 `level.up{system,from,to}` 1개. 무한 재귀는 "amount 음수 금지 + 유한한 level.max"로 구조적으로 불가능해 별도 연쇄 제한 불필요 |
 | D-42 | `proficiency` Effect의 clamp와 threshold cascade | **확정(resolved, 6.4.2절)**: `max`를 하드 clamp 상한으로 확정(`[0,max]`, 정의 없으면 상한 없음). `add≥0`(음수 malformed→throw) — 이 결정 하나로 감소/재진입/이미 넘은 threshold를 다시 넘는 문제가 전부 사라진다(단조 증가이므로 §6.4의 기존 "이전 값<at≤새 값" 규칙만으로 평생 1회 발동이 보장됨, 별도 추적 필드 불필요). `thresholds`를 `at` 오름차순 정렬 후 순서대로 depth-first 적용(reward ctx는 D-41과 동일 패턴). 무한 재귀는 D-41과 같은 이유로 구조적으로 불가능 |
 | D-43 | `relation`의 `mode`/`tag`/`untag` 스키마, 카운터, lastDay, event data (D-37 나머지 해소) | **확정(resolved, 7.3절/4.2절)**: `mode`는 7.2절 enum(`neutral`/`cooperation`/`conflict`) 중 하나가 아니면 malformed→throw. `tag`/`untag`는 string이 아니면 malformed→throw. `mode`는 지정할 때마다 무조건 설정하고, cooperation/conflict이면 해당 카운터를 이전 값과 무관하게 +1 한다(V1 `npc-relations.js`의 "매일 재적용" semantics 유지 — "값이 실제로 바뀔 때만 카운터 증가"가 아니다). `tag`/`untag`는 `tags`(정렬된 고유 배열)에 대한 idempotent 추가/제거이며, 한 Effect 안에서 같은 문자열의 `tag`+`untag`가 상쇄되면 최종 배열 기준으로 변화 없음 처리한다. `add`/`mode`/`tag`/`untag`는 한 Effect 안에서 조합 가능하며, 그중 하나라도 실제 변화를 만들면 edge를 한 번만 lazy 생성/갱신하고 `lastDay`를 갱신하며 `relation.changed` 이벤트를 정확히 1개 낸다(필드별 이벤트로 쪼개지 않음, D-30을 Effect 단위로 유지) — `data`는 `{from,to}`에 실제로 바뀐 필드(`delta`/`mode`/`tagAdded`/`tagRemoved`)만 조건부로 추가한다. 이 "조건부 선택 필드" 방식은 새 이벤트 타입이 아니라 `trait.changed`의 `removedExclusive?` 패턴을 그대로 재사용한 것이다 |
 | D-44 | `fact` Effect의 event data 모양과 no-op/lazy 생성 규칙 (D-33 "facts 재확인" 해소) | **확정(resolved, 4.2절)**: `set`이 없으면(필드 자체가 없으면, `undefined`) malformed→throw, 그 외 `null`/`false`/`0`/`""` 포함 어떤 JSON 값이든 허용(8.1절). `state.facts`는 `case`/`flag`/`signal`과 같은 패턴으로 첫 write 시 lazy 생성(D-33이 "해당 시스템 구현 시 재확인"이라고 미뤄둔 부분을 `case`의 실제 구현 선례를 따라 확정). 기존 값과 `set`이 같으면(JSON 값 비교) `case`의 "같은 stage" no-op과 동일하게 아무 것도 바꾸지 않는다(이벤트 없음, `since` 갱신 없음). `fact.changed` 이벤트의 `data:{fact, value}`는 새 스키마가 아니라 `flag.changed`(`data:{key,value}`)/`case.updated`(`data:{case,stage}`)의 "키 + 새 값" 패턴을 그대로 재사용한 것이다 |
 | D-45 | `rumor` Effect 스키마/카운터/이벤트 | **확정(resolved, 8.3절/4.2절, V2-Core-09)**: `subject?`(수신자, 기본값 self, 4.1절 표준 규칙)를 추가했다. `from`은 필드가 있으면 복사 모드가 선택되므로 별도 기본값이 필요 없다(생략하면 다른 모드로 갈 뿐이다). `subject`/`from`은 `relation`의 from/to처럼 `resolveSubjectId`만 쓰고 `state.actors` 레코드 존재는 요구하지 않는다(`state.knowledge`가 `state.relations`와 같은 top-level ID-keyed 맵이기 때문). 재학습 confidence 증감폭은 `data.rules.rumor.relayLoss`/`newSourceGain`/`sameSourceGain`(모두 없으면 0)으로 데이터에 둔다(`stat`/`skill`의 "정의 없으면 clamp 없이 적용"과 같은 안전한 기본값 원칙 — 콘텐츠 밸런스 수치를 엔진이 새로 만들지 않는다). "관찰 시 기본 confidence가 높다"는 수치화하지 않고 `confidence`를 학습/관찰 모드 모두에서 항상 명시적으로 요구한다(생략 시 malformed→throw, `time`의 `minutes` 필수와 같은 태도). D-14(상충 claim)는 별도 행에서 확정. `rumor.learned`/`rumor.updated`의 `data:{rumor,factId,claim,confidence,delta}`(+조건부 `claimChanged`)는 `skill.changed`/`case.updated`의 "절대값+delta" 패턴을 재사용해 새로 확정했다. 존재하지 않는 rumor 정의/`from` 지식 항목/관찰 대상 fact는 모두 D-29류 skip(스키마 타입 오류만 D-28류 throw) |
+| D-46 | `move` Effect의 subject/visibility/event | **확정(resolved, 4.2절, V2-Core-11)**: `move`는 4.1절의 "subject 무시" 목록에 없으므로 공통 subject 규칙(기본값 self, D-29)을 그대로 따른다. visibility는 표에 남아 있던 "player" 하드코딩을 skill/trait/unlock과 같은 이유로 D-31(subject 기준)로 갱신한다 — 새 규칙이 아니라 이미 있는 선례의 적용이다. `actor.locationId = to`로 직접 설정, 이미 같은 위치면 no-op(D-30), `data:{to}` |
+| D-47 | characterTemplate 스키마, `createInitialState`의 첫 캐릭터 생성, `startCharacter`/succession 구현 | **확정(resolved, 9절/11절, V2-Core-11)**: characterTemplate은 Actor 스키마(2.1절)의 필드 이름을 그대로 재사용한다(`id`/`alive` 제외, 엔진이 계산). `hp.current`는 항상 `hp.max`(만피 시작). **첫 캐릭터는 `startCharacter`를 거치지 않는다** — `createInitialState({worldSeed, data})`가 `data?.world?.startTemplateId`와 그 템플릿이 모두 있을 때만 `player_1`을 직접 만든다(`player:{actorId:"player_1",characterCount:1}`, `pending:null`). `data`가 없거나 `startTemplateId`/템플릿이 없으면 V2-Core-01과 완전히 동일한 최소 state(플레이어/actors 없음)를 반환해 기존 테스트와 100% 호환된다. `startCharacter`는 오직 `pending.kind==="newCharacter"`일 때만(사망 후) 쓰이며, 이때만 `data.rules.succession` Effect(`ctx={actorId:새 캐릭터, targetId:이전 캐릭터}`)를 적용한다 — 첫 캐릭터는 이전 캐릭터가 없으므로 succession을 절대 적용하지 않는다. 사망이 일어난 `step()` 호출은 나머지 파이프라인(9~11단계)을 계속 진행하며 조기 종료하지 않는다(D-34를 step() 레벨로 확장). `startCharacter`의 `templateId`가 `data.characterTemplates`에 없으면 `unknown_action`으로 reject한다(3개 `unknown_X` 코드 중 "참조한 콘텐츠 정의가 없다"는 의미에 가장 가까운 것을 재사용, 새 reason code를 만들지 않음, D-48 참고). `pending.kind`가 `"newCharacter"`가 아닐 때 `startCharacter`를 시도하면 `invalid_action`으로 reject한다 |
+| D-48 | `step()`의 action 게이트/대상 조회/reject 코드 매핑 (`perform`/`move`/`startCharacter`), location 스키마 | **확정(resolved, 2.5절/11절, V2-Core-11)**: reason code는 2.6절의 고정 9개(`invalid_action`/`unknown_action`/`unknown_option`/`unknown_location`/`requirements_not_met`/`pending_choice`/`pending_new_character`/`actor_dead`/`no_pending_choice`)만 쓰고 새로 만들지 않는다. `state.player`가 아예 없는(= `data`로 부트스트랩되지 않은) world에서 `wait` 외의 action은 전부 `invalid_action`이다(V2-Core-01 시절과 동일한 동작 — 이 world는 actor 시스템 자체를 지원하지 않는다는 뜻이지, 특정 actor가 죽었다는 뜻이 아니므로 `actor_dead`가 아니다). `state.player`가 있는 world에서는: `pending.kind==="choice"`인데 `choose`가 아니면 `pending_choice`, `pending.kind==="newCharacter"`인데 `startCharacter`가 아니면 `pending_new_character`, `choose`인데 `pending.kind!=="choice"`면 `no_pending_choice`, `startCharacter`인데 `pending.kind!=="newCharacter"`면 `invalid_action`(굳이 필요하지 않은 시점의 시도), `perform`/`move`/`choose`인데 현재 player actor가 `alive===false`(또는 존재하지 않음)면 `actor_dead`. 대상 조회: `perform`은 `data.actions[actionId]` 없으면 `unknown_action`, `move`는 `data.locations[to]` 없으면 `unknown_location`(11절 location 스키마 참고), 링크가 없거나 링크 requires가 거짓이면 `requirements_not_met`. `choose`/`data.choices` 해석은 이번 라운드에 구현하지 않는다(D-35 그대로, 이 단계까지 도달하는 코드 경로 자체가 없음 — 아무 것도 `pending.kind`를 `"choice"`로 설정하지 않기 때문) |
+| D-49 | `check()`의 modifier 계산과 `data.rules.check` 기본값 | **확정(resolved, 5절, V2-Core-11)**: 5.3절의 "제안 기본값"을 문자 그대로 엔진의 실제 기본값으로 채택한다(`data.rules.check`에 없는 하위 필드만 이 기본값으로 대체, 있으면 데이터가 우선) — 5.3절 스스로 "제안 기본값이며 밸런스는 테스트로 확정"이라고 명시했으므로 이는 발명이 아니라 문서에 이미 적힌 값을 그대로 코드로 옮긴 것이다. item modifier는 트레잇의 이미 확정된 `modifiers:[{tags,value}]` 스키마(6.2절)를 그대로 `data.items[id].modifiers`에도 적용한다(5.4절이 "item: trait과 같은 방식"이라고 이미 말했으므로 같은 필드 이름을 재사용한 것뿐, 새 스키마 아님). 아이템은 "보유 기준"(D-10 제안 그대로: `actor.inventory[id] > 0`)으로 판정한다. `check(spec, ctx) -> {result, rng}`는 `ctx.state.rng`를 순수하게 소비하고 반환하며(D-27 예외로 이미 문서화됨), state를 직접 mutate하지 않는다 — 호출자(`step()`)가 반환된 `rng`를 작업 사본의 `state.rng`에 대입한다. `check.resolved` 이벤트는 player visibility로 낸다(check는 항상 현재 플레이어 자신의 판정이므로) |
 
 ---
 
@@ -1318,13 +1359,12 @@ state.knowledge["player_1"]["rum_a"] = {
 
   - 작업 6: `move`, Resolvable과 `perform`/`move` action을 `step()`에 연결(D-40 재검토), 사망 트리거
     §9 연결과 D-34(목록 중간 사망) 해결. **사망 트리거와 D-34는 V2-Core-10에서 `hp` Effect(rules.js)
-    확장만으로 확정·구현했다** — `alive=false`/`actor.died`/사망 시 `pending` 설정과, 리스트 처리를
-    중단시키지 않는다는 D-34 결정 모두 `engine.js`를 건드리지 않고 끝났다. **`move`, Resolvable,
-    `perform`/`move` action의 `step()` 연결, `startCharacter`/succession(§9 나머지)은 이번에도 여전히
-    다음 작업으로 남는다** — 이들은 전부 action/`step()` 영역이라 `engine.js` 보호 제약과 구조적으로
-    충돌해 V2-Core-10에서 구현하지 않았다(블로커, D-40 유지)
-  - 작업 7: check — action/`step()` 영역(`check()`가 `data.actions[id].check`를 굴리려면 Resolvable과
-    step 파이프라인이 있어야 한다)이라 `engine.js` 보호 제약과 충돌, V2-Core-10에서 구현하지 않았다
+    확장만으로 확정·구현했다.** **나머지 전부(`move` Effect, Resolvable 해석, `perform`/`move` action의
+    `step()` 연결, `startCharacter`, succession)는 V2-Core-11에서 `engine.js` 보호를 해제하고
+    완료했다(D-46/D-47/D-48). 작업 6은 완료됐다** — D-40(engine.js를 건드리지 않는다는 결정)은 이번
+    라운드부터 더 이상 적용되지 않는다(사용자가 명시적으로 보호를 해제함)
+  - 작업 7: check — **완료됐다(D-49, V2-Core-11)**. `data.rules.check`의 5.3절 제안 기본값을 그대로
+    채택해 modifier 합산·tier 판정·opposed·attempts/retryPenalty를 구현했다
   - 작업 8: `exp`/`proficiency` 구현 (계약은 D-41/D-42로 확정됨, 6.4.1/6.4.2절 — V2-Core-06에서 완료)
   - 작업 9: `relation`의 `mode`/`tag`/`untag` (D-43로 확정, V2-Core-07에서 구현), Fact/Rumor의
     `fact` Effect(D-44, V2-Core-08)와 `rumor` Effect(D-45/D-14, V2-Core-09)를 모두 구현해 작업 9는

@@ -7,7 +7,8 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { applyEffects } from "../../web/v2/core/rules.js";
+import { applyEffects, check } from "../../web/v2/core/rules.js";
+import { hashString, rollDie } from "../../web/v2/core/rng.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, "..", "..");
@@ -1752,4 +1753,281 @@ function testHpDeathTrigger() {
 
 testHpDeathTrigger();
 
-console.log("V2-Core-03/04/05/06/07/08/09/10 effects.test.js: all checks passed");
+// ============================================================
+// V2-Core-11: move Effect (D-46 resolved -- §4.2) and check() (D-49
+// resolved -- §5). Action/step()-level integration (perform/move actions,
+// startCharacter, succession) is tested separately in tests/v2/core.test.js.
+// ============================================================
+
+// move
+function testMoveEffect() {
+  function stateWithLocation(locationId, overrides) {
+    return stateWithActors(
+      { player_1: actorFixture({ locationId }), npc_1: actorFixture({ id: "npc_1", locationId }) },
+      overrides
+    );
+  }
+
+  // 1. 정상 이동 (subject 기본값 self)
+  const r1 = applyEffects([{ op: "move", to: "loc_b" }], ctxWith(stateWithLocation("loc_a")));
+  assert.strictEqual(r1.state.actors.player_1.locationId, "loc_b");
+  assert.strictEqual(r1.events.length, 1);
+  assert.strictEqual(r1.events[0].type, "actor.moved");
+  assert.deepStrictEqual(r1.events[0].data, { to: "loc_b" });
+
+  // 2. subject: target
+  const r2 = applyEffects([{ op: "move", to: "loc_b", subject: "target" }], ctxWith(stateWithLocation("loc_a")));
+  assert.strictEqual(r2.state.actors.npc_1.locationId, "loc_b");
+  assert.strictEqual(r2.state.actors.player_1.locationId, "loc_a", "self must be untouched when subject is target");
+
+  // 3. 이미 같은 위치 -> no-op (D-30)
+  const r3 = applyEffects([{ op: "move", to: "loc_a" }], ctxWith(stateWithLocation("loc_a")));
+  assert.strictEqual(r3.events.length, 0);
+
+  // 4. malformed `to` -> throw
+  const ctx4 = ctxWith(stateWithLocation("loc_a"));
+  [1, null, true, {}, [], undefined].forEach((bad) => {
+    assert.throws(() => applyEffects([{ op: "move", to: bad }], ctx4), TypeError, "move to=" + JSON.stringify(bad));
+  });
+
+  // 5. 대상 부재 -> skip (D-29)
+  const noTargetCtx = { state: stateWithActors({ player_1: actorFixture({ locationId: "loc_a" }) }), data: {}, actorId: "player_1" };
+  const r5 = applyEffects([{ op: "move", to: "loc_b", subject: "target" }], noTargetCtx);
+  assert.strictEqual(r5.events.length, 0);
+  assert.deepStrictEqual(r5.state, noTargetCtx.state);
+
+  // 6. visibility (D-31, subject 기준 -- skill/trait/unlock과 같은 선례)
+  assert.strictEqual(applyEffects([{ op: "move", to: "loc_b" }], ctxWith(stateWithLocation("loc_a"))).events[0].visibility, "player");
+  assert.strictEqual(
+    applyEffects([{ op: "move", to: "loc_b", subject: "target" }], ctxWith(stateWithLocation("loc_a"))).events[0].visibility,
+    "internal"
+  );
+
+  // 7. 순차 가시성: 두 번째 이동이 첫 번째의 결과를 즉시 본다
+  const r7 = applyEffects([{ op: "move", to: "loc_b" }, { op: "move", to: "loc_c" }], ctxWith(stateWithLocation("loc_a")));
+  assert.strictEqual(r7.state.actors.player_1.locationId, "loc_c");
+  assert.strictEqual(r7.events.length, 2);
+
+  // 8. 입력 불변성
+  const state8 = deepFreeze(stateWithLocation("loc_a"));
+  const stateBefore8 = snapshot(state8);
+  const effects8 = deepFreeze([{ op: "move", to: "loc_b" }]);
+  const effectsBefore8 = snapshot(effects8);
+  const ctx8 = deepFreeze(ctxWith(state8));
+  const result8 = applyEffects(effects8, ctx8);
+  assert.deepStrictEqual(snapshot(state8), stateBefore8, "input state must be unchanged");
+  assert.deepStrictEqual(snapshot(effects8), effectsBefore8, "input effects must be unchanged");
+  assert.notStrictEqual(result8.state, ctx8.state);
+
+  // 9. determinism
+  const runMove = () => applyEffects([{ op: "move", to: "loc_b" }], ctxWith(stateWithLocation("loc_a")));
+  assert.deepStrictEqual(runMove(), runMove(), "same (effects, ctx) must always produce the same result");
+
+  // 10. JSON round-trip
+  const result10 = runMove();
+  assert.deepStrictEqual(JSON.parse(JSON.stringify(result10.state)), result10.state);
+  assert.deepStrictEqual(JSON.parse(JSON.stringify(result10.events)), result10.events);
+}
+
+// check()
+function checkState(overrides) {
+  return {
+    schemaVersion: 1,
+    worldSeed: "check-test",
+    rng: { seed: hashString("check-test"), cursor: 0 },
+    time: { minute: 0 },
+    actors: { player_1: actorFixture(), npc_1: actorFixture({ id: "npc_1" }) },
+    ...overrides
+  };
+}
+
+function testCheckPurityAndRng() {
+  const ctx = { state: checkState(), data: { rules: { check: {} } }, actorId: "player_1" };
+
+  // 1. 결정론: 같은 입력 -> 같은 결과
+  const r1a = check({ difficulty: 5 }, ctx);
+  const r1b = check({ difficulty: 5 }, ctx);
+  assert.deepStrictEqual(r1a, r1b);
+
+  // 2. RNG를 실제로 소비하는지 (2d10 -> rollDie 2회, 직접 계산한 값과 일치해야 한다)
+  let expectedRng = ctx.state.rng;
+  const dice = [];
+  for (let i = 0; i < 2; i += 1) {
+    const rolled = rollDie(expectedRng, 10);
+    dice.push(rolled.value);
+    expectedRng = rolled.rng;
+  }
+  assert.deepStrictEqual(r1a.result.dice, dice);
+  assert.deepStrictEqual(r1a.rng, expectedRng, "check() must return the advanced rng, not mutate ctx.state.rng");
+  assert.strictEqual(r1a.result.roll, dice[0] + dice[1]);
+
+  // 3. 순수성: ctx.state를 mutate하지 않는다 (D-27 예외: rng는 반환만 한다)
+  const before = snapshot(ctx.state);
+  check({ difficulty: 5 }, ctx);
+  assert.deepStrictEqual(snapshot(ctx.state), before, "check() must not mutate ctx.state, including rng");
+
+  // 4. modifier가 하나도 없으면 breakdown은 빈 배열 (§5.4, 0-value 생략과 별개로 애초에 적용 대상이 없음)
+  assert.deepStrictEqual(r1a.result.modifiers, []);
+}
+
+function testCheckTiers() {
+  const seed = hashString("tier-test");
+  const baseRng = { seed, cursor: 0 };
+  let rng = baseRng;
+  const dice = [];
+  for (let i = 0; i < 2; i += 1) {
+    const rolled = rollDie(rng, 10);
+    dice.push(rolled.value);
+    rng = rolled.rng;
+  }
+  const roll = dice[0] + dice[1];
+
+  function ctxFor() {
+    return { state: checkState({ rng: baseRng, worldSeed: "tier-test" }), data: { rules: { check: {} } }, actorId: "player_1" };
+  }
+
+  // 5.3절 기본 tiers: great>=6, success>=0, partial>=-3. roll에서 역산해 정확한 margin 경계를 만든다.
+  [
+    { margin: 6, tier: "great" },
+    { margin: 5, tier: "success" },
+    { margin: 0, tier: "success" },
+    { margin: -1, tier: "partial" },
+    { margin: -3, tier: "partial" },
+    { margin: -4, tier: "fail" }
+  ].forEach(({ margin, tier }) => {
+    const difficulty = roll - margin;
+    const { result } = check({ difficulty }, ctxFor());
+    assert.strictEqual(result.tier, tier, "margin " + margin + " must be " + tier);
+    assert.strictEqual(result.margin, margin);
+    assert.strictEqual(result.total, roll, "no modifiers in this fixture -> total === roll");
+  });
+}
+
+function testCheckDifficultyForms() {
+  const ctx = () => ({ state: checkState(), data: { rules: { check: {} } }, actorId: "player_1" });
+
+  // 정수
+  assert.strictEqual(check({ difficulty: 12 }, ctx()).result.difficulty, 12);
+
+  // 이름 (기본값, 5.3절 제안값)
+  assert.strictEqual(check({ difficulty: "normal" }, ctx()).result.difficulty, 11);
+  assert.strictEqual(check({ difficulty: "hard" }, ctx()).result.difficulty, 14);
+
+  // 이름 (데이터가 재정의)
+  const namedCtx = { state: checkState(), data: { rules: { check: { difficulties: { hard: 20 } } } }, actorId: "player_1" };
+  assert.strictEqual(check({ difficulty: "hard" }, namedCtx).result.difficulty, 20);
+
+  // 존재하지 않는 이름 -> throw
+  assert.throws(() => check({ difficulty: "made_up" }, ctx()), TypeError);
+
+  // opposed: base + 상대의 stat/skill modifier 합 (상대는 굴리지 않는다)
+  const opposedData = {
+    world: { growthSystemId: "growth_a" },
+    growthSystems: { growth_a: { skills: [{ id: "skill_b", checkBonusPerRank: 1 }] } },
+    rules: { check: {} }
+  };
+  const opposedState = checkState({
+    actors: {
+      player_1: actorFixture(),
+      npc_1: actorFixture({ id: "npc_1", growth: { growth_a: { stats: { stat_a: 14 }, skills: { skill_b: 3 } } } })
+    }
+  });
+  const opposedCtx = { state: opposedState, data: opposedData, actorId: "player_1", targetId: "npc_1" };
+  const { result } = check({ difficulty: { base: 10, opposed: { subject: "target", stat: "stat_a", skill: "skill_b" } } }, opposedCtx);
+  assert.strictEqual(result.difficulty, 10 + 2 + 3, "base 10 + stat modifier (14-10)/2=2 + skill modifier 3*1=3");
+
+  // malformed difficulty -> throw
+  assert.throws(() => check({}, ctx()), TypeError, "missing difficulty");
+  assert.throws(() => check({ difficulty: {} }, ctx()), TypeError, "difficulty object without base/opposed");
+  assert.throws(() => check(null, ctx()), TypeError, "spec must be a plain object");
+}
+
+function testCheckModifierSourcesAndOrder() {
+  const data = {
+    world: { growthSystemId: "growth_a" },
+    growthSystems: {
+      growth_a: {
+        skills: [{ id: "skill_a", checkBonusPerRank: 3 }],
+        proficiencies: [{ id: "prof_a", checkStep: 50 }],
+        traits: [{ id: "trait_a", modifiers: [{ tags: ["combat"], value: 4 }] }]
+      }
+    },
+    items: { item_a: { modifiers: [{ tags: ["combat"], value: 2 }] } },
+    rules: { check: {} }
+  };
+  const state = checkState({
+    player: { actorId: "player_1", characterCount: 1 },
+    actors: {
+      player_1: actorFixture({
+        inventory: { item_a: 1 },
+        growth: {
+          growth_a: {
+            stats: { stat_a: 14 }, // (14-10)/2 = 2
+            skills: { skill_a: 2 }, // 2*3 = 6
+            proficiency: { prof_a: 120 }, // floor(120/50) = 2
+            traits: { trait_a: true } // 4
+          }
+        }
+      }),
+      npc_1: actorFixture({ id: "npc_1" })
+    },
+    relations: { "npc_1:player_1": { score: 50, mode: "neutral", lastDay: 0, cooperationCount: 0, conflictCount: 0, tags: [] } } // floor(50/25)=2
+  });
+  const ctx = { state, data, actorId: "player_1", targetId: "npc_1" };
+  const { result } = check(
+    {
+      stat: "stat_a",
+      skill: "skill_a",
+      proficiency: "prof_a",
+      tags: ["combat"],
+      useRelation: true,
+      situational: [{ source: "cover", value: 1 }],
+      difficulty: 5
+    },
+    ctx
+  );
+
+  const bySource = Object.fromEntries(result.modifiers.map((m) => [m.source, m.value]));
+  assert.strictEqual(bySource["stat:stat_a"], 2);
+  assert.strictEqual(bySource["skill:skill_a"], 6, "rank 2 * checkBonusPerRank 3");
+  assert.strictEqual(bySource["proficiency:prof_a"], 2, "floor(120/50)");
+  assert.strictEqual(bySource["item:item_a"], 2);
+  assert.strictEqual(bySource["trait:trait_a"], 4);
+  assert.strictEqual(bySource.relation, 2, "floor(50/25)");
+  assert.strictEqual(bySource.cover, 1);
+
+  // §5.4 고정 순서: stat -> skill -> proficiency -> item -> trait -> relation -> situational
+  assert.deepStrictEqual(
+    result.modifiers.map((m) => m.source),
+    ["stat:stat_a", "skill:skill_a", "proficiency:prof_a", "item:item_a", "trait:trait_a", "relation", "cover"]
+  );
+
+  const modifierSum = 2 + 6 + 2 + 2 + 4 + 2 + 1;
+  assert.strictEqual(result.total, result.roll + modifierSum);
+  assert.strictEqual(result.margin, result.total - 5);
+}
+
+function testCheckAttemptsRetryPenalty() {
+  const data = { rules: { check: { retryPenalty: 3 } } };
+
+  const withAttempts = { state: checkState({ attempts: { door_1: 2 } }), data, actorId: "player_1" };
+  assert.strictEqual(check({ difficulty: 10, attemptKey: "door_1" }, withAttempts).result.difficulty, 10 + 2 * 3);
+
+  const noAttempts = { state: checkState(), data, actorId: "player_1" };
+  assert.strictEqual(check({ difficulty: 10, attemptKey: "door_1" }, noAttempts).result.difficulty, 10, "no prior attempts -> 0 penalty");
+
+  // check() itself never mutates state.attempts -- that is step()'s job (F: pure evaluation, not an action)
+  const ctxUnchanged = { state: checkState({ attempts: { door_1: 2 } }), data, actorId: "player_1" };
+  const before = snapshot(ctxUnchanged.state);
+  check({ difficulty: 10, attemptKey: "door_1" }, ctxUnchanged);
+  assert.deepStrictEqual(snapshot(ctxUnchanged.state), before);
+}
+
+testMoveEffect();
+testCheckPurityAndRng();
+testCheckTiers();
+testCheckDifficultyForms();
+testCheckModifierSourcesAndOrder();
+testCheckAttemptsRetryPenalty();
+
+console.log("V2-Core-03/04/05/06/07/08/09/10/11 effects.test.js: all checks passed");

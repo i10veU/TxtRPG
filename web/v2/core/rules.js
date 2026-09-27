@@ -1,5 +1,9 @@
-// Pure Condition evaluator and Effect applier per
-// docs/v2/architecture/CORE_CONTRACTS.md §3, §3.2a, §4.
+// Pure Condition evaluator, Effect applier, and check() per
+// docs/v2/architecture/CORE_CONTRACTS.md §3, §3.2a, §4, §5.
+//
+// check() (V2-Core-11, D-49 -- §5): pure, {result, rng} per the documented
+// D-27 exception (state.rng is read but never mutated here; the caller
+// assigns the returned rng back onto its own working copy).
 //
 // Condition (V2-Core-02): and/or/not/always/never/eq/neq/gt/gte/lt/lte.
 // Effect (V2-Core-03): flag/signal/time/if.
@@ -21,12 +25,15 @@
 // + actor.died on the alive->dead transition, and state.pending set when
 // the dying actor is the player. `startCharacter`/succession remain
 // action-level (step()) and are out of scope (D-40, engine.js untouched).
-// No move/narrate/choice/handler yet, no check(), no Resolvable —
-// applyEffects is still not wired into engine.js's step() (D-40).
+// check() (V2-Core-11, D-49): pure evaluation, not an Effect and not an
+// action -- it's invoked from within engine.js's step() while resolving a
+// `perform` action's Resolvable (§2.3/§2.5 stage 7). No narrate/choice/
+// handler yet.
 //
 // No host APIs (DOM/window/Date/Math.random/indexedDB/localStorage/fetch/
 // performance/crypto). ctx.state/data/effects/condition are never mutated
-// by the caller-visible API.
+// by the caller-visible API. `rollDie` (rng.js) is the only host-adjacent
+// import, and it is itself pure (§2.7).
 //
 // Unknown Condition op, wrong shape, or an unresolved selector never
 // throws: it evaluates to `false` (§3.1) — this assumes a well-formed `ctx`
@@ -34,6 +41,8 @@
 // engine). Effect malformed input is the opposite policy: it throws
 // (D-28) — except a malformed `if.when`, which safely resolves to `false`
 // via evaluateCondition and is treated as a normal false branch.
+
+import { rollDie } from "./rng.js";
 
 function isPlainObject(value) {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -477,6 +486,30 @@ function applyItemEffect(effect, workingState, events, ctx) {
     visibility: isPlayerActor(resolved.id, workingState) ? "player" : "internal",
     actorId: resolved.id,
     data: { item: effect.item, delta }
+  });
+}
+
+// move Effect (D-46, §4.2/§2.2): `to` is set directly on the actor, no
+// connectivity check here -- that's the calling action's requires (§2.2,
+// §11 location schema, D-48). Not in 4.1's "subject ignored" list, so
+// subject resolves the same way as every other actor-based Effect (D-29).
+function applyMoveEffect(effect, workingState, events, ctx) {
+  if (typeof effect.to !== "string") {
+    throw new TypeError("move Effect requires a string `to`");
+  }
+  const resolved = resolveActor(effect.subject, ctx, workingState);
+  if (!resolved) return; // D-29: skip
+
+  const actor = resolved.actor;
+  if (actor.locationId === effect.to) return; // D-30: already there, no-op
+
+  actor.locationId = effect.to;
+  events.push({
+    minute: workingState.time.minute,
+    type: "actor.moved",
+    visibility: isPlayerActor(resolved.id, workingState) ? "player" : "internal",
+    actorId: resolved.id,
+    data: { to: effect.to }
   });
 }
 
@@ -1125,12 +1158,21 @@ function applyOneEffect(effect, workingState, events, ctx) {
       return applyFactEffect(effect, workingState, events);
     case "rumor":
       return applyRumorEffect(effect, workingState, events, ctx);
+    case "move":
+      return applyMoveEffect(effect, workingState, events, ctx);
     default:
       throw new TypeError("Unknown Effect op: " + JSON.stringify(effect.op));
   }
 }
 
-function applyEffectList(effects, workingState, events, ctx) {
+// Exported for engine.js (V2-Core-11, D-47/D-48): step() builds its own
+// single working copy (§2.5 stage 6) and must apply Resolvable
+// effects/outcomes/succession Effects onto that SAME copy, not a freshly
+// re-cloned one -- so it reuses this lower-level function directly instead
+// of the top-level applyEffects() (which would clone again). This is the
+// existing implementation, reused as-is (D-26/D-30 unchanged), not a new
+// bypass path.
+export function applyEffectList(effects, workingState, events, ctx) {
   if (!Array.isArray(effects)) {
     throw new TypeError("Effect list must be an array");
   }
@@ -1145,4 +1187,197 @@ export function applyEffects(effects, ctx) {
   const events = [];
   applyEffectList(effects, workingState, events, ctx);
   return { state: workingState, events };
+}
+
+// -- check() (§5, V2-Core-11, D-49) ------------------------------------------
+//
+// D-49: `data.rules.check`'s per-field defaults are §5.3's own stated
+// "제안 기본값" (proposed defaults), adopted literally as the engine's
+// fallback when a field is absent from data -- not invented. D-09
+// (maxTotalModifier) stays unresolved: its stated default is "no cap", so
+// no capping logic is implemented (there's nothing decided to implement).
+
+const DEFAULT_CHECK_DICE = { count: 2, sides: 10 };
+const DEFAULT_CHECK_TIERS = { great: 6, success: 0, partial: -3 };
+const DEFAULT_CHECK_DIFFICULTIES = { easy: 8, normal: 11, hard: 14, extreme: 17 };
+const DEFAULT_STAT_MODIFIER = { pivot: 10, step: 2 };
+const DEFAULT_RELATION_MODIFIER = { step: 25 };
+
+function checkRules(ctx) {
+  const configured = ctx.data?.rules?.check;
+  return {
+    dice: isPlainObject(configured?.dice) ? configured.dice : DEFAULT_CHECK_DICE,
+    tiers: isPlainObject(configured?.tiers) ? configured.tiers : DEFAULT_CHECK_TIERS,
+    difficulties: isPlainObject(configured?.difficulties) ? configured.difficulties : DEFAULT_CHECK_DIFFICULTIES,
+    statModifier: isPlainObject(configured?.statModifier) ? configured.statModifier : DEFAULT_STAT_MODIFIER,
+    relationModifier: isPlainObject(configured?.relationModifier) ? configured.relationModifier : DEFAULT_RELATION_MODIFIER,
+    retryPenalty: Number.isInteger(configured?.retryPenalty) ? configured.retryPenalty : 0
+  };
+}
+
+function statModifierValue(value, config) {
+  const pivot = Number.isInteger(config.pivot) ? config.pivot : DEFAULT_STAT_MODIFIER.pivot;
+  const step = Number.isInteger(config.step) && config.step !== 0 ? config.step : DEFAULT_STAT_MODIFIER.step;
+  return Math.floor((value - pivot) / step);
+}
+
+// §5.4: "item: 보유 아이템 정의 중 modifiers[].tags가 spec.tags와 겹치는 항목의 value 합" --
+// trait uses the exact same {tags,value} shape ("trait: item과 같은 방식", §6.2 already
+// names it for trait; item's is the same structure reused, D-49).
+function sumMatchingModifiers(modifierList, tags) {
+  if (!Array.isArray(modifierList)) return 0;
+  return modifierList.reduce((sum, m) => {
+    if (!isPlainObject(m) || !Array.isArray(m.tags) || !Number.isInteger(m.value)) return sum;
+    return m.tags.some((t) => tags.includes(t)) ? sum + m.value : sum;
+  }, 0);
+}
+
+// §5.4 fixed order: stat -> skill -> proficiency -> item -> trait -> relation -> situational.
+// Zero-value modifiers are omitted from the breakdown (§5.4).
+function computeCheckModifiers(spec, ctx, system, rules) {
+  const modifiers = [];
+  const actor = ctx.state.actors?.[ctx.actorId];
+  const growth = system !== undefined ? actor?.growth?.[system] : undefined;
+
+  if (typeof spec.stat === "string") {
+    const value = growth?.stats?.[spec.stat] ?? 0;
+    const m = statModifierValue(value, rules.statModifier);
+    if (m !== 0) modifiers.push({ source: "stat:" + spec.stat, value: m });
+  }
+
+  if (typeof spec.skill === "string") {
+    const rank = growth?.skills?.[spec.skill] ?? 0;
+    const definition = system !== undefined ? findGrowthDefinition(ctx, system, "skills", spec.skill) : undefined;
+    const perRank = definition && Number.isInteger(definition.checkBonusPerRank) ? definition.checkBonusPerRank : 0;
+    const m = rank * perRank;
+    if (m !== 0) modifiers.push({ source: "skill:" + spec.skill, value: m });
+  }
+
+  if (typeof spec.proficiency === "string") {
+    const points = growth?.proficiency?.[spec.proficiency] ?? 0;
+    const definition = system !== undefined ? findGrowthDefinition(ctx, system, "proficiencies", spec.proficiency) : undefined;
+    const step = definition && Number.isInteger(definition.checkStep) && definition.checkStep !== 0 ? definition.checkStep : undefined;
+    const m = step !== undefined ? Math.floor(points / step) : 0;
+    if (m !== 0) modifiers.push({ source: "proficiency:" + spec.proficiency, value: m });
+  }
+
+  const tags = Array.isArray(spec.tags) ? spec.tags : [];
+  if (tags.length > 0) {
+    // item: held (D-10 "보유 기준") -- inventory[itemId] > 0, sorted for determinism (§2.6).
+    const inventory = actor?.inventory ?? {};
+    Object.keys(inventory)
+      .sort()
+      .forEach((itemId) => {
+        if (!(inventory[itemId] > 0)) return;
+        const m = sumMatchingModifiers(ctx.data?.items?.[itemId]?.modifiers, tags);
+        if (m !== 0) modifiers.push({ source: "item:" + itemId, value: m });
+      });
+
+    // trait: same matching rule as item, over currently-held traits.
+    const traits = growth?.traits ?? {};
+    Object.keys(traits)
+      .sort()
+      .forEach((traitId) => {
+        if (traits[traitId] !== true) return;
+        const definition = system !== undefined ? findGrowthDefinition(ctx, system, "traits", traitId) : undefined;
+        const m = sumMatchingModifiers(definition?.modifiers, tags);
+        if (m !== 0) modifiers.push({ source: "trait:" + traitId, value: m });
+      });
+  }
+
+  if (spec.useRelation === true && ctx.targetId !== undefined) {
+    const edgeKey = ctx.targetId + ":" + ctx.actorId; // target -> self (§5.4)
+    const edge = ctx.state.relations?.[edgeKey];
+    const score = edge && Number.isInteger(edge.score) ? edge.score : 0;
+    const step = Number.isInteger(rules.relationModifier.step) && rules.relationModifier.step !== 0 ? rules.relationModifier.step : DEFAULT_RELATION_MODIFIER.step;
+    const m = Math.floor(score / step);
+    if (m !== 0) modifiers.push({ source: "relation", value: m });
+  }
+
+  if (Array.isArray(spec.situational)) {
+    spec.situational.forEach((entry) => {
+      if (isPlainObject(entry) && typeof entry.source === "string" && Number.isInteger(entry.value) && entry.value !== 0) {
+        modifiers.push({ source: entry.source, value: entry.value });
+      }
+    });
+  }
+
+  return modifiers;
+}
+
+// §5.5: integer as-is, name looked up in `difficulties`, or opposed
+// (base + the opposed subject's stat/skill modifier only -- not the full
+// 7-source list, per §5.5's literal wording; the opposed side is never
+// rolled, §5.5).
+function resolveDifficulty(spec, ctx, system, rules) {
+  const d = spec.difficulty;
+  if (Number.isInteger(d)) return d;
+  if (typeof d === "string") {
+    const named = rules.difficulties[d];
+    if (!Number.isInteger(named)) {
+      throw new TypeError("check spec's `difficulty` name is not defined in data.rules.check.difficulties: " + JSON.stringify(d));
+    }
+    return named;
+  }
+  if (isPlainObject(d) && isPlainObject(d.opposed)) {
+    if (!Number.isInteger(d.base)) {
+      throw new TypeError("check spec's opposed `difficulty` requires an integer `base`");
+    }
+    const opposedId = resolveSubjectId(d.opposed.subject, ctx);
+    let opposedModifier = 0;
+    if (opposedId !== undefined) {
+      const opposedGrowth = system !== undefined ? ctx.state.actors?.[opposedId]?.growth?.[system] : undefined;
+      if (typeof d.opposed.stat === "string") {
+        opposedModifier += statModifierValue(opposedGrowth?.stats?.[d.opposed.stat] ?? 0, rules.statModifier);
+      }
+      if (typeof d.opposed.skill === "string") {
+        const rank = opposedGrowth?.skills?.[d.opposed.skill] ?? 0;
+        const definition = system !== undefined ? findGrowthDefinition(ctx, system, "skills", d.opposed.skill) : undefined;
+        const perRank = definition && Number.isInteger(definition.checkBonusPerRank) ? definition.checkBonusPerRank : 0;
+        opposedModifier += rank * perRank;
+      }
+    }
+    return d.base + opposedModifier;
+  }
+  throw new TypeError("check spec requires a valid `difficulty` (integer, known name, or opposed object)");
+}
+
+// check(spec, ctx) -> { result, rng }. ctx = { state, data, actorId, targetId? }.
+// Pure: reads ctx.state.rng but never mutates ctx.state (D-27 exception,
+// documented in §5.2 -- the caller assigns the returned `rng` onto its own
+// working copy). attemptKey's `state.attempts[key] += 1` is NOT done here
+// (that is a state mutation) -- the caller does it after this call.
+export function check(spec, ctx) {
+  if (!isPlainObject(spec)) {
+    throw new TypeError("check spec must be a plain object");
+  }
+  const system = typeof ctx.data?.world?.growthSystemId === "string" ? ctx.data.world.growthSystemId : undefined;
+  const rules = checkRules(ctx);
+
+  const attempts = spec.attemptKey !== undefined ? ctx.state.attempts?.[spec.attemptKey] ?? 0 : 0;
+  const difficulty = resolveDifficulty(spec, ctx, system, rules) + attempts * rules.retryPenalty;
+
+  const diceCount = Number.isInteger(rules.dice.count) ? rules.dice.count : DEFAULT_CHECK_DICE.count;
+  const diceSides = Number.isInteger(rules.dice.sides) ? rules.dice.sides : DEFAULT_CHECK_DICE.sides;
+
+  let rng = ctx.state.rng;
+  const dice = [];
+  for (let i = 0; i < diceCount; i += 1) {
+    const rolled = rollDie(rng, diceSides);
+    dice.push(rolled.value);
+    rng = rolled.rng;
+  }
+  const roll = dice.reduce((sum, value) => sum + value, 0);
+
+  const modifiers = computeCheckModifiers(spec, ctx, system, rules);
+  const total = roll + modifiers.reduce((sum, m) => sum + m.value, 0);
+  const margin = total - difficulty;
+
+  const tiers = rules.tiers;
+  let tier = "fail";
+  if (margin >= tiers.great) tier = "great";
+  else if (margin >= tiers.success) tier = "success";
+  else if (margin >= tiers.partial) tier = "partial";
+
+  return { result: { tier, dice, roll, modifiers, total, difficulty, margin }, rng };
 }
