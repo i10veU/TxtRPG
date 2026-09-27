@@ -677,8 +677,6 @@ testSubjectEffectEvents();
 
 // ============================================================
 // V2-Core-05: Growth Effects (skill/trait/unlock/case)
-// exp/proficiency are NOT implemented (D-41, D-42 blockers) --
-// no tests for them.
 // ============================================================
 
 function stateWithGrowth(growth) {
@@ -850,4 +848,266 @@ testUnlockEffect();
 testCaseEffect();
 testGrowthEffectComposition();
 
-console.log("V2-Core-03/04/05 effects.test.js: all checks passed");
+// ============================================================
+// V2-Core-06: exp/proficiency Effects (D-41, D-42 resolved -- §6.4.1/6.4.2)
+// ============================================================
+
+// Kept separate from growthDataFixture() (stat/skill/trait) so level/
+// proficiency-specific tuning never disturbs the V2-Core-04/05 tests above.
+function progressionDataFixture() {
+  return {
+    world: { growthSystemId: "growth_a" },
+    growthSystems: {
+      growth_a: {
+        level: { max: 3, expTable: [0, 10, 20] },
+        levelRewards: {
+          "2": [{ op: "signal", key: "reward_lvl2", add: 1 }],
+          "3": [{ op: "signal", key: "reward_lvl3", add: 1 }]
+        },
+        proficiencies: [
+          {
+            id: "prof_a",
+            max: 30,
+            thresholds: [
+              { at: 10, effects: [{ op: "signal", key: "thresh_10", add: 1 }] },
+              { at: 20, effects: [{ op: "signal", key: "thresh_20", add: 1 }] }
+            ]
+          }
+        ]
+      },
+      growth_b: {}, // no `level` key -> level-less growth system (exp accumulates only)
+      growth_c: { level: { expTable: [0, 5] } } // distinct table, no `max` -> used to prove explicit `system` overrides the world default
+    }
+  };
+}
+
+// exp
+function testExpEffect() {
+  const data = progressionDataFixture();
+
+  // 1. basic increase (lazy growth[system] init, default level:1/exp:0)
+  const r1 = applyEffects([{ op: "exp", amount: 5 }], ctxWithData(stateWithGrowth({}), data));
+  assert.strictEqual(r1.state.actors.player_1.growth.growth_a.exp, 5);
+  assert.strictEqual(r1.state.actors.player_1.growth.growth_a.level, 1);
+  assert.strictEqual(r1.events.length, 1);
+  assert.strictEqual(r1.events[0].type, "exp.gained");
+  assert.deepStrictEqual(r1.events[0].data, { system: "growth_a", delta: 5 });
+
+  // 2. subject self (explicit)
+  const r2 = applyEffects(
+    [{ op: "exp", amount: 3, subject: "self" }],
+    ctxWithData(stateWithGrowth({ growth_a: { level: 1, exp: 2 } }), data)
+  );
+  assert.strictEqual(r2.state.actors.player_1.growth.growth_a.exp, 5);
+
+  // 3. subject target
+  const s3 = stateWithActors({ player_1: actorFixture({ growth: {} }), npc_1: actorFixture({ id: "npc_1", growth: {} }) });
+  const r3 = applyEffects([{ op: "exp", amount: 4, subject: "target" }], ctxWithData(s3, data));
+  assert.strictEqual(r3.state.actors.npc_1.growth.growth_a.exp, 4);
+  assert.strictEqual(r3.state.actors.player_1.growth.growth_a, undefined, "self must be untouched when subject is target");
+
+  // 4. subject explicit actor ID
+  const s4 = stateWithActors({ player_1: actorFixture({ growth: {} }), npc_2: actorFixture({ id: "npc_2", growth: {} }) });
+  const r4 = applyEffects([{ op: "exp", amount: 6, subject: "npc_2" }], ctxWithData(s4, data));
+  assert.strictEqual(r4.state.actors.npc_2.growth.growth_a.exp, 6);
+
+  // 5. system 명시 (world 기본값 growth_a 대신 growth_c 사용)
+  const r5 = applyEffects([{ op: "exp", amount: 3, system: "growth_c" }], ctxWithData(stateWithGrowth({}), data));
+  assert.strictEqual(r5.state.actors.player_1.growth.growth_c.exp, 3);
+  assert.strictEqual(r5.state.actors.player_1.growth.growth_a, undefined, "explicit `system` must not touch the world-default system");
+
+  // 6. expTable 기반 level 계산 (exp=10 -> level 2)
+  const r6 = applyEffects([{ op: "exp", amount: 10 }], ctxWithData(stateWithGrowth({}), data));
+  assert.strictEqual(r6.state.actors.player_1.growth.growth_a.level, 2);
+
+  // 7. level.max clamp (expTable은 4칸이지만 max=2)
+  const clampData = progressionDataFixture();
+  clampData.growthSystems.growth_a.level = { max: 2, expTable: [0, 10, 20, 30] };
+  const r7 = applyEffects([{ op: "exp", amount: 30 }], ctxWithData(stateWithGrowth({}), clampData));
+  assert.strictEqual(r7.state.actors.player_1.growth.growth_a.level, 2, "rawLevel 4 must clamp to level.max 2");
+
+  // 8. level:null (level-less growth system) -> exp만 누적, level/reward/event 없음
+  const r8 = applyEffects([{ op: "exp", amount: 5, system: "growth_b" }], ctxWithData(stateWithGrowth({}), data));
+  assert.strictEqual(r8.state.actors.player_1.growth.growth_b.exp, 5);
+  assert.strictEqual(r8.state.actors.player_1.growth.growth_b.level, 1, "level field stays at its lazy default, never processed");
+  assert.strictEqual(r8.events.length, 1, "only exp.gained, no level.up");
+  assert.strictEqual(r8.events[0].type, "exp.gained");
+
+  // 9. single level-up (0 -> 10, level 1 -> 2)
+  const r9 = applyEffects([{ op: "exp", amount: 10 }], ctxWithData(stateWithGrowth({}), data));
+  assert.strictEqual(r9.state.actors.player_1.growth.growth_a.level, 2);
+  const levelUpEvents9 = r9.events.filter((e) => e.type === "level.up");
+  assert.strictEqual(levelUpEvents9.length, 1);
+  assert.deepStrictEqual(levelUpEvents9[0].data, { system: "growth_a", from: 1, to: 2 });
+
+  // 10. multi-level-up (0 -> 25, level 1 -> 3, 중간 레벨을 건너뛰지 않고 순차 처리)
+  const r10 = applyEffects([{ op: "exp", amount: 25 }], ctxWithData(stateWithGrowth({}), data));
+  assert.strictEqual(r10.state.actors.player_1.growth.growth_a.level, 3);
+  const levelUpEvents10 = r10.events.filter((e) => e.type === "level.up");
+  assert.strictEqual(levelUpEvents10.length, 2);
+  assert.deepStrictEqual(levelUpEvents10.map((e) => e.data), [
+    { system: "growth_a", from: 1, to: 2 },
+    { system: "growth_a", from: 2, to: 3 }
+  ]);
+
+  // 11. levelRewards 순차 실행 (레벨별 reward가 순서대로 적용됨)
+  assert.strictEqual(r10.state.signals.reward_lvl2, 1);
+  assert.strictEqual(r10.state.signals.reward_lvl3, 1);
+
+  // 12. reward depth-first 실행: reward 이벤트가 해당 레벨의 level.up 이벤트보다 먼저 온다
+  const types10 = r10.events.map((e) => e.type);
+  assert.deepStrictEqual(types10, ["exp.gained", "signal.raised", "level.up", "signal.raised", "level.up"]);
+
+  // 13. level.up 이벤트: 레벨당 1개, data:{system,from,to}, visibility (D-31)
+  assert.strictEqual(levelUpEvents10[0].visibility, "player");
+
+  // 14. exp 변화 없음(amount=0) -> no-op, no event
+  const r14 = applyEffects([{ op: "exp", amount: 0 }], ctxWithData(stateWithGrowth({ growth_a: { level: 1, exp: 5 } }), data));
+  assert.strictEqual(r14.events.length, 0);
+  assert.strictEqual(r14.state.actors.player_1.growth.growth_a.exp, 5);
+
+  // 15. malformed amount (non-integer/NaN/Infinity/wrong type) -> throw
+  const ctx15 = ctxWithData(stateWithGrowth({}), data);
+  [1.5, NaN, Infinity, -Infinity, "3", null, undefined, {}].forEach((bad) => {
+    assert.throws(() => applyEffects([{ op: "exp", amount: bad }], ctx15), TypeError, "exp amount=" + String(bad));
+  });
+
+  // 16. negative amount -> throw
+  assert.throws(() => applyEffects([{ op: "exp", amount: -1 }], ctx15), TypeError, "negative exp amount must throw");
+
+  // 17. input immutability
+  const state17 = deepFreeze(stateWithGrowth({ growth_a: { level: 1, exp: 5 } }));
+  const stateBefore17 = snapshot(state17);
+  const effects17 = deepFreeze([{ op: "exp", amount: 10 }]);
+  const effectsBefore17 = snapshot(effects17);
+  const ctx17 = deepFreeze(ctxWithData(state17, data));
+  const result17 = applyEffects(effects17, ctx17);
+  assert.deepStrictEqual(snapshot(state17), stateBefore17, "input state must be unchanged");
+  assert.deepStrictEqual(snapshot(effects17), effectsBefore17, "input effects must be unchanged");
+  assert.notStrictEqual(result17.state, ctx17.state);
+  assert.strictEqual(result17.state.actors.player_1.growth.growth_a.exp, 15);
+
+  // 18. determinism
+  const runExp = () => applyEffects([{ op: "exp", amount: 25 }], ctxWithData(stateWithGrowth({}), data));
+  assert.deepStrictEqual(runExp(), runExp(), "same (effects, ctx) must always produce the same result");
+
+  // 19. JSON round-trip
+  const result19 = runExp();
+  assert.deepStrictEqual(JSON.parse(JSON.stringify(result19.state)), result19.state);
+  assert.deepStrictEqual(JSON.parse(JSON.stringify(result19.events)), result19.events);
+
+  // 20. malformed `system` type -> throw
+  assert.throws(() => applyEffects([{ op: "exp", amount: 1, system: 42 }], ctx15), TypeError, "exp `system` must be a string when present");
+
+  // 21. missing/unresolvable subject -> skip (D-29), no throw, no event
+  const noTargetCtx = { state: stateWithGrowth({}), data, actorId: "player_1" };
+  const r21 = applyEffects([{ op: "exp", amount: 5, subject: "target" }], noTargetCtx);
+  assert.strictEqual(r21.events.length, 0);
+  assert.deepStrictEqual(r21.state, noTargetCtx.state, "unresolvable subject leaves state unchanged");
+}
+
+// proficiency
+function testProficiencyEffect() {
+  const data = progressionDataFixture(); // prof_a: max 30, thresholds at 10 and 20
+
+  // 1. basic increase (lazy proficiency map init)
+  const r1 = applyEffects([{ op: "proficiency", id: "prof_a", add: 5 }], ctxWithData(stateWithGrowth({}), data));
+  assert.strictEqual(r1.state.actors.player_1.growth.growth_a.proficiency.prof_a, 5);
+  assert.strictEqual(r1.events[0].type, "proficiency.changed");
+  assert.deepStrictEqual(r1.events[0].data, { id: "prof_a", delta: 5 });
+
+  // 2. max 하드 clamp
+  const r2 = applyEffects(
+    [{ op: "proficiency", id: "prof_a", add: 100 }],
+    ctxWithData(stateWithGrowth({ growth_a: { proficiency: { prof_a: 25 } } }), data)
+  );
+  assert.strictEqual(r2.state.actors.player_1.growth.growth_a.proficiency.prof_a, 30, "hard clamp at the definition's max");
+  assert.deepStrictEqual(r2.events[0].data, { id: "prof_a", delta: 5 });
+
+  // 3. add=0 -> no-op, no event
+  const r3 = applyEffects(
+    [{ op: "proficiency", id: "prof_a", add: 0 }],
+    ctxWithData(stateWithGrowth({ growth_a: { proficiency: { prof_a: 5 } } }), data)
+  );
+  assert.strictEqual(r3.events.length, 0);
+  assert.strictEqual(r3.state.actors.player_1.growth.growth_a.proficiency.prof_a, 5);
+
+  // 4. 단일 threshold 통과 (before=5, add=10 -> after=15, at=10만 fire)
+  const r4 = applyEffects(
+    [{ op: "proficiency", id: "prof_a", add: 10 }],
+    ctxWithData(stateWithGrowth({ growth_a: { proficiency: { prof_a: 5 } } }), data)
+  );
+  assert.strictEqual(r4.state.signals.thresh_10, 1);
+  assert.strictEqual(r4.state.signals.thresh_20, undefined, "only the crossed threshold fires");
+
+  // 5. 동시에 여러 threshold 통과 (before=0, add=25 -> after=25, at=10/at=20 모두 fire)
+  const r5 = applyEffects([{ op: "proficiency", id: "prof_a", add: 25 }], ctxWithData(stateWithGrowth({}), data));
+  assert.strictEqual(r5.state.signals.thresh_10, 1);
+  assert.strictEqual(r5.state.signals.thresh_20, 1);
+
+  // 6. threshold 순서 보장: at 오름차순 (낮은 것부터) 처리
+  const eventTypes6 = r5.events.map((e) => e.type + ":" + (e.data.key ?? ""));
+  const idx10 = eventTypes6.indexOf("signal.raised:thresh_10");
+  const idx20 = eventTypes6.indexOf("signal.raised:thresh_20");
+  assert.ok(idx10 !== -1 && idx20 !== -1 && idx10 < idx20, "a lower `at` threshold must fire before a higher one");
+
+  // 7. threshold reward depth-first 실행: proficiency.changed 다음 즉시 순서대로 실행됨
+  assert.deepStrictEqual(r5.events.map((e) => e.type), ["proficiency.changed", "signal.raised", "signal.raised"]);
+
+  // 8. 기존 값이 이미 threshold를 넘은 경우 -> 재발화하지 않음
+  const r8 = applyEffects(
+    [{ op: "proficiency", id: "prof_a", add: 5 }],
+    ctxWithData(stateWithGrowth({ growth_a: { proficiency: { prof_a: 12 } } }), data)
+  );
+  assert.strictEqual(r8.state.signals, undefined, "before=12 already past at=10, and 17 does not reach at=20 -> no threshold fires");
+
+  // 9. malformed add -> throw
+  const ctx9 = ctxWithData(stateWithGrowth({}), data);
+  [1.5, NaN, Infinity, -Infinity, "3", null, undefined, {}].forEach((bad) => {
+    assert.throws(() => applyEffects([{ op: "proficiency", id: "prof_a", add: bad }], ctx9), TypeError, "proficiency add=" + String(bad));
+  });
+  assert.throws(() => applyEffects([{ op: "proficiency", id: 42, add: 1 }], ctx9), TypeError, "malformed `id` must throw");
+
+  // 10. negative add -> throw
+  assert.throws(() => applyEffects([{ op: "proficiency", id: "prof_a", add: -1 }], ctx9), TypeError, "negative proficiency add must throw");
+
+  // 11. input immutability
+  const state11 = deepFreeze(stateWithGrowth({ growth_a: { proficiency: { prof_a: 5 } } }));
+  const stateBefore11 = snapshot(state11);
+  const effects11 = deepFreeze([{ op: "proficiency", id: "prof_a", add: 10 }]);
+  const effectsBefore11 = snapshot(effects11);
+  const ctx11 = deepFreeze(ctxWithData(state11, data));
+  const result11 = applyEffects(effects11, ctx11);
+  assert.deepStrictEqual(snapshot(state11), stateBefore11, "input state must be unchanged");
+  assert.deepStrictEqual(snapshot(effects11), effectsBefore11, "input effects must be unchanged");
+  assert.notStrictEqual(result11.state, ctx11.state);
+  assert.strictEqual(result11.state.actors.player_1.growth.growth_a.proficiency.prof_a, 15);
+
+  // 12. determinism
+  const runProf = () => applyEffects([{ op: "proficiency", id: "prof_a", add: 25 }], ctxWithData(stateWithGrowth({}), data));
+  assert.deepStrictEqual(runProf(), runProf(), "same (effects, ctx) must always produce the same result");
+
+  // 13. JSON round-trip
+  const result13 = runProf();
+  assert.deepStrictEqual(JSON.parse(JSON.stringify(result13.state)), result13.state);
+  assert.deepStrictEqual(JSON.parse(JSON.stringify(result13.events)), result13.events);
+
+  // 14. visibility (D-31); 정의 없는 proficiency id는 clamp/threshold 없이 그냥 누적된다
+  const r14 = applyEffects(
+    [{ op: "proficiency", id: "undefined_prof", add: 5, subject: "self", system: "growth_a" }],
+    ctxWithData(stateWithGrowth({}), data)
+  );
+  assert.strictEqual(r14.state.actors.player_1.growth.growth_a.proficiency.undefined_prof, 5, "no definition -> no clamp/thresholds, just accumulate");
+  assert.strictEqual(r14.events[0].visibility, "player");
+
+  // 15. missing/unresolvable subject -> skip (D-29), no throw, no event
+  const noTargetCtx = { state: stateWithGrowth({}), data, actorId: "player_1" };
+  const r15 = applyEffects([{ op: "proficiency", id: "prof_a", add: 5, subject: "target" }], noTargetCtx);
+  assert.strictEqual(r15.events.length, 0);
+  assert.deepStrictEqual(r15.state, noTargetCtx.state, "unresolvable subject leaves state unchanged");
+}
+
+testExpEffect();
+testProficiencyEffect();
+
+console.log("V2-Core-03/04/05/06 effects.test.js: all checks passed");

@@ -5,10 +5,11 @@
 // Effect (V2-Core-03): flag/signal/time/if.
 // Effect (V2-Core-04): stat/hp/money/item/relation (add/score only; D-29,
 // D-31).
-// Effect (V2-Core-05): skill/trait/unlock/case. exp/proficiency are NOT
-// implemented (D-41, D-42 blockers -- see the comment above
-// findGrowthDefinition): their §6.4 level-up/threshold cascades need
-// recursive Effect application with unspecified semantics.
+// Effect (V2-Core-05): skill/trait/unlock/case.
+// Effect (V2-Core-06): exp/proficiency (D-41, D-42 resolved -- §6.4.1/6.4.2).
+// Level-up/threshold reward lists are applied via the same applyEffectList
+// used by if.then/else, with a reward ctx whose actorId is overridden to
+// the leveling/proficient actor (same pattern as §9 succession's ctx).
 // No move/rumor/fact/narrate/choice/handler yet, no death trigger (§9), no
 // check(), no Resolvable — applyEffects is still not wired into engine.js's
 // step() (D-40).
@@ -501,21 +502,153 @@ function applyRelationEffect(effect, workingState, events, ctx) {
   });
 }
 
-// -- Growth Effects (§6, V2-Core-05: skill/trait/unlock/case only) ----------
-//
-// exp/proficiency are NOT implemented (D-41, D-42): §6.4's level-up and
-// threshold-crossing rules require recursively applying data-defined Effect
-// lists (levelRewards/thresholds[].effects), and several details needed to
-// do that safely are not specified anywhere (ctx for the nested apply,
-// negative-amount/delevel semantics, an upper bound on exp, the level.up
-// event's data shape, multi-threshold-crossing order). Guessing any of
-// these would be inventing contract, not implementing it.
+// -- Growth Effects (§6, V2-Core-05: skill/trait/unlock/case; V2-Core-06:
+// exp/proficiency, D-41/D-42 resolved -- §6.4.1/6.4.2) ----------------------
 
-// Reused by skill/trait (kept separate from stat's findStatDefinition in
-// evaluateCondition's helpers so V2-Core-04's stat code stays untouched).
+// Reused by skill/trait/exp/proficiency (kept separate from stat's
+// findStatDefinition in evaluateCondition's helpers so V2-Core-04's stat
+// code stays untouched).
 function findGrowthDefinition(ctx, system, collectionKey, id) {
   const list = ctx.data?.growthSystems?.[system]?.[collectionKey];
   return Array.isArray(list) ? list.find((item) => isPlainObject(item) && item.id === id) : undefined;
+}
+
+function findLevelRewards(ctx, system, level) {
+  const rewards = ctx.data?.growthSystems?.[system]?.levelRewards;
+  const list = isPlainObject(rewards) ? rewards[String(level)] : undefined;
+  return Array.isArray(list) ? list : undefined;
+}
+
+// expTable-based level formula (D-41, §6.4.1): rawLevel = count of thresholds
+// cleared, clamped by level.max when present. levelDef itself may be null/
+// undefined (level-less growth system) -> undefined signals "no level concept".
+function computeLevel(exp, levelDef) {
+  if (!isPlainObject(levelDef) || !Array.isArray(levelDef.expTable)) return undefined;
+  const rawLevel = levelDef.expTable.filter((v) => Number.isFinite(v) && exp >= v).length;
+  return Number.isInteger(levelDef.max) ? Math.min(rawLevel, levelDef.max) : rawLevel;
+}
+
+// exp Effect (D-41, §6.4.1): {op:"exp", amount, subject?, system?}.
+// amount must be a non-negative integer (negative/NaN/Infinity/non-integer
+// -> malformed, throw, D-28). levelRewards for each level gained are applied
+// sequentially, depth-first, via the same applyEffectList used elsewhere,
+// with a reward ctx whose actorId is the leveling actor (§9 succession
+// pattern). amount>=0 plus a finite level.max structurally bounds the
+// cascade -- no separate recursion-limit mechanism is needed.
+function applyExpEffect(effect, workingState, events, ctx) {
+  if (!Number.isInteger(effect.amount) || effect.amount < 0) {
+    throw new TypeError("exp Effect requires a non-negative integer `amount`");
+  }
+  if (effect.system !== undefined && typeof effect.system !== "string") {
+    throw new TypeError("exp Effect's `system`, when present, must be a string");
+  }
+
+  const resolved = resolveActor(effect.subject, ctx, workingState);
+  if (!resolved) return; // D-29: skip
+
+  const system = resolveGrowthSystemId(effect, ctx);
+  if (system === undefined) return; // D-29: skip
+
+  const actor = resolved.actor;
+  if (!isPlainObject(actor.growth)) actor.growth = {};
+  if (!isPlainObject(actor.growth[system])) actor.growth[system] = { level: 1, exp: 0 };
+  const growthState = actor.growth[system];
+  if (!Number.isInteger(growthState.exp)) growthState.exp = 0;
+  if (!Number.isInteger(growthState.level)) growthState.level = 1;
+
+  const before = growthState.exp;
+  const after = Math.min(MAX_SAFE, before + effect.amount);
+  const delta = after - before;
+  growthState.exp = after;
+  if (delta === 0) return; // D-30: no actual exp change -> no event, no level processing
+
+  events.push({
+    minute: workingState.time.minute,
+    type: "exp.gained",
+    visibility: isPlayerActor(resolved.id, workingState) ? "player" : "internal",
+    actorId: resolved.id,
+    data: { system, delta }
+  });
+
+  const levelDef = ctx.data?.growthSystems?.[system]?.level;
+  const newLevel = computeLevel(after, levelDef);
+  if (newLevel === undefined) return; // level-less growth system (§6.4.1): exp only
+
+  const oldLevel = growthState.level;
+  if (newLevel <= oldLevel) return;
+
+  const rewardCtx = { ...ctx, actorId: resolved.id };
+  for (let level = oldLevel + 1; level <= newLevel; level += 1) {
+    growthState.level = level;
+    const rewards = findLevelRewards(ctx, system, level);
+    if (rewards) applyEffectList(rewards, workingState, events, rewardCtx);
+    events.push({
+      minute: workingState.time.minute,
+      type: "level.up",
+      visibility: isPlayerActor(resolved.id, workingState) ? "player" : "internal",
+      actorId: resolved.id,
+      data: { system, from: level - 1, to: level }
+    });
+  }
+}
+
+// proficiency Effect (D-42, §6.4.2): {op:"proficiency", id, add, subject?, system?}.
+// add must be a non-negative integer (D-28). The definition's `max` is a
+// hard clamp (falls back to MAX_SAFE when undefined). Thresholds are
+// processed in ascending `at` order; only before<at<=after fires; each
+// threshold's effects run depth-first via the same reward-ctx pattern as
+// exp. No re-entry/un-firing logic: growth here is monotonic-only (add>=0).
+function applyProficiencyEffect(effect, workingState, events, ctx) {
+  if (typeof effect.id !== "string") {
+    throw new TypeError("proficiency Effect requires a string `id`");
+  }
+  if (!Number.isInteger(effect.add) || effect.add < 0) {
+    throw new TypeError("proficiency Effect requires a non-negative integer `add`");
+  }
+  if (effect.system !== undefined && typeof effect.system !== "string") {
+    throw new TypeError("proficiency Effect's `system`, when present, must be a string");
+  }
+
+  const resolved = resolveActor(effect.subject, ctx, workingState);
+  if (!resolved) return; // D-29: skip
+
+  const system = resolveGrowthSystemId(effect, ctx);
+  if (system === undefined) return; // D-29: skip
+
+  const actor = resolved.actor;
+  if (!isPlainObject(actor.growth)) actor.growth = {};
+  if (!isPlainObject(actor.growth[system])) actor.growth[system] = {};
+  if (!isPlainObject(actor.growth[system].proficiency)) actor.growth[system].proficiency = {};
+  const profMap = actor.growth[system].proficiency;
+
+  const before = Number.isInteger(profMap[effect.id]) ? profMap[effect.id] : 0;
+  const definition = findGrowthDefinition(ctx, system, "proficiencies", effect.id);
+  const max = definition && Number.isInteger(definition.max) ? definition.max : MAX_SAFE;
+  const after = Math.min(max, Math.max(0, before + effect.add));
+  const delta = after - before;
+  profMap[effect.id] = after;
+  if (delta === 0) return; // D-30: add=0 or clamp absorbed the whole change -> no event
+
+  events.push({
+    minute: workingState.time.minute,
+    type: "proficiency.changed",
+    visibility: isPlayerActor(resolved.id, workingState) ? "player" : "internal",
+    actorId: resolved.id,
+    data: { id: effect.id, delta }
+  });
+
+  const thresholds = definition && Array.isArray(definition.thresholds) ? definition.thresholds : [];
+  const crossed = thresholds
+    .filter((t) => isPlainObject(t) && Number.isFinite(t.at) && before < t.at && t.at <= after)
+    .sort((a, b) => a.at - b.at);
+  if (crossed.length === 0) return;
+
+  const rewardCtx = { ...ctx, actorId: resolved.id };
+  crossed.forEach((threshold) => {
+    if (Array.isArray(threshold.effects)) {
+      applyEffectList(threshold.effects, workingState, events, rewardCtx);
+    }
+  });
 }
 
 function applySkillEffect(effect, workingState, events, ctx) {
@@ -707,6 +840,10 @@ function applyOneEffect(effect, workingState, events, ctx) {
       return applyItemEffect(effect, workingState, events, ctx);
     case "relation":
       return applyRelationEffect(effect, workingState, events, ctx);
+    case "exp":
+      return applyExpEffect(effect, workingState, events, ctx);
+    case "proficiency":
+      return applyProficiencyEffect(effect, workingState, events, ctx);
     default:
       throw new TypeError("Unknown Effect op: " + JSON.stringify(effect.op));
   }

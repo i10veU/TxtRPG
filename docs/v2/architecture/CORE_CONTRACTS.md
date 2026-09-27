@@ -564,11 +564,10 @@ rollDie(rng, sides)    = nextUint32의 value % sides + 1
 
 > **구현 상태**: `flag`, `signal`, `time`, `if`(V2-Core-03), `stat`, `hp`, `money`, `item`, `relation`
 > (V2-Core-04), `skill`, `trait`, `unlock`, `case`(V2-Core-05)까지 13개를 실제로 구현했다(아래
-> 스키마가 현재 확정된 인자명이다, D-37). `exp`, `proficiency`는 §6.4의 레벨업/임계값 보상 cascade가
-> 재귀적 Effect 적용과 여러 미정 사항(음수 amount, exp 상한, `level.up` 이벤트 schema, 한 번에 여러
-> threshold를 넘는 경우의 처리 순서)을 요구해 **의도적으로 미구현**이다 (D-41, D-42, blocker로 보고됨).
-> 나머지(`move`/`rumor`/`fact`/`narrate`/`choice`/`handler`)는 아직 계약 초안 단계이며, 각각을
-> 구현하는 시점에 이 표와 4.1절의 D-26~D-30 원칙에 맞게 다시 검토·확정한다.
+> 스키마가 현재 확정된 인자명이다, D-37). `exp`, `proficiency`는 **계약은 확정했지만 코드는 아직
+> 구현하지 않았다** (D-41, D-42 **resolved** — 6.4절 참고). 나머지(`move`/`rumor`/`fact`/`narrate`/
+> `choice`/`handler`)는 아직 계약 초안 단계이며, 각각을 구현하는 시점에 이 표와 4.1절의 D-26~D-30
+> 원칙에 맞게 다시 검토·확정한다.
 >
 > **skill/trait/unlock도 D-31의 subject 기준 visibility를 따른다.** 아래 세 행의 "player" 하드코딩은
 > V2-Core-05에서 stat/hp/money/item과 동일하게 "subject 기준(대상이 현재 player actor면 player, 아니면
@@ -601,8 +600,8 @@ rollDie(rng, sides)    = nextUint32의 value % sides + 1
 | `flag` | `{op, key, value}` | **구현됨.** `key`는 string, `value`는 반드시 boolean(그 외 malformed). `state.flags`가 없으면 lazy 생성. 기존 값과 같으면 no-op(이벤트 없음) — 이전 초안의 `set`(임의 JSON, null이면 삭제)은 이 4개 op 구현 범위에서 `value`(boolean 전용, 삭제 없음)로 좁혀 확정했다(D-37). 문자열/숫자 flag나 키 삭제가 필요해지면 그때 별도 op나 인자를 추가한다 | `flag.changed` (internal), `data:{key, value}` |
 | `signal` | `{op, key, add}` | **구현됨.** `key`는 string, `add`는 정수(기본값 없음 — 생략하면 malformed, 이전 초안의 "기본 add=1"은 폐기(D-37)). `state.signals`가 없으면 lazy 생성. 결과는 `[0, Number.MAX_SAFE_INTEGER]`로 clamp. 실제 변화량(delta = 적용 후−적용 전)이 0이면 이벤트 없음 | `signal.raised` (internal), `data:{key, delta: 실제 변화량}` |
 | `item` | `{op, item, add, subject?}` | **구현됨.** `item`은 string, `add`는 정수(그 외 malformed→throw). subject 해석은 위 공통 규칙. 수량을 `[0, Number.MAX_SAFE_INTEGER]`로 clamp하며 변경한다. 0이 되면 키 삭제(기존 계약 유지) | `item.changed` (subject 기준, D-31), `data:{item, delta}` |
-| `exp` | `{op, amount}` | **미구현(blocker, D-41).** 6.4절 레벨 곡선 적용 | `exp.gained` (+ `level.up`) (player) |
-| `proficiency` | `{op, id, add}` | **미구현(blocker, D-42).** 6.4절 임계값 보상 | `proficiency.changed` (player) |
+| `exp` | `{op, amount, subject?, system?}` | **계약 확정, 코드 미구현(D-41 resolved — 6.4절).** `amount`는 0 이상 정수(음수는 malformed→throw). subject/system 해석은 stat과 동일 공통 규칙. `actor.growth[system].exp += amount`, 레벨은 `expTable`로 재계산해 `level.max`로 clamp, 넘은 레벨마다 `levelRewards[level]`을 순서대로 적용 | `exp.gained`(subject 기준, D-31, `data:{system,delta}`) + 레벨마다 `level.up`(`data:{system,from,to}`) |
+| `proficiency` | `{op, id, add, subject?, system?}` | **계약 확정, 코드 미구현(D-42 resolved — 6.4절).** `id`는 string, `add`는 0 이상 정수(음수는 malformed→throw). subject/system 해석은 공통 규칙. `actor.growth[system].proficiency[id]`를 `[0,max]`로 clamp하며 갱신(정의를 못 찾으면 상한 없음, stat과 동일), 넘은 threshold마다(`at` 오름차순) `effects`를 적용 | `proficiency.changed`(subject 기준, D-31, `data:{id,delta}`) |
 | `skill` | `{op, skill, add?:1, subject?, system?}` | **구현됨.** `skill`은 string, `add`는 있으면 정수(생략 시 1, 그 외 malformed→throw). subject/system 해석은 stat과 동일(4.2절 상단 공통 규칙). `actor.growth[system].skills[skill]`을 `add`만큼 바꾸고 `data.growthSystems[system].skills`에서 정의를 찾아 `[0,maxRank]`로 clamp(정의를 못 찾으면 상한 없음, stat과 동일). 0이면 키 삭제(기존 계약 유지) | `skill.changed` (subject 기준, D-31), `data:{skill, delta}` |
 | `trait` | `{op, trait, remove?:false, subject?, system?}` | **구현됨.** `trait`은 string, `remove`는 있으면 boolean(그 외 malformed→throw). subject/system 해석은 공통 규칙. `remove:true`면 `actor.growth[system].traits[trait]`을 삭제(없으면 no-op). 추가 시 `data.growthSystems[system].traits`에서 `trait`의 정의를 찾아 `exclusive` 목록에 있는, 현재 보유 중인 다른 trait을 함께 제거한다(정의를 못 찾으면 exclusive 처리 없이 추가만 한다) | `trait.changed` (subject 기준, D-31), `data:{trait, added, removedExclusive?}`(제거 시 `data:{trait, added:false}`) |
 | `unlock` | `{op, id, subject?, system?}` | **구현됨.** `id`는 string(그 외 malformed→throw). subject/system 해석은 공통 규칙. `actor.growth[system].unlocks[id] = true`(idempotent — 이미 있으면 no-op) | `unlock.granted` (subject 기준, D-31; 이미 보유하면 이벤트 없음), `data:{id}` |
@@ -821,9 +820,10 @@ rollDie(rng, sides)    = nextUint32의 value % sides + 1
 
 ### 6.4 성장 규칙
 
-> **구현 상태 (V2-Core-05)**: 이 절이 설명하는 `exp`/`proficiency` Effect는 아직 구현하지 않았다
-> (D-41, D-42 blocker). `skill`/`trait`/`unlock`은 구현했다(4.2절) — 이들은 이 절의 레벨/임계값
-> 곡선과 무관하게 동작한다.
+> **구현 상태 (V2-Core-06 계약 검토)**: 이 절이 설명하는 `exp`/`proficiency` Effect의 **계약은
+> 확정**되었다(D-41, D-42 **resolved**, 아래 6.4.1/6.4.2). **코드는 아직 구현하지 않았다** —
+> 다음 작업에서 여기 적힌 계약 그대로 `web/v2/core/rules.js`에 구현한다. `skill`/`trait`/`unlock`은
+> 이미 구현했다(4.2절) — 이들은 이 절의 레벨/임계값 곡선과 무관하게 동작한다.
 
 - exp: 누적한 뒤 `expTable`을 넘은 만큼 레벨을 올린다. 한 번에 여러 레벨이 오를 수 있으며,
   레벨마다 `levelRewards[level]`을 순서대로 적용하고 `level.up` 이벤트를 발생시킨다.
@@ -832,6 +832,93 @@ rollDie(rng, sides)    = nextUint32의 value % sides + 1
   - 이유: 레벨 수치 경쟁이 세계 탐험을 막지 않게 하고, 성장이 새 행동과 선택지로 이어지게 한다.
   - 확장: 레벨 없는 성장체계(`level: null`)도 같은 스키마로 표현할 수 있다.
 - 스탯 포인트를 직접 배분(플레이어가 선택)하는 기능은 스키마에 없다. 필요하면 `choice` Effect로 levelRewards에서 제시한다 (D-12).
+
+#### 6.4.1 `exp` Effect 계약 (D-41 resolved)
+
+**입력**: `{"op":"exp", "amount":<정수 ≥0>, "subject"?:Subject, "system"?:"<id>"}`. 인자 이름은 이미
+확정되어 있던 §4.2 초안(`amount`)을 그대로 쓴다 — `add`로 바꾸지 않는다. `subject`/`system` 해석은
+4.2절 상단 공통 규칙(stat과 동일)을 그대로 재사용한다.
+
+- **음수 금지 (D-41-2)**: `amount`는 `Number.isInteger(amount) && amount >= 0`이어야 한다. 음수는
+  malformed → **throw**(D-28). `amount:0`은 다른 누적형 Effect(signal/stat/skill)와 동일하게 합법적인
+  no-op이다(이벤트 없음). **경험치 손실/디레벨은 이 Effect로 표현하지 않는다** — 별도 시스템이나
+  handler가 필요해지면 그때 새로 설계한다. 기존 철학과의 충돌: 없음 — AGENTS.md/CORE_CONTRACTS.md
+  어디에도 "성장이 되돌아갈 수 있어야 한다"는 요구가 없고, 경험치의 단조 증가는 통상적인 RPG 관행이다.
+- **level 계산 (D-41-3)**: 새 level 계산 공식을 만들지 않는다. §6.1의 기존 주석을 그대로 기계적으로
+  적용한다 — `expTable`의 인덱스 `i`는 "레벨 `i+1`에 필요한 누적 exp"이므로:
+  ```
+  rawLevel = expTable.filter(v => exp >= v).length      // 1-based, expTable[0]이 보통 0이라 exp>=0이면 항상 ≥1
+  level    = level.max가 있으면 Math.min(rawLevel, level.max), 없으면 rawLevel
+  ```
+  `data.growthSystems[system].level`이 `null`이거나 정의 자체가 없으면 **레벨 없는 체계**다 — `exp`는
+  그대로 누적되지만(§6.3 참고용으로 보존) `level`은 절대 바뀌지 않고 `levelRewards`도 적용하지 않는다.
+  `exp` 자체의 상한은 다른 누적형 값과 동일하게 `Number.MAX_SAFE_INTEGER`다(안전 상한, 실질적으로
+  도달하지 않음). `level.max`에 이미 도달한 뒤에도 exp는 계속 쌓이지만 level과 levelRewards는 더
+  진행되지 않는다.
+  - `actor.growth[system]`이 아직 없으면(lazy) `{level:1, exp:0}`에서 시작한다(§6.3 기본 GrowthState와 동일).
+- **levelRewards 적용 순서 (D-41-4)**: 한 번의 `exp` Effect로 `oldLevel`에서 `newLevel`로 여러 레벨을
+  넘으면, `oldLevel+1, oldLevel+2, ..., newLevel` 순서로 각 레벨의 `levelRewards[String(level)]`(정의가
+  있을 때만)을 **같은 작업 사본을 공유**하며 depth-first로 즉시 적용한다(기존 `if.then`과 동일한
+  `applyEffectList` 재사용 — 새 메커니즘을 만들지 않는다). 그 직후 그 레벨의 `level.up` 이벤트를 낸다.
+  - **reward ctx**: `resolvedActorId`(exp Effect의 subject가 가리키는 실제 actor)를 `actorId`로 하는
+    `{ ...ctx, actorId: resolvedActorId }`를 만들어 넘긴다 — §9 succession이 이미 "새 캐릭터/이전
+    캐릭터"로 ctx를 재구성하는 것과 같은 패턴이다. 이래야 reward 안의 `subject:"self"`(생략 시 기본값)가
+    실제로 레벨업한 actor를 가리킨다. `targetId`/`data`는 원래 ctx 그대로 둔다.
+  - **재귀(cascade) 허용, 새 제한 불필요**: reward 안에 다시 `exp`/`proficiency` Effect가 있으면
+    자연스럽게 재귀 호출되어 추가 레벨업/threshold를 유발할 수 있다. **무한 루프는 구조적으로
+    불가능하다** — `amount`가 음수를 허용하지 않아 exp가 단조 증가하고, `level`은 `level.max`(유한한
+    데이터 값)로 상한이 있으므로, 한 번의 최상위 호출에서 처리되는 "레벨 전이" 총 횟수는
+    `level.max - 최초 level`을 넘을 수 없다. 그래서 trigger(§2.5 10단계)처럼 별도의 "연쇄 1단계 제한"을
+    새로 둘 필요가 없다 — 이미 있는 D-41-2(음수 금지)와 데이터의 `level.max`가 함께 무한 루프를 막는다.
+- **`level.up` 이벤트 (D-41-5)**: 레벨마다(여러 레벨을 넘으면 레벨 수만큼) 각각 하나씩 낸다 — "최종
+  레벨에 대해 1개"가 아니라 "레벨당 1개"다(§6.4 기존 문구 "레벨마다... 이벤트를 발생시킨다"와 일치).
+  ```jsonc
+  { "minute": ..., "type": "level.up", "visibility": <D-31>, "actorId": resolvedActorId,
+    "data": { "system": "<growthSystemId>", "from": <이전 레벨>, "to": <이전 레벨+1> } }
+  ```
+  visibility는 D-31 그대로(대상이 `state.player.actorId`면 `player`, 아니면 `internal`).
+- **`exp.gained` 이벤트**: exp 자체가 실제로 바뀌면(위에서 `amount>0`이면 항상) 1개 낸다.
+  `data:{system, delta}` — `delta`는 실제 적용된 변화량(현재는 상한에 걸리지 않는 한 `amount`와 같다).
+  `amount:0`이거나 대상을 해석할 수 없으면(D-29 skip) 이벤트 없음.
+
+#### 6.4.2 `proficiency` Effect 계약 (D-42 resolved)
+
+**입력**: `{"op":"proficiency", "id":"<string>", "add":<정수 ≥0>, "subject"?:Subject, "system"?:"<id>"}`.
+`id`/`add`는 §4.2 초안에 이미 있던 이름을 그대로 쓴다.
+
+- **clamp 확정 (D-42-1)**: `[0, max]`로 clamp한다 — Proficiency 정의(§6.2)의 `max` 필드를 **하드
+  clamp 상한으로 확정**한다(이전 blocker였던 "메타데이터인지 clamp인지" 불명확함을 여기서 해소).
+  정의를 찾지 못하면 stat/skill과 동일하게 하한(0)만 적용하고 상한은 두지 않는다(안전 상한은
+  `Number.MAX_SAFE_INTEGER`). 미존재 proficiency는 0에서 시작(lazy, 기존 stat/skill 패턴과 동일).
+- **음수 금지 (D-42-1 연장)**: `add`는 `Number.isInteger(add) && add >= 0`이어야 한다. 음수는
+  malformed → throw. exp와 같은 이유이며, 이 결정 하나로 3-3의 하위 질문들이 전부 해소된다:
+  - "35 → 15처럼 감소하는 경우"는 애초에 발생하지 않는다(음수 금지).
+  - "이미 넘은 threshold를 다시 넘는 경우"(재진입)도 proficiency가 단조 증가이므로 발생할 수 없다 —
+    한번 `at`를 넘으면 다시 그 아래로 내려가지 않으므로 §6.4의 기존 규칙("이전 값 < at ≤ 새 값")만으로
+    각 threshold가 평생 정확히 한 번만 발동한다는 것이 보장된다. **별도의 "이미 발동한 threshold"
+    추적 필드는 필요 없다**(새 GrowthState 필드를 만들지 않는다는 제약과도 맞는다).
+- **threshold 적용 순서 (D-42-2)**: `thresholds` 배열을 **`at` 오름차순으로 정렬**한 뒤(데이터 저자가
+  이미 정렬해 뒀다고 가정하지 않는다), `이전 값 < at ≤ 새 값`을 만족하는 threshold를 순서대로 통과하며
+  각 `effects`를 depth-first로 즉시 적용한다(같은 작업 사본 공유, exp의 levelRewards와 동일한 구조).
+  예: `0 → 35`, thresholds `[10,20,30]`이면 10 → 20 → 30 순서로 실행한다.
+  - **reward ctx**: exp와 동일하게 `{ ...ctx, actorId: resolvedActorId }`.
+  - **재귀(cascade)**: exp와 같은 이유로 안전하다 — `add` 음수 금지 + `thresholds` 배열이 유한하므로,
+    한 번의 최상위 호출에서 같은 `id`의 threshold가 두 번 발동할 수 없고 전체 순회는 유한하다. 다른
+    proficiency나 exp를 연쇄로 건드려도 각각 자신의 유한한 경계(자기 `thresholds` 길이, `level.max`)
+    안에서 끝난다.
+- **event**: `proficiency.changed`, subject 기준 visibility(D-31), `data:{id, delta}`(실제 적용된
+  변화량). threshold 통과 자체를 알리는 별도 이벤트는 두지 않는다 — threshold의 `effects`가 만드는
+  이벤트(예: `unlock.granted`)로 충분히 드러난다.
+
+#### 6.4.3 공통: 재사용한 기존 패턴 (새로 만든 것 없음)
+
+- 중첩 Effect 적용: 기존 `applyEffectList`를 그대로 재사용(`if.then`/`else`와 동일 메커니즘).
+- reward/threshold ctx의 `actorId` 재구성: §9 succession의 `{actorId: 새 캐릭터, targetId: 이전 캐릭터}`
+  패턴을 재사용.
+- lazy 초기화, `system` 해석, subject 해석, D-29 skip, D-31 visibility, D-30 이벤트 규칙: 모두
+  stat/skill/trait/unlock에 이미 구현된 것을 그대로 재사용한다. `web/v2/core/rules.js`의 기존
+  `resolveActor`/`resolveGrowthSystemId`/`resolveSubjectId`/`applyEffectList`를 새로 만들지 않고 그대로
+  호출한다.
 
 ---
 
@@ -1054,7 +1141,7 @@ state.knowledge["player_1"]["rum_a"] = {
 | JSON 안전성 | 모든 step 결과 state가 JSON 왕복 후 deepEqual이다 |
 | invalid action | 9개 reason code 각각에서 state가 입력과 deepEqual이고, rng, time이 변하지 않으며, 이벤트는 `action.rejected` 1개다 (state에 `seq`가 없으므로 검사 대상도 아니다) |
 | Condition | 연산자마다 참, 거짓, 누락 참조 케이스를 검사한다. `and` 빈 배열은 참, `or` 빈 배열은 거짓이다. `always`/`never`는 인자 없이 고정값을 반환한다. `eq`/`neq`/`gt`/`gte`/`lt`/`lte`는 숫자·문자열·타입 불일치·selector 미해석(`undefined`) 케이스를 모두 검사한다. 알 수 없는 op/selector는 (validateData 도입 전까지는) `false`로 평가된다. player 문맥의 `fact` selector는 항상 `undefined`로 해석되는지 검사한다 |
-| Effect | 연산자마다 적용, clamp, visibility를 검사한다. Effect ↔ Event 매핑은 "변화 있으면 이벤트 1개, 없으면 0개" 규칙(4.1절 D-30)을 기준으로 검사한다. `if` 분기(when true/false, else 생략, nested)와 순차 적용(앞 결과를 뒤가 즉시 보는지, 같은 작업 사본 공유)도 검사한다. malformed Effect는 throw, `if.when`이 malformed면 `evaluateCondition`의 `false`를 정상 분기로 받아들여 throw하지 않는지 검사한다(D-28). subject 기반 op(`stat`/`hp`/`money`/`item`/`relation`/`skill`/`trait`/`unlock`)는 self/target/명시 ID 해석, 타입 오류→throw vs 해석 실패→skip(D-29), player/internal visibility(D-31)도 검사한다. `trait`의 exclusive 제거, `unlock`의 idempotent, `case`의 lazy 생성/같은 stage no-op도 검사한다. V2-Core-05 범위: `flag`/`signal`/`time`/`if`/`stat`/`hp`/`money`/`item`/`relation`(add만)/`skill`/`trait`/`unlock`/`case` 13개 (`exp`/`proficiency`는 blocker로 미구현, D-41/D-42; 나머지는 미구현) |
+| Effect | 연산자마다 적용, clamp, visibility를 검사한다. Effect ↔ Event 매핑은 "변화 있으면 이벤트 1개, 없으면 0개" 규칙(4.1절 D-30)을 기준으로 검사한다. `if` 분기(when true/false, else 생략, nested)와 순차 적용(앞 결과를 뒤가 즉시 보는지, 같은 작업 사본 공유)도 검사한다. malformed Effect는 throw, `if.when`이 malformed면 `evaluateCondition`의 `false`를 정상 분기로 받아들여 throw하지 않는지 검사한다(D-28). subject 기반 op(`stat`/`hp`/`money`/`item`/`relation`/`skill`/`trait`/`unlock`)는 self/target/명시 ID 해석, 타입 오류→throw vs 해석 실패→skip(D-29), player/internal visibility(D-31)도 검사한다. `trait`의 exclusive 제거, `unlock`의 idempotent, `case`의 lazy 생성/같은 stage no-op도 검사한다. V2-Core-05 범위: `flag`/`signal`/`time`/`if`/`stat`/`hp`/`money`/`item`/`relation`(add만)/`skill`/`trait`/`unlock`/`case` 13개 구현됨. `exp`/`proficiency`는 계약 확정(D-41/D-42 resolved, 6.4절)이나 코드 미구현 — 구현 시 level/threshold cascade 순서, reward ctx의 actorId 재구성, 무한 재귀 불가능성(단조 증가+유한 상한)도 검사 대상에 추가한다. 나머지는 미구현 |
 | check | rng를 고정 주입해 tier 경계값(margin = 임계값, 임계값 - 1)을 검사한다. modifier 순서, opposed, 이름 difficulty, attempts와 retryPenalty, 누락 outcome 폴백도 검사한다 |
 | Growth | 경계를 넘는 exp에서 다중 레벨업과 levelRewards를 검사한다. proficiency 임계값이 한 번만 발동하는지, skill maxRank, trait exclusive, unlock idempotent, 여러 성장체계 공존도 검사한다 |
 | RelationshipGraph | 방향성, lazy 기본값, clamp, mode 카운트, lastDay, tags 정렬, Condition 참조를 검사한다 |
@@ -1118,8 +1205,8 @@ state.knowledge["player_1"]["rum_a"] = {
 | D-38 | 등록되지 않은 handler name | **정책만 정리, handler 자체는 미구현**: Condition의 `handler`는 Condition의 malformed 정책(false)을, Effect의 `handler`는 Effect의 malformed 정책(throw)을 따른다. 서로 다른 시스템이 각자의 기존 정책을 그대로 적용하는 것이므로 모순이 아니다 (4.4절) |
 | D-39 | `time` Effect와 day 경계 | **확정**: `time` Effect는 `minute`만 전진시키고 `day.started`를 만들지 않는다. day 경계 판정은 `step()` 9단계의 책임이다 (4.2절) |
 | D-40 | `engine.js`의 `wait`와 `applyEffects` 통합 여부 | **확정(이번엔 하지 않음)**: V2-Core-03에서는 `engine.js`를 수정하거나 `step()`에 연결하지 않는다. `applyEffects`는 독립적으로만 존재한다. 이벤트 형태(`time.advanced {minutes}`)만 기존 V2-Core-01과 맞춘다 |
-| D-41 | `exp` Effect의 레벨업 cascade | **블로커, 미해결**: `expTable` 비교로 레벨을 올리는 것 자체는 명확하지만, (1) 레벨마다 `levelRewards[level]`(Effect 배열)을 재귀적으로 `applyEffectList`에 적용해야 하는데 그 ctx(특히 subject)를 어떻게 구성할지, (2) 음수 `amount`(경험치 손실/디레벨) 처리, (3) exp 자체의 상한, (4) `level.up` 이벤트의 정확한 `data` 스키마(레벨 번호? 시스템 id?), (5) `level:null` 체계에서의 동작이 계약에 없다. 다음 작업에서 결정 |
-| D-42 | `proficiency` Effect의 clamp와 threshold cascade | **블로커, 미해결**: §4.2 원래 행이 "6.4절 임계값 보상"만 말할 뿐 **clamp 범위를 명시하지 않는다** — `max`가 하드 clamp인지 단순 메타데이터인지 불명확하다. `thresholds[].effects`를 D-41과 같은 재귀 적용 문제(ctx 구성, 음수 add로 인한 "역치 되돌리기" 여부, 한 번에 여러 threshold를 넘을 때 순서)도 그대로 가진다. 다음 작업에서 결정 |
+| D-41 | `exp` Effect의 레벨업 cascade | **확정(resolved, 6.4.1절)**: `amount≥0`(음수 malformed→throw, 디레벨 없음), level = `expTable.filter(v=>exp>=v).length`를 `level.max`로 clamp(§6.1 기존 주석 그대로), `level:null`이면 exp만 누적하고 레벨 없음, exp 상한은 `Number.MAX_SAFE_INTEGER`. `levelRewards[oldLevel+1..newLevel]`을 순서대로 depth-first 적용(reward ctx는 §9 succession과 같은 패턴으로 `actorId`만 재구성), 레벨마다 `level.up{system,from,to}` 1개. 무한 재귀는 "amount 음수 금지 + 유한한 level.max"로 구조적으로 불가능해 별도 연쇄 제한 불필요 |
+| D-42 | `proficiency` Effect의 clamp와 threshold cascade | **확정(resolved, 6.4.2절)**: `max`를 하드 clamp 상한으로 확정(`[0,max]`, 정의 없으면 상한 없음). `add≥0`(음수 malformed→throw) — 이 결정 하나로 감소/재진입/이미 넘은 threshold를 다시 넘는 문제가 전부 사라진다(단조 증가이므로 §6.4의 기존 "이전 값<at≤새 값" 규칙만으로 평생 1회 발동이 보장됨, 별도 추적 필드 불필요). `thresholds`를 `at` 오름차순 정렬 후 순서대로 depth-first 적용(reward ctx는 D-41과 동일 패턴). 무한 재귀는 D-41과 같은 이유로 구조적으로 불가능 |
 
 ---
 
@@ -1166,13 +1253,14 @@ state.knowledge["player_1"]["rum_a"] = {
 - 연산자: `skill`, `trait`(exclusive 처리 포함), `unlock`, `case` (D-31을 같은 카테고리에 확장 적용).
 - `exp`, `proficiency`는 **블로커로 미구현** (D-41, D-42) — §6.4의 레벨업/임계값 cascade가 재귀적
   Effect 적용과 여러 미정 사항을 요구해서, 계약이 명확해지기 전까지 구현하지 않기로 했다.
+  (이후 V2-Core-06에서 D-41/D-42를 resolved로 확정했다 — 6.4.1/6.4.2절. 코드는 여전히 미구현이며
+  작업 8에서 구현한다.)
 
 **다음 작업 후보**(순서대로, 각 작업은 사람의 승인 후 진행):
 
   - 작업 6: `move`, Resolvable과 `perform`/`move` action을 `step()`에 연결(D-40 재검토), 사망 트리거
     §9 연결과 D-34(목록 중간 사망) 해결
   - 작업 7: check
-  - 작업 8: `exp`/`proficiency` (D-41, D-42 해소 — 레벨업/임계값 cascade의 ctx·음수·상한·이벤트
-    schema를 먼저 결정한 뒤 구현)
+  - 작업 8: `exp`/`proficiency` 구현 (계약은 D-41/D-42로 확정됨, 6.4.1/6.4.2절 — 그대로 코드로 옮긴다)
   - 작업 9: `relation`의 `mode`/`tag`/`untag`, Fact/Rumor (`rumor`/`fact` Effect, D-24 해소)
   - 작업 10: 사망 계승 세부와 view
