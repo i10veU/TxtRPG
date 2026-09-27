@@ -9,7 +9,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { hashString, deriveSeed, nextUint32, rollDie } from "../../web/v2/core/rng.js";
-import { createInitialState, step, view } from "../../web/v2/core/engine.js";
+import { createInitialState, step, view, validateState, SCHEMA_VERSION } from "../../web/v2/core/engine.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, "..", "..");
@@ -860,4 +860,121 @@ function testView() {
 
 testView();
 
-console.log("V2-Core-01/11/12/13 core.test.js: all checks passed");
+// V2-Core-14 (D-55): validateState(state) -> string[]
+function testValidateState() {
+  const data = actionDataFixture();
+  const { state: fresh } = createInitialState({ worldSeed: "validate-check", data });
+  // give the actor some real growth/relation/knowledge data to exercise every
+  // checked path (D-55's 6 named integer fields + id format)
+  const rich = step(fresh, { type: "perform", actionId: "act_rest" }, data).state;
+  rich.actors.player_1.growth.growth_a = { exp: 3, stats: { str: 5 }, skills: {}, traits: {}, unlocks: {} };
+  rich.relations = { "npc_1:player_1": { score: 10, mode: "neutral", tags: [] } };
+  rich.knowledge = { player_1: { rum_a: { factId: "fact_a", claim: "x", confidence: 50 } } };
+
+  // 1. normal: a real, fully-populated engine state has zero errors
+  assert.deepStrictEqual(validateState(rich), []);
+
+  // 2. malformed: not a plain object -> single error, never throws
+  [null, undefined, "state", 42, []].forEach((bad) => {
+    assert.doesNotThrow(() => validateState(bad));
+    assert.deepStrictEqual(validateState(bad), ["state must be a plain object"]);
+  });
+
+  // 3. schemaVersion mismatch (not one of §2.1's 5 bullets, but required by
+  // the §10 load pipeline this function exists to serve, D-55)
+  assert.ok(
+    validateState({ ...rich, schemaVersion: 99 }).some((e) => e.includes("schemaVersion")),
+    "wrong schemaVersion must be reported"
+  );
+
+  // 4. non-integer quantities at exactly the 6 named locations (§2.1/D-55)
+  assert.ok(validateState({ ...rich, time: { minute: 1.5 } }).some((e) => e.includes("time.minute")));
+  const badHp = structuredClone(rich);
+  badHp.actors.player_1.hp.current = NaN;
+  assert.ok(validateState(badHp).some((e) => e.includes("hp.current")));
+  const badMoney = structuredClone(rich);
+  badMoney.actors.player_1.money = 1.5;
+  assert.ok(validateState(badMoney).some((e) => e.includes("money")));
+  const badScore = structuredClone(rich);
+  badScore.relations["npc_1:player_1"].score = 1.5;
+  assert.ok(validateState(badScore).some((e) => e.includes("score")));
+  const badExp = structuredClone(rich);
+  badExp.actors.player_1.growth.growth_a.exp = 1.5;
+  assert.ok(validateState(badExp).some((e) => e.includes("exp")));
+  const badStat = structuredClone(rich);
+  badStat.actors.player_1.growth.growth_a.stats.str = 1.5;
+  assert.ok(validateState(badStat).some((e) => e.includes("stats.str")));
+  const badConfidence = structuredClone(rich);
+  badConfidence.knowledge.player_1.rum_a.confidence = 1.5;
+  assert.ok(validateState(badConfidence).some((e) => e.includes("confidence")));
+
+  // 5. unknown reference / deliberately out-of-scope fields (D-55 narrowing):
+  // skill/proficiency/level and since/lastMinute are NOT checked, even when
+  // non-integer -- only the 6 literally-named fields are.
+  const outOfScope = structuredClone(rich);
+  outOfScope.actors.player_1.growth.growth_a.skills = { skill_a: 1.5 };
+  outOfScope.cases = { case_a: { stage: "s1", since: 1.5 } };
+  assert.deepStrictEqual(validateState(outOfScope), [], "skill/since are outside D-55's named scope, must not be flagged");
+
+  // 6. ID format: actor id, actor.id/key mismatch, locationId, player.actorId
+  const badActorId = structuredClone(rich);
+  badActorId.actors["Player_1"] = badActorId.actors.player_1;
+  delete badActorId.actors.player_1;
+  badActorId.player.actorId = "Player_1";
+  assert.ok(validateState(badActorId).some((e) => e.includes("actor id")));
+  const idMismatch = structuredClone(rich);
+  idMismatch.actors.player_1.id = "someone_else";
+  assert.ok(validateState(idMismatch).some((e) => e.includes("actor id")));
+  const badLocation = structuredClone(rich);
+  badLocation.actors.player_1.locationId = "Loc-Start";
+  assert.ok(validateState(badLocation).some((e) => e.includes("locationId")));
+  const badPlayerActorId = structuredClone(rich);
+  badPlayerActorId.player.actorId = "not:valid";
+  assert.ok(validateState(badPlayerActorId).some((e) => e.includes("player.actorId")));
+
+  // 7. no seq field (§2.1/§2.4)
+  const withSeq = structuredClone(rich);
+  withSeq.seq = 1;
+  assert.ok(validateState(withSeq).some((e) => e.includes("seq")));
+
+  // 8. JSON-unsafe values: undefined, NaN, Infinity, Map, Set, Date, function
+  const unsafe = structuredClone(rich);
+  unsafe.flags = { a: undefined, b: NaN, c: Infinity, d: new Map(), e: new Set(), f: new Date(), g: () => {} };
+  const unsafeErrors = validateState(unsafe);
+  assert.ok(unsafeErrors.some((e) => e.includes("undefined")));
+  assert.ok(unsafeErrors.some((e) => e.includes("non-finite")));
+  assert.ok(unsafeErrors.some((e) => e.includes("Map")));
+  assert.ok(unsafeErrors.some((e) => e.includes("Set")));
+  assert.ok(unsafeErrors.some((e) => e.includes("Date")));
+  assert.ok(unsafeErrors.some((e) => e.includes("function")));
+
+  // 9. no mutation: validateState never changes its input, even a broken one
+  const frozenRich = deepFreeze(structuredClone(rich));
+  const before = snapshot(frozenRich);
+  validateState(frozenRich);
+  assert.deepStrictEqual(snapshot(frozenRich), before);
+
+  // 10. determinism: same input -> same output every time
+  const results = new Set();
+  for (let i = 0; i < 5; i += 1) results.add(JSON.stringify(validateState(rich)));
+  assert.strictEqual(results.size, 1);
+
+  // 11. JSON round-trip: the error list itself, and re-validating a
+  // round-tripped valid state, both stay stable
+  assert.deepStrictEqual(JSON.parse(JSON.stringify(validateState(badHp))), validateState(badHp));
+  assert.deepStrictEqual(validateState(JSON.parse(JSON.stringify(rich))), []);
+
+  // 12. composition: a state produced by step() (not just createInitialState)
+  // must still validate cleanly, and the §2.5 stage-1 schemaVersion guard
+  // this function exists to front-run is exercised end-to-end.
+  const afterWait = step(rich, { type: "wait", minutes: 30 }, data).state;
+  assert.deepStrictEqual(validateState(afterWait), []);
+  assert.throws(() => step({ ...afterWait, schemaVersion: 99 }, { type: "wait", minutes: 1 }, data));
+  assert.deepStrictEqual(validateState({ ...afterWait, schemaVersion: 99 }), [
+    `schemaVersion mismatch: expected ${SCHEMA_VERSION}, got 99`
+  ]);
+}
+
+testValidateState();
+
+console.log("V2-Core-01/11/12/13/14 core.test.js: all checks passed");

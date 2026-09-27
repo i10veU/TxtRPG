@@ -32,6 +32,12 @@
 // Effect (V2-Core-13): narrate (D-52 resolved -- §4.2). `handler` is
 // deliberately not implemented (§4.4 callout) -- no real content needs it
 // yet, so no handlers.js registry exists (YAGNI, not a blocker).
+// Condition (V2-Core-14, D-54): the §3.2 "shorthand" ops (stat/flag/signal/
+// skill/trait/item/relation/fact/day/location/unlock/case/money) -- reuses
+// §3.1's common min/max/eq comparator (matchScalarArgs) and the existing
+// selector resolvers instead of a new per-op grammar. `rumor` stays
+// deferred (D-24 plus new unresolved fields, see D-54); `handler` is
+// already correctly `false` via the default branch (D-38, no registry).
 //
 // No host APIs (DOM/window/Date/Math.random/indexedDB/localStorage/fetch/
 // performance/crypto). ctx.state/data/effects/condition are never mutated
@@ -151,6 +157,100 @@ function resolveValue(value, ctx) {
   return undefined; // arrays or anything else are not a valid Value
 }
 
+// -- shorthand Condition ops (§3.2, D-54) ------------------------------------
+//
+// §3.1's common rule ("min/max(inclusive) for numeric comparisons, eq for
+// equality, no-arg means an existence/truthy check") is implemented once as
+// matchScalarArgs() and reused by every op below instead of inventing a
+// per-op comparator grammar. Values are resolved through the same helpers
+// the selectors (§3.2a) and Effects already use wherever the field names
+// match (resolveGrowthValue/resolveItem/resolveFact); `flag`/`signal` use
+// `key` (not the selector's `flag`/`signal` field name) so they read state
+// directly instead. `money` reads state directly too -- the selector's
+// `{money:true}` marker is a Value-grammar device this op doesn't need.
+
+function matchScalarArgs(value, args, defaultMinWhenBare) {
+  if (args.eq !== undefined) return value === args.eq;
+  const hasMin = args.min !== undefined;
+  const hasMax = args.max !== undefined;
+  if (hasMin && !isFiniteNumber(args.min)) return false;
+  if (hasMax && !isFiniteNumber(args.max)) return false;
+  if (!hasMin && !hasMax) {
+    if (defaultMinWhenBare !== undefined) return isFiniteNumber(value) && value >= defaultMinWhenBare;
+    return Boolean(value);
+  }
+  if (!isFiniteNumber(value)) return false;
+  if (hasMin && value < args.min) return false;
+  if (hasMax && value > args.max) return false;
+  return true;
+}
+
+// D-54: from defaults to target, to defaults to self (same as the `relation`
+// Effect's own D-43/§7.3 convention) -- the opposite of every other op's
+// self-default, so it can't reuse resolveSubjectId's own default directly.
+function evaluateRelationCondition(condition, ctx) {
+  const fromId = resolveSubjectId(condition.from !== undefined ? condition.from : "target", ctx);
+  const toId = resolveSubjectId(condition.to !== undefined ? condition.to : "self", ctx);
+  if (fromId === undefined || toId === undefined) return false;
+  const edge = ctx.state?.relations?.[fromId + ":" + toId];
+  const score = edge ? edge.score : 0;
+  const mode = edge ? edge.mode : "neutral";
+  const tags = edge?.tags ?? [];
+  const hasScoreArg = condition.min !== undefined || condition.max !== undefined || condition.eq !== undefined;
+  const hasModeArg = condition.mode !== undefined;
+  const hasTagArg = condition.tag !== undefined;
+  if (!hasScoreArg && !hasModeArg && !hasTagArg) return true; // no constraint given -> vacuously true (D-54)
+  if (hasScoreArg && !matchScalarArgs(score, condition)) return false;
+  if (hasModeArg && mode !== condition.mode) return false;
+  if (hasTagArg && !tags.includes(condition.tag)) return false;
+  return true;
+}
+
+// D-54: hourFrom/hourTo are both-or-neither; §3.2's own text fixes the
+// midnight-wraparound rule, inclusive bounds reuse the min/max convention.
+function evaluateDayCondition(condition, ctx) {
+  const minute = ctx.state?.time?.minute;
+  if (typeof minute !== "number") return false;
+  const day = Math.floor(minute / 1440);
+  const hour = Math.floor((minute % 1440) / 60);
+  const hasDayArg = condition.min !== undefined || condition.max !== undefined || condition.eq !== undefined;
+  if (hasDayArg && !matchScalarArgs(day, condition)) return false;
+  const hasFrom = condition.hourFrom !== undefined;
+  const hasTo = condition.hourTo !== undefined;
+  if (hasFrom !== hasTo) return false; // only makes sense as a pair
+  if (hasFrom && hasTo) {
+    if (!isFiniteNumber(condition.hourFrom) || !isFiniteNumber(condition.hourTo)) return false;
+    const inRange =
+      condition.hourFrom <= condition.hourTo
+        ? hour >= condition.hourFrom && hour <= condition.hourTo
+        : hour >= condition.hourFrom || hour <= condition.hourTo; // wraps midnight (§3.2)
+    if (!inRange) return false;
+  }
+  return true;
+}
+
+function evaluateLocationCondition(condition, ctx) {
+  const subjectId = resolveSubjectId(condition.subject, ctx);
+  const locationId = ctx.state?.actors?.[subjectId]?.locationId;
+  const hasAt = condition.at !== undefined;
+  const hasIn = condition.in !== undefined;
+  if (!hasAt && !hasIn) return false;
+  if (hasAt && locationId !== condition.at) return false;
+  if (hasIn && (!Array.isArray(condition.in) || !condition.in.includes(locationId))) return false;
+  return true;
+}
+
+function evaluateCaseCondition(condition, ctx) {
+  if (typeof condition.case !== "string") return false;
+  const stage = ctx.state?.cases?.[condition.case]?.stage;
+  const hasStage = condition.stage !== undefined;
+  const hasIn = condition.in !== undefined;
+  if (!hasStage && !hasIn) return false;
+  if (hasStage && stage !== condition.stage) return false;
+  if (hasIn && (!Array.isArray(condition.in) || !condition.in.includes(stage))) return false;
+  return true;
+}
+
 // -- comparison ops (§3.2, §3.2a) --------------------------------------------
 
 function evaluateComparison(op, condition, ctx) {
@@ -213,8 +313,42 @@ export function evaluateCondition(condition, ctx) {
     case "lt":
     case "lte":
       return evaluateComparison(condition.op, condition, ctx);
+    case "stat":
+      return matchScalarArgs(resolveGrowthValue("stat", "stats", condition, ctx), condition);
+    case "flag":
+      return matchScalarArgs(
+        typeof condition.key === "string" ? ctx.state?.flags?.[condition.key] : undefined,
+        condition
+      );
+    case "signal":
+      return matchScalarArgs(
+        typeof condition.key === "string" ? ctx.state?.signals?.[condition.key] ?? 0 : undefined,
+        condition
+      );
+    case "skill":
+      return matchScalarArgs(resolveGrowthValue("skill", "skills", condition, ctx), condition, 1);
+    case "trait":
+      return Boolean(resolveGrowthValue("trait", "traits", condition, ctx));
+    case "item":
+      return matchScalarArgs(resolveItem(condition, ctx), condition, 1);
+    case "relation":
+      return evaluateRelationCondition(condition, ctx);
+    case "fact":
+      return matchScalarArgs(resolveFact(condition, ctx), condition);
+    case "day":
+      return evaluateDayCondition(condition, ctx);
+    case "location":
+      return evaluateLocationCondition(condition, ctx);
+    case "unlock":
+      return Boolean(resolveGrowthValue("id", "unlocks", condition, ctx));
+    case "case":
+      return evaluateCaseCondition(condition, ctx);
+    case "money": {
+      const subjectId = resolveSubjectId(condition.subject, ctx);
+      return matchScalarArgs(ctx.state?.actors?.[subjectId]?.money, condition);
+    }
     default:
-      return false; // unknown op (§3.1, pending validateData)
+      return false; // unknown op, or `rumor`/`handler` (deliberately deferred, D-24/D-38) (§3.1, pending validateData)
   }
 }
 

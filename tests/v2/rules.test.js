@@ -337,6 +337,165 @@ function testNoForbiddenHostApis() {
   });
 }
 
+// V2-Core-14 (D-54): §3.2 shorthand Condition ops. `sysCtx` supplies
+// data.world.growthSystemId so the growth-backed ops (stat/skill/trait/
+// unlock) resolve without an explicit `system` argument, same default the
+// selectors already use (§3.2a).
+function sysCtx(state, overrides) {
+  return ctxWith({ state, data: { world: { growthSystemId: "sysA" } }, contextKind: "world", ...overrides });
+}
+
+function testShorthandStatSkillTraitUnlock() {
+  const growthState = {
+    actors: { player_1: { growth: { sysA: { stats: { str: 5 }, skills: { skill_a: 2 }, traits: { brave: true }, unlocks: { unl_a: true } } } } }
+  };
+  const emptyState = { actors: { player_1: { growth: { sysA: { stats: {}, skills: {}, traits: {}, unlocks: {} } } } } };
+
+  // normal
+  assert.strictEqual(evaluateCondition({ op: "stat", stat: "str", min: 5 }, sysCtx(growthState)), true);
+  assert.strictEqual(evaluateCondition({ op: "stat", stat: "str", eq: 5 }, sysCtx(growthState)), true);
+  assert.strictEqual(evaluateCondition({ op: "stat", stat: "str", min: 6 }, sysCtx(growthState)), false);
+  // skill: bare op defaults min to 1 (§3.2 table)
+  assert.strictEqual(evaluateCondition({ op: "skill", skill: "skill_a" }, sysCtx(growthState)), true);
+  assert.strictEqual(evaluateCondition({ op: "skill", skill: "missing" }, sysCtx(emptyState)), false);
+  assert.strictEqual(evaluateCondition({ op: "skill", skill: "skill_a", min: 3 }, sysCtx(growthState)), false);
+  // trait: presence only, no comparator args
+  assert.strictEqual(evaluateCondition({ op: "trait", trait: "brave" }, sysCtx(growthState)), true);
+  assert.strictEqual(evaluateCondition({ op: "trait", trait: "missing" }, sysCtx(emptyState)), false);
+  // unlock: presence only
+  assert.strictEqual(evaluateCondition({ op: "unlock", id: "unl_a" }, sysCtx(growthState)), true);
+  assert.strictEqual(evaluateCondition({ op: "unlock", id: "missing" }, sysCtx(emptyState)), false);
+
+  // unknown reference / no growth state at all -> false, never throws
+  const bareCtx = sysCtx({});
+  assert.doesNotThrow(() => evaluateCondition({ op: "stat", stat: "str", min: 1 }, bareCtx));
+  assert.strictEqual(evaluateCondition({ op: "stat", stat: "str", min: 1 }, bareCtx), false);
+  assert.strictEqual(evaluateCondition({ op: "trait", trait: "brave" }, bareCtx), false);
+
+  // malformed: wrong-typed id field -> false, not throw
+  assert.strictEqual(evaluateCondition({ op: "stat", stat: 5, min: 1 }, sysCtx(growthState)), false);
+  assert.strictEqual(evaluateCondition({ op: "skill" }, sysCtx(growthState)), false);
+
+  // determinism / no mutation
+  const frozenCondition = deepFreeze({ op: "stat", stat: "str", min: 5 });
+  const frozenCtx = deepFreeze(sysCtx(growthState));
+  const before = snapshot(frozenCtx.state);
+  assert.strictEqual(evaluateCondition(frozenCondition, frozenCtx), true);
+  assert.deepStrictEqual(snapshot(frozenCtx.state), before);
+}
+
+function testShorthandFlagSignalItemMoney() {
+  // flag: eq form and bare truthy form
+  assert.strictEqual(evaluateCondition({ op: "flag", key: "gate_open", eq: true }, ctxWith({ state: { flags: { gate_open: true } } })), true);
+  assert.strictEqual(evaluateCondition({ op: "flag", key: "gate_open" }, ctxWith({ state: { flags: { gate_open: true } } })), true);
+  assert.strictEqual(evaluateCondition({ op: "flag", key: "missing" }, ctxWith({ state: {} })), false, "missing flag is falsy, never throws");
+  assert.strictEqual(evaluateCondition({ op: "flag", key: 5 }, ctxWith({ state: {} })), false, "malformed key -> false");
+
+  // signal: missing key defaults to 0, min comparator
+  assert.strictEqual(evaluateCondition({ op: "signal", key: "sig_x", min: 3 }, ctxWith({ state: { signals: { sig_x: 3 } } })), true);
+  assert.strictEqual(evaluateCondition({ op: "signal", key: "missing", min: 1 }, ctxWith({ state: {} })), false);
+  assert.strictEqual(evaluateCondition({ op: "signal", key: "sig_x" }, ctxWith({ state: { signals: { sig_x: 0 } } })), false, "0 is falsy under the bare truthy check");
+
+  // item: bare op defaults min to 1 (§3.2 table), same pattern as skill
+  const itemState = { actors: { player_1: { inventory: { sword: 1 } } } };
+  assert.strictEqual(evaluateCondition({ op: "item", item: "sword" }, ctxWith({ state: itemState })), true);
+  assert.strictEqual(evaluateCondition({ op: "item", item: "shield" }, ctxWith({ state: itemState })), false);
+  assert.strictEqual(evaluateCondition({ op: "item", item: "sword", min: 2 }, ctxWith({ state: itemState })), false);
+
+  // money: no selector marker needed, subject default self
+  assert.strictEqual(evaluateCondition({ op: "money", min: 10 }, ctxWith({ state: { actors: { player_1: { money: 15 } } } })), true);
+  assert.strictEqual(evaluateCondition({ op: "money", min: 20 }, ctxWith({ state: { actors: { player_1: { money: 15 } } } })), false);
+  assert.strictEqual(evaluateCondition({ op: "money", min: 1 }, ctxWith({ state: {} })), false, "no actor -> undefined -> false, never throws");
+
+  // sequential visibility: shorthand ops compose inside and/or with existing ops
+  const combined = { op: "and", of: [{ op: "flag", key: "gate_open" }, { op: "money", min: 10 }] };
+  assert.strictEqual(evaluateCondition(combined, ctxWith({ state: { flags: { gate_open: true }, actors: { player_1: { money: 15 } } } })), true);
+}
+
+function testShorthandRelation() {
+  const edgeState = { relations: { "npc_1:player_1": { score: 20, mode: "cooperation", tags: ["debt"] } } };
+  // normal: all given constraints satisfied
+  assert.strictEqual(
+    evaluateCondition({ op: "relation", from: "npc_1", to: "self", min: 10, mode: "cooperation", tag: "debt" }, ctxWith({ state: edgeState })),
+    true
+  );
+  // one constraint fails -> whole thing false (AND)
+  assert.strictEqual(
+    evaluateCondition({ op: "relation", from: "npc_1", to: "self", tag: "missing" }, ctxWith({ state: edgeState })),
+    false
+  );
+  assert.strictEqual(
+    evaluateCondition({ op: "relation", from: "npc_1", to: "self", mode: "conflict" }, ctxWith({ state: edgeState })),
+    false
+  );
+  // no edge -> default {score:0, mode:"neutral", tags:[]}
+  assert.strictEqual(evaluateCondition({ op: "relation", from: "npc_1", to: "self", eq: 0 }, ctxWith({ state: {} })), true);
+  // D-54: no constraint at all -> vacuously true when a valid edge endpoint resolves
+  assert.strictEqual(evaluateCondition({ op: "relation", from: "npc_1", to: "self" }, ctxWith({ state: {} })), true);
+  // default subject: from=target, to=self (D-43/§7.3 convention reused)
+  assert.strictEqual(evaluateCondition({ op: "relation", eq: 20 }, ctxWith({ state: edgeState })), true);
+}
+
+function testShorthandFactDayLocationCase() {
+  // fact: world-context only (D-06 extended)
+  const factState = { facts: { fact_a: { value: "truth", since: 0 } } };
+  assert.strictEqual(evaluateCondition({ op: "fact", fact: "fact_a", eq: "truth" }, ctxWith({ state: factState, contextKind: "world" })), true);
+  assert.strictEqual(evaluateCondition({ op: "fact", fact: "fact_a", eq: "truth" }, ctxWith({ state: factState, contextKind: "player" })), false);
+
+  // day: day-number comparator and hour wraparound, independently AND'd
+  const dayState = { time: { minute: 1440 * 3 + 23 * 60 + 30 } }; // day 3, hour 23
+  assert.strictEqual(evaluateCondition({ op: "day", min: 2 }, ctxWith({ state: dayState })), true);
+  assert.strictEqual(evaluateCondition({ op: "day", min: 4 }, ctxWith({ state: dayState })), false);
+  assert.strictEqual(evaluateCondition({ op: "day", hourFrom: 20, hourTo: 4 }, ctxWith({ state: dayState })), true, "23:30 is inside the midnight-wrapping 20..4 range");
+  const dayHour10 = { time: { minute: 1440 * 3 + 10 * 60 } };
+  assert.strictEqual(evaluateCondition({ op: "day", hourFrom: 20, hourTo: 4 }, ctxWith({ state: dayHour10 })), false);
+  assert.strictEqual(evaluateCondition({ op: "day", hourFrom: 20 }, ctxWith({ state: dayState })), false, "hourFrom without hourTo is malformed -> false");
+  assert.strictEqual(evaluateCondition({ op: "day", min: 2, hourFrom: 20, hourTo: 4 }, ctxWith({ state: dayState })), true, "day and hour constraints combine with AND");
+
+  // location: at (equality) and in (membership)
+  const locState = { actors: { player_1: { locationId: "loc_b" } } };
+  assert.strictEqual(evaluateCondition({ op: "location", at: "loc_b" }, ctxWith({ state: locState })), true);
+  assert.strictEqual(evaluateCondition({ op: "location", at: "loc_a" }, ctxWith({ state: locState })), false);
+  assert.strictEqual(evaluateCondition({ op: "location", in: ["loc_a", "loc_b"] }, ctxWith({ state: locState })), true);
+  assert.strictEqual(evaluateCondition({ op: "location" }, ctxWith({ state: locState })), false, "neither at nor in given -> false");
+
+  // case: stage (equality) and in (membership)
+  const caseState = { cases: { case_a: { stage: "s2", since: 0 } } };
+  assert.strictEqual(evaluateCondition({ op: "case", case: "case_a", stage: "s2" }, ctxWith({ state: caseState })), true);
+  assert.strictEqual(evaluateCondition({ op: "case", case: "case_a", stage: "s1" }, ctxWith({ state: caseState })), false);
+  assert.strictEqual(evaluateCondition({ op: "case", case: "case_a", in: ["s1", "s2"] }, ctxWith({ state: caseState })), true);
+  assert.strictEqual(evaluateCondition({ op: "case", case: "missing", stage: "s2" }, ctxWith({ state: caseState })), false);
+
+  // rumor shorthand op stays deferred (D-24, D-54): always false, never throws
+  assert.strictEqual(evaluateCondition({ op: "rumor", rumor: "rum_a", minConfidence: 10 }, ctxWith({ state: {} })), false);
+  assert.strictEqual(evaluateCondition({ op: "rumor", fact: "fact_a" }, ctxWith({ state: {} })), false);
+}
+
+// JSON round-trip for the new shorthand ops together in one composite tree
+function testShorthandJsonRoundTrip() {
+  const condition = {
+    op: "and",
+    of: [
+      { op: "flag", key: "gate_open" },
+      { op: "money", min: 10 },
+      { op: "relation", from: "npc_1", to: "self", min: 0 },
+      { op: "day", hourFrom: 20, hourTo: 4 }
+    ]
+  };
+  const roundTripped = JSON.parse(JSON.stringify(condition));
+  assert.deepStrictEqual(roundTripped, condition);
+
+  const ctx = ctxWith({
+    state: {
+      flags: { gate_open: true },
+      actors: { player_1: { money: 20 } },
+      relations: { "npc_1:player_1": { score: 5 } },
+      time: { minute: 1440 * 2 + 23 * 60 }
+    }
+  });
+  assert.strictEqual(evaluateCondition(condition, ctx), evaluateCondition(roundTripped, ctx));
+}
+
 testAlwaysNever();
 testNot();
 testAndOr();
@@ -349,5 +508,10 @@ testInputImmutability();
 testDeterminism();
 testJsonRoundTrip();
 testNoForbiddenHostApis();
+testShorthandStatSkillTraitUnlock();
+testShorthandFlagSignalItemMoney();
+testShorthandRelation();
+testShorthandFactDayLocationCase();
+testShorthandJsonRoundTrip();
 
 console.log("V2-Core-02 rules.test.js: all checks passed");

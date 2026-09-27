@@ -15,6 +15,12 @@
 // knowledge, relations, pending, actions}, exactly §8.4's named categories.
 // `handler` stays deliberately unimplemented (§4.4 callout, no real use
 // case yet -- not a blocker).
+// V2-Core-14 (D-55): validateState(state) -> string[] -- the §2.1 "불변
+// 조건" bullets, narrowly scoped to exactly what each bullet names (see
+// D-55 for the excluded fields). `migrateState` stays deliberately
+// unimplemented -- schemaVersion 1 is the only version this project has
+// ever had, so there is no real migration to encode yet (same reasoning as
+// `handler`, not a blocker).
 // Do not add Date/Date.now, Math.random, DOM, window, or any host API here.
 
 import { hashString } from "./rng.js";
@@ -455,4 +461,136 @@ export function view(state, data) {
     pending: state.pending ?? null,
     actions
   };
+}
+
+const ID_PATTERN = /^[a-z][a-z0-9_]*$/;
+
+// D-55: precise unpacking of "JSON.parse(JSON.stringify(state)) must
+// deepEqual the original" -- reports every offending path instead of just
+// diffing a round trip, but decides the same cases (undefined/NaN/
+// Infinity/Map/Set/Date/functions are exactly what fails that round trip).
+function collectJsonUnsafeValues(value, path, errors) {
+  if (value === undefined) {
+    errors.push(`undefined value at ${path}`);
+    return;
+  }
+  if (value === null) return;
+  const type = typeof value;
+  if (type === "number") {
+    if (!Number.isFinite(value)) errors.push(`non-finite number at ${path}: ${value}`);
+    return;
+  }
+  if (type === "string" || type === "boolean") return;
+  if (type === "function") {
+    errors.push(`function at ${path}`);
+    return;
+  }
+  if (value instanceof Map || value instanceof Set || value instanceof Date) {
+    errors.push(`${value.constructor.name} at ${path} (not JSON-safe)`);
+    return;
+  }
+  if (Array.isArray(value)) {
+    value.forEach((item, i) => collectJsonUnsafeValues(item, `${path}[${i}]`, errors));
+    return;
+  }
+  if (type === "object") {
+    Object.keys(value).forEach((key) => collectJsonUnsafeValues(value[key], `${path}.${key}`, errors));
+    return;
+  }
+  errors.push(`unsupported value type "${type}" at ${path}`);
+}
+
+// D-55: only the 6 fields §2.1's bullet literally names, at their actual
+// schema locations -- not skill/proficiency/level or since/lastMinute.
+function checkIntegerField(errors, state, path) {
+  let value = state;
+  for (const key of path) {
+    if (!isPlainObject(value)) return; // structure absent -> nothing to check
+    value = value[key];
+  }
+  if (value === undefined) return;
+  if (!Number.isInteger(value)) {
+    errors.push(`non-integer ${path.join(".")}: ${JSON.stringify(value)}`);
+  }
+}
+
+// validateState(state) -> string[] (D-55, §2.1/§10). Pure and read-only,
+// never throws (a raw load candidate is exactly the "not yet trusted" value
+// this exists to check) -- the opposite of step()'s schemaVersion throw
+// (§2.5 stage 1), which assumes the caller already ran this first.
+export function validateState(state) {
+  const errors = [];
+  if (!isPlainObject(state)) {
+    errors.push("state must be a plain object");
+    return errors;
+  }
+
+  // Not one of §2.1's 5 bullets, but required for validateState to serve its
+  // stated purpose in the §10 load pipeline (migrateState -> validateState ->
+  // reject) instead of letting step() throw on the same mismatch (D-55).
+  if (state.schemaVersion !== SCHEMA_VERSION) {
+    errors.push(`schemaVersion mismatch: expected ${SCHEMA_VERSION}, got ${JSON.stringify(state.schemaVersion)}`);
+  }
+
+  collectJsonUnsafeValues(state, "state", errors);
+
+  checkIntegerField(errors, state, ["time", "minute"]);
+  if (isPlainObject(state.actors)) {
+    Object.keys(state.actors).forEach((actorId) => {
+      const actor = state.actors[actorId];
+      if (!isPlainObject(actor)) return;
+      checkIntegerField(errors, state, ["actors", actorId, "hp", "current"]);
+      checkIntegerField(errors, state, ["actors", actorId, "hp", "max"]);
+      checkIntegerField(errors, state, ["actors", actorId, "money"]);
+      if (isPlainObject(actor.growth)) {
+        Object.keys(actor.growth).forEach((system) => {
+          const g = actor.growth[system];
+          if (!isPlainObject(g)) return;
+          checkIntegerField(errors, state, ["actors", actorId, "growth", system, "exp"]);
+          if (isPlainObject(g.stats)) {
+            Object.keys(g.stats).forEach((statId) => {
+              checkIntegerField(errors, state, ["actors", actorId, "growth", system, "stats", statId]);
+            });
+          }
+        });
+      }
+      if (!ID_PATTERN.test(actorId) || actor.id !== actorId) {
+        errors.push(`invalid actor id: ${JSON.stringify(actorId)}`);
+      }
+      if (
+        actor.locationId !== undefined &&
+        (typeof actor.locationId !== "string" || !ID_PATTERN.test(actor.locationId))
+      ) {
+        errors.push(`invalid locationId for actor ${actorId}: ${JSON.stringify(actor.locationId)}`);
+      }
+    });
+  }
+  if (
+    state.player?.actorId !== undefined &&
+    (typeof state.player.actorId !== "string" || !ID_PATTERN.test(state.player.actorId))
+  ) {
+    errors.push(`invalid player.actorId: ${JSON.stringify(state.player.actorId)}`);
+  }
+
+  if (isPlainObject(state.relations)) {
+    Object.keys(state.relations).forEach((edgeKey) => {
+      checkIntegerField(errors, state, ["relations", edgeKey, "score"]);
+    });
+  }
+
+  if (isPlainObject(state.knowledge)) {
+    Object.keys(state.knowledge).forEach((actorId) => {
+      const entries = state.knowledge[actorId];
+      if (!isPlainObject(entries)) return;
+      Object.keys(entries).forEach((rumorId) => {
+        checkIntegerField(errors, state, ["knowledge", actorId, rumorId, "confidence"]);
+      });
+    });
+  }
+
+  if (Object.prototype.hasOwnProperty.call(state, "seq")) {
+    errors.push("state must not have a seq field (§2.1/§2.4)");
+  }
+
+  return errors;
 }

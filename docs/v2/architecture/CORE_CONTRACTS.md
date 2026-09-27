@@ -450,6 +450,11 @@ rollDie(rng, sides)    = nextUint32의 value % sides + 1
   - `money`: 구매 조건을 handler 없이 표현하려면 필요하다.
 - `level` 연산자는 **의도적으로 두지 않는다**. 레벨로 과도하게 게이팅하지 않는다는 원칙을 스키마 수준에서 강제한다 (D-08).
 - **확장 규칙**: 새 op를 추가하려면 (1) 이 표 갱신, (2) validateData 갱신, (3) 참/거짓/누락 참조 테스트가 함께 필요하다.
+- **구현 상태 (V2-Core-14, D-54)**: `and`/`or`/`not`/`always`/`never`/`eq`/`neq`/`gt`/`gte`/`lt`/`lte`(V2-Core-02)에
+  더해 `stat`/`flag`/`signal`/`skill`/`trait`/`item`/`relation`/`fact`/`day`/`location`/`unlock`/`case`
+  12개를 이번 라운드에 구현했다(§3.1 공통 min/max/eq 규칙 재사용, D-54 참고). `money`도 이번에 구현했다.
+  `rumor`는 D-24가 풀릴 때까지 미구현(거짓만 반환), `handler`는 4.4절/D-38 그대로 미구현(등록된
+  handler가 없으므로 항상 거짓).
 
 ### 3.2a Value와 selector (D-23 확정)
 
@@ -602,8 +607,8 @@ rollDie(rng, sides)    = nextUint32의 value % sides + 1
 | `flag` | `{op, key, value}` | **구현됨.** `key`는 string, `value`는 반드시 boolean(그 외 malformed). `state.flags`가 없으면 lazy 생성. 기존 값과 같으면 no-op(이벤트 없음) — 이전 초안의 `set`(임의 JSON, null이면 삭제)은 이 4개 op 구현 범위에서 `value`(boolean 전용, 삭제 없음)로 좁혀 확정했다(D-37). 문자열/숫자 flag나 키 삭제가 필요해지면 그때 별도 op나 인자를 추가한다 | `flag.changed` (internal), `data:{key, value}` |
 | `signal` | `{op, key, add}` | **구현됨.** `key`는 string, `add`는 정수(기본값 없음 — 생략하면 malformed, 이전 초안의 "기본 add=1"은 폐기(D-37)). `state.signals`가 없으면 lazy 생성. 결과는 `[0, Number.MAX_SAFE_INTEGER]`로 clamp. 실제 변화량(delta = 적용 후−적용 전)이 0이면 이벤트 없음 | `signal.raised` (internal), `data:{key, delta: 실제 변화량}` |
 | `item` | `{op, item, add, subject?}` | **구현됨.** `item`은 string, `add`는 정수(그 외 malformed→throw). subject 해석은 위 공통 규칙. 수량을 `[0, Number.MAX_SAFE_INTEGER]`로 clamp하며 변경한다. 0이 되면 키 삭제(기존 계약 유지) | `item.changed` (subject 기준, D-31), `data:{item, delta}` |
-| `exp` | `{op, amount, subject?, system?}` | **계약 확정, 코드 미구현(D-41 resolved — 6.4절).** `amount`는 0 이상 정수(음수는 malformed→throw). subject/system 해석은 stat과 동일 공통 규칙. `actor.growth[system].exp += amount`, 레벨은 `expTable`로 재계산해 `level.max`로 clamp, 넘은 레벨마다 `levelRewards[level]`을 순서대로 적용 | `exp.gained`(subject 기준, D-31, `data:{system,delta}`) + 레벨마다 `level.up`(`data:{system,from,to}`) |
-| `proficiency` | `{op, id, add, subject?, system?}` | **계약 확정, 코드 미구현(D-42 resolved — 6.4절).** `id`는 string, `add`는 0 이상 정수(음수는 malformed→throw). subject/system 해석은 공통 규칙. `actor.growth[system].proficiency[id]`를 `[0,max]`로 clamp하며 갱신(정의를 못 찾으면 상한 없음, stat과 동일), 넘은 threshold마다(`at` 오름차순) `effects`를 적용 | `proficiency.changed`(subject 기준, D-31, `data:{id,delta}`) |
+| `exp` | `{op, amount, subject?, system?}` | **구현됨(D-41 resolved, V2-Core-06 — 6.4절).** `amount`는 0 이상 정수(음수는 malformed→throw). subject/system 해석은 stat과 동일 공통 규칙. `actor.growth[system].exp += amount`, 레벨은 `expTable`로 재계산해 `level.max`로 clamp, 넘은 레벨마다 `levelRewards[level]`을 순서대로 적용 | `exp.gained`(subject 기준, D-31, `data:{system,delta}`) + 레벨마다 `level.up`(`data:{system,from,to}`) |
+| `proficiency` | `{op, id, add, subject?, system?}` | **구현됨(D-42 resolved, V2-Core-06 — 6.4절).** `id`는 string, `add`는 0 이상 정수(음수는 malformed→throw). subject/system 해석은 공통 규칙. `actor.growth[system].proficiency[id]`를 `[0,max]`로 clamp하며 갱신(정의를 못 찾으면 상한 없음, stat과 동일), 넘은 threshold마다(`at` 오름차순) `effects`를 적용 | `proficiency.changed`(subject 기준, D-31, `data:{id,delta}`) |
 | `skill` | `{op, skill, add?:1, subject?, system?}` | **구현됨.** `skill`은 string, `add`는 있으면 정수(생략 시 1, 그 외 malformed→throw). subject/system 해석은 stat과 동일(4.2절 상단 공통 규칙). `actor.growth[system].skills[skill]`을 `add`만큼 바꾸고 `data.growthSystems[system].skills`에서 정의를 찾아 `[0,maxRank]`로 clamp(정의를 못 찾으면 상한 없음, stat과 동일). 0이면 키 삭제(기존 계약 유지) | `skill.changed` (subject 기준, D-31), `data:{skill, delta}` |
 | `trait` | `{op, trait, remove?:false, subject?, system?}` | **구현됨.** `trait`은 string, `remove`는 있으면 boolean(그 외 malformed→throw). subject/system 해석은 공통 규칙. `remove:true`면 `actor.growth[system].traits[trait]`을 삭제(없으면 no-op). 추가 시 `data.growthSystems[system].traits`에서 `trait`의 정의를 찾아 `exclusive` 목록에 있는, 현재 보유 중인 다른 trait을 함께 제거한다(정의를 못 찾으면 exclusive 처리 없이 추가만 한다) | `trait.changed` (subject 기준, D-31), `data:{trait, added, removedExclusive?}`(제거 시 `data:{trait, added:false}`) |
 | `unlock` | `{op, id, subject?, system?}` | **구현됨.** `id`는 string(그 외 malformed→throw). subject/system 해석은 공통 규칙. `actor.growth[system].unlocks[id] = true`(idempotent — 이미 있으면 no-op) | `unlock.granted` (subject 기준, D-31; 이미 보유하면 이벤트 없음), `data:{id}` |
@@ -833,10 +838,10 @@ rollDie(rng, sides)    = nextUint32의 value % sides + 1
 
 ### 6.4 성장 규칙
 
-> **구현 상태 (V2-Core-06 계약 검토)**: 이 절이 설명하는 `exp`/`proficiency` Effect의 **계약은
-> 확정**되었다(D-41, D-42 **resolved**, 아래 6.4.1/6.4.2). **코드는 아직 구현하지 않았다** —
-> 다음 작업에서 여기 적힌 계약 그대로 `web/v2/core/rules.js`에 구현한다. `skill`/`trait`/`unlock`은
-> 이미 구현했다(4.2절) — 이들은 이 절의 레벨/임계값 곡선과 무관하게 동작한다.
+> **구현 상태**: 이 절이 설명하는 `exp`/`proficiency` Effect는 **계약 확정, 구현 완료**다
+> (D-41, D-42 resolved, 아래 6.4.1/6.4.2, V2-Core-06에서 `web/v2/core/rules.js`에 계약 그대로
+> 구현했다). `skill`/`trait`/`unlock`도 이미 구현했다(4.2절) — 이들은 이 절의 레벨/임계값 곡선과
+> 무관하게 동작한다.
 
 - exp: 누적한 뒤 `expTable`을 넘은 만큼 레벨을 올린다. 한 번에 여러 레벨이 오를 수 있으며,
   레벨마다 `levelRewards[level]`을 순서대로 적용하고 `level.up` 이벤트를 발생시킨다.
@@ -1151,6 +1156,10 @@ state.knowledge["player_1"]["rum_a"] = {
 
   - savedAt은 엔진 밖의 값이며 엔진은 읽지 않는다.
 - 로드 순서: `migrateState(raw)` → `validateState` → 오류가 있으면 로드를 거부한다 (자동 수정하지 않음).
+  - **구현 상태**: `validateState`는 **구현됨**(D-55, §2.1). `migrateState`는 **의도적으로 미구현**이다
+    (D-55, blocker 아님) — `schemaVersion:1`이 이 프로젝트에 존재한 유일한 스키마 버전이라 지금
+    마이그레이션할 실제 구버전이 없다. `handler`(4.4절)와 같은 이유로, 쓸 내용이 없는 no-op
+    passthrough를 미리 만들지 않는다. 두 번째 스키마 버전이 생기면 그때 구현한다.
 - V1 세이브 import는 구현하지 않는다.
   - 확장: 서버 저장소로 옮길 때도 같은 레코드 형식을 쓴다.
 
@@ -1296,7 +1305,7 @@ state.knowledge["player_1"]["rum_a"] = {
 | D-06 | `fact` Condition의 문맥 제한 | world 문맥에서만 허용. requirements_not_met에 상세 이유를 넣지 않음 |
 | D-07 | `stat` Condition이 기본값을 볼지 보정값(아이템/특성 포함)을 볼지 | 기본값. 보정은 check에서만 적용 |
 | D-08 | `level` Condition 부재 (레벨 비게이팅) | 두지 않음 |
-| D-09 | modifier 합 상한(먼치킨 성장과 판정 의미 보존 사이의 균형) | **재검토(V2-Core-12), 여전히 미해결 — 초기 null 유지**: `check()`(D-49, V2-Core-11)가 이미 구현되어 실사용 데이터가 쌓일 수 있는 상태지만, 이 결정을 지금 강제로 내려야 할 이유(버그, 막힌 작업, 실제 밸런스 문제)가 없다. cap 방식(대칭? 절대값? 양수만?)을 정할 근거가 데이터 없이는 여전히 추측이므로, D-09가 스스로 요구하는 "밸런스 테스트 후 결정"을 앞당기지 않는다(YAGNI) — 이후 실제 콘텐츠에서 modifier 총합이 문제가 되면 그때 다시 연다 |
+| D-09 | modifier 합 상한(먼치킨 성장과 판정 의미 보존 사이의 균형) | **재검토(V2-Core-12), 여전히 미해결 — 초기 null 유지**: `check()`(D-49, V2-Core-11)가 이미 구현되어 실사용 데이터가 쌓일 수 있는 상태지만, 이 결정을 지금 강제로 내려야 할 이유(버그, 막힌 작업, 실제 밸런스 문제)가 없다. cap 방식(대칭? 절대값? 양수만?)을 정할 근거가 데이터 없이는 여전히 추측이므로, D-09가 스스로 요구하는 "밸런스 테스트 후 결정"을 앞당기지 않는다(YAGNI) — 이후 실제 콘텐츠에서 modifier 총합이 문제가 되면 그때 다시 연다. **재검토(V2-Core-14)**: 이번 라운드도 새 버그/밸런스 데이터가 없어 결론 그대로 유지한다 |
 | D-10 | 아이템 보정: 보유 기준인지 장착 기준인지 | 보유 기준으로 시작. 장착 슬롯은 필요해질 때 |
 | D-11 | `attempts` Condition op 추가 여부 | maxAttempts가 실제 콘텐츠에 필요할 때 추가 |
 | D-12 | 스탯 포인트 수동 배분 | 없음. 필요하면 levelRewards의 `choice`로 |
@@ -1342,6 +1351,8 @@ state.knowledge["player_1"]["rum_a"] = {
 | D-51 | `step()` 10단계(trigger) 스키마와 구현 범위 | **확정(resolved, 11절, V2-Core-12)**: `data.events[id]`는 Resolvable + `trigger`(Condition, world 문맥)/`once`(불리언, 기본 false)/`cooldown`(정수 분, 생략하면 없음) — 세 필드 이름 모두 §2.5 10단계 원문이 이미 쓴 단어를 그대로 가져왔다. `state.fired[eventId]={count,lastMinute}`(2.1절에 이미 있던 필드)로 once/cooldown을 판정한다. id 오름차순 한 바퀴만 순회하며, 발동한 이벤트의 Effect는 같은 작업 사본에 즉시 적용되어 다음 순번의 트리거 판정에 보인다(이 한 바퀴 안에서의 가시성 자체가 있는 그대로의 순차 적용이지 새 기능이 아니다) — 이번 순회에서 이미 지나간 순번의 트리거가 뒤늦게 참이 되어도 그 순회에서는 재평가하지 않는다(이것이 "연쇄 1단계 제한"이며 다음 `step()`에서 자연히 재평가된다, 별도 카운터 불필요). `trigger.fired`는 §2.4가 이미 internal로 고정했다. trigger의 Resolvable도 `check`를 지원한다(perform/choose와 같은 해석기 재사용, 2.3절) |
 | D-52 | `narrate` Effect의 no-op 여부와 event data | **확정(resolved, 4.2절, V2-Core-13)**: `textId`는 string(그 외 malformed→throw), `data.texts`를 조회하지 않는다(259줄 "이벤트는 textId만 참조한다"). 상태를 전혀 바꾸지 않으므로(4.2절 표 "상태 변화 없음") D-30의 "변화 없으면 이벤트 없음"을 적용할 대상 자체가 없다 — narrate는 `time.advanced`처럼 "매번 일어나는 사실"을 알리는 것이지 "값 설정"이 아니므로, 같은 `textId`를 반복해도 매번 이벤트가 난다(no-op 없음). 이벤트 `data:{textId}` |
 | D-53 | `view(state, data)`의 정확한 PlayerView 스키마 | **확정(resolved, §8.4/§1.4, V2-Core-13)**: §8.4 원문이 나열한 항목만 그대로 옮긴다(새 카테고리 없음 — facts/cases/rumor 전용 필드/이벤트 로그는 원문에 없으므로 추가하지 않는다): `{actor, knowledge, relations, pending, actions}`. `actor`는 `state.actors[state.player.actorId]`의 깊은 복사(원본 참조 아님). `knowledge`는 `state.knowledge[playerActorId] ?? {}`의 깊은 복사(정확성 필드는 애초에 저장되지 않으므로 그대로 통과됨, §8.2). `relations`는 edgeKey를 `:`로 나눠 플레이어 actorId가 양쪽 중 하나인 항목만 깊은 복사해 필터링(방향 그래프, §7.1). `pending`은 `state.pending ?? null` 그대로. `actions`는 `Object.keys(data.actions).sort()` 순서로 순회하며 D-15가 정한 규칙(만족하는 것 + `showWhenLocked:true`인 잠긴 것)만 `{actionId, available}`로 담는다(requires 평가는 `contextKind:"player"`, `targetId` 없음). `state.player`/해당 actor 레코드가 없으면(부트스트랩 안 된 world) `view()`는 `null`을 반환한다. facts/다른 actor의 knowledge/internal 이벤트는 절대 포함하지 않는다(§8.4 원문 그대로). RNG를 소비하지 않고 `state`/`data`를 mutate하지 않는 순수 함수다 |
+| D-54 | §3.2 "shorthand" Condition op 12종(`stat`/`flag`/`signal`/`skill`/`trait`/`item`/`relation`/`fact`/`day`/`location`/`unlock`/`case`)의 정확한 비교 인자 처리 | **확정(V2-Core-14)**: §3.1이 이미 선언한 공통 규칙("수치 비교 인자는 `min`/`max`(포함 범위)로 통일, 둘 다 없으면 존재/참 검사, 동등 비교는 `eq`")을 모든 op에 그대로 적용하는 `matchScalarArgs(value, args)` 헬퍼 하나로 처리한다 — op마다 다른 비교 문법을 새로 만들지 않는다. 값 해석은 기존 selector resolver(`resolveGrowthValue`/`resolveItem`/`resolveFact`)를 그대로 재사용한다(§3.2a 표와 필드 이름이 같은 `stat`/`skill`/`item`/`fact`/`trait`(selector엔 없지만 `resolveGrowthValue`가 이름 무관 범용 헬퍼라 `trait`/`unlock`에도 그대로 적용됨)/`unlock`). `flag`/`signal`은 shorthand op의 인자 이름이 `key`로 selector(`flag`/`signal`)와 다르므로 재사용하지 않고 직접 `state.flags`/`state.signals`를 읽는다. `skill`/`item`은 표에 명시된 대로("min 기본값은 1") 비교 인자가 전혀 없을 때만 `min:1`로 취급한다(다른 op는 이 기본값 없이 §3.1의 일반 존재/참 검사로 떨어진다). `trait`는 비교 인자 없이 보유 여부만 본다(`Boolean(...)`). `relation`은 `from`/`to`를 이미 확정된 Effect 규칙(D-43/7.3절, `from`=target·`to`=self 기본값)으로 해석해 edge(없으면 기본값 `{score:0,mode:"neutral",tags:[]}`)를 얻고, 준 `min`/`max`/`eq`(score)·`mode`·`tag` 중 실제로 준 것만 전부 AND로 검사한다 — **아무 인자도 안 주면(새로 결정한 좁은 규칙) 공허하게 참**으로 둔다(제약이 없으니 어긴 제약도 없다는 뜻일 뿐, "edge 존재 여부"라는 새 의미를 만들지 않는다). `day`는 day 부분(있으면 `matchScalarArgs`)과 `hourFrom`/`hourTo` 쌍(§3.2 원문 그대로 `hourFrom>hourTo`면 자정 넘김)을 독립적으로 AND한다 — 시각 경계는 `min`/`max`와 같은 "포함 범위" 관례를 그대로 확장 적용해 둘 다 inclusive로 정했다(새 관례가 아니라 이미 있는 범위 표기 관례의 재사용). `hourFrom`/`hourTo`는 반드시 둘 다 있거나 둘 다 없어야 하며, 하나만 있으면 malformed로 보아 거짓이다(새 reject 아님, §3.1 그대로 거짓). `location`은 `at`(동등)과 `in`(배열 포함) 중 준 것만 검사하며(`subject` 기본값 self, D-29와 동일 관례), 둘 다 없으면 거짓이다. `case`는 `stage`(동등) 또는 `in`(배열 포함) 중 준 것만 검사하며 둘 다 없으면 거짓이다. `money`는 selector의 `{money:true}` 마커 없이 `subject` 기준 금액을 바로 `matchScalarArgs`로 비교한다. `rumor`는 이번에도 **제외**한다 — D-24(rumor selector 미결정)가 이미 막아둔 문제 위에, shorthand 전용 `minConfidence` 필드와 `{"op":"rumor","fact":...}`(rumor→fact 역참조) 형태까지 새로 결정해야 해서 이번 라운드의 "가장 작은 결정" 범위를 벗어난다(C, 새 의미 결정 필요) — D-24가 풀릴 때 함께 다룬다. `handler`는 이 표에 있지만 이미 §4.4/D-38로 "미등록 이름은 거짓"이 정책으로 확정돼 있고 handler 레지스트리 자체가 없으므로 기존 `default: false` 분기가 이미 정확한 동작이다(변경 없음). 새 selector나 새 이벤트를 만들지 않는다 — 이 op들은 모두 `evaluateCondition`이 boolean만 반환하는 기존 계약 안에서 끝난다 |
+| D-55 | `validateState(state) -> string[]`의 정확한 검사 범위 | **확정(V2-Core-14)**: §2.1 "불변 조건" 5개 불릿을 그대로, 그러나 각 불릿이 실제로 이름 붙인 범위로만 좁혀 구현한다(새 검사 대상을 발명하지 않는다). (1) JSON 직렬화 안전: `state` 전체를 재귀 순회해 `undefined`/`NaN`/`Infinity`/`-Infinity`/`Map`/`Set`/`Date`/함수를 찾는다(라운드트립 비교 대신 정확한 위치를 보고할 수 있는 동등한 재귀 검사로 구현 — 결과는 "무엇이 어긋났는지"만 다르지 판정 자체는 같다). (2) 정수 검사는 불릿이 **글자 그대로 나열한 6개**(`hp`,`money`,`score`,`confidence`,`stat`,`exp`,`minute`)의 실제 스키마 위치에만 적용한다: `time.minute`, `actors[*].hp.current`/`.max`, `actors[*].money`, `relations[*].score`, `actors[*].growth[*].exp`, `actors[*].growth[*].stats[*]`, `knowledge[*][*].confidence`. `skill`/`proficiency`/`level`이나 `since`/`lastMinute`/`attempts`류 값은 이 불릿이 이름 붙이지 않았으므로 **의도적으로 검사하지 않는다**(범위를 넓히는 새 결정이 필요하면 그때 D-XX로 추가한다). (3) ID 형식(`^[a-z][a-z0-9_]*$`, `:` 금지)은 `state.player.actorId`, `state.actors`의 키, 각 actor의 `.id`(키와 일치해야 함), 각 actor의 `.locationId`에만 적용한다 — `worldId`는 §2.6이 별도의 합성 규칙(밑줄 결합)을 이미 갖고 있어 제외하고, `relations`의 edgeKey는 `:` 구분자가 설계상 포함되므로(§7.1) 애초에 이 검사 대상이 아니며, `flags`/`signals`/`facts`/`cases`/`knowledge`/`fired`/`attempts`의 키는 이 불릿이 이름 붙이지 않았으므로 제외한다. (4)+(5) "이벤트 로그를 두지 않는다"와 "`seq` 필드를 두지 않는다"는 같은 2.4절 근거를 공유하는 한 쌍으로 보고, 스키마에 실제로 존재하는 유일한 구체적 이름인 `state.seq`(own property) 하나만 검사한다 — 스키마에 없는 임의의 "이벤트 로그처럼 보이는 필드"를 찾는 휴리스틱은 새로 만들지 않는다. 추가로, 위 5개 불릿에는 없지만 `migrateState → validateState → 로드 거부`(§10)라는 validateState의 존재 이유 자체가 요구하므로 `state.schemaVersion !== SCHEMA_VERSION`도 오류로 담는다(그렇지 않으면 `step()`이 대신 throw하게 된다, §2.5 1단계) — 이는 새 불변 조건을 발명한 것이 아니라 이미 명시된 로드 순서 계약(§10)을 문자 그대로 지키기 위한 것이다. `state`가 plain object가 아니면 그 사실 하나만 담고 나머지 검사는 건너뛴다(순수 함수, 절대 throw하지 않는다). `migrateState(raw) -> state`는 이번 라운드에도 **의도적으로 미구현**으로 남긴다 — `schemaVersion:1`이 이 프로젝트에 존재했던 유일한 스키마 버전이라 마이그레이션할 실제 구버전이 없고, no-op passthrough를 지금 만드는 것은 `handler`와 같은 이유로 "쓸 내용이 없는 인프라"이기 때문이다(YAGNI, blocker 아님 — 두 번째 스키마 버전이 실제로 생기면 그때 구현한다) |
 
 ---
 
@@ -1413,3 +1424,9 @@ state.knowledge["player_1"]["rum_a"] = {
   - `narrate`(D-52)는 V2-Core-13에서 구현했다. `handler`는 실제 사용 사례가 없어 의도적으로
     미구현으로 남긴다(4.4절 콜아웃, blocker 아님) — 나머지 모든 Effect op와 공개 API가 구현된
     지금, 사실상 §4/§9의 계약 구현은 (handler 제외) 모두 끝났다.
+  - 작업 11 = V2-Core-14: §3.2 Condition shorthand op 12종(`stat`/`flag`/`signal`/`skill`/`trait`/
+    `item`/`relation`/`fact`/`day`/`location`/`unlock`/`case`)과 `money`를 D-54로 확정·구현했다.
+    `engine.js`의 `validateState`를 D-55로 확정·구현했다. `migrateState`는 실제 구버전이 없어
+    의도적으로 미구현(D-55, blocker 아님, `handler`와 같은 이유). D-09(modifier 합 상한)는
+    재검토했으나 새 정보가 없어 그대로 미해결·null 유지. `rumor` shorthand op는 D-24 미해결 위에
+    추가 결정(`minConfidence`, fact 역참조)이 필요해 이번에도 제외했다(§3.2 D-54 콜아웃 참고).
