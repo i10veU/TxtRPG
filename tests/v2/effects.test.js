@@ -1363,4 +1363,96 @@ testRelationTagEffect();
 testRelationUntagEffect();
 testRelationIntegration();
 
-console.log("V2-Core-03/04/05/06/07 effects.test.js: all checks passed");
+// ============================================================
+// V2-Core-08: fact Effect (D-44 resolved -- §4.2/§8.1)
+// rumor Effect is a documented blocker (D-45, §8.3) and is NOT implemented
+// or tested here -- see CORE_CONTRACTS.md §8.3 for the enumerated gaps.
+// ============================================================
+
+// fact (world-level, no subject -- same category as `case`)
+function testFactEffect() {
+  // 1. 정상 생성 (lazy state.facts)
+  const r1 = applyEffects([{ op: "fact", fact: "killer", set: "npc_a" }], ctxWith(baseState()));
+  assert.deepStrictEqual(r1.state.facts, { killer: { value: "npc_a", since: 0 } });
+  assert.strictEqual(r1.events.length, 1);
+  assert.strictEqual(r1.events[0].type, "fact.changed");
+  assert.strictEqual(r1.events[0].visibility, "internal");
+  assert.deepStrictEqual(r1.events[0].data, { fact: "killer", value: "npc_a" });
+
+  // 2. 기존 값 변경 (since가 현재 minute으로 갱신됨)
+  const r2 = applyEffects(
+    [{ op: "fact", fact: "killer", set: "npc_b" }],
+    ctxWith(baseState({ time: { minute: 90 }, facts: { killer: { value: "npc_a", since: 0 } } }))
+  );
+  assert.deepStrictEqual(r2.state.facts.killer, { value: "npc_b", since: 90 });
+  assert.deepStrictEqual(r2.events[0].data, { fact: "killer", value: "npc_b" });
+
+  // 3. 동일 값 재설정 -> no-op (이벤트 없음, since도 갱신되지 않음)
+  const r3 = applyEffects(
+    [{ op: "fact", fact: "killer", set: "npc_a" }],
+    ctxWith(baseState({ time: { minute: 90 }, facts: { killer: { value: "npc_a", since: 0 } } }))
+  );
+  assert.strictEqual(r3.events.length, 0);
+  assert.deepStrictEqual(r3.state.facts.killer, { value: "npc_a", since: 0 }, "since must not be touched on no-op");
+
+  // 구조적으로 동일한 객체 값도 (JSON 비교로) no-op으로 처리한다
+  const r3b = applyEffects(
+    [{ op: "fact", fact: "loot", set: { gold: 5 } }],
+    ctxWith(baseState({ facts: { loot: { value: { gold: 5 }, since: 0 } } }))
+  );
+  assert.strictEqual(r3b.events.length, 0, "structurally-equal object value must also be a no-op");
+
+  // 4. malformed 입력 -> throw. null/false/0/""는 유효한 값이지 malformed가 아니다
+  const ctx4 = ctxWith(baseState());
+  assert.throws(() => applyEffects([{ op: "fact", set: "x" }], ctx4), TypeError, "missing `fact`");
+  assert.throws(() => applyEffects([{ op: "fact", fact: 42, set: "x" }], ctx4), TypeError, "non-string `fact`");
+  assert.throws(() => applyEffects([{ op: "fact", fact: "killer" }], ctx4), TypeError, "missing `set`");
+  assert.doesNotThrow(() => applyEffects([{ op: "fact", fact: "x", set: null }], ctx4), "`set:null` is a valid JSON value");
+  assert.doesNotThrow(() => applyEffects([{ op: "fact", fact: "x", set: false }], ctx4), "`set:false` is a valid JSON value");
+  assert.doesNotThrow(() => applyEffects([{ op: "fact", fact: "x", set: 0 }], ctx4), "`set:0` is a valid JSON value");
+  assert.doesNotThrow(() => applyEffects([{ op: "fact", fact: "x", set: "" }], ctx4), '`set:""` is a valid JSON value');
+
+  // 5. subject를 쓰지 않는 세계 단위 op이므로 "대상 부재" 개념이 없다(case와 동일) --
+  //    actorId/targetId가 전혀 없는 ctx로도 정상 동작해야 한다
+  const r5 = applyEffects([{ op: "fact", fact: "x", set: 1 }], { state: baseState(), data: {} });
+  assert.strictEqual(r5.state.facts.x.value, 1);
+
+  // 6. visibility: 항상 internal (8.1절)
+  assert.strictEqual(r1.events[0].visibility, "internal");
+
+  // 7. event data 스키마: {fact, value} 두 키만 담는다
+  assert.deepStrictEqual(Object.keys(r1.events[0].data).sort(), ["fact", "value"]);
+
+  // 8. 이벤트는 실제 값 변화가 있을 때만 (false !== true는 실제 변화)
+  const r8 = applyEffects([{ op: "fact", fact: "x", set: false }], ctxWith(baseState({ facts: { x: { value: true, since: 0 } } })));
+  assert.strictEqual(r8.events.length, 1, "false !== true -> real change -> event");
+
+  // 9. 순차 Effect 가시성: 두 번째 Effect가 첫 번째의 결과를 즉시 본다
+  const r9 = applyEffects([{ op: "fact", fact: "x", set: "a" }, { op: "fact", fact: "x", set: "a" }], ctxWith(baseState()));
+  assert.strictEqual(r9.events.length, 1, "the second Effect must see the first Effect's write and no-op");
+
+  // 10. 입력 불변성
+  const state10 = deepFreeze(baseState({ facts: { killer: { value: "npc_a", since: 0 } } }));
+  const stateBefore10 = snapshot(state10);
+  const effects10 = deepFreeze([{ op: "fact", fact: "killer", set: "npc_b" }]);
+  const effectsBefore10 = snapshot(effects10);
+  const ctx10 = deepFreeze(ctxWith(state10));
+  const result10 = applyEffects(effects10, ctx10);
+  assert.deepStrictEqual(snapshot(state10), stateBefore10, "input state must be unchanged");
+  assert.deepStrictEqual(snapshot(effects10), effectsBefore10, "input effects must be unchanged");
+  assert.notStrictEqual(result10.state, ctx10.state);
+  assert.strictEqual(result10.state.facts.killer.value, "npc_b");
+
+  // 11. determinism
+  const runFact = () => applyEffects([{ op: "fact", fact: "x", set: "a" }], ctxWith(baseState()));
+  assert.deepStrictEqual(runFact(), runFact(), "same (effects, ctx) must always produce the same result");
+
+  // 12. JSON round-trip
+  const result12 = runFact();
+  assert.deepStrictEqual(JSON.parse(JSON.stringify(result12.state)), result12.state);
+  assert.deepStrictEqual(JSON.parse(JSON.stringify(result12.events)), result12.events);
+}
+
+testFactEffect();
+
+console.log("V2-Core-03/04/05/06/07/08 effects.test.js: all checks passed");

@@ -10,9 +10,14 @@
 // Level-up/threshold reward lists are applied via the same applyEffectList
 // used by if.then/else, with a reward ctx whose actorId is overridden to
 // the leveling/proficient actor (same pattern as §9 succession's ctx).
-// No move/rumor/fact/narrate/choice/handler yet, no death trigger (§9), no
-// check(), no Resolvable — applyEffects is still not wired into engine.js's
-// step() (D-40).
+// Effect (V2-Core-07): relation mode/tag/untag (D-43 resolved -- §7.3/§4.2).
+// Effect (V2-Core-08): fact (D-44 resolved -- §4.2/§8.1). `rumor` is a
+// documented blocker (D-45, §8.3) -- subject/`from` defaults, re-learning
+// magnitudes, D-14 (conflicting claims), and its event data shape are all
+// unresolved, so it is intentionally not implemented here.
+// No move/narrate/choice/handler yet, no death trigger (§9), no check(), no
+// Resolvable — applyEffects is still not wired into engine.js's step()
+// (D-40).
 //
 // No host APIs (DOM/window/Date/Math.random/indexedDB/localStorage/fetch/
 // performance/crypto). ctx.state/data/effects/condition are never mutated
@@ -858,6 +863,28 @@ function applyCaseEffect(effect, workingState, events) {
   });
 }
 
+// fact is world-level (no subject, §4.1) -- state.facts[fact] = {value, since: minute} (§8.1, D-44)
+function applyFactEffect(effect, workingState, events) {
+  if (typeof effect.fact !== "string") {
+    throw new TypeError("fact Effect requires a string `fact`");
+  }
+  if (effect.set === undefined) {
+    throw new TypeError("fact Effect requires a `set` value");
+  }
+
+  if (!isPlainObject(workingState.facts)) workingState.facts = {};
+  const existing = workingState.facts[effect.fact];
+  if (existing && JSON.stringify(existing.value) === JSON.stringify(effect.set)) return; // no-op, D-30/D-44
+
+  workingState.facts[effect.fact] = { value: effect.set, since: workingState.time.minute };
+  events.push({
+    minute: workingState.time.minute,
+    type: "fact.changed",
+    visibility: "internal",
+    data: { fact: effect.fact, value: effect.set }
+  });
+}
+
 function applyOneEffect(effect, workingState, events, ctx) {
   if (!isPlainObject(effect)) {
     throw new TypeError("Effect must be a plain object");
@@ -893,6 +920,8 @@ function applyOneEffect(effect, workingState, events, ctx) {
       return applyExpEffect(effect, workingState, events, ctx);
     case "proficiency":
       return applyProficiencyEffect(effect, workingState, events, ctx);
+    case "fact":
+      return applyFactEffect(effect, workingState, events);
     default:
       throw new TypeError("Unknown Effect op: " + JSON.stringify(effect.op));
   }
