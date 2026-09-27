@@ -17,9 +17,12 @@
 // actors[id], so subject/`from` only need resolveSubjectId, no state.actors
 // record. The Condition-side `rumor` selector (§3.2a) stays deferred (D-24)
 // -- this Effect never touches SELECTOR_RESOLVERS.
-// No move/narrate/choice/handler yet, no death trigger (§9), no check(), no
-// Resolvable — applyEffects is still not wired into engine.js's step()
-// (D-40).
+// Effect (V2-Core-10): hp's §9 death trigger (D-34 resolved) -- alive=false
+// + actor.died on the alive->dead transition, and state.pending set when
+// the dying actor is the player. `startCharacter`/succession remain
+// action-level (step()) and are out of scope (D-40, engine.js untouched).
+// No move/narrate/choice/handler yet, no check(), no Resolvable —
+// applyEffects is still not wired into engine.js's step() (D-40).
 //
 // No host APIs (DOM/window/Date/Math.random/indexedDB/localStorage/fetch/
 // performance/crypto). ctx.state/data/effects/condition are never mutated
@@ -397,9 +400,28 @@ function applyHpEffect(effect, workingState, events, ctx) {
     actorId: resolved.id,
     data: { delta }
   });
-  // Not implemented here (§9, temporarily scoped out): death trigger
-  // (alive=false, actor.died) when `after === 0`. current is still clamped
-  // and stored above.
+
+  // §9 death trigger (D-34 resolved): current reaching 0 kills the actor,
+  // once, exactly on the alive->dead transition (a later hp Effect that
+  // keeps current at 0 has delta 0 and returns above, so this never fires
+  // twice). This does not stop the rest of the Effect list -- later Effects
+  // (even ones targeting this now-dead actor) still apply normally, per
+  // §4.1's ordinary sequential application; no new early-exit machinery is
+  // added. `startCharacter`/succession (§9) are action-level (step()) and
+  // out of scope here (D-40, engine.js untouched).
+  if (after === 0 && actor.alive !== false) {
+    actor.alive = false;
+    events.push({
+      minute: workingState.time.minute,
+      type: "actor.died",
+      visibility: isPlayerActor(resolved.id, workingState) ? "player" : "internal",
+      actorId: resolved.id,
+      data: {}
+    });
+    if (isPlayerActor(resolved.id, workingState)) {
+      workingState.pending = { kind: "newCharacter" };
+    }
+  }
 }
 
 const MAX_SAFE = Number.MAX_SAFE_INTEGER;

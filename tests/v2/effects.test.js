@@ -503,8 +503,8 @@ function testHp() {
 
   const r16 = applyEffects([{ op: "hp", add: -10 }], ctxWith(stateWithHp(10, 10)));
   assert.strictEqual(r16.state.actors.player_1.hp.current, 0, "hp 0 상태는 저장된다");
-  assert.strictEqual(r16.state.actors.player_1.alive, undefined, "no death trigger in this scope (§9)");
-  assert.ok(!r16.events.some((e) => e.type === "actor.died"), "no actor.died event in this scope");
+  assert.strictEqual(r16.state.actors.player_1.alive, false, "§9 death trigger fires on the alive->dead transition (D-34, V2-Core-10)");
+  assert.ok(r16.events.some((e) => e.type === "actor.died"), "actor.died fires when current reaches 0");
 }
 
 // 17-20: money
@@ -1661,4 +1661,95 @@ function testRumorEffect() {
 
 testRumorEffect();
 
-console.log("V2-Core-03/04/05/06/07/08/09 effects.test.js: all checks passed");
+// ============================================================
+// V2-Core-10: hp's §9 death trigger (D-34 resolved)
+// `startCharacter`/succession remain out of scope (action/step(), engine.js
+// untouched) -- no tests for them here.
+// ============================================================
+
+function testHpDeathTrigger() {
+  function stateWithHp(current, max) {
+    return stateWithActors({
+      player_1: actorFixture({ hp: { current, max } }),
+      npc_1: actorFixture({ id: "npc_1", hp: { current, max } })
+    });
+  }
+
+  // 1. alive->dead 전이: alive=false, actor.died 발생 (hp.changed와 함께, 순서: hp.changed 먼저)
+  const r1 = applyEffects([{ op: "hp", add: -10 }], ctxWith(stateWithHp(10, 10)));
+  assert.strictEqual(r1.state.actors.player_1.alive, false);
+  assert.deepStrictEqual(r1.events.map((e) => e.type), ["hp.changed", "actor.died"]);
+  assert.deepStrictEqual(r1.events[1].data, {});
+  assert.strictEqual(r1.events[1].actorId, "player_1");
+
+  // 2. alive 필드가 아예 없는 fixture(actorFixture 기본값)도 정상적으로 죽는다고 처리된다
+  assert.strictEqual(stateWithHp(10, 10).actors.player_1.alive, undefined, "fixture has no `alive` field by default");
+
+  // 3. 중복 방지: 이미 죽은 actor에게 다시 적용해도 actor.died가 재발생하지 않는다
+  const deadState = stateWithHp(0, 10);
+  deadState.actors.player_1.alive = false;
+  const r3 = applyEffects([{ op: "hp", add: -5 }], ctxWith(deadState));
+  assert.strictEqual(r3.events.length, 0, "already 0 and clamped -> delta 0 -> no hp.changed, no actor.died");
+
+  // 3b. 죽은 상태에서 실제로 hp가 변하는 적용(치유)도 재사망 이벤트 없이 정상 처리된다
+  const r3b = applyEffects([{ op: "hp", add: 5 }], ctxWith(deadState));
+  assert.strictEqual(r3b.state.actors.player_1.hp.current, 5);
+  assert.ok(!r3b.events.some((e) => e.type === "actor.died"), "no revival/re-death logic invented -- just a normal hp.changed");
+
+  // 4. 플레이어 사망 -> pending:newCharacter 설정. NPC 사망은 pending을 건드리지 않는다
+  const r4 = applyEffects([{ op: "hp", add: -10 }], ctxWith(stateWithHp(10, 10)));
+  assert.deepStrictEqual(r4.state.pending, { kind: "newCharacter" });
+
+  const r4b = applyEffects([{ op: "hp", add: -10, subject: "target" }], ctxWith(stateWithHp(10, 10)));
+  assert.strictEqual(r4b.state.actors.npc_1.alive, false);
+  assert.strictEqual(r4b.state.pending, undefined, "an NPC's death must not set pending");
+
+  // 5. 사망이 Effect 리스트 처리를 중단시키지 않는다 (D-34): 죽은 actor에게 이어지는 Effect도 정상 적용
+  const data = growthDataFixture();
+  const r5 = applyEffects(
+    [
+      { op: "hp", add: -10 },
+      { op: "stat", stat: "stat_a", add: 3 },
+      { op: "money", add: 5 }
+    ],
+    ctxWithData(
+      stateWithActors({
+        player_1: actorFixture({ hp: { current: 10, max: 10 }, growth: {} }),
+        npc_1: actorFixture({ id: "npc_1", hp: { current: 10, max: 10 } })
+      }),
+      data
+    )
+  );
+  assert.strictEqual(r5.state.actors.player_1.alive, false);
+  assert.strictEqual(r5.state.actors.player_1.growth.growth_a.stats.stat_a, 3, "a later Effect on the now-dead actor still applies normally");
+  assert.strictEqual(r5.state.actors.player_1.money, 10, "actorFixture defaults money to 5, +5 = 10");
+
+  // 6. visibility: 대상이 player면 player, NPC면 internal (D-31, 기존 hp.changed 규칙과 동일)
+  assert.strictEqual(r1.events[1].visibility, "player");
+  assert.strictEqual(r4b.events[1].visibility, "internal");
+
+  // 7. 입력 불변성
+  const state7 = deepFreeze(stateWithHp(10, 10));
+  const stateBefore7 = snapshot(state7);
+  const effects7 = deepFreeze([{ op: "hp", add: -10 }]);
+  const effectsBefore7 = snapshot(effects7);
+  const ctx7 = deepFreeze(ctxWith(state7));
+  const result7 = applyEffects(effects7, ctx7);
+  assert.deepStrictEqual(snapshot(state7), stateBefore7, "input state must be unchanged");
+  assert.deepStrictEqual(snapshot(effects7), effectsBefore7, "input effects must be unchanged");
+  assert.notStrictEqual(result7.state, ctx7.state);
+  assert.strictEqual(result7.state.actors.player_1.alive, false);
+
+  // 8. determinism
+  const runDeath = () => applyEffects([{ op: "hp", add: -10 }], ctxWith(stateWithHp(10, 10)));
+  assert.deepStrictEqual(runDeath(), runDeath(), "same (effects, ctx) must always produce the same result");
+
+  // 9. JSON round-trip
+  const result9 = runDeath();
+  assert.deepStrictEqual(JSON.parse(JSON.stringify(result9.state)), result9.state);
+  assert.deepStrictEqual(JSON.parse(JSON.stringify(result9.events)), result9.events);
+}
+
+testHpDeathTrigger();
+
+console.log("V2-Core-03/04/05/06/07/08/09/10 effects.test.js: all checks passed");
