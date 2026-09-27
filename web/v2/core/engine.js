@@ -4,12 +4,13 @@
 // V2-Core-11 (D-46/D-47/D-48/D-49): `perform`/`move`/`startCharacter`
 // wired into step(), reusing rules.js's applyEffectList/evaluateCondition/
 // check (no separate Effect/Condition path -- D-26/D-27/D-28/D-29/D-30
-// unchanged). `choose` (D-35) stays unimplemented: its gate gets a
-// structurally complete reject, but nothing in this engine ever sets
-// `pending.kind` to "choice", so that code path is unreachable in
-// practice. §2.5 stages 9-10 (day.started, triggers) remain unimplemented
-// (out of this round's scope) -- a `perform`/`move` still ends with
-// `action.resolved` per stage 11.
+// unchanged).
+// V2-Core-12 (D-35/D-50/D-51): `choose` (data.choices[id].options[], matched
+// by `id`) reuses the same Resolvable interpreter as `perform` (§2.3 "one
+// interpreter"), extracted into resolveResolvable(). Every resolved action
+// now also runs §2.5 stages 9 (day.started per crossed day boundary) and 10
+// (data.events trigger pass, id-ascending, once/cooldown via state.fired,
+// one pass = the "1-step chain limit").
 // Do not add Date/Date.now, Math.random, DOM, window, or any host API here.
 
 import { hashString } from "./rng.js";
@@ -133,15 +134,6 @@ export function createInitialState({ worldSeed, data }) {
   return { state, events: [] };
 }
 
-function resolveWait(state, action) {
-  const nextState = structuredClone(state);
-  nextState.time.minute += action.minutes;
-  return {
-    state: nextState,
-    events: [{ minute: nextState.time.minute, type: "time.advanced", visibility: "player", data: { minutes: action.minutes } }]
-  };
-}
-
 // Missing/absent outcome falls back per §2.3: great -> success, partial ->
 // fail. success/fail are the two that must exist in well-formed data; a
 // still-missing one degrades to an empty Effect list rather than throwing
@@ -152,6 +144,93 @@ function resolveOutcomeEffects(outcomes, tier) {
   if (tier === "success") return Array.isArray(o.success) ? o.success : [];
   if (tier === "partial") return Array.isArray(o.partial) ? o.partial : Array.isArray(o.fail) ? o.fail : [];
   return Array.isArray(o.fail) ? o.fail : [];
+}
+
+// The one Resolvable interpreter (§2.3), shared by `perform`, `choose`, and
+// trigger (D-51): check-or-effects -> outcomes (if checked) -> minutes as a
+// trailing time Effect. Mutates workingState/events in place.
+function resolveResolvable(resolvable, workingState, events, ctx) {
+  let effectsToApply;
+  if (resolvable.check !== undefined) {
+    const { result, rng } = check(resolvable.check, ctx);
+    workingState.rng = rng;
+    const attemptKey = resolvable.check.attemptKey;
+    if (typeof attemptKey === "string") {
+      if (!isPlainObject(workingState.attempts)) workingState.attempts = {};
+      workingState.attempts[attemptKey] = (workingState.attempts[attemptKey] ?? 0) + 1;
+    }
+    events.push({ minute: workingState.time.minute, type: "check.resolved", visibility: "player", data: result });
+    effectsToApply = resolveOutcomeEffects(resolvable.outcomes, result.tier);
+  } else {
+    effectsToApply = Array.isArray(resolvable.effects) ? resolvable.effects : [];
+  }
+
+  applyEffectList(effectsToApply, workingState, events, ctx);
+
+  if (Number.isInteger(resolvable.minutes) && resolvable.minutes > 0) {
+    applyEffectList([{ op: "time", minutes: resolvable.minutes }], workingState, events, ctx);
+  }
+}
+
+// §2.5 stage 9 (D-50): one `day.started` per day boundary crossed while
+// resolving this action, reported at the action's final minute (matching
+// every other event's "report current time" convention).
+function pushDayStartedEvents(beforeMinute, workingState, events) {
+  const dayBefore = Math.floor(beforeMinute / 1440);
+  const dayAfter = Math.floor(workingState.time.minute / 1440);
+  for (let day = dayBefore + 1; day <= dayAfter; day += 1) {
+    events.push({ minute: workingState.time.minute, type: "day.started", visibility: "internal", data: { day } });
+  }
+}
+
+// §2.5 stage 10 (D-51): one id-ascending pass over data.events. A trigger
+// that fires applies its Resolvable to the SAME working copy, so later
+// trigger ids in this same pass can see it (ordinary sequential visibility,
+// §4.1) -- but the pass never restarts, which is the "1-step chain limit"
+// (a newly-true earlier-id trigger waits for the next step() call).
+function runTriggerStage(workingState, events, data) {
+  if (workingState.player === undefined) return; // no actor system bootstrapped (D-48-style)
+  const definitions = data?.events;
+  if (!isPlainObject(definitions)) return;
+
+  Object.keys(definitions)
+    .sort()
+    .forEach((eventId) => {
+      const def = definitions[eventId];
+      if (!isPlainObject(def)) return;
+
+      const fired = workingState.fired?.[eventId];
+      if (def.once === true && fired && fired.count > 0) return;
+      if (Number.isInteger(def.cooldown) && fired && workingState.time.minute - fired.lastMinute < def.cooldown) return;
+
+      const triggerCtx = { state: workingState, data, actorId: workingState.player.actorId, contextKind: "world" };
+      if (!evaluateCondition(def.trigger, triggerCtx)) return;
+
+      resolveResolvable(def, workingState, events, { state: workingState, data, actorId: workingState.player.actorId });
+
+      if (!isPlainObject(workingState.fired)) workingState.fired = {};
+      const previousCount = workingState.fired[eventId]?.count ?? 0;
+      workingState.fired[eventId] = { count: previousCount + 1, lastMinute: workingState.time.minute };
+
+      events.push({ minute: workingState.time.minute, type: "trigger.fired", visibility: "internal", data: { eventId } });
+    });
+}
+
+function runWorldAndTriggerStages(beforeMinute, workingState, events, data) {
+  pushDayStartedEvents(beforeMinute, workingState, events);
+  runTriggerStage(workingState, events, data);
+}
+
+function resolveWait(state, action, data) {
+  const workingState = structuredClone(state);
+  const events = [];
+  const beforeMinute = workingState.time.minute;
+
+  workingState.time.minute += action.minutes;
+  events.push({ minute: workingState.time.minute, type: "time.advanced", visibility: "player", data: { minutes: action.minutes } });
+
+  runWorldAndTriggerStages(beforeMinute, workingState, events, data);
+  return { state: workingState, events };
 }
 
 function resolvePerform(state, action, data) {
@@ -168,27 +247,10 @@ function resolvePerform(state, action, data) {
   const workingState = structuredClone(state);
   const events = [];
   const workingCtx = { state: workingState, data, actorId: workingState.player.actorId, targetId: action.targetId };
+  const beforeMinute = workingState.time.minute;
 
-  let effectsToApply;
-  if (resolvable.check !== undefined) {
-    const { result, rng } = check(resolvable.check, workingCtx);
-    workingState.rng = rng;
-    const attemptKey = resolvable.check.attemptKey;
-    if (typeof attemptKey === "string") {
-      if (!isPlainObject(workingState.attempts)) workingState.attempts = {};
-      workingState.attempts[attemptKey] = (workingState.attempts[attemptKey] ?? 0) + 1;
-    }
-    events.push({ minute: workingState.time.minute, type: "check.resolved", visibility: "player", data: result });
-    effectsToApply = resolveOutcomeEffects(resolvable.outcomes, result.tier);
-  } else {
-    effectsToApply = Array.isArray(resolvable.effects) ? resolvable.effects : [];
-  }
-
-  applyEffectList(effectsToApply, workingState, events, workingCtx);
-
-  if (Number.isInteger(resolvable.minutes) && resolvable.minutes > 0) {
-    applyEffectList([{ op: "time", minutes: resolvable.minutes }], workingState, events, workingCtx);
-  }
+  resolveResolvable(resolvable, workingState, events, workingCtx);
+  runWorldAndTriggerStages(beforeMinute, workingState, events, data);
 
   events.push({ minute: workingState.time.minute, type: "action.resolved", visibility: "player", data: {} });
   return { state: workingState, events };
@@ -214,6 +276,7 @@ function resolveMove(state, action, data) {
   const workingState = structuredClone(state);
   const events = [];
   const workingCtx = { state: workingState, data, actorId: workingState.player.actorId };
+  const beforeMinute = workingState.time.minute;
 
   applyEffectList([{ op: "move", to: action.to }], workingState, events, workingCtx);
 
@@ -221,6 +284,36 @@ function resolveMove(state, action, data) {
   if (minutes > 0) {
     applyEffectList([{ op: "time", minutes }], workingState, events, workingCtx);
   }
+
+  runWorldAndTriggerStages(beforeMinute, workingState, events, data);
+
+  events.push({ minute: workingState.time.minute, type: "action.resolved", visibility: "player", data: {} });
+  return { state: workingState, events };
+}
+
+// Only reachable when pending.kind === "choice" (the step() gate enforces
+// this, D-35). Matches the option by `id` within
+// data.choices[pending.choiceId].options[] (6.2절-style array-of-{id,...}).
+function resolveChoose(state, action, data) {
+  const choiceDef = data?.choices?.[state.pending.choiceId];
+  const option = Array.isArray(choiceDef?.options) ? choiceDef.options.find((o) => isPlainObject(o) && o.id === action.optionId) : undefined;
+  if (!isPlainObject(option)) {
+    return rejectAction(state, "unknown_option");
+  }
+
+  const requiresCtx = { state, data, actorId: state.player.actorId, contextKind: "player" };
+  if (option.requires !== undefined && !evaluateCondition(option.requires, requiresCtx)) {
+    return rejectAction(state, "requirements_not_met");
+  }
+
+  const workingState = structuredClone(state);
+  const events = [];
+  const workingCtx = { state: workingState, data, actorId: workingState.player.actorId };
+  const beforeMinute = workingState.time.minute;
+
+  workingState.pending = null; // D-35: consuming a choice always clears pending, like startCharacter (D-47)
+  resolveResolvable(option, workingState, events, workingCtx);
+  runWorldAndTriggerStages(beforeMinute, workingState, events, data);
 
   events.push({ minute: workingState.time.minute, type: "action.resolved", visibility: "player", data: {} });
   return { state: workingState, events };
@@ -237,6 +330,7 @@ function resolveStartCharacter(state, action, data) {
 
   const workingState = structuredClone(state);
   const events = [];
+  const beforeMinute = workingState.time.minute;
 
   const previousActorId = workingState.player.actorId;
   const characterCount = workingState.player.characterCount + 1;
@@ -251,6 +345,8 @@ function resolveStartCharacter(state, action, data) {
   const succession = Array.isArray(data?.rules?.succession) ? data.rules.succession : [];
   const successionCtx = { state: workingState, data, actorId: newActorId, targetId: previousActorId };
   applyEffectList(succession, workingState, events, successionCtx);
+
+  runWorldAndTriggerStages(beforeMinute, workingState, events, data);
 
   events.push({ minute: workingState.time.minute, type: "action.resolved", visibility: "player", data: {} });
   return { state: workingState, events };
@@ -272,7 +368,7 @@ export function step(state, action, data) {
     // `data.world.startTemplateId` at createInitialState time) -- only
     // `wait` is meaningful, exactly like V2-Core-01.
     if (actionType !== "wait") return rejectAction(state, "invalid_action");
-    return resolveWait(state, action);
+    return resolveWait(state, action, data);
   }
 
   // §2.5 stage 3 (D-48): pending / dead gate. Applies to every action type
@@ -298,12 +394,8 @@ export function step(state, action, data) {
     }
   }
 
-  if (actionType === "wait") return resolveWait(state, action);
-  if (actionType === "choose") {
-    // D-35: data.choices resolution is out of scope; unreachable in
-    // practice since nothing here ever sets pending.kind to "choice".
-    return rejectAction(state, "unknown_option");
-  }
+  if (actionType === "wait") return resolveWait(state, action, data);
+  if (actionType === "choose") return resolveChoose(state, action, data);
   if (actionType === "perform") return resolvePerform(state, action, data);
   if (actionType === "move") return resolveMove(state, action, data);
   return resolveStartCharacter(state, action, data);

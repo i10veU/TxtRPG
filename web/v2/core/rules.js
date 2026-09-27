@@ -27,8 +27,9 @@
 // action-level (step()) and are out of scope (D-40, engine.js untouched).
 // check() (V2-Core-11, D-49): pure evaluation, not an Effect and not an
 // action -- it's invoked from within engine.js's step() while resolving a
-// `perform` action's Resolvable (§2.3/§2.5 stage 7). No narrate/choice/
-// handler yet.
+// `perform`/`choose`/trigger Resolvable (§2.3/§2.5 stage 7).
+// Effect (V2-Core-12): choice (D-35 resolved -- §4.2). No narrate/handler
+// yet.
 //
 // No host APIs (DOM/window/Date/Math.random/indexedDB/localStorage/fetch/
 // performance/crypto). ctx.state/data/effects/condition are never mutated
@@ -1119,6 +1120,36 @@ function applyRumorEffect(effect, workingState, events, ctx) {
   });
 }
 
+// choice Effect (D-35 resolved, §4.2): {op, choice, sourceId?}. World-level,
+// no subject (§4.1 exemption list). `sourceId` is an opaque, content-author
+// -supplied label (same idea as rumor's `source`) -- the engine never
+// infers it. A later choice/newCharacter pending in the same Effect list
+// simply overwrites this one (D-30/D-35: ordinary sequential-apply "last
+// write wins", not a new priority mechanism).
+function applyChoiceEffect(effect, workingState, events) {
+  if (typeof effect.choice !== "string") {
+    throw new TypeError("choice Effect requires a string `choice`");
+  }
+  if (effect.sourceId !== undefined && typeof effect.sourceId !== "string") {
+    throw new TypeError("choice Effect's `sourceId`, when present, must be a string");
+  }
+
+  const pending = { kind: "choice", choiceId: effect.choice };
+  if (effect.sourceId !== undefined) pending.sourceId = effect.sourceId;
+
+  if (JSON.stringify(workingState.pending ?? null) === JSON.stringify(pending)) return; // D-30: no-op
+
+  workingState.pending = pending;
+  const data = { choiceId: effect.choice };
+  if (effect.sourceId !== undefined) data.sourceId = effect.sourceId;
+  events.push({
+    minute: workingState.time.minute,
+    type: "choice.offered",
+    visibility: "player",
+    data
+  });
+}
+
 function applyOneEffect(effect, workingState, events, ctx) {
   if (!isPlainObject(effect)) {
     throw new TypeError("Effect must be a plain object");
@@ -1160,6 +1191,8 @@ function applyOneEffect(effect, workingState, events, ctx) {
       return applyRumorEffect(effect, workingState, events, ctx);
     case "move":
       return applyMoveEffect(effect, workingState, events, ctx);
+    case "choice":
+      return applyChoiceEffect(effect, workingState, events);
     default:
       throw new TypeError("Unknown Effect op: " + JSON.stringify(effect.op));
   }

@@ -2030,4 +2030,94 @@ testCheckDifficultyForms();
 testCheckModifierSourcesAndOrder();
 testCheckAttemptsRetryPenalty();
 
-console.log("V2-Core-03/04/05/06/07/08/09/10/11 effects.test.js: all checks passed");
+// ============================================================
+// V2-Core-12: choice Effect (D-35 resolved -- §4.2). `choose` action/
+// data.choices resolution and day.started/trigger are engine-level
+// (step()) integration tested in tests/v2/core.test.js.
+// ============================================================
+
+function testChoiceEffect() {
+  // 1. 정상 생성 (world-level, subject 없음, lazy pending)
+  const r1 = applyEffects([{ op: "choice", choice: "choice_a" }], ctxWith(baseState()));
+  assert.deepStrictEqual(r1.state.pending, { kind: "choice", choiceId: "choice_a" });
+  assert.strictEqual(r1.events.length, 1);
+  assert.strictEqual(r1.events[0].type, "choice.offered");
+  assert.strictEqual(r1.events[0].visibility, "player");
+  assert.deepStrictEqual(r1.events[0].data, { choiceId: "choice_a" });
+
+  // 2. sourceId 옵션
+  const r2 = applyEffects([{ op: "choice", choice: "choice_a", sourceId: "event_x" }], ctxWith(baseState()));
+  assert.deepStrictEqual(r2.state.pending, { kind: "choice", choiceId: "choice_a", sourceId: "event_x" });
+  assert.deepStrictEqual(r2.events[0].data, { choiceId: "choice_a", sourceId: "event_x" });
+
+  // 3. 기존 pending을 무조건 덮어쓴다 (나중 것이 이김, D-35)
+  const r3 = applyEffects(
+    [{ op: "choice", choice: "choice_a" }, { op: "choice", choice: "choice_b" }],
+    ctxWith(baseState())
+  );
+  assert.deepStrictEqual(r3.state.pending, { kind: "choice", choiceId: "choice_b" });
+  assert.strictEqual(r3.events.length, 2, "each distinct choice Effect still produces its own event");
+
+  // 4. 동일 pending 재설정 -> no-op (D-30)
+  const r4 = applyEffects(
+    [{ op: "choice", choice: "choice_a", sourceId: "x" }],
+    ctxWith(baseState({ pending: { kind: "choice", choiceId: "choice_a", sourceId: "x" } }))
+  );
+  assert.strictEqual(r4.events.length, 0);
+
+  // 다른 kind의 기존 pending(newCharacter)은 다르므로 덮어쓰고 이벤트가 난다
+  const r4b = applyEffects(
+    [{ op: "choice", choice: "choice_a" }],
+    ctxWith(baseState({ pending: { kind: "newCharacter" } }))
+  );
+  assert.deepStrictEqual(r4b.state.pending, { kind: "choice", choiceId: "choice_a" });
+  assert.strictEqual(r4b.events.length, 1);
+
+  // 5. malformed -> throw
+  const ctx5 = ctxWith(baseState());
+  [1, null, true, {}, [], undefined].forEach((bad) => {
+    assert.throws(() => applyEffects([{ op: "choice", choice: bad }], ctx5), TypeError, "choice=" + JSON.stringify(bad));
+  });
+  [1, null, true, {}, []].forEach((bad) => {
+    assert.throws(() => applyEffects([{ op: "choice", choice: "choice_a", sourceId: bad }], ctx5), TypeError, "sourceId=" + JSON.stringify(bad));
+  });
+
+  // 6. subject 없음: actorId/targetId가 전혀 없는 ctx로도 정상 동작 (world-level, 4.1절)
+  const r6 = applyEffects([{ op: "choice", choice: "choice_a" }], { state: baseState(), data: {} });
+  assert.deepStrictEqual(r6.state.pending, { kind: "choice", choiceId: "choice_a" });
+
+  // 7. visibility: 항상 player
+  assert.strictEqual(r1.events[0].visibility, "player");
+
+  // 8. 순차 가시성: 두 번째 Effect가 첫 번째가 세운 pending을 즉시 본다 (동일 choice 재설정 시 no-op)
+  const r8 = applyEffects(
+    [{ op: "choice", choice: "choice_a" }, { op: "choice", choice: "choice_a" }],
+    ctxWith(baseState())
+  );
+  assert.strictEqual(r8.events.length, 1, "the second identical choice Effect must see the first's pending and no-op");
+
+  // 9. 입력 불변성
+  const state9 = deepFreeze(baseState());
+  const stateBefore9 = snapshot(state9);
+  const effects9 = deepFreeze([{ op: "choice", choice: "choice_a", sourceId: "src" }]);
+  const effectsBefore9 = snapshot(effects9);
+  const ctx9 = deepFreeze(ctxWith(state9));
+  const result9 = applyEffects(effects9, ctx9);
+  assert.deepStrictEqual(snapshot(state9), stateBefore9, "input state must be unchanged");
+  assert.deepStrictEqual(snapshot(effects9), effectsBefore9, "input effects must be unchanged");
+  assert.notStrictEqual(result9.state, ctx9.state);
+
+  // 10. determinism
+  const runChoice = () => applyEffects([{ op: "choice", choice: "choice_a" }], ctxWith(baseState()));
+  assert.deepStrictEqual(runChoice(), runChoice(), "same (effects, ctx) must always produce the same result");
+
+  // 11. JSON round-trip (save/load 안정성 -- sourceId 생략 시 키 자체가 없어야 한다)
+  const result11 = runChoice();
+  assert.deepStrictEqual(JSON.parse(JSON.stringify(result11.state)), result11.state);
+  assert.deepStrictEqual(JSON.parse(JSON.stringify(result11.events)), result11.events);
+  assert.ok(!("sourceId" in result11.state.pending), "omitted sourceId must not appear as an explicit key");
+}
+
+testChoiceEffect();
+
+console.log("V2-Core-03/04/05/06/07/08/09/10/11/12 effects.test.js: all checks passed");

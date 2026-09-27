@@ -277,7 +277,22 @@ function actionDataFixture(overrides) {
         outcomes: { success: [{ op: "flag", key: "won", value: true }], fail: [{ op: "flag", key: "lost", value: true }] }
       },
       act_retry: { check: { difficulty: 1000, attemptKey: "try_x" }, outcomes: { success: [], fail: [] } },
-      act_fatal: { effects: [{ op: "hp", add: -1000 }] }
+      act_fatal: { effects: [{ op: "hp", add: -1000 }] },
+      act_offer_choice: { effects: [{ op: "choice", choice: "choice_a", sourceId: "act_offer_choice" }] }
+    },
+    choices: {
+      choice_a: {
+        options: [
+          { id: "opt_accept", effects: [{ op: "flag", key: "accepted", value: true }] },
+          { id: "opt_decline", requires: { op: "never" }, effects: [{ op: "flag", key: "declined", value: true }] },
+          {
+            id: "opt_checked",
+            check: { difficulty: -100 },
+            outcomes: { success: [{ op: "money", add: 10 }], fail: [{ op: "money", add: -10 }] },
+            minutes: 5
+          }
+        ]
+      }
     },
     ...overrides
   };
@@ -541,4 +556,204 @@ testDeathAndSuccession();
 testRemainingGateCodes();
 testActionEngineComposition();
 
-console.log("V2-Core-01/11 core.test.js: all checks passed");
+// ============================================================
+// V2-Core-12: choice/pending (D-35), day.started (D-50), trigger (D-51).
+// ============================================================
+
+// 20. choice/pending full flow: offer -> gate blocks everything else ->
+// unknown_option / requirements_not_met -> successful choose consumes
+// pending and runs the same Resolvable interpreter as perform (incl. check)
+function testChooseFlow() {
+  const data = actionDataFixture();
+  const { state: initial } = createInitialState({ worldSeed: "choose-check", data });
+
+  const offered = step(initial, { type: "perform", actionId: "act_offer_choice" }, data);
+  assert.deepStrictEqual(offered.state.pending, { kind: "choice", choiceId: "choice_a", sourceId: "act_offer_choice" });
+  assert.ok(offered.events.some((e) => e.type === "choice.offered"));
+
+  // pending 중에는 choose 외 모든 action이 pending_choice로 막힌다
+  const blockedActions = [
+    { type: "wait", minutes: 5 },
+    { type: "perform", actionId: "act_rest" },
+    { type: "move", to: "loc_market" },
+    { type: "startCharacter", templateId: "start_respawn" }
+  ];
+  blockedActions.forEach((action) => {
+    const r = step(offered.state, action, data);
+    assert.deepStrictEqual(r.events[0].data, { code: "pending_choice" }, action.type + " must be rejected while a choice is pending");
+  });
+
+  // 존재하지 않는 optionId -> unknown_option
+  const badOption = step(offered.state, { type: "choose", optionId: "does_not_exist" }, data);
+  assert.deepStrictEqual(badOption.events[0].data, { code: "unknown_option" });
+  assert.deepStrictEqual(badOption.state, offered.state, "rejected choose must leave state unchanged");
+
+  // requires가 거짓인 옵션 -> requirements_not_met, pending은 소비되지 않고 유지된다
+  const gatedOption = step(offered.state, { type: "choose", optionId: "opt_decline" }, data);
+  assert.deepStrictEqual(gatedOption.events[0].data, { code: "requirements_not_met" });
+  assert.deepStrictEqual(gatedOption.state.pending, offered.state.pending, "a rejected choose must not consume pending");
+
+  // 정상 선택: pending 소비, effects 적용, action.resolved
+  const accepted = step(offered.state, { type: "choose", optionId: "opt_accept" }, data);
+  assert.strictEqual(accepted.state.pending, null);
+  assert.strictEqual(accepted.state.flags.accepted, true);
+  assert.deepStrictEqual(
+    accepted.events.map((e) => e.type),
+    ["flag.changed", "action.resolved"]
+  );
+
+  // check가 있는 옵션: check.resolved + outcome + minutes까지 perform과 동일한 해석기로 처리된다
+  const checkedChoice = step(offered.state, { type: "choose", optionId: "opt_checked" }, data);
+  assert.strictEqual(checkedChoice.state.pending, null);
+  assert.strictEqual(checkedChoice.state.actors.player_1.money, 5 + 10, "difficulty -100 always succeeds");
+  assert.strictEqual(checkedChoice.state.time.minute, 5, "the option's own minutes must apply");
+  assert.deepStrictEqual(
+    checkedChoice.events.map((e) => e.type),
+    ["check.resolved", "money.changed", "time.advanced", "action.resolved"]
+  );
+
+  // pending이 아예 없을 때 choose -> no_pending_choice
+  const noPending = step(initial, { type: "choose", optionId: "opt_accept" }, data);
+  assert.deepStrictEqual(noPending.events[0].data, { code: "no_pending_choice" });
+
+  // pending 소비 후 다른 action이 정상적으로 재개된다
+  const afterChoice = step(accepted.state, { type: "wait", minutes: 10 }, data);
+  assert.strictEqual(afterChoice.events[0].type, "time.advanced");
+}
+
+// 21. day.started (D-50): one event per day boundary crossed, action-agnostic
+function testDayStartedEvents() {
+  const data = actionDataFixture();
+  const { state: initial } = createInitialState({ worldSeed: "day-check", data });
+
+  const r1 = step(initial, { type: "wait", minutes: 60 }, data);
+  assert.ok(!r1.events.some((e) => e.type === "day.started"), "no boundary crossed -> no day.started");
+
+  const r2 = step(initial, { type: "wait", minutes: 1440 }, data);
+  const dayEvents2 = r2.events.filter((e) => e.type === "day.started");
+  assert.strictEqual(dayEvents2.length, 1);
+  assert.deepStrictEqual(dayEvents2[0].data, { day: 1 });
+  assert.strictEqual(dayEvents2[0].visibility, "internal");
+
+  // `wait` itself is capped at 1440 minutes (§2.2); a Resolvable's own
+  // `minutes` (perform) has no such cap, so use that to cross several days
+  // in a single action and confirm day.started fires once per crossed day.
+  const longActionData = actionDataFixture({ actions: { act_long: { effects: [], minutes: 1440 * 3 } } });
+  const { state: initial2 } = createInitialState({ worldSeed: "day-check-2", data: longActionData });
+  const r3 = step(initial2, { type: "perform", actionId: "act_long" }, longActionData);
+  assert.deepStrictEqual(
+    r3.events.filter((e) => e.type === "day.started").map((e) => e.data.day),
+    [1, 2, 3],
+    "crossing 3 boundaries at once must emit 3 events, one per day"
+  );
+}
+
+// 22. trigger (D-51): condition gating, once, cooldown, id-ascending
+// single-pass visibility (the "1-step chain limit")
+function testTriggerStage() {
+  const data = actionDataFixture({
+    actions: { act_spend: { effects: [{ op: "money", add: -3 }] } }, // 5 -> 2, crosses below 3
+    events: {
+      event_low_money: { trigger: { op: "lt", left: { money: true }, right: 3 }, effects: [{ op: "flag", key: "poor", value: true }] },
+      event_once: { trigger: { op: "always" }, once: true, effects: [{ op: "signal", key: "once_fired", add: 1 }] },
+      event_cooldown: { trigger: { op: "always" }, cooldown: 100, effects: [{ op: "signal", key: "cooldown_fired", add: 1 }] }
+    }
+  });
+  const { state: initial } = createInitialState({ worldSeed: "trigger-check", data });
+
+  // 조건이 거짓이면 발동하지 않는다 (money=5, not < 3); always-true 트리거는 발동한다
+  const r1 = step(initial, { type: "wait", minutes: 1 }, data);
+  assert.strictEqual(r1.state.flags?.poor, undefined, "event_low_money must not fire while money >= 3");
+  assert.strictEqual(r1.state.signals.once_fired, 1);
+  assert.strictEqual(r1.state.signals.cooldown_fired, 1);
+  assert.strictEqual(r1.state.fired.event_once.count, 1);
+  const fired1 = r1.events.find((e) => e.type === "trigger.fired");
+  assert.strictEqual(fired1.visibility, "internal");
+
+  // once: 다시 실행해도 재발동하지 않는다
+  const r2 = step(r1.state, { type: "wait", minutes: 1 }, data);
+  assert.strictEqual(r2.state.signals.once_fired, 1, "once must not increment again");
+  assert.strictEqual(r2.state.fired.event_once.count, 1);
+  assert.strictEqual(r2.state.signals.cooldown_fired, 1, "within cooldown -> no re-fire");
+
+  // cooldown 경과 후 재발동
+  const r3 = step(r2.state, { type: "wait", minutes: 200 }, data);
+  assert.strictEqual(r3.state.signals.cooldown_fired, 2, "past cooldown -> fires again");
+
+  // 조건이 실제로 참이 되면 발동한다
+  const spent = step(initial, { type: "perform", actionId: "act_spend" }, data).state;
+  assert.strictEqual(spent.actors.player_1.money, 2);
+  const r4 = step(spent, { type: "wait", minutes: 1 }, data);
+  assert.strictEqual(r4.state.flags.poor, true);
+
+  // id 오름차순 한 바퀴: 알파벳순으로 앞선 id의 효과는 같은 패스 안에서 뒤쪽 id가 즉시 본다
+  const orderData = actionDataFixture({
+    actions: {},
+    events: {
+      a_sets_flag: { trigger: { op: "always" }, once: true, effects: [{ op: "flag", key: "a_ran", value: true }] },
+      b_depends_on_a: { trigger: { op: "eq", left: { flag: "a_ran" }, right: true }, once: true, effects: [{ op: "flag", key: "b_ran", value: true }] }
+    }
+  });
+  const { state: orderInitial } = createInitialState({ worldSeed: "trigger-order", data: orderData });
+  const rOrder = step(orderInitial, { type: "wait", minutes: 1 }, orderData);
+  assert.strictEqual(rOrder.state.flags.a_ran, true);
+  assert.strictEqual(rOrder.state.flags.b_ran, true, "b (alphabetically after a) must see a's effect within the SAME pass");
+
+  // 반대 순서(더 앞선 id가 더 뒤 id에 의존)면 같은 패스 안에서는 보이지 않는다 (1단계 연쇄 제한)
+  const reverseData = actionDataFixture({
+    actions: {},
+    events: {
+      a_depends_on_b: { trigger: { op: "eq", left: { flag: "b_ran" }, right: true }, once: true, effects: [{ op: "flag", key: "a_ran2", value: true }] },
+      b_sets_flag: { trigger: { op: "always" }, once: true, effects: [{ op: "flag", key: "b_ran", value: true }] }
+    }
+  });
+  const { state: reverseInitial } = createInitialState({ worldSeed: "trigger-reverse", data: reverseData });
+  const rReverse1 = step(reverseInitial, { type: "wait", minutes: 1 }, reverseData);
+  assert.strictEqual(rReverse1.state.flags.b_ran, true);
+  assert.strictEqual(rReverse1.state.flags.a_ran2, undefined, "a (earlier id) must NOT see b's same-pass effect (1-step chain limit)");
+  const rReverse2 = step(rReverse1.state, { type: "wait", minutes: 1 }, reverseData);
+  assert.strictEqual(rReverse2.state.flags.a_ran2, true, "the NEXT step() call must evaluate the now-true trigger");
+}
+
+// 23. immutability, determinism, JSON round-trip for choose/trigger
+function testChoiceAndTriggerComposition() {
+  const data = actionDataFixture({
+    events: { event_once: { trigger: { op: "always" }, once: true, effects: [{ op: "signal", key: "seen", add: 1 }] } }
+  });
+  const { state } = createInitialState({ worldSeed: "choice-composition", data });
+  const offered = step(state, { type: "perform", actionId: "act_offer_choice" }, data).state;
+
+  const frozenState = deepFreeze(snapshot(offered));
+  const stateBefore = snapshot(frozenState);
+  const frozenData = deepFreeze(snapshot(data));
+  const dataBefore = snapshot(frozenData);
+  const action = deepFreeze({ type: "choose", optionId: "opt_accept" });
+
+  const result = step(frozenState, action, frozenData);
+  assert.deepStrictEqual(snapshot(frozenState), stateBefore, "step() must not mutate its input state");
+  assert.deepStrictEqual(snapshot(frozenData), dataBefore, "step() must not mutate its input data");
+  assert.deepStrictEqual(JSON.parse(JSON.stringify(result.state)), result.state, "result state must be JSON round-trip safe");
+  assert.deepStrictEqual(JSON.parse(JSON.stringify(result.events)), result.events, "events must be JSON round-trip safe");
+
+  function replay() {
+    let s = createInitialState({ worldSeed: "choice-composition-2", data }).state;
+    const allEvents = [];
+    [{ type: "perform", actionId: "act_offer_choice" }, { type: "choose", optionId: "opt_checked" }, { type: "wait", minutes: 1440 }].forEach((a) => {
+      const r = step(s, a, data);
+      s = r.state;
+      allEvents.push(r.events);
+    });
+    return { state: s, allEvents };
+  }
+  const first = replay();
+  const second = replay();
+  assert.deepStrictEqual(second.state, first.state, "replaying the same action sequence must yield the same final state");
+  assert.deepStrictEqual(second.allEvents, first.allEvents, "replaying the same action sequence must yield the same events");
+}
+
+testChooseFlow();
+testDayStartedEvents();
+testTriggerStage();
+testChoiceAndTriggerComposition();
+
+console.log("V2-Core-01/11/12 core.test.js: all checks passed");
