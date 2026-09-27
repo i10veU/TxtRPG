@@ -1455,4 +1455,210 @@ function testFactEffect() {
 
 testFactEffect();
 
-console.log("V2-Core-03/04/05/06/07/08 effects.test.js: all checks passed");
+// ============================================================
+// V2-Core-09: rumor Effect (D-45/D-14 resolved -- §8.3/§4.2)
+// The Condition-side `rumor` selector (§3.2a) stays deferred (D-24) --
+// SELECTOR_RESOLVERS is not touched by this round, so no test for it here.
+// ============================================================
+
+function rumorDataFixture() {
+  return {
+    rumors: {
+      rum_a: { factId: "fact_a", claim: "npc_x" },
+      rum_b: { factId: "fact_a", claim: "npc_y" }
+    },
+    rules: { rumor: { relayLoss: 10, newSourceGain: 15, sameSourceGain: 2 } }
+  };
+}
+
+function stateWithKnowledge(knowledge, overrides) {
+  return stateWithActors({ player_1: actorFixture(), npc_1: actorFixture({ id: "npc_1" }) }, { knowledge, ...overrides });
+}
+
+function testRumorEffect() {
+  const data = rumorDataFixture();
+
+  // 1. 생성 (학습 모드, lazy state.knowledge)
+  const r1 = applyEffects([{ op: "rumor", rumor: "rum_a", source: "npc_c", confidence: 45 }], ctxWithData(stateWithKnowledge({}), data));
+  const entry1 = r1.state.knowledge.player_1.rum_a;
+  assert.deepStrictEqual(entry1, {
+    rumorId: "rum_a",
+    factId: "fact_a",
+    claim: "npc_x",
+    source: "npc_c",
+    sources: ["npc_c"],
+    confidence: 45,
+    confirmations: 1,
+    firstSeenDay: 0,
+    lastSeenDay: 0
+  });
+  assert.strictEqual(r1.events.length, 1);
+  assert.strictEqual(r1.events[0].type, "rumor.learned");
+  assert.deepStrictEqual(r1.events[0].data, { rumor: "rum_a", factId: "fact_a", claim: "npc_x", confidence: 45, delta: 45 });
+
+  // 생성 (관찰 모드): 현재 fact 값을 claim으로 복사
+  const r1b = applyEffects(
+    [{ op: "rumor", rumor: "rum_a", observe: true, source: "obs_loc_a", confidence: 80 }],
+    ctxWithData(stateWithKnowledge({}, { facts: { fact_a: { value: "npc_z", since: 0 } } }), data)
+  );
+  assert.strictEqual(r1b.state.knowledge.player_1.rum_a.claim, "npc_z", "observe copies the CURRENT fact value, not the data.rumors definition's claim");
+
+  // 생성 (복사 모드): 다른 actor의 지식 항목을 복사, confidence는 relayLoss만큼 감소
+  const npc1Entry = { rumorId: "rum_a", factId: "fact_a", claim: "npc_z", source: "npc_q", sources: ["npc_q"], confidence: 90, confirmations: 1, firstSeenDay: 0, lastSeenDay: 0 };
+  const r1c = applyEffects(
+    [{ op: "rumor", rumor: "rum_a", from: "npc_1" }],
+    ctxWithData(stateWithKnowledge({ npc_1: { rum_a: npc1Entry } }), data)
+  );
+  const copiedEntry = r1c.state.knowledge.player_1.rum_a;
+  assert.strictEqual(copiedEntry.claim, "npc_z");
+  assert.strictEqual(copiedEntry.confidence, 80, "90 - relayLoss(10) = 80");
+  assert.deepStrictEqual(copiedEntry.sources, ["npc_1"], "copy mode's provenance is the `from` actor itself");
+
+  // 2. 기존 rumor 갱신 -- 새 출처로 재확인
+  const existing2 = { rumorId: "rum_a", factId: "fact_a", claim: "npc_x", source: "npc_c", sources: ["npc_c"], confidence: 45, confirmations: 1, firstSeenDay: 0, lastSeenDay: 0 };
+  const r2 = applyEffects(
+    [{ op: "rumor", rumor: "rum_a", source: "npc_d", confidence: 10 }],
+    ctxWithData(stateWithKnowledge({ player_1: { rum_a: existing2 } }), data)
+  );
+  const entry2 = r2.state.knowledge.player_1.rum_a;
+  assert.strictEqual(entry2.confidence, 60, "45 + newSourceGain(15) = 60");
+  assert.deepStrictEqual(entry2.sources, ["npc_c", "npc_d"]);
+  assert.strictEqual(entry2.confirmations, 2);
+  assert.strictEqual(r2.events[0].type, "rumor.updated");
+  assert.strictEqual(r2.events[0].data.delta, 15);
+
+  // 같은 출처로 재확인 (다른 날) -- sources/confirmations는 그대로, confidence만 소폭 갱신
+  const r2b = applyEffects(
+    [{ op: "rumor", rumor: "rum_a", source: "npc_c", confidence: 99 }],
+    ctxWithData(stateWithKnowledge({ player_1: { rum_a: existing2 } }, { time: { minute: 1450 } }), data)
+  );
+  const entry2b = r2b.state.knowledge.player_1.rum_a;
+  assert.strictEqual(entry2b.confidence, 47, "45 + sameSourceGain(2) = 47 -- Effect의 confidence:99는 재확인에서 쓰이지 않는다");
+  assert.deepStrictEqual(entry2b.sources, ["npc_c"], "same source -> sources unchanged");
+  assert.strictEqual(entry2b.confirmations, 1, "same source -> confirmations unchanged");
+  assert.strictEqual(entry2b.lastSeenDay, 1, "day advanced (minute 1450 -> day 1)");
+
+  // 3. 동일 claim + 아무 변화 없음 -> no-op (data.rules.rumor 자체가 없으면 gain은 안전하게 0)
+  const noGainData = { rumors: data.rumors };
+  const sameDayEntry = { rumorId: "rum_a", factId: "fact_a", claim: "npc_x", source: "npc_c", sources: ["npc_c"], confidence: 45, confirmations: 1, firstSeenDay: 0, lastSeenDay: 0 };
+  const r3 = applyEffects(
+    [{ op: "rumor", rumor: "rum_a", source: "npc_c", confidence: 10 }],
+    ctxWithData(stateWithKnowledge({ player_1: { rum_a: sameDayEntry } }), noGainData)
+  );
+  assert.strictEqual(r3.events.length, 0, "same source, same day, no configured gain -> pure no-op");
+  assert.deepStrictEqual(r3.state.knowledge.player_1.rum_a, sameDayEntry);
+
+  // 4. confidence 변화는 위 2/2b(증가)와 3(무변화)에서 이미 확인됨; 5에서 상충 케이스의 변화도 확인한다
+
+  // 5. 상충 claim (D-14): from-복사로 같은 rumorId에 다른 claim이 들어오는 경우
+  const conflictEntry = { rumorId: "rum_a", factId: "fact_a", claim: "npc_x", source: "npc_c", sources: ["npc_c"], confidence: 50, confirmations: 1, firstSeenDay: 0, lastSeenDay: 0 };
+  // 5a. 들어온 claim의 confidence가 더 높음 -> 전체 항목 교체
+  const higherConflict = { rumorId: "rum_a", factId: "fact_a", claim: "npc_z", source: "npc_q", sources: ["npc_q"], confidence: 90, confirmations: 3, firstSeenDay: 0, lastSeenDay: 0 };
+  const r5a = applyEffects(
+    [{ op: "rumor", rumor: "rum_a", from: "npc_1" }],
+    ctxWithData(stateWithKnowledge({ player_1: { rum_a: conflictEntry }, npc_1: { rum_a: higherConflict } }), data)
+  );
+  const entry5a = r5a.state.knowledge.player_1.rum_a;
+  assert.strictEqual(entry5a.claim, "npc_z", "higher-confidence incoming claim (90-10=80 > 50) replaces the entry");
+  assert.strictEqual(entry5a.confidence, 80);
+  assert.strictEqual(entry5a.confirmations, 1, "a replaced claim starts a fresh belief, not an accumulated one");
+  assert.strictEqual(r5a.events[0].type, "rumor.updated");
+  assert.strictEqual(r5a.events[0].data.claimChanged, true);
+  assert.strictEqual(r5a.events[0].data.delta, 30, "80 - 50");
+
+  // 5b. 들어온 claim의 confidence가 같거나 낮음 -> 기존 claim 유지, no-op
+  const lowerConflict = { rumorId: "rum_a", factId: "fact_a", claim: "npc_z", source: "npc_q", sources: ["npc_q"], confidence: 55, confirmations: 1, firstSeenDay: 0, lastSeenDay: 0 };
+  const r5b = applyEffects(
+    [{ op: "rumor", rumor: "rum_a", from: "npc_1" }],
+    ctxWithData(stateWithKnowledge({ player_1: { rum_a: conflictEntry }, npc_1: { rum_a: lowerConflict } }), data)
+  );
+  assert.deepStrictEqual(r5b.state.knowledge.player_1.rum_a, conflictEntry, "55-10=45 <= 50 -> existing claim wins, no-op");
+  assert.strictEqual(r5b.events.length, 0);
+
+  // 6. malformed 입력 -> throw
+  const ctx6 = ctxWithData(stateWithKnowledge({}), data);
+  assert.throws(() => applyEffects([{ op: "rumor", source: "npc_c", confidence: 1 }], ctx6), TypeError, "missing `rumor`");
+  assert.throws(() => applyEffects([{ op: "rumor", rumor: 42, source: "npc_c", confidence: 1 }], ctx6), TypeError, "non-string `rumor`");
+  assert.throws(() => applyEffects([{ op: "rumor", rumor: "rum_a", subject: 42, source: "npc_c", confidence: 1 }], ctx6), TypeError, "non-string `subject`");
+  assert.throws(() => applyEffects([{ op: "rumor", rumor: "rum_a", from: 42 }], ctx6), TypeError, "non-string `from`");
+  assert.throws(() => applyEffects([{ op: "rumor", rumor: "rum_a", observe: "yes", source: "s", confidence: 1 }], ctx6), TypeError, "non-boolean `observe`");
+  assert.throws(() => applyEffects([{ op: "rumor", rumor: "rum_a", source: 42, confidence: 1 }], ctx6), TypeError, "non-string `source`");
+  assert.throws(() => applyEffects([{ op: "rumor", rumor: "rum_a", source: "npc_c", confidence: 1.5 }], ctx6), TypeError, "non-integer `confidence`");
+  assert.throws(() => applyEffects([{ op: "rumor", rumor: "rum_a", from: "npc_1", observe: true }], ctx6), TypeError, "`from` and `observe` together must throw");
+  assert.throws(() => applyEffects([{ op: "rumor", rumor: "rum_a", confidence: 1 }], ctx6), TypeError, "learn mode missing `source`");
+  assert.throws(() => applyEffects([{ op: "rumor", rumor: "rum_a", source: "npc_c" }], ctx6), TypeError, "learn mode missing `confidence`");
+  assert.throws(() => applyEffects([{ op: "rumor", rumor: "rum_a", observe: true, confidence: 1 }], ctx6), TypeError, "observe mode missing `source`");
+  assert.throws(() => applyEffects([{ op: "rumor", rumor: "rum_a", observe: true, source: "s" }], ctx6), TypeError, "observe mode missing `confidence`");
+
+  // 7. 존재하지 않는 참조 -> skip (D-29), throw 아님
+  const r7a = applyEffects([{ op: "rumor", rumor: "does_not_exist", source: "npc_c", confidence: 1 }], ctx6);
+  assert.strictEqual(r7a.events.length, 0, "unknown rumor id (learn mode) -> skip");
+  assert.deepStrictEqual(r7a.state, ctx6.state);
+
+  const r7b = applyEffects([{ op: "rumor", rumor: "rum_a", from: "npc_1" }], ctxWithData(stateWithKnowledge({}), data));
+  assert.strictEqual(r7b.events.length, 0, "from actor has no such knowledge entry -> skip");
+
+  const r7c = applyEffects(
+    [{ op: "rumor", rumor: "rum_a", observe: true, source: "obs_a", confidence: 50 }],
+    ctxWithData(stateWithKnowledge({}), data) // no state.facts.fact_a
+  );
+  assert.strictEqual(r7c.events.length, 0, "observe mode with no fact recorded yet -> skip");
+
+  const noTargetCtx = { state: stateWithKnowledge({}), data, actorId: "player_1" };
+  const r7d = applyEffects([{ op: "rumor", rumor: "rum_a", from: "target", source: "x" }], noTargetCtx);
+  assert.strictEqual(r7d.events.length, 0, "unresolvable `from` (target with no ctx.targetId) -> skip");
+  const r7e = applyEffects([{ op: "rumor", rumor: "rum_a", subject: "target", source: "npc_c", confidence: 1 }], noTargetCtx);
+  assert.strictEqual(r7e.events.length, 0, "unresolvable `subject` (target with no ctx.targetId) -> skip");
+
+  // 8. visibility
+  const r8a = applyEffects([{ op: "rumor", rumor: "rum_a", source: "npc_c", confidence: 1 }], ctxWithData(stateWithKnowledge({}), data));
+  assert.strictEqual(r8a.events[0].visibility, "player", "subject defaults to self (player_1)");
+  const r8b = applyEffects(
+    [{ op: "rumor", rumor: "rum_a", subject: "target", source: "npc_c", confidence: 1 }],
+    ctxWithData(stateWithKnowledge({}), data)
+  );
+  assert.strictEqual(r8b.events[0].visibility, "internal", "subject:target (npc_1) is not the player");
+  assert.strictEqual(r8b.events[0].actorId, "npc_1");
+
+  // 9. event schema: 정확성(isAccurate)이 노출되지 않는지도 함께 확인
+  assert.deepStrictEqual(Object.keys(r1.events[0].data).sort(), ["claim", "confidence", "delta", "factId", "rumor"]);
+  assert.strictEqual(r1.events[0].data.isAccurate, undefined, "accuracy must never appear in the event (§8.2/§8.4)");
+
+  // 10. 순차 Effect 가시성: 두 번째 Effect가 첫 번째의 결과(새로 생긴 entry)를 즉시 본다
+  const r10 = applyEffects(
+    [
+      { op: "rumor", rumor: "rum_a", source: "npc_c", confidence: 45 },
+      { op: "rumor", rumor: "rum_a", source: "npc_d", confidence: 1 }
+    ],
+    ctxWithData(stateWithKnowledge({}), data)
+  );
+  assert.strictEqual(r10.state.knowledge.player_1.rum_a.confirmations, 2, "the second Effect must see the first Effect's newly-created entry, not create a separate one");
+  assert.strictEqual(r10.events.length, 2);
+  assert.strictEqual(r10.events[0].type, "rumor.learned");
+  assert.strictEqual(r10.events[1].type, "rumor.updated");
+
+  // 11. 입력 불변성
+  const state11 = deepFreeze(stateWithKnowledge({ player_1: { rum_a: existing2 } }));
+  const stateBefore11 = snapshot(state11);
+  const effects11 = deepFreeze([{ op: "rumor", rumor: "rum_a", source: "npc_d", confidence: 10 }]);
+  const effectsBefore11 = snapshot(effects11);
+  const ctx11 = deepFreeze(ctxWithData(state11, data));
+  const result11 = applyEffects(effects11, ctx11);
+  assert.deepStrictEqual(snapshot(state11), stateBefore11, "input state must be unchanged");
+  assert.deepStrictEqual(snapshot(effects11), effectsBefore11, "input effects must be unchanged");
+  assert.notStrictEqual(result11.state, ctx11.state);
+  assert.strictEqual(result11.state.knowledge.player_1.rum_a.confidence, 60);
+
+  // 12. determinism
+  const runRumor = () => applyEffects([{ op: "rumor", rumor: "rum_a", source: "npc_c", confidence: 45 }], ctxWithData(stateWithKnowledge({}), data));
+  assert.deepStrictEqual(runRumor(), runRumor(), "same (effects, ctx) must always produce the same result");
+
+  // 13. JSON round-trip
+  const result13 = runRumor();
+  assert.deepStrictEqual(JSON.parse(JSON.stringify(result13.state)), result13.state);
+  assert.deepStrictEqual(JSON.parse(JSON.stringify(result13.events)), result13.events);
+}
+
+testRumorEffect();
+
+console.log("V2-Core-03/04/05/06/07/08/09 effects.test.js: all checks passed");

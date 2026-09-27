@@ -564,10 +564,9 @@ rollDie(rng, sides)    = nextUint32의 value % sides + 1
 
 > **구현 상태**: `flag`, `signal`, `time`, `if`(V2-Core-03), `stat`, `hp`, `money`, `item`,
 > `relation`(add만, V2-Core-04 / mode·tag·untag 추가, D-43, V2-Core-07), `skill`, `trait`, `unlock`,
-> `case`(V2-Core-05), `exp`, `proficiency`(D-41/D-42 resolved, V2-Core-06), `fact`(D-44, V2-Core-08)까지
-> 16개를 실제로 구현했다(아래 스키마가 현재 확정된 인자명이다, D-37). `rumor`는 **블로커로 미구현**
-> (D-45 — 8.3절 참고, subject/`from` 기본값·재학습 수치·D-14 상충 claim 처리·이벤트 data 스키마가
-> 모두 미확정). 나머지(`move`/`narrate`/`choice`/`handler`)는 아직 계약 초안 단계이며, 각각을
+> `case`(V2-Core-05), `exp`, `proficiency`(D-41/D-42 resolved, V2-Core-06), `fact`(D-44, V2-Core-08),
+> `rumor`(D-45/D-14 resolved, V2-Core-09)까지 17개를 실제로 구현했다(아래 스키마가 현재 확정된
+> 인자명이다, D-37). 나머지(`move`/`narrate`/`choice`/`handler`)는 아직 계약 초안 단계이며, 각각을
 > 구현하는 시점에 이 표와 4.1절의 D-26~D-30 원칙에 맞게 다시 검토·확정한다.
 >
 > **skill/trait/unlock도 D-31의 subject 기준 visibility를 따른다.** 아래 세 행의 "player" 하드코딩은
@@ -596,7 +595,7 @@ rollDie(rng, sides)    = nextUint32의 value % sides + 1
 | `time` | `{op, minutes}` | **구현됨.** `minutes`는 정수이고 0 이상이어야 한다(그 외 malformed). `state.time.minute += minutes`만 한다 — day 경계 계산과 `day.started` 발행은 `step()`의 책임이다(§2.5 9단계), `time` Effect는 만들지 않는다(D-39 확정, 이전 초안의 "day 경계 기록"은 폐기). `minutes:0`은 no-op(이벤트 없음) | `time.advanced` (player), `data:{minutes: 실제 적용값}` |
 | `move` | `{op, to}` | 위치를 직접 설정. 연결 검사는 하지 않음 (requires가 책임) | `actor.moved` (player) |
 | `relation` | `{op, from?, to?, add?, mode?, tag?, untag?}` | **구현됨(D-43, V2-Core-07).** `add`/`mode`/`tag`/`untag`는 한 Effect 안에서 임의로 조합될 수 있으며 각각 독립적으로 검증·적용된다. `add`가 있으면 정수여야 한다. `mode`가 있으면 `"neutral"`/`"cooperation"`/`"conflict"` 중 하나여야 한다(그 외 값은 malformed→throw, 7.2절의 enum을 그대로 스키마 검증에 사용). `tag`/`untag`가 있으면 각각 string이어야 한다(그 외 malformed→throw). `from`/`to` 해석은 7.3절 기본값(`from`=target, `to`=self)과 위 공통 skip 규칙을 그대로 따른다. score는 `[-100,100]`으로 clamp한다. `mode`를 지정하면 그 값으로 설정하고 `cooperation`이면 `cooperationCount`, `conflict`이면 `conflictCount`를 **지정할 때마다 무조건** +1 한다(이전 값과 같아도 증가한다 — V1 `npc-relations.js`의 매일 재적용 semantics를 그대로 유지, 7.3절). `tag`는 `tags`에 없을 때만 추가 후 재정렬하고, `untag`는 있을 때만 제거한다(둘 다 idempotent). 네 필드 중 실제로 값이 바뀐 것이 하나라도 있으면(예: `mode`를 같은 값으로 다시 지정해도 카운터가 늘면 "바뀐 것"이다) edge를 lazy 생성/갱신하고 `lastDay`를 현재 day로 설정한다 — 아무것도 실제로 바뀌지 않으면(예: `add` 없음/0, `tag`가 이미 있음, `untag`가 이미 없음, `mode`가 이미 같은 값이고 neutral이라 카운터도 없음) edge를 만들지도 갱신하지도 않는다(순수 no-op, D-30 확장) | `relation.changed` (player: 플레이어가 한쪽 끝일 때 / 그 외 internal, D-31), `data:{from, to}`에 실제로 바뀐 필드만 조건부로 추가: `delta`(score가 바뀌었을 때만), `mode`(모드/카운터가 바뀌었을 때만, 값은 delta가 아니라 결과값), `tagAdded`(태그가 실제로 새로 추가됐을 때만), `tagRemoved`(태그가 실제로 제거됐을 때만) — `trait.changed`의 `removedExclusive?`처럼 조건부 선택 필드를 쓰는 기존 패턴을 재사용한 것이며 새 이벤트 타입을 만들지 않는다 (actorId 필드는 endpoint가 둘이라 쓰지 않는다) |
-| `rumor` | `{op, rumor, source, confidence?, from?, observe?}` | 8.3절 | `rumor.learned` / `rumor.updated` (subject가 플레이어면 player) |
+| `rumor` | `{op, rumor, subject?, source?, confidence?, from?, observe?}` | **구현됨(D-45/D-14 resolved, V2-Core-09).** 8.3절 — `from`이 있으면 복사 모드, `observe:true`면 관찰 모드(둘을 함께 쓰면 malformed→throw), 그 외에는 `source`+`confidence`(둘 다 필수)로 학습 모드. `rumor`은 string, `subject`/`from`은 있으면 string(4.3절 표준 subject 해석, 단 `relation`처럼 `state.actors` 레코드 존재는 요구하지 않음 — `state.knowledge`는 top-level ID-keyed 맵). `confidence`는 있으면 정수, `[0,100]`으로 clamp(D-28/D-32류) | `rumor.learned`(첫 학습) / `rumor.updated`(갱신), subject 기준 visibility(D-31), `data:{rumor, factId, claim, confidence, delta}` + 다른 claim으로 교체된 경우만 `claimChanged:true` |
 | `fact` | `{op, fact, set}` | **구현됨(D-44, V2-Core-08).** `fact`는 string, `set`은 생략 불가(어떤 JSON 값이든 허용 — `null`/`false`/`0`/`""` 포함, 8.1절)이지만 `undefined`(필드 자체가 없음)면 malformed→throw. subject를 쓰지 않는 세계 단위 op(4.1절). `state.facts`가 없으면 lazy 생성(`case`/`flag`/`signal`과 같은 패턴 — D-33이 "재확인" 대상으로 남겨둔 부분을 이걸로 확정). 기존 값과 `set`이 같으면(JSON 값 비교) `case`의 "같은 stage" no-op과 동일하게 아무 것도 바꾸지 않는다(`since`도 갱신하지 않음) | `fact.changed` (**internal**), `data:{fact, value}` (flag/case의 "키+새 값" 패턴 재사용, 새 이벤트 타입 아님) |
 | `flag` | `{op, key, value}` | **구현됨.** `key`는 string, `value`는 반드시 boolean(그 외 malformed). `state.flags`가 없으면 lazy 생성. 기존 값과 같으면 no-op(이벤트 없음) — 이전 초안의 `set`(임의 JSON, null이면 삭제)은 이 4개 op 구현 범위에서 `value`(boolean 전용, 삭제 없음)로 좁혀 확정했다(D-37). 문자열/숫자 flag나 키 삭제가 필요해지면 그때 별도 op나 인자를 추가한다 | `flag.changed` (internal), `data:{key, value}` |
 | `signal` | `{op, key, add}` | **구현됨.** `key`는 string, `add`는 정수(기본값 없음 — 생략하면 malformed, 이전 초안의 "기본 add=1"은 폐기(D-37)). `state.signals`가 없으면 lazy 생성. 결과는 `[0, Number.MAX_SAFE_INTEGER]`로 clamp. 실제 변화량(delta = 적용 후−적용 전)이 0이면 이벤트 없음 | `signal.raised` (internal), `data:{key, delta: 실제 변화량}` |
@@ -1021,45 +1020,61 @@ state.knowledge["player_1"]["rum_a"] = {
 
 ### 8.3 rumor Effect 적용 규칙
 
-> **구현 상태 (V2-Core-08 검토 결과, D-45 블로커, 미해결)**: `rumor` Effect는 이번 작업에서
-> 구현하지 않는다. `fact` Effect(4.2절, D-44)와 달리 아래 표만으로는 코드로 옮길 수 없는 항목이
-> 여럿이라 임의로 채우지 않고 블로커로 남긴다.
-> - **subject(수신자) 필드가 표에 없다.** 4.2절 `rumor` 이벤트 설명은 "subject가 플레이어면
->   player"라고 해서 subject 개념을 전제하지만, 이 표의 세 형태 어디에도 `subject?` 필드가 없다.
->   4.1절 규칙상 `rumor`는 world 전용 op 목록(`fact`/`flag`/`signal`/`time`/`narrate`/`choice`/
->   `case`/`if`)에 없으므로 subject를 쓰는 쪽으로 보이지만, 명시적으로 확인된 적이 없다.
-> - **`{from}` 형태의 `from`에 기본값이 없다.** `relation`의 `from`/`to`는 7.3절이 기본값(target/
->   self)을 명시하지만, rumor의 `from`은 아무 기본값도 없다. `resolveSubjectId`의 일반 규칙(생략시
->   self)을 그대로 적용하면 "내 지식을 나 자신에게 복사"라는 의미 없는 기본 동작이 되므로, 이 필드는
->   생략 불가(필수)인지 다른 기본값이 있는지 결정이 필요하다.
-> - **재학습 시 confidence 증감 폭이 수치로 없다.** "새 출처: 증가(clamp)", "같은 출처: 소폭 갱신"
->   모두 `data.rules.rumor`를 가리키지만, 이 데이터의 필드 이름과 기본값은 `relayLoss` 하나만
->   등장하고 나머지는 없다.
-> - **D-14(상충 claim 처리)가 여전히 미확정이다.** 8.3절 자신이 "D-14에서 정한다"고 미루고 있고,
->   14절의 D-14 항목도 "확정"이 아니라 "제안"으로만 남아 있다 — D-41/D-42/D-43처럼 이 프로젝트의
->   확정 절차를 거친 적이 없다.
-> - **`rumor.learned`/`rumor.updated`의 `data` 스키마가 없다.** 4.2절 표는 이벤트 이름만 주고
->   `data:{...}` 형태를 주지 않는다(다른 모든 구현된 op와 달리).
-> - **존재하지 않는 참조의 처리(D-29류 skip vs D-28류 throw)가 없다.** `rumor` id가
->   `data.rumors`에 없을 때, `from` actor가 그 rumor를 모를 때, `observe`인데 `state.facts[factId]`가
->   아직 없을 때 각각 무엇을 하는지 본문에 없다.
->
-> 이 항목들은 D-41/D-42/D-43처럼 이미 확정된 원칙의 직접적 연장으로 메울 수 있는 수준을 넘어서고
-> (특히 D-14는 8.3절 자신이 "미정"이라고 명시), 숫자를 새로 만들면 콘텐츠 밸런스를 엔진 구현자가
-> 임의로 정하는 것이 되므로 **D-45로 블로커 기록만 하고 구현은 다음 작업으로 미룬다.**
+> **구현 상태 (D-45 resolved, D-14 resolved, V2-Core-09)**: V2-Core-08 검토에서 발견한 6개 gap을
+> 모두 아래처럼 확정하고 구현했다. 요약: `subject?`(수신자, 기본값 self)를 4.1절의 일반 subject
+> 규칙 그대로 추가했다. `from`은 필드가 **있으면** copy 모드가 선택되는 방식이라 별도 기본값이
+> 필요 없다(없으면 다른 모드로 분기할 뿐이다). 재학습 confidence 증감폭은 `data.rules.rumor`의
+> 이름 있는 필드(`relayLoss`/`newSourceGain`/`sameSourceGain`)로 데이터에 두고, 없으면 변화 0으로
+> 안전하게 처리한다(콘텐츠 밸런스 수치를 엔진이 임의로 정하지 않기 위함 — `stat`/`skill`의 "정의를
+> 못 찾으면 clamp 없이 적용"과 같은 안전한-기본값 원칙). `observe`/직접 학습 모두 "기본 confidence는
+> 높다"의 정확한 수치를 만들어내지 않고, 대신 `confidence`를 **항상 명시적으로 요구**한다(생략 시
+> malformed→throw) — `time` Effect가 `minutes`에 기본값을 두지 않는 것과 같은 태도다. D-14(상충
+> claim)는 8.3절 자신의 "초기 제안"(confidence가 높은 쪽이 이긴다)을 그대로 확정하되, 동률이면
+> "덮어쓰지 않는다"는 원문에 맞춰 기존 claim을 유지하는 결정적 규칙으로 다듬었다. 이벤트 `data`
+> 스키마는 다른 구현된 op들의 "절대값 + delta" 패턴(`skill.changed`, `case.updated`)을 그대로
+> 재사용해 새로 확정했다. 존재하지 않는 참조는 전부 D-29류 skip으로 통일했다(스키마 타입 오류만
+> throw). 이 결정들의 근거는 아래 각 항목에 그대로 남겨둔다.
 
 | 형태 | 의미 |
 | --- | --- |
-| `{op:"rumor", rumor:"rum_a", source:"npc_c", confidence:45}` | data 정의의 claim으로 학습한다 |
-| `{op:"rumor", rumor:"rum_a", from:"npc_c"}` | **npc_c의 지식 항목을 복사**한다 (틀린 claim도 그대로 전파). confidence는 원본 값에서 `rules.rumor.relayLoss`만큼 줄인다 |
-| `{op:"rumor", rumor:"rum_a", observe:true, source:"obs_loc_a"}` | **현재 fact 값을 claim으로 복사**한다 (직접 관찰). 기본 confidence는 높다 |
+| `{op:"rumor", rumor:"rum_a", subject?, source:"npc_c", confidence:45}` | **학습 모드.** `data.rumors[rumor]` 정의의 고정 claim으로 학습한다 |
+| `{op:"rumor", rumor:"rum_a", subject?, from:"npc_c"}` | **복사 모드.** `from`이 있으면 이 모드가 선택된다(다른 기본값 없음). npc_c의 지식 항목을 복사한다 (틀린 claim도 그대로 전파). confidence는 원본 값에서 `data.rules.rumor.relayLoss`(없으면 0)만큼 줄인다. 출처는 `from`으로 기록된다 |
+| `{op:"rumor", rumor:"rum_a", subject?, observe:true, source:"obs_loc_a", confidence:80}` | **관찰 모드.** `data.rumors[rumor].factId`가 가리키는 `state.facts`의 **현재** 값을 claim으로 복사한다(직접 관찰). confidence는 "기본값이 높다"는 수치를 엔진이 임의로 만들지 않고 **호출자가 명시**한다 |
 
-- 처음 학습: 항목을 생성한다. `firstSeenDay = lastSeenDay = day`, `confirmations = 1`.
-- 새 출처로 재학습: `sources`에 추가, `confirmations += 1`, confidence를 증가(clamp)시킨다.
-- 같은 출처로 재학습: `lastSeenDay`와 confidence만 소폭 갱신한다 (수치는 `data.rules.rumor`).
-- 다른 claim을 들었을 때: 기존 항목의 claim을 **덮어쓰지 않는다.**
-  confidence가 더 높은 쪽을 유지할지, 두 claim을 모두 보관할지는 D-14에서 정한다 (초기 제안: 더 높은 confidence가 이긴다).
+- `from`과 `observe:true`를 **함께 주면 malformed→throw**한다(어느 모드인지 스키마가 모순되므로, D-28).
+- `subject`(수신자, 기본값 self)와 `from`(복사 대상)은 둘 다 4.3절의 표준 subject 해석을 쓰지만,
+  `relation`의 `from`/`to`와 달리 **`state.actors`에 실제 actor 레코드가 있을 필요는 없다** —
+  `state.knowledge`는 `state.relations`와 같은 top-level ID-keyed 맵이지 `actors[id]` 아래에
+  중첩되지 않기 때문이다(8.2절). 그래서 actor 레코드 존재를 확인하는 `resolveActor`가 아니라
+  `resolveSubjectId`만으로 충분하다(relation의 from/to가 이미 쓰는 것과 같은 방식). 해석 실패(예:
+  `"target"`인데 `ctx.targetId` 없음)는 D-29대로 skip.
+- 학습/관찰 모드는 `data.rumors[rumor]`가 없으면(또는 `factId`가 string이 아니면) skip한다(D-29류 —
+  참조 대상이 없을 뿐 스키마 오류가 아니다). 복사 모드는 `from` actor의 `state.knowledge[from][rumor]`
+  항목이 없으면(복사할 것이 없음) skip한다. 관찰 모드는 `state.facts[factId]`가 아직 없으면(관찰할
+  진실이 아직 없음) skip한다.
+- 처음 학습(해당 subject가 그 `rumor`를 처음 앎): 항목을 생성한다. `firstSeenDay = lastSeenDay = day`,
+  `confirmations = 1`, `sources = [source]`. `rumor.learned` 이벤트 1개.
+- 이미 아는 rumor에 **같은 claim**(JSON 값 비교)이 들어오면 재확인이다:
+  - 새 출처(`sources`에 없던 출처)면: `confirmations += 1`, `sources`에 추가(정렬 유지, 이미 8개면
+    더 추가하지 않지만 `confirmations`는 계속 오른다 — "확인한 출처 목록, 최대 8"은 목록 길이 상한이지
+    확인 횟수 상한이 아니다), confidence를 `data.rules.rumor.newSourceGain`(없으면 0)만큼 증가(clamp).
+  - 같은 출처(이미 `sources`에 있음)면: `sources`/`confirmations`는 그대로 두고, confidence만
+    `data.rules.rumor.sameSourceGain`(없으면 0)만큼 증가(clamp).
+  - 두 경우 모두 `lastSeenDay`를 현재 day로 갱신한다. confidence 변화도 없고 day도 이미 같으면(모두
+    변화 없음) 순수 no-op(D-30, 이벤트 없음). 그 외에는 `rumor.updated` 이벤트 1개.
+- 이미 아는 rumor에 **다른 claim**이 들어오면(D-14 resolved): 기존 항목의 claim을 **무조건** 덮어쓰지는
+  않는다 — 들어온 claim의 confidence가 기존 confidence보다 **높을 때만** 전체 항목을 새 claim/source로
+  교체한다(`sources=[incoming source]`, `confirmations=1`, `firstSeenDay=lastSeenDay=`현재 day — 다른
+  claim은 별개의 새 믿음이므로). confidence가 **같거나 낮으면** 기존 항목을 그대로 유지한다(no-op,
+  이벤트 없음) — 동차일 때 무작위로 아무 쪽이나 고르지 않고 항상 기존을 지키는 것으로 확정해
+  결정론(§2.6)을 지킨다. 교체가 일어나면 `rumor.updated` 이벤트를 `data.claimChanged:true`와 함께 낸다.
 - fact가 바뀌어도 누군가의 지식은 **자동으로 바뀌지 않는다.** 믿음은 낡을 수 있다.
+- 이벤트: `rumor.learned`(첫 학습)/`rumor.updated`(기존 항목 갱신), subject 기준 visibility(D-31,
+  `state.player.actorId`와 같으면 player), `actorId`는 수신자(subject). `data:{rumor, factId, claim,
+  confidence, delta}` — `delta`는 `confidence - (기존 confidence ?? 0)`으로 다른 수치형 op(skill/
+  stat/exp 등)와 같은 "before ?? 0" 관례를 그대로 쓴다. 다른 claim으로 교체된 경우만 `claimChanged:true`가
+  추가된다(`trait.changed`의 `removedExclusive?`처럼 조건부 선택 필드). **정확성(`isAccurate`)은 절대
+  이벤트에 넣지 않는다**(8.2절, 8.4절).
 
 ### 8.4 진실 비노출 경계
 
@@ -1180,7 +1195,7 @@ state.knowledge["player_1"]["rum_a"] = {
 | JSON 안전성 | 모든 step 결과 state가 JSON 왕복 후 deepEqual이다 |
 | invalid action | 9개 reason code 각각에서 state가 입력과 deepEqual이고, rng, time이 변하지 않으며, 이벤트는 `action.rejected` 1개다 (state에 `seq`가 없으므로 검사 대상도 아니다) |
 | Condition | 연산자마다 참, 거짓, 누락 참조 케이스를 검사한다. `and` 빈 배열은 참, `or` 빈 배열은 거짓이다. `always`/`never`는 인자 없이 고정값을 반환한다. `eq`/`neq`/`gt`/`gte`/`lt`/`lte`는 숫자·문자열·타입 불일치·selector 미해석(`undefined`) 케이스를 모두 검사한다. 알 수 없는 op/selector는 (validateData 도입 전까지는) `false`로 평가된다. player 문맥의 `fact` selector는 항상 `undefined`로 해석되는지 검사한다 |
-| Effect | 연산자마다 적용, clamp, visibility를 검사한다. Effect ↔ Event 매핑은 "변화 있으면 이벤트 1개, 없으면 0개" 규칙(4.1절 D-30)을 기준으로 검사한다. `if` 분기(when true/false, else 생략, nested)와 순차 적용(앞 결과를 뒤가 즉시 보는지, 같은 작업 사본 공유)도 검사한다. malformed Effect는 throw, `if.when`이 malformed면 `evaluateCondition`의 `false`를 정상 분기로 받아들여 throw하지 않는지 검사한다(D-28). subject 기반 op(`stat`/`hp`/`money`/`item`/`relation`/`skill`/`trait`/`unlock`)는 self/target/명시 ID 해석, 타입 오류→throw vs 해석 실패→skip(D-29), player/internal visibility(D-31)도 검사한다. `trait`의 exclusive 제거, `unlock`의 idempotent, `case`의 lazy 생성/같은 stage no-op도 검사한다. `flag`/`signal`/`time`/`if`/`stat`/`hp`/`money`/`item`/`relation`(add/mode/tag/untag 전체, D-43)/`skill`/`trait`/`unlock`/`case`/`exp`/`proficiency`(D-41/D-42 resolved, 6.4절)/`fact`(D-44) 16개 구현됨 — exp/proficiency는 level/threshold cascade 순서, reward ctx의 actorId 재구성, 무한 재귀 불가능성(단조 증가+유한 상한)도 검사한다. relation은 mode 카운터가 값 불변에도 무조건 증가하는지, tag/untag의 idempotent·상쇄 케이스, 조건부 event data(`delta`/`mode`/`tagAdded`/`tagRemoved`)도 검사한다. fact는 lazy 생성, 같은 값 재설정 no-op, malformed(`set` 없음)도 검사한다. `rumor`는 D-45 블로커로 미구현(subject/`from` 기본값, 재학습 수치, D-14, event data 스키마 미확정). 나머지(`move`/`narrate`/`choice`/`handler`)는 미구현 |
+| Effect | 연산자마다 적용, clamp, visibility를 검사한다. Effect ↔ Event 매핑은 "변화 있으면 이벤트 1개, 없으면 0개" 규칙(4.1절 D-30)을 기준으로 검사한다. `if` 분기(when true/false, else 생략, nested)와 순차 적용(앞 결과를 뒤가 즉시 보는지, 같은 작업 사본 공유)도 검사한다. malformed Effect는 throw, `if.when`이 malformed면 `evaluateCondition`의 `false`를 정상 분기로 받아들여 throw하지 않는지 검사한다(D-28). subject 기반 op(`stat`/`hp`/`money`/`item`/`relation`/`skill`/`trait`/`unlock`)는 self/target/명시 ID 해석, 타입 오류→throw vs 해석 실패→skip(D-29), player/internal visibility(D-31)도 검사한다. `trait`의 exclusive 제거, `unlock`의 idempotent, `case`의 lazy 생성/같은 stage no-op도 검사한다. `flag`/`signal`/`time`/`if`/`stat`/`hp`/`money`/`item`/`relation`(add/mode/tag/untag 전체, D-43)/`skill`/`trait`/`unlock`/`case`/`exp`/`proficiency`(D-41/D-42 resolved, 6.4절)/`fact`(D-44)/`rumor`(D-45/D-14 resolved) 17개 구현됨 — exp/proficiency는 level/threshold cascade 순서, reward ctx의 actorId 재구성, 무한 재귀 불가능성(단조 증가+유한 상한)도 검사한다. relation은 mode 카운터가 값 불변에도 무조건 증가하는지, tag/untag의 idempotent·상쇄 케이스, 조건부 event data(`delta`/`mode`/`tagAdded`/`tagRemoved`)도 검사한다. fact는 lazy 생성, 같은 값 재설정 no-op, malformed(`set` 없음)도 검사한다. rumor는 학습/복사/관찰 세 모드, 같은 claim 재확인(신규/기존 출처), D-14 상충 claim 교체·동률 유지, `data.rules.rumor` 수치 부재 시 안전한 0-fallback, 존재하지 않는 참조 skip, `from`+`observe` 동시 지정 malformed, 정확성 미노출도 검사한다. 나머지(`move`/`narrate`/`choice`/`handler`)는 미구현 |
 | check | rng를 고정 주입해 tier 경계값(margin = 임계값, 임계값 - 1)을 검사한다. modifier 순서, opposed, 이름 difficulty, attempts와 retryPenalty, 누락 outcome 폴백도 검사한다 |
 | Growth | 경계를 넘는 exp에서 다중 레벨업과 levelRewards를 검사한다. proficiency 임계값이 한 번만 발동하는지, skill maxRank, trait exclusive, unlock idempotent, 여러 성장체계 공존도 검사한다 |
 | RelationshipGraph | 방향성, lazy 기본값, clamp, mode 카운트, lastDay, tags 정렬, Condition 참조를 검사한다 |
@@ -1216,7 +1231,7 @@ state.knowledge["player_1"]["rum_a"] = {
 | D-11 | `attempts` Condition op 추가 여부 | maxAttempts가 실제 콘텐츠에 필요할 때 추가 |
 | D-12 | 스탯 포인트 수동 배분 | 없음. 필요하면 levelRewards의 `choice`로 |
 | D-13 | 조직 소속 표현 | `npc:org` edge의 `member` tag. 태도 전파 없음 |
-| D-14 | 상충하는 claim 처리 | 더 높은 confidence 유지 (단일 항목) |
+| D-14 | 상충하는 claim 처리 | **확정(resolved, 8.3절, V2-Core-09)**: 들어온 claim의 confidence가 기존보다 **높을 때만** 전체 항목(claim/source/sources/confirmations/firstSeenDay)을 교체한다. 같거나 낮으면 기존을 그대로 유지한다(no-op) — 동률을 항상 "기존 유지"로 고정해 결정론을 지킨다. 두 claim을 모두 보관하는 방식은 채택하지 않는다(단일 항목 유지, 원안 그대로) |
 | D-15 | 잠긴 행동의 view 노출 | `showWhenLocked` 행동만, 이유 없이 표시 |
 | D-16 | 세계 이동 계승 계약 | 사망 계승(`succession`)과 분리. 멀티버스 설계 단계에서 결정 |
 | D-17 | 자아 상태 최소 스키마 | 세계관 설계 이후 결정. 그전까지는 tags/trait/relation으로 대체 |
@@ -1248,7 +1263,7 @@ state.knowledge["player_1"]["rum_a"] = {
 | D-42 | `proficiency` Effect의 clamp와 threshold cascade | **확정(resolved, 6.4.2절)**: `max`를 하드 clamp 상한으로 확정(`[0,max]`, 정의 없으면 상한 없음). `add≥0`(음수 malformed→throw) — 이 결정 하나로 감소/재진입/이미 넘은 threshold를 다시 넘는 문제가 전부 사라진다(단조 증가이므로 §6.4의 기존 "이전 값<at≤새 값" 규칙만으로 평생 1회 발동이 보장됨, 별도 추적 필드 불필요). `thresholds`를 `at` 오름차순 정렬 후 순서대로 depth-first 적용(reward ctx는 D-41과 동일 패턴). 무한 재귀는 D-41과 같은 이유로 구조적으로 불가능 |
 | D-43 | `relation`의 `mode`/`tag`/`untag` 스키마, 카운터, lastDay, event data (D-37 나머지 해소) | **확정(resolved, 7.3절/4.2절)**: `mode`는 7.2절 enum(`neutral`/`cooperation`/`conflict`) 중 하나가 아니면 malformed→throw. `tag`/`untag`는 string이 아니면 malformed→throw. `mode`는 지정할 때마다 무조건 설정하고, cooperation/conflict이면 해당 카운터를 이전 값과 무관하게 +1 한다(V1 `npc-relations.js`의 "매일 재적용" semantics 유지 — "값이 실제로 바뀔 때만 카운터 증가"가 아니다). `tag`/`untag`는 `tags`(정렬된 고유 배열)에 대한 idempotent 추가/제거이며, 한 Effect 안에서 같은 문자열의 `tag`+`untag`가 상쇄되면 최종 배열 기준으로 변화 없음 처리한다. `add`/`mode`/`tag`/`untag`는 한 Effect 안에서 조합 가능하며, 그중 하나라도 실제 변화를 만들면 edge를 한 번만 lazy 생성/갱신하고 `lastDay`를 갱신하며 `relation.changed` 이벤트를 정확히 1개 낸다(필드별 이벤트로 쪼개지 않음, D-30을 Effect 단위로 유지) — `data`는 `{from,to}`에 실제로 바뀐 필드(`delta`/`mode`/`tagAdded`/`tagRemoved`)만 조건부로 추가한다. 이 "조건부 선택 필드" 방식은 새 이벤트 타입이 아니라 `trait.changed`의 `removedExclusive?` 패턴을 그대로 재사용한 것이다 |
 | D-44 | `fact` Effect의 event data 모양과 no-op/lazy 생성 규칙 (D-33 "facts 재확인" 해소) | **확정(resolved, 4.2절)**: `set`이 없으면(필드 자체가 없으면, `undefined`) malformed→throw, 그 외 `null`/`false`/`0`/`""` 포함 어떤 JSON 값이든 허용(8.1절). `state.facts`는 `case`/`flag`/`signal`과 같은 패턴으로 첫 write 시 lazy 생성(D-33이 "해당 시스템 구현 시 재확인"이라고 미뤄둔 부분을 `case`의 실제 구현 선례를 따라 확정). 기존 값과 `set`이 같으면(JSON 값 비교) `case`의 "같은 stage" no-op과 동일하게 아무 것도 바꾸지 않는다(이벤트 없음, `since` 갱신 없음). `fact.changed` 이벤트의 `data:{fact, value}`는 새 스키마가 아니라 `flag.changed`(`data:{key,value}`)/`case.updated`(`data:{case,stage}`)의 "키 + 새 값" 패턴을 그대로 재사용한 것이다 |
-| D-45 | `rumor` Effect 스키마/카운터/이벤트 (블로커) | **미해결(블로커, 8.3절)**: subject(수신자) 필드가 표에 없음, `{from}` 형태의 `from`에 기본값이 없음(생략 시 `resolveSubjectId`의 일반 규칙을 따르면 self가 되어 "내 지식을 나에게 복사"라는 의미 없는 동작이 됨), 재학습 시 confidence 증감 폭이 `data.rules.rumor`를 가리키기만 하고 필드명/기본값이 없음(`relayLoss`만 예외), D-14(상충 claim 처리)가 "제안"일 뿐 확정되지 않음, `rumor.learned`/`rumor.updated`의 `data` 스키마가 없음, 존재하지 않는 rumor/from/fact 참조의 skip-vs-throw 정책이 없음. D-41/D-42/D-43처럼 이미 확정된 원칙의 직접 연장으로 메울 수 있는 범위를 넘어서므로(특히 D-14는 자체적으로 미정), 이 표들을 확정하기 전까지 구현하지 않는다 |
+| D-45 | `rumor` Effect 스키마/카운터/이벤트 | **확정(resolved, 8.3절/4.2절, V2-Core-09)**: `subject?`(수신자, 기본값 self, 4.1절 표준 규칙)를 추가했다. `from`은 필드가 있으면 복사 모드가 선택되므로 별도 기본값이 필요 없다(생략하면 다른 모드로 갈 뿐이다). `subject`/`from`은 `relation`의 from/to처럼 `resolveSubjectId`만 쓰고 `state.actors` 레코드 존재는 요구하지 않는다(`state.knowledge`가 `state.relations`와 같은 top-level ID-keyed 맵이기 때문). 재학습 confidence 증감폭은 `data.rules.rumor.relayLoss`/`newSourceGain`/`sameSourceGain`(모두 없으면 0)으로 데이터에 둔다(`stat`/`skill`의 "정의 없으면 clamp 없이 적용"과 같은 안전한 기본값 원칙 — 콘텐츠 밸런스 수치를 엔진이 새로 만들지 않는다). "관찰 시 기본 confidence가 높다"는 수치화하지 않고 `confidence`를 학습/관찰 모드 모두에서 항상 명시적으로 요구한다(생략 시 malformed→throw, `time`의 `minutes` 필수와 같은 태도). D-14(상충 claim)는 별도 행에서 확정. `rumor.learned`/`rumor.updated`의 `data:{rumor,factId,claim,confidence,delta}`(+조건부 `claimChanged`)는 `skill.changed`/`case.updated`의 "절대값+delta" 패턴을 재사용해 새로 확정했다. 존재하지 않는 rumor 정의/`from` 지식 항목/관찰 대상 fact는 모두 D-29류 skip(스키마 타입 오류만 D-28류 throw) |
 
 ---
 
@@ -1304,8 +1319,8 @@ state.knowledge["player_1"]["rum_a"] = {
     §9 연결과 D-34(목록 중간 사망) 해결
   - 작업 7: check
   - 작업 8: `exp`/`proficiency` 구현 (계약은 D-41/D-42로 확정됨, 6.4.1/6.4.2절 — 그대로 코드로 옮긴다)
-  - 작업 9: `relation`의 `mode`/`tag`/`untag` (D-43로 확정, V2-Core-07에서 구현), Fact/Rumor 중
-    `fact` Effect는 D-44로 확정해 V2-Core-08에서 구현했다. `rumor` Effect(D-24 해소 포함)는 D-45
-    블로커(subject/`from` 기본값, 재학습 수치, D-14 상충 claim 처리, event data 스키마 미확정)로
-    여전히 다음 작업으로 남는다
+  - 작업 9: `relation`의 `mode`/`tag`/`untag` (D-43로 확정, V2-Core-07에서 구현), Fact/Rumor의
+    `fact` Effect(D-44, V2-Core-08)와 `rumor` Effect(D-45/D-14, V2-Core-09)를 모두 구현해 작업 9는
+    완료됐다. **`rumor` selector(§3.2a, D-24)는 여전히 보류다** — `rumor` Effect는 `state.knowledge`에
+    쓰기만 할 뿐 Condition의 `rumor` selector를 새로 resolve하지 않으므로, D-24 해소와는 무관하다
   - 작업 10: 사망 계승 세부와 view

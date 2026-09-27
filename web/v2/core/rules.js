@@ -11,10 +11,12 @@
 // used by if.then/else, with a reward ctx whose actorId is overridden to
 // the leveling/proficient actor (same pattern as §9 succession's ctx).
 // Effect (V2-Core-07): relation mode/tag/untag (D-43 resolved -- §7.3/§4.2).
-// Effect (V2-Core-08): fact (D-44 resolved -- §4.2/§8.1). `rumor` is a
-// documented blocker (D-45, §8.3) -- subject/`from` defaults, re-learning
-// magnitudes, D-14 (conflicting claims), and its event data shape are all
-// unresolved, so it is intentionally not implemented here.
+// Effect (V2-Core-08): fact (D-44 resolved -- §4.2/§8.1).
+// Effect (V2-Core-09): rumor (D-45/D-14 resolved -- §8.3/§4.2). state.knowledge
+// is a top-level actorId-keyed map (like state.relations), not nested under
+// actors[id], so subject/`from` only need resolveSubjectId, no state.actors
+// record. The Condition-side `rumor` selector (§3.2a) stays deferred (D-24)
+// -- this Effect never touches SELECTOR_RESOLVERS.
 // No move/narrate/choice/handler yet, no death trigger (§9), no check(), no
 // Resolvable — applyEffects is still not wired into engine.js's step()
 // (D-40).
@@ -885,6 +887,183 @@ function applyFactEffect(effect, workingState, events) {
   });
 }
 
+const MAX_CONFIDENCE = 100;
+const MIN_CONFIDENCE = 0;
+const MAX_RUMOR_SOURCES = 8;
+
+function clampConfidence(value) {
+  return Math.min(MAX_CONFIDENCE, Math.max(MIN_CONFIDENCE, value));
+}
+
+// rumor Effect (D-45/D-14 resolved, §8.3): {op, rumor, subject?, source?,
+// confidence?, from?, observe?}. Mode is chosen by which fields are present
+// (`from` -> copy, `observe:true` -> observe, else -> learn from
+// data.rumors[rumor]'s fixed claim; `from`+`observe` together is malformed).
+// state.knowledge is a top-level actorId-keyed map like state.relations
+// (§8.2), not nested under actors[id] like growth/inventory, so subject/
+// `from` only need resolveSubjectId (D-29) -- no state.actors record
+// required, same as relation's from/to.
+function applyRumorEffect(effect, workingState, events, ctx) {
+  if (typeof effect.rumor !== "string") {
+    throw new TypeError("rumor Effect requires a string `rumor`");
+  }
+  if (effect.subject !== undefined && typeof effect.subject !== "string") {
+    throw new TypeError("rumor Effect's `subject`, when present, must be a string");
+  }
+  if (effect.from !== undefined && typeof effect.from !== "string") {
+    throw new TypeError("rumor Effect's `from`, when present, must be a string");
+  }
+  if (effect.observe !== undefined && typeof effect.observe !== "boolean") {
+    throw new TypeError("rumor Effect's `observe`, when present, must be a boolean");
+  }
+  if (effect.source !== undefined && typeof effect.source !== "string") {
+    throw new TypeError("rumor Effect's `source`, when present, must be a string");
+  }
+  if (effect.confidence !== undefined && !Number.isInteger(effect.confidence)) {
+    throw new TypeError("rumor Effect's `confidence`, when present, must be an integer");
+  }
+  if (effect.from !== undefined && effect.observe === true) {
+    throw new TypeError("rumor Effect cannot combine `from` and `observe` -- they select different modes");
+  }
+
+  const subjectId = resolveSubjectId(effect.subject, ctx);
+  if (subjectId === undefined) return; // D-29: skip
+
+  let incomingFactId;
+  let incomingClaim;
+  let incomingConfidence;
+  let incomingSource;
+
+  if (effect.from !== undefined) {
+    // copy mode
+    const fromId = resolveSubjectId(effect.from, ctx);
+    if (fromId === undefined) return; // D-29: skip
+    const copied = workingState.knowledge?.[fromId]?.[effect.rumor];
+    if (!copied) return; // D-29: nothing to copy, skip
+    incomingFactId = copied.factId;
+    incomingClaim = copied.claim;
+    incomingConfidence = clampConfidence(copied.confidence - (ctx.data?.rules?.rumor?.relayLoss ?? 0));
+    incomingSource = fromId;
+  } else {
+    // learn (source) or observe mode -- both need the data.rumors definition
+    const definition = ctx.data?.rumors?.[effect.rumor];
+    if (!isPlainObject(definition) || typeof definition.factId !== "string") return; // D-29: skip
+
+    if (typeof effect.source !== "string") {
+      throw new TypeError("rumor Effect requires a string `source` for the learn/observe forms");
+    }
+    if (!Number.isInteger(effect.confidence)) {
+      throw new TypeError("rumor Effect requires an integer `confidence` for the learn/observe forms");
+    }
+
+    incomingFactId = definition.factId;
+    incomingSource = effect.source;
+    incomingConfidence = clampConfidence(effect.confidence);
+
+    if (effect.observe === true) {
+      const fact = workingState.facts?.[incomingFactId];
+      if (!fact) return; // D-29: nothing observed yet, skip
+      incomingClaim = fact.value;
+    } else {
+      incomingClaim = definition.claim;
+    }
+  }
+
+  if (!isPlainObject(workingState.knowledge)) workingState.knowledge = {};
+  if (!isPlainObject(workingState.knowledge[subjectId])) workingState.knowledge[subjectId] = {};
+  const knowledgeMap = workingState.knowledge[subjectId];
+  const existing = knowledgeMap[effect.rumor];
+  const day = Math.floor(workingState.time.minute / 1440);
+  const visibility = isPlayerActor(subjectId, workingState) ? "player" : "internal";
+
+  if (!existing) {
+    knowledgeMap[effect.rumor] = {
+      rumorId: effect.rumor,
+      factId: incomingFactId,
+      claim: incomingClaim,
+      source: incomingSource,
+      sources: [incomingSource],
+      confidence: incomingConfidence,
+      confirmations: 1,
+      firstSeenDay: day,
+      lastSeenDay: day
+    };
+    events.push({
+      minute: workingState.time.minute,
+      type: "rumor.learned",
+      visibility,
+      actorId: subjectId,
+      data: { rumor: effect.rumor, factId: incomingFactId, claim: incomingClaim, confidence: incomingConfidence, delta: incomingConfidence }
+    });
+    return;
+  }
+
+  const sameClaim = JSON.stringify(existing.claim) === JSON.stringify(incomingClaim);
+
+  if (!sameClaim) {
+    // D-14: higher confidence wins outright and replaces the whole entry; a
+    // tie or a lower-confidence conflicting claim keeps the existing belief
+    // (deterministic -- no coin flip on a tie).
+    if (incomingConfidence <= existing.confidence) return; // no-op
+    const before = existing.confidence;
+    knowledgeMap[effect.rumor] = {
+      rumorId: effect.rumor,
+      factId: incomingFactId,
+      claim: incomingClaim,
+      source: incomingSource,
+      sources: [incomingSource],
+      confidence: incomingConfidence,
+      confirmations: 1,
+      firstSeenDay: day,
+      lastSeenDay: day
+    };
+    events.push({
+      minute: workingState.time.minute,
+      type: "rumor.updated",
+      visibility,
+      actorId: subjectId,
+      data: {
+        rumor: effect.rumor,
+        factId: incomingFactId,
+        claim: incomingClaim,
+        confidence: incomingConfidence,
+        delta: incomingConfidence - before,
+        claimChanged: true
+      }
+    });
+    return;
+  }
+
+  // same claim -> reconfirmation (new source vs same source)
+  const isNewSource = !existing.sources.includes(incomingSource);
+  const gain = isNewSource ? ctx.data?.rules?.rumor?.newSourceGain ?? 0 : ctx.data?.rules?.rumor?.sameSourceGain ?? 0;
+  const beforeConfidence = existing.confidence;
+  const afterConfidence = clampConfidence(beforeConfidence + gain);
+  const confidenceDelta = afterConfidence - beforeConfidence;
+
+  let sources = existing.sources;
+  let confirmations = existing.confirmations;
+  if (isNewSource) {
+    if (sources.length < MAX_RUMOR_SOURCES) sources = [...sources, incomingSource].sort();
+    confirmations += 1;
+  }
+
+  const dayChanged = existing.lastSeenDay !== day;
+  if (confidenceDelta === 0 && !dayChanged && sources === existing.sources && confirmations === existing.confirmations) {
+    return; // D-30: nothing actually changed -> no-op
+  }
+
+  knowledgeMap[effect.rumor] = { ...existing, confidence: afterConfidence, sources, confirmations, lastSeenDay: day };
+
+  events.push({
+    minute: workingState.time.minute,
+    type: "rumor.updated",
+    visibility,
+    actorId: subjectId,
+    data: { rumor: effect.rumor, factId: existing.factId, claim: existing.claim, confidence: afterConfidence, delta: confidenceDelta }
+  });
+}
+
 function applyOneEffect(effect, workingState, events, ctx) {
   if (!isPlainObject(effect)) {
     throw new TypeError("Effect must be a plain object");
@@ -922,6 +1101,8 @@ function applyOneEffect(effect, workingState, events, ctx) {
       return applyProficiencyEffect(effect, workingState, events, ctx);
     case "fact":
       return applyFactEffect(effect, workingState, events);
+    case "rumor":
+      return applyRumorEffect(effect, workingState, events, ctx);
     default:
       throw new TypeError("Unknown Effect op: " + JSON.stringify(effect.op));
   }
