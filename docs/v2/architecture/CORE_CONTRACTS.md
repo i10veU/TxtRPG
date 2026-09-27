@@ -99,7 +99,7 @@ export function validateState(state)                     // -> string[] (오류 
 // rules.js
 export function validateData(data)                       // -> string[]
 export function evaluateCondition(condition, ctx)        // -> boolean
-export function applyEffects(effects, ctx)               // -> { state, events }  (ctx.state는 이미 복제된 작업 사본)
+export function applyEffects(effects, ctx)               // -> { state, events } (D-26 확정, 4.1절)
 export function check(input, ctx)                        // -> { result, rng }
 
 // rng.js
@@ -262,10 +262,10 @@ V2-Core-01 범위가 아니며, 그 계약이 필요한 이후 작업(15절)에�
 **Effect ↔ Event 매핑은 장기 계약으로 고정하지 않는다 (항목 6, 재검토 결과 · D-20)**
 
 - 4.2절의 "Effect 1개당 Event 1개" 표는 **참고용 기본값**일 뿐, 엔진이 지켜야 하는 고정 계약이 아니다.
-  실제로 몇 개의, 어떤 이벤트를 만들지는 Effect/Resolvable을 구현하는 시점(15절 작업 3)에 정한다 —
-  예를 들어 여러 Effect를 하나의 도메인 이벤트로 묶거나, UI에 의미 없는 내부 변화는 이벤트를 아예
-  만들지 않는 선택지를 열어 둔다. V2-Core-01에는 이 매핑 자체가 없다 (2.0절 — `wait`/`action.rejected`만
-  존재).
+  실제로 몇 개의, 어떤 이벤트를 만들지는 Effect를 구현하는 시점(15절 작업 3 = V2-Core-03에서
+  "변화 있으면 1개, 없으면 0개"로 확정. D-30, 4.1절)에 정한다 — 예를 들어 여러 Effect를 하나의
+  도메인 이벤트로 묶거나, UI에 의미 없는 내부 변화는 이벤트를 아예 만들지 않는 선택지를 열어 둔다.
+  V2-Core-01에는 이 매핑 자체가 없다 (2.0절 — `wait`/`action.rejected`만 존재).
   - 이유: "Effect 1개 = Event 1개"를 지금 확정하면, 나중에 이벤트 노이즈를 줄이거나 의미 단위로 묶고
     싶을 때 계약을 깨야 한다. 엔진이 실제로 보장해야 하는 최소 계약은 "이벤트는 `visibility`로 진실을
     감추고, 배열 순서로 발생 순서를 나타낸다"까지이며, 그 이상의 세밀한 매핑 규칙은 콘텐츠/Effect
@@ -389,7 +389,7 @@ rollDie(rng, sides)    = nextUint32의 value % sides + 1
 
 ### 3.1 공통 규칙
 
-- 형태: `{ "op": "<name>", ...인자 }`. 키 자체를 연산자로 쓰는 형식(`{"all": [...]}`)은 쓰지 않는다.
+- 형태: `{ "op": "<name>", ...인자 }`. 키 자체를 연산자로 쓰는 형식(`{"and": [...]}`)은 쓰지 않는다.
   - 이유: `op` 필드 하나로 검증과 분기가 가능하고, 인자 이름과 충돌하지 않는다.
 - 평가: `evaluateCondition(cond, ctx) -> boolean`. 순수 함수이며 rng를 쓰지 않고 부수효과가 없다.
 - `ctx = { state, data, actorId, targetId, contextKind }`
@@ -399,7 +399,12 @@ rollDie(rng, sides)    = nextUint32의 value % sides + 1
 - **누락 참조**는 false 또는 0으로 평가하고 throw하지 않는다.
   예: 없는 flag는 `null`, 없는 signal은 0, 없는 관계 edge는 기본값으로 본다.
   - 이유: 아직 발생하지 않은 상태는 정상이다.
-- **알 수 없는 op나 잘못된 인자**는 `validateData`에서 오류로 잡는다. 런타임에는 발생하지 않는다고 가정한다.
+- **알 수 없는 op나 잘못된 인자**는 장기적으로 `validateData`에서 오류로 잡아, 정상적인 런타임에는
+  발생하지 않는다고 가정한다. 다만 `validateData`가 아직 구현되지 않았으므로, 그 전까지
+  `evaluateCondition`이 실제로 이런 입력을 만나면 **throw하지 않고 `false`를 반환한다** —
+  "누락 참조는 throw하지 않는다"는 위 원칙을 알 수 없는 op/selector/형태 오류에도 그대로 확장한
+  것이며, 별도의 새 reject 메커니즘을 만들지 않는다 (Condition은 boolean만 반환하므로 "reject"는
+  이 값을 호출자인 `step()`이 `false`로 받아 `requirements_not_met`으로 처리하는 것을 말한다).
 - 수치 비교 인자는 `min`, `max`(포함 범위)로 통일한다. 둘 다 없으면 "존재하거나 참인지"를 검사한다.
   동등 비교는 `eq`로 한다.
 - 평가는 단락 평가(short-circuit)하며, 왼쪽부터 순서대로 진행한다.
@@ -407,11 +412,16 @@ rollDie(rng, sides)    = nextUint32의 value % sides + 1
 
 ### 3.2 연산자
 
+> **D-22 확정**: 논리곱/논리합의 정식 명칭은 `and`/`or`다. 이전 초안의 `all`/`any`는 폐기했고
+> 별칭으로도 두지 않는다 — Condition DSL에는 `and`/`or`만 존재한다.
+
 | op | JSON 예시 | 평가 규칙 |
 | --- | --- | --- |
-| `all` | `{"op":"all","of":[C,C]}` | 모두 참이면 참. **빈 배열은 참** |
-| `any` | `{"op":"any","of":[C,C]}` | 하나라도 참이면 참. **빈 배열은 거짓** |
-| `not` | `{"op":"not","of":C}` | 부정 |
+| `and` | `{"op":"and","of":[C,C]}` | 모두 참이면 참. **빈 배열은 참** |
+| `or` | `{"op":"or","of":[C,C]}` | 하나라도 참이면 참. **빈 배열은 거짓** |
+| `not` | `{"op":"not","of":C}` | 부정. 정확히 하나의 Condition만 받는다 |
+| `always` | `{"op":"always"}` | 항상 참. 인자 없음. requires 생략과 의미상 동일하다 (D-21) |
+| `never` | `{"op":"never"}` | 항상 거짓. 인자 없음 (D-21) |
 | `stat` | `{"op":"stat","stat":"stat_a","min":5}` | subject의 현재 세계 성장체계에서 **기본 stat 값**을 비교 (D-07) |
 | `flag` | `{"op":"flag","key":"gate_open","eq":true}` | `state.flags[key]`. eq가 없으면 truthy 검사 |
 | `signal` | `{"op":"signal","key":"sig_x","min":3}` | `state.signals[key] ?? 0` 비교 |
@@ -427,6 +437,12 @@ rollDie(rng, sides)    = nextUint32의 value % sides + 1
 | `case` | `{"op":"case","case":"case_a","stage":"stage_b"}` 또는 `{"op":"case","case":"case_a","in":[...]}` | 사건/퀘스트 단계. **후보 목록에 추가한 연산자** |
 | `money` | `{"op":"money","min":10}` | 보유 금액. **후보 목록에 추가한 연산자** |
 | `handler` | `{"op":"handler","name":"x.y","params":{}}` | 예외 경로 (4.4절). boolean만 반환 |
+| `eq` | `{"op":"eq","left":Value,"right":Value}` | 둘 중 하나라도 `undefined`면 거짓(D-25). 아니면 `left === right` (strict). D-23, 3.2a절 |
+| `neq` | `{"op":"neq","left":Value,"right":Value}` | 둘 중 하나라도 `undefined`면 거짓(D-25). 아니면 `left !== right` (strict). D-23, 3.2a절 |
+| `gt` | `{"op":"gt","left":Value,"right":Value}` | 둘 중 하나라도 `undefined`면 거짓(D-25). 아니면 둘 다 숫자일 때만 `left > right`, 아니면 거짓 |
+| `gte` | `{"op":"gte","left":Value,"right":Value}` | 둘 중 하나라도 `undefined`면 거짓(D-25). 아니면 둘 다 숫자일 때만 `left >= right`, 아니면 거짓 |
+| `lt` | `{"op":"lt","left":Value,"right":Value}` | 둘 중 하나라도 `undefined`면 거짓(D-25). 아니면 둘 다 숫자일 때만 `left < right`, 아니면 거짓 |
+| `lte` | `{"op":"lte","left":Value,"right":Value}` | 둘 중 하나라도 `undefined`면 거짓(D-25). 아니면 둘 다 숫자일 때만 `left <= right`, 아니면 거짓 |
 
 - 후보 목록에 없던 `unlock`, `case`, `money`를 추가한 이유:
   - `unlock`: 성장 해금으로 행동, 선택지, 시스템 접근을 게이팅하려면 필요하다 (레벨 게이팅의 대안).
@@ -434,6 +450,58 @@ rollDie(rng, sides)    = nextUint32의 value % sides + 1
   - `money`: 구매 조건을 handler 없이 표현하려면 필요하다.
 - `level` 연산자는 **의도적으로 두지 않는다**. 레벨로 과도하게 게이팅하지 않는다는 원칙을 스키마 수준에서 강제한다 (D-08).
 - **확장 규칙**: 새 op를 추가하려면 (1) 이 표 갱신, (2) validateData 갱신, (3) 참/거짓/누락 참조 테스트가 함께 필요하다.
+
+### 3.2a Value와 selector (D-23 확정)
+
+`eq`/`neq`/`gt`/`gte`/`lt`/`lte`의 `left`/`right`는 각각 `Value`다. `Value`는 둘 중 하나다.
+
+- **literal**: JSON 원시값(string, number, boolean, null) 그대로 쓴다.
+- **selector**: 아래 표에 있는 키 중 **정확히 하나**만 가진 plain object. 각 selector는 state에서
+  스칼라 값 하나로 해석(resolve)되거나, 참조 대상이 없으면 `undefined`로 해석된다.
+
+**임의의 dot-path/state traversal 문법은 두지 않는다.** selector는 아래 표에 있는 이름 있는 키로만
+쓸 수 있고, 그 외 임의의 경로 문자열(`"actors.player_1.money"` 같은 것)은 지원하지 않는다.
+
+| selector 키 | 형태 | 해석되는 값 | 근거 |
+| --- | --- | --- | --- |
+| `stat` | `{"stat":"<id>","subject"?:Subject,"system"?:"<id>"}` | subject의 기본 stat 값 (§6.3 `growth[system].stats[id]`) | §3.2 `stat` op, D-07 |
+| `skill` | `{"skill":"<id>","subject"?:Subject,"system"?:"<id>"}` | skill rank (§6.3 `growth[system].skills[id]`) | §3.2 `skill` op |
+| `proficiency` | `{"proficiency":"<id>","subject"?:Subject,"system"?:"<id>"}` | 누적 포인트 (§6.3 `growth[system].proficiency[id]`) | §6.2 Proficiency |
+| `item` | `{"item":"<id>","subject"?:Subject}` | 보유 수량 (§2.1 `actors[id].inventory[item]`) | §3.2 `item` op |
+| `money` | `{"money":true,"subject"?:Subject}` | 보유 금액 (§2.1 `actors[id].money`). 유일한 자원이라 식별자가 필요 없으므로 `true`를 고정 마커로 쓴다 | §3.2 `money` op |
+| `relation` | `{"relation":{"from":Subject,"to":Subject}}` | edge의 `score` (§7.2). 없으면 기본 Relation(`score:0`)으로 간주 | §7.1~7.2, §3.2 `relation` op |
+| `flag` | `{"flag":"<key>"}` | `state.flags[key]`, 없으면 `null` | §3.1 누락 참조 규칙 |
+| `signal` | `{"signal":"<key>"}` | `state.signals[key] ?? 0` | §3.2 `signal` op |
+| `day` | `{"day":true}` | `floor(state.time.minute / 1440)`. 유일한 자연수 값이라 `money`와 같은 이유로 `true`를 고정 마커로 쓴다 | §2.6 시간 모델 |
+| `fact` | `{"fact":"<id>"}` | `state.facts[id].value`. **`ctx.contextKind !== "world"`이면 항상 `undefined`로 해석한다** (D-06을 selector 형태에도 동일하게 적용 — 아래 참고) | §8.1, §8.4, D-06 |
+| `rumor` | `{"rumor":"<id>","subject"?:Subject}` | **미정 — deferred (D-24).** 어떤 필드(confidence? claim?)를 값으로 볼지 결정되지 않았다. 지금은 recognized selector 키로만 등록되어 있고, resolver가 없어 항상 `undefined`로 해석된다 | §8.2, D-24 |
+
+`Subject`는 §3.1의 subject 해석을 그대로 재사용한다: `"self"`(기본값) \| `"target"` \| 명시적 엔티티 ID.
+
+**`fact` selector와 D-06**: §3.2의 `fact` op는 이미 "`contextKind:"world"`에서만 허용"으로 확정되어
+있다 (진실을 player 문맥에 노출하지 않기 위함, §8.4). 같은 위험이 selector 형태에도 그대로 적용되므로
+(콘텐츠 제작자가 `{"op":"eq","left":{"fact":"..."},"right":...}`를 행동 `requires`에 써서 진실을
+간접 노출할 수 있음), 새로 결정하지 않고 D-06을 selector에도 동일하게 확장 적용한다: player 문맥에서는
+`fact` selector가 항상 `undefined`로 해석된다 (값이 있어도 없는 것처럼 처리 — reject 대신 조용히
+`undefined`로 만들어, 다른 selector의 "참조 대상 없음"과 같은 방식으로 처리한다).
+
+**타입 불일치와 selector 해석 실패**: selector가 가리키는 state 구조(`actors`, `growth`, `relations`,
+`facts`, `knowledge` 등)가 아직 존재하지 않는 state에서는, 해당 selector는 (flag/signal/relation/day
+넷을 제외하면) `undefined`로 해석된다 — 이는 새로 만든 예외 처리가 아니라 `?.` 낙관적 접근이 자연스럽게
+만드는 결과다.
+
+> **D-25 확정**: `eq`/`neq`/`gt`/`gte`/`lt`/`lte` 여섯 연산자 모두, `left`나 `right` 중 **하나라도**
+> `undefined`로 해석되면 (selector가 가리키는 대상이 없거나, `rumor`처럼 아직 resolver가 없는
+> 경우 등) 그 비교는 예외 없이 **`false`**다. 이전 초안은 `eq`/`neq`를 strict 비교(`===`/`!==`)로
+> 그대로 두어 `undefined === undefined`가 `true`가 되는 경우가 있었으나, 이는 "값이 없다"는 사실
+> 두 개가 우연히 같아서 참이 되는 것이라 오해의 소지가 있어 폐기했다. 이제 `eq`/`neq`도 다른 네
+> 연산자와 동일하게 "둘 중 하나라도 해석 실패 → 거짓"을 최우선으로 적용한 뒤에만 각자의 비교
+> 규칙(`===`, `!==`, 숫자만 허용하는 순서 비교)을 적용한다.
+
+따라서 Growth/Item/RelationshipGraph 세부(§6/§7 나머지)나 Fact/Rumor(§8)가 아직 구현되지 않은 지금
+시점에도 `stat`/`skill`/`proficiency`/`item`/`money`/`rumor` selector를 쓴 비교는 런타임 오류 없이
+안전하게 "항상 거짓"으로 동작한다. 각 시스템이 실제로 state에 필드를 추가하면, 이 resolver 코드를
+바꾸지 않고도 자동으로 실제 값을 비교하게 된다.
 
 ### 3.3 사용처 (모두 같은 평가기를 사용)
 
@@ -459,35 +527,89 @@ rollDie(rng, sides)    = nextUint32의 value % sides + 1
   Effect 수준에서는 경계값에서 **clamp**만 하고, 실제 적용된 변화량(delta)을 이벤트에 기록한다.
   - 이유: 실패 경로를 Condition 하나로 모으면 "왜 실패했나"가 한 곳에서 설명된다.
   - 확장: 거래나 트랜잭션처럼 원자성이 필요한 기능은 requires와 Effect 묶음으로 표현한다.
-- subject 해석은 3.1절과 같다 (`self` 기본값, `target`, 명시 ID).
-- Effect 적용 컨텍스트: `ctx = { state(작업 사본), data, actorId, targetId, rng }`.
-  적용 결과는 `{ state, events, rng }`이며, 엔진이 rng를 이어받아 다음 단계로 넘긴다.
+- subject 해석은 3.1절과 같다 (`self` 기본값, `target`, 명시 ID). 다만 `fact`, `flag`, `signal`, `time`,
+  `narrate`, `choice`, `case`, `if`는 세계 단위이거나 분기 전용이라 subject를 쓰지 않는다.
+- **`applyEffects`는 외부에서 순수 함수다 (D-26 확정).**
+  - 시그니처: `applyEffects(effects, ctx) -> { state, events }`. `ctx = { state, data, actorId, targetId }`.
+  - `effects`, `ctx`, `ctx.state`를 절대 mutate하지 않는다. 반환하는 `state`는 항상 `ctx.state`와 다른
+    참조다 (`result.state !== ctx.state`).
+  - 내부 구현은 `ctx.state`를 **최초 한 번만** `structuredClone`해서 작업 사본을 만들고, 이후 그 사본을
+    직접 mutate하면서 만든다. 중첩 Effect(`if.then`/`if.else` 등)도 **같은 작업 사본을 계속 공유**하며
+    별도로 clone하지 않는다 — 그래야 "Effect A의 변경을 Effect B가 즉시 관측"하는 순차 가시성이 성립한다.
+  - 이 "내부는 지역 mutation, 외부는 순수 함수"는 새 모델이 아니라 표준적인 순수 함수 구현 기법이다
+    (호출자가 넘긴 객체를 바꾸지 않고, 함수가 스스로 만든 지역 사본만 바꾼 뒤 그 사본을 반환한다).
+    이전 초안의 "ctx.state는 이미 복제된 작업 사본"이라는 문구와 "모든 함수는 입력을 변경하지 않는다"는
+    문구가 서로 다른 것을 가리켜 자기모순처럼 보였던 문제는 이 구분으로 해소한다.
+- **RNG 원천은 `state.rng` 하나뿐이다 (D-27 확정).** `ctx.rng`는 두지 않고, `applyEffects`의 반환값에도
+  `rng`를 넣지 않는다 — 이전 초안에 있던 `ctx = {…, rng}` / `{state, events, rng}`는 `state.rng`가
+  "state의 유일한 rng 필드"(2.1절)라는 이미 확정된 원칙과 충돌했으므로 폐기한다. RNG가 필요한 Effect나
+  handler는 `ctx.state.rng`를 직접 읽고 쓴다 (이번 V2-Core-03의 4개 op는 RNG를 쓰지 않는다).
+- **Effect ↔ Event 규칙 (D-30, D-20을 이 원칙으로 확정)**: 실제로 state가 변경된 Effect 하나당 domain
+  event 하나를 만든다. 적용 전/후 값이 같으면(clamp로 인해 변화가 0이 되는 경우 포함) 이벤트를 만들지
+  않는다. `if` 자체는 state를 바꾸지 않으므로 이벤트를 만들지 않지만, `then`/`else` 안의 Effect는 각자
+  자신의 이벤트를 만든다. (이 규칙은 4.2절 표의 "이벤트" 열 전체에 적용되는 기본값이며, 이후 이벤트를
+  묶거나 생략해야 할 필요가 생기면 그때 개별 op 단위로 예외를 정한다 — 4.2절 표를 영원히 고정된 계약으로
+  보지 않는다는 D-20의 취지는 유지한다.)
 - **함수를 JSON에 넣지 않는다.** 예외 로직은 `handler` op로만 호출한다.
+- **malformed Effect는 Condition과 다르게 처리한다 (D-28 확정).** Effect가 plain object가 아니거나,
+  `op`이 없거나 알 수 없거나, 필수 필드가 없거나 타입이 틀리거나(정수가 아님, `NaN`/`Infinity` 포함),
+  `then`/`else`처럼 배열이어야 할 필드가 배열이 아니면 **throw**한다 — 프로그래머/콘텐츠 오류로 취급한다
+  (2.6절 "throw는 프로그래머 오류에만 쓴다"와 일관). 단, `if.when`처럼 **Condition 자체**가 들어가는
+  자리는 예외다: `when`이 malformed여도 `evaluateCondition`이 이미 안전하게 `false`를 반환하므로
+  (3.1절), `if`는 그 `false`를 정상적인 분기 결과로 받아들이고 `else`를 실행할 뿐 throw하지 않는다.
+  Effect의 "throw"와 Condition의 "false, 절대 throw 안 함"은 서로 다른 시스템의 서로 다른 정책이며,
+  `if.when`이 그 경계다.
 
 ### 4.2 연산자와 최소 스키마
 
+> **구현 상태**: `flag`, `signal`, `time`, `if`(V2-Core-03), `stat`, `hp`, `money`, `item`, `relation`
+> (V2-Core-04), `skill`, `trait`, `unlock`, `case`(V2-Core-05)까지 13개를 실제로 구현했다(아래
+> 스키마가 현재 확정된 인자명이다, D-37). `exp`, `proficiency`는 §6.4의 레벨업/임계값 보상 cascade가
+> 재귀적 Effect 적용과 여러 미정 사항(음수 amount, exp 상한, `level.up` 이벤트 schema, 한 번에 여러
+> threshold를 넘는 경우의 처리 순서)을 요구해 **의도적으로 미구현**이다 (D-41, D-42, blocker로 보고됨).
+> 나머지(`move`/`rumor`/`fact`/`narrate`/`choice`/`handler`)는 아직 계약 초안 단계이며, 각각을
+> 구현하는 시점에 이 표와 4.1절의 D-26~D-30 원칙에 맞게 다시 검토·확정한다.
+>
+> **skill/trait/unlock도 D-31의 subject 기준 visibility를 따른다.** 아래 세 행의 "player" 하드코딩은
+> V2-Core-05에서 stat/hp/money/item과 동일하게 "subject 기준(대상이 현재 player actor면 player, 아니면
+> internal)"으로 갱신했다 — 새 결정이 아니라 D-31을 같은 카테고리(actor 기반 Effect)에 일관되게
+> 적용한 것이다.
+>
+> **subject 기반 5개(stat/hp/money/item/relation) 공통 규칙 (D-29, D-31 확정)**:
+> - **대상 해석 실패 = skip, malformed와 다르다 (D-29).** `subject`(또는 relation의 `from`/`to`)가
+>   `"self"`/`"target"`/명시 ID 문자열이 아니면(타입이 틀리면) **throw**한다(스키마 오류, D-28). 반면
+>   타입은 올바르지만 가리키는 대상을 찾을 수 없으면 — `"target"`인데 `ctx.targetId`가 없거나, 명시
+>   ID가 `state.actors`에 없으면 — **throw하지 않고, lazy actor를 만들지 않고, state를 바꾸지 않고,
+>   이벤트도 만들지 않은 채 다음 Effect로 넘어간다(skip).** `stat`의 `system`이 해석되지 않을 때도
+>   (문자열 `data.world.growthSystemId`를 찾을 수 없음) 같은 skip 정책을 따른다 — actor를 못 찾는 것과
+>   같은 "해석 실패"이지 스키마 오류가 아니기 때문이다.
+> - **Visibility는 subject 기준 (D-31 확정)**: 대상 actor가 `state.player.actorId`와 같으면 `player`,
+>   아니면 `internal`이다. `relation`은 대상이 둘(`from`/`to`)이므로 **둘 중 하나라도** 현재 player면
+>   `player`다(기존 표의 설명을 D-31로 공식화한 것뿐, 새 규칙 아님).
+> - actor를 찾은 뒤에도 실제 값이 안 바뀌면(clamp로 delta 0 포함) D-30에 따라 이벤트를 만들지 않는다.
+
 | op | 최소 스키마 | 적용 규칙 | 이벤트 (visibility) |
 | --- | --- | --- | --- |
-| `stat` | `{op, stat, add}` | 기본 stat += add, 성장체계 정의의 [min,max]로 clamp | `stat.changed` (player) |
-| `hp` | `{op, add}` | current += add, [0,max]로 clamp. 0이 되면 사망 처리(9절) | `hp.changed` (player) |
-| `money` | `{op, add}` | 0 이상으로 clamp | `money.changed` (player) |
-| `time` | `{op, minutes}` | minutes ≥ 0만 허용. 시간 전진, day 경계 기록 | `time.advanced` (player) |
+| `stat` | `{op, stat, add, subject?, system?}` | **구현됨.** `stat`은 string, `add`는 정수, `system`은 있으면 string(그 외 malformed→throw). subject 해석은 위 공통 규칙. `system` 기본값은 `data.world.growthSystemId`(§3.2a `stat` selector와 동일). `actor.growth[system].stats[stat]`을 `add`만큼 바꾸고, `data.growthSystems[system].stats`에서 같은 `id`의 정의를 찾아 `[min,max]`로 clamp한다 — 정의를 못 찾으면 clamp 없이 적용한다(범위를 모르므로) | `stat.changed` (subject 기준, D-31), `data:{stat, delta}` |
+| `hp` | `{op, add, subject?}` | **구현됨.** `add`는 정수(그 외 malformed→throw). subject 해석은 위 공통 규칙. `actor.hp.current`를 `[0, actor.hp.max]`로 clamp하며 변경한다. **이번 범위에서는 §9의 사망 트리거(`alive=false`, `actor.died`)를 발생시키지 않는다** — current가 0이 되는 것 자체는 저장하지만, 사망 처리는 actor 시스템을 마저 구현하는 다음 작업으로 미룬다(임시 축소, §9 참고) | `hp.changed` (subject 기준, D-31), `data:{delta}` |
+| `money` | `{op, add, subject?}` | **구현됨.** `add`는 정수(그 외 malformed→throw). subject 해석은 위 공통 규칙. `actor.money`를 `[0, Number.MAX_SAFE_INTEGER]`로 clamp하며 변경한다 | `money.changed` (subject 기준, D-31), `data:{delta}` |
+| `time` | `{op, minutes}` | **구현됨.** `minutes`는 정수이고 0 이상이어야 한다(그 외 malformed). `state.time.minute += minutes`만 한다 — day 경계 계산과 `day.started` 발행은 `step()`의 책임이다(§2.5 9단계), `time` Effect는 만들지 않는다(D-39 확정, 이전 초안의 "day 경계 기록"은 폐기). `minutes:0`은 no-op(이벤트 없음) | `time.advanced` (player), `data:{minutes: 실제 적용값}` |
 | `move` | `{op, to}` | 위치를 직접 설정. 연결 검사는 하지 않음 (requires가 책임) | `actor.moved` (player) |
-| `relation` | `{op, from?, to, add?, mode?, tag?, untag?}` | 7.3절 | `relation.changed` (player: 플레이어가 한쪽 끝일 때 / 그 외 internal) |
+| `relation` | `{op, from?, to?, add?, mode?, tag?, untag?}` | **부분 구현(D-37).** 이번 범위는 `add`(score 변경)만 구현한다 — `mode`/`tag`/`untag`는 문법상 허용되지만 아직 아무 동작도 하지 않는다(다음 작업에서 구현). `add`가 있으면 정수여야 한다(그 외 malformed→throw). `from`/`to` 해석은 7.3절 기본값(`from`=target, `to`=self)과 위 공통 skip 규칙을 그대로 따른다. score를 `[-100,100]`으로 clamp하고, 실제로 바뀔 때만 edge를 lazy 생성/갱신한다(§7.1) — `add`가 없거나 0이거나 clamp로 delta가 0이면 edge를 만들지도, `lastDay`를 갱신하지도 않는다(순수 no-op, D-30 확장) | `relation.changed` (player: 플레이어가 한쪽 끝일 때 / 그 외 internal, D-31), `data:{from, to, delta}` (actorId 필드는 endpoint가 둘이라 쓰지 않는다) |
 | `rumor` | `{op, rumor, source, confidence?, from?, observe?}` | 8.3절 | `rumor.learned` / `rumor.updated` (subject가 플레이어면 player) |
 | `fact` | `{op, fact, set}` | facts[fact] = { value:set, since:minute } | `fact.changed` (**internal**) |
-| `flag` | `{op, key, set}` | set이 null이면 키 삭제 | `flag.changed` (internal) |
-| `signal` | `{op, key, add}` | 정수 카운트, 기본 add=1, 0 이상 | `signal.raised` (internal) |
-| `item` | `{op, item, add}` | 수량 0 이상. 0이 되면 키 삭제 | `item.changed` (player) |
-| `exp` | `{op, amount}` | 6.4절 레벨 곡선 적용 | `exp.gained` (+ `level.up`) (player) |
-| `proficiency` | `{op, id, add}` | 6.4절 임계값 보상 | `proficiency.changed` (player) |
-| `skill` | `{op, skill, add?:1}` | rank += add, [0,maxRank]. 0이면 삭제 | `skill.changed` (player) |
-| `trait` | `{op, trait, remove?:false}` | 추가 또는 제거. `exclusive` 목록의 특성은 제거 | `trait.changed` (player) |
-| `unlock` | `{op, id}` | 해금 추가 (idempotent) | `unlock.granted` (player. 이미 보유하면 이벤트 없음) |
-| `case` | `{op, case, stage}` | 단계 설정. 없으면 생성 | `case.updated` (player) |
+| `flag` | `{op, key, value}` | **구현됨.** `key`는 string, `value`는 반드시 boolean(그 외 malformed). `state.flags`가 없으면 lazy 생성. 기존 값과 같으면 no-op(이벤트 없음) — 이전 초안의 `set`(임의 JSON, null이면 삭제)은 이 4개 op 구현 범위에서 `value`(boolean 전용, 삭제 없음)로 좁혀 확정했다(D-37). 문자열/숫자 flag나 키 삭제가 필요해지면 그때 별도 op나 인자를 추가한다 | `flag.changed` (internal), `data:{key, value}` |
+| `signal` | `{op, key, add}` | **구현됨.** `key`는 string, `add`는 정수(기본값 없음 — 생략하면 malformed, 이전 초안의 "기본 add=1"은 폐기(D-37)). `state.signals`가 없으면 lazy 생성. 결과는 `[0, Number.MAX_SAFE_INTEGER]`로 clamp. 실제 변화량(delta = 적용 후−적용 전)이 0이면 이벤트 없음 | `signal.raised` (internal), `data:{key, delta: 실제 변화량}` |
+| `item` | `{op, item, add, subject?}` | **구현됨.** `item`은 string, `add`는 정수(그 외 malformed→throw). subject 해석은 위 공통 규칙. 수량을 `[0, Number.MAX_SAFE_INTEGER]`로 clamp하며 변경한다. 0이 되면 키 삭제(기존 계약 유지) | `item.changed` (subject 기준, D-31), `data:{item, delta}` |
+| `exp` | `{op, amount}` | **미구현(blocker, D-41).** 6.4절 레벨 곡선 적용 | `exp.gained` (+ `level.up`) (player) |
+| `proficiency` | `{op, id, add}` | **미구현(blocker, D-42).** 6.4절 임계값 보상 | `proficiency.changed` (player) |
+| `skill` | `{op, skill, add?:1, subject?, system?}` | **구현됨.** `skill`은 string, `add`는 있으면 정수(생략 시 1, 그 외 malformed→throw). subject/system 해석은 stat과 동일(4.2절 상단 공통 규칙). `actor.growth[system].skills[skill]`을 `add`만큼 바꾸고 `data.growthSystems[system].skills`에서 정의를 찾아 `[0,maxRank]`로 clamp(정의를 못 찾으면 상한 없음, stat과 동일). 0이면 키 삭제(기존 계약 유지) | `skill.changed` (subject 기준, D-31), `data:{skill, delta}` |
+| `trait` | `{op, trait, remove?:false, subject?, system?}` | **구현됨.** `trait`은 string, `remove`는 있으면 boolean(그 외 malformed→throw). subject/system 해석은 공통 규칙. `remove:true`면 `actor.growth[system].traits[trait]`을 삭제(없으면 no-op). 추가 시 `data.growthSystems[system].traits`에서 `trait`의 정의를 찾아 `exclusive` 목록에 있는, 현재 보유 중인 다른 trait을 함께 제거한다(정의를 못 찾으면 exclusive 처리 없이 추가만 한다) | `trait.changed` (subject 기준, D-31), `data:{trait, added, removedExclusive?}`(제거 시 `data:{trait, added:false}`) |
+| `unlock` | `{op, id, subject?, system?}` | **구현됨.** `id`는 string(그 외 malformed→throw). subject/system 해석은 공통 규칙. `actor.growth[system].unlocks[id] = true`(idempotent — 이미 있으면 no-op) | `unlock.granted` (subject 기준, D-31; 이미 보유하면 이벤트 없음), `data:{id}` |
+| `case` | `{op, case, stage}` | **구현됨.** `case`/`stage` 모두 string(그 외 malformed→throw). subject를 쓰지 않는 세계 단위 op(4.1절). `state.cases`가 없으면 lazy 생성. 같은 stage로 다시 설정하면 no-op. 그 외에는 `state.cases[case] = {stage, since: 현재 minute}`으로 갱신(§2.1의 "since: minute" 그대로 — day 아님) | `case.updated` (player), `data:{case, stage}` |
 | `narrate` | `{op, textId}` | 상태 변화 없음 | `narration` (player) |
 | `choice` | `{op, choice}` | `state.pending = {kind:"choice", ...}` 설정 | `choice.offered` (player) |
-| `if` | `{op, when:Condition, then:[...], else?:[...]}` | world 문맥으로 Condition 평가 후 분기 | 자체 이벤트 없음 |
+| `if` | `{op, when:Condition, then:[Effect,...], else?:[Effect,...]}` | **구현됨.** `then`은 필수 배열, `else`는 선택 배열(없으면 조건이 거짓일 때 아무 것도 하지 않음). `when`은 `evaluateCondition(when, {...ctx, contextKind:"world"})`으로 평가한다(§3.3과 일치) — `when`이 malformed여도 throw하지 않고 `evaluateCondition`이 반환하는 `false`를 그대로 따른다(4.1절 D-28). `then`/`else`가 배열이 아니면(malformed) throw. 선택된 branch는 **같은 작업 사본을 공유**하며 depth-first로 즉시 적용한다 | 자체 이벤트 없음. `then`/`else` 내부 Effect는 각자 이벤트를 낸다 |
 | `handler` | `{op, name, params}` | 4.4절 | handler가 반환한 이벤트 |
 
 - 모든 Effect에 선택 인자 `subject`를 허용한다 (`fact`, `flag`, `signal`, `time`, `narrate`, `choice`, `case`는 세계 단위이므로 subject를 무시한다).
@@ -497,10 +619,21 @@ rollDie(rng, sides)    = nextUint32의 value % sides + 1
   - `choice`: 선택지 시스템을 사건과 연결한다.
 - **확장 규칙**: 새 op를 추가하려면 이 표, validateData, 적용 및 경계값 테스트, 이벤트 visibility 결정이 함께 필요하다.
 
-### 4.3 Effect 대상이 없을 때
+### 4.3 Effect 대상이 없을 때 (D-29 확정)
 
-- 정적 참조(데이터에 적힌 ID)는 `validateData`가 존재 여부를 검사한다.
-- 동적 참조(`target`)는 step 2~4단계에서 존재하지 않으면 reject된다. 따라서 Effect 단계에서는 항상 존재한다고 가정한다.
+- 정적 참조(데이터에 적힌 ID)는 `validateData`가 존재 여부를 검사한다(아직 미구현).
+- 동적 참조(`target`)는 Resolvable을 통해 들어올 경우 step 2~4단계에서 존재하지 않으면 reject된다.
+  하지만 `applyEffects`는 Resolvable/step 없이도 독립적으로 호출될 수 있고(D-40, 아직 `step()`에
+  연결되지 않음), trigger(§2.5 10단계)나 사망 후 succession(§9)처럼애초에 2~4단계를 거치지 않는
+  경로도 있다. 그래서 "target은 항상 존재한다"는 가정에 의존하지 않고, **Effect 자신이 대상 부재를
+  안전하게 처리한다**:
+  - subject/`from`/`to`의 **타입**이 틀리면(`"self"`/`"target"`/문자열 ID가 아니면) malformed로
+    **throw**한다(D-28).
+  - 타입은 맞지만 **가리키는 대상을 찾을 수 없으면**(`"target"`인데 `ctx.targetId` 없음, 명시 ID가
+    `state.actors`에 없음, `stat`의 `system`을 못 찾음) **throw하지 않고, lazy actor를 만들지 않고,
+    state를 바꾸지 않고, 이벤트도 만들지 않은 채 다음 Effect로 계속 진행한다(skip)**.
+  - `flag`/`signal`/`time`/`if`는 애초에 subject를 쓰지 않으므로(4.1절) 이 절의 영향을 받지 않는다.
+  - 4.2절 표의 `stat`/`hp`/`money`/`item`/`relation` 행이 이 규칙의 구체적인 적용례다.
 
 ### 4.4 예외 handler registry
 
@@ -511,14 +644,21 @@ rollDie(rng, sides)    = nextUint32의 value % sides + 1
   - 확장: 세계별 handler가 늘어나면 `handlers/<worldId>.js`로 나누고, registry가 병합한다 (D-04).
 - 호출 계약:
   - Condition handler: `fn(ctx, params) -> boolean`
-  - Effect handler: `fn(ctx, params) -> { state, events, rng }`
-  - 순수하고 결정론적이어야 한다. 입력을 변경하지 않고, 금지 의존성(1.1절)을 쓰지 않으며, 난수는 `ctx.rng`만 쓴다.
+  - Effect handler: `fn(ctx, params) -> { state, events }` (D-27 확정 — `rng`는 반환하지 않는다.
+    RNG가 필요하면 `ctx.state.rng`를 직접 읽고 쓴다. `state.rng`가 유일한 rng 원천이다)
+  - 순수하고 결정론적이어야 한다. 입력을 변경하지 않고, 금지 의존성(1.1절)을 쓰지 않는다.
 - handler를 쓰려면 다음 **조건**을 모두 만족해야 한다:
-  - (1) 기존 op와 `if`, `all/any/not` 조합으로 표현할 수 없다.
+  - (1) 기존 op와 `if`, `and`/`or`/`not` 조합으로 표현할 수 없다.
   - (2) 데이터 정의에 `"reason"` 문자열로 이유를 남긴다.
   - (3) 전용 테스트가 있다.
   - validateData는 `reason`이 없는 handler 참조와 등록되지 않은 name을 오류로 처리한다.
 - handler는 **기본 경로가 아니다.** 같은 패턴의 handler가 3개 이상 생기면 선언형 op로 승격할지 검토한다.
+- **등록되지 않은 handler name (D-38 — 정책 차원에서 정리, handler 자체는 아직 미구현)**: Condition과
+  Effect가 서로 다르게 처리해도 모순이 아니다. Condition의 `handler` op가 등록되지 않은 name을 만나면
+  Condition의 일반 정책(§3.1 — 알 수 없는/평가할 수 없는 op는 `false`)을 그대로 따르고, Effect의
+  `handler` op가 등록되지 않은 name을 만나면 Effect의 일반 정책(4.1절 D-28 — malformed는 throw)을
+  그대로 따른다. 두 시스템이 각자의 malformed 정책을 handler op에도 똑같이 적용하는 것뿐이며, 실제
+  `handlers.js`와 registry를 구현하는 시점에 이 정리가 맞는지 다시 확인한다.
 
 ---
 
@@ -681,6 +821,10 @@ rollDie(rng, sides)    = nextUint32의 value % sides + 1
 
 ### 6.4 성장 규칙
 
+> **구현 상태 (V2-Core-05)**: 이 절이 설명하는 `exp`/`proficiency` Effect는 아직 구현하지 않았다
+> (D-41, D-42 blocker). `skill`/`trait`/`unlock`은 구현했다(4.2절) — 이들은 이 절의 레벨/임계값
+> 곡선과 무관하게 동작한다.
+
 - exp: 누적한 뒤 `expTable`을 넘은 만큼 레벨을 올린다. 한 번에 여러 레벨이 오를 수 있으며,
   레벨마다 `levelRewards[level]`을 순서대로 적용하고 `level.up` 이벤트를 발생시킨다.
 - proficiency: 누적하면서 `thresholds[].at`를 **처음 넘을 때 한 번** effects를 적용한다 (이전 값 < at ≤ 새 값).
@@ -720,6 +864,12 @@ rollDie(rng, sides)    = nextUint32의 value % sides + 1
   - 이유: 초기에는 한 차원과 태그로 충분하며, 차원을 늘리면 Condition과 check 규칙이 곱절로 늘어난다.
 
 ### 7.3 relation Effect 적용 규칙
+
+> **구현 상태 (V2-Core-04)**: `add`(score 변경)만 구현했다. `mode`/`tag`/`untag`는 아직 아무 동작도
+>하지 않는다(다음 작업에서 구현). 그래서 아래 "모든 적용 시 lastDay를 설정한다"도 지금은 score가
+> 실제로 바뀔 때만 적용된다 — score delta가 0(또는 `add` 자체가 없음)이면 edge를 만들거나 갱신하지
+> 않는다(D-30 확장). `mode`/`tag`/`untag`가 생기면 "score는 안 바뀌어도 mode/tag만 바뀌는 적용"도
+> lastDay를 갱신해야 하므로, 그때 이 절을 다시 다듬는다.
 
 - `add`: score에 더한 뒤 clamp한다.
 - `mode`: 지정하면 설정하고, cooperation이면 cooperationCount, conflict이면 conflictCount를 +1 한다.
@@ -798,6 +948,12 @@ state.knowledge["player_1"]["rum_a"] = {
 ---
 
 ## 9. 사망 / 계승
+
+> **구현 상태 (V2-Core-04)**: `hp` Effect(4.2절)는 아직 이 절의 사망 트리거를 발생시키지 않는다.
+> `current`가 0이 되는 것 자체는 정상적으로 clamp되어 저장되지만, `alive=false`로 바꾸거나
+> `actor.died`를 내거나 `pending`을 설정하는 것은 하지 않는다 — actor 시스템(사망/계승/새 캐릭터)을
+> 마저 구현하는 다음 작업에서 연결한다. 그 전까지 이 절은 "장기 계약"이며 실제 동작과는 의도적으로
+> 어긋나 있다.
 
 - 트리거: `hp` Effect로 current가 0이 되면 **즉시** `alive=false`가 되고 `actor.died` 이벤트가 발생한다.
 - 사망한 actor가 플레이어 캐릭터이면 `state.pending = {kind:"newCharacter"}`가 설정된다. 이 상태에서는 `startCharacter`만 허용한다.
@@ -897,8 +1053,8 @@ state.knowledge["player_1"]["rum_a"] = {
 | immutability | 동결된 입력으로 step, view, check를 호출해도 예외가 없고, 입력은 호출 전과 deepEqual이다 |
 | JSON 안전성 | 모든 step 결과 state가 JSON 왕복 후 deepEqual이다 |
 | invalid action | 9개 reason code 각각에서 state가 입력과 deepEqual이고, rng, time이 변하지 않으며, 이벤트는 `action.rejected` 1개다 (state에 `seq`가 없으므로 검사 대상도 아니다) |
-| Condition | 연산자마다 참, 거짓, 누락 참조 케이스를 검사한다. `all` 빈 배열은 참, `any` 빈 배열은 거짓이다. 알 수 없는 op는 validateData 오류다. player 문맥의 fact 사용도 validateData 오류다 |
-| Effect | 연산자마다 적용, clamp, visibility를 검사한다. Effect ↔ Event 매핑은 구현 시점에 정한 실제 규칙(2.4절, D-20)을 기준으로 검사한다 (1:1을 전제하지 않는다). `if` 분기와 순차 적용(앞 결과를 뒤가 보는지)도 검사한다 |
+| Condition | 연산자마다 참, 거짓, 누락 참조 케이스를 검사한다. `and` 빈 배열은 참, `or` 빈 배열은 거짓이다. `always`/`never`는 인자 없이 고정값을 반환한다. `eq`/`neq`/`gt`/`gte`/`lt`/`lte`는 숫자·문자열·타입 불일치·selector 미해석(`undefined`) 케이스를 모두 검사한다. 알 수 없는 op/selector는 (validateData 도입 전까지는) `false`로 평가된다. player 문맥의 `fact` selector는 항상 `undefined`로 해석되는지 검사한다 |
+| Effect | 연산자마다 적용, clamp, visibility를 검사한다. Effect ↔ Event 매핑은 "변화 있으면 이벤트 1개, 없으면 0개" 규칙(4.1절 D-30)을 기준으로 검사한다. `if` 분기(when true/false, else 생략, nested)와 순차 적용(앞 결과를 뒤가 즉시 보는지, 같은 작업 사본 공유)도 검사한다. malformed Effect는 throw, `if.when`이 malformed면 `evaluateCondition`의 `false`를 정상 분기로 받아들여 throw하지 않는지 검사한다(D-28). subject 기반 op(`stat`/`hp`/`money`/`item`/`relation`/`skill`/`trait`/`unlock`)는 self/target/명시 ID 해석, 타입 오류→throw vs 해석 실패→skip(D-29), player/internal visibility(D-31)도 검사한다. `trait`의 exclusive 제거, `unlock`의 idempotent, `case`의 lazy 생성/같은 stage no-op도 검사한다. V2-Core-05 범위: `flag`/`signal`/`time`/`if`/`stat`/`hp`/`money`/`item`/`relation`(add만)/`skill`/`trait`/`unlock`/`case` 13개 (`exp`/`proficiency`는 blocker로 미구현, D-41/D-42; 나머지는 미구현) |
 | check | rng를 고정 주입해 tier 경계값(margin = 임계값, 임계값 - 1)을 검사한다. modifier 순서, opposed, 이름 difficulty, attempts와 retryPenalty, 누락 outcome 폴백도 검사한다 |
 | Growth | 경계를 넘는 exp에서 다중 레벨업과 levelRewards를 검사한다. proficiency 임계값이 한 번만 발동하는지, skill maxRank, trait exclusive, unlock idempotent, 여러 성장체계 공존도 검사한다 |
 | RelationshipGraph | 방향성, lazy 기본값, clamp, mode 카운트, lastDay, tags 정렬, Condition 참조를 검사한다 |
@@ -941,6 +1097,29 @@ state.knowledge["player_1"]["rum_a"] = {
 | D-18 | 첫 세계 판타지 **콘텐츠** 작성 주체와 승인 절차 | 사람이 작성하거나 승인. 엔진 작업과 분리 |
 | D-19 | check 수치 기본값(2d10, tiers 6/0/-3, difficulties) | 제안값으로 시작해 분포 테스트로 확정 |
 | D-20 | Effect ↔ Event 매핑 규칙 (1:1 고정 여부) | 고정하지 않음. 참고용 기본값(4.2절 표)만 두고, 실제 규칙은 Effect 구현 작업(15절 작업 3)에서 정함 (2.4절) |
+| D-24 | `rumor` selector가 어떤 필드(confidence? claim?)로 해석되는지 | **보류(deferred)**. 지금은 recognized selector 키만 등재하고 resolver는 두지 않는다 — 항상 `undefined`로 해석되어 어떤 비교에서도 거짓이다 (D-25). Fact/Rumor 시스템(§8) 구현 시점에 다시 결정 |
+| D-25 | 비교 연산자의 unresolved(`undefined`) 피연산자 처리 | **확정**: `eq`/`neq`/`gt`/`gte`/`lt`/`lte` 여섯 개 전부, `left`/`right` 중 하나라도 `undefined`면 예외 없이 거짓. `eq`/`neq`의 strict 비교 특례(둘 다 `undefined`일 때 `eq`가 참이 되는 경우)는 두지 않는다 (§3.2a) |
+
+> D-21, D-22, D-23, D-25(Condition의 `always`/`never`, `and`/`or`, 범용 비교 연산자와 selector,
+> unresolved 비교 규칙)은 **확정됨** — §3.2, §3.2a 참고. D-24는 **보류**다.
+
+| D-26 | `applyEffects` mutation 모델 | **확정**: 외부적으로 순수 함수(`effects`/`ctx`/`ctx.state` 불변, `result.state !== ctx.state`). 내부적으로는 `ctx.state`를 최초 1회만 clone해 만든 작업 사본을 지역적으로 mutate하며, 중첩 Effect(`if.then`/`else`)도 그 사본을 공유한다 (4.1절) |
+| D-27 | RNG 원천 | **확정**: `state.rng` 단일 원천. `ctx.rng`, 반환값의 `rng`는 두지 않는다. RNG가 필요한 Effect/handler는 `ctx.state.rng`를 직접 다룬다 (4.1절, 4.4절) |
+| D-28 | malformed Effect 처리 | **확정**: throw(프로그래머/콘텐츠 오류). Condition의 "false, 절대 throw 안 함"과는 다른 정책이다. 예외: `if.when` 자체가 malformed인 경우는 Condition의 `false`를 그대로 받아들이고 throw하지 않는다 (4.1절) |
+| D-29 | 런타임 대상 부재 (actor 없음, `targetId` 없음, trigger/succession처럼 action 검증을 거치지 않는 경로) | **확정**: throw하지 않고 skip한다(state 불변, 이벤트 없음, 다음 Effect로 진행). subject/`from`/`to`의 타입이 틀리면(malformed) throw하는 것과는 다른 경로다. `flag`/`signal`/`time`/`if`는 영향받지 않는다 (4.3절) |
+| D-30 | Effect ↔ Event 매핑 (D-20 해소) | **확정**: 실제로 state가 변경된 Effect 1개당 이벤트 1개, 변화 없으면(delta 0 포함) 이벤트 없음. `if` 자체는 이벤트 없음. 향후 이벤트를 묶거나 생략할 필요가 생기면 그때 op별 예외를 정한다 (4.1절) |
+| D-31 | NPC(비플레이어) 대상 Effect의 visibility | **확정**: 대상 actor가 `state.player.actorId`와 같으면 `player`, 아니면 `internal`. `relation`은 `from`/`to` 중 하나라도 player면 `player` (4.2절) |
+| D-32 | 수치 인자 검증과 상한 | **부분 확정** (`signal`/`time`/`stat`/`hp`/`money`/`item`): 정수이면서 유한하지 않으면(`Number.isInteger`가 false면) malformed → throw. `signal`/`money`/`item`은 `[0, Number.MAX_SAFE_INTEGER]`, `hp`는 `[0, actor.hp.max]`, `stat`은 데이터에 정의된 `[min,max]`(없으면 무제한)로 clamp. `relation.add`는 `[-100,100]`. 나머지 수치 op(`exp`/`proficiency`/`skill`)는 각각 구현할 때 재확인 |
+| D-33 | `flags`/`signals`/`facts`/`relations`/`cases` 등 최상위 맵 부재 시 쓰기 | **부분 확정** (`flags`/`signals`/`relations`): 첫 write 시 lazy 생성. `actors`/`facts`/`cases`는 이번 작업에서 생성하지 않는다(actor가 없으면 D-29에 따라 skip할 뿐, 새로 만들지 않는다). 나머지 맵은 해당 시스템 구현 시 같은 패턴을 적용할지 재확인 |
+| D-34 | 중첩 Effect 순서 / 목록 중간 사망 | **부분 확정**: 중첩(`if.then`/`else`)은 depth-first로 즉시 실행하며 작업 사본을 공유한다 (확정, 4.1절/4.2절). `hp` Effect는 구현했지만 사망 트리거 자체를 아직 만들지 않았으므로(§9, 임시 축소) "목록 중간 사망" 시나리오가 발생하지 않는다 — **여전히 미해결로 남는다**, actor 시스템(사망/계승)을 마저 구현할 때 결정 |
+| D-35 | `choice`/`pending` 세부 (`sourceId` 출처, `pending` 충돌 우선순위) | **미해결**. `choice`를 구현할 때 결정 (이번 작업과 무관, 건드리지 않음) |
+| D-36 | Effect 구현 코드 위치 | **확정**: `web/v2/core/rules.js`에 둔다. 별도 `effects.js`를 만들지 않는다 (Ponytail — 파일 3개 계획, 1.3절) |
+| D-37 | 인자 이름 통일 | **재검토 후 확정** (`flag`/`signal`/`time`/`stat`/`hp`/`money`/`item`/`relation`): 강제로 하나의 이름에 통일하지 않고, op마다 자연스러운 이름을 쓴다 — `flag.value`, `signal.add`, `time.minutes`, `stat.{stat,add,subject?,system?}`, `hp.{add,subject?}`, `money.{add,subject?}`, `item.{item,add,subject?}`, `relation.{from?,to?,add?}`(`mode`/`tag`/`untag`는 문법만 예약, 미구현). 모두 4.2절 표에 이미 있던 이름을 그대로 썼다. `exp.amount` vs `add`, `proficiency`의 `id` 등 나머지 불일치는 아직 미해결이며 각 op 구현 시 정리한다 (4.2절) |
+| D-38 | 등록되지 않은 handler name | **정책만 정리, handler 자체는 미구현**: Condition의 `handler`는 Condition의 malformed 정책(false)을, Effect의 `handler`는 Effect의 malformed 정책(throw)을 따른다. 서로 다른 시스템이 각자의 기존 정책을 그대로 적용하는 것이므로 모순이 아니다 (4.4절) |
+| D-39 | `time` Effect와 day 경계 | **확정**: `time` Effect는 `minute`만 전진시키고 `day.started`를 만들지 않는다. day 경계 판정은 `step()` 9단계의 책임이다 (4.2절) |
+| D-40 | `engine.js`의 `wait`와 `applyEffects` 통합 여부 | **확정(이번엔 하지 않음)**: V2-Core-03에서는 `engine.js`를 수정하거나 `step()`에 연결하지 않는다. `applyEffects`는 독립적으로만 존재한다. 이벤트 형태(`time.advanced {minutes}`)만 기존 V2-Core-01과 맞춘다 |
+| D-41 | `exp` Effect의 레벨업 cascade | **블로커, 미해결**: `expTable` 비교로 레벨을 올리는 것 자체는 명확하지만, (1) 레벨마다 `levelRewards[level]`(Effect 배열)을 재귀적으로 `applyEffectList`에 적용해야 하는데 그 ctx(특히 subject)를 어떻게 구성할지, (2) 음수 `amount`(경험치 손실/디레벨) 처리, (3) exp 자체의 상한, (4) `level.up` 이벤트의 정확한 `data` 스키마(레벨 번호? 시스템 id?), (5) `level:null` 체계에서의 동작이 계약에 없다. 다음 작업에서 결정 |
+| D-42 | `proficiency` Effect의 clamp와 threshold cascade | **블로커, 미해결**: §4.2 원래 행이 "6.4절 임계값 보상"만 말할 뿐 **clamp 범위를 명시하지 않는다** — `max`가 하드 clamp인지 단순 메타데이터인지 불명확하다. `thresholds[].effects`를 D-41과 같은 재귀 적용 문제(ctx 구성, 음수 add로 인한 "역치 되돌리기" 여부, 한 번에 여러 threshold를 넘을 때 순서)도 그대로 가진다. 다음 작업에서 결정 |
 
 ---
 
@@ -958,10 +1137,42 @@ state.knowledge["player_1"]["rum_a"] = {
 5. V1 회귀 41/41 재확인.
 
 - 이 작업은 Condition, Effect, check, Growth, 콘텐츠를 **포함하지 않는다.**
-- 다음 작업 후보는 순서대로 다음과 같다. 각 작업은 사람의 승인 후 진행한다.
-  - 작업 2: `rules.js` Condition과 validateData
-  - 작업 3: Effect와 perform/move
-  - 작업 4: check
-  - 작업 5: Growth
-  - 작업 6: Relation, Fact/Rumor
-  - 작업 7: 사망과 view
+
+**작업 2 = V2-Core-02: `rules.js` Condition** (`validateData`는 포함하지 않음 — 별도 결정 시 추가)
+
+- 연산자: `always`/`never`/`and`/`or`/`not`/`eq`/`neq`/`gt`/`gte`/`lt`/`lte` (D-21~D-23, D-25).
+- `stat`/`skill`/`proficiency`/`item`/`money`/`relation`/`flag`/`signal`/`day`/`fact`/`rumor` selector
+  해석(§3.2a)을 `evaluateCondition` 내부에서 구현했다. `rumor`는 D-24로 보류.
+
+**작업 3 = V2-Core-03: 순수 `applyEffects` + world 단위 최소 Effect subset**
+
+- 연산자: `flag`/`signal`/`time`/`if` 4개만 (D-26~D-40, 4.1절/4.2절).
+- `web/v2/core/rules.js`에 `applyEffects(effects, ctx) -> {state, events}` 추가. `engine.js`에는
+  연결하지 않는다(D-40). RNG는 쓰지 않는다(D-27 — 이번 4개 op는 RNG가 필요 없다).
+- `perform`/`move`처럼 actor를 다루는 나머지 Effect(`stat`/`hp`/`money`/`item`/`relation`/`rumor`/
+  `fact`/`exp`/`proficiency`/`skill`/`trait`/`unlock`/`case`/`narrate`/`choice`/`handler`)와
+  Resolvable/actors 연결은 다음 작업으로 미룬다.
+
+**작업 4 = V2-Core-04: subject 해석 + 대상 기반 Effect 5종**
+
+- 연산자: `stat`/`hp`/`money`/`item`/`relation`(`add`만) 5개 (D-29, D-31, D-32/33/34/37 일부 확정,
+  4.1절/4.2절/4.3절/7.3절/9절).
+- subject/`from`/`to` 해석과 "타입 오류→throw, 해석 실패→skip"(D-29)을 5개 op가 공유한다.
+- `relation`의 `mode`/`tag`/`untag`, `hp`의 사망 트리거(§9)는 이번에도 미룬다.
+- `move`, Resolvable/`perform`/`move` action 연결, `check`는 여전히 다음 작업이다.
+
+**작업 5 = V2-Core-05: Growth Effect 4종 (`skill`/`trait`/`unlock`/`case`)**
+
+- 연산자: `skill`, `trait`(exclusive 처리 포함), `unlock`, `case` (D-31을 같은 카테고리에 확장 적용).
+- `exp`, `proficiency`는 **블로커로 미구현** (D-41, D-42) — §6.4의 레벨업/임계값 cascade가 재귀적
+  Effect 적용과 여러 미정 사항을 요구해서, 계약이 명확해지기 전까지 구현하지 않기로 했다.
+
+**다음 작업 후보**(순서대로, 각 작업은 사람의 승인 후 진행):
+
+  - 작업 6: `move`, Resolvable과 `perform`/`move` action을 `step()`에 연결(D-40 재검토), 사망 트리거
+    §9 연결과 D-34(목록 중간 사망) 해결
+  - 작업 7: check
+  - 작업 8: `exp`/`proficiency` (D-41, D-42 해소 — 레벨업/임계값 cascade의 ctx·음수·상한·이벤트
+    schema를 먼저 결정한 뒤 구현)
+  - 작업 9: `relation`의 `mode`/`tag`/`untag`, Fact/Rumor (`rumor`/`fact` Effect, D-24 해소)
+  - 작업 10: 사망 계승 세부와 view
