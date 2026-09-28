@@ -1782,7 +1782,7 @@ const SUBJECT_BEARING_EFFECT_OPS = new Set([
 ]);
 const SYSTEM_BEARING_EFFECT_OPS = new Set(["stat", "exp", "proficiency", "skill", "trait", "unlock"]);
 
-function checkEffectArgs(effect, path, errors) {
+function checkEffectArgs(effect, path, errors, data) {
   const op = effect.op;
   // fact/flag/signal/time/narrate/choice/case/relation never read `subject`
   // (§4.1's world-unit/no-subject list, plus `relation` uses from/to
@@ -1864,7 +1864,18 @@ function checkEffectArgs(effect, path, errors) {
   } else if (op === "narrate") {
     if (typeof effect.textId !== "string") errors.push(`narrate Effect at ${path} requires a string \`textId\``);
   } else if (op === "choice") {
-    if (typeof effect.choice !== "string") errors.push(`choice Effect at ${path} requires a string \`choice\``);
+    if (typeof effect.choice !== "string") {
+      errors.push(`choice Effect at ${path} requires a string \`choice\``);
+    } else if (!isPlainObject(data?.choices?.[effect.choice])) {
+      // D-58: a choiceId with no data.choices entry permanently locks the
+      // player in pending.kind:"choice" (D-35/D-48/D-51 -- resolveChoose can
+      // never find an option, so every `choose` rejects unknown_option, and
+      // the pending gate blocks every other action type forever). Unlike
+      // world.growthSystemId (D-56), a missing `data.choices` collection
+      // entirely is not a lesser-content variant with its own graceful
+      // fallback downstream -- it is checked the same as a missing key.
+      errors.push(`choice Effect at ${path} references unknown data.choices entry: ${JSON.stringify(effect.choice)}`);
+    }
     if (effect.sourceId !== undefined && typeof effect.sourceId !== "string") {
       errors.push(`choice Effect at ${path}'s \`sourceId\`, when present, must be a string`);
     }
@@ -1900,7 +1911,9 @@ function checkEffectArgs(effect, path, errors) {
 // `if.when` is always its own contextKind:"world" Condition root (§3.3,
 // matches rules.js's own `if` implementation exactly), regardless of which
 // contextKind (if any) the enclosing Effect list itself was reached under.
-function walkEffectList(effects, path, errors) {
+// `data` is threaded through only for D-58's `choice` -> data.choices
+// reference check (checkEffectArgs); nothing else in this walk needs it.
+function walkEffectList(effects, path, errors, data) {
   if (!Array.isArray(effects)) {
     errors.push(`Effect list at ${path} must be an array`);
     return;
@@ -1924,36 +1937,51 @@ function walkEffectList(effects, path, errors) {
       if (!Array.isArray(effect.then)) {
         errors.push(`if Effect at ${effectPath}.then must be an array (§4.1)`);
       } else {
-        walkEffectList(effect.then, `${effectPath}.then`, errors);
+        walkEffectList(effect.then, `${effectPath}.then`, errors, data);
       }
       if (effect.when !== undefined) walkCondition(effect.when, "world", `${effectPath}.when`, errors);
-      if (effect.else !== undefined) walkEffectList(effect.else, `${effectPath}.else`, errors);
+      if (effect.else !== undefined) walkEffectList(effect.else, `${effectPath}.else`, errors, data);
     } else {
-      checkEffectArgs(effect, effectPath, errors); // D-57: per-op required-field/type checks
+      checkEffectArgs(effect, effectPath, errors, data); // D-57/D-58: per-op required-field/type/reference checks
     }
   });
+}
+
+// D-58: §5.5 verbatim -- a string `check.difficulty` must be a key in the
+// FULLY RESOLVED data.rules.check.difficulties (reuses checkRules(), the
+// same pure function resolveDifficulty() itself calls, so a content-provided
+// `difficulties` object that replaces the defaults wholesale -- rather than
+// merging key-by-key -- is handled identically here and at runtime).
+function checkResolvableDifficultyReference(resolvable, path, errors, data) {
+  const difficulty = resolvable.check?.difficulty;
+  if (typeof difficulty !== "string") return;
+  const rules = checkRules({ data });
+  if (!Number.isInteger(rules.difficulties[difficulty])) {
+    errors.push(`${path}.check.difficulty references unknown data.rules.check.difficulties name: ${JSON.stringify(difficulty)}`);
+  }
 }
 
 // D-56 (6): §2.3 verbatim -- `check` present -> `outcomes.success`/`.fail`
 // are both required arrays. Missing `great`/`partial` is NOT an error (§2.3
 // already defines the success/fail fallback for those).
-function walkResolvable(resolvable, path, errors) {
+function walkResolvable(resolvable, path, errors, data) {
   if (!isPlainObject(resolvable)) return;
   if (resolvable.check !== undefined) {
     const outcomes = resolvable.outcomes;
     if (!isPlainObject(outcomes) || !Array.isArray(outcomes.success) || !Array.isArray(outcomes.fail)) {
       errors.push(`${path}: Resolvable has \`check\` but is missing required outcomes.success/outcomes.fail arrays (§2.3)`);
     }
+    checkResolvableDifficultyReference(resolvable, path, errors, data); // D-58
   }
   if (isPlainObject(resolvable.outcomes)) {
     ["great", "success", "partial", "fail"].forEach((tier) => {
       if (resolvable.outcomes[tier] !== undefined) {
-        walkEffectList(resolvable.outcomes[tier], `${path}.outcomes.${tier}`, errors);
+        walkEffectList(resolvable.outcomes[tier], `${path}.outcomes.${tier}`, errors, data);
       }
     });
   }
   if (resolvable.effects !== undefined) {
-    walkEffectList(resolvable.effects, `${path}.effects`, errors);
+    walkEffectList(resolvable.effects, `${path}.effects`, errors, data);
   }
 }
 
@@ -2022,7 +2050,7 @@ export function validateData(data) {
       const def = data.actions[actionId];
       if (!isPlainObject(def)) return;
       if (def.requires !== undefined) walkCondition(def.requires, "player", `actions.${actionId}.requires`, errors);
-      walkResolvable(def, `actions.${actionId}`, errors);
+      walkResolvable(def, `actions.${actionId}`, errors, data);
     });
   }
 
@@ -2037,7 +2065,7 @@ export function validateData(data) {
           if (option.requires !== undefined) {
             walkCondition(option.requires, "player", `choices.${choiceId}.options[${i}].requires`, errors);
           }
-          walkResolvable(option, `choices.${choiceId}.options[${i}]`, errors);
+          walkResolvable(option, `choices.${choiceId}.options[${i}]`, errors, data);
         });
       }
     });
@@ -2049,12 +2077,12 @@ export function validateData(data) {
       const event = data.events[eventId];
       if (!isPlainObject(event)) return;
       if (event.trigger !== undefined) walkCondition(event.trigger, "world", `events.${eventId}.trigger`, errors);
-      walkResolvable(event, `events.${eventId}`, errors);
+      walkResolvable(event, `events.${eventId}`, errors, data);
     });
   }
 
   if (data.rules?.succession !== undefined) {
-    walkEffectList(data.rules.succession, "rules.succession", errors);
+    walkEffectList(data.rules.succession, "rules.succession", errors, data);
   }
 
   if (isPlainObject(data.growthSystems)) {
@@ -2090,7 +2118,7 @@ export function validateData(data) {
       }
       if (isPlainObject(system.levelRewards)) {
         Object.keys(system.levelRewards).forEach((level) => {
-          walkEffectList(system.levelRewards[level], `growthSystems.${systemId}.levelRewards.${level}`, errors);
+          walkEffectList(system.levelRewards[level], `growthSystems.${systemId}.levelRewards.${level}`, errors, data);
         });
       }
       if (Array.isArray(system.proficiencies)) {
@@ -2098,7 +2126,7 @@ export function validateData(data) {
           if (isPlainObject(prof) && Array.isArray(prof.thresholds)) {
             prof.thresholds.forEach((threshold, j) => {
               if (isPlainObject(threshold) && threshold.effects !== undefined) {
-                walkEffectList(threshold.effects, `growthSystems.${systemId}.proficiencies[${i}].thresholds[${j}].effects`, errors);
+                walkEffectList(threshold.effects, `growthSystems.${systemId}.proficiencies[${i}].thresholds[${j}].effects`, errors, data);
               }
             });
           }

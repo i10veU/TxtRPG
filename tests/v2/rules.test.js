@@ -816,12 +816,12 @@ testValidateDataDeterminismAndRoundTrip();
 // applyOneEffect's own throw checks and the shorthand Condition ops' own
 // required-field logic (D-54/D-24), statically.
 
-function actionWith(effects, requires) {
-  return { actions: { act_a: { requires, effects } } };
+function actionWith(effects, requires, extraData) {
+  return { actions: { act_a: { requires, effects } }, ...extraData };
 }
 
-function effectErrors(effect) {
-  return validateData(actionWith([effect]));
+function effectErrors(effect, extraData) {
+  return validateData(actionWith([effect], undefined, extraData));
 }
 
 function conditionErrors(condition) {
@@ -854,7 +854,12 @@ function testValidateDataEffectArgsPerOp() {
     { op: "case", normal: { op: "case", case: "c", stage: "s" }, bad: [[{ op: "case", stage: "s" }, "case"], [{ op: "case", case: "c" }, "stage"]] },
     { op: "fact", normal: { op: "fact", fact: "f", set: null }, bad: [[{ op: "fact", set: 1 }, "fact"], [{ op: "fact", fact: "f" }, "set"]] },
     { op: "narrate", normal: { op: "narrate", textId: "t" }, bad: [[{ op: "narrate" }, "textId"]] },
-    { op: "choice", normal: { op: "choice", choice: "c" }, bad: [[{ op: "choice" }, "choice"], [{ op: "choice", choice: "c", sourceId: 5 }, "sourceId"]] },
+    {
+      op: "choice",
+      normal: { op: "choice", choice: "c" },
+      extraData: { choices: { c: { options: [] } } },
+      bad: [[{ op: "choice" }, "choice"], [{ op: "choice", choice: "c", sourceId: 5 }, "sourceId"]]
+    },
     {
       op: "rumor",
       normal: { op: "rumor", rumor: "r", source: "s", confidence: 50 },
@@ -867,10 +872,10 @@ function testValidateDataEffectArgsPerOp() {
     }
   ];
 
-  cases.forEach(({ op, normal, bad }) => {
-    assert.deepStrictEqual(effectErrors(normal), [], `${op}: normal case must have zero errors`);
+  cases.forEach(({ op, normal, bad, extraData }) => {
+    assert.deepStrictEqual(effectErrors(normal, extraData), [], `${op}: normal case must have zero errors`);
     bad.forEach(([badEffect, mustInclude]) => {
-      const errors = effectErrors(badEffect);
+      const errors = effectErrors(badEffect, extraData);
       assert.ok(errors.length > 0, `${op}: ${JSON.stringify(badEffect)} must produce at least one error`);
       assert.ok(errors.some((e) => e.includes(mustInclude)), `${op}: expected an error mentioning "${mustInclude}", got ${JSON.stringify(errors)}`);
     });
@@ -989,5 +994,160 @@ testValidateDataEffectArgsPerOp();
 testValidateDataConditionArgsPerOp();
 testValidateDataArgsComposition();
 testValidateDataArgsInvariants();
+
+// V2-Core-18 (D-58): content-ID reference integrity for `choice` Effect ->
+// data.choices, and Resolvable's string `check.difficulty` ->
+// data.rules.check.difficulties (the two cases with no explicit graceful-
+// fallback disclaimer anywhere in the contract, unlike growth/item/rumor
+// definitions -- see D-58).
+
+// 1: normal -- all confirmed references present, optional field omitted
+function testValidateDataReferencesValid() {
+  const data = {
+    actions: {
+      act_offer: { effects: [{ op: "choice", choice: "choice_a" }] },
+      act_checked: { check: { difficulty: "hard" }, outcomes: { success: [], fail: [] } },
+      act_no_check: { effects: [{ op: "money", add: 1 }] } // no `check` at all -> nothing to reference
+    },
+    choices: { choice_a: { options: [{ id: "opt_a", effects: [{ op: "choice", choice: "choice_a" }] }] } }
+  };
+  assert.deepStrictEqual(validateData(data), []);
+
+  // custom difficulties fully replace the defaults (checkRules' own merge rule, §5.3)
+  const customDifficulties = {
+    rules: { check: { difficulties: { trivial: 1 } } },
+    actions: { act_a: { check: { difficulty: "trivial" }, outcomes: { success: [], fail: [] } } }
+  };
+  assert.deepStrictEqual(validateData(customDifficulties), []);
+}
+
+// 2: failure -- each confirmed reference target, existing vs missing ID
+function testValidateDataReferencesInvalid() {
+  // choice -> data.choices
+  assert.deepStrictEqual(
+    validateData({ actions: { act_a: { effects: [{ op: "choice", choice: "choice_a" }] } }, choices: { choice_a: { options: [] } } }),
+    []
+  );
+  assert.ok(
+    validateData({ actions: { act_a: { effects: [{ op: "choice", choice: "missing" }] } }, choices: { choice_a: { options: [] } } })
+      .some((e) => e.includes("data.choices") && e.includes("missing"))
+  );
+
+  // check.difficulty -> data.rules.check.difficulties (default set)
+  assert.deepStrictEqual(
+    validateData({ actions: { act_a: { check: { difficulty: "easy" }, outcomes: { success: [], fail: [] } } } }),
+    []
+  );
+  assert.ok(
+    validateData({ actions: { act_a: { check: { difficulty: "impossible" }, outcomes: { success: [], fail: [] } } } })
+      .some((e) => e.includes("data.rules.check.difficulties") && e.includes("impossible"))
+  );
+}
+
+// 3: boundary -- empty collection, collection entirely absent, optional
+// field omitted, same bad ID from multiple Effects, same ID wrong in
+// multiple positions
+function testValidateDataReferencesBoundary() {
+  // empty `choices` collection -> still correctly flags a missing choiceId
+  assert.ok(
+    validateData({ actions: { act_a: { effects: [{ op: "choice", choice: "x" }] } }, choices: {} })
+      .some((e) => e.includes("data.choices"))
+  );
+  // `choices` collection entirely absent -> same as empty, still flagged
+  // (unlike world.growthSystemId/startTemplateId, D-56 -- no graceful
+  // fallback exists downstream of a missing `choice` reference, D-58)
+  assert.ok(
+    validateData({ actions: { act_a: { effects: [{ op: "choice", choice: "x" }] } } })
+      .some((e) => e.includes("data.choices"))
+  );
+  // no `check` at all -> difficulty reference is never checked (nothing to reference)
+  assert.deepStrictEqual(validateData({ actions: { act_a: { effects: [] } } }), []);
+  // `check.difficulty` omitted (integer/opposed forms) -> not checked
+  assert.deepStrictEqual(
+    validateData({ actions: { act_a: { check: { difficulty: 10 }, outcomes: { success: [], fail: [] } } } }),
+    []
+  );
+
+  // the same bad choiceId referenced from two different Effects -> both flagged, independently
+  const twoBadChoiceRefs = {
+    actions: {
+      act_a: { effects: [{ op: "choice", choice: "missing" }] },
+      act_b: { effects: [{ op: "choice", choice: "missing" }] }
+    }
+  };
+  const errors = validateData(twoBadChoiceRefs);
+  assert.strictEqual(errors.filter((e) => e.includes("data.choices") && e.includes("missing")).length, 2, "each bad reference is reported at its own path, not deduplicated away");
+  assert.ok(errors.some((e) => e.includes("act_a")));
+  assert.ok(errors.some((e) => e.includes("act_b")));
+
+  // the same missing ID used as both a choice reference AND a difficulty
+  // name -> two independent errors, not merged into one
+  const sameIdWrongInTwoPlaces = {
+    actions: {
+      act_a: { effects: [{ op: "choice", choice: "x" }] },
+      act_b: { check: { difficulty: "x" }, outcomes: { success: [], fail: [] } }
+    }
+  };
+  const mixedErrors = validateData(sameIdWrongInTwoPlaces);
+  assert.ok(mixedErrors.some((e) => e.includes("data.choices") && e.includes('"x"')));
+  assert.ok(mixedErrors.some((e) => e.includes("data.rules.check.difficulties") && e.includes('"x"')));
+
+  // ID format vs reference existence stay separate errors (§5): a
+  // format-valid but non-existent id is reported only as a missing
+  // reference, never conflated with an ID-format error
+  const formatValidButMissing = validateData({ actions: { act_a: { effects: [{ op: "choice", choice: "valid_format_id" }] } } });
+  assert.deepStrictEqual(formatValidButMissing, ['choice Effect at actions.act_a.effects[0] references unknown data.choices entry: "valid_format_id"']);
+}
+
+// explicitly out-of-scope references (D-58) must NOT be flagged -- these
+// have their own already-confirmed graceful-fallback disclaimers
+function testValidateDataReferencesExcluded() {
+  const data = {
+    world: { growthSystemId: "sys_a" },
+    growthSystems: { sys_a: {} }, // no stats/skills/traits/proficiencies/unlocks defined at all
+    actions: {
+      act_a: {
+        effects: [
+          { op: "stat", stat: "undefined_stat", add: 1 },
+          { op: "skill", skill: "undefined_skill" },
+          { op: "trait", trait: "undefined_trait" },
+          { op: "proficiency", id: "undefined_prof", add: 1 },
+          { op: "unlock", id: "undefined_unlock" },
+          { op: "rumor", rumor: "undefined_rumor", source: "s", confidence: 10 },
+          { op: "fact", fact: "ad_hoc_fact", set: 1 },
+          { op: "case", case: "ad_hoc_case", stage: "s1" }
+        ]
+      }
+    }
+  };
+  assert.deepStrictEqual(validateData(data), []);
+}
+
+// immutability, determinism, JSON round-trip for the new reference checks
+function testValidateDataReferencesInvariants() {
+  const data = deepFreeze({
+    actions: {
+      act_a: { effects: [{ op: "choice", choice: "missing" }] },
+      act_b: { check: { difficulty: "missing_name" }, outcomes: { success: [], fail: [] } }
+    },
+    choices: { choice_a: { options: [] } }
+  });
+  const before = snapshot(data);
+  const errors1 = validateData(data);
+  assert.deepStrictEqual(snapshot(data), before, "validateData must not mutate its input");
+
+  const results = new Set();
+  for (let i = 0; i < 5; i += 1) results.add(JSON.stringify(validateData(data)));
+  assert.strictEqual(results.size, 1, "determinism: same input -> same errors every time");
+
+  const roundTripped = JSON.parse(JSON.stringify(data));
+  assert.deepStrictEqual(validateData(roundTripped), errors1, "JSON round-trip must not change the result");
+}
+
+testValidateDataReferencesValid();
+testValidateDataReferencesInvalid();
+testValidateDataReferencesBoundary();
+testValidateDataReferencesExcluded();
+testValidateDataReferencesInvariants();
 
 console.log("V2-Core-02 rules.test.js: all checks passed");
