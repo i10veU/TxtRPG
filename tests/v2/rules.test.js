@@ -812,4 +812,182 @@ testValidateDataResolvableSuccessFail();
 testValidateDataImmutability();
 testValidateDataDeterminismAndRoundTrip();
 
+// V2-Core-17 (D-57): per-op Effect/Condition argument validation, mirroring
+// applyOneEffect's own throw checks and the shorthand Condition ops' own
+// required-field logic (D-54/D-24), statically.
+
+function actionWith(effects, requires) {
+  return { actions: { act_a: { requires, effects } } };
+}
+
+function effectErrors(effect) {
+  return validateData(actionWith([effect]));
+}
+
+function conditionErrors(condition) {
+  return validateData(actionWith([], condition));
+}
+
+// 1 & 2 & 3 & 4: normal case, missing required field, wrong type, enum/range
+// violation -- one representative case per Effect op (§4.2's own schema).
+function testValidateDataEffectArgsPerOp() {
+  const cases = [
+    // [normal, [bad, mustInclude], ...]
+    { op: "flag", normal: { op: "flag", key: "k", value: true }, bad: [[{ op: "flag", value: true }, "key"], [{ op: "flag", key: "k", value: 1 }, "value"]] },
+    { op: "signal", normal: { op: "signal", key: "k", add: 1 }, bad: [[{ op: "signal", add: 1 }, "key"], [{ op: "signal", key: "k" }, "add"]] },
+    { op: "time", normal: { op: "time", minutes: 5 }, bad: [[{ op: "time", minutes: -1 }, "minutes"], [{ op: "time", minutes: 1.5 }, "minutes"]] },
+    { op: "stat", normal: { op: "stat", stat: "s", add: 1 }, bad: [[{ op: "stat", add: 1 }, "stat"], [{ op: "stat", stat: "s" }, "add"]] },
+    { op: "hp", normal: { op: "hp", add: 1 }, bad: [[{ op: "hp", add: "x" }, "add"]] },
+    { op: "money", normal: { op: "money", add: 1 }, bad: [[{ op: "money", add: "x" }, "add"]] },
+    { op: "item", normal: { op: "item", item: "i", add: 1 }, bad: [[{ op: "item", add: 1 }, "item"], [{ op: "item", item: "i" }, "add"]] },
+    { op: "move", normal: { op: "move", to: "loc_a" }, bad: [[{ op: "move" }, "to"]] },
+    {
+      op: "relation",
+      normal: { op: "relation", add: 1, mode: "cooperation", tag: "debt" },
+      bad: [[{ op: "relation", mode: "friendly" }, "mode"], [{ op: "relation", add: "x" }, "add"], [{ op: "relation", tag: 5 }, "tag"]]
+    },
+    { op: "exp", normal: { op: "exp", amount: 5 }, bad: [[{ op: "exp", amount: -1 }, "amount"], [{ op: "exp" }, "amount"]] },
+    { op: "proficiency", normal: { op: "proficiency", id: "p", add: 1 }, bad: [[{ op: "proficiency", add: 1 }, "id"], [{ op: "proficiency", id: "p", add: -1 }, "add"]] },
+    { op: "skill", normal: { op: "skill", skill: "s" }, bad: [[{ op: "skill" }, "skill"], [{ op: "skill", skill: "s", add: "x" }, "add"]] },
+    { op: "trait", normal: { op: "trait", trait: "t" }, bad: [[{ op: "trait" }, "trait"], [{ op: "trait", trait: "t", remove: "yes" }, "remove"]] },
+    { op: "unlock", normal: { op: "unlock", id: "u" }, bad: [[{ op: "unlock" }, "id"]] },
+    { op: "case", normal: { op: "case", case: "c", stage: "s" }, bad: [[{ op: "case", stage: "s" }, "case"], [{ op: "case", case: "c" }, "stage"]] },
+    { op: "fact", normal: { op: "fact", fact: "f", set: null }, bad: [[{ op: "fact", set: 1 }, "fact"], [{ op: "fact", fact: "f" }, "set"]] },
+    { op: "narrate", normal: { op: "narrate", textId: "t" }, bad: [[{ op: "narrate" }, "textId"]] },
+    { op: "choice", normal: { op: "choice", choice: "c" }, bad: [[{ op: "choice" }, "choice"], [{ op: "choice", choice: "c", sourceId: 5 }, "sourceId"]] },
+    {
+      op: "rumor",
+      normal: { op: "rumor", rumor: "r", source: "s", confidence: 50 },
+      bad: [
+        [{ op: "rumor", source: "s", confidence: 50 }, "rumor"],
+        [{ op: "rumor", rumor: "r", confidence: 50 }, "source"],
+        [{ op: "rumor", rumor: "r", source: "s" }, "confidence"],
+        [{ op: "rumor", rumor: "r", from: "npc_1", observe: true }, "cannot combine"]
+      ]
+    }
+  ];
+
+  cases.forEach(({ op, normal, bad }) => {
+    assert.deepStrictEqual(effectErrors(normal), [], `${op}: normal case must have zero errors`);
+    bad.forEach(([badEffect, mustInclude]) => {
+      const errors = effectErrors(badEffect);
+      assert.ok(errors.length > 0, `${op}: ${JSON.stringify(badEffect)} must produce at least one error`);
+      assert.ok(errors.some((e) => e.includes(mustInclude)), `${op}: expected an error mentioning "${mustInclude}", got ${JSON.stringify(errors)}`);
+    });
+  });
+
+  // rumor copy mode: source/confidence are NOT required when `from` is given
+  assert.deepStrictEqual(effectErrors({ op: "rumor", rumor: "r", from: "npc_1" }), []);
+
+  // skill's `add` truly is optional (default 1, §4.2) -- omitting it is not an error
+  assert.deepStrictEqual(effectErrors({ op: "skill", skill: "s" }), []);
+
+  // subject/system: only checked on the ops that actually read them (D-57)
+  assert.ok(effectErrors({ op: "stat", stat: "s", add: 1, subject: 5 }).some((e) => e.includes("subject")));
+  assert.ok(effectErrors({ op: "stat", stat: "s", add: 1, system: 5 }).some((e) => e.includes("system")));
+  assert.deepStrictEqual(effectErrors({ op: "flag", key: "k", value: true, subject: 5 }), [], "flag never reads subject -- a stray non-string subject is not an error");
+  assert.deepStrictEqual(effectErrors({ op: "relation", add: 1 }), [], "relation has no subject field at all");
+}
+
+// Condition op required-field checks (D-57), mirroring D-54/D-24's own code
+function testValidateDataConditionArgsPerOp() {
+  const cases = [
+    { op: "stat", normal: { op: "stat", stat: "s", min: 1 }, bad: [[{ op: "stat", min: 1 }, "stat"]] },
+    { op: "flag", normal: { op: "flag", key: "k" }, bad: [[{ op: "flag" }, "key"]] },
+    { op: "signal", normal: { op: "signal", key: "k" }, bad: [[{ op: "signal" }, "key"]] },
+    { op: "skill", normal: { op: "skill", skill: "s" }, bad: [[{ op: "skill" }, "skill"]] },
+    { op: "trait", normal: { op: "trait", trait: "t" }, bad: [[{ op: "trait" }, "trait"]] },
+    { op: "item", normal: { op: "item", item: "i" }, bad: [[{ op: "item" }, "item"]] },
+    { op: "unlock", normal: { op: "unlock", id: "u" }, bad: [[{ op: "unlock" }, "id"]] },
+    {
+      op: "day",
+      normal: { op: "day", hourFrom: 1, hourTo: 2 },
+      bad: [[{ op: "day", hourFrom: 1 }, "hourFrom"], [{ op: "day", hourTo: 2 }, "hourFrom"]]
+    },
+    {
+      op: "location",
+      normal: { op: "location", at: "loc_a" },
+      bad: [[{ op: "location" }, "requires `at` or `in`"]]
+    },
+    {
+      op: "case",
+      normal: { op: "case", case: "c", stage: "s" },
+      bad: [[{ op: "case", stage: "s" }, "case"], [{ op: "case", case: "c" }, "stage"]]
+    },
+    {
+      op: "rumor",
+      normal: { op: "rumor", rumor: "r" },
+      bad: [[{ op: "rumor" }, "rumor"]]
+    }
+  ];
+
+  cases.forEach(({ op, normal, bad }) => {
+    assert.deepStrictEqual(conditionErrors(normal), [], `${op} Condition: normal case must have zero errors`);
+    bad.forEach(([badCondition, mustInclude]) => {
+      const errors = conditionErrors(badCondition);
+      assert.ok(errors.length > 0, `${op} Condition: ${JSON.stringify(badCondition)} must produce at least one error`);
+      assert.ok(errors.some((e) => e.includes(mustInclude)), `${op} Condition: expected an error mentioning "${mustInclude}", got ${JSON.stringify(errors)}`);
+    });
+  });
+
+  // day: fact-form (via `fact` selector shorthand for rumor) is also valid
+  assert.deepStrictEqual(conditionErrors({ op: "rumor", fact: "f" }), []);
+  // fact is checked in a world-context position (trigger) here since a
+  // player-context `requires` would separately (and correctly) flag D-06
+  assert.deepStrictEqual(
+    validateData({ events: { event_a: { trigger: { op: "fact", fact: "f", eq: 1 } } } }),
+    []
+  );
+  // day-without-hours/case-with-`in`/location-with-`in`/relation/money bare forms are all still valid (unchanged)
+  assert.deepStrictEqual(conditionErrors({ op: "day", min: 1 }), []);
+  assert.deepStrictEqual(conditionErrors({ op: "case", case: "c", in: ["a", "b"] }), []);
+  assert.deepStrictEqual(conditionErrors({ op: "location", in: ["a", "b"] }), []);
+  assert.deepStrictEqual(conditionErrors({ op: "relation" }), []);
+  assert.deepStrictEqual(conditionErrors({ op: "money", min: 1 }), []);
+}
+
+// Composition with the existing D-56 checks: a data blob combining an
+// unknown-op Effect, a handler reference, a player-context fact leak, AND a
+// new D-57 argument violation must report all of them together.
+function testValidateDataArgsComposition() {
+  const data = {
+    actions: {
+      act_a: {
+        requires: { op: "fact", fact: "secret" },
+        effects: [
+          { op: "does_not_exist" },
+          { op: "handler", name: "x.y" },
+          { op: "stat", add: 1 } // missing `stat` (D-57)
+        ]
+      }
+    }
+  };
+  const errors = validateData(data);
+  assert.ok(errors.some((e) => e.includes("unknown Effect op")));
+  assert.ok(errors.some((e) => e.includes("unregistered name")));
+  assert.ok(errors.some((e) => e.includes("player context")));
+  assert.ok(errors.some((e) => e.includes("stat Effect") && e.includes("stat")));
+}
+
+// input immutability, determinism, JSON round-trip for the new per-op checks
+function testValidateDataArgsInvariants() {
+  const data = deepFreeze({ actions: { act_a: { effects: [{ op: "stat", add: "x" }, { op: "signal", key: "k" }] } } });
+  const before = snapshot(data);
+  const errors1 = validateData(data);
+  assert.deepStrictEqual(snapshot(data), before, "validateData must not mutate its input");
+
+  const results = new Set();
+  for (let i = 0; i < 5; i += 1) results.add(JSON.stringify(validateData(data)));
+  assert.strictEqual(results.size, 1, "determinism: same input -> same errors every time");
+
+  const roundTripped = JSON.parse(JSON.stringify(data));
+  assert.deepStrictEqual(validateData(roundTripped), errors1, "JSON round-trip must not change the result");
+  assert.deepStrictEqual(JSON.parse(JSON.stringify(errors1)), errors1, "the error list itself is trivially JSON-safe");
+}
+
+testValidateDataEffectArgsPerOp();
+testValidateDataConditionArgsPerOp();
+testValidateDataArgsComposition();
+testValidateDataArgsInvariants();
+
 console.log("V2-Core-02 rules.test.js: all checks passed");

@@ -1683,6 +1683,51 @@ function checkValueForFactLeak(value, path, errors) {
   }
 }
 
+// D-57: each op's required-field presence/type, mirroring the exact
+// structural requirements the already-implemented shorthand resolvers
+// (D-54/D-24) use -- a field these already treat as mandatory to produce
+// anything other than an always-false result. Ops not listed here
+// (`relation`, `money`) have no required field: every argument is optional
+// in the current implementation (D-54), so there is nothing to check beyond
+// the already-existing unknown-op/structure checks.
+function checkConditionArgs(node, path, errors) {
+  const op = node.op;
+  if (op === "stat" && typeof node.stat !== "string") {
+    errors.push(`stat Condition at ${path} requires a string \`stat\``);
+  } else if (op === "flag" && typeof node.key !== "string") {
+    errors.push(`flag Condition at ${path} requires a string \`key\``);
+  } else if (op === "signal" && typeof node.key !== "string") {
+    errors.push(`signal Condition at ${path} requires a string \`key\``);
+  } else if (op === "skill" && typeof node.skill !== "string") {
+    errors.push(`skill Condition at ${path} requires a string \`skill\``);
+  } else if (op === "trait" && typeof node.trait !== "string") {
+    errors.push(`trait Condition at ${path} requires a string \`trait\``);
+  } else if (op === "item" && typeof node.item !== "string") {
+    errors.push(`item Condition at ${path} requires a string \`item\``);
+  } else if (op === "fact" && typeof node.fact !== "string") {
+    errors.push(`fact Condition at ${path} requires a string \`fact\``);
+  } else if (op === "unlock" && typeof node.id !== "string") {
+    errors.push(`unlock Condition at ${path} requires a string \`id\``);
+  } else if (op === "rumor" && typeof node.rumor !== "string" && typeof node.fact !== "string") {
+    errors.push(`rumor Condition at ${path} requires a string \`rumor\` or \`fact\``);
+  } else if (op === "day") {
+    const hasFrom = node.hourFrom !== undefined;
+    const hasTo = node.hourTo !== undefined;
+    if (hasFrom !== hasTo) {
+      errors.push(`day Condition at ${path} must give both \`hourFrom\` and \`hourTo\` or neither`);
+    }
+  } else if (op === "location" && node.at === undefined && node.in === undefined) {
+    errors.push(`location Condition at ${path} requires \`at\` or \`in\``);
+  } else if (op === "case") {
+    if (typeof node.case !== "string") {
+      errors.push(`case Condition at ${path} requires a string \`case\``);
+    }
+    if (node.stage === undefined && node.in === undefined) {
+      errors.push(`case Condition at ${path} requires \`stage\` or \`in\``);
+    }
+  }
+}
+
 // Recursively walks a Condition tree rooted at a §3.3-listed position.
 // `contextKind` is fixed at the root by the caller (§3.3's table) and passed
 // through unchanged to every nested and/or/not -- it never changes partway
@@ -1722,6 +1767,132 @@ function walkCondition(node, contextKind, path, errors) {
       checkValueForFactLeak(node.left, `${path}.left`, errors);
       checkValueForFactLeak(node.right, `${path}.right`, errors);
     }
+  } else {
+    checkConditionArgs(node, path, errors); // D-57: per-op required-field checks
+  }
+}
+
+// D-57: mirrors each applyXEffect function's own throw checks (§4.2/§4.1
+// D-28), statically -- same fields, same types, same required-vs-optional
+// split, without executing the Effect. `subject`/`system`, where the op
+// accepts them, are always optional-if-string (resolveActor/
+// resolveGrowthSystemId's own type check).
+const SUBJECT_BEARING_EFFECT_OPS = new Set([
+  "stat", "hp", "money", "item", "move", "exp", "proficiency", "skill", "trait", "unlock", "rumor"
+]);
+const SYSTEM_BEARING_EFFECT_OPS = new Set(["stat", "exp", "proficiency", "skill", "trait", "unlock"]);
+
+function checkEffectArgs(effect, path, errors) {
+  const op = effect.op;
+  // fact/flag/signal/time/narrate/choice/case/relation never read `subject`
+  // (§4.1's world-unit/no-subject list, plus `relation` uses from/to
+  // instead) -- checking it there would be a new rule the runtime doesn't
+  // enforce, not a mirror of one.
+  if (SUBJECT_BEARING_EFFECT_OPS.has(op) && effect.subject !== undefined && typeof effect.subject !== "string") {
+    errors.push(`${op} Effect at ${path} has a \`subject\` that, when present, must be a string`);
+  }
+  if (SYSTEM_BEARING_EFFECT_OPS.has(op) && effect.system !== undefined && typeof effect.system !== "string") {
+    errors.push(`${op} Effect at ${path} has a \`system\` that, when present, must be a string`);
+  }
+
+  if (op === "flag") {
+    if (typeof effect.key !== "string") errors.push(`flag Effect at ${path} requires a string \`key\``);
+    if (typeof effect.value !== "boolean") errors.push(`flag Effect at ${path} requires a boolean \`value\``);
+  } else if (op === "signal") {
+    if (typeof effect.key !== "string") errors.push(`signal Effect at ${path} requires a string \`key\``);
+    if (!Number.isInteger(effect.add)) errors.push(`signal Effect at ${path} requires an integer \`add\``);
+  } else if (op === "time") {
+    if (!Number.isInteger(effect.minutes) || effect.minutes < 0) {
+      errors.push(`time Effect at ${path} requires an integer \`minutes\` >= 0`);
+    }
+  } else if (op === "stat") {
+    if (typeof effect.stat !== "string") errors.push(`stat Effect at ${path} requires a string \`stat\``);
+    if (!Number.isInteger(effect.add)) errors.push(`stat Effect at ${path} requires an integer \`add\``);
+  } else if (op === "hp" || op === "money") {
+    if (!Number.isInteger(effect.add)) errors.push(`${op} Effect at ${path} requires an integer \`add\``);
+  } else if (op === "item") {
+    if (typeof effect.item !== "string") errors.push(`item Effect at ${path} requires a string \`item\``);
+    if (!Number.isInteger(effect.add)) errors.push(`item Effect at ${path} requires an integer \`add\``);
+  } else if (op === "move") {
+    if (typeof effect.to !== "string") errors.push(`move Effect at ${path} requires a string \`to\``);
+  } else if (op === "relation") {
+    if (effect.add !== undefined && !Number.isInteger(effect.add)) {
+      errors.push(`relation Effect at ${path}'s \`add\`, when present, must be an integer`);
+    }
+    if (effect.from !== undefined && typeof effect.from !== "string") {
+      errors.push(`relation Effect at ${path}'s \`from\`, when present, must be a string`);
+    }
+    if (effect.to !== undefined && typeof effect.to !== "string") {
+      errors.push(`relation Effect at ${path}'s \`to\`, when present, must be a string`);
+    }
+    if (effect.mode !== undefined && !VALID_RELATION_MODES.has(effect.mode)) {
+      errors.push(`relation Effect at ${path}'s \`mode\`, when present, must be "neutral", "cooperation", or "conflict"`);
+    }
+    if (effect.tag !== undefined && typeof effect.tag !== "string") {
+      errors.push(`relation Effect at ${path}'s \`tag\`, when present, must be a string`);
+    }
+    if (effect.untag !== undefined && typeof effect.untag !== "string") {
+      errors.push(`relation Effect at ${path}'s \`untag\`, when present, must be a string`);
+    }
+  } else if (op === "exp") {
+    if (!Number.isInteger(effect.amount) || effect.amount < 0) {
+      errors.push(`exp Effect at ${path} requires a non-negative integer \`amount\``);
+    }
+  } else if (op === "proficiency") {
+    if (typeof effect.id !== "string") errors.push(`proficiency Effect at ${path} requires a string \`id\``);
+    if (!Number.isInteger(effect.add) || effect.add < 0) {
+      errors.push(`proficiency Effect at ${path} requires a non-negative integer \`add\``);
+    }
+  } else if (op === "skill") {
+    if (typeof effect.skill !== "string") errors.push(`skill Effect at ${path} requires a string \`skill\``);
+    if (effect.add !== undefined && !Number.isInteger(effect.add)) {
+      errors.push(`skill Effect at ${path}'s \`add\`, when present, must be an integer`);
+    }
+  } else if (op === "trait") {
+    if (typeof effect.trait !== "string") errors.push(`trait Effect at ${path} requires a string \`trait\``);
+    if (effect.remove !== undefined && typeof effect.remove !== "boolean") {
+      errors.push(`trait Effect at ${path}'s \`remove\`, when present, must be a boolean`);
+    }
+  } else if (op === "unlock") {
+    if (typeof effect.id !== "string") errors.push(`unlock Effect at ${path} requires a string \`id\``);
+  } else if (op === "case") {
+    if (typeof effect.case !== "string") errors.push(`case Effect at ${path} requires a string \`case\``);
+    if (typeof effect.stage !== "string") errors.push(`case Effect at ${path} requires a string \`stage\``);
+  } else if (op === "fact") {
+    if (typeof effect.fact !== "string") errors.push(`fact Effect at ${path} requires a string \`fact\``);
+    if (effect.set === undefined) errors.push(`fact Effect at ${path} requires a \`set\` value`);
+  } else if (op === "narrate") {
+    if (typeof effect.textId !== "string") errors.push(`narrate Effect at ${path} requires a string \`textId\``);
+  } else if (op === "choice") {
+    if (typeof effect.choice !== "string") errors.push(`choice Effect at ${path} requires a string \`choice\``);
+    if (effect.sourceId !== undefined && typeof effect.sourceId !== "string") {
+      errors.push(`choice Effect at ${path}'s \`sourceId\`, when present, must be a string`);
+    }
+  } else if (op === "rumor") {
+    if (typeof effect.rumor !== "string") errors.push(`rumor Effect at ${path} requires a string \`rumor\``);
+    if (effect.from !== undefined && typeof effect.from !== "string") {
+      errors.push(`rumor Effect at ${path}'s \`from\`, when present, must be a string`);
+    }
+    if (effect.observe !== undefined && typeof effect.observe !== "boolean") {
+      errors.push(`rumor Effect at ${path}'s \`observe\`, when present, must be a boolean`);
+    }
+    if (effect.source !== undefined && typeof effect.source !== "string") {
+      errors.push(`rumor Effect at ${path}'s \`source\`, when present, must be a string`);
+    }
+    if (effect.confidence !== undefined && !Number.isInteger(effect.confidence)) {
+      errors.push(`rumor Effect at ${path}'s \`confidence\`, when present, must be an integer`);
+    }
+    if (effect.from !== undefined && effect.observe === true) {
+      errors.push(`rumor Effect at ${path} cannot combine \`from\` and \`observe\` -- they select different modes`);
+    }
+    if (effect.from === undefined) {
+      if (typeof effect.source !== "string") {
+        errors.push(`rumor Effect at ${path} requires a string \`source\` for the learn/observe forms (no \`from\`)`);
+      }
+      if (!Number.isInteger(effect.confidence)) {
+        errors.push(`rumor Effect at ${path} requires an integer \`confidence\` for the learn/observe forms (no \`from\`)`);
+      }
+    }
   }
 }
 
@@ -1757,6 +1928,8 @@ function walkEffectList(effects, path, errors) {
       }
       if (effect.when !== undefined) walkCondition(effect.when, "world", `${effectPath}.when`, errors);
       if (effect.else !== undefined) walkEffectList(effect.else, `${effectPath}.else`, errors);
+    } else {
+      checkEffectArgs(effect, effectPath, errors); // D-57: per-op required-field/type checks
     }
   });
 }
