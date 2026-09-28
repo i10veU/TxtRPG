@@ -1961,6 +1961,32 @@ function checkResolvableDifficultyReference(resolvable, path, errors, data) {
   }
 }
 
+// D-60: mirrors check()/resolveDifficulty()'s own remaining throw
+// conditions (beyond the difficulty-name lookup D-58 already covers) --
+// `spec` itself must be a plain object (check()'s first line), and
+// `difficulty` must be one of the three shapes resolveDifficulty()
+// actually recognizes (integer / string / {base:integer, opposed:object}),
+// else it throws the same generic "requires a valid difficulty" error.
+// opposed.subject/stat/skill stay unchecked (D-58: dynamic reference /
+// graceful `?? 0` fallback, not a throw condition).
+function checkResolvableCheckSpecShape(resolvable, path, errors) {
+  const spec = resolvable.check;
+  if (!isPlainObject(spec)) {
+    errors.push(`${path}.check must be a plain object when present (§5.1)`);
+    return;
+  }
+  const d = spec.difficulty;
+  if (Number.isInteger(d)) return;
+  if (typeof d === "string") return; // name existence is checkResolvableDifficultyReference's job (D-58)
+  if (isPlainObject(d) && isPlainObject(d.opposed)) {
+    if (!Number.isInteger(d.base)) {
+      errors.push(`${path}.check's opposed \`difficulty\` requires an integer \`base\` (§5.5)`);
+    }
+    return;
+  }
+  errors.push(`${path}.check requires a valid \`difficulty\` (integer, known name, or opposed object) (§5.5)`);
+}
+
 // D-56 (6): §2.3 verbatim -- `check` present -> `outcomes.success`/`.fail`
 // are both required arrays. Missing `great`/`partial` is NOT an error (§2.3
 // already defines the success/fail fallback for those).
@@ -1971,6 +1997,7 @@ function walkResolvable(resolvable, path, errors, data) {
     if (!isPlainObject(outcomes) || !Array.isArray(outcomes.success) || !Array.isArray(outcomes.fail)) {
       errors.push(`${path}: Resolvable has \`check\` but is missing required outcomes.success/outcomes.fail arrays (§2.3)`);
     }
+    checkResolvableCheckSpecShape(resolvable, path, errors); // D-60
     checkResolvableDifficultyReference(resolvable, path, errors, data); // D-58
   }
   if (isPlainObject(resolvable.outcomes)) {
@@ -2014,8 +2041,12 @@ export function validateData(data) {
     Object.keys(data.characterTemplates).forEach((templateId) => {
       checkDataIdFormat(errors, templateId, "characterTemplates key");
       const template = data.characterTemplates[templateId];
-      if (isPlainObject(template) && template.locationId !== undefined) {
-        if (isPlainObject(data.locations) && !(template.locationId in data.locations)) {
+      if (isPlainObject(template)) {
+        // D-60: buildActorFromTemplate's own first check (engine.js) --
+        // locationId is unconditionally required, not just "if present".
+        if (typeof template.locationId !== "string") {
+          errors.push(`characterTemplates.${templateId} requires a string \`locationId\``);
+        } else if (isPlainObject(data.locations) && !(template.locationId in data.locations)) {
           errors.push(`characterTemplates.${templateId}.locationId references unknown location: ${JSON.stringify(template.locationId)}`);
         }
       }

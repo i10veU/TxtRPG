@@ -1150,4 +1150,111 @@ testValidateDataReferencesBoundary();
 testValidateDataReferencesExcluded();
 testValidateDataReferencesInvariants();
 
+// V2-Core-19 (D-60): characterTemplates[*].locationId requiredness, and
+// Resolvable CheckSpec shape -- both mirror throw conditions found in
+// buildActorFromTemplate (engine.js) and check()/resolveDifficulty()
+// (rules.js) that D-57/D-58 had not yet covered.
+
+function withCharacterTemplate(template, extraData) {
+  return { characterTemplates: { tmpl_a: template }, ...extraData };
+}
+
+function withCheck(check, extraData) {
+  return { actions: { act_a: { check, outcomes: { success: [], fail: [] } } }, ...extraData };
+}
+
+// 1: normal -- required field present, optional reference-target present
+function testValidateDataLocationIdAndCheckShapeValid() {
+  assert.deepStrictEqual(validateData(withCharacterTemplate({ locationId: "loc_a" })), []);
+  assert.deepStrictEqual(validateData(withCharacterTemplate({ locationId: "loc_a" }, { locations: { loc_a: {} } })), []);
+  assert.deepStrictEqual(validateData(withCheck({ difficulty: 5 })), []);
+  assert.deepStrictEqual(validateData(withCheck({ difficulty: "easy" })), []);
+  assert.deepStrictEqual(validateData(withCheck({ difficulty: { base: 5, opposed: { subject: "target" } } })), []);
+  // no `check` at all -> nothing to check
+  assert.deepStrictEqual(validateData({ actions: { act_a: { effects: [] } } }), []);
+}
+
+// 2: missing required field, wrong type
+function testValidateDataLocationIdAndCheckShapeInvalid() {
+  assert.deepStrictEqual(
+    validateData(withCharacterTemplate({ kind: "player" })),
+    ["characterTemplates.tmpl_a requires a string `locationId`"]
+  );
+  assert.deepStrictEqual(
+    validateData(withCharacterTemplate({ locationId: 5 })),
+    ["characterTemplates.tmpl_a requires a string `locationId`"]
+  );
+  assert.deepStrictEqual(
+    validateData(withCheck("not-an-object")),
+    ["actions.act_a.check must be a plain object when present (§5.1)"]
+  );
+  assert.deepStrictEqual(
+    validateData(withCheck({ difficulty: true })),
+    ["actions.act_a.check requires a valid `difficulty` (integer, known name, or opposed object) (§5.5)"]
+  );
+  assert.deepStrictEqual(
+    validateData(withCheck({ difficulty: { opposed: { subject: "target" } } })),
+    ["actions.act_a.check's opposed `difficulty` requires an integer `base` (§5.5)"]
+  );
+  assert.deepStrictEqual(
+    validateData(withCheck({ difficulty: { base: "x", opposed: { subject: "target" } } })),
+    ["actions.act_a.check's opposed `difficulty` requires an integer `base` (§5.5)"]
+  );
+}
+
+// 3: boundary -- requiredness (D-60) and reference existence (D-58) never
+// merge into one error; opposed.subject/stat/skill stay unchecked (dynamic/
+// graceful fallback, same exclusion as D-58); multiple bad templates each
+// reported independently
+function testValidateDataLocationIdAndCheckShapeBoundary() {
+  // wrong-type locationId short-circuits before the reference check runs --
+  // never two errors for the same field
+  const wrongType = validateData(withCharacterTemplate({ locationId: 5 }, { locations: {} }));
+  assert.strictEqual(wrongType.length, 1);
+  assert.ok(wrongType[0].includes("requires a string"));
+
+  // valid-format but non-existent locationId -> only the reference error,
+  // never the requiredness error (separate errors, D-60/D-58 stay distinct)
+  const missingRef = validateData(withCharacterTemplate({ locationId: "loc_missing" }, { locations: { loc_a: {} } }));
+  assert.deepStrictEqual(missingRef, ['characterTemplates.tmpl_a.locationId references unknown location: "loc_missing"']);
+
+  // opposed.subject/stat/skill are never checked (D-58's dynamic-reference/
+  // graceful-fallback exclusion applies here too)
+  assert.deepStrictEqual(
+    validateData(withCheck({ difficulty: { base: 5, opposed: { subject: 12345, stat: 999, skill: null } } })),
+    []
+  );
+
+  // two character templates, each missing locationId -> both reported independently
+  const twoBadTemplates = validateData({
+    characterTemplates: { tmpl_a: { kind: "player" }, tmpl_b: { kind: "player" } }
+  });
+  assert.strictEqual(twoBadTemplates.length, 2);
+  assert.ok(twoBadTemplates.some((e) => e.includes("tmpl_a")));
+  assert.ok(twoBadTemplates.some((e) => e.includes("tmpl_b")));
+}
+
+// immutability, determinism, JSON round-trip
+function testValidateDataLocationIdAndCheckShapeInvariants() {
+  const data = deepFreeze({
+    characterTemplates: { tmpl_a: { kind: "player" } },
+    actions: { act_a: { check: { difficulty: "unknown_name" }, outcomes: { success: [], fail: [] } } }
+  });
+  const before = snapshot(data);
+  const errors1 = validateData(data);
+  assert.deepStrictEqual(snapshot(data), before, "validateData must not mutate its input");
+
+  const results = new Set();
+  for (let i = 0; i < 5; i += 1) results.add(JSON.stringify(validateData(data)));
+  assert.strictEqual(results.size, 1, "determinism: same input -> same errors every time");
+
+  const roundTripped = JSON.parse(JSON.stringify(data));
+  assert.deepStrictEqual(validateData(roundTripped), errors1, "JSON round-trip must not change the result");
+}
+
+testValidateDataLocationIdAndCheckShapeValid();
+testValidateDataLocationIdAndCheckShapeInvalid();
+testValidateDataLocationIdAndCheckShapeBoundary();
+testValidateDataLocationIdAndCheckShapeInvariants();
+
 console.log("V2-Core-02 rules.test.js: all checks passed");
