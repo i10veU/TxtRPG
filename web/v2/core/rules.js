@@ -19,8 +19,8 @@
 // Effect (V2-Core-09): rumor (D-45/D-14 resolved -- §8.3/§4.2). state.knowledge
 // is a top-level actorId-keyed map (like state.relations), not nested under
 // actors[id], so subject/`from` only need resolveSubjectId, no state.actors
-// record. The Condition-side `rumor` selector (§3.2a) stays deferred (D-24)
-// -- this Effect never touches SELECTOR_RESOLVERS.
+// record. The Condition-side `rumor` selector (§3.2a) was deferred (D-24)
+// at the time -- resolved in V2-Core-15, see below.
 // Effect (V2-Core-10): hp's §9 death trigger (D-34 resolved) -- alive=false
 // + actor.died on the alive->dead transition, and state.pending set when
 // the dying actor is the player. `startCharacter`/succession remain
@@ -35,9 +35,15 @@
 // Condition (V2-Core-14, D-54): the §3.2 "shorthand" ops (stat/flag/signal/
 // skill/trait/item/relation/fact/day/location/unlock/case/money) -- reuses
 // §3.1's common min/max/eq comparator (matchScalarArgs) and the existing
-// selector resolvers instead of a new per-op grammar. `rumor` stays
-// deferred (D-24 plus new unresolved fields, see D-54); `handler` is
-// already correctly `false` via the default branch (D-38, no registry).
+// selector resolvers instead of a new per-op grammar. `rumor` was excluded
+// at the time (D-24 plus then-unresolved fields); `handler` is already
+// correctly `false` via the default branch (D-38, no registry).
+// Condition (V2-Core-15, D-24 resolved): `rumor` selector resolves to the
+// entry's `claim` (mirrors `fact`'s own `.value`, §8.2's substantive-content
+// field, not a metadata field like confidence/since). The `rumor` shorthand
+// Condition op (both the direct-rumor and fact-reverse-lookup forms) is a
+// mechanical read of the same already-fixed RumorEntry schema -- no new
+// fields invented, so it's implemented alongside the selector.
 //
 // No host APIs (DOM/window/Date/Math.random/indexedDB/localStorage/fetch/
 // performance/crypto). ctx.state/data/effects/condition are never mutated
@@ -125,9 +131,20 @@ function resolveFact(selector, ctx) {
   return ctx.state?.facts?.[selector.fact]?.value;
 }
 
-// `rumor` is a recognized selector key (§3.2a) but which field it resolves
-// to (confidence? claim?) is deferred (D-24) — no resolver is wired up, so
-// it always resolves to `undefined` via the SELECTOR_RESOLVERS lookup miss.
+// `rumor` selector (D-24 resolved, V2-Core-15): resolves to the believed
+// `claim`, mirroring `fact`'s own resolver returning `.value` rather than a
+// metadata field like `.since` -- claim is Rumor's equivalent substantive
+// content (§8.2). Unlike `fact`, no contextKind restriction applies: a
+// Rumor is exactly the information an actor is allowed to know/act on
+// (§8.4 restricts Fact, not Rumor). Subject/`state.knowledge` lookup reuses
+// the same resolveSubjectId-only pattern the rumor Effect already uses
+// (§8.3 -- no `state.actors` record required).
+function resolveRumorClaim(selector, ctx) {
+  if (typeof selector.rumor !== "string") return undefined;
+  const subjectId = resolveSubjectId(selector.subject, ctx);
+  if (subjectId === undefined) return undefined;
+  return ctx.state?.knowledge?.[subjectId]?.[selector.rumor]?.claim;
+}
 
 const SELECTOR_RESOLVERS = {
   stat: (selector, ctx) => resolveGrowthValue("stat", "stats", selector, ctx),
@@ -139,7 +156,8 @@ const SELECTOR_RESOLVERS = {
   flag: resolveFlag,
   signal: resolveSignal,
   day: resolveDay,
-  fact: resolveFact
+  fact: resolveFact,
+  rumor: resolveRumorClaim
 };
 
 function resolveSelector(selector, ctx) {
@@ -251,6 +269,35 @@ function evaluateCaseCondition(condition, ctx) {
   return true;
 }
 
+// D-24 resolved (V2-Core-15): both §3.2 forms are mechanical reads of the
+// already-fixed RumorEntry schema (§8.2) -- no new fields invented. The
+// `rumor` form checks the subject's own entry (existence, plus
+// `minConfidence` if given); the `fact` form is a reverse lookup for any
+// entry whose `factId` matches (accuracy is never computed, same as the
+// rumor Effect -- §8.2's isAccurate stays internal-only).
+function evaluateRumorCondition(condition, ctx) {
+  const subjectId = resolveSubjectId(condition.subject, ctx);
+  const entries = ctx.state?.knowledge?.[subjectId];
+  if (!isPlainObject(entries)) return false;
+
+  let entry;
+  if (typeof condition.rumor === "string") {
+    entry = entries[condition.rumor];
+  } else if (typeof condition.fact === "string") {
+    entry = Object.keys(entries)
+      .sort()
+      .map((id) => entries[id])
+      .find((e) => isPlainObject(e) && e.factId === condition.fact);
+  } else {
+    return false;
+  }
+  if (!isPlainObject(entry)) return false;
+  if (condition.minConfidence !== undefined) {
+    return matchScalarArgs(entry.confidence, { min: condition.minConfidence });
+  }
+  return true;
+}
+
 // -- comparison ops (§3.2, §3.2a) --------------------------------------------
 
 function evaluateComparison(op, condition, ctx) {
@@ -347,8 +394,10 @@ export function evaluateCondition(condition, ctx) {
       const subjectId = resolveSubjectId(condition.subject, ctx);
       return matchScalarArgs(ctx.state?.actors?.[subjectId]?.money, condition);
     }
+    case "rumor":
+      return evaluateRumorCondition(condition, ctx);
     default:
-      return false; // unknown op, or `rumor`/`handler` (deliberately deferred, D-24/D-38) (§3.1, pending validateData)
+      return false; // unknown op, or `handler` (deliberately deferred, D-38) (§3.1, pending validateData)
   }
 }
 

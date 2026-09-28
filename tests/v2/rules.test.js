@@ -209,6 +209,13 @@ function testSelectors() {
 
   // rumor: no knowledge state -> undefined, never throws
   assert.strictEqual(evaluateCondition({ op: "gte", left: { rumor: "rum_a" }, right: 50 }, bareCtx), false);
+
+  // rumor selector (D-24 resolved, V2-Core-15): resolves to the entry's
+  // `claim` -- the substantive content, mirroring `fact`'s own `.value`
+  const rumorSelectorState = { knowledge: { player_1: { rum_a: { rumorId: "rum_a", factId: "fact_a", claim: "truth", confidence: 60 } } } };
+  assert.strictEqual(evaluateCondition({ op: "eq", left: { rumor: "rum_a" }, right: "truth" }, ctxWith({ state: rumorSelectorState })), true);
+  assert.strictEqual(evaluateCondition({ op: "eq", left: { rumor: "rum_a" }, right: "lie" }, ctxWith({ state: rumorSelectorState })), false);
+  assert.strictEqual(evaluateCondition({ op: "eq", left: { rumor: "missing" }, right: "truth" }, ctxWith({ state: rumorSelectorState })), false, "unknown rumor id -> undefined, unresolved -> false (D-25)");
 }
 
 // D-25: an unresolved (undefined) operand makes every comparison op false,
@@ -466,9 +473,21 @@ function testShorthandFactDayLocationCase() {
   assert.strictEqual(evaluateCondition({ op: "case", case: "case_a", in: ["s1", "s2"] }, ctxWith({ state: caseState })), true);
   assert.strictEqual(evaluateCondition({ op: "case", case: "missing", stage: "s2" }, ctxWith({ state: caseState })), false);
 
-  // rumor shorthand op stays deferred (D-24, D-54): always false, never throws
+  // rumor shorthand op (D-24 resolved, V2-Core-15): direct-rumor and
+  // fact-reverse-lookup forms, both mechanical reads of RumorEntry (§8.2)
+  const rumorState = {
+    knowledge: { player_1: { rum_a: { rumorId: "rum_a", factId: "fact_a", claim: "truth", confidence: 60 } } }
+  };
+  assert.strictEqual(evaluateCondition({ op: "rumor", rumor: "rum_a" }, ctxWith({ state: rumorState })), true);
+  assert.strictEqual(evaluateCondition({ op: "rumor", rumor: "rum_a", minConfidence: 50 }, ctxWith({ state: rumorState })), true);
+  assert.strictEqual(evaluateCondition({ op: "rumor", rumor: "rum_a", minConfidence: 80 }, ctxWith({ state: rumorState })), false);
+  assert.strictEqual(evaluateCondition({ op: "rumor", fact: "fact_a" }, ctxWith({ state: rumorState })), true, "fact reverse-lookup must find any entry with a matching factId");
+  assert.strictEqual(evaluateCondition({ op: "rumor", fact: "fact_z" }, ctxWith({ state: rumorState })), false);
+  // no knowledge state at all, or the rumor genuinely unknown -> false, never throws
   assert.strictEqual(evaluateCondition({ op: "rumor", rumor: "rum_a", minConfidence: 10 }, ctxWith({ state: {} })), false);
   assert.strictEqual(evaluateCondition({ op: "rumor", fact: "fact_a" }, ctxWith({ state: {} })), false);
+  assert.strictEqual(evaluateCondition({ op: "rumor", rumor: "missing" }, ctxWith({ state: rumorState })), false);
+  assert.strictEqual(evaluateCondition({ op: "rumor" }, ctxWith({ state: rumorState })), false, "neither rumor nor fact given -> false");
 }
 
 // JSON round-trip for the new shorthand ops together in one composite tree
@@ -496,6 +515,42 @@ function testShorthandJsonRoundTrip() {
   assert.strictEqual(evaluateCondition(condition, ctx), evaluateCondition(roundTripped, ctx));
 }
 
+// V2-Core-15 (D-24 resolved): rumor composition, immutability, determinism,
+// JSON round-trip -- reuses the same rumorState fixture shape as above.
+function testRumorCompositionAndInvariants() {
+  const rumorState = {
+    knowledge: { player_1: { rum_a: { rumorId: "rum_a", factId: "fact_a", claim: "truth", confidence: 60 } } }
+  };
+
+  // composition: rumor selector and rumor shorthand op both inside and/or
+  const composed = {
+    op: "and",
+    of: [
+      { op: "rumor", rumor: "rum_a", minConfidence: 50 },
+      { op: "eq", left: { rumor: "rum_a" }, right: "truth" }
+    ]
+  };
+  assert.strictEqual(evaluateCondition(composed, ctxWith({ state: rumorState })), true);
+
+  // JSON round-trip
+  const roundTripped = JSON.parse(JSON.stringify(composed));
+  assert.deepStrictEqual(roundTripped, composed);
+  const ctx = ctxWith({ state: rumorState });
+  assert.strictEqual(evaluateCondition(composed, ctx), evaluateCondition(roundTripped, ctx));
+
+  // immutability: neither the condition tree nor ctx.state is mutated
+  const frozenCondition = deepFreeze(structuredClone(composed));
+  const frozenCtx = deepFreeze(ctxWith({ state: structuredClone(rumorState) }));
+  const before = snapshot(frozenCtx.state);
+  evaluateCondition(frozenCondition, frozenCtx);
+  assert.deepStrictEqual(snapshot(frozenCtx.state), before);
+
+  // determinism
+  const results = new Set();
+  for (let i = 0; i < 5; i += 1) results.add(evaluateCondition(composed, ctx));
+  assert.strictEqual(results.size, 1);
+}
+
 testAlwaysNever();
 testNot();
 testAndOr();
@@ -513,5 +568,6 @@ testShorthandFlagSignalItemMoney();
 testShorthandRelation();
 testShorthandFactDayLocationCase();
 testShorthandJsonRoundTrip();
+testRumorCompositionAndInvariants();
 
 console.log("V2-Core-02 rules.test.js: all checks passed");
