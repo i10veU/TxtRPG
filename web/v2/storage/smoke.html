@@ -8,17 +8,20 @@
 </head>
 <body>
 <!--
-  This page is test scaffolding for tests/v2-storage-browser.spec.js only.
-  It renders nothing and contains no game content -- it exists purely to
-  give a real browser origin (and therefore real IndexedDB) for the
-  Playwright spec to drive web/v2/storage/idb.js and web/v2/core/engine.js
-  directly through window globals. It is not part of the eventual V2 UI
-  (docs/v2/architecture/CORE_CONTRACTS.md explicitly defers real UI/content
-  to a later step, per Issue #72's scope).
+  This page is test scaffolding for tests/v2-storage-browser.spec.js and
+  tests/v2-data-world-browser.spec.js only. It renders nothing and is not
+  part of the eventual V2 UI (CORE_CONTRACTS.md explicitly defers real
+  UI/content to a later step, per Issue #72/#74's scope) -- it exists purely
+  to give a real browser origin (and therefore real IndexedDB) for those
+  Playwright specs to drive web/v2/storage/idb.js, web/v2/core/engine.js,
+  and the real V2-Core-22 world data pack (web/v2/data/world.js) directly
+  through window globals.
 -->
 <script type="module">
   import * as storage from "./idb.js";
-  import { createInitialState, step, validateState, migrateState, SCHEMA_VERSION } from "../core/engine.js";
+  import { createInitialState, step, view, validateState, migrateState, SCHEMA_VERSION } from "../core/engine.js";
+  import { validateData } from "../core/rules.js";
+  import { worldData } from "../data/world.js";
 
   const fixtureData = {
     formatVersion: 1,
@@ -50,8 +53,9 @@
 
   window.__v2Smoke = {
     storage,
-    engine: { createInitialState, step, validateState, migrateState, SCHEMA_VERSION },
-    fixtureData
+    engine: { createInitialState, step, view, validateState, validateData, migrateState, SCHEMA_VERSION },
+    fixtureData,
+    worldData
   };
 </script>
 </body>

@@ -1023,6 +1023,11 @@ resolver 코드를 바꾸지 않고도 자동으로 실제 값을 비교하게 �
 - 정의는 data에 둔다: `data.facts[factId] = { "initial": <JSON 값> }` 또는
   `{ "initial": { "pickFrom": [v1, v2, v3] } }` (seed 기반 초기화: `deriveSeed(seed, "fact:"+id)`로 선택).
 - 상태: `state.facts[factId] = { value, since }`.
+- **구현 상태 (D-65, V2-Core-22에서 재확인)**: `initial`(고정값/`pickFrom` 모두)을 읽어
+  `state.facts`를 채우는 런타임 코드는 **아직 없다** — `createInitialState`는 `data.facts`를 전혀
+  읽지 않는다. `state.facts`는 오직 `fact` Effect(D-44)로만 lazy 생성된다. `initial`은 지금은
+  콘텐츠 저자가 의도를 기록해 두는 문서용 필드일 뿐이며, 실제로 그 세계의 첫 상태를 결정하려면
+  이벤트/행동의 `fact` Effect로 명시적으로 설정해야 한다.
 - **플레이어 view에 포함하지 않는다.** fact 변경 이벤트는 internal이다.
   - 이유: 진실(예: 누가 범인인가)은 서버 권위 정보다. seed마다 달라지는 진실은 "고정 데이터 + seed 기반 초기화"로 만든다.
   - 확장: 서버로 전환하면 state.facts는 서버에만 존재하고 클라이언트는 view만 받는다.
@@ -1253,6 +1258,14 @@ state.knowledge["player_1"]["rum_a"] = {
     "이전" 순번에서 이미 참이 되었어도 이번 순회에서는 재평가하지 않는다(한 바퀴만 돈다는 뜻 자체가
     1단계 연쇄 제한이며, 별도 카운터를 두지 않는다).
 - 파일 분할(세계당 JSON 한 개인지 여러 개인지)은 콘텐츠가 생길 때 정한다. 여러 개로 나누면 UI 로더가 병합한다.
+- **첫 실제 데이터팩 (V2-Core-22)**: `web/v2/data/world.js`가 이 계약으로 표현 가능한 콘텐츠만으로
+  만든 첫 실제 세계관 데이터다 — world 1개, characterTemplate 1개, location 3개, action 5개(그중
+  하나는 `choice`로 분기), growthSystem 1개(stat 1개 + proficiency 1개 + unlock 1개, 실제로 성장이
+  새 행동 접근으로 이어지는 예시), item 2개, fact/rumor 각 1개, npc 2개 + org 1개(relation
+  edge/tag의 참조 ID로만 쓰이며 `state.actors` 레코드는 없음 — NPC actor 생성 자체가 아직 엔진에
+  없다, 대규모 NPC scheduler는 범위 밖). `handler`, D-09, `completeWhen`/relation rule 실행
+  semantics, `data.facts[*].initial` 시딩(D-65)에는 의존하지 않는다. `tests/v2/data-world.test.js`/
+  `tests/v2-data-world-browser.spec.js`로 검증했다.
 - `validateData(data)`는 다음을 검사하고 오류 목록을 반환한다: ID 형식, 참조 무결성, Condition/Effect op와 인자,
   handler 등록과 reason, player 문맥의 fact 사용 금지, Resolvable의 success/fail 필수 여부.
   **검증을 통과하지 못한 data로 step을 호출하는 것은 프로그래머 오류다.**
@@ -1389,6 +1402,7 @@ state.knowledge["player_1"]["rum_a"] = {
 | D-60 | validateData의 **CheckSpec 자체 shape**과 **characterTemplate.locationId 필수 여부** — engine.js/`check()` 전수 재대조로 발견 (A) | **확정(V2-Core-19)**: D-57/D-58이 `applyOneEffect`/`evaluateCondition`/`resolveDifficulty`의 difficulty-이름 조회만 미러링했고, `check()`/`resolveDifficulty` 자신의 나머지 throw 조건과 `engine.js`의 `buildActorFromTemplate`은 아직 미러링하지 않았다는 것을 이번 라운드 전수 재대조(모든 `throw new` 위치 재확인)에서 발견했다 — 새 semantics가 아니라 이미 실행 가능한 throw 코드를 그대로 옮기는 것(D-57과 같은 방법). (1) **`resolvable.check`가 있으면 plain object여야 한다** — `check(spec, ctx)`의 첫 줄(`if (!isPlainObject(spec)) throw`) 그대로. (2) **`check.difficulty`는 정수 / 문자열(이름 존재 여부는 D-58이 이미 검사) / `{base:정수, opposed:object}` 중 하나여야 한다** — `resolveDifficulty`의 실제 분기(정수 반환 → 문자열 이름 조회 → `isPlainObject(d)&&isPlainObject(d.opposed)`면 `base` 정수 확인 → 셋 다 아니면 throw) 순서를 그대로 따른다. `opposed.subject`/`opposed.stat`/`opposed.skill`은 D-58과 같은 이유(동적 참조/우아한 폴백)로 검사하지 않는다 — `opposed.base`만 정수인지 본다(`resolveDifficulty`가 정확히 그것만 throw하므로). (3) **`characterTemplates[*].locationId`는 반드시 string이어야 한다** — `buildActorFromTemplate`의 첫 줄(`if (typeof template.locationId !== "string") throw`) 그대로. D-56/D-58은 "있으면 `data.locations`에 존재해야 한다"만 검사했고 "존재 자체가 필수"는 검사하지 않았던 gap이다 — 이번에 필수 여부(타입+존재)와 참조 무결성(대상 존재)을 하나의 조건문으로 합쳐 순서대로 검사한다(타입이 틀리면 참조 검사로 내려가지 않음, 같은 오류로 합치지 않는다는 D-58 원칙 유지). `kind`/`hp.max`/`money`/`inventory`/`growth`/`tags`는 `buildActorFromTemplate`이 전부 `?:` 우아한 기본값으로 처리해 throw하지 않으므로(D-58과 같은 "명시적 폴백은 검사하지 않는다" 원칙) 검사 대상에 넣지 않는다 |
 | D-61 | `data.cases[id].stages[*].completeWhen` — 스키마 확정 (D-59가 blocker로 종결했던 두 항목 중 하나, 재검토) | **확정(V2-Core-20)**: `completeWhen`은 **Condition 하나**로 확정한다 — 생략 가능(생략하면 그 stage는 자동 완료 조건이 없다는 뜻), 존재하면 `evaluateCondition`이 그대로 받아들이는 Condition 객체여야 한다. 평가 문맥은 `contextKind:"world"`(§3.3 표, 사건 trigger/성장 해금과 같은 문맥)이므로 D-06의 player-context fact 금지는 적용하지 않는다 — `{"op":"fact",...}`가 그대로 허용된다. 새 quest-condition 시스템이나 새 Condition op를 만들지 않고 기존 `evaluateCondition`/`walkCondition`을 그대로 재사용한다. **이번 결정의 범위는 여기까지다**: `completeWhen`의 실제 평가 시점(언제 어떤 코드가 이 Condition을 부르는지), stage 전이/완료가 일어났을 때의 실행 semantics, `stages`가 배열이라는 것 외의 나머지 구조(각 stage의 다른 필드)는 새로 결정하지 않는다 — D-59가 이 부분에 대해 남긴 blocker는 그대로 유효하다(실제 콘텐츠/사건 시스템 설계가 필요하다) |
 | D-62 | `data.rules.relation.*.when` — 스키마 확정 (D-59가 blocker로 종결했던 두 항목 중 나머지 하나, 재검토) | **확정(V2-Core-20)**: `data.rules.relation`은 ruleId를 키로 하는 객체이며, 각 rule의 `when`은 **Condition 하나**로 확정한다 — 생략 가능(생략하면 그 relation rule은 무조건 적용된다는 뜻), 존재하면 `evaluateCondition`이 그대로 받아들이는 Condition 객체여야 한다. 평가 문맥은 `contextKind:"world"`(§3.3 표)이므로 D-06의 player-context fact 금지는 적용하지 않는다. 기존 `evaluateCondition`/`walkCondition`을 그대로 재사용하고 새 Condition 체계를 만들지 않는다. **이번 결정의 범위는 여기까지다**: relation rule의 effect(무엇을 할지), 여러 rule이 동시에 참일 때의 우선순위, 실행 cadence(언제 평가되는지)는 새로 정의하지 않는다 — D-59가 이 부분에 대해 남긴 blocker는 그대로 유효하다 |
+| D-65 | `data.facts[id].initial`(§8.1)의 seed 기반 초기화 — 실제 시딩 코드 부재 확인 (V2-Core-22 첫 실제 데이터팩 작성 중 재발견) | **확인, 미해결로 유지(C, 그러나 blocker는 아님 — 콘텐츠가 우회 가능)**: `createInitialState`(engine.js) 전체를 재대조한 결과 `data.facts`를 읽는 코드가 어디에도 없다 — `state.facts`는 오직 `fact` Effect(D-44)로만 lazy 생성된다. §8.1이 문서화한 `initial`(고정값 또는 `{pickFrom:[...]}`로 seed 기반 선택)은 스키마만 있고 이를 읽어 `state.facts`를 채우는 런타임 코드가 없다. **이번 라운드는 이 gap을 메우지 않는다** — "콘텐츠 부족 때문에 새 엔진 기능을 발명하지 않는다"는 V2-Core-22의 원칙에 따라, 첫 데이터팩(`web/v2/data/world.js`)은 `initial`에 의존하지 않고 실제 플레이 경로 안의 `fact` Effect로 명시적으로 값을 설정한다(`fact_ruins_secret`은 `act_investigate_ruins`의 성공 outcome에서 설정됨). `initial`/`pickFrom` 시딩 자체는 향후 별도 라운드의 작업으로 남는다 |
 | D-63 | `migrateState(raw)`의 현재 스키마 semantics (§1.4/§10, 이전까지 의도적으로 미구현) | **확정·구현(V2-Core-21)**: `SCHEMA_VERSION=1`만 지원한다. (1) `raw`가 plain object가 아니면(`null`/배열/원시값 포함) throw. (2) `raw.schemaVersion`이 정수가 아니면(누락 포함, `undefined`도 이 분기) throw. (3) `raw.schemaVersion === SCHEMA_VERSION`(현재 1)이면 `structuredClone(raw)`을 반환한다 — State shape 자체의 구조적 정합성은 이 함수의 책임이 아니라 §10 로드 파이프라인의 다음 단계인 `validateState`의 책임이다(새 중복 validator를 만들지 않는다, D-55/D-56과 같은 원칙). (4) 정수이지만 1이 아닌 `schemaVersion`(0, 2, 99 등)은 "지원하지 않는 버전"으로 throw — 존재한 적 없는 v0→v1 같은 가상 migration chain은 발명하지 않는다. 함수는 순수하고 결정론적이며 입력을 mutate하지 않는다(항상 `structuredClone`으로 새 객체를 만들어 반환, 원본과 참조를 공유하지 않음). 두 번째 실제 스키마 버전이 생기면 그때 실제 변환 단계를 추가한다 |
 | D-64 | V2 저장 adapter (`web/v2/storage/idb.js`) — IndexedDB DB/스토어/레코드 형식과 최소 API (§10, 이전까지 "구현은 뒤로 미룸") | **확정·구현(V2-Core-21)**: DB 이름 `txtrpg_v2`, object store `saves`, keyPath `slot` — §10 원문 그대로, V1의 `AnonymousChroniclesDB`/`anonymous_chronicles_*`와 완전히 분리(전혀 참조하지 않음). 저장 record는 §10 원문 형식 `{slot, schemaVersion, worldId, dataRef, savedAt, state}` 그대로다. **API는 4개뿐이다**(Ponytail — repository/interface/DAO 계층 없음): `save(slot, state, metadata)`, `load(slot)`, `list()`, `remove(slot)`. `save`는 `validateState(state)`를 통과해야 쓰기를 진행하고(실패 시 명확한 오류로 reject, 조용히 성공 처리하지 않음), `schemaVersion`/`worldId`/`dataRef`는 `state` 자신에서 가져와 기록하며 `state`는 저장 전 `structuredClone`으로 깊은 복사한다(입력 mutate 금지). `load`는 없는 slot이면 명확한 오류로 reject하고(자동으로 빈 상태를 만들지 않음), 있으면 `record.state`를 `migrateState` → `validateState`(§10 로드 파이프라인 그대로) 순으로 통과시켜 오류가 있으면 로드를 거부한다(자동 수정 없음). `list()`는 `{slot, schemaVersion, worldId, dataRef, savedAt}` 메타데이터만 반환하고(`state` 전체를 담지 않음), IDB cursor/삽입 순서에 의존하지 않도록 `slot` 문자열 오름차순으로 정렬해 결정론적으로 만든다. `remove(slot)`은 해당 slot만 지우며, 존재하지 않는 slot을 지우는 것은 새 정책을 만들지 않고 IndexedDB 자신의 네이티브 `delete()` 동작(idempotent, 성공)을 그대로 둔다. `savedAt`은 `metadata.savedAt`이 주어지면 그 값을, 아니면 어댑터가 직접 `Date.now()`로 기록한다 — **엔진은 이 값의 존재조차 모른다**(`web/v2/core/*`는 이 파일을 import하지 않고, 이 파일은 IndexedDB/`Date.now`를 쓰는 유일한 V2 파일이다). 브라우저에서 실제 IndexedDB로 검증했다(DB/스토어 생성, save/load/list/overwrite/slot 격리/remove/missing-slot/malformed-record/future-schemaVersion/invalid-state/round-trip/반복 save-load, `tests/v2-storage-browser.spec.js`) — Node 테스트(`tests/v2/storage.test.js`)는 IndexedDB를 직접 건드리지 않는 순수 부분(`buildSaveRecord`/`parseLoadedRecord`)만 검증한다(새 npm mock 의존성을 추가하지 않기 위함) |
 
@@ -1524,3 +1538,22 @@ state.knowledge["player_1"]["rum_a"] = {
     (V2 전체 회귀), "Browser smoke"에 이 신설 spec을 추가해 매 PR마다 실제로 검증되게 했다(이전
     라운드들은 로컬 실행 결과만 PR 본문에 기록했을 뿐 CI 자체가 V2 코드를 검증하지 않던 gap을
     이번에 이 파일들에 한해 메웠다). README의 저장 계층 "미구현" stale 문구를 갱신했다.
+  - 작업 19 = V2-Core-22: 첫 실제 V2 세계관 데이터팩(`web/v2/data/world.js`)을 만들어
+    `data → createInitialState → step → view → save/load` 전체 계약을 실제 콘텐츠로 관통시켰다.
+    콘텐츠 작성 전 `createInitialState`/`resolveGrowthValue`/`computeCheckModifiers`/`resolveChoose`를
+    재대조해 두 가지를 확인했다: (1) `data.facts[*].initial` 시딩 코드 부재(D-65로 기록, 콘텐츠는
+    `fact` Effect로 명시 설정해 우회), (2) `resolveChoose`의 ctx에는 `targetId`가 전혀 없어(선택지
+    Effect가 `relation`의 `from:"target"` 기본값에 의존하면 조용히 skip된다) `choice` 옵션의 relation
+    Effect는 반드시 `from`을 명시해야 한다는 것 — 둘 다 새 semantics를 발명하지 않고 기존 코드
+    그대로에 맞춰 콘텐츠를 설계하는 방식으로 해결했다. 데이터팩은 world 1개/location 3개/action
+    5개(`choice` 1개 포함)/growthSystem 1개(stat+proficiency+unlock, 성장이 실제로 새 행동
+    `act_confront_leader`의 접근을 여는 예시)/item 2개/fact·rumor 각 1개/npc 2명·org 1개(relation
+    참조 ID로만 존재)로 구성했으며 `handler`/D-09/completeWhen·relation rule 실행 semantics/
+    `data.cases[*].stages`/`data.facts[*].initial` 중 어느 것에도 의존하지 않는다. `validateData`는
+    수정 없이 그대로 통과했다(`[]`). `tests/v2/data-world.test.js`(Node — import/validateData/
+    createInitialState/전체 플레이 경로/invalid·locked action/deterministic replay/JSON round-trip/
+    `web/v2/storage/idb.js`의 순수 함수를 재사용한 save-load round-trip)와
+    `tests/v2-data-world-browser.spec.js`(Playwright — 기존 `web/v2/storage/smoke.html` harness에
+    실제 데이터팩 import를 추가해 재사용, 실제 IndexedDB로 같은 시나리오 재검증)로 검증했고, CI
+    "Browser smoke"에 이 신설 spec을 추가했다. `web/v2/core/*`, `web/v2/storage/idb.js`,
+    `tests/v2/run.js`, `web/v2/core/rng.js`는 수정하지 않았다.
