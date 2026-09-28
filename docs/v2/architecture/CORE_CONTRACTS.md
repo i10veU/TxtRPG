@@ -1169,10 +1169,16 @@ state.knowledge["player_1"]["rum_a"] = {
 
   - savedAt은 엔진 밖의 값이며 엔진은 읽지 않는다.
 - 로드 순서: `migrateState(raw)` → `validateState` → 오류가 있으면 로드를 거부한다 (자동 수정하지 않음).
-  - **구현 상태**: `validateState`는 **구현됨**(D-55, §2.1). `migrateState`는 **의도적으로 미구현**이다
-    (D-55, blocker 아님) — `schemaVersion:1`이 이 프로젝트에 존재한 유일한 스키마 버전이라 지금
-    마이그레이션할 실제 구버전이 없다. `handler`(4.4절)와 같은 이유로, 쓸 내용이 없는 no-op
-    passthrough를 미리 만들지 않는다. 두 번째 스키마 버전이 생기면 그때 구현한다.
+  - **구현 상태**: `validateState`는 **구현됨**(D-55, §2.1). `migrateState`도 **구현됨**(D-63,
+    V2-Core-21) — `schemaVersion:1`만 지원하며, 존재하지 않는 구버전 변환(v0→v1 등)은 발명하지 않는다.
+    자세한 semantics는 D-63 참고.
+- **저장 계층 구현 상태 (D-64, V2-Core-21)**: `web/v2/storage/idb.js`가 이 절의 레코드 형식/DB
+  이름/스토어/keyPath를 그대로 구현한다 — `web/v2/core/*`는 이 파일을 import하지 않으며(엔진은
+  IndexedDB를 모른다), `idb.js`가 `web/v2/core/engine.js`의 `validateState`/`migrateState`/
+  `SCHEMA_VERSION`을 그대로 재사용해 저장/로드 경계를 검증한다. `save(slot, state, metadata)` /
+  `load(slot)` / `list()` / `remove(slot)` 4개 함수만 제공한다(Ponytail — repository/DAO 추상화
+  없음). `savedAt`은 `metadata.savedAt`이 있으면 그 값을, 없으면 어댑터가 직접 `Date.now()`로
+  기록한다 — 엔진은 이 값을 전혀 모른다. 자세한 semantics는 D-64 참고.
 - V1 세이브 import는 구현하지 않는다.
   - 확장: 서버 저장소로 옮길 때도 같은 레코드 형식을 쓴다.
 
@@ -1383,6 +1389,8 @@ state.knowledge["player_1"]["rum_a"] = {
 | D-60 | validateData의 **CheckSpec 자체 shape**과 **characterTemplate.locationId 필수 여부** — engine.js/`check()` 전수 재대조로 발견 (A) | **확정(V2-Core-19)**: D-57/D-58이 `applyOneEffect`/`evaluateCondition`/`resolveDifficulty`의 difficulty-이름 조회만 미러링했고, `check()`/`resolveDifficulty` 자신의 나머지 throw 조건과 `engine.js`의 `buildActorFromTemplate`은 아직 미러링하지 않았다는 것을 이번 라운드 전수 재대조(모든 `throw new` 위치 재확인)에서 발견했다 — 새 semantics가 아니라 이미 실행 가능한 throw 코드를 그대로 옮기는 것(D-57과 같은 방법). (1) **`resolvable.check`가 있으면 plain object여야 한다** — `check(spec, ctx)`의 첫 줄(`if (!isPlainObject(spec)) throw`) 그대로. (2) **`check.difficulty`는 정수 / 문자열(이름 존재 여부는 D-58이 이미 검사) / `{base:정수, opposed:object}` 중 하나여야 한다** — `resolveDifficulty`의 실제 분기(정수 반환 → 문자열 이름 조회 → `isPlainObject(d)&&isPlainObject(d.opposed)`면 `base` 정수 확인 → 셋 다 아니면 throw) 순서를 그대로 따른다. `opposed.subject`/`opposed.stat`/`opposed.skill`은 D-58과 같은 이유(동적 참조/우아한 폴백)로 검사하지 않는다 — `opposed.base`만 정수인지 본다(`resolveDifficulty`가 정확히 그것만 throw하므로). (3) **`characterTemplates[*].locationId`는 반드시 string이어야 한다** — `buildActorFromTemplate`의 첫 줄(`if (typeof template.locationId !== "string") throw`) 그대로. D-56/D-58은 "있으면 `data.locations`에 존재해야 한다"만 검사했고 "존재 자체가 필수"는 검사하지 않았던 gap이다 — 이번에 필수 여부(타입+존재)와 참조 무결성(대상 존재)을 하나의 조건문으로 합쳐 순서대로 검사한다(타입이 틀리면 참조 검사로 내려가지 않음, 같은 오류로 합치지 않는다는 D-58 원칙 유지). `kind`/`hp.max`/`money`/`inventory`/`growth`/`tags`는 `buildActorFromTemplate`이 전부 `?:` 우아한 기본값으로 처리해 throw하지 않으므로(D-58과 같은 "명시적 폴백은 검사하지 않는다" 원칙) 검사 대상에 넣지 않는다 |
 | D-61 | `data.cases[id].stages[*].completeWhen` — 스키마 확정 (D-59가 blocker로 종결했던 두 항목 중 하나, 재검토) | **확정(V2-Core-20)**: `completeWhen`은 **Condition 하나**로 확정한다 — 생략 가능(생략하면 그 stage는 자동 완료 조건이 없다는 뜻), 존재하면 `evaluateCondition`이 그대로 받아들이는 Condition 객체여야 한다. 평가 문맥은 `contextKind:"world"`(§3.3 표, 사건 trigger/성장 해금과 같은 문맥)이므로 D-06의 player-context fact 금지는 적용하지 않는다 — `{"op":"fact",...}`가 그대로 허용된다. 새 quest-condition 시스템이나 새 Condition op를 만들지 않고 기존 `evaluateCondition`/`walkCondition`을 그대로 재사용한다. **이번 결정의 범위는 여기까지다**: `completeWhen`의 실제 평가 시점(언제 어떤 코드가 이 Condition을 부르는지), stage 전이/완료가 일어났을 때의 실행 semantics, `stages`가 배열이라는 것 외의 나머지 구조(각 stage의 다른 필드)는 새로 결정하지 않는다 — D-59가 이 부분에 대해 남긴 blocker는 그대로 유효하다(실제 콘텐츠/사건 시스템 설계가 필요하다) |
 | D-62 | `data.rules.relation.*.when` — 스키마 확정 (D-59가 blocker로 종결했던 두 항목 중 나머지 하나, 재검토) | **확정(V2-Core-20)**: `data.rules.relation`은 ruleId를 키로 하는 객체이며, 각 rule의 `when`은 **Condition 하나**로 확정한다 — 생략 가능(생략하면 그 relation rule은 무조건 적용된다는 뜻), 존재하면 `evaluateCondition`이 그대로 받아들이는 Condition 객체여야 한다. 평가 문맥은 `contextKind:"world"`(§3.3 표)이므로 D-06의 player-context fact 금지는 적용하지 않는다. 기존 `evaluateCondition`/`walkCondition`을 그대로 재사용하고 새 Condition 체계를 만들지 않는다. **이번 결정의 범위는 여기까지다**: relation rule의 effect(무엇을 할지), 여러 rule이 동시에 참일 때의 우선순위, 실행 cadence(언제 평가되는지)는 새로 정의하지 않는다 — D-59가 이 부분에 대해 남긴 blocker는 그대로 유효하다 |
+| D-63 | `migrateState(raw)`의 현재 스키마 semantics (§1.4/§10, 이전까지 의도적으로 미구현) | **확정·구현(V2-Core-21)**: `SCHEMA_VERSION=1`만 지원한다. (1) `raw`가 plain object가 아니면(`null`/배열/원시값 포함) throw. (2) `raw.schemaVersion`이 정수가 아니면(누락 포함, `undefined`도 이 분기) throw. (3) `raw.schemaVersion === SCHEMA_VERSION`(현재 1)이면 `structuredClone(raw)`을 반환한다 — State shape 자체의 구조적 정합성은 이 함수의 책임이 아니라 §10 로드 파이프라인의 다음 단계인 `validateState`의 책임이다(새 중복 validator를 만들지 않는다, D-55/D-56과 같은 원칙). (4) 정수이지만 1이 아닌 `schemaVersion`(0, 2, 99 등)은 "지원하지 않는 버전"으로 throw — 존재한 적 없는 v0→v1 같은 가상 migration chain은 발명하지 않는다. 함수는 순수하고 결정론적이며 입력을 mutate하지 않는다(항상 `structuredClone`으로 새 객체를 만들어 반환, 원본과 참조를 공유하지 않음). 두 번째 실제 스키마 버전이 생기면 그때 실제 변환 단계를 추가한다 |
+| D-64 | V2 저장 adapter (`web/v2/storage/idb.js`) — IndexedDB DB/스토어/레코드 형식과 최소 API (§10, 이전까지 "구현은 뒤로 미룸") | **확정·구현(V2-Core-21)**: DB 이름 `txtrpg_v2`, object store `saves`, keyPath `slot` — §10 원문 그대로, V1의 `AnonymousChroniclesDB`/`anonymous_chronicles_*`와 완전히 분리(전혀 참조하지 않음). 저장 record는 §10 원문 형식 `{slot, schemaVersion, worldId, dataRef, savedAt, state}` 그대로다. **API는 4개뿐이다**(Ponytail — repository/interface/DAO 계층 없음): `save(slot, state, metadata)`, `load(slot)`, `list()`, `remove(slot)`. `save`는 `validateState(state)`를 통과해야 쓰기를 진행하고(실패 시 명확한 오류로 reject, 조용히 성공 처리하지 않음), `schemaVersion`/`worldId`/`dataRef`는 `state` 자신에서 가져와 기록하며 `state`는 저장 전 `structuredClone`으로 깊은 복사한다(입력 mutate 금지). `load`는 없는 slot이면 명확한 오류로 reject하고(자동으로 빈 상태를 만들지 않음), 있으면 `record.state`를 `migrateState` → `validateState`(§10 로드 파이프라인 그대로) 순으로 통과시켜 오류가 있으면 로드를 거부한다(자동 수정 없음). `list()`는 `{slot, schemaVersion, worldId, dataRef, savedAt}` 메타데이터만 반환하고(`state` 전체를 담지 않음), IDB cursor/삽입 순서에 의존하지 않도록 `slot` 문자열 오름차순으로 정렬해 결정론적으로 만든다. `remove(slot)`은 해당 slot만 지우며, 존재하지 않는 slot을 지우는 것은 새 정책을 만들지 않고 IndexedDB 자신의 네이티브 `delete()` 동작(idempotent, 성공)을 그대로 둔다. `savedAt`은 `metadata.savedAt`이 주어지면 그 값을, 아니면 어댑터가 직접 `Date.now()`로 기록한다 — **엔진은 이 값의 존재조차 모른다**(`web/v2/core/*`는 이 파일을 import하지 않고, 이 파일은 IndexedDB/`Date.now`를 쓰는 유일한 V2 파일이다). 브라우저에서 실제 IndexedDB로 검증했다(DB/스토어 생성, save/load/list/overwrite/slot 격리/remove/missing-slot/malformed-record/future-schemaVersion/invalid-state/round-trip/반복 save-load, `tests/v2-storage-browser.spec.js`) — Node 테스트(`tests/v2/storage.test.js`)는 IndexedDB를 직접 건드리지 않는 순수 부분(`buildSaveRecord`/`parseLoadedRecord`)만 검증한다(새 npm mock 의존성을 추가하지 않기 위함) |
 
 ---
 
@@ -1504,3 +1512,15 @@ state.knowledge["player_1"]["rum_a"] = {
     그대로 재사용했다: `data.cases[id].stages`가 배열이면 각 stage의 `completeWhen`을, `data.rules.relation`의
     각 rule의 `when`을 각각 `contextKind:"world"`로 검사한다(둘 다 §3.3이 이미 world로 고정한 위치이므로
     D-06의 player-context fact 금지는 적용하지 않는다). 새 Condition op/evaluator/파일은 만들지 않았다.
+  - 작업 18 = V2-Core-21: §10 저장 계약을 처음으로 실제 구현했다. `engine.js`에 `migrateState(raw)`를
+    D-63으로 추가했다(`SCHEMA_VERSION=1`만 지원, 구버전 변환 chain 미발명, `structuredClone`으로 순수
+    복사). `web/v2/storage/idb.js`를 신설해 D-64의 IndexedDB adapter(`save`/`load`/`list`/`remove`
+    4개 함수만)를 구현했다 — `web/v2/core/*`는 이 파일을 전혀 import하지 않고, 이 파일만 IndexedDB와
+    `Date.now`를 쓴다(엔진은 `savedAt`을 모른다). `tests/v2/storage.test.js`(Node, 순수 함수만),
+    `tests/v2-storage-browser.spec.js`(Playwright, 실제 IndexedDB — 신설 harness `web/v2/storage/smoke.html`
+    경유)로 검증했고, 후자에 §10이 요구하는 장기 round-trip(여러 step 사이에 save/load를 끼워도
+    저장 없이 실행한 대조군과 상태가 완전히 같음: rng/time/actors/facts/knowledge/relations/cases/
+    fired/attempts/pending 전부)을 포함했다. CI의 "Unit & regression"에 `node tests/v2/run.js`
+    (V2 전체 회귀), "Browser smoke"에 이 신설 spec을 추가해 매 PR마다 실제로 검증되게 했다(이전
+    라운드들은 로컬 실행 결과만 PR 본문에 기록했을 뿐 CI 자체가 V2 코드를 검증하지 않던 gap을
+    이번에 이 파일들에 한해 메웠다). README의 저장 계층 "미구현" stale 문구를 갱신했다.

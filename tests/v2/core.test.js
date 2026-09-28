@@ -9,7 +9,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { hashString, deriveSeed, nextUint32, rollDie } from "../../web/v2/core/rng.js";
-import { createInitialState, step, view, validateState, SCHEMA_VERSION } from "../../web/v2/core/engine.js";
+import { createInitialState, step, view, validateState, migrateState, SCHEMA_VERSION } from "../../web/v2/core/engine.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, "..", "..");
@@ -977,4 +977,70 @@ function testValidateState() {
 
 testValidateState();
 
-console.log("V2-Core-01/11/12/13/14 core.test.js: all checks passed");
+// V2-Core-21 (D-63): migrateState(raw) -> state
+function testMigrateState() {
+  const data = actionDataFixture();
+  const { state: rich } = createInitialState({ worldSeed: "migrate-check", data });
+
+  // 1. normal: schemaVersion 1 -> a deep copy, deepEqual to input
+  const migrated = migrateState(rich);
+  assert.deepStrictEqual(migrated, rich);
+  assert.notStrictEqual(migrated, rich, "must be a copy, not the same reference");
+  assert.notStrictEqual(migrated.rng, rich.rng, "must be a deep copy, not a shallow one");
+  assert.notStrictEqual(migrated.actors, rich.actors);
+
+  // 2. deep copy: mutating the result must not affect the input, and
+  // mutating the input afterward must not affect an already-returned result
+  migrated.time.minute = 999999;
+  assert.notStrictEqual(rich.time.minute, 999999, "mutating the copy must not affect the input");
+  const before = structuredClone(rich);
+  const migratedAgain = migrateState(rich);
+  rich.time.minute = 123456;
+  assert.deepStrictEqual(migratedAgain, before, "mutating the input after the call must not affect the earlier result");
+
+  // 3. input immutability: migrateState itself never mutates its argument,
+  // even a frozen one
+  const frozen = deepFreeze(structuredClone(rich));
+  const beforeFreeze = snapshot(frozen);
+  migrateState(frozen);
+  assert.deepStrictEqual(snapshot(frozen), beforeFreeze);
+
+  // 4. malformed/null/non-object -> throws (never returns a partial state)
+  [null, undefined, "state", 42, [], true].forEach((bad) => {
+    assert.throws(() => migrateState(bad), /plain object/);
+  });
+
+  // 5. missing or non-integer schemaVersion -> throws
+  assert.throws(() => migrateState({ ...rich, schemaVersion: undefined }), /schemaVersion/);
+  const noVersion = structuredClone(rich);
+  delete noVersion.schemaVersion;
+  assert.throws(() => migrateState(noVersion), /schemaVersion/);
+  assert.throws(() => migrateState({ ...rich, schemaVersion: "1" }), /schemaVersion/);
+  assert.throws(() => migrateState({ ...rich, schemaVersion: 1.5 }), /schemaVersion/);
+
+  // 6. unsupported future schemaVersion -> throws (no invented v0->v1 chain,
+  // no silent pass-through for an unknown version)
+  assert.throws(() => migrateState({ ...rich, schemaVersion: 2 }), /unsupported schemaVersion/);
+  assert.throws(() => migrateState({ ...rich, schemaVersion: 99 }), /unsupported schemaVersion/);
+  assert.throws(() => migrateState({ ...rich, schemaVersion: 0 }), /unsupported schemaVersion/);
+
+  // 7. determinism: same input -> deepEqual output every time
+  const results = [];
+  for (let i = 0; i < 5; i += 1) results.push(migrateState(rich));
+  results.forEach((r) => assert.deepStrictEqual(r, results[0]));
+
+  // 8. JSON round-trip: migrating a round-tripped copy gives the same result
+  // as migrating the original
+  const roundTripped = JSON.parse(JSON.stringify(rich));
+  assert.deepStrictEqual(migrateState(roundTripped), migrateState(rich));
+
+  // 9. a state produced by step() (not just createInitialState) migrates
+  // cleanly and stays valid afterward (composition with the rest of §10's
+  // load pipeline: migrateState -> validateState)
+  const afterWait = step(rich, { type: "wait", minutes: 30 }, data).state;
+  assert.deepStrictEqual(validateState(migrateState(afterWait)), []);
+}
+
+testMigrateState();
+
+console.log("V2-Core-01/11/12/13/14/21 core.test.js: all checks passed");

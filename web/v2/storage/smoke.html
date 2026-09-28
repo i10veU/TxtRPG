@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>V2 storage smoke harness (test-only, not game UI)</title>
+<link rel="icon" href="data:,">
+
+</head>
+<body>
+<!--
+  This page is test scaffolding for tests/v2-storage-browser.spec.js only.
+  It renders nothing and contains no game content -- it exists purely to
+  give a real browser origin (and therefore real IndexedDB) for the
+  Playwright spec to drive web/v2/storage/idb.js and web/v2/core/engine.js
+  directly through window globals. It is not part of the eventual V2 UI
+  (docs/v2/architecture/CORE_CONTRACTS.md explicitly defers real UI/content
+  to a later step, per Issue #72's scope).
+-->
+<script type="module">
+  import * as storage from "./idb.js";
+  import { createInitialState, step, validateState, migrateState, SCHEMA_VERSION } from "../core/engine.js";
+
+  const fixtureData = {
+    formatVersion: 1,
+    id: "smoke_pack",
+    version: "0.1.0",
+    world: { id: "smoke_world", growthSystemId: "growth_a", startTemplateId: "start_default" },
+    rules: { check: {}, succession: [] },
+    characterTemplates: {
+      start_default: { kind: "player", locationId: "loc_start", hp: { max: 10 }, money: 5, inventory: {}, growth: {}, tags: [] }
+    },
+    locations: {
+      loc_start: { links: [{ to: "loc_market", minutes: 15 }] },
+      loc_market: { links: [{ to: "loc_start", minutes: 15 }] }
+    },
+    actions: {
+      act_rest: {
+        effects: [
+          { op: "money", add: 3 },
+          { op: "stat", stat: "str", add: 1 },
+          { op: "flag", key: "rested", value: true },
+          { op: "fact", fact: "world_started", set: true },
+          { op: "relation", from: "npc_1", to: "player_1", add: 5, mode: "cooperation" },
+          { op: "case", case: "case_a", stage: "stage_1" }
+        ]
+      },
+      act_move: { effects: [{ op: "move", to: "loc_market" }] }
+    }
+  };
+
+  window.__v2Smoke = {
+    storage,
+    engine: { createInitialState, step, validateState, migrateState, SCHEMA_VERSION },
+    fixtureData
+  };
+</script>
+</body>
+</html>
