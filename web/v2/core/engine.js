@@ -17,10 +17,12 @@
 // case yet -- not a blocker).
 // V2-Core-14 (D-55): validateState(state) -> string[] -- the §2.1 "불변
 // 조건" bullets, narrowly scoped to exactly what each bullet names (see
-// D-55 for the excluded fields). `migrateState` stays deliberately
-// unimplemented -- schemaVersion 1 is the only version this project has
-// ever had, so there is no real migration to encode yet (same reasoning as
-// `handler`, not a blocker).
+// D-55 for the excluded fields).
+// V2-Core-21 (D-63): migrateState(raw) -> state -- confirms schemaVersion 1
+// (the only version this project has ever had, so no v0 -> v1 chain is
+// invented) and returns a safe independent copy. Storage adapters live in
+// web/v2/storage/ and never get imported here (§10 -- engine stays free of
+// IndexedDB/localStorage/Date.now/host APIs).
 // Do not add Date/Date.now, Math.random, DOM, window, or any host API here.
 
 import { hashString } from "./rng.js";
@@ -461,6 +463,30 @@ export function view(state, data) {
     pending: state.pending ?? null,
     actions
   };
+}
+
+// migrateState(raw) -> state (D-63, §10 load pipeline: migrateState ->
+// validateState -> reject on error, no auto-repair). SCHEMA_VERSION 1 is the
+// only version this project has ever had, so there is no real v0 -> v1
+// chain to invent here (D-63) -- this only confirms the one supported
+// version and hands back a safe, independent copy. Structural validity
+// beyond schemaVersion is validateState's job, not duplicated here (no new
+// validator). Pure and deterministic: never mutates `raw`, never touches a
+// host API (no Date, no storage) -- `savedAt` is the storage adapter's
+// concern, not the engine's (§10).
+export function migrateState(raw) {
+  if (!isPlainObject(raw)) {
+    throw new Error("migrateState: raw state must be a plain object");
+  }
+  if (!Number.isInteger(raw.schemaVersion)) {
+    throw new Error(`migrateState: missing or invalid schemaVersion: ${JSON.stringify(raw.schemaVersion)}`);
+  }
+  if (raw.schemaVersion !== SCHEMA_VERSION) {
+    throw new Error(
+      `migrateState: unsupported schemaVersion ${raw.schemaVersion} (only ${SCHEMA_VERSION} is supported, no migration chain exists yet)`
+    );
+  }
+  return structuredClone(raw);
 }
 
 const ID_PATTERN = /^[a-z][a-z0-9_]*$/;

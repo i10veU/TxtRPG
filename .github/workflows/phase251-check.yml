@@ -24,6 +24,9 @@ jobs:
           set -e
           find web -name '*.js' -print0 | xargs -0 -n1 node --check
 
+      - name: V2 core regression
+        run: node tests/v2/run.js
+
       - name: Core regression
         run: node tests/phase251-engineization.js
 
@@ -103,3 +106,6 @@ jobs:
 
       - name: Browser smoke regression
         run: npx playwright test tests/phase255-browser.spec.js --reporter=line
+
+      - name: V2 storage browser smoke
+        run: npx playwright test tests/v2-storage-browser.spec.js --reporter=line
