@@ -1620,3 +1620,325 @@ export function check(spec, ctx) {
 
   return { result: { tier, dice, roll, modifiers, total, difficulty, margin }, rng };
 }
+
+// -- validateData (§11, D-56) ------------------------------------------------
+//
+// Pure, read-only, never throws (like validateState, D-55) -- a content
+// author's raw `data` is exactly the "not yet trusted" value this exists to
+// check. Does not call applyOneEffect/evaluateCondition: it is a separate
+// read-only walk over `data`'s own shape, so it can never change runtime
+// Effect/Condition semantics (D-56's own explicit constraint).
+//
+// Scope (D-56): only the sub-rules each of §11's 6 categories already has a
+// concrete schema for elsewhere in the contract -- ID format (§2.1's regex),
+// the handful of already-dereferenced cross-references (§11/D-47, the same
+// ones `resolveMove`/`createInitialState` use), known Condition/Effect op
+// names plus and/or/not/if's own already-fixed argument shape (§3.2/§4.1),
+// handler's reason/registration (§4.4 verbatim), the player-context fact ban
+// at exactly §3.3's 4 player-context positions (D-06), and Resolvable's
+// success/fail requirement (§2.3 verbatim). Per-op argument details (e.g.
+// `stat.add` must be an integer) and the two §3.3 positions with no field
+// schema anywhere (case stages/completeWhen, rules.relation.*.when) are
+// deliberately out of scope -- see D-56.
+
+const DATA_ID_PATTERN = /^[a-z][a-z0-9_]*$/; // same rule as §2.1's state ID format (D-55's ID_PATTERN)
+
+const KNOWN_CONDITION_OPS = new Set([
+  "always", "never", "not", "and", "or",
+  "eq", "neq", "gt", "gte", "lt", "lte",
+  "stat", "flag", "signal", "skill", "trait", "item", "relation", "rumor",
+  "fact", "day", "location", "unlock", "case", "money",
+  "handler"
+]);
+
+const KNOWN_EFFECT_OPS = new Set([
+  "flag", "signal", "time", "if", "stat", "hp", "money", "skill", "trait",
+  "unlock", "case", "item", "relation", "exp", "proficiency", "fact", "rumor",
+  "move", "choice", "narrate",
+  "handler"
+]);
+
+function checkDataIdFormat(errors, id, label) {
+  if (typeof id !== "string" || !DATA_ID_PATTERN.test(id)) {
+    errors.push(`invalid id format at ${label}: ${JSON.stringify(id)}`);
+  }
+}
+
+// D-56 (4): §4.4 verbatim -- a missing `reason` string is one error, and
+// since no handlers.js registry exists at all (D-04), every handler
+// reference is unconditionally "not registered" right now.
+function checkHandlerReference(node, path, errors) {
+  if (typeof node.reason !== "string") {
+    errors.push(`handler at ${path} is missing a string "reason" (§4.4)`);
+  }
+  errors.push(`handler at ${path} references an unregistered name ${JSON.stringify(node.name)} (no handlers.js registry exists yet, §4.4/D-04)`);
+}
+
+// D-56 (5): the only two Value shapes that can leak a `fact` into a
+// player-context Condition -- the `fact` op itself, and a `{fact:"..."}`
+// selector used as an eq/neq/gt/gte/lt/lte operand (§3.2a).
+function checkValueForFactLeak(value, path, errors) {
+  if (isPlainObject(value) && typeof value.fact === "string") {
+    errors.push(`fact selector used in player-context Condition at ${path} (§3.3/§8.4/D-06)`);
+  }
+}
+
+// Recursively walks a Condition tree rooted at a §3.3-listed position.
+// `contextKind` is fixed at the root by the caller (§3.3's table) and passed
+// through unchanged to every nested and/or/not -- it never changes partway
+// through a single Condition tree, only when a NEW root is entered (e.g. an
+// `if.when` inside an Effect list is always its own "world" root, §3.3).
+function walkCondition(node, contextKind, path, errors) {
+  if (!isPlainObject(node)) {
+    errors.push(`Condition at ${path} must be a plain object`);
+    return;
+  }
+  const op = node.op;
+  if (op === "handler") {
+    checkHandlerReference(node, path, errors);
+    return;
+  }
+  if (!KNOWN_CONDITION_OPS.has(op)) {
+    errors.push(`unknown Condition op at ${path}: ${JSON.stringify(op)}`);
+    return;
+  }
+  if (contextKind === "player" && op === "fact") {
+    errors.push(`fact Condition used in player context at ${path} (§3.3/§8.4/D-06)`);
+  }
+  if (op === "not") {
+    if (!isPlainObject(node.of)) {
+      errors.push(`not Condition at ${path}.of must be a single Condition object (§3.2)`);
+    } else {
+      walkCondition(node.of, contextKind, `${path}.of`, errors);
+    }
+  } else if (op === "and" || op === "or") {
+    if (!Array.isArray(node.of)) {
+      errors.push(`${op} Condition at ${path}.of must be an array (§3.2)`);
+    } else {
+      node.of.forEach((sub, i) => walkCondition(sub, contextKind, `${path}.of[${i}]`, errors));
+    }
+  } else if (op === "eq" || op === "neq" || op === "gt" || op === "gte" || op === "lt" || op === "lte") {
+    if (contextKind === "player") {
+      checkValueForFactLeak(node.left, `${path}.left`, errors);
+      checkValueForFactLeak(node.right, `${path}.right`, errors);
+    }
+  }
+}
+
+// Recursively walks an Effect list rooted at a §2.3/§4-listed position.
+// `if.when` is always its own contextKind:"world" Condition root (§3.3,
+// matches rules.js's own `if` implementation exactly), regardless of which
+// contextKind (if any) the enclosing Effect list itself was reached under.
+function walkEffectList(effects, path, errors) {
+  if (!Array.isArray(effects)) {
+    errors.push(`Effect list at ${path} must be an array`);
+    return;
+  }
+  effects.forEach((effect, i) => {
+    const effectPath = `${path}[${i}]`;
+    if (!isPlainObject(effect)) {
+      errors.push(`Effect at ${effectPath} must be a plain object`);
+      return;
+    }
+    const op = effect.op;
+    if (op === "handler") {
+      checkHandlerReference(effect, effectPath, errors);
+      return;
+    }
+    if (!KNOWN_EFFECT_OPS.has(op)) {
+      errors.push(`unknown Effect op at ${effectPath}: ${JSON.stringify(op)}`);
+      return;
+    }
+    if (op === "if") {
+      if (!Array.isArray(effect.then)) {
+        errors.push(`if Effect at ${effectPath}.then must be an array (§4.1)`);
+      } else {
+        walkEffectList(effect.then, `${effectPath}.then`, errors);
+      }
+      if (effect.when !== undefined) walkCondition(effect.when, "world", `${effectPath}.when`, errors);
+      if (effect.else !== undefined) walkEffectList(effect.else, `${effectPath}.else`, errors);
+    }
+  });
+}
+
+// D-56 (6): §2.3 verbatim -- `check` present -> `outcomes.success`/`.fail`
+// are both required arrays. Missing `great`/`partial` is NOT an error (§2.3
+// already defines the success/fail fallback for those).
+function walkResolvable(resolvable, path, errors) {
+  if (!isPlainObject(resolvable)) return;
+  if (resolvable.check !== undefined) {
+    const outcomes = resolvable.outcomes;
+    if (!isPlainObject(outcomes) || !Array.isArray(outcomes.success) || !Array.isArray(outcomes.fail)) {
+      errors.push(`${path}: Resolvable has \`check\` but is missing required outcomes.success/outcomes.fail arrays (§2.3)`);
+    }
+  }
+  if (isPlainObject(resolvable.outcomes)) {
+    ["great", "success", "partial", "fail"].forEach((tier) => {
+      if (resolvable.outcomes[tier] !== undefined) {
+        walkEffectList(resolvable.outcomes[tier], `${path}.outcomes.${tier}`, errors);
+      }
+    });
+  }
+  if (resolvable.effects !== undefined) {
+    walkEffectList(resolvable.effects, `${path}.effects`, errors);
+  }
+}
+
+// validateData(data) -> string[] (D-56, §11). Pure, read-only, never throws.
+export function validateData(data) {
+  const errors = [];
+  if (!isPlainObject(data)) {
+    errors.push("data must be a plain object");
+    return errors;
+  }
+
+  if (data.id !== undefined) checkDataIdFormat(errors, data.id, "data.id");
+  if (isPlainObject(data.world)) {
+    if (data.world.id !== undefined) checkDataIdFormat(errors, data.world.id, "data.world.id");
+    if (data.world.growthSystemId !== undefined) {
+      checkDataIdFormat(errors, data.world.growthSystemId, "data.world.growthSystemId");
+      if (isPlainObject(data.growthSystems) && !(data.world.growthSystemId in data.growthSystems)) {
+        errors.push(`data.world.growthSystemId references unknown growth system: ${JSON.stringify(data.world.growthSystemId)}`);
+      }
+    }
+    if (data.world.startTemplateId !== undefined) {
+      checkDataIdFormat(errors, data.world.startTemplateId, "data.world.startTemplateId");
+      if (isPlainObject(data.characterTemplates) && !(data.world.startTemplateId in data.characterTemplates)) {
+        errors.push(`data.world.startTemplateId references unknown characterTemplate: ${JSON.stringify(data.world.startTemplateId)}`);
+      }
+    }
+  }
+
+  if (isPlainObject(data.characterTemplates)) {
+    Object.keys(data.characterTemplates).forEach((templateId) => {
+      checkDataIdFormat(errors, templateId, "characterTemplates key");
+      const template = data.characterTemplates[templateId];
+      if (isPlainObject(template) && template.locationId !== undefined) {
+        if (isPlainObject(data.locations) && !(template.locationId in data.locations)) {
+          errors.push(`characterTemplates.${templateId}.locationId references unknown location: ${JSON.stringify(template.locationId)}`);
+        }
+      }
+    });
+  }
+
+  if (isPlainObject(data.locations)) {
+    Object.keys(data.locations).forEach((locationId) => {
+      checkDataIdFormat(errors, locationId, "locations key");
+      const location = data.locations[locationId];
+      if (!isPlainObject(location)) return;
+      if (location.requires !== undefined) {
+        walkCondition(location.requires, "player", `locations.${locationId}.requires`, errors);
+      }
+      if (Array.isArray(location.links)) {
+        location.links.forEach((link, i) => {
+          if (!isPlainObject(link)) return;
+          if (typeof link.to === "string" && isPlainObject(data.locations) && !(link.to in data.locations)) {
+            errors.push(`locations.${locationId}.links[${i}].to references unknown location: ${JSON.stringify(link.to)}`);
+          }
+          if (link.requires !== undefined) {
+            walkCondition(link.requires, "player", `locations.${locationId}.links[${i}].requires`, errors);
+          }
+        });
+      }
+    });
+  }
+
+  if (isPlainObject(data.actions)) {
+    Object.keys(data.actions).forEach((actionId) => {
+      checkDataIdFormat(errors, actionId, "actions key");
+      const def = data.actions[actionId];
+      if (!isPlainObject(def)) return;
+      if (def.requires !== undefined) walkCondition(def.requires, "player", `actions.${actionId}.requires`, errors);
+      walkResolvable(def, `actions.${actionId}`, errors);
+    });
+  }
+
+  if (isPlainObject(data.choices)) {
+    Object.keys(data.choices).forEach((choiceId) => {
+      checkDataIdFormat(errors, choiceId, "choices key");
+      const choice = data.choices[choiceId];
+      if (isPlainObject(choice) && Array.isArray(choice.options)) {
+        choice.options.forEach((option, i) => {
+          if (!isPlainObject(option)) return;
+          if (option.id !== undefined) checkDataIdFormat(errors, option.id, `choices.${choiceId}.options[${i}].id`);
+          if (option.requires !== undefined) {
+            walkCondition(option.requires, "player", `choices.${choiceId}.options[${i}].requires`, errors);
+          }
+          walkResolvable(option, `choices.${choiceId}.options[${i}]`, errors);
+        });
+      }
+    });
+  }
+
+  if (isPlainObject(data.events)) {
+    Object.keys(data.events).forEach((eventId) => {
+      checkDataIdFormat(errors, eventId, "events key");
+      const event = data.events[eventId];
+      if (!isPlainObject(event)) return;
+      if (event.trigger !== undefined) walkCondition(event.trigger, "world", `events.${eventId}.trigger`, errors);
+      walkResolvable(event, `events.${eventId}`, errors);
+    });
+  }
+
+  if (data.rules?.succession !== undefined) {
+    walkEffectList(data.rules.succession, "rules.succession", errors);
+  }
+
+  if (isPlainObject(data.growthSystems)) {
+    Object.keys(data.growthSystems).forEach((systemId) => {
+      checkDataIdFormat(errors, systemId, "growthSystems key");
+      const system = data.growthSystems[systemId];
+      if (!isPlainObject(system)) return;
+      if (system.id !== undefined && system.id !== systemId) {
+        errors.push(`growthSystems.${systemId}.id (${JSON.stringify(system.id)}) does not match its key`);
+      }
+      ["stats", "proficiencies", "skills", "traits", "unlocks"].forEach((collection) => {
+        if (Array.isArray(system[collection])) {
+          system[collection].forEach((def, i) => {
+            if (isPlainObject(def) && def.id !== undefined) {
+              checkDataIdFormat(errors, def.id, `growthSystems.${systemId}.${collection}[${i}].id`);
+            }
+          });
+        }
+      });
+      if (Array.isArray(system.skills)) {
+        system.skills.forEach((skill, i) => {
+          if (isPlainObject(skill) && skill.requires !== undefined) {
+            walkCondition(skill.requires, "world", `growthSystems.${systemId}.skills[${i}].requires`, errors);
+          }
+        });
+      }
+      if (Array.isArray(system.traits)) {
+        system.traits.forEach((trait, i) => {
+          if (isPlainObject(trait) && trait.requires !== undefined) {
+            walkCondition(trait.requires, "world", `growthSystems.${systemId}.traits[${i}].requires`, errors);
+          }
+        });
+      }
+      if (isPlainObject(system.levelRewards)) {
+        Object.keys(system.levelRewards).forEach((level) => {
+          walkEffectList(system.levelRewards[level], `growthSystems.${systemId}.levelRewards.${level}`, errors);
+        });
+      }
+      if (Array.isArray(system.proficiencies)) {
+        system.proficiencies.forEach((prof, i) => {
+          if (isPlainObject(prof) && Array.isArray(prof.thresholds)) {
+            prof.thresholds.forEach((threshold, j) => {
+              if (isPlainObject(threshold) && threshold.effects !== undefined) {
+                walkEffectList(threshold.effects, `growthSystems.${systemId}.proficiencies[${i}].thresholds[${j}].effects`, errors);
+              }
+            });
+          }
+        });
+      }
+    });
+  }
+
+  ["items", "facts", "rumors", "npcs", "orgs", "texts", "cases"].forEach((collection) => {
+    if (isPlainObject(data[collection])) {
+      Object.keys(data[collection]).forEach((id) => checkDataIdFormat(errors, id, `${collection} key`));
+    }
+  });
+
+  return errors;
+}

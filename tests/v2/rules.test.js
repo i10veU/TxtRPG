@@ -7,7 +7,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { evaluateCondition } from "../../web/v2/core/rules.js";
+import { evaluateCondition, validateData } from "../../web/v2/core/rules.js";
 import { createInitialState, step } from "../../web/v2/core/engine.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -551,6 +551,238 @@ function testRumorCompositionAndInvariants() {
   assert.strictEqual(results.size, 1);
 }
 
+// V2-Core-16 (D-56): validateData(data) -> string[]
+//
+// A comprehensive, well-formed fixture (abstract IDs only, §17 of
+// DEVELOPMENT_RULES) exercising every position D-56 actually walks:
+// actions/choices/locations/events requires+effects+outcomes, rules.succession,
+// and growthSystems' skills/traits.requires, levelRewards, and proficiency
+// thresholds.effects.
+function validDataFixture() {
+  return {
+    id: "test_pack",
+    world: { id: "test_world", growthSystemId: "growth_a", startTemplateId: "tmpl_a" },
+    rules: { succession: [{ op: "relation", from: "target", to: "self", add: 1 }] },
+    growthSystems: {
+      growth_a: {
+        stats: [{ id: "stat_a" }],
+        skills: [{ id: "skill_a", requires: { op: "always" } }],
+        traits: [{ id: "trait_a", requires: { op: "not", of: { op: "never" } } }],
+        unlocks: [{ id: "unlock_a" }],
+        proficiencies: [{ id: "prof_a", thresholds: [{ at: 10, effects: [{ op: "signal", key: "sig_a", add: 1 }] }] }],
+        levelRewards: { 2: [{ op: "signal", key: "sig_b", add: 1 }] }
+      }
+    },
+    characterTemplates: {
+      tmpl_a: { kind: "player", locationId: "loc_a", hp: { max: 10 }, money: 0, inventory: {}, growth: {}, tags: [] }
+    },
+    locations: {
+      loc_a: { requires: { op: "always" }, links: [{ to: "loc_b", requires: { op: "always" }, minutes: 10 }] },
+      loc_b: {}
+    },
+    actions: {
+      act_a: {
+        requires: { op: "and", of: [{ op: "always" }, { op: "not", of: { op: "never" } }] },
+        effects: [{ op: "money", add: 1 }, { op: "if", when: { op: "always" }, then: [{ op: "signal", key: "sig_c", add: 1 }] }]
+      },
+      act_checked: { check: { difficulty: 1 }, outcomes: { success: [{ op: "flag", key: "won", value: true }], fail: [{ op: "flag", key: "lost", value: true }] } }
+    },
+    choices: {
+      choice_a: { options: [{ id: "opt_a", requires: { op: "always" }, effects: [{ op: "flag", key: "picked", value: true }] }] }
+    },
+    events: {
+      event_a: { trigger: { op: "eq", left: { signal: "sig_a" }, right: 1 }, effects: [{ op: "signal", key: "sig_d", add: 1 }] }
+    }
+  };
+}
+
+// 1. normal: a comprehensive well-formed fixture has zero errors
+function testValidateDataValid() {
+  assert.deepStrictEqual(validateData(validDataFixture()), []);
+  // minimal fixture (only the truly required top-level shape) also passes
+  assert.deepStrictEqual(validateData({}), []);
+  assert.deepStrictEqual(validateData({ id: "pack_a", world: { id: "world_a" } }), []);
+}
+
+// 2. malformed type: data itself, and nested fields, of the wrong type
+function testValidateDataMalformedType() {
+  [null, undefined, "data", 42, []].forEach((bad) => {
+    assert.doesNotThrow(() => validateData(bad));
+    assert.deepStrictEqual(validateData(bad), ["data must be a plain object"]);
+  });
+  // wrong-typed id -> format error, not a crash
+  assert.doesNotThrow(() => validateData({ id: 5 }));
+  assert.ok(validateData({ id: 5 }).some((e) => e.includes("data.id")));
+}
+
+// 3. ID format violations across every checked position
+function testValidateDataIdFormat() {
+  const data = validDataFixture();
+  data.actions["Bad-Action"] = { effects: [] };
+  data.locations["1loc"] = {};
+  data.growthSystems.growth_a.skills.push({ id: "Bad:Skill" });
+  const errors = validateData(data);
+  assert.ok(errors.some((e) => e.includes("actions key") && e.includes("Bad-Action")));
+  assert.ok(errors.some((e) => e.includes("locations key") && e.includes("1loc")));
+  assert.ok(errors.some((e) => e.includes("skills[1].id") && e.includes("Bad:Skill")));
+}
+
+// 4. referential integrity: only the concretely-anchored cross-references (D-56 (2))
+function testValidateDataReferentialIntegrity() {
+  const badWorldRef = validDataFixture();
+  badWorldRef.world.growthSystemId = "missing_system";
+  assert.ok(validateData(badWorldRef).some((e) => e.includes("growthSystemId references unknown")));
+
+  const badTemplateRef = validDataFixture();
+  badTemplateRef.world.startTemplateId = "missing_template";
+  assert.ok(validateData(badTemplateRef).some((e) => e.includes("startTemplateId references unknown")));
+
+  const badLocationRef = validDataFixture();
+  badLocationRef.characterTemplates.tmpl_a.locationId = "missing_loc";
+  assert.ok(validateData(badLocationRef).some((e) => e.includes("locationId references unknown location")));
+
+  const badLinkRef = validDataFixture();
+  badLinkRef.locations.loc_a.links[0].to = "missing_loc";
+  assert.ok(validateData(badLinkRef).some((e) => e.includes("links[0].to references unknown location")));
+
+  // unknown reference: growthSystemId given but data.growthSystems absent entirely
+  // -> not checked (nothing to cross-reference against), never throws
+  const noGrowthCollection = validDataFixture();
+  delete noGrowthCollection.growthSystems;
+  assert.doesNotThrow(() => validateData(noGrowthCollection));
+  assert.deepStrictEqual(
+    validateData(noGrowthCollection).filter((e) => e.includes("growthSystemId")),
+    []
+  );
+}
+
+// 5. unknown Condition/Effect op names, and and/or/not/if's own fixed argument shape
+function testValidateDataUnknownOpsAndStructure() {
+  const unknownEffect = validDataFixture();
+  unknownEffect.actions.act_a.effects.push({ op: "does_not_exist" });
+  assert.ok(validateData(unknownEffect).some((e) => e.includes("unknown Effect op") && e.includes("does_not_exist")));
+
+  const unknownCondition = validDataFixture();
+  unknownCondition.actions.act_a.requires = { op: "does_not_exist" };
+  assert.ok(validateData(unknownCondition).some((e) => e.includes("unknown Condition op") && e.includes("does_not_exist")));
+
+  const badIfThen = validDataFixture();
+  badIfThen.actions.act_a.effects.push({ op: "if", when: { op: "always" }, then: "not-an-array" });
+  assert.ok(validateData(badIfThen).some((e) => e.includes("if Effect") && e.includes("then must be an array")));
+
+  const badAndOf = validDataFixture();
+  badAndOf.actions.act_a.requires = { op: "and", of: "not-an-array" };
+  assert.ok(validateData(badAndOf).some((e) => e.includes("and Condition") && e.includes("must be an array")));
+
+  const badNotOf = validDataFixture();
+  badNotOf.actions.act_a.requires = { op: "not", of: [{ op: "always" }] };
+  assert.ok(validateData(badNotOf).some((e) => e.includes("not Condition") && e.includes("single Condition")));
+
+  // nested if.then is still walked recursively
+  const nestedUnknown = validDataFixture();
+  nestedUnknown.actions.act_a.effects.push({ op: "if", when: { op: "always" }, then: [{ op: "still_bogus" }] });
+  assert.ok(validateData(nestedUnknown).some((e) => e.includes("unknown Effect op") && e.includes("still_bogus")));
+}
+
+// 6. handler: missing reason, and always-unregistered (no handlers.js registry, D-04)
+function testValidateDataHandler() {
+  const data = validDataFixture();
+  data.actions.act_a.effects.push({ op: "handler", name: "x.y", params: {} });
+  const errors = validateData(data);
+  assert.ok(errors.some((e) => e.includes("missing a string \"reason\"")));
+  assert.ok(errors.some((e) => e.includes("unregistered name") && e.includes("x.y")));
+
+  const withReason = validDataFixture();
+  withReason.actions.act_a.effects.push({ op: "handler", name: "x.y", params: {}, reason: "no declarative op covers this" });
+  const errorsWithReason = validateData(withReason);
+  assert.ok(!errorsWithReason.some((e) => e.includes("missing a string")), "a present reason must not be flagged");
+  assert.ok(errorsWithReason.some((e) => e.includes("unregistered name")), "still unregistered -- no handlers.js exists");
+
+  // handler op inside a Condition position follows the same two checks
+  const conditionHandler = validDataFixture();
+  conditionHandler.actions.act_a.requires = { op: "handler", name: "x.y", params: {} };
+  assert.ok(validateData(conditionHandler).some((e) => e.includes("missing a string \"reason\"")));
+}
+
+// 7. player-context fact ban (§3.3/D-06) -- exactly the 4 player positions,
+// and NOT the world positions (trigger, if.when, skill/trait.requires)
+function testValidateDataPlayerContextFact() {
+  const positions = [
+    (d) => { d.actions.act_a.requires = { op: "fact", fact: "secret", eq: "x" }; },
+    (d) => { d.choices.choice_a.options[0].requires = { op: "fact", fact: "secret", eq: "x" }; },
+    (d) => { d.locations.loc_a.requires = { op: "fact", fact: "secret", eq: "x" }; },
+    (d) => { d.locations.loc_a.links[0].requires = { op: "fact", fact: "secret", eq: "x" }; }
+  ];
+  positions.forEach((mutate) => {
+    const data = validDataFixture();
+    mutate(data);
+    assert.ok(validateData(data).some((e) => e.includes("fact") && e.includes("player")), "player-context fact must be flagged");
+  });
+
+  // the selector form (`{fact:...}` inside eq/neq/etc.) is caught too
+  const selectorLeak = validDataFixture();
+  selectorLeak.actions.act_a.requires = { op: "eq", left: { fact: "secret" }, right: "x" };
+  assert.ok(validateData(selectorLeak).some((e) => e.includes("fact selector") && e.includes("player")));
+
+  // world-context positions must NOT be flagged: trigger, if.when, skill/trait.requires
+  const worldOk = validDataFixture();
+  worldOk.events.event_a.trigger = { op: "fact", fact: "secret", eq: "x" };
+  assert.deepStrictEqual(validateData(worldOk).filter((e) => e.includes("fact")), []);
+
+  const ifWhenOk = validDataFixture();
+  ifWhenOk.actions.act_a.effects.push({ op: "if", when: { op: "fact", fact: "secret", eq: "x" }, then: [] });
+  assert.deepStrictEqual(validateData(ifWhenOk).filter((e) => e.includes("fact")), [], "if.when is always world context, even inside a player-triggered action");
+
+  const skillRequiresOk = validDataFixture();
+  skillRequiresOk.growthSystems.growth_a.skills[0].requires = { op: "fact", fact: "secret", eq: "x" };
+  assert.deepStrictEqual(validateData(skillRequiresOk).filter((e) => e.includes("fact")), []);
+}
+
+// 8. Resolvable success/fail requirement (§2.3) -- only when `check` is present
+function testValidateDataResolvableSuccessFail() {
+  const missingFail = validDataFixture();
+  delete missingFail.actions.act_checked.outcomes.fail;
+  assert.ok(validateData(missingFail).some((e) => e.includes("outcomes.success/outcomes.fail")));
+
+  const missingOutcomesEntirely = validDataFixture();
+  delete missingOutcomesEntirely.actions.act_checked.outcomes;
+  assert.ok(validateData(missingOutcomesEntirely).some((e) => e.includes("outcomes.success/outcomes.fail")));
+
+  // missing great/partial is NOT an error -- §2.3's own fallback covers those
+  const missingGreatPartial = validDataFixture();
+  assert.deepStrictEqual(validateData(missingGreatPartial), [], "sanity: fixture has no great/partial and is still valid");
+
+  // no `check` at all -> outcomes is irrelevant, never required
+  const noCheck = validDataFixture();
+  delete noCheck.actions.act_checked.check;
+  assert.doesNotThrow(() => validateData(noCheck));
+}
+
+// 9. immutability: validateData never mutates its input, even a broken one
+function testValidateDataImmutability() {
+  const data = deepFreeze(validDataFixture());
+  const before = snapshot(data);
+  validateData(data);
+  assert.deepStrictEqual(snapshot(data), before);
+}
+
+// 10. determinism and JSON round-trip
+function testValidateDataDeterminismAndRoundTrip() {
+  const data = validDataFixture();
+  const results = new Set();
+  for (let i = 0; i < 5; i += 1) results.add(JSON.stringify(validateData(data)));
+  assert.strictEqual(results.size, 1);
+
+  const roundTripped = JSON.parse(JSON.stringify(data));
+  assert.deepStrictEqual(validateData(roundTripped), validateData(data));
+
+  // the returned error list itself is plain strings -> trivially JSON-safe
+  const withError = validDataFixture();
+  withError.actions["Bad-Id"] = { effects: [] };
+  const errors = validateData(withError);
+  assert.deepStrictEqual(JSON.parse(JSON.stringify(errors)), errors);
+}
+
 testAlwaysNever();
 testNot();
 testAndOr();
@@ -569,5 +801,15 @@ testShorthandRelation();
 testShorthandFactDayLocationCase();
 testShorthandJsonRoundTrip();
 testRumorCompositionAndInvariants();
+testValidateDataValid();
+testValidateDataMalformedType();
+testValidateDataIdFormat();
+testValidateDataReferentialIntegrity();
+testValidateDataUnknownOpsAndStructure();
+testValidateDataHandler();
+testValidateDataPlayerContextFact();
+testValidateDataResolvableSuccessFail();
+testValidateDataImmutability();
+testValidateDataDeterminismAndRoundTrip();
 
 console.log("V2-Core-02 rules.test.js: all checks passed");
