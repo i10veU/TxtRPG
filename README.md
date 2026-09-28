@@ -11,6 +11,87 @@
 - Microsoft Edge 로컬 환경을 기준으로 IndexedDB + Web Worker + Canvas 기반 확장
 - 현재 web/에는 바로 실행 가능한 TXT RPG 코어를 유지하며 이후 오프라인 엔진으로 확장
 
+## V2 코어 재작성 (`feature/v2-core`, 진행 중)
+
+기존 V1(`web/core`, `web/data`, `web/ui`, `web/worker`, `web/storage`, `web/index.html`, `web/game.js`,
+`tests/*.js`)은 그대로 유지하면서, 순수 함수 기반의 새 게임 엔진을 별도 트리(`web/v2/`)에서
+계약(contract) 우선 방식으로 병행 개발하고 있다. V1과 V2는 서로 다른 브랜치 전략과 개발 규칙을
+따르며, V2 작업은 V1 런타임 코드를 절대 수정하지 않는다.
+
+### 왜 다시 만드는가
+
+- V1은 IIFE + `window` 전역 네임스페이스 구조라 Node 테스트가 `vm` 컨텍스트를 거쳐야 했다. V2는
+  ES Module만 사용해 브라우저와 Node 테스트가 같은 소스를 그대로 import한다.
+- 엔진 로직을 `state, action, data -> {state, events}` 형태의 순수 함수로 고정해, 결정론(같은
+  seed·같은 액션 시퀀스는 항상 같은 결과)과 재현 가능한 테스트를 구조적으로 보장한다.
+- 새 콘텐츠(사건/성장/아이템/관계)를 추가할 때 엔진 코드를 바꾸지 않도록, 게임 규칙을 선언형
+  Condition/Effect DSL과 JSON 데이터로 분리한다.
+
+### 자세한 설명 — 아키텍처
+
+- **위치**: `web/v2/core/{rng,engine,rules}.js` 3개 파일만 사용한다(Ponytail 원칙 — 실제 필요가
+  생기기 전까지 파일을 분리하지 않는다).
+  - `rng.js` — FNV-1a 해시, 시드 파생, 결정론적 난수. **보호 파일**(모든 라운드에서 수정 금지).
+  - `rules.js` — `evaluateCondition`, `applyEffects`/`applyEffectList`, `check()`,
+    `validateData()`. Condition(25개 op + `handler`)과 Effect(20개 op + `handler`) DSL,
+    판정(주사위+modifier+등급) 로직, 콘텐츠 데이터 정적 검증기가 모두 여기 있다.
+  - `engine.js` — `SCHEMA_VERSION`, `createInitialState`, `step`, `view`, `validateState()`.
+    행동 처리 파이프라인(§2.5, 11단계: 스키마 검사 → action 형태 검사 → pending/사망 게이트 →
+    대상 조회 → requires → 상태 복제 → check → effects/outcomes → day 경계 → trigger → 이벤트
+    반환)과 사망/캐릭터 계승을 담당한다.
+- **핵심 계약 문서**: `docs/v2/architecture/CORE_CONTRACTS.md`(설계 전체, D-01~D-60 결정 이력,
+  §13 테스트 계약, §15 작업 이력)와 `docs/v2/DEVELOPMENT_RULES.md`(브랜치·회귀 기준·Ponytail
+  원칙 등 상위 규칙 — 두 문서가 충돌하면 DEVELOPMENT_RULES가 우선한다).
+- **데이터 모델**: `state`(schemaVersion/rng/time/actors/flags/signals/facts/knowledge/relations/
+  cases/fired 등)와 `data`(월드 정의 — actions/choices/events/locations/growthSystems/
+  characterTemplates/rules 등)를 분리하고, 둘 다 순수 JSON으로 직렬화 가능해야 한다.
+
+### 기타 설정
+
+- **개발 브랜치**: `feature/v2-core` (V1의 회귀 기준점 `v1-final` = `54593cb`에서 분기).
+- **테스트 실행**: `node tests/v2/run.js` — `tests/v2/*.test.js` 3개 파일을 모두 실행하고
+  `V2 tests: N/N passed`를 출력한다. **보호 파일**(수정 금지). V1 회귀는 기존과 동일하게
+  `tests/*.js`(`.spec.js` 제외) 41개를 개별 실행해 41/41을 확인한다.
+- **금지 사항**: 새 npm 의존성 추가 금지, 루트 `package.json` 생성 금지(V1의 CommonJS 테스트가
+  깨짐), DOM/`window`/`Date.now`/`Math.random`/`indexedDB`/`fetch` 등 호스트 API를 엔진 코드에서
+  사용 금지 — Node 22.12+의 ESM 자동 감지만으로 별도 빌드 설정 없이 동작한다.
+- **저장 계층**: 아직 구현하지 않음(정책만 확정) — IndexedDB DB명 `txtrpg_v2`, V1의
+  `AnonymousChroniclesDB`/`anonymous_chronicles_*` 키와 완전히 분리된 네임스페이스를 쓴다.
+
+### 현재 진행 단계 (V2-Core-01 ~ V2-Core-19 완료)
+
+- **엔진 핵심**: `state`/`action`/`event` 스키마, RNG, `step()` 11단계 파이프라인, Condition
+  DSL(and/or/not/eq류 6개 + shorthand 12개 + money/rumor), Effect DSL(20개 op 전부: flag/signal/
+  time/if/stat/hp/money/item/relation/skill/trait/unlock/case/exp/proficiency/fact/rumor/move/
+  choice/narrate), `check()`(주사위·modifier·등급 판정), 사망/캐릭터 계승, `choose`/`pending`
+  흐름, `day.started`/사건 trigger 단계, `view()`(플레이어 노출 투영) — 모두 구현·테스트 완료.
+- **검증 계층**: `validateState(state)`(§2.1 불변 조건 — JSON 안전성/정수 필드/ID 형식/`seq` 금지)와
+  `validateData(data)`(§11 — ID 형식, 확정된 참조 무결성, Condition/Effect op와 인자, handler
+  등록/reason, player 문맥 fact 금지, Resolvable success/fail 필수, characterTemplate.locationId
+  필수, CheckSpec shape)를 구현했다 — 둘 다 순수 함수이며 런타임 세만틱스를 바꾸지 않는다.
+- **의도적으로 미구현/보류** (근거 없이 임의로 확정하지 않는다는 원칙에 따라 blocker로 유지):
+  - `handler` — 선언형 op로 표현 불가능한 실제 사용례가 아직 없음(§4.4).
+  - `migrateState` — `schemaVersion 1`이 유일한 버전이라 마이그레이션할 구버전이 없음.
+  - D-09(`maxTotalModifier`, 판정 modifier 총합 상한) — 밸런스 테스트 데이터 없이 cap 방식을
+    정할 근거가 없음.
+  - `data.cases[*].stages[*].completeWhen`, `data.rules.relation.*.when` — 계약 어디에도 필드
+    스키마가 없음(§3.3 표 한 줄뿐).
+  - Effect 개별 op가 참조하는 콘텐츠 ID 중 명시적 "우아한 폴백"이 있는 것들(성장 정의/아이템/
+    소문/fact/case) — 존재하지 않아도 정상 동작하도록 계약이 이미 확정했으므로 검사하지 않음.
+- **실제 게임 콘텐츠**: 아직 작성되지 않음. `web/v2/data/`, `web/v2/ui/`는 생성 전이며, 현재
+  존재하는 모든 data 객체는 테스트 파일 안의 추상 ID 합성 fixture뿐이다(`stat_a`, `loc_1` 등).
+
+### 이후 진행 단계
+
+1. `data.cases[*].stages[*].completeWhen`/`data.rules.relation.*.when`의 실제 스키마를 사건/
+   퀘스트/관계 시스템 설계와 함께 확정한다(현재 blocker).
+2. 저장 계층(IndexedDB) 구현 — `migrateState`/`validateState`를 실제 로드 경로에 연결한다.
+3. `web/v2/data/`에 실제 세계관 콘텐츠(첫 세계 = 판타지, 첫 성장체계)를 작성하고, 그 과정에서
+   `handler`가 실제로 필요한 사례가 나오는지 확인한다.
+4. `web/v2/ui/`에 V2 엔진을 소비하는 최소 브라우저 진입점을 만들고, V1과 별도로 V2 브라우저
+   smoke 테스트를 추가한다.
+5. 실 콘텐츠가 쌓이면 D-09(modifier 상한)를 실제 밸런스 데이터로 재검토한다.
+
 ## 릴리스 기록
 
 - [Phase 1–205 통합 릴리스 인덱스](PHASES_1_205_RELEASE_INDEX.md)
