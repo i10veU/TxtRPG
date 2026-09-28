@@ -1637,9 +1637,12 @@ export function check(spec, ctx) {
 // handler's reason/registration (§4.4 verbatim), the player-context fact ban
 // at exactly §3.3's 4 player-context positions (D-06), and Resolvable's
 // success/fail requirement (§2.3 verbatim). Per-op argument details (e.g.
-// `stat.add` must be an integer) and the two §3.3 positions with no field
-// schema anywhere (case stages/completeWhen, rules.relation.*.when) are
-// deliberately out of scope -- see D-56.
+// `stat.add` must be an integer) are deliberately out of scope -- see D-56.
+// `data.cases[*].stages[*].completeWhen` and `data.rules.relation.*.when`
+// (D-56's two blockers) are now in scope as of D-61/D-62 (V2-Core-20): each
+// is confirmed to be exactly one Condition, world context, reusing
+// evaluateCondition/walkCondition as-is -- no new Condition system, no
+// execution-timing semantics decided here.
 
 const DATA_ID_PATTERN = /^[a-z][a-z0-9_]*$/; // same rule as §2.1's state ID format (D-55's ID_PATTERN)
 
@@ -2116,6 +2119,18 @@ export function validateData(data) {
     walkEffectList(data.rules.succession, "rules.succession", errors, data);
   }
 
+  // D-62 (V2-Core-20): data.rules.relation.*.when is exactly one Condition,
+  // world context (§3.3), reusing evaluateCondition via walkCondition as-is.
+  // Optional -- absent `when` means the rule applies unconditionally.
+  if (isPlainObject(data.rules?.relation)) {
+    Object.keys(data.rules.relation).forEach((ruleId) => {
+      const rule = data.rules.relation[ruleId];
+      if (isPlainObject(rule) && rule.when !== undefined) {
+        walkCondition(rule.when, "world", `rules.relation.${ruleId}.when`, errors);
+      }
+    });
+  }
+
   if (isPlainObject(data.growthSystems)) {
     Object.keys(data.growthSystems).forEach((systemId) => {
       checkDataIdFormat(errors, systemId, "growthSystems key");
@@ -2171,6 +2186,25 @@ export function validateData(data) {
       Object.keys(data[collection]).forEach((id) => checkDataIdFormat(errors, id, `${collection} key`));
     }
   });
+
+  // D-61 (V2-Core-20): data.cases[*].stages[*].completeWhen is exactly one
+  // Condition, world context (§3.3), reusing evaluateCondition via
+  // walkCondition as-is. Optional -- absent completeWhen means the stage has
+  // no auto-complete condition. `stages` itself has no confirmed schema
+  // beyond "an array" (D-59 remains a blocker for everything else about it),
+  // so a case entry without an array `stages` is simply skipped here.
+  if (isPlainObject(data.cases)) {
+    Object.keys(data.cases).forEach((caseId) => {
+      const caseDef = data.cases[caseId];
+      if (isPlainObject(caseDef) && Array.isArray(caseDef.stages)) {
+        caseDef.stages.forEach((stage, i) => {
+          if (isPlainObject(stage) && stage.completeWhen !== undefined) {
+            walkCondition(stage.completeWhen, "world", `cases.${caseId}.stages[${i}].completeWhen`, errors);
+          }
+        });
+      }
+    });
+  }
 
   return errors;
 }
