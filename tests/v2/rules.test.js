@@ -1257,4 +1257,149 @@ testValidateDataLocationIdAndCheckShapeInvalid();
 testValidateDataLocationIdAndCheckShapeBoundary();
 testValidateDataLocationIdAndCheckShapeInvariants();
 
+// -- V2-Core-20 (D-61/D-62): case stage completeWhen / relation rule when --
+// both are exactly one Condition, optional, world context (§3.3), reusing
+// evaluateCondition/walkCondition as-is. No new Condition system.
+
+function withCaseStage(stage, extraData) {
+  return { cases: { case_a: { stages: [stage] } }, ...extraData };
+}
+
+function withRelationRule(rule, extraData) {
+  return { rules: { relation: { rule_a: rule } }, ...extraData };
+}
+
+// 1: normal Condition, field omitted, nested logical Condition -- both positions
+function testValidateDataCaseAndRelationWhenValid() {
+  // completeWhen present, a plain fact Condition (world context -- no D-06 ban)
+  assert.deepStrictEqual(validateData(withCaseStage({ id: "stage_a", completeWhen: { op: "fact", fact: "f1" } })), []);
+  // completeWhen omitted entirely
+  assert.deepStrictEqual(validateData(withCaseStage({ id: "stage_a" })), []);
+  // nested logical Condition (and/not/flag)
+  assert.deepStrictEqual(
+    validateData(withCaseStage({
+      id: "stage_a",
+      completeWhen: { op: "and", of: [{ op: "fact", fact: "f1" }, { op: "not", of: { op: "flag", key: "k1" } }] }
+    })),
+    []
+  );
+
+  // relation rule when: present, omitted, nested logical
+  assert.deepStrictEqual(validateData(withRelationRule({ when: { op: "fact", fact: "f1" } })), []);
+  assert.deepStrictEqual(validateData(withRelationRule({})), []);
+  assert.deepStrictEqual(
+    validateData(withRelationRule({
+      when: { op: "and", of: [{ op: "fact", fact: "f1" }, { op: "not", of: { op: "flag", key: "k1" } }] }
+    })),
+    []
+  );
+
+  // neither data.cases nor data.rules.relation present at all
+  assert.deepStrictEqual(validateData({}), []);
+}
+
+// 2: malformed (non-object) and unknown op, both positions
+function testValidateDataCaseAndRelationWhenInvalid() {
+  assert.deepStrictEqual(
+    validateData(withCaseStage({ id: "stage_a", completeWhen: null })),
+    ["Condition at cases.case_a.stages[0].completeWhen must be a plain object"]
+  );
+  assert.deepStrictEqual(
+    validateData(withCaseStage({ id: "stage_a", completeWhen: [] })),
+    ["Condition at cases.case_a.stages[0].completeWhen must be a plain object"]
+  );
+  assert.deepStrictEqual(
+    validateData(withCaseStage({ id: "stage_a", completeWhen: "fact" })),
+    ["Condition at cases.case_a.stages[0].completeWhen must be a plain object"]
+  );
+  assert.deepStrictEqual(
+    validateData(withCaseStage({ id: "stage_a", completeWhen: { op: "does_not_exist" } })),
+    ['unknown Condition op at cases.case_a.stages[0].completeWhen: "does_not_exist"']
+  );
+
+  assert.deepStrictEqual(
+    validateData(withRelationRule({ when: null })),
+    ["Condition at rules.relation.rule_a.when must be a plain object"]
+  );
+  assert.deepStrictEqual(
+    validateData(withRelationRule({ when: [] })),
+    ["Condition at rules.relation.rule_a.when must be a plain object"]
+  );
+  assert.deepStrictEqual(
+    validateData(withRelationRule({ when: "fact" })),
+    ["Condition at rules.relation.rule_a.when must be a plain object"]
+  );
+  assert.deepStrictEqual(
+    validateData(withRelationRule({ when: { op: "does_not_exist" } })),
+    ['unknown Condition op at rules.relation.rule_a.when: "does_not_exist"']
+  );
+}
+
+// 3: boundary -- world context allows `fact` (no D-06 ban), non-array
+// `stages`/non-object case or rule entries are skipped (not invented
+// structure), multiple bad stages/rules each reported independently
+function testValidateDataCaseAndRelationWhenBoundary() {
+  // world context: `fact` Condition is NOT flagged as a player-context leak
+  assert.deepStrictEqual(
+    validateData(withCaseStage({ id: "stage_a", completeWhen: { op: "fact", fact: "f1" } })),
+    []
+  );
+  assert.deepStrictEqual(
+    validateData(withRelationRule({ when: { op: "fact", fact: "f1" } })),
+    []
+  );
+
+  // `stages` not an array -> skipped entirely (D-59's remaining blocker: no
+  // schema for anything about `stages` beyond "an array")
+  assert.deepStrictEqual(validateData({ cases: { case_a: { stages: "not-an-array" } } }), []);
+  assert.deepStrictEqual(validateData({ cases: { case_a: { stages: { completeWhen: null } } } }), []);
+  // case entry itself not a plain object -> skipped
+  assert.deepStrictEqual(validateData({ cases: { case_a: "not-an-object" } }), []);
+
+  // data.rules.relation not a plain object, or a rule entry not a plain
+  // object -> skipped entirely
+  assert.deepStrictEqual(validateData({ rules: { relation: "not-an-object" } }), []);
+  assert.deepStrictEqual(validateData({ rules: { relation: { rule_a: "not-an-object" } } }), []);
+
+  // two case stages, each with a malformed completeWhen -> both reported
+  const twoBadStages = validateData({
+    cases: { case_a: { stages: [{ completeWhen: null }, { completeWhen: [] }] } }
+  });
+  assert.deepStrictEqual(twoBadStages, [
+    "Condition at cases.case_a.stages[0].completeWhen must be a plain object",
+    "Condition at cases.case_a.stages[1].completeWhen must be a plain object"
+  ]);
+
+  // two relation rules, each with a malformed when -> both reported
+  const twoBadRules = validateData({
+    rules: { relation: { rule_a: { when: null }, rule_b: { when: [] } } }
+  });
+  assert.strictEqual(twoBadRules.length, 2);
+  assert.ok(twoBadRules.some((e) => e.includes("rules.relation.rule_a.when")));
+  assert.ok(twoBadRules.some((e) => e.includes("rules.relation.rule_b.when")));
+}
+
+// immutability, determinism, JSON round-trip
+function testValidateDataCaseAndRelationWhenInvariants() {
+  const data = deepFreeze({
+    cases: { case_a: { stages: [{ id: "stage_a", completeWhen: { op: "does_not_exist" } }] } },
+    rules: { relation: { rule_a: { when: { op: "and", of: [{ op: "fact", fact: "f1" }] } } } }
+  });
+  const before = snapshot(data);
+  const errors1 = validateData(data);
+  assert.deepStrictEqual(snapshot(data), before, "validateData must not mutate its input");
+
+  const results = new Set();
+  for (let i = 0; i < 5; i += 1) results.add(JSON.stringify(validateData(data)));
+  assert.strictEqual(results.size, 1, "determinism: same input -> same errors every time");
+
+  const roundTripped = JSON.parse(JSON.stringify(data));
+  assert.deepStrictEqual(validateData(roundTripped), errors1, "JSON round-trip must not change the result");
+}
+
+testValidateDataCaseAndRelationWhenValid();
+testValidateDataCaseAndRelationWhenInvalid();
+testValidateDataCaseAndRelationWhenBoundary();
+testValidateDataCaseAndRelationWhenInvariants();
+
 console.log("V2-Core-02 rules.test.js: all checks passed");
