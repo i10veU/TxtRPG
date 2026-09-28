@@ -506,10 +506,11 @@ rollDie(rng, sides)    = nextUint32의 value % sides + 1
 > 연산자와 동일하게 "둘 중 하나라도 해석 실패 → 거짓"을 최우선으로 적용한 뒤에만 각자의 비교
 > 규칙(`===`, `!==`, 숫자만 허용하는 순서 비교)을 적용한다.
 
-따라서 Growth/Item/RelationshipGraph 세부(§6/§7 나머지)나 Fact/Rumor(§8)가 아직 구현되지 않은 지금
-시점에도 `stat`/`skill`/`proficiency`/`item`/`money`/`rumor` selector를 쓴 비교는 런타임 오류 없이
-안전하게 "항상 거짓"으로 동작한다. 각 시스템이 실제로 state에 필드를 추가하면, 이 resolver 코드를
-바꾸지 않고도 자동으로 실제 값을 비교하게 된다.
+이 설계 덕분에 (V2-Core-02 작성 시점처럼) Growth/Item/RelationshipGraph/Fact/Rumor가 아직 구현되지
+않았던 때도 `stat`/`skill`/`proficiency`/`item`/`money`/`rumor` selector를 쓴 비교는 런타임 오류 없이
+안전하게 "항상 거짓"으로 동작했다. Growth/Item/Fact/Rumor는 이제 전부 구현됐고(§4.2, §6, §7, §8),
+`rumor`도 D-24(V2-Core-15)로 확정됐다 — 각 시스템이 실제로 state에 필드를 추가하는 시점에 이
+resolver 코드를 바꾸지 않고도 자동으로 실제 값을 비교하게 된다는 성질을 그대로 활용한 것이다.
 
 ### 3.3 사용처 (모두 같은 평가기를 사용)
 
@@ -630,11 +631,16 @@ rollDie(rng, sides)    = nextUint32의 value % sides + 1
 
 ### 4.3 Effect 대상이 없을 때 (D-29 확정)
 
-- 정적 참조(데이터에 적힌 ID)는 `validateData`가 존재 여부를 검사한다. D-56(V2-Core-16)에서 구현한
+- 정적 참조(데이터에 적힌 ID)는 `validateData`가 존재 여부를 검사한다. D-56(V2-Core-16)이 구현한
   범위는 `world.growthSystemId`/`.startTemplateId`, `characterTemplates[*].locationId`,
-  `locations[*].links[*].to`뿐이다 — 각 Effect op가 참조하는 개별 ID(item/growth stat·skill·trait·
-  proficiency·unlock/case/rumor 정의 등)까지의 참조 무결성은 op별 malformed 스키마를 새로 정의해야
-  하는 더 큰 결정이라 여전히 미구현이다(D-56 (2)/(3) 참고, blocker).
+  `locations[*].links[*].to`이며, D-58(V2-Core-18)이 `choice`→`data.choices`와
+  `check.difficulty`(문자열)→`data.rules.check.difficulties`를, D-60(V2-Core-19)이
+  `characterTemplates[*].locationId`의 필수 여부(존재 자체)와 `check`/`difficulty`의 shape을
+  더 넓혔다. item/growth stat·skill·trait·proficiency·unlock/case/rumor 정의가 참조하는 개별
+  ID는 **의도적으로 범위 밖**이다 — op별 malformed 스키마를 발명해야 해서가 아니라(D-58 재검토
+  결과), §4.2/§6.4/§8.3이 이미 "정의를 못 찾으면 그대로/우아하게 적용"을 명시적으로 선언해 참조가
+  없어도 정상 동작이 보장되기 때문이다(D-58 참고, blocker 아님 — 검사하면 오히려 이미 확정된
+  기능을 깨뜨리는 새 제약이 된다).
 - 동적 참조(`target`)는 Resolvable을 통해 들어올 경우 step 2~4단계에서 존재하지 않으면 reject된다.
   하지만 `applyEffects`는 Resolvable/step 없이도 독립적으로 호출될 수 있고(D-40, 아직 `step()`에
   연결되지 않음), trigger(§2.5 10단계)나 사망 후 succession(§9)처럼애초에 2~4단계를 거치지 않는
@@ -1349,7 +1355,7 @@ state.knowledge["player_1"]["rum_a"] = {
 | D-34 | 중첩 Effect 순서 / 목록 중간 사망 | **확정(resolved, 4.1절/4.2절/9절, V2-Core-10)**: 중첩(`if.then`/`else`)은 depth-first로 즉시 실행하며 작업 사본을 공유한다(기존 확정 유지). 사망은 Effect 리스트 처리를 **중단시키지 않는다** — 어떤 Effect도 "조건에 따라 나머지를 건너뛴다"는 로직이 없으므로(4.1절 순차 적용 원칙 그대로), 사망 트리거를 추가하면서 새 조기 종료 메커니즘도 만들지 않았다. 이미 죽은 actor에게 이어지는 Effect도 평소대로 적용된다(예: 죽은 actor에게 `stat`을 더해도 그대로 적용됨). `actor.died`는 alive→dead **전이 시점에만** 1회 발생하도록 `actor.alive !== false` 가드로 중복을 막는다 |
 | D-35 | `choice`/`pending` 세부 (`sourceId` 출처, `pending` 충돌 우선순위) | **확정(resolved, 4.2절/11절, V2-Core-12)**: `pending.kind="choice"`는 `{kind:"choice", choiceId, sourceId?}`(2.1절 예시 그대로). `sourceId`는 콘텐츠 작성자가 `choice` Effect에 직접 넘기는 불투명 라벨이며 엔진이 호출 스택을 추론하지 않는다. 같은 Effect 리스트 안에서 `choice`(또는 사망으로 인한 `newCharacter`)가 여러 번 겹치면 나중 것이 이긴다 — 새 우선순위 규칙이 아니라 4.1절의 "Effect는 순서대로 적용되고 나중 쓰기가 이긴다"는 이미 있는 원칙 그대로다. `choose`는 `data.choices[pending.choiceId].options[]` 배열에서 `id === action.optionId`인 원소(Resolvable, `id` 필드는 6.2절 Growth 정의들과 같은 식별자 관례를 그대로 재사용)를 찾아 `perform`과 동일한 해석기(requires→check/effects→outcomes→minutes)로 처리한다(2.3절 "하나의 해석기"). 존재하지 않는 choice/option은 모두 `unknown_option`(고정 9개 reason 중 가장 가까운 것 재사용, 새 코드 없음). 만료(TTL) 개념은 계약에 없으므로 만들지 않는다 — 답할 때까지 무기한 유지된다. `choose` 성공 시 `state.pending = null`(D-47의 `startCharacter` 소비 패턴과 동일) |
 | D-36 | Effect 구현 코드 위치 | **확정**: `web/v2/core/rules.js`에 둔다. 별도 `effects.js`를 만들지 않는다 (Ponytail — 파일 3개 계획, 1.3절) |
-| D-37 | 인자 이름 통일 | **재검토 후 확정** (`flag`/`signal`/`time`/`stat`/`hp`/`money`/`item`/`relation`): 강제로 하나의 이름에 통일하지 않고, op마다 자연스러운 이름을 쓴다 — `flag.value`, `signal.add`, `time.minutes`, `stat.{stat,add,subject?,system?}`, `hp.{add,subject?}`, `money.{add,subject?}`, `item.{item,add,subject?}`, `relation.{from?,to?,add?}`(`mode`/`tag`/`untag`는 문법만 예약, 미구현). 모두 4.2절 표에 이미 있던 이름을 그대로 썼다. `exp.amount` vs `add`, `proficiency`의 `id` 등 나머지 불일치는 아직 미해결이며 각 op 구현 시 정리한다 (4.2절) |
+| D-37 | 인자 이름 통일 | **재검토 후 확정** (`flag`/`signal`/`time`/`stat`/`hp`/`money`/`item`/`relation`): 강제로 하나의 이름에 통일하지 않고, op마다 자연스러운 이름을 쓴다 — `flag.value`, `signal.add`, `time.minutes`, `stat.{stat,add,subject?,system?}`, `hp.{add,subject?}`, `money.{add,subject?}`, `item.{item,add,subject?}`, `relation.{from?,to?,add?}`. 모두 4.2절 표에 이미 있던 이름을 그대로 썼다. (당시 미구현이었던 `relation`의 `mode`/`tag`/`untag`는 D-43/V2-Core-07에서, `exp.amount`/`proficiency.id`는 D-41/D-42/V2-Core-06에서 각각 이 이름 그대로 구현·확정됐다 — "나머지 불일치는 각 op 구현 시 정리한다"던 이 행의 계획이 실제로 실행된 결과이며, 통일하지 않기로 한 원칙 자체는 그대로 유지된다.) |
 | D-38 | 등록되지 않은 handler name | **정책만 정리, handler 자체는 미구현**: Condition의 `handler`는 Condition의 malformed 정책(false)을, Effect의 `handler`는 Effect의 malformed 정책(throw)을 따른다. 서로 다른 시스템이 각자의 기존 정책을 그대로 적용하는 것이므로 모순이 아니다 (4.4절) |
 | D-39 | `time` Effect와 day 경계 | **확정**: `time` Effect는 `minute`만 전진시키고 `day.started`를 만들지 않는다. day 경계 판정은 `step()` 9단계의 책임이다 (4.2절) |
 | D-40 | `engine.js`의 `wait`와 `applyEffects` 통합 여부 | **확정, V2-Core-03~10 범위 한정("이번엔 하지 않음")이었으나 V2-Core-11에서 해제됨**: V2-Core-03~10에서는 `engine.js`를 수정하거나 `step()`에 연결하지 않았다(`applyEffects`는 독립적으로만 존재). V2-Core-11부터 `engine.js` 보호가 해제되어 `step()`이 `applyEffectList`(rules.js에서 새로 export)를 재사용해 `perform`/`move`/`startCharacter`를 처리한다(D-47/D-48) |
