@@ -31,7 +31,8 @@
 
 - **위치**: 엔진 코어는 `web/v2/core/{rng,engine,rules}.js` 3개 파일만 사용한다(Ponytail 원칙 —
   실제 필요가 생기기 전까지 파일을 분리하지 않는다). 저장 계층은 코어 밖의 별도 어댑터
-  `web/v2/storage/idb.js` 1개 파일이다 — 엔진은 이 파일을 import하지 않는다.
+  `web/v2/storage/idb.js` 1개 파일이다 — 엔진은 이 파일을 import하지 않는다. 세계관 데이터는
+  `web/v2/data/world.js` 1개 파일이다(콘텐츠가 실제로 커질 때만 분리한다).
   - `rng.js` — FNV-1a 해시, 시드 파생, 결정론적 난수. **보호 파일**(모든 라운드에서 수정 금지).
   - `rules.js` — `evaluateCondition`, `applyEffects`/`applyEffectList`, `check()`,
     `validateData()`. Condition(25개 op + `handler`)과 Effect(20개 op + `handler`) DSL,
@@ -44,7 +45,9 @@
     함수뿐인 IndexedDB adapter(Ponytail — repository/DAO 추상화 없음). `engine.js`의
     `validateState`/`migrateState`/`SCHEMA_VERSION`을 그대로 재사용해 저장/로드 경계를 검증하고,
     IndexedDB/`Date.now`를 쓰는 V2의 유일한 파일이다.
-- **핵심 계약 문서**: `docs/v2/architecture/CORE_CONTRACTS.md`(설계 전체, D-01~D-64 결정 이력,
+  - `data/world.js` — 첫 실제 세계관 데이터팩("변경 마을" 시나리오, V2-Core-22). `validateData`를
+    그대로 통과하며, 엔진 코드는 전혀 바꾸지 않는다.
+- **핵심 계약 문서**: `docs/v2/architecture/CORE_CONTRACTS.md`(설계 전체, D-01~D-65 결정 이력,
   §13 테스트 계약, §15 작업 이력)와 `docs/v2/DEVELOPMENT_RULES.md`(브랜치·회귀 기준·Ponytail
   원칙 등 상위 규칙 — 두 문서가 충돌하면 DEVELOPMENT_RULES가 우선한다).
 - **데이터 모델**: `state`(schemaVersion/rng/time/actors/flags/signals/facts/knowledge/relations/
@@ -54,12 +57,15 @@
 ### 기타 설정
 
 - **개발 브랜치**: `feature/v2-core` (V1의 회귀 기준점 `v1-final` = `54593cb`에서 분기).
-- **테스트 실행**: `node tests/v2/run.js` — `tests/v2/*.test.js` 4개 파일(core/effects/rules/
-  storage)을 모두 실행하고 `V2 tests: N/N passed`를 출력한다. **보호 파일**(수정 금지). 실제
-  IndexedDB를 쓰는 브라우저 smoke는 별도로 `npx playwright test tests/v2-storage-browser.spec.js`로
-  실행한다(Node 테스트는 IndexedDB를 mock하는 새 의존성을 추가하지 않고 순수 함수만 검증한다).
-  V1 회귀는 기존과 동일하게 `tests/*.js`(`.spec.js` 제외) 41개를 개별 실행해 41/41을 확인한다.
-  CI(`Unit & regression`/`Browser smoke`)가 두 계층 모두 매 PR마다 자동으로 검증한다.
+- **테스트 실행**: `node tests/v2/run.js` — `tests/v2/*.test.js` 5개 파일(core/effects/rules/
+  storage/data-world)을 모두 실행하고 `V2 tests: N/N passed`를 출력한다. **보호 파일**(수정 금지).
+  `data-world.test.js`가 실제 세계관 데이터(`web/v2/data/world.js`)를 쓰는 유일한 테스트 파일이다
+  (DEVELOPMENT_RULES §17 — 다른 테스트는 여전히 추상 ID 합성 fixture만 쓴다). 실제 IndexedDB를
+  쓰는 브라우저 smoke는 별도로 `npx playwright test tests/v2-storage-browser.spec.js
+  tests/v2-data-world-browser.spec.js`로 실행한다(Node 테스트는 IndexedDB를 mock하는 새 의존성을
+  추가하지 않고 순수 함수만 검증한다). V1 회귀는 기존과 동일하게 `tests/*.js`(`.spec.js` 제외)
+  41개를 개별 실행해 41/41을 확인한다. CI(`Unit & regression`/`Browser smoke`)가 두 계층 모두
+  매 PR마다 자동으로 검증한다.
 - **금지 사항**: 새 npm 의존성 추가 금지, 루트 `package.json` 생성 금지(V1의 CommonJS 테스트가
   깨짐), DOM/`window`/`Date.now`/`Math.random`/`indexedDB`/`fetch` 등 호스트 API를 엔진 코드
   (`web/v2/core/*`)에서 사용 금지 — Node 22.12+의 ESM 자동 감지만으로 별도 빌드 설정 없이 동작한다.
@@ -68,7 +74,7 @@
   (keyPath `slot`), V1의 `AnonymousChroniclesDB`/`anonymous_chronicles_*` 키와 완전히 분리된
   네임스페이스를 쓴다.
 
-### 현재 진행 단계 (V2-Core-01 ~ V2-Core-21 완료)
+### 현재 진행 단계 (V2-Core-01 ~ V2-Core-22 완료)
 
 - **엔진 핵심**: `state`/`action`/`event` 스키마, RNG, `step()` 11단계 파이프라인, Condition
   DSL(and/or/not/eq류 6개 + shorthand 12개 + money/rumor), Effect DSL(20개 op 전부: flag/signal/
@@ -89,18 +95,26 @@
   - `data.cases[*].stages[*]`/`data.rules.relation.*`의 `completeWhen`/`when` **자체**는 D-61/D-62로
     "Condition 하나"까지 확정됐지만, 그 평가 시점(stage 전이 실행)과 relation rule의 effect/
     우선순위/실행 cadence는 여전히 스키마가 없다 — 사건/퀘스트/관계 시스템 설계와 함께 결정한다.
+  - `data.facts[id].initial`(고정값/`pickFrom` seed 초기화, §8.1) — 이를 읽어 `state.facts`를
+    채우는 런타임 코드가 아직 없다(D-65, V2-Core-22에서 재확인). `state.facts`는 지금은 오직
+    `fact` Effect로만 채워진다.
   - Effect 개별 op가 참조하는 콘텐츠 ID 중 명시적 "우아한 폴백"이 있는 것들(성장 정의/아이템/
     소문/fact/case) — 존재하지 않아도 정상 동작하도록 계약이 이미 확정했으므로 검사하지 않음.
-- **실제 게임 콘텐츠**: 아직 작성되지 않음. `web/v2/data/`, `web/v2/ui/`는 생성 전이며, 현재
-  존재하는 모든 data 객체는 테스트 파일 안의 추상 ID 합성 fixture뿐이다(`stat_a`, `loc_1` 등).
+- **실제 게임 콘텐츠**: `web/v2/data/world.js`에 첫 실제 세계관 데이터팩이 생겼다(V2-Core-22) —
+  "변경 마을" 시나리오 하나(world 1개, location 3개, action 5개(`choice` 1개 포함), growthSystem
+  1개, item 2개, fact/rumor 각 1개, npc 2명 + org 1개). `validateData`를 그대로 통과하며(`[]`),
+  `handler`/D-09/completeWhen·relation rule 실행 semantics/`data.facts[*].initial` 중 어느 것에도
+  기대지 않고 이미 구현된 계약만으로 `data → createInitialState → step → view → save/load` 전체
+  경로를 실제로 검증한다. `web/v2/ui/`는 여전히 생성 전이다 — 이번 단계의 목적은 UI가 아니라
+  엔진/저장 계층을 실제 콘텐츠로 관통시키는 것이었다.
 
 ### 이후 진행 단계
 
-1. `web/v2/data/`에 실제 세계관 콘텐츠(첫 세계 = 판타지, 첫 성장체계)를 작성하고, 그 과정에서
-   `handler`와 `data.cases[*].stages`/`data.rules.relation.*`의 나머지 구조(전이 실행/effect/
-   우선순위/cadence)가 실제로 필요한 형태를 확인한다.
-2. `web/v2/ui/`에 V2 엔진 + 저장 어댑터를 소비하는 최소 브라우저 진입점을 만들고, V1과 별도로
-   V2 게임플레이 브라우저 smoke 테스트를 추가한다.
+1. `web/v2/ui/`에 V2 엔진 + 저장 어댑터 + `web/v2/data/world.js`를 소비하는 최소 브라우저
+   진입점을 만들고, V1과 별도로 V2 게임플레이 브라우저 smoke 테스트를 추가한다.
+2. 콘텐츠가 더 쌓이면 `handler`, `data.cases[*].stages`/`data.rules.relation.*`의 나머지 구조
+   (전이 실행/effect/우선순위/cadence), `data.facts[*].initial` seed 시딩이 실제로 필요한 형태를
+   확인하고 그때 각각 결정한다.
 3. 실 콘텐츠가 쌓이면 D-09(modifier 상한)를 실제 밸런스 데이터로 재검토한다.
 
 ## 릴리스 기록
