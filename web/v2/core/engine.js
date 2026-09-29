@@ -113,6 +113,25 @@ function buildActorFromTemplate(id, template) {
   };
 }
 
+// The provenance a state records about where it came from (§2.1 dataRef,
+// D-03 worldId), derived from a data pack and a worldSeed. Shared by
+// createInitialState (records it) and checkDataCompatibility (re-derives it
+// for the CURRENT pack, D-68) so the two can never drift apart. `version` is
+// left out when undefined: that is exactly the JSON form of `version:
+// undefined`, and it keeps the state JSON-safe (§2.1); no other rule about
+// `version` is applied (D-68).
+function deriveProvenance(data, worldSeed) {
+  const provenance = {};
+  if (typeof data?.id === "string") {
+    provenance.dataRef = { id: data.id };
+    if (data.version !== undefined) provenance.dataRef.version = data.version;
+  }
+  if (typeof data?.world?.id === "string") {
+    provenance.worldId = data.world.id + "_" + hashString(String(worldSeed)).toString(16); // D-03
+  }
+  return provenance;
+}
+
 // { worldSeed, data? } -> { state, events }. `data` is optional (D-47): when
 // it lacks a usable `world.startTemplateId` + characterTemplate, the result
 // is byte-for-byte the same minimal V2-Core-01 state as before (no player,
@@ -128,12 +147,9 @@ export function createInitialState({ worldSeed, data }) {
     time: { minute: 0 }
   };
 
-  if (typeof data?.id === "string") {
-    state.dataRef = { id: data.id, version: data.version };
-  }
-  if (typeof data?.world?.id === "string") {
-    state.worldId = data.world.id + "_" + hashString(String(worldSeed)).toString(16); // D-03
-  }
+  const provenance = deriveProvenance(data, worldSeed);
+  if (provenance.dataRef !== undefined) state.dataRef = provenance.dataRef;
+  if (provenance.worldId !== undefined) state.worldId = provenance.worldId;
 
   const templateId = data?.world?.startTemplateId;
   const template = typeof templateId === "string" ? data.characterTemplates?.[templateId] : undefined;
@@ -618,5 +634,41 @@ export function validateState(state) {
     errors.push("state must not have a seq field (§2.1/§2.4)");
   }
 
+  return errors;
+}
+
+// Provenance is compared as its JSON form: that is what a saved state holds,
+// and `undefined` (absent) only equals absent. Anything unserializable can
+// never equal a derived value (real JSON output never looks like this
+// marker), so it counts as a mismatch instead of throwing.
+function provenanceJson(value) {
+  try {
+    return JSON.stringify(value);
+  } catch {
+    return "(unserializable)";
+  }
+}
+
+// checkDataCompatibility(state, data) -> string[] (D-68). Is `state` usable
+// with the CURRENT data pack `data`? Empty array = yes. A state is compatible
+// iff its recorded provenance equals what createInitialState would record for
+// (data, state.worldSeed): same `dataRef` ({id, version}, exact match -- the
+// version is an opaque label, no ordering or ranges) and same `worldId`
+// (D-03). A different worldSeed with the same pack is compatible: the state
+// carries its own seed and rng. Missing or malformed provenance is a
+// mismatch. Pure and read-only, never throws (same contract as validateState);
+// it says nothing about schemaVersion (migrateState, D-63) or state shape
+// (validateState, D-55), and it never repairs or migrates anything.
+export function checkDataCompatibility(state, data) {
+  if (!isPlainObject(state)) return ["state must be a plain object"];
+  const expected = deriveProvenance(data, state.worldSeed);
+  const errors = [];
+  const describe = (value) => (value === undefined ? "none" : provenanceJson(value));
+  if (provenanceJson(state.dataRef) !== provenanceJson(expected.dataRef)) {
+    errors.push(`dataRef mismatch: state has ${describe(state.dataRef)}, current data pack has ${describe(expected.dataRef)}`);
+  }
+  if (provenanceJson(state.worldId) !== provenanceJson(expected.worldId)) {
+    errors.push(`worldId mismatch: state has ${describe(state.worldId)}, current data pack derives ${describe(expected.worldId)}`);
+  }
   return errors;
 }

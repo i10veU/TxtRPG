@@ -40,7 +40,8 @@
     `validateData()`. Condition(25개 op + `handler`)과 Effect(20개 op + `handler`) DSL,
     판정(주사위+modifier+등급) 로직, 콘텐츠 데이터 정적 검증기가 모두 여기 있다.
   - `engine.js` — `SCHEMA_VERSION`, `createInitialState`, `step`, `view`, `migrateState()`,
-    `validateState()`. 행동 처리 파이프라인(§2.5, 11단계: 스키마 검사 → action 형태 검사 →
+    `validateState()`, `checkDataCompatibility()`(D-68 — state가 현재 데이터팩과 호환되는지 판정하는
+    순수 함수). 행동 처리 파이프라인(§2.5, 11단계: 스키마 검사 → action 형태 검사 →
     pending/사망 게이트 → 대상 조회 → requires → 상태 복제 → check → effects/outcomes → day
     경계 → trigger → 이벤트 반환)과 사망/캐릭터 계승을 담당한다.
   - `storage/idb.js` — `save(slot, state, metadata)`/`load(slot)`/`list()`/`remove(slot)` 4개
@@ -59,14 +60,15 @@
 ### 기타 설정
 
 - **개발 브랜치**: `feature/v2-core` (V1의 회귀 기준점 `v1-final` = `54593cb`에서 분기).
-- **테스트 실행**: `node tests/v2/run.js` — `tests/v2/*.test.js` 7개 파일(core/effects/rules/
-  storage/data-world/data-world-lifecycle/save-compat-view)을 모두 실행하고 `V2 tests: N/N passed`를
-  출력한다. **보호 파일**(수정 금지). `data-world.test.js`, `data-world-lifecycle.test.js`,
-  `save-compat-view.test.js`가 실제 세계관 데이터(`web/v2/data/world.js`)를 쓰는 테스트 파일이다
-  (DEVELOPMENT_RULES §17 — 다른 테스트는 여전히 추상 ID 합성 fixture만 쓴다). 실제 IndexedDB/브라우저를
-  쓰는 smoke는 별도로 `npx playwright test tests/v2-storage-browser.spec.js
-  tests/v2-data-world-browser.spec.js tests/v2-ui-browser.spec.js tests/v2-ui-lifecycle-browser.spec.js
-  tests/v2-ui-view-boundary-browser.spec.js`로 실행한다(Node 테스트는 IndexedDB를 mock하는 새 의존성을
+- **테스트 실행**: `node tests/v2/run.js` — `tests/v2/*.test.js` 8개 파일(core/effects/rules/
+  storage/data-world/data-world-lifecycle/save-compat-view/save-compat-policy)을 모두 실행하고
+  `V2 tests: N/N passed`를 출력한다. **보호 파일**(수정 금지). `data-world.test.js`,
+  `data-world-lifecycle.test.js`, `save-compat-view.test.js`, `save-compat-policy.test.js`가 실제 세계관
+  데이터(`web/v2/data/world.js`)를 쓰는 테스트 파일이다(DEVELOPMENT_RULES §17 — 다른 테스트는 여전히
+  추상 ID 합성 fixture만 쓴다). 실제 IndexedDB/브라우저를 쓰는 smoke는 별도로 `npx playwright test
+  tests/v2-storage-browser.spec.js tests/v2-data-world-browser.spec.js tests/v2-ui-browser.spec.js
+  tests/v2-ui-lifecycle-browser.spec.js tests/v2-ui-view-boundary-browser.spec.js
+  tests/v2-ui-save-compat-browser.spec.js`로 실행한다(Node 테스트는 IndexedDB를 mock하는 새 의존성을
   추가하지 않고 순수 함수만 검증한다). V1 회귀는 기존과 동일하게 `tests/*.js`(`.spec.js` 제외)
   41개를 개별 실행해 41/41을 확인한다. CI(`Unit & regression`/`Browser smoke`)가 두 계층 모두
   매 PR마다 자동으로 검증한다.
@@ -76,9 +78,11 @@
   저장 어댑터(`web/v2/storage/idb.js`)는 코어 밖이므로 IndexedDB/`Date.now` 사용이 허용된다.
 - **저장 계층**: 구현 완료(D-63/D-64, V2-Core-21) — IndexedDB DB명 `txtrpg_v2`, 스토어 `saves`
   (keyPath `slot`), V1의 `AnonymousChroniclesDB`/`anonymous_chronicles_*` 키와 완전히 분리된
-  네임스페이스를 쓴다.
+  네임스페이스를 쓴다. 저장소는 현재 데이터팩을 모르므로 호환성은 판정하지 않는다 — 다른 데이터팩으로
+  만든 save를 조용히 실행하지 않도록, 현재 팩을 가진 caller(UI)가 로드 경계에서
+  `checkDataCompatibility`로 거부한다(D-68).
 
-### 현재 진행 단계 (V2-Core-01 ~ V2-Core-26 완료)
+### 현재 진행 단계 (V2-Core-01 ~ V2-Core-27 완료)
 
 - **엔진 핵심**: `state`/`action`/`event` 스키마, RNG, `step()` 11단계 파이프라인, Condition
   DSL(and/or/not/eq류 6개 + shorthand 12개 + money/rumor), Effect DSL(20개 op 전부: flag/signal/
@@ -143,11 +147,20 @@
   D-67 — 문서는 현재 프로토타입을 브라우저에서 엔진을 실행하는 local-client 모델로 기술하고 서버 권위
   모델을 미래 확장으로만 두므로 현재 UI 구조는 문서와 일치한다(변경 없음); `view()`를 확장할지는 서버/
   Worker 경계를 실제로 만들 때 정할 C로 남겼다.
-- **다음 issue 후보**: (1) 불일치 save 정책(D-66)과 `dataRef`의 `version` 처리 — 실제로 데이터팩이
-  바뀌어 옛 save가 문제가 되는 시점에 결정. (2) 서버/Worker 경계를 실제로 만들게 될 때 `view()` 확장
-  (D-67). (3) 데이터팩의 남은 콘텐츠 결정 — 예: 등불 구입/폐허 조사에도 위치 제약을 줄지(기존 canonical
-  path와 테스트를 함께 바꿔야 함), HP 회복 수단. 그 밖의 C 항목은 실제 필요가 생길 때 각각 새
-  D-decision으로 연다.
+- **V2-Core-27 결과** (상세는 `CORE_CONTRACTS.md` D-68): 저장 호환성 정책을 확정하고 최소 구현했다.
+  정책은 "호환되지 않는 save는 검출해서 거부하고 고치지 않는다"이다 — state의 `dataRef`(id와 version의
+  정확한 일치)와 `worldId`(그 state 자신의 seed로 재계산한 값)가 현재 데이터팩에서 도출한 값과 같아야
+  호환이다. 순수 함수 `checkDataCompatibility(state, data)`(engine.js)를 추가하고 UI의 `loadGame`이
+  로드 경계에서 호출한다(불일치면 사유를 보여주고 불러오지 않으며 save는 삭제/수정하지 않는다). record
+  헤더는 색인일 뿐 **state가 권위**이고, `migrateState`/`validateState`/저장 어댑터/`step()`은 그대로다.
+  `version`이 없는 팩도 이제 저장할 수 있다(`dataRef:{id}`). 새 versioning/migration semantics는 만들지
+  않았다.
+- **다음 issue 후보**: (1) 콘텐츠/규칙 결정 — D-09 `maxTotalModifier`, `completeWhen`/relation rule 실행,
+  `facts[*].initial` 초기화, 데이터팩의 HP 회복·추가 위치 제약(기존 canonical path와 테스트를 함께 바꿔야
+  함). (2) 서버/Worker 경계를 실제로 만들게 될 때 `view()` 확장(D-67)과 UI 외 caller의 호환성 검사 호출.
+  (3) 실제로 데이터팩 version을 올려 옛 save가 문제가 되는 시점의 version 범위/data migration 결정(D-68
+  (a)). (4) 별도 유지보수: V1 `phase255` 브라우저 테스트의 타이밍 race 안정화. 그 밖의 C 항목은 실제
+  필요가 생길 때 각각 새 D-decision으로 연다.
 
 ## 릴리스 기록
 
