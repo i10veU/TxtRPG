@@ -76,7 +76,7 @@
   (keyPath `slot`), V1의 `AnonymousChroniclesDB`/`anonymous_chronicles_*` 키와 완전히 분리된
   네임스페이스를 쓴다.
 
-### 현재 진행 단계 (V2-Core-01 ~ V2-Core-23 완료)
+### 현재 진행 단계 (V2-Core-01 ~ V2-Core-24 완료)
 
 - **엔진 핵심**: `state`/`action`/`event` 스키마, RNG, `step()` 11단계 파이프라인, Condition
   DSL(and/or/not/eq류 6개 + shorthand 12개 + money/rumor), Effect DSL(20개 op 전부: flag/signal/
@@ -119,10 +119,16 @@
 
 ### 이후 진행 단계
 
-- 다음 기능을 미리 정해두지 않는다. V2-Core-23 완료 후 남은 실제 gameplay gap(`handler`,
-  `data.cases[*].stages`/`data.rules.relation.*`의 전이 실행/effect/우선순위/cadence,
-  `data.facts[*].initial` seed 시딩, D-09 modifier 상한 등)을 다시 조사한 뒤, 단순히 Phase 번호를
-  올리기 위한 기능 추가가 아니라 조사 결과에 따라 다음 작업을 정한다.
+- **V2-Core-24 조사 결과** (코드 변경 없음, 상세는 `CORE_CONTRACTS.md` D-66/D-67): 플레이 루프를
+  막는 core gap은 없다. `handler`와 D-09는 의도적 미구현(D), `migrateState`는 이미 구현됨(A),
+  case `completeWhen` 자동 평가·relation rule 실행·`data.facts[*].initial` 시딩은 각각 새 설계 결정이
+  필요하다(C) — 실제 콘텐츠가 필요로 하기 전에는 구현하지 않는다. 실제 gap은 데이터팩 쪽이다: action에
+  시간/위치 제약이 없고 `events`/HP/`succession` 콘텐츠가 없어 day/trigger 파이프라인과 사망·새 캐릭터
+  경로가 실제 콘텐츠에서 도달 불가다.
+- **다음 issue 후보**: (1) 위 데이터팩 gap을 이미 구현된 계약(Resolvable `minutes`, `location`
+  Condition, `data.events`, `hp` Effect, `rules.succession`)만으로 채우는 최소 콘텐츠 변경 — 사망/새
+  캐릭터 UI 경로의 browser 검증도 함께 가능해진다. (2) `view()`가 시각/이동 링크를 제공할지에 대한
+  결정(D-67). 그 밖의 C 항목은 실제 필요가 생길 때 각각 새 D-decision으로 연다.
 
 ## 릴리스 기록
 
