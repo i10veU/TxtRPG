@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TxtRPG V2</title>
+<link rel="icon" href="data:,">
+<style>
+  :root {
+    color-scheme: light dark;
+    --gap: 0.75rem;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: var(--gap);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.5;
+    max-width: 720px;
+    margin-inline: auto;
+  }
+  button {
+    font: inherit;
+    padding: 0.5rem 0.75rem;
+    margin: 0.15rem;
+    border-radius: 0.4rem;
+    border: 1px solid currentColor;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    min-height: 2.4rem;
+  }
+  button:disabled { opacity: 0.5; cursor: not-allowed; }
+  button:hover:not(:disabled) { background: rgba(128,128,128,0.15); }
+  section { margin-block: var(--gap); }
+  h1 { font-size: 1.25rem; }
+  h2 { font-size: 1rem; margin-block: 0.4rem; }
+  #location { font-weight: bold; font-size: 1.05rem; }
+  #status p { margin: 0.15rem 0; }
+  #log {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 40vh;
+    overflow-y: auto;
+    border: 1px solid rgba(128,128,128,0.4);
+    border-radius: 0.4rem;
+    padding: 0.5rem;
+  }
+  #log li { padding: 0.15rem 0; border-bottom: 1px dashed rgba(128,128,128,0.25); }
+  #log li:last-child { border-bottom: none; }
+  #actions, #moves, #choice { display: flex; flex-wrap: wrap; gap: 0.25rem; }
+  #choice[hidden], #menu[hidden], #game[hidden] { display: none; }
+  #error {
+    background: #7a1f1f;
+    color: #fff;
+    padding: 0.5rem;
+    border-radius: 0.4rem;
+  }
+  #saveRow { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
+  #saveSlotInput { font: inherit; padding: 0.4rem; flex: 1; min-width: 8rem; }
+  #slotList { list-style: none; padding: 0; margin: 0; }
+  #slotList li { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; padding: 0.2rem 0; }
+  @media (max-width: 420px) {
+    body { padding: 0.5rem; }
+    button { flex: 1 1 auto; }
+  }
+</style>
+</head>
+<body>
+<h1>TxtRPG V2</h1>
+<p id="error" hidden></p>
+
+<div id="menu">
+  <section>
+    <button id="newGameBtn">새 게임</button>
+  </section>
+  <section>
+    <h2>저장된 게임</h2>
+    <ul id="slotList"></ul>
+  </section>
+</div>
+
+<div id="game" hidden>
+  <section>
+    <div id="location"></div>
+    <div id="status"></div>
+  </section>
+
+  <section>
+    <h2>이동</h2>
+    <div id="moves"></div>
+  </section>
+
+  <section>
+    <h2>행동</h2>
+    <div id="actions"></div>
+    <button id="waitBtn">기다리기 (30분)</button>
+  </section>
+
+  <section id="choice" hidden>
+    <h2>선택</h2>
+    <div id="choiceOptions"></div>
+  </section>
+
+  <section>
+    <h2>기록</h2>
+    <ul id="log"></ul>
+  </section>
+
+  <section>
+    <h2>저장</h2>
+    <div id="saveRow">
+      <input id="saveSlotInput" type="text" placeholder="저장 슬롯 이름" value="slot_1">
+      <button id="saveBtn">저장</button>
+    </div>
+    <button id="backToMenuBtn">메뉴로</button>
+  </section>
+</div>
+
+<script type="module" src="./ui/app.js"></script>
+</body>
+</html>

@@ -1194,6 +1194,14 @@ state.knowledge["player_1"]["rum_a"] = {
 - **data JSON + core JS engine** 구조를 쓴다. 엔진은 JSON을 import하거나 fetch하지 않고, `data` 인자로 받기만 한다.
   - 브라우저에서는 UI 계층이 `fetch`로 JSON을 읽어 전달한다. Node 테스트에서는 `fs.readFileSync` + `JSON.parse`로 읽는다.
   - 이유: JSON module import 문법(`with {type:"json"}`)의 호환성 문제를 피하고, 엔진의 순수성을 유지한다.
+  - **구현 상태 (V2-Core-22/23)**: 실제 첫 데이터팩(`web/v2/data/world.js`)은 `.json` 파일이 아니라
+    `export const worldData = {...}` 형태의 ES 모듈로 작성됐다 — 이 절이 제안한 "JSON 파일 +
+    fetch/`fs.readFileSync`" 대신, Node 테스트(V2-Core-22)와 브라우저 UI(`web/v2/ui/app.js`,
+    V2-Core-23) 모두 `import { worldData } from "../data/world.js"`로 **동일하게 정적 import**한다.
+    엔진은 여전히 이 값을 `data` 인자로만 받으며 JSON/fetch를 직접 다루지 않으므로 "엔진은 JSON을
+    import/fetch하지 않는다"는 원칙 자체는 그대로 지켜졌다 — 바뀐 것은 UI가 데이터를 얻는 방식(제안된
+    fetch+JSON.parse 대신 정적 ES import)뿐이다. 실제 콘텐츠가 `.js` 모듈로 작성되는 한 fetch 경로를
+    새로 만들 필요가 없었다(Ponytail — 이미 되는 것을 다시 구현하지 않는다).
 - data 최상위 형태 (모든 컬렉션은 **ID를 키로 하는 객체**, 순회할 때는 키 정렬):
 
   ```jsonc
@@ -1557,3 +1565,23 @@ state.knowledge["player_1"]["rum_a"] = {
     실제 데이터팩 import를 추가해 재사용, 실제 IndexedDB로 같은 시나리오 재검증)로 검증했고, CI
     "Browser smoke"에 이 신설 spec을 추가했다. `web/v2/core/*`, `web/v2/storage/idb.js`,
     `tests/v2/run.js`, `web/v2/core/rng.js`는 수정하지 않았다.
+  - 작업 20 = V2-Core-23: `web/v2/index.html` + `web/v2/ui/app.js`로 첫 실제 브라우저 진입점을
+    만들어 `worldData → createInitialState → step → view → save/load` 흐름을 실제 사용자 입력/화면에
+    연결했다. `app.js`는 `createInitialState`/`step`/`view`/`validateState`(engine.js)와
+    `evaluateCondition`(rules.js), `save`/`load`/`list`(storage/idb.js)만 호출하는 얇은 adapter이며
+    Condition/Effect/check semantics를 다시 구현하지 않는다 — 특히 `view()`가 다루지 않는 이동
+    링크(`data.locations[*].links[*].requires`) 가시성 판단에 기존 `evaluateCondition`을 그대로
+    재사용했다(새 evaluator 없음). UI가 보유하는 상태는 Issue #76이 명시한 만큼만이다: 인증
+    `state` 자체, 현재 save slot, 표시용 로그(파생 데이터, engine state의 사본이 아님) — 매 렌더링마다
+    `view(state, worldData)`를 새로 계산하며 별도 게임 상태를 복제하지 않는다. 잠긴 action의 잠금
+    이유는 표시하지 않는다 — 이는 우회가 필요한 gap이 아니라 D-06/D-15가 이미 의도적으로 정한
+    설계(진실 비노출)를 그대로 지킨 것이다. 콘텐츠를 실제로 읽을 수 있게 하기 위해
+    `web/v2/data/world.js`의 location/action/choice option에 `name`(순수 표시용, 어떤 엔진 코드도
+    읽지 않는 inert 필드, 이미 item/npc/org에 쓰인 것과 같은 패턴)을 추가했다 — `validateData`는
+    수정 없이 그대로 통과한다(`[]`). §11에 UI가 실제로 데이터를 얻는 방식(fetch+JSON 대신 정적 ES
+    import, 이미 Node 테스트가 쓰던 것과 동일)을 구현 상태로 기록했다. `tests/v2-ui-browser.spec.js`
+    (Playwright, 실제 Chromium)로 entry point 로딩, canonical playthrough(관찰→구매→조사[check]→
+    대화[choice]→대면[check, growth-gated]) 전체가 버튼 클릭만으로 진행되는지, save→reload→load
+    동일성과 slot 격리, 잠긴/존재하지 않는 action 처리, 375px 좁은 viewport에서 가로 스크롤 없이
+    핵심 UI가 동작하는지를 검증했다. CI "Browser smoke"에 이 신설 spec을 추가했다. `web/v2/core/*`,
+    `web/v2/storage/idb.js`, `tests/v2/run.js`, `web/v2/core/rng.js`는 수정하지 않았다.
