@@ -82,7 +82,7 @@
   만든 save를 조용히 실행하지 않도록, 현재 팩을 가진 caller(UI)가 로드 경계에서
   `checkDataCompatibility`로 거부한다(D-68).
 
-### 현재 진행 단계 (V2-Core-01 ~ V2-Core-27 완료)
+### 현재 진행 단계 (V2-Core-01 ~ V2-Core-28 완료)
 
 - **엔진 핵심**: `state`/`action`/`event` 스키마, RNG, `step()` 11단계 파이프라인, Condition
   DSL(and/or/not/eq류 6개 + shorthand 12개 + money/rumor), Effect DSL(20개 op 전부: flag/signal/
@@ -155,12 +155,21 @@
   헤더는 색인일 뿐 **state가 권위**이고, `migrateState`/`validateState`/저장 어댑터/`step()`은 그대로다.
   `version`이 없는 팩도 이제 저장할 수 있다(`dataRef:{id}`). 새 versioning/migration semantics는 만들지
   않았다.
-- **다음 issue 후보**: (1) 콘텐츠/규칙 결정 — D-09 `maxTotalModifier`, `completeWhen`/relation rule 실행,
-  `facts[*].initial` 초기화, 데이터팩의 HP 회복·추가 위치 제약(기존 canonical path와 테스트를 함께 바꿔야
-  함). (2) 서버/Worker 경계를 실제로 만들게 될 때 `view()` 확장(D-67)과 UI 외 caller의 호환성 검사 호출.
-  (3) 실제로 데이터팩 version을 올려 옛 save가 문제가 되는 시점의 version 범위/data migration 결정(D-68
-  (a)). (4) 별도 유지보수: V1 `phase255` 브라우저 테스트의 타이밍 race 안정화. 그 밖의 C 항목은 실제
-  필요가 생길 때 각각 새 D-decision으로 연다.
+- **V2-Core-28 결과** (조사만, 코드/데이터/테스트 변경 없음, 상세는 `CORE_CONTRACTS.md` D-69): 남은 미결
+  core semantics 네 가지를 실제 함수 호출(Node와 실제 Chromium)로 조사했다. D-09 `maxTotalModifier`는
+  의도적 미사용(D — 어떤 값을 넣어도 무시되며 실제 팩은 필요 없음), case `completeWhen`·relation rules·
+  `facts[*].initial`은 각각 새 설계 결정이 필요하다(C). 기존 계약만으로 구현 가능한 항목(B)은 없었다.
+  핵심 사실: 기존 event 파이프라인이 "조건이 참이면 stage 전이/관계 변경"을 이미 표현하므로
+  `completeWhen`/relation rule은 전용 필드가 정말 필요한지부터 정해야 하고, `facts[*].initial`의
+  `pickFrom`은 `deriveSeed`에 넘길 seed(계약은 숫자, 구현은 문자열 `worldSeed`와 그 hash `rng.seed`)에 따라
+  결과가 갈린다. canonical 플레이는 이 네 가지 중 어느 것도 필요로 하지 않는다.
+- **다음 issue 후보**: (1) 실제 콘텐츠가 요구할 때 위 C 항목을 각각 별도 D-decision으로 확정 — 우선
+  후보는 "전용 필드 vs event" 결정(`completeWhen`/relation rules)과 seed 입력 결정(`facts[*].initial`).
+  (2) 콘텐츠 결정(core와 분리): 데이터팩의 HP 회복(죽은 actor를 대상으로 하지 않게 설계), 추가 위치 제약
+  (기존 canonical path와 테스트를 함께 바꿔야 함). (3) 서버/Worker 경계를 실제로 만들게 될 때 `view()` 확장
+  (D-67)과 UI 외 caller의 호환성 검사 호출. (4) 실제로 데이터팩 version을 올려 옛 save가 문제가 되는
+  시점의 version 범위/data migration 결정(D-68 (a)). (5) 별도 유지보수: V1 `phase255` 브라우저 테스트의
+  타이밍 race 안정화.
 
 ## 릴리스 기록
 
