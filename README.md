@@ -59,12 +59,13 @@
 ### 기타 설정
 
 - **개발 브랜치**: `feature/v2-core` (V1의 회귀 기준점 `v1-final` = `54593cb`에서 분기).
-- **테스트 실행**: `node tests/v2/run.js` — `tests/v2/*.test.js` 5개 파일(core/effects/rules/
-  storage/data-world)을 모두 실행하고 `V2 tests: N/N passed`를 출력한다. **보호 파일**(수정 금지).
-  `data-world.test.js`가 실제 세계관 데이터(`web/v2/data/world.js`)를 쓰는 유일한 테스트 파일이다
-  (DEVELOPMENT_RULES §17 — 다른 테스트는 여전히 추상 ID 합성 fixture만 쓴다). 실제 IndexedDB를
-  쓰는 브라우저 smoke는 별도로 `npx playwright test tests/v2-storage-browser.spec.js
-  tests/v2-data-world-browser.spec.js`로 실행한다(Node 테스트는 IndexedDB를 mock하는 새 의존성을
+- **테스트 실행**: `node tests/v2/run.js` — `tests/v2/*.test.js` 6개 파일(core/effects/rules/
+  storage/data-world/data-world-lifecycle)을 모두 실행하고 `V2 tests: N/N passed`를 출력한다.
+  **보호 파일**(수정 금지). `data-world.test.js`와 `data-world-lifecycle.test.js`가 실제 세계관
+  데이터(`web/v2/data/world.js`)를 쓰는 테스트 파일이다(DEVELOPMENT_RULES §17 — 다른 테스트는 여전히
+  추상 ID 합성 fixture만 쓴다). 실제 IndexedDB/브라우저를 쓰는 smoke는 별도로 `npx playwright test
+  tests/v2-storage-browser.spec.js tests/v2-data-world-browser.spec.js tests/v2-ui-browser.spec.js
+  tests/v2-ui-lifecycle-browser.spec.js`로 실행한다(Node 테스트는 IndexedDB를 mock하는 새 의존성을
   추가하지 않고 순수 함수만 검증한다). V1 회귀는 기존과 동일하게 `tests/*.js`(`.spec.js` 제외)
   41개를 개별 실행해 41/41을 확인한다. CI(`Unit & regression`/`Browser smoke`)가 두 계층 모두
   매 PR마다 자동으로 검증한다.
@@ -76,7 +77,7 @@
   (keyPath `slot`), V1의 `AnonymousChroniclesDB`/`anonymous_chronicles_*` 키와 완전히 분리된
   네임스페이스를 쓴다.
 
-### 현재 진행 단계 (V2-Core-01 ~ V2-Core-24 완료)
+### 현재 진행 단계 (V2-Core-01 ~ V2-Core-25 완료)
 
 - **엔진 핵심**: `state`/`action`/`event` 스키마, RNG, `step()` 11단계 파이프라인, Condition
   DSL(and/or/not/eq류 6개 + shorthand 12개 + money/rumor), Effect DSL(20개 op 전부: flag/signal/
@@ -107,7 +108,10 @@
   1개, item 2개, fact/rumor 각 1개, npc 2명 + org 1개). `validateData`를 그대로 통과하며(`[]`),
   `handler`/D-09/completeWhen·relation rule 실행 semantics/`data.facts[*].initial` 중 어느 것에도
   기대지 않고 이미 구현된 계약만으로 `data → createInitialState → step → view → save/load` 전체
-  경로를 실제로 검증한다.
+  경로를 실제로 검증한다. V2-Core-25에서 같은 데이터팩에 이미 구현된 mechanics만 추가로 연결했다:
+  긴 action 2개의 `minutes`(시간 진행), 마을 행동 2개의 `location` 조건(위치 제약 — 하나는
+  `showWhenLocked`), 폐허에서 `cooldown`으로 반복 발동하는 `data.events` 1개(`hp` Effect — 3번 맞으면
+  사망), 사망 후 `rules.succession`(새 캐릭터에게 `money`+`narrate`). 새 엔진 semantics는 없다.
 - **최소 브라우저 진입점**: `web/v2/index.html` + `web/v2/ui/app.js`(V2-Core-23)가 위 콘텐츠를
   실제 화면/입력에 연결한다 — 새 게임/저장/불러오기, 이동(`evaluateCondition`으로 location
   `links[*].requires`를 재평가해 노출 — 엔진이 이미 하는 것과 동일한 평가, 새 evaluator 아님),
@@ -116,19 +120,24 @@
   매 렌더마다 `view(state, worldData)`를 새로 계산한다(D-06/D-15 — 잠긴 행동의 사유는 `view()`가
   원래 노출하지 않으며, UI도 이를 우회하지 않고 그대로 따른다). V1과 완전히 분리된
   `tests/v2-ui-browser.spec.js` 브라우저 smoke가 CI(`Browser smoke`)에서 실행된다.
+  `tests/v2-ui-lifecycle-browser.spec.js`(V2-Core-25)는 위치 제약/시간 진행/이벤트/HP 감소/사망/
+  `newCharacter` UI/succession과 그 상태들의 save-load를 실제 브라우저로 검증한다.
 
 ### 이후 진행 단계
 
 - **V2-Core-24 조사 결과** (코드 변경 없음, 상세는 `CORE_CONTRACTS.md` D-66/D-67): 플레이 루프를
   막는 core gap은 없다. `handler`와 D-09는 의도적 미구현(D), `migrateState`는 이미 구현됨(A),
   case `completeWhen` 자동 평가·relation rule 실행·`data.facts[*].initial` 시딩은 각각 새 설계 결정이
-  필요하다(C) — 실제 콘텐츠가 필요로 하기 전에는 구현하지 않는다. 실제 gap은 데이터팩 쪽이다: action에
+  필요하다(C) — 실제 콘텐츠가 필요로 하기 전에는 구현하지 않는다. 실제 gap은 데이터팩 쪽이었다: action에
   시간/위치 제약이 없고 `events`/HP/`succession` 콘텐츠가 없어 day/trigger 파이프라인과 사망·새 캐릭터
-  경로가 실제 콘텐츠에서 도달 불가다.
-- **다음 issue 후보**: (1) 위 데이터팩 gap을 이미 구현된 계약(Resolvable `minutes`, `location`
-  Condition, `data.events`, `hp` Effect, `rules.succession`)만으로 채우는 최소 콘텐츠 변경 — 사망/새
-  캐릭터 UI 경로의 browser 검증도 함께 가능해진다. (2) `view()`가 시각/이동 링크를 제공할지에 대한
-  결정(D-67). 그 밖의 C 항목은 실제 필요가 생길 때 각각 새 D-decision으로 연다.
+  경로가 실제 콘텐츠에서 도달 불가였다.
+- **V2-Core-25 결과**: 위 데이터팩 gap을 이미 구현된 계약만으로 채웠다(시간/위치/이벤트/HP·사망/
+  succession 모두 구현, 새 D-decision 없음, 엔진 코드 변경 없음). 사망 → `newCharacter` UI 경로가 처음으로
+  실제 브라우저에서 실행·검증됐다.
+- **다음 issue 후보**: (1) `view()`가 시각/이동 링크를 제공할지에 대한 결정(D-67), `dataRef`/`worldId`
+  불일치 save를 어떻게 처리할지에 대한 결정(D-66). (2) 데이터팩의 남은 콘텐츠 결정 — 예: 등불 구입/폐허
+  조사에도 위치 제약을 줄지(기존 canonical path와 테스트를 함께 바꿔야 함), HP 회복 수단. 그 밖의 C 항목은
+  실제 필요가 생길 때 각각 새 D-decision으로 연다.
 
 ## 릴리스 기록
 
