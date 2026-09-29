@@ -16,7 +16,7 @@
 // respects that as-is: a locked (showWhenLocked) action renders disabled
 // with no explanation, by design, not by omission.
 
-import { createInitialState, step, view, validateState } from "../core/engine.js";
+import { createInitialState, step, view, validateState, checkDataCompatibility } from "../core/engine.js";
 import { evaluateCondition } from "../core/rules.js";
 import * as storage from "../storage/idb.js";
 import { worldData } from "../data/world.js";
@@ -321,6 +321,13 @@ async function loadGame(slot) {
     const errors = validateState(loaded);
     if (errors.length > 0) {
       showError(`불러온 state가 유효하지 않다: ${errors.join("; ")}`);
+      return;
+    }
+    // D-68: a save made with a different data pack must not be run silently
+    // with this one. Rejected, never repaired; the save itself is left as is.
+    const incompatible = checkDataCompatibility(loaded, worldData);
+    if (incompatible.length > 0) {
+      showError(`이 저장은 현재 데이터와 호환되지 않아 불러오지 않았다: ${incompatible.join("; ")}`);
       return;
     }
     state = loaded;

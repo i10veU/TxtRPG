@@ -1,20 +1,19 @@
 // V2-Core-26 tests (Issue #82): save provenance (`dataRef`/`worldId`, D-66)
-// and the `view()` boundary (D-67).
+// and the `view()` boundary (D-67). Updated in V2-Core-27 (Issue #84): the
+// D-66 pieces V2-Core-26 could only characterize are now decided (D-68), so
+// they are contract tests here and in save-compat-policy.test.js.
 //
-// What is pinned here is ONLY what the existing contract already determines:
+// What is pinned here is ONLY what the contract determines:
 //   - what dataRef/worldId mean (§2.1, §2.6 D-03, §10, D-64),
 //   - who is responsible for what on load (D-55 validateState, D-63
-//     migrateState, §11 validateData),
+//     migrateState, §11 validateData, D-68 checkDataCompatibility),
 //   - what view() contains and that it survives save/load (D-53, D-15).
-// The one section marked CHARACTERIZATION describes behaviour the contract
-// has NOT decided (mismatch policy, D-66 C). It documents the current
-// runtime so the gap is reproducible; it is not a contract and is expected to
-// be rewritten when D-66 is decided.
+// D-67 (the view() boundary) is still undecided (C); its tests only pin the
+// current, documented view() contents.
 //
 // `.test.js`, not `.spec.js`: tests/v2/run.js excludes `*.spec.js`.
 // node:assert/strict only (§13.1). DEVELOPMENT_RULES §17: the real pack is
-// used only where the question is about the real pack; the "no version" gap
-// uses a small synthetic pack.
+// used only where the question is about the real pack.
 
 import assert from "node:assert/strict";
 import { createInitialState, step, view, validateState, migrateState, SCHEMA_VERSION } from "../../web/v2/core/engine.js";
@@ -146,13 +145,14 @@ function testResponsibilitySplit() {
 
 testResponsibilitySplit();
 
-// 5. CHARACTERIZATION ONLY -- NOT A CONTRACT (D-66 C).
-// The contract defines no comparison or mismatch policy for dataRef/worldId,
-// so nothing below is endorsed behaviour. It records what the runtime does
-// today: parseLoadedRecord consults only `record.state`, and nothing
-// compares provenance with the current pack. When D-66 is decided, replace
-// this whole section with tests of the decided policy.
-function testProvenanceMismatchIsNotCheckedToday() {
+// 5. The storage adapter's load is pack-agnostic BY DESIGN (D-68, decided in
+// V2-Core-27; V2-Core-26 had recorded this as an undecided characterization).
+// The adapter never knows the current pack, so it does not judge provenance:
+// parseLoadedRecord consults only `record.state` (the authoritative copy; the
+// record header is a derived index for list(), D-64). Whether a state fits the
+// current pack is decided separately by checkDataCompatibility, covered in
+// save-compat-policy.test.js.
+function testAdapterLoadIsPackAgnostic() {
   const state = fresh();
   const load = (mutate) => {
     const record = JSON.parse(JSON.stringify(buildSaveRecord("slot_c", state, { savedAt: 1 })));
@@ -171,38 +171,21 @@ function testProvenanceMismatchIsNotCheckedToday() {
   assert.doesNotThrow(() => load((r) => { r.state.worldId = "tampered"; }));
   assert.doesNotThrow(() => load((r) => { delete r.state.dataRef; delete r.state.worldId; }));
   assert.doesNotThrow(() => load((r) => { r.state.dataRef = "garbage"; r.state.worldId = 12345; }));
-  // worldId is recomputable from worldSeed (D-03), but nothing checks that
+  // worldId is recomputable from worldSeed (D-03); that is checked by
+  // checkDataCompatibility, not by the adapter
   assert.doesNotThrow(() => load((r) => { r.state.worldSeed = "a-different-seed"; }));
 
-  // the two copies (record header vs state) can disagree; load takes the state's
+  // the two copies (record header vs state) can disagree; the state is
+  // authoritative (D-68), the header never affects the loaded state
   const loaded = load((r) => { r.dataRef = { id: "other_pack", version: "9.9.9" }; });
   assert.deepStrictEqual(loaded.dataRef, state.dataRef);
 }
 
-testProvenanceMismatchIsNotCheckedToday();
+testAdapterLoadIsPackAgnostic();
 
-// 6. CHARACTERIZATION ONLY (D-66 C): a pack with an `id` but no `version`.
-// validateData accepts it, but createInitialState then emits
-// dataRef.version === undefined, which validateState rejects (§2.1 JSON
-// safety), so the resulting game can be played but never saved. Fixing it
-// means choosing a dataRef shape (omit / null / require version) -- a
-// decision the contract does not make.
-function testPackWithoutVersionCannotBeSavedToday() {
-  const pack = {
-    id: "synthetic_pack",
-    world: { id: "synthetic_world", startTemplateId: "tmpl" },
-    characterTemplates: { tmpl: { kind: "player", locationId: "loc_a", hp: { max: 3 } } },
-    locations: { loc_a: { links: [] } }
-  };
-  assert.deepStrictEqual(validateData(pack), []);
-  const state = createInitialState({ worldSeed: SEED, data: pack }).state;
-  assert.strictEqual(Object.prototype.hasOwnProperty.call(state.dataRef, "version"), true);
-  assert.strictEqual(state.dataRef.version, undefined);
-  assert.deepStrictEqual(validateState(state), ["undefined value at state.dataRef.version"]);
-  assert.throws(() => buildSaveRecord("slot_v", state, { savedAt: 1 }), /dataRef\.version/);
-}
-
-testPackWithoutVersionCannotBeSavedToday();
+// (The "pack with an id but no version" gap that V2-Core-26 reproduced here as
+// CHARACTERIZATION ONLY is now decided -- D-68 -- and covered as a contract in
+// save-compat-policy.test.js.)
 
 // ---------------------------------------------------------------- D-67 ---
 
