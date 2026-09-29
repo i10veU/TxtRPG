@@ -15,6 +15,12 @@
 //      together with what the investigation confirmed gates a final
 //      confrontation action (a second check(), tags:["social"]).
 //
+// V2-Core-25 wires already-implemented mechanics into this same pack (no new
+// engine semantics): `minutes` on the two long actions, `location`-gated
+// village activities, one `data.events` hazard at the ruins whose `hp`
+// Effect can kill the player, and `rules.succession` for the replacement
+// character. See CORE_CONTRACTS.md D-66's follow-up note.
+//
 // This is deliberately small (Ponytail): one data module, one growth
 // system, three locations, two NPCs (referenced only as relation/rumor
 // participant IDs -- see D-65, no `state.actors` records for them; a full
@@ -42,6 +48,33 @@ export const worldData = {
     }
   },
 
+  // V2-Core-25: applied by engine.js's resolveStartCharacter right after a
+  // post-death `startCharacter` (D-47) with ctx {actorId: new character,
+  // targetId: previous character} -- `money` therefore defaults its subject
+  // to the NEW character. Uses only already-implemented Effects.
+  rules: {
+    succession: [
+      { op: "money", add: 3 },
+      { op: "narrate", textId: "txt_succession" }
+    ]
+  },
+
+  // V2-Core-25: the one data.events entry, evaluated by §2.5 stage 10 after
+  // every resolved action (D-51, world context). While the player stands in
+  // the ruins it fires at most once per `cooldown` minutes and costs 4 HP --
+  // three hits take the 10-HP wanderer to 0, which is the existing `hp`
+  // Effect's own death trigger (D-34), not a new mechanic.
+  events: {
+    evt_ruins_hazard: {
+      trigger: { op: "location", at: "loc_ruins" },
+      cooldown: 30,
+      effects: [
+        { op: "hp", add: -4 },
+        { op: "narrate", textId: "txt_ruins_hazard" }
+      ]
+    }
+  },
+
   locations: {
     loc_village: {
       name: "변경 마을",
@@ -63,6 +96,7 @@ export const worldData = {
   actions: {
     act_observe_village: {
       name: "마을 살피기",
+      requires: { op: "location", at: "loc_village" },
       effects: [
         { op: "proficiency", id: "investigation", add: 15 },
         { op: "narrate", textId: "txt_observe_village" }
@@ -79,12 +113,15 @@ export const worldData = {
     },
     act_talk_elder: {
       name: "원로와 대화",
+      requires: { op: "location", at: "loc_village" },
+      showWhenLocked: true,
       effects: [{ op: "choice", choice: "choice_elder_dialogue", sourceId: "act_talk_elder" }]
     },
     act_investigate_ruins: {
       name: "폐허 조사",
       requires: { op: "item", item: "item_lantern", min: 1 },
       check: { stat: "wit", tags: ["investigation"], difficulty: "normal" },
+      minutes: 60,
       outcomes: {
         success: [
           { op: "fact", fact: "fact_ruins_secret", set: "bandit_hideout" },
@@ -111,6 +148,7 @@ export const worldData = {
       },
       showWhenLocked: true,
       check: { stat: "wit", tags: ["social"], difficulty: "hard" },
+      minutes: 30,
       outcomes: {
         success: [
           { op: "case", case: "case_ruins_mystery", stage: "resolved" },
@@ -209,6 +247,8 @@ export const worldData = {
     txt_investigate_success: "등불 아래 드러난 흔적은 도적들의 은신처를 가리키고 있었다.",
     txt_investigate_fail: "폐허는 어둡고 흔적은 모호하다. 확실한 것을 찾지 못했다.",
     txt_confront_success: "당신은 도적 두목과 마주하고 진실을 밝혀낸다.",
-    txt_confront_fail: "대치는 뜻대로 풀리지 않았다."
+    txt_confront_fail: "대치는 뜻대로 풀리지 않았다.",
+    txt_ruins_hazard: "무너진 벽돌이 머리 위로 쏟아져 내린다.",
+    txt_succession: "쓰러진 이가 남긴 은화 몇 닢이 새 방랑자의 손에 들어온다."
   }
 };
