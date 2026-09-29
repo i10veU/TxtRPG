@@ -118,3 +118,6 @@ jobs:
 
       - name: V2 UI lifecycle browser smoke
         run: npx playwright test tests/v2-ui-lifecycle-browser.spec.js --reporter=line
+
+      - name: V2 UI view boundary browser smoke
+        run: npx playwright test tests/v2-ui-view-boundary-browser.spec.js --reporter=line

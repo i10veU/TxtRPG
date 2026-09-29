@@ -59,13 +59,14 @@
 ### 기타 설정
 
 - **개발 브랜치**: `feature/v2-core` (V1의 회귀 기준점 `v1-final` = `54593cb`에서 분기).
-- **테스트 실행**: `node tests/v2/run.js` — `tests/v2/*.test.js` 6개 파일(core/effects/rules/
-  storage/data-world/data-world-lifecycle)을 모두 실행하고 `V2 tests: N/N passed`를 출력한다.
-  **보호 파일**(수정 금지). `data-world.test.js`와 `data-world-lifecycle.test.js`가 실제 세계관
-  데이터(`web/v2/data/world.js`)를 쓰는 테스트 파일이다(DEVELOPMENT_RULES §17 — 다른 테스트는 여전히
-  추상 ID 합성 fixture만 쓴다). 실제 IndexedDB/브라우저를 쓰는 smoke는 별도로 `npx playwright test
-  tests/v2-storage-browser.spec.js tests/v2-data-world-browser.spec.js tests/v2-ui-browser.spec.js
-  tests/v2-ui-lifecycle-browser.spec.js`로 실행한다(Node 테스트는 IndexedDB를 mock하는 새 의존성을
+- **테스트 실행**: `node tests/v2/run.js` — `tests/v2/*.test.js` 7개 파일(core/effects/rules/
+  storage/data-world/data-world-lifecycle/save-compat-view)을 모두 실행하고 `V2 tests: N/N passed`를
+  출력한다. **보호 파일**(수정 금지). `data-world.test.js`, `data-world-lifecycle.test.js`,
+  `save-compat-view.test.js`가 실제 세계관 데이터(`web/v2/data/world.js`)를 쓰는 테스트 파일이다
+  (DEVELOPMENT_RULES §17 — 다른 테스트는 여전히 추상 ID 합성 fixture만 쓴다). 실제 IndexedDB/브라우저를
+  쓰는 smoke는 별도로 `npx playwright test tests/v2-storage-browser.spec.js
+  tests/v2-data-world-browser.spec.js tests/v2-ui-browser.spec.js tests/v2-ui-lifecycle-browser.spec.js
+  tests/v2-ui-view-boundary-browser.spec.js`로 실행한다(Node 테스트는 IndexedDB를 mock하는 새 의존성을
   추가하지 않고 순수 함수만 검증한다). V1 회귀는 기존과 동일하게 `tests/*.js`(`.spec.js` 제외)
   41개를 개별 실행해 41/41을 확인한다. CI(`Unit & regression`/`Browser smoke`)가 두 계층 모두
   매 PR마다 자동으로 검증한다.
@@ -77,7 +78,7 @@
   (keyPath `slot`), V1의 `AnonymousChroniclesDB`/`anonymous_chronicles_*` 키와 완전히 분리된
   네임스페이스를 쓴다.
 
-### 현재 진행 단계 (V2-Core-01 ~ V2-Core-25 완료)
+### 현재 진행 단계 (V2-Core-01 ~ V2-Core-26 완료)
 
 - **엔진 핵심**: `state`/`action`/`event` 스키마, RNG, `step()` 11단계 파이프라인, Condition
   DSL(and/or/not/eq류 6개 + shorthand 12개 + money/rumor), Effect DSL(20개 op 전부: flag/signal/
@@ -134,10 +135,19 @@
 - **V2-Core-25 결과**: 위 데이터팩 gap을 이미 구현된 계약만으로 채웠다(시간/위치/이벤트/HP·사망/
   succession 모두 구현, 새 D-decision 없음, 엔진 코드 변경 없음). 사망 → `newCharacter` UI 경로가 처음으로
   실제 브라우저에서 실행·검증됐다.
-- **다음 issue 후보**: (1) `view()`가 시각/이동 링크를 제공할지에 대한 결정(D-67), `dataRef`/`worldId`
-  불일치 save를 어떻게 처리할지에 대한 결정(D-66). (2) 데이터팩의 남은 콘텐츠 결정 — 예: 등불 구입/폐허
-  조사에도 위치 제약을 줄지(기존 canonical path와 테스트를 함께 바꿔야 함), HP 회복 수단. 그 밖의 C 항목은
-  실제 필요가 생길 때 각각 새 D-decision으로 연다.
+- **V2-Core-26 결과** (엔진/저장/UI 코드 변경 없음, 테스트와 문서만 추가, 상세는 `CORE_CONTRACTS.md`
+  D-66/D-67의 후속 노트): 저장 provenance와 `view()` 경계를 실제 함수 호출로 조사했다. D-66 — `dataRef`/
+  `worldId`의 의미와 `migrateState`/`validateState`/`validateData`의 책임 경계는 확정된 사실로
+  기록했고, 불일치 save의 비교 기준·처리 정책·검사 위치는 계약이 정하지 않아 C로 남겼다(임의로 throw/
+  migration/fallback을 만들지 않았다). 새 gap: `version`이 없는 팩은 플레이는 되지만 저장할 수 없다(C).
+  D-67 — 문서는 현재 프로토타입을 브라우저에서 엔진을 실행하는 local-client 모델로 기술하고 서버 권위
+  모델을 미래 확장으로만 두므로 현재 UI 구조는 문서와 일치한다(변경 없음); `view()`를 확장할지는 서버/
+  Worker 경계를 실제로 만들 때 정할 C로 남겼다.
+- **다음 issue 후보**: (1) 불일치 save 정책(D-66)과 `dataRef`의 `version` 처리 — 실제로 데이터팩이
+  바뀌어 옛 save가 문제가 되는 시점에 결정. (2) 서버/Worker 경계를 실제로 만들게 될 때 `view()` 확장
+  (D-67). (3) 데이터팩의 남은 콘텐츠 결정 — 예: 등불 구입/폐허 조사에도 위치 제약을 줄지(기존 canonical
+  path와 테스트를 함께 바꿔야 함), HP 회복 수단. 그 밖의 C 항목은 실제 필요가 생길 때 각각 새
+  D-decision으로 연다.
 
 ## 릴리스 기록
 
