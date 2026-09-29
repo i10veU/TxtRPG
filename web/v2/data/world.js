@@ -44,27 +44,32 @@ export const worldData = {
 
   locations: {
     loc_village: {
+      name: "변경 마을",
       links: [
         { to: "loc_market", minutes: 15 },
         { to: "loc_ruins", minutes: 45, requires: { op: "item", item: "item_lantern", min: 1 } }
       ]
     },
     loc_market: {
+      name: "시장",
       links: [{ to: "loc_village", minutes: 15 }]
     },
     loc_ruins: {
+      name: "폐허",
       links: [{ to: "loc_village", minutes: 45 }]
     }
   },
 
   actions: {
     act_observe_village: {
+      name: "마을 살피기",
       effects: [
         { op: "proficiency", id: "investigation", add: 15 },
         { op: "narrate", textId: "txt_observe_village" }
       ]
     },
     act_buy_lantern: {
+      name: "등불 구입",
       requires: { op: "money", min: 5 },
       effects: [
         { op: "money", add: -5 },
@@ -73,9 +78,11 @@ export const worldData = {
       ]
     },
     act_talk_elder: {
+      name: "원로와 대화",
       effects: [{ op: "choice", choice: "choice_elder_dialogue", sourceId: "act_talk_elder" }]
     },
     act_investigate_ruins: {
+      name: "폐허 조사",
       requires: { op: "item", item: "item_lantern", min: 1 },
       check: { stat: "wit", tags: ["investigation"], difficulty: "normal" },
       outcomes: {
@@ -94,6 +101,7 @@ export const worldData = {
       }
     },
     act_confront_leader: {
+      name: "도적 두목과 대면",
       requires: {
         op: "and",
         of: [
@@ -127,6 +135,7 @@ export const worldData = {
       options: [
         {
           id: "opt_ask_ruins",
+          name: "폐허에 대해 묻기",
           effects: [
             { op: "relation", from: "npc_elder", add: 5 },
             { op: "rumor", rumor: "rum_ruins_secret", source: "npc_elder", confidence: 60 },
@@ -135,6 +144,7 @@ export const worldData = {
         },
         {
           id: "opt_small_talk",
+          name: "안부만 묻기",
           effects: [
             { op: "relation", from: "npc_elder", add: 1 },
             { op: "narrate", textId: "txt_small_talk" }

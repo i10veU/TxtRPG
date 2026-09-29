@@ -32,7 +32,9 @@
 - **위치**: 엔진 코어는 `web/v2/core/{rng,engine,rules}.js` 3개 파일만 사용한다(Ponytail 원칙 —
   실제 필요가 생기기 전까지 파일을 분리하지 않는다). 저장 계층은 코어 밖의 별도 어댑터
   `web/v2/storage/idb.js` 1개 파일이다 — 엔진은 이 파일을 import하지 않는다. 세계관 데이터는
-  `web/v2/data/world.js` 1개 파일이다(콘텐츠가 실제로 커질 때만 분리한다).
+  `web/v2/data/world.js` 1개 파일이다(콘텐츠가 실제로 커질 때만 분리한다). 브라우저 진입점은
+  `web/v2/index.html` + `web/v2/ui/app.js`(V2-Core-23) — 엔진/저장/데이터 공개 API 위의 얇은
+  어댑터 하나뿐이며, `state`/`action`/`check`/Condition·Effect 세만틱스를 재구현하지 않는다.
   - `rng.js` — FNV-1a 해시, 시드 파생, 결정론적 난수. **보호 파일**(모든 라운드에서 수정 금지).
   - `rules.js` — `evaluateCondition`, `applyEffects`/`applyEffectList`, `check()`,
     `validateData()`. Condition(25개 op + `handler`)과 Effect(20개 op + `handler`) DSL,
@@ -74,7 +76,7 @@
   (keyPath `slot`), V1의 `AnonymousChroniclesDB`/`anonymous_chronicles_*` 키와 완전히 분리된
   네임스페이스를 쓴다.
 
-### 현재 진행 단계 (V2-Core-01 ~ V2-Core-22 완료)
+### 현재 진행 단계 (V2-Core-01 ~ V2-Core-23 완료)
 
 - **엔진 핵심**: `state`/`action`/`event` 스키마, RNG, `step()` 11단계 파이프라인, Condition
   DSL(and/or/not/eq류 6개 + shorthand 12개 + money/rumor), Effect DSL(20개 op 전부: flag/signal/
@@ -105,17 +107,22 @@
   1개, item 2개, fact/rumor 각 1개, npc 2명 + org 1개). `validateData`를 그대로 통과하며(`[]`),
   `handler`/D-09/completeWhen·relation rule 실행 semantics/`data.facts[*].initial` 중 어느 것에도
   기대지 않고 이미 구현된 계약만으로 `data → createInitialState → step → view → save/load` 전체
-  경로를 실제로 검증한다. `web/v2/ui/`는 여전히 생성 전이다 — 이번 단계의 목적은 UI가 아니라
-  엔진/저장 계층을 실제 콘텐츠로 관통시키는 것이었다.
+  경로를 실제로 검증한다.
+- **최소 브라우저 진입점**: `web/v2/index.html` + `web/v2/ui/app.js`(V2-Core-23)가 위 콘텐츠를
+  실제 화면/입력에 연결한다 — 새 게임/저장/불러오기, 이동(`evaluateCondition`으로 location
+  `links[*].requires`를 재평가해 노출 — 엔진이 이미 하는 것과 동일한 평가, 새 evaluator 아님),
+  행동 수행, 대기, 선택지(`choice`/`newCharacter` pending) 처리를 포함한다. UI가 들고 있는 상태는
+  `state` 자체(엔진이 반환한 그대로)·`worldData`·현재 저장 슬롯·재진입 방지 플래그·표시용 로그뿐이며,
+  매 렌더마다 `view(state, worldData)`를 새로 계산한다(D-06/D-15 — 잠긴 행동의 사유는 `view()`가
+  원래 노출하지 않으며, UI도 이를 우회하지 않고 그대로 따른다). V1과 완전히 분리된
+  `tests/v2-ui-browser.spec.js` 브라우저 smoke가 CI(`Browser smoke`)에서 실행된다.
 
 ### 이후 진행 단계
 
-1. `web/v2/ui/`에 V2 엔진 + 저장 어댑터 + `web/v2/data/world.js`를 소비하는 최소 브라우저
-   진입점을 만들고, V1과 별도로 V2 게임플레이 브라우저 smoke 테스트를 추가한다.
-2. 콘텐츠가 더 쌓이면 `handler`, `data.cases[*].stages`/`data.rules.relation.*`의 나머지 구조
-   (전이 실행/effect/우선순위/cadence), `data.facts[*].initial` seed 시딩이 실제로 필요한 형태를
-   확인하고 그때 각각 결정한다.
-3. 실 콘텐츠가 쌓이면 D-09(modifier 상한)를 실제 밸런스 데이터로 재검토한다.
+- 다음 기능을 미리 정해두지 않는다. V2-Core-23 완료 후 남은 실제 gameplay gap(`handler`,
+  `data.cases[*].stages`/`data.rules.relation.*`의 전이 실행/effect/우선순위/cadence,
+  `data.facts[*].initial` seed 시딩, D-09 modifier 상한 등)을 다시 조사한 뒤, 단순히 Phase 번호를
+  올리기 위한 기능 추가가 아니라 조사 결과에 따라 다음 작업을 정한다.
 
 ## 릴리스 기록
 
