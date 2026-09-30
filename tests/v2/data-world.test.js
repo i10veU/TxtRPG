@@ -702,4 +702,116 @@ function testConsequenceReplayAndSaveLoad() {
 
 testConsequenceReplayAndSaveLoad();
 
+// 16. V2-Core-32: relationship -> organisation -> choice. A confrontation the village
+// stood behind also cows the bandit organisation (its own edge towards the player); an
+// elder option reads that edge and the leader's membership. The pre-existing
+// (unbacked) confrontation is untouched.
+const DISPERSE_ACTIONS = [
+  { type: "perform", actionId: "act_talk_elder" },
+  { type: "choose", optionId: "opt_bandits_disperse" }
+];
+
+function testOrganisationConsequence() {
+  const rejectedCode = (result) => result.events.find((e) => e.type === "action.rejected")?.data.code;
+  const relationEvents = (result) => result.events.filter((e) => e.type === "relation.changed").map((e) => e.data);
+  const talk = { type: "perform", actionId: "act_talk_elder" };
+  const disperse = DISPERSE_ACTIONS[1];
+  const orgEdge = (state) => state.relations?.["org_bandits:player_1"];
+  const membership = (state) => state.relations?.["npc_bandit_leader:org_bandits"];
+  // the option is "offered" when choosing it is accepted: the engine and the UI read the same `requires`
+  const offered = (state) => rejectedCode(step(step(state, talk, worldData).state, disperse, worldData)) === undefined;
+
+  const backed = runActions(REPORTED_ACTIONS);
+  const plain = runActions(CANONICAL_ACTIONS);
+  const confrontBacked = backed.log.at(-1);
+  const confrontPlain = plain.log.at(-1);
+
+  // the investigation is what wrote the leader's membership (the organisation's data is
+  // only a reference id; organisations are ordinary relation edge ends, §7.1)
+  assert.deepStrictEqual(membership(plain.state).tags, ["member"]);
+  assert.strictEqual(plain.state.actors.org_bandits, undefined, "no actor record for the organisation");
+
+  // A: the confrontation without the village's backing is exactly what it was
+  assert.strictEqual(orgEdge(plain.state), undefined);
+  assert.deepStrictEqual(confrontPlain.events.map((e) => e.type), ["check.resolved", "case.updated", "relation.changed", "narration", "time.advanced", "action.resolved"]);
+  assert.deepStrictEqual(Object.keys(plain.state.relations).sort(), ["npc_bandit_leader:org_bandits", "npc_bandit_leader:player_1", "npc_elder:player_1"]);
+
+  // B: backed, the organisation has its own attitude towards the player, and the player sees it
+  assert.deepStrictEqual(relationEvents(confrontBacked).at(-1), { from: "org_bandits", to: "player_1", delta: -10, tagAdded: "cowed" });
+  assert.deepStrictEqual(orgEdge(backed.state), { score: -10, mode: "neutral", lastDay: 0, cooperationCount: 0, conflictCount: 0, tags: ["cowed"] });
+  const playerView = view(backed.state, worldData);
+  assert.deepStrictEqual(playerView.relations["org_bandits:player_1"].tags, ["cowed"]);
+  assert.strictEqual(playerView.relations["npc_bandit_leader:org_bandits"], undefined, "the player is not an end of the leader's membership edge");
+  assert.deepStrictEqual(membership(backed.state).tags, ["member"], "the confrontation itself does not touch the membership");
+  // same check, same case, same time: only the consequence differs
+  assert.strictEqual(backed.state.time.minute, plain.state.time.minute);
+  assert.deepStrictEqual(backed.state.cases, plain.state.cases);
+
+  // the option follows the organisation state, not the report or the rumor alone
+  assert.strictEqual(offered(plain.state), false, "not backed: never offered");
+  assert.strictEqual(offered(runActions(REPORTED_ACTIONS.slice(0, -1)).state), false, "reported but not yet confronted: not offered");
+  assert.strictEqual(offered(backed.state), true, "backed and confronted: offered");
+
+  // a rejected choice changes nothing, leaves the choice pending, and adds no hidden relation
+  const pendingPlain = step(plain.state, talk, worldData).state;
+  const early = step(pendingPlain, disperse, worldData);
+  assert.strictEqual(rejectedCode(early), "requirements_not_met");
+  assert.deepStrictEqual(early.state, pendingPlain);
+  assert.deepStrictEqual(early.state.pending, { kind: "choice", choiceId: "choice_elder_dialogue", sourceId: "act_talk_elder" });
+  assert.strictEqual(rejectedCode(step(early.state, { type: "choose", optionId: "opt_small_talk" }, worldData)), undefined, "still answerable");
+
+  // using it: the leader leaves the organisation, the elder is pleased, and the option closes itself
+  const used = runActions([...REPORTED_ACTIONS, ...DISPERSE_ACTIONS]);
+  const useResult = used.log.at(-1);
+  assert.deepStrictEqual(useResult.events.map((e) => e.type), ["relation.changed", "relation.changed", "narration", "action.resolved"]);
+  assert.deepStrictEqual(relationEvents(useResult), [
+    { from: "npc_bandit_leader", to: "org_bandits", tagRemoved: "member" },
+    { from: "npc_elder", to: "player_1", delta: 5 }
+  ]);
+  assert.deepStrictEqual(membership(used.state).tags, []);
+  assert.strictEqual(used.state.relations["npc_elder:player_1"].score, backed.state.relations["npc_elder:player_1"].score + 5);
+  assert.deepStrictEqual(orgEdge(used.state), orgEdge(backed.state), "the organisation's attitude is unchanged");
+  assert.strictEqual(offered(used.state), false, "the membership is gone, so the option is gone");
+  assert.strictEqual(rejectedCode(step(step(used.state, talk, worldData).state, disperse, worldData)), "requirements_not_met");
+  assert.deepStrictEqual(validateState(used.state), []);
+
+  // a failed confrontation writes no organisation edge and opens nothing
+  const reported = runActions(REPORTED_ACTIONS.slice(0, -1));
+  const confront = CANONICAL_ACTIONS.at(-1);
+  let failed;
+  for (let i = 0; i < 200 && !failed; i++) {
+    const trial = { ...reported.state, rng: createInitialState({ worldSeed: `organisation-trial-${i}`, data: worldData }).state.rng };
+    const result = step(trial, confront, worldData);
+    if (result.events.find((e) => e.type === "check.resolved").data.tier === "fail") failed = result;
+  }
+  assert.ok(failed, "found a failing trial seed");
+  assert.strictEqual(orgEdge(failed.state), undefined);
+  assert.strictEqual(offered(failed.state), false);
+}
+
+testOrganisationConsequence();
+
+// 17. V2-Core-32: the organisation path replays deterministically, round-trips through
+// JSON, and gives the same next result after a save -> load at every step.
+function testOrganisationReplayAndSaveLoad() {
+  const path = [...REPORTED_ACTIONS, ...DISPERSE_ACTIONS];
+  const runA = runActions(path);
+  const runB = runActions(path);
+  assert.deepStrictEqual(runA.state, runB.state);
+  assert.deepStrictEqual(runA.log, runB.log);
+  assert.deepStrictEqual(JSON.parse(JSON.stringify(runA.state)), runA.state);
+  assert.deepStrictEqual(validateState(runA.state), []);
+
+  let state = createInitialState({ worldSeed: CANONICAL_SEED, data: worldData }).state;
+  path.forEach((action, index) => {
+    const reloaded = parseLoadedRecord(JSON.parse(JSON.stringify(buildSaveRecord(`slot_o${index}`, state, { savedAt: index }))));
+    assert.deepStrictEqual(reloaded, state, `state before step ${index}`);
+    assert.deepStrictEqual(step(reloaded, action, worldData), step(state, action, worldData), `step ${index} result`);
+    state = step(state, action, worldData).state;
+  });
+  assert.deepStrictEqual(state, runA.state);
+}
+
+testOrganisationReplayAndSaveLoad();
+
 console.log("V2-Core-22 data-world.test.js: all checks passed");

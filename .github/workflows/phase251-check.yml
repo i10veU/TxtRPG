@@ -133,3 +133,6 @@ jobs:
 
       - name: V2 consequence loop browser smoke
         run: npx playwright test tests/v2-ui-consequence-browser.spec.js --reporter=line
+
+      - name: V2 faction loop browser smoke
+        run: npx playwright test tests/v2-ui-faction-browser.spec.js --reporter=line

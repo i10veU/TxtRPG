@@ -22,7 +22,9 @@
 //      together with what the investigation confirmed gates a final
 //      confrontation action (a second check(), tags:["social"]); if you
 //      reported to the elder, the village stands behind you and the leader is
-//      shaken further.
+//      shaken further, and the bandits as a group are cowed
+//   -> village: talk to the elder once more; a confrontation the village stood
+//      behind opens one more option -- leave the bandits' fate to the elder
 //
 // V2-Core-25 wires already-implemented mechanics into this same pack (no new
 // engine semantics): `minutes` on the two long actions, `location`-gated
@@ -54,6 +56,17 @@
 // not the score, is what counts: talking to the elder is free and repeatable, so a
 // score threshold could be farmed without ever learning anything. `act_confront_
 // leader`'s own requirements and its check are unchanged. `version` stays "0.1.0"
+// (no state-shape change; D-68).
+//
+// V2-Core-32 also adds no engine semantics: the same backed branch now writes the
+// bandit organisation's edge towards the player (`org_bandits` -> self, a `cowed`
+// tag -- organisations are ordinary relation edge ends, told apart from NPCs only
+// by their ID prefix, §7.1), and a fourth elder option reads it, together with the
+// leader's `member` tag that the investigation wrote, with the existing `relation`
+// Condition; using it removes that membership (`untag`), so the option closes itself.
+// Nothing changes for a player who never reported: the unbacked confrontation is
+// exactly what it was. `data.events` could read the same edges (a trigger sees a
+// same-step tag change) but nothing here needs an event. `version` stays "0.1.0"
 // (no state-shape change; D-68).
 //
 // This is deliberately small (Ponytail): one data module, one growth
@@ -217,7 +230,9 @@ export const worldData = {
             when: { op: "relation", from: "npc_elder", to: "self", tag: "confidant" },
             then: [
               { op: "relation", from: "npc_bandit_leader", to: "self", add: -10 },
-              { op: "narrate", textId: "txt_confront_backed" }
+              { op: "narrate", textId: "txt_confront_backed" },
+              // V2-Core-32: the organisation is cowed too (its own edge towards the player)
+              { op: "relation", from: "org_bandits", to: "self", add: -10, tag: "cowed" }
             ]
           }
         ],
@@ -264,6 +279,26 @@ export const worldData = {
           effects: [
             { op: "relation", from: "npc_elder", add: 10, mode: "cooperation", tag: "confidant" },
             { op: "narrate", textId: "txt_report_findings" }
+          ]
+        },
+        // V2-Core-32: only offered while the bandits are cowed AND the leader is still a
+        // member (both edges are read with the `relation` Condition). Using it removes
+        // the membership, so it cannot be chosen twice; a player whose confrontation the
+        // village did not back never sees it.
+        {
+          id: "opt_bandits_disperse",
+          name: "도적단 잔당의 처분을 원로에게 맡긴다",
+          requires: {
+            op: "and",
+            of: [
+              { op: "relation", from: "org_bandits", to: "self", tag: "cowed" },
+              { op: "relation", from: "npc_bandit_leader", to: "org_bandits", tag: "member" }
+            ]
+          },
+          effects: [
+            { op: "relation", from: "npc_bandit_leader", to: "org_bandits", untag: "member" },
+            { op: "relation", from: "npc_elder", add: 5 },
+            { op: "narrate", textId: "txt_bandits_disperse" }
           ]
         }
       ]
@@ -328,6 +363,7 @@ export const worldData = {
     txt_confront_fail: "대치는 뜻대로 풀리지 않았다.",
     txt_report_findings: "당신이 알아낸 것을 전하자 원로는 오래 침묵하다 천천히 고개를 끄덕인다.",
     txt_confront_backed: "마을 사람들이 당신 뒤에 서 있다는 사실이 도적 두목을 더욱 흔든다.",
+    txt_bandits_disperse: "원로는 도적단 잔당에게 사람을 보내 해산을 권한다. 두목은 더 이상 도적단의 일원이 아니다.",
     txt_rest_village: "마을 어귀의 평상에 앉아 숨을 고르며 상처를 돌본다.",
     txt_ruins_hazard: "무너진 벽돌이 머리 위로 쏟아져 내린다.",
     txt_succession: "쓰러진 이가 남긴 은화 몇 닢이 새 방랑자의 손에 들어온다."

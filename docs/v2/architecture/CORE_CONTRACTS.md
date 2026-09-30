@@ -1359,6 +1359,27 @@ state.knowledge["player_1"]["rum_a"] = {
   옛 팩의 save는 호환·유효). canonical path: ... 조사(소문 확인) → 마을 → 휴식 → (선택) 원로 대화/보고 → 대면(HP
   10→6→2→6, 총 270분, 두 check는 보고 여부와 무관하게 같은 등급). 검증: `tests/v2/data-world.test.js`(관계 결과/거부/
   파밍/실패 분기/재생/저장·불러오기 테스트 추가), `tests/v2-ui-consequence-browser.spec.js`.
+  **V2-Core-32 추가 (Issue #94, 새 semantics 없음)**: 관계 → 조직 → 사건 경로를 추적했다. 확인한 사실 — 조직은
+  별도 종류의 state가 아니다: `data.orgs`는 ID 형식만 검사되는 참조용 메타데이터이고 `state.actors`에 레코드가 없으며(D-65류
+  NPC와 같다), 조직은 `state.relations`의 edge 끝일 뿐이라 NPC와는 ID 접두어(`org_`)로만 구분된다(§7.1). 조사 성공이 남기는
+  `npc_bandit_leader:org_bandits`의 `member` 태그(`relation.changed`의 `tagAdded`)가 데이터팩이 지금까지 조직에 대해 기록하는
+  전부였고 아무것도 읽지 않았다. `relation` Condition은 그 edge를 player 문맥과 world 문맥 모두에서 읽는다(없는 edge는 점수 0/
+  `neutral`/태그 없음, 리터럴 조직 ID 가능). `view().relations`는 플레이어가 한쪽 끝인 edge만 돌려주므로 조직의 플레이어에 대한
+  edge(`org_bandits:player_1`)는 보이고 두목의 소속 edge는 보이지 않는다. `data.events`: trigger 패스는 행동 Effect가 끝난 같은 작업
+  사본에서 돌기 때문에 같은 step의 관계/태그 변화를 본다 — probe에서 임시 event(trigger: 두목의 `member` 태그)가 그 태그를 쓴
+  바로 그 조사 step에서 발동했고(`once`로 다음 step에는 발동하지 않음), 실패한 조사(태그 없음)에서는 발동하지 않았다. 다만 이번
+  결과에는 event가 필요하지 않아 콘텐츠로는 추가하지 않았다. 대면에 붙이는 조건으로 `member` 태그를 쓰지 않은 이유: 태그는 확인 flag와
+  같은 조사 성공 outcome에서 함께 써지므로 대면이 열리는 모든 경로에서 이미 참이라 flag와 겹친다(V2-Core-30의 "겹치는 조건은 넣지
+  않는다"). 그래서 (A) V2-Core-31의 뒷받침 분기(`if.then`)에 `{op:"relation", from:"org_bandits", to:"self", add:-10, tag:"cowed"}`
+  한 줄을 더해 조직이 플레이어를 어떻게 보는지를 기록하고, (B) `choice_elder_dialogue`에 네 번째 선택지 `opt_bandits_disperse`를 더했다 —
+  `requires`는 그 조직 edge의 `cowed`와 두목의 `member`(둘 다 기존 `relation` Condition, `and`), 효과는 두목의 `member`를 `untag`하고
+  원로 relation +5와 narrate다. `untag`로 자신의 조건을 지우므로 한 번 쓰면 스스로 닫힌다(별도 flag 없이 재사용 방지). 뒷받침 없는 기존
+  대면은 이벤트 목록까지 그대로이고(조직 edge 없음), 대면에 실패하면 조직 edge도 없다. 알려진 성질: 조사는 반복 가능하고 성공하면 `member`를
+  다시 붙이므로 조직이 여전히 `cowed`이면 선택지가 다시 열릴 수 있다 — 효과는 원로 relation +5뿐이라 막지 않았다. UI 확인: `renderChoice`는
+  V2-Core-31과 같이 선택지 `requires`를 직접 평가한다(D-67 경계, 결정하지 않음). D-68: 팩 `version`은 `0.1.0` 유지(state 모양 변화
+  없음, 옛 팩의 save는 호환·유효). canonical path: ... 조사 → 마을 → 휴식 → (선택) 원로 보고 → 대면 → (뒷받침한 경우) 원로에게 도적단의
+  처분을 맡김. 검증: `tests/v2/data-world.test.js`(조직 edge/선택지 노출·거부/스스로 닫힘/실패 분기/재생/저장·불러오기 추가),
+  `tests/v2-ui-faction-browser.spec.js`.
 - `validateData(data)`는 다음을 검사하고 오류 목록을 반환한다: ID 형식, 참조 무결성, Condition/Effect op와 인자,
   handler 등록과 reason, player 문맥의 fact 사용 금지, Resolvable의 success/fail 필수 여부.
   **검증을 통과하지 못한 data로 step을 호출하는 것은 프로그래머 오류다.**
@@ -1783,3 +1804,13 @@ state.knowledge["player_1"]["rum_a"] = {
     빈틈을 발견해(거부 검사가 소문을 배우기 전에만 있었다) 고쳤다(브라우저 spec은 파밍/실패 분기를 잡지 못한다 — 둘은
     Node가 검증). `version`은 올리지 않았다. `facts[*].initial`/relation rule/`completeWhen`/D-09/D-67은 결정하지
     않았다.
+  - 작업 29 = V2-Core-32 (Issue #94): faction·관계·사건 consequence slice. 엔진/저장/UI 코드와 검증기는 바꾸지 않았고
+    (`web/v2/data/world.js`와 새 테스트/문서/CI만) 새 D-decision도 없다. 관계(원로의 뒷받침) → 조직(`org_bandits` edge) →
+    선택(원로의 네 번째 선택지) → 결과(두목의 조직 소속 제거) 경로를 계약(§7/§11) → runtime(`applyRelationEffect`,
+    `evaluateRelationCondition`, `resolveChoose`, `runTriggerStage`) → 데이터 → 테스트 → 실제 실행(Node probe와 실제 Chromium) 순으로
+    추적해, 조사가 남기는 조직 소속 태그를 읽는 곳이 없다는 것이 gap임을 확인했다(자세한 판단은 §11). event가 같은 step의 관계 변화를
+    보는지는 probe로 확인만 하고 콘텐츠로는 쓰지 않았다. 기존 테스트는 하나도 수정하지 않았다. 새 브라우저 spec
+    `tests/v2-ui-faction-browser.spec.js`와 CI 단계를 추가했다. 일부러 코드를 깨뜨려(조직 edge 미기록, 태그 미기록, 선택지가 조직 edge를
+    안 읽음, 소속을 안 읽음, 소속을 안 지움, 잘못된 edge, 뒷받침 없는 대면에도 기록, 실패 대면에도 기록) 각각 Node 테스트가 실패하는지 확인한 뒤
+    복원했다(브라우저 spec은 canonical seed가 항상 성공이라 실패 분기 하나를 잡지 못한다 — Node가 검증). `version`은 올리지 않았다.
+    `facts[*].initial`/relation rule/`completeWhen`/D-09/D-67은 결정하지 않았다.
