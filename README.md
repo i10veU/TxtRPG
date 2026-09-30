@@ -72,7 +72,7 @@
   tests/v2-ui-information-browser.spec.js tests/v2-ui-consequence-browser.spec.js
   tests/v2-ui-faction-browser.spec.js tests/v2-ui-persistence-browser.spec.js
   tests/v2-ui-successor-browser.spec.js tests/v2-ui-successor-gate-browser.spec.js
-  tests/v2-ui-succession-browser.spec.js`로 실행한다(Node 테스트는 IndexedDB를 mock하는 새 의존성을
+  tests/v2-ui-succession-browser.spec.js tests/v2-ui-core-semantics-browser.spec.js`로 실행한다(Node 테스트는 IndexedDB를 mock하는 새 의존성을
   추가하지 않고 순수 함수만 검증한다). V1 회귀는 기존과 동일하게 `tests/*.js`(`.spec.js` 제외)
   41개를 개별 실행해 41/41을 확인한다. CI(`Unit & regression`/`Browser smoke`)가 두 계층 모두
   매 PR마다 자동으로 검증한다.
@@ -86,7 +86,7 @@
   만든 save를 조용히 실행하지 않도록, 현재 팩을 가진 caller(UI)가 로드 경계에서
   `checkDataCompatibility`로 거부한다(D-68).
 
-### 현재 진행 단계 (V2-Core-01 ~ V2-Core-36 완료)
+### 현재 진행 단계 (V2-Core-01 ~ V2-Core-37 완료)
 
 - **엔진 핵심**: `state`/`action`/`event` 스키마, RNG, `step()` 11단계 파이프라인, Condition
   DSL(and/or/not/eq류 6개 + shorthand 12개 + money/rumor), Effect DSL(20개 op 전부: flag/signal/
@@ -172,6 +172,9 @@
   V2-Core-36은 코드나 콘텐츠를 바꾸지 않고 계승을 실제 state로 조사했다(D-71): 후계자가 전 캐릭터에게서 받는 것은 없고(고정 `money +3`뿐), 세계 필드는 succession이 하나도
   바꾸지 않는다. 시장 보상은 현재 플레이어 자신의 `cowed` edge와 세계 전체의 `once`로 정해져, 전 캐릭터가 먼저 받았거나 받기 전에 죽었을 때의 결과를 테스트로 고정했다(새 semantics를
   정하지 않음). `tests/v2-ui-succession-browser.spec.js`가 실제 사망 → 후계자 → 시장 → 저장/불러오기를 실제 브라우저로 검증한다.
+  V2-Core-37은 역시 코드/콘텐츠를 바꾸지 않고 미결 세 항목(`completeWhen`, relation rule `when`, `facts[*].initial`)을 다시 추적했다(D-72): 소비 코드는 여전히 검증기뿐이고 실제 팩은 쓰지
+  않으며, 같은 일을 하는 `data.events`가 이미 있어 "전용 경로를 둘 것인가"가 첫 결정이다. `facts[*].initial`은 seed 입력(문자열 `worldSeed` / `rng.seed` / 숫자)이 미정이다.
+  `tests/v2/core-semantics-gap.test.js`와 `tests/v2-ui-core-semantics-browser.spec.js`가 현재 동작을 고정한다(새 semantics를 구현하는 테스트는 아님).
 
 ### 이후 진행 단계
 
@@ -254,6 +257,10 @@
   (Inherited는 없음), 세계 보상의 귀속을 기존 contract가 결정하는 현재 동작으로 고정했다. B(구현 가능) 항목은 없었다. C 네 가지는 결정하지 않고 선택지와 영향을 D-71에 남겼다:
   후계자가 받을 범위, 세계 보상의 귀속과 `once`의 단위, 개인 행동이 세계 edge(`member`)를 되돌리는 것, 죽은 캐릭터 기록의 누적. 기존 테스트는 하나도 수정하지 않았다. 팩 `version`은
   `0.1.0` 그대로다(state 모양 변화 없음, D-68). `facts[*].initial`/relation rule/`completeWhen`/D-09/D-67은 결정하지 않았다.
+- **V2-Core-37 결과** (코드/콘텐츠 변경 없음, 새 테스트/문서/CI만, 상세는 `CORE_CONTRACTS.md` D-72/§8.1/§11): 세 항목을 세부 질문별로 A/B/C/D로 나눴다. B(구현 가능)는 없다 —
+  조건부 case 전이와 관계 변화는 지금 `data.events`로 표현된다. C: 전용 `completeWhen` 실행, 전용 relation rule 실행, `facts[*].initial` 시딩(seed 입력 포함). 결합도가 낮아 후속 이슈를 나누도록 권한다:
+  (i) `completeWhen`+relation rule의 공통 전제(event와 별도 경로를 둘 것인가)와 cadence/순서 결정, (ii) `facts[*].initial` seed 입력과 옛 save 호환, (iii) D-67, (iv) D-68. 기존 테스트는 하나도
+  수정하지 않았다. 팩 `version`은 `0.1.0` 그대로다(state 모양 변화 없음, D-68). D-09/D-67은 결정하지 않았다.
 - **다음 issue 후보**: (1) 실제 콘텐츠가 요구할 때 위 C 항목을 각각 별도 D-decision으로 확정 — 우선
   후보는 "전용 필드 vs event" 결정(`completeWhen`/relation rules)과 seed 입력 결정(`facts[*].initial`).
   (2) 콘텐츠 결정(core와 분리): HP 회복과 위치 제약(V2-Core-29), 소문 → 행동 연결(V2-Core-30)은 처리했다.
