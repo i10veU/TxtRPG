@@ -10,7 +10,7 @@
 
 import assert from "node:assert/strict";
 import { createInitialState, step, view, validateState } from "../../web/v2/core/engine.js";
-import { validateData } from "../../web/v2/core/rules.js";
+import { validateData, evaluateCondition } from "../../web/v2/core/rules.js";
 import { buildSaveRecord, parseLoadedRecord } from "../../web/v2/storage/idb.js";
 import { worldData } from "../../web/v2/data/world.js";
 
@@ -946,5 +946,140 @@ function testPersistentConsequenceSaveLoad() {
 }
 
 testPersistentConsequenceSaveLoad();
+
+// 20. V2-Core-34: what belongs to a character and what belongs to the world (D-70).
+// The classification is asserted here on real state, after a character has made a
+// world-level change, died, and been succeeded.
+const NEWS = "opt_ask_bandit_news";
+const START_SUCCESSOR = { type: "startCharacter", templateId: "start_wanderer" };
+const DIE_AT_RUINS = [
+  { type: "move", to: "loc_ruins" },
+  { type: "wait", minutes: 30 },
+  { type: "wait", minutes: 30 },
+  { type: "wait", minutes: 30 }
+];
+
+function testCharacterVersusWorldState() {
+  const rejectedCode = (result) => result.events.find((e) => e.type === "action.rejected")?.data.code;
+  const talk = { type: "perform", actionId: "act_talk_elder" };
+  const drive = (state, actions) => actions.reduce((st, a) => step(st, a, worldData).state, state);
+  const offered = (state, optionId) => rejectedCode(step(step(state, talk, worldData).state, { type: "choose", optionId }, worldData)) === undefined;
+  const successorOf = (path) => {
+    const dead = drive(runActions(path).state, DIE_AT_RUINS);
+    assert.strictEqual(dead.actors.player_1.alive, false);
+    assert.deepStrictEqual(dead.pending, { kind: "newCharacter" });
+    const result = step(dead, START_SUCCESSOR, worldData);
+    return { dead, result, state: result.state };
+  };
+
+  const { dead, result: started, state: successor } = successorOf(DECIDED_ACTIONS);
+
+  // -- succession: it adds a character and applies the explicit rule, nothing else --
+  assert.deepStrictEqual(successor.player, { actorId: "player_2", characterCount: 2 });
+  for (const field of ["relations", "flags", "cases", "fired", "facts", "knowledge", "signals", "attempts", "time", "rng"]) {
+    assert.deepStrictEqual(successor[field], dead[field], `startCharacter leaves ${field} alone`);
+  }
+  assert.deepStrictEqual(successor.actors.player_1, dead.actors.player_1, "the dead character's record is kept as it was");
+  assert.deepStrictEqual(started.events.map((e) => e.type), ["character.started", "money.changed", "narration", "action.resolved"]);
+  assert.deepStrictEqual(validateState(successor), []);
+
+  // -- D: a character's own things start from the template, never from the predecessor --
+  const fresh = successor.actors.player_2;
+  assert.deepStrictEqual(fresh.inventory, {});
+  assert.deepStrictEqual(fresh.growth.growth_wanderer.unlocks ?? {}, {});
+  assert.strictEqual(fresh.locationId, "loc_village");
+  assert.strictEqual(fresh.hp.current, 10);
+  assert.strictEqual(fresh.money, 8 + 3, "template money plus the one thing rules.succession grants");
+  assert.ok(dead.actors.player_1.inventory.item_lantern >= 1 && dead.actors.player_1.growth.growth_wanderer.unlocks.unl_keen_eye);
+
+  // -- D: knowledge and the edges with a character at one end stay with that character --
+  assert.deepStrictEqual(Object.keys(successor.knowledge), ["player_1"]);
+  const anchored = Object.keys(successor.relations).filter((key) => key.split(":").some((id) => /^player_\d+$/.test(id)));
+  assert.deepStrictEqual(anchored.sort(), ["npc_bandit_leader:player_1", "npc_elder:player_1", "org_bandits:player_1"]);
+  const successorView = view(successor, worldData);
+  assert.deepStrictEqual(successorView.knowledge, {});
+  assert.deepStrictEqual(successorView.relations, {}, "the successor is an end of no edge, so the view shows none");
+  assert.ok(!("facts" in successorView));
+
+  // -- A: what has no character at an end is the world's, and the successor reads it as it stands --
+  assert.deepStrictEqual(successor.flags, { ruins_secret_confirmed: true });
+  assert.strictEqual(successor.cases.case_ruins_mystery.stage, "resolved");
+  assert.deepStrictEqual(successor.relations["npc_bandit_leader:org_bandits"].tags, [], "the leader's departure is a world edge");
+  assert.strictEqual(successor.time.minute, dead.time.minute, "time does not restart");
+  const readsAsSuccessor = (condition) => evaluateCondition(condition, { state: successor, data: worldData, actorId: "player_2", contextKind: "player" });
+  assert.strictEqual(readsAsSuccessor({ op: "flag", key: "ruins_secret_confirmed", eq: true }), true);
+  assert.strictEqual(readsAsSuccessor({ op: "case", case: "case_ruins_mystery", stage: "resolved" }), true);
+  assert.strictEqual(readsAsSuccessor({ op: "rumor", rumor: "rum_ruins_secret" }), false, "personal: the rumor was the predecessor's");
+  assert.strictEqual(readsAsSuccessor({ op: "relation", from: "org_bandits", to: "self", tag: "cowed" }), false, "personal: the organisation's regard was for player_1");
+  assert.strictEqual(readsAsSuccessor({ op: "unlock", id: "unl_keen_eye" }), false, "personal: growth");
+
+  // -- B: an option that reads only world state is offered to the successor --
+  assert.strictEqual(offered(successor, NEWS), true, "the successor is offered the news");
+  assert.strictEqual(offered(runActions(DECIDED_ACTIONS).state, NEWS), true, "...exactly as the character who made it true is");
+  const asked = step(step(successor, talk, worldData).state, { type: "choose", optionId: NEWS }, worldData);
+  assert.deepStrictEqual(asked.events.map((e) => e.type), ["relation.changed", "narration", "action.resolved"]);
+  assert.strictEqual(asked.events[1].data.textId, "txt_bandit_news");
+  assert.deepStrictEqual(asked.events[0].data, { from: "npc_elder", to: "player_2", delta: 1 }, "the effect lands on the asker's own edge");
+  for (const field of ["flags", "cases", "fired", "facts", "knowledge"]) {
+    assert.deepStrictEqual(asked.state[field], successor[field], `asking changes no world-level ${field}`);
+  }
+  assert.deepStrictEqual(asked.state.relations["npc_elder:player_1"], successor.relations["npc_elder:player_1"], "the predecessor's edge is untouched");
+
+  // -- ...but the predecessor's personal decision is not the successor's --
+  assert.strictEqual(offered(successor, "opt_bandits_disperse"), false);
+  const pendingTalk = step(successor, talk, worldData).state;
+  const refused = step(pendingTalk, { type: "choose", optionId: "opt_bandits_disperse" }, worldData);
+  assert.strictEqual(rejectedCode(refused), "requirements_not_met");
+  assert.deepStrictEqual(refused.state, pendingTalk, "a refusal changes nothing and the choice stays pending");
+  assert.deepStrictEqual(refused.state.pending, { kind: "choice", choiceId: "choice_elder_dialogue", sourceId: "act_talk_elder" });
+
+  // -- the world state is the whole story: every other history offers the news to nobody --
+  const otherHistories = {
+    "nothing done": [],
+    "investigated only": CANONICAL_ACTIONS.slice(0, 11),
+    "confronted without the village's backing": CANONICAL_ACTIONS,
+    "backed and confronted, fate never decided": REPORTED_ACTIONS
+  };
+  for (const [label, path] of Object.entries(otherHistories)) {
+    assert.strictEqual(offered(runActions(path).state, NEWS), false, `${label}: not offered to the character`);
+    if (path.length > 0) assert.strictEqual(offered(successorOf(path).state, NEWS), false, `${label}: not offered to the successor either`);
+  }
+
+  // -- the world-level trigger the news uses is true on exactly one history, in any context --
+  const worldPair = worldData.choices.choice_elder_dialogue.options.find((o) => o.id === NEWS).requires;
+  for (const [path, expected] of [[DECIDED_ACTIONS, true], [REPORTED_ACTIONS, false], [CANONICAL_ACTIONS, false], [[], false]]) {
+    const state = runActions(path).state;
+    for (const contextKind of ["player", "world"]) {
+      assert.strictEqual(evaluateCondition(worldPair, { state, data: worldData, actorId: state.player.actorId, contextKind }), expected);
+    }
+  }
+}
+
+testCharacterVersusWorldState();
+
+// 21. V2-Core-34: the successor's path is deterministic, survives JSON and save/load at
+// every step, and gives the same result to the same input after loading.
+function testSuccessorReplayAndSaveLoad() {
+  const path = [...DECIDED_ACTIONS, ...DIE_AT_RUINS, START_SUCCESSOR, { type: "perform", actionId: "act_talk_elder" }, { type: "choose", optionId: NEWS }];
+  const runA = runActions(path);
+  const runB = runActions(path);
+  assert.deepStrictEqual(runA.state, runB.state);
+  assert.deepStrictEqual(runA.log, runB.log);
+  assert.deepStrictEqual(JSON.parse(JSON.stringify(runA.state)), runA.state);
+  assert.deepStrictEqual(validateState(runA.state), []);
+  assert.strictEqual(runA.state.player.actorId, "player_2");
+  assert.strictEqual(runA.state.relations["npc_elder:player_2"].score, 1);
+
+  let state = createInitialState({ worldSeed: CANONICAL_SEED, data: worldData }).state;
+  path.forEach((action, index) => {
+    const reloaded = parseLoadedRecord(JSON.parse(JSON.stringify(buildSaveRecord(`slot_w${index}`, state, { savedAt: index }))));
+    assert.deepStrictEqual(reloaded, state, `state before step ${index}`);
+    assert.deepStrictEqual(step(reloaded, action, worldData), step(state, action, worldData), `step ${index} result`);
+    state = step(state, action, worldData).state;
+  });
+  assert.deepStrictEqual(state, runA.state);
+}
+
+testSuccessorReplayAndSaveLoad();
 
 console.log("V2-Core-22 data-world.test.js: all checks passed");

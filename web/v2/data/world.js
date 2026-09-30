@@ -27,6 +27,8 @@
 //      behind opens one more option -- leave the bandits' fate to the elder
 //   -> market (any later step): once the bandits are cowed and the leader is no
 //      longer one of them, the merchants show their relief -- once
+//   -> village, any character, any time later: the elder can be asked for news of
+//      the bandits once the village's history says they dispersed
 //
 // V2-Core-25 wires already-implemented mechanics into this same pack (no new
 // engine semantics): `minutes` on the two long actions, `location`-gated
@@ -80,6 +82,19 @@
 // the acting character's (`org_bandits` -> `player_<n>`): a successor does not inherit
 // it, and the event is simply false for them. `version` stays "0.1.0" (no state-shape
 // change; D-68).
+//
+// V2-Core-34 also adds no engine semantics; it draws the line between what belongs to
+// a character and what belongs to the world (CORE_CONTRACTS D-70). `state.actors[id]`
+// (items, money, hp, growth), `state.knowledge[id]` and every relation edge that has a
+// `player_<n>` at one end belong to that character; `flags`, `cases`, `facts`, `fired`,
+// `time` and the edges between world entities belong to the world, and a successor
+// inherits none of the first kind (`rules.succession` above is the only bridge, and it
+// grants money only). `opt_ask_bandit_news` reads nothing but the second kind -- the
+// `ruins_mystery` case is resolved and the leader is no longer a member -- so it is
+// offered to whoever is asking, the acting character or their successor, and to nobody
+// on any other history. What a successor should inherit, and who a world-level reward
+// belongs to, are design decisions this pack does not make. `version` stays "0.1.0"
+// (no state-shape change; D-68).
 //
 // This is deliberately small (Ponytail): one data module, one growth
 // system, three locations, two NPCs (referenced only as relation/rumor
@@ -314,6 +329,24 @@ export const worldData = {
         // member (both edges are read with the `relation` Condition). Using it removes
         // the membership, so it cannot be chosen twice; a player whose confrontation the
         // village did not back never sees it.
+        // V2-Core-34: reads WORLD state only (a resolved case and the leader's membership
+        // edge, neither of which has a character at either end), so it is offered to a
+        // successor exactly as it is to the character who made it true.
+        {
+          id: "opt_ask_bandit_news",
+          name: "도적단의 소식을 묻는다",
+          requires: {
+            op: "and",
+            of: [
+              { op: "case", case: "case_ruins_mystery", stage: "resolved" },
+              { op: "not", of: { op: "relation", from: "npc_bandit_leader", to: "org_bandits", tag: "member" } }
+            ]
+          },
+          effects: [
+            { op: "relation", from: "npc_elder", add: 1 },
+            { op: "narrate", textId: "txt_bandit_news" }
+          ]
+        },
         {
           id: "opt_bandits_disperse",
           name: "도적단 잔당의 처분을 원로에게 맡긴다",
@@ -392,6 +425,7 @@ export const worldData = {
     txt_confront_fail: "대치는 뜻대로 풀리지 않았다.",
     txt_report_findings: "당신이 알아낸 것을 전하자 원로는 오래 침묵하다 천천히 고개를 끄덕인다.",
     txt_confront_backed: "마을 사람들이 당신 뒤에 서 있다는 사실이 도적 두목을 더욱 흔든다.",
+    txt_bandit_news: "원로는 폐허의 도적단이 흩어졌다는 소식을 들려준다. 마을 사람들 사이에서 그 이야기는 오래 회자된다.",
     txt_bandits_disperse: "원로는 도적단 잔당에게 사람을 보내 해산을 권한다. 두목은 더 이상 도적단의 일원이 아니다.",
     txt_market_reopens: "도적단이 흩어졌다는 소식에 상인들이 안도하며 은화 몇 닢을 사례한다.",
     txt_rest_village: "마을 어귀의 평상에 앉아 숨을 고르며 상처를 돌본다.",
