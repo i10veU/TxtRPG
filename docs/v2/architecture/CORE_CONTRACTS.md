@@ -1296,6 +1296,18 @@ state.knowledge["player_1"]["rum_a"] = {
   `data.events` 1개(폐허에서 `cooldown`으로 반복 발동, `hp` Effect), `rules.succession`(`money`+
   `narrate`). 자세한 판정과 근거는 D-66의 V2-Core-25 후속 노트, 검증은
   `tests/v2/data-world-lifecycle.test.js`/`tests/v2-ui-lifecycle-browser.spec.js` 참고.
+  **V2-Core-29 추가 (Issue #88, 새 semantics 없음)**: `act_buy_lantern`은 `loc_market`, `act_investigate_ruins`는
+  `loc_ruins`에서만 실행되도록 기존 `location` Condition을 `and`로 덧붙였고(잘못된 위치는
+  `requirements_not_met`, view 노출은 기존 `showWhenLocked`/D-06/D-15 그대로), 회복 행동
+  `act_rest_village`(마을, 60분, `hp` +4)를 추가했다. 회복은 기존 `hp` Effect의 양수 add와 max clamp만
+  쓰며, 죽은 actor는 엔진의 pending/dead 게이트(`pending_new_character`/`actor_dead`)가 `perform`을
+  막으므로 되살릴 수 없다(D-69의 "죽은 actor에게 hp를 더하면 alive는 false로 남는다"는 사실은 그대로이며
+  부활 semantics는 여전히 미정). 팩 `version`은 `0.1.0`으로 유지했다: state 모양 변화가 없고 D-68이 정확
+  일치를 요구하므로 올리면 기존 save가 불필요하게 막힌다(version을 올릴 시점은 팩 작성자 규율, D-68 (c)).
+  canonical path: 새 게임 → 마을 살피기 x2 → 시장 이동 → 등불 구입 → 마을 → 폐허(도착 시 함정 -4) → 조사
+  (체류 중 함정 -4) → 마을 → 휴식(+4) → 원로 대화/선택 → 대면(HP 10→6→2→6, 총 270분). 검증:
+  `tests/v2/data-world.test.js`/`data-world-lifecycle.test.js`(기존 canonical path를 이동 단계 포함으로
+  수정, 위치 제약/회복/clamp/죽은 actor 무부활/succession 유지 추가), `tests/v2-ui-canonical-browser.spec.js`.
 - `validateData(data)`는 다음을 검사하고 오류 목록을 반환한다: ID 형식, 참조 무결성, Condition/Effect op와 인자,
   handler 등록과 reason, player 문맥의 fact 사용 금지, Resolvable의 success/fail 필수 여부.
   **검증을 통과하지 못한 data로 step을 호출하는 것은 프로그래머 오류다.**
@@ -1681,3 +1693,14 @@ state.knowledge["player_1"]["rum_a"] = {
     hp만 오르고 `alive`는 false로 남는다(부활 semantics 미정, 회복 콘텐츠 설계 시 주의). canonical
     플레이는 네 항목 중 어느 것도 필요로 하지 않으며 HP 회복과 추가 위치 제약은 core가 아니라 콘텐츠
     결정이다. D-09/D-59/D-65 행에는 D-69로 가는 재조사 노트를 붙였다. D-67은 이번에도 결정하지 않았다.
+  - 작업 26 = V2-Core-29 (Issue #88): canonical world-data content 확장 — 위치 제약과 HP 회복. 엔진/저장/UI
+    코드와 `validateData` 등 검증기는 바꾸지 않았고(`web/v2/data/world.js`와 테스트/문서/CI만) 새 D-decision도
+    없다. 등불 구입/폐허 조사에 기존 `location` Condition을 붙이고 기존 `hp` Effect로 마을 휴식 행동을
+    추가했다. 사전 probe로 canonical seed(`frontier-canonical-4`)에서 이동/휴식/함정을 넣어도 두 check가
+    같은 등급이고(RNG는 check만 소비) 총 270분임을 확인했다. 기존 테스트 중 canonical path를 밟는
+    `data-world.test.js`, `data-world-lifecycle.test.js`, `v2-data-world-browser.spec.js`,
+    `v2-ui-browser.spec.js`(테스트 2)는 이동 단계를 넣도록만 고쳤고 다른 V2 브라우저 spec은 그대로 통과한다.
+    새 브라우저 spec `tests/v2-ui-canonical-browser.spec.js`와 CI 단계를 추가했다. 일부러 코드를 깨뜨려(구입/
+    조사/휴식 위치 제약 제거, 회복량 0, 회복량 과다로 clamp 확인) 각각 Node와 브라우저 테스트가 실패하는지
+    확인한 뒤 복원했다. `version`을 올리지 않은 이유는 §11 참고. D-09/`completeWhen`/relation rules/
+    `facts[*].initial`/D-67은 결정하지 않았다.

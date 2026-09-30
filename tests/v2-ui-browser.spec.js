@@ -76,15 +76,28 @@ test.describe("V2 minimal browser UI (real entry point)", () => {
       await page.locator("#actions button", { hasText: label }).click();
     };
 
+    const clickMove = async (label) => {
+      await page.locator("#moves button", { hasText: label }).click();
+    };
+
     await clickAction("마을 살피기");
     await clickAction("마을 살피기");
+
+    // V2-Core-29: the lantern is bought at the market, the ruins are visited
+    // (location-gated), and the village rest heals what the hazard took
+    await clickMove("시장");
     await clickAction("등불 구입");
+    await clickMove("변경 마을");
+    await clickMove("폐허");
 
     // investigate: a real check() decides the outcome; canonical seed lands
     // on a non-fail tier (verified in tests/v2/data-world.test.js)
     await clickAction("폐허 조사");
     const afterInvestigate = await page.evaluate(() => window.__v2App.getLog());
     expect(afterInvestigate.some((line) => line.includes("판정:"))).toBe(true);
+
+    await clickMove("변경 마을");
+    await clickAction("마을에서 쉬기");
 
     // talk to the elder -> real pending choice UI
     await clickAction("원로와 대화");

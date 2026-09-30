@@ -14,8 +14,13 @@ const CANONICAL_SEED = "frontier-canonical-4";
 const CANONICAL_ACTIONS = [
   { type: "perform", actionId: "act_observe_village" },
   { type: "perform", actionId: "act_observe_village" },
+  { type: "move", to: "loc_market" },
   { type: "perform", actionId: "act_buy_lantern" },
+  { type: "move", to: "loc_village" },
+  { type: "move", to: "loc_ruins" },
   { type: "perform", actionId: "act_investigate_ruins" },
+  { type: "move", to: "loc_village" },
+  { type: "perform", actionId: "act_rest_village" },
   { type: "perform", actionId: "act_talk_elder" },
   { type: "choose", optionId: "opt_ask_ruins" },
   { type: "perform", actionId: "act_confront_leader" }
@@ -92,14 +97,15 @@ test.describe("V2 world data pack (real content, real IndexedDB)", () => {
       let state = createInitialState({ worldSeed: "frontier-canonical-4", data }).state;
 
       // play up to (but not including) the check-bearing investigate action
-      for (const action of actions.slice(0, 3)) {
+      const investigateIndex = actions.findIndex((a) => a.actionId === "act_investigate_ruins");
+      for (const action of actions.slice(0, investigateIndex)) {
         state = step(state, action, data).state;
       }
 
       await window.__v2Smoke.storage.save("slot_village", state, { savedAt: 42 });
       const reloaded = await window.__v2Smoke.storage.load("slot_village");
 
-      const nextAction = actions[3]; // act_investigate_ruins
+      const nextAction = actions[investigateIndex]; // act_investigate_ruins
       const fromOriginal = step(state, nextAction, data);
       const fromReloaded = step(reloaded, nextAction, data);
 
