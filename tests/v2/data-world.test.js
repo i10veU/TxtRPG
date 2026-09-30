@@ -1082,4 +1082,164 @@ function testSuccessorReplayAndSaveLoad() {
 
 testSuccessorReplayAndSaveLoad();
 
+// 22. V2-Core-35: a world flag is not a character's own proof. `ruins_secret_confirmed` is
+// world-unit (§4.1: a flag takes no subject), so the report option and the confrontation
+// read the character's own relic instead -- the item only a successful investigation
+// writes, into the investigating character's own inventory.
+const INVESTIGATED_ACTIONS = CANONICAL_ACTIONS.slice(0, 11); // observe x2, elder, lantern, ruins, investigate, rest
+const REPORT_OPTION = { type: "choose", optionId: "opt_report_findings" };
+const OBSERVE = { type: "perform", actionId: "act_observe_village" };
+
+// the successor's own way to the proof: ask the elder, observe twice, lantern, ruins, investigate, rest
+const SUCCESSOR_OWN_ACTIONS = [
+  START_SUCCESSOR,
+  { type: "perform", actionId: "act_talk_elder" },
+  { type: "choose", optionId: "opt_ask_ruins" },
+  OBSERVE,
+  OBSERVE,
+  MARKET,
+  { type: "perform", actionId: "act_buy_lantern" },
+  VILLAGE,
+  { type: "move", to: "loc_ruins" },
+  { type: "perform", actionId: "act_investigate_ruins" },
+  VILLAGE,
+  { type: "perform", actionId: "act_rest_village" }
+];
+const SUCCESSOR_PATH = [...INVESTIGATED_ACTIONS, ...DIE_AT_RUINS, ...SUCCESSOR_OWN_ACTIONS];
+
+// a seed on which both characters' investigations succeed (partial/fail give no proof)
+function seedWhereBothSucceed() {
+  for (let i = 0; i < 60; i++) {
+    const seed = `successor-gate-${i}`;
+    const { log } = runActions(SUCCESSOR_PATH, seed);
+    const tiers = log
+      .filter((entry) => entry.action.actionId === "act_investigate_ruins")
+      .map((entry) => entry.events.find((e) => e.type === "check.resolved").data.tier);
+    if (tiers.length === 2 && tiers.every((tier) => tier === "success" || tier === "great")) return seed;
+  }
+  assert.fail("no trial seed where both investigations succeed");
+}
+
+function testPersonalConfirmationGate() {
+  const rejectedCode = (result) => result.events.find((e) => e.type === "action.rejected")?.data.code;
+  const talk = { type: "perform", actionId: "act_talk_elder" };
+  const confront = CANONICAL_ACTIONS.at(-1);
+  const drive = (state, actions) => actions.reduce((st, a) => step(st, a, worldData).state, state);
+  const reportRejection = (state) => {
+    const pending = step(state, talk, worldData).state;
+    const result = step(pending, REPORT_OPTION, worldData);
+    return { code: rejectedCode(result), unchanged: JSON.stringify(result.state) === JSON.stringify(pending), pending: result.state.pending };
+  };
+  const confrontEntry = (state) => view(state, worldData).actions.find((a) => a.actionId === "act_confront_leader");
+  const seed = seedWhereBothSucceed();
+
+  // -- what a flag is: world-unit, written by the success outcome, owned by nobody --
+  const investigated = runActions(INVESTIGATED_ACTIONS, seed);
+  assert.deepStrictEqual(investigated.state.flags, { ruins_secret_confirmed: true });
+  const success = investigated.log[stepIndexOf(INVESTIGATED_ACTIONS, "act_investigate_ruins")];
+  assert.ok(success.events.some((e) => e.type === "flag.changed" && e.data.key === "ruins_secret_confirmed"), "the flag is still the world's record");
+  // ...and what marks THIS character's confirmation: the relic, in this character's inventory
+  assert.strictEqual(investigated.state.actors.player_1.inventory.item_relic, 1);
+  assert.deepStrictEqual(success.events.find((e) => e.type === "item.changed" && e.data.item === "item_relic").actorId, "player_1");
+  // the rumor cannot tell an investigator from someone who only asked the elder: same confidence
+  const onlyAsked = runActions(CANONICAL_ACTIONS.slice(0, 4), seed).state;
+  assert.strictEqual(investigated.state.knowledge.player_1.rum_ruins_secret.confidence, onlyAsked.knowledge.player_1.rum_ruins_secret.confidence);
+  assert.strictEqual(onlyAsked.actors.player_1.inventory.item_relic, undefined);
+
+  // -- the character who investigated is unaffected: they can report and reach the confrontation --
+  assert.strictEqual(reportRejection(investigated.state).code, undefined);
+  assert.deepStrictEqual(confrontEntry(investigated.state), { actionId: "act_confront_leader", available: true });
+
+  // -- History A: they die; a successor who never investigated cannot report or confront --
+  const dead = drive(investigated.state, DIE_AT_RUINS);
+  const successor = step(dead, START_SUCCESSOR, worldData).state;
+  assert.deepStrictEqual(successor.flags, { ruins_secret_confirmed: true }, "the world's record is still there for the successor to read");
+  assert.strictEqual(successor.actors.player_2.inventory.item_relic, undefined, "the proof is the predecessor's");
+  const refused = reportRejection(successor);
+  assert.strictEqual(refused.code, "requirements_not_met");
+  assert.strictEqual(refused.unchanged, true, "a refusal changes nothing");
+  assert.deepStrictEqual(refused.pending, { kind: "choice", choiceId: "choice_elder_dialogue", sourceId: "act_talk_elder" });
+  assert.strictEqual(successor.relations["npc_elder:player_2"], undefined);
+  assert.deepStrictEqual(confrontEntry(successor), { actionId: "act_confront_leader", available: false });
+  // even with the keen-eye unlock the world flag alone does not open it
+  const unlocked = drive(successor, [OBSERVE, OBSERVE, OBSERVE, OBSERVE]);
+  assert.deepStrictEqual(unlocked.actors.player_2.growth.growth_wanderer.unlocks, { unl_keen_eye: true });
+  assert.deepStrictEqual(confrontEntry(unlocked), { actionId: "act_confront_leader", available: false });
+  const refusedConfront = step(unlocked, confront, worldData);
+  assert.strictEqual(rejectedCode(refusedConfront), "requirements_not_met");
+  assert.deepStrictEqual(refusedConfront.state, unlocked);
+  assert.strictEqual(reportRejection(unlocked).code, "requirements_not_met");
+
+  // -- the flag alone never opens a personal gate, on a character who has done nothing --
+  const flagOnly = createInitialState({ worldSeed: "flag-only", data: worldData }).state;
+  flagOnly.flags = { ruins_secret_confirmed: true };
+  assert.strictEqual(reportRejection(flagOnly).code, "requirements_not_met");
+  assert.strictEqual(reportRejection(drive(flagOnly, [{ type: "perform", actionId: "act_talk_elder" }, { type: "choose", optionId: "opt_ask_ruins" }])).code, "requirements_not_met", "knowing the rumor is not proof either");
+  assert.deepStrictEqual(confrontEntry(drive(flagOnly, [OBSERVE, OBSERVE, OBSERVE, OBSERVE])), { actionId: "act_confront_leader", available: false });
+
+  // -- a failed investigation writes no proof --
+  const beforeInvestigation = runActions(INVESTIGATED_ACTIONS.slice(0, 8), seed).state;
+  let failed;
+  for (let i = 0; i < 200 && !failed; i++) {
+    const trial = { ...beforeInvestigation, rng: createInitialState({ worldSeed: `proof-trial-${i}`, data: worldData }).state.rng };
+    const result = step(trial, { type: "perform", actionId: "act_investigate_ruins" }, worldData);
+    if (!["success", "great"].includes(result.events.find((e) => e.type === "check.resolved").data.tier)) failed = result;
+  }
+  assert.ok(failed, "found a failing trial seed");
+  assert.strictEqual(failed.state.actors.player_1.inventory.item_relic, undefined, "no relic from a failed investigation");
+  assert.strictEqual(failed.state.flags?.ruins_secret_confirmed, undefined);
+  assert.strictEqual(reportRejection(drive(failed.state, [VILLAGE])).code, "requirements_not_met");
+
+  // -- the successor earns their own proof, and then the gates open for them --
+  const own = runActions(SUCCESSOR_PATH, seed);
+  assert.strictEqual(own.state.actors.player_2.inventory.item_relic, 1);
+  assert.strictEqual(own.state.actors.player_1.inventory.item_relic, 1, "the predecessor's record is unchanged");
+  const owned = reportRejection(own.state);
+  assert.strictEqual(owned.code, undefined, "their own proof opens the report");
+  const reported = step(step(own.state, talk, worldData).state, REPORT_OPTION, worldData);
+  assert.deepStrictEqual(reported.state.relations["npc_elder:player_2"].tags, ["confidant"]);
+  assert.deepStrictEqual(reported.state.relations["npc_elder:player_1"].tags, [], "the predecessor never reported: their own edge has no confidant tag");
+  assert.deepStrictEqual(confrontEntry(own.state), { actionId: "act_confront_leader", available: true });
+  assert.strictEqual(rejectedCode(step(own.state, confront, worldData)), undefined);
+
+  // -- world consequences are still readable by a successor with no proof (V2-Core-34) --
+  const decidedDead = drive(runActions(DECIDED_ACTIONS).state, DIE_AT_RUINS);
+  const decidedSuccessor = step(decidedDead, START_SUCCESSOR, worldData).state;
+  const newsOffered = rejectedCode(step(step(decidedSuccessor, talk, worldData).state, { type: "choose", optionId: NEWS }, worldData)) === undefined;
+  assert.strictEqual(newsOffered, true, "the world's history is offered");
+  assert.strictEqual(reportRejection(decidedSuccessor).code, "requirements_not_met", "...but the predecessor's proof is not");
+}
+
+function stepIndexOf(actions, actionId) {
+  return actions.findIndex((a) => a.actionId === actionId);
+}
+
+testPersonalConfirmationGate();
+
+// 23. V2-Core-35: the successor's own path is deterministic, survives JSON, and gives the same
+// result after a save -> load at every step.
+function testSuccessorProofReplayAndSaveLoad() {
+  const seed = seedWhereBothSucceed();
+  const path = [...SUCCESSOR_PATH, { type: "perform", actionId: "act_talk_elder" }, REPORT_OPTION];
+  const runA = runActions(path, seed);
+  const runB = runActions(path, seed);
+  assert.deepStrictEqual(runA.state, runB.state);
+  assert.deepStrictEqual(runA.log, runB.log);
+  assert.deepStrictEqual(JSON.parse(JSON.stringify(runA.state)), runA.state);
+  assert.deepStrictEqual(validateState(runA.state), []);
+  assert.strictEqual(runA.state.actors.player_2.inventory.item_relic, 1);
+  assert.deepStrictEqual(runA.state.relations["npc_elder:player_2"].tags, ["confidant"]);
+
+  let state = createInitialState({ worldSeed: seed, data: worldData }).state;
+  path.forEach((action, index) => {
+    const reloaded = parseLoadedRecord(JSON.parse(JSON.stringify(buildSaveRecord(`slot_g${index}`, state, { savedAt: index }))));
+    assert.deepStrictEqual(reloaded, state, `state before step ${index}`);
+    assert.deepStrictEqual(step(reloaded, action, worldData), step(state, action, worldData), `step ${index} result`);
+    state = step(state, action, worldData).state;
+  });
+  assert.deepStrictEqual(state, runA.state);
+}
+
+testSuccessorProofReplayAndSaveLoad();
+
 console.log("V2-Core-22 data-world.test.js: all checks passed");

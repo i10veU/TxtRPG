@@ -29,6 +29,8 @@
 //      longer one of them, the merchants show their relief -- once
 //   -> village, any character, any time later: the elder can be asked for news of
 //      the bandits once the village's history says they dispersed
+//   (reporting to the elder and confronting the leader take the character's own proof
+//   -- the relic only their own successful investigation yields -- not the world's flag)
 //
 // V2-Core-25 wires already-implemented mechanics into this same pack (no new
 // engine semantics): `minutes` on the two long actions, `location`-gated
@@ -95,6 +97,19 @@
 // on any other history. What a successor should inherit, and who a world-level reward
 // belongs to, are design decisions this pack does not make. `version` stays "0.1.0"
 // (no state-shape change; D-68).
+//
+// V2-Core-35 also adds no engine semantics; it fixes one mismatch V2-Core-34 recorded.
+// `flags` are world-unit (§4.1: no subject), yet the report option and the confrontation
+// read `ruins_secret_confirmed` as if the CHARACTER had confirmed the secret, so a successor
+// who never investigated could report and confront. Both now require `item_relic`
+// (`item` Condition, character-anchored): only a successful investigation writes it, into
+// the investigating character's own inventory, so a successor has none until they earn one,
+// and a failed investigation leaves none. The flag is still written -- it is the world's
+// record that the secret was confirmed -- it just no longer stands in for a character's own
+// proof. The rumor's confidence was the other candidate marker and was rejected: it needs a
+// `data.rules.rumor` gain, and a save made before the change (already at confidence 60 with
+// its observe source recorded) could then never reach the threshold. The relic is already in
+// such a save, so nobody is stranded. `version` stays "0.1.0" (no state-shape change; D-68).
 //
 // This is deliberately small (Ponytail): one data module, one growth
 // system, three locations, two NPCs (referenced only as relation/rumor
@@ -256,7 +271,8 @@ export const worldData = {
       requires: {
         op: "and",
         of: [
-          { op: "flag", key: "ruins_secret_confirmed", eq: true },
+          // V2-Core-35: the character's own proof, not the world's flag
+          { op: "item", item: "item_relic", min: 1 },
           { op: "unlock", id: "unl_keen_eye" }
         ]
       },
@@ -313,13 +329,14 @@ export const worldData = {
             { op: "narrate", textId: "txt_small_talk" }
           ]
         },
-        // V2-Core-31: only offered once the investigation is confirmed (the same
-        // flag that gates the confrontation). Rejected with requirements_not_met
-        // otherwise, leaving the choice pending like any other rejected `choose`.
+        // V2-Core-31: only offered once the investigation is confirmed -- since V2-Core-35
+        // by the CHARACTER's own proof (the relic), the same one the confrontation takes.
+        // Rejected with requirements_not_met otherwise, leaving the choice pending like any
+        // other rejected `choose`.
         {
           id: "opt_report_findings",
           name: "조사에서 알아낸 것을 전한다",
-          requires: { op: "flag", key: "ruins_secret_confirmed", eq: true },
+          requires: { op: "item", item: "item_relic", min: 1 },
           effects: [
             { op: "relation", from: "npc_elder", add: 10, mode: "cooperation", tag: "confidant" },
             { op: "narrate", textId: "txt_report_findings" }

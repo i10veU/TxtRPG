@@ -71,7 +71,7 @@
   tests/v2-ui-save-compat-browser.spec.js tests/v2-ui-canonical-browser.spec.js
   tests/v2-ui-information-browser.spec.js tests/v2-ui-consequence-browser.spec.js
   tests/v2-ui-faction-browser.spec.js tests/v2-ui-persistence-browser.spec.js
-  tests/v2-ui-successor-browser.spec.js`로 실행한다(Node 테스트는 IndexedDB를 mock하는 새 의존성을
+  tests/v2-ui-successor-browser.spec.js tests/v2-ui-successor-gate-browser.spec.js`로 실행한다(Node 테스트는 IndexedDB를 mock하는 새 의존성을
   추가하지 않고 순수 함수만 검증한다). V1 회귀는 기존과 동일하게 `tests/*.js`(`.spec.js` 제외)
   41개를 개별 실행해 41/41을 확인한다. CI(`Unit & regression`/`Browser smoke`)가 두 계층 모두
   매 PR마다 자동으로 검증한다.
@@ -85,7 +85,7 @@
   만든 save를 조용히 실행하지 않도록, 현재 팩을 가진 caller(UI)가 로드 경계에서
   `checkDataCompatibility`로 거부한다(D-68).
 
-### 현재 진행 단계 (V2-Core-01 ~ V2-Core-34 완료)
+### 현재 진행 단계 (V2-Core-01 ~ V2-Core-35 완료)
 
 - **엔진 핵심**: `state`/`action`/`event` 스키마, RNG, `step()` 11단계 파이프라인, Condition
   DSL(and/or/not/eq류 6개 + shorthand 12개 + money/rumor), Effect DSL(20개 op 전부: flag/signal/
@@ -165,6 +165,9 @@
   시작해도 하나도 바뀌지 않는다. 세계 상태만 읽는 원로 선택지 "도적단의 소식을 묻는다"가 행동한 캐릭터와 그 후계자 모두에게 제안되고(다른 이력에서는
   누구에게도 아님), 개인 결정은 후계자에게 제안되지 않는다. `tests/v2-ui-successor-browser.spec.js`가 실제 사망 → "새 캐릭터로 시작" → 불러오기를
   실제 브라우저로 검증한다.
+  V2-Core-35에서 그 경계의 누수 하나를 막았다: 보고 선택지와 대면 행동이 세계 flag `ruins_secret_confirmed`를 개인 정보처럼 읽어 조사한 적 없는
+  후계자도 통과할 수 있었다. 이제 두 관문은 그 캐릭터 자신의 증표 `item_relic`(성공한 조사만 조사한 캐릭터의 인벤토리에 쓴다)을 요구하고, 후계자는 세계의
+  역사(소식 선택지)는 제안받되 보고/대면은 직접 조사해 증표를 얻어야 열린다. `tests/v2-ui-successor-gate-browser.spec.js`가 이를 실제 브라우저로 검증한다.
 
 ### 이후 진행 단계
 
@@ -236,16 +239,20 @@
   `facts[*].initial`/relation rule/`completeWhen`/D-09/D-67은 결정하지 않았다.
 - **V2-Core-34 결과** (콘텐츠와 테스트만 변경, 엔진/저장/UI 코드 변경 없음, 상세는 `CORE_CONTRACTS.md` D-70/§11): 개인 귀속 상태와 세계 귀속 상태를
   A/B/C/D로 분류해 D-70에 기록했다(새 semantics는 결정하지 않은 조사 기록). B 하나만 구현했고 C 네 가지는 구현하지 않았다: 후계자가 물려받는 범위,
-  세계 수준 flag를 개인의 정보 관문으로 쓰는 점(후계자가 조사 없이 원로에게 "보고"할 수 있다), 세계 수준 보상의 수혜자, 쌓이기만 하는 죽은 캐릭터의 edge.
+  세계 수준 flag를 개인의 정보 관문으로 쓰는 점(후계자가 조사 없이 원로에게 "보고"할 수 있다 — V2-Core-35에서 해소), 세계 수준 보상의 수혜자, 쌓이기만 하는 죽은 캐릭터의 edge.
   기존 테스트는 하나도 수정하지 않았다. 팩 `version`은 `0.1.0` 그대로다(state 모양 변화 없음, D-68). `facts[*].initial`/relation rule/`completeWhen`/
   D-09/D-67은 결정하지 않았다.
+- **V2-Core-35 결과** (콘텐츠와 테스트만 변경, 엔진/저장/UI 코드 변경 없음, 상세는 `CORE_CONTRACTS.md` D-70 후속/§11): D-70의 C(2)를 기존 contract로
+  결정해 해소했다. `flag`는 계약상 세계 단위라 위반이 아니라 팩 불일치였고, 두 관문을 캐릭터 자신의 증표 `item_relic`으로 바꿨다. 소문 confidence는 옛 save를
+  가두고 구제 수치는 우회를 열어 기각했다. 후계자가 물려받는 범위, 세계 수준 보상의 수혜자, 죽은 캐릭터 edge의 누적은 여전히 C다. 기존 테스트는 하나도 수정하지
+  않았다. 팩 `version`은 `0.1.0` 그대로다(state 모양 변화 없음, D-68). `facts[*].initial`/relation rule/`completeWhen`/D-09/D-67은 결정하지 않았다.
 - **다음 issue 후보**: (1) 실제 콘텐츠가 요구할 때 위 C 항목을 각각 별도 D-decision으로 확정 — 우선
   후보는 "전용 필드 vs event" 결정(`completeWhen`/relation rules)과 seed 입력 결정(`facts[*].initial`).
   (2) 콘텐츠 결정(core와 분리): HP 회복과 위치 제약(V2-Core-29), 소문 → 행동 연결(V2-Core-30)은 처리했다.
   V2-Core-31에서 원로 relation을 읽는 지점을 만들었다. 남은 후보 — 무료·반복 가능한 원로 대화로 relation 점수를
   정보 없이 쌓을 수 있는 점(지금은 태그를 읽어 우회했지만 다른 콘텐츠가 점수를 읽으면 문제), 후계자가 물려받는
-  범위, 세계 수준 flag를 개인의 정보 관문으로 쓰는 점(후계자가 조사 없이 "보고"할 수 있다), 세계 수준 보상의 수혜자(D-70의 C —
-  V2-Core-34가 조사만 했고 결정하지 않았다: 세계 상태를 읽으면 후계자가 받지만 `once`가 세계 전체라 먼저 받은 쪽이 있으면 못 받는다), 조사를 다시 하면
+  범위, 세계 수준 보상의 수혜자(D-70의 C — 조사만 했고 결정하지 않았다: 세계 상태를 읽으면 후계자가 받지만 `once`가 세계 전체라 먼저 받은 쪽이
+  있으면 못 받는다; 세계 flag를 개인 관문으로 쓰던 누수는 V2-Core-35에서 막았다), 조사를 다시 하면
   `member` 태그가 다시 붙어 조직 선택지가 다시 열릴 수 있는 점, `knowledge`를 화면에 보여줄지 (UI 결정), `data.rules.rumor` 증감폭과 `minConfidence`를 함께 쓰는 콘텐츠. 부활 semantics를
   정의할지는 여전히 C다. (3) 서버/Worker 경계를 실제로 만들게 될 때 `view()` 확장
   (D-67)과 UI 외 caller의 호환성 검사 호출. (4) 실제로 데이터팩 version을 올려 옛 save가 문제가 되는
