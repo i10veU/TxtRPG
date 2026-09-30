@@ -70,7 +70,7 @@
   tests/v2-ui-lifecycle-browser.spec.js tests/v2-ui-view-boundary-browser.spec.js
   tests/v2-ui-save-compat-browser.spec.js tests/v2-ui-canonical-browser.spec.js
   tests/v2-ui-information-browser.spec.js tests/v2-ui-consequence-browser.spec.js
-  tests/v2-ui-faction-browser.spec.js`로 실행한다(Node 테스트는 IndexedDB를 mock하는 새 의존성을
+  tests/v2-ui-faction-browser.spec.js tests/v2-ui-persistence-browser.spec.js`로 실행한다(Node 테스트는 IndexedDB를 mock하는 새 의존성을
   추가하지 않고 순수 함수만 검증한다). V1 회귀는 기존과 동일하게 `tests/*.js`(`.spec.js` 제외)
   41개를 개별 실행해 41/41을 확인한다. CI(`Unit & regression`/`Browser smoke`)가 두 계층 모두
   매 PR마다 자동으로 검증한다.
@@ -84,7 +84,7 @@
   만든 save를 조용히 실행하지 않도록, 현재 팩을 가진 caller(UI)가 로드 경계에서
   `checkDataCompatibility`로 거부한다(D-68).
 
-### 현재 진행 단계 (V2-Core-01 ~ V2-Core-32 완료)
+### 현재 진행 단계 (V2-Core-01 ~ V2-Core-33 완료)
 
 - **엔진 핵심**: `state`/`action`/`event` 스키마, RNG, `step()` 11단계 파이프라인, Condition
   DSL(and/or/not/eq류 6개 + shorthand 12개 + money/rumor), Effect DSL(20개 op 전부: flag/signal/
@@ -154,6 +154,11 @@
   잔당의 처분을 원로에게 맡긴다"가 그 edge와 두목의 `member` 태그(조사가 남긴 것)를 기존 `relation` Condition으로
   읽어 열린다. 고르면 두목의 조직 소속이 사라져(`untag`) 선택지가 스스로 닫힌다. 보고하지 않은 기존 대면 경로는
   이벤트 목록까지 그대로다. `tests/v2-ui-faction-browser.spec.js`가 이 흐름을 실제 브라우저로 검증한다.
+  V2-Core-33에서 그 결과가 시간이 지난 뒤 다른 장소에서 드러나게 했다(원로의 결정 → 시장): `data.events`의
+  `evt_market_reopens`(`once`)가 도적단이 `cowed`이고 두목이 더 이상 조직원이 아닐 때, 그 뒤 어느 step에서든 플레이어가
+  시장에 서 있으면 발동해 상인들의 사례(`money` +3)를 준다. 관계 edge는 시간이 지나도 변하지 않고(relation rule이
+  없다) `state.fired`가 두 번 주는 것을 막는다. `cowed` edge는 행동한 캐릭터의 것이라 후계자는 받지 못한다.
+  `tests/v2-ui-persistence-browser.spec.js`가 이 흐름을 실제 브라우저로 검증한다.
 
 ### 이후 진행 단계
 
@@ -217,13 +222,19 @@
   trigger도 같은 step의 관계/태그 변화를 본다(probe로 확인). 조사가 남기는 두목의 `member` 태그를 읽는 곳이 없다는
   것이 실제 gap이었다. 기존 테스트는 하나도 수정하지 않았다. 팩 `version`은 `0.1.0` 그대로다(state 모양 변화 없음,
   D-68). `facts[*].initial`/relation rule/`completeWhen`/D-09/D-67은 결정하지 않았다.
+- **V2-Core-33 결과** (콘텐츠와 테스트만 변경, 엔진/저장/UI 코드 변경 없음, 새 D-decision 없음, 상세는
+  `CORE_CONTRACTS.md` §11/§15): 사건 결과의 지속성을 계약 → runtime → 데이터 → 테스트 → 브라우저 순으로 추적했다.
+  relation/flag/case/`fired`는 모두 일반 state라 시간이 지나도 그대로이고, 나중 step의 event가 그것을 읽는다(probe와
+  테스트로 확인). 기존 테스트 중 `data-world-lifecycle.test.js`의 "이 팩의 event는 하나뿐"이라는 데이터 모양 단정 한 줄만
+  새 event를 반영하도록 고쳤다(동작 회귀가 아님). 팩 `version`은 `0.1.0` 그대로다(state 모양 변화 없음, D-68).
+  `facts[*].initial`/relation rule/`completeWhen`/D-09/D-67은 결정하지 않았다.
 - **다음 issue 후보**: (1) 실제 콘텐츠가 요구할 때 위 C 항목을 각각 별도 D-decision으로 확정 — 우선
   후보는 "전용 필드 vs event" 결정(`completeWhen`/relation rules)과 seed 입력 결정(`facts[*].initial`).
   (2) 콘텐츠 결정(core와 분리): HP 회복과 위치 제약(V2-Core-29), 소문 → 행동 연결(V2-Core-30)은 처리했다.
   V2-Core-31에서 원로 relation을 읽는 지점을 만들었다. 남은 후보 — 무료·반복 가능한 원로 대화로 relation 점수를
   정보 없이 쌓을 수 있는 점(지금은 태그를 읽어 우회했지만 다른 콘텐츠가 점수를 읽으면 문제), `data.events`로
-  relation/flag/태그 결과를 다시 `data.events`에 연결(trigger가 같은 step의 관계 변화를 보는 것은 V2-Core-32에서 확인만
-  했고 콘텐츠로는 쓰지 않았다), 조사를 다시 하면 `member` 태그가 다시 붙어 조직 선택지가 다시 열릴 수 있는 점,
+  후계자도 받는 세계 수준의 결과(관계 edge는 `player_<n>`에 묶여 있어 지금은 행동한 캐릭터의 것이다 — 비플레이어 edge에
+  표식을 두는 방식이 후보이며 새 semantics는 아니지만 V2-Core-32의 선택지를 바꾸게 된다), 조사를 다시 하면 `member` 태그가 다시 붙어 조직 선택지가 다시 열릴 수 있는 점,
   `knowledge`를 화면에 보여줄지 (UI 결정), `data.rules.rumor` 증감폭과 `minConfidence`를 함께 쓰는 콘텐츠. 부활 semantics를
   정의할지는 여전히 C다. (3) 서버/Worker 경계를 실제로 만들게 될 때 `view()` 확장
   (D-67)과 UI 외 caller의 호환성 검사 호출. (4) 실제로 데이터팩 version을 올려 옛 save가 문제가 되는

@@ -1380,6 +1380,28 @@ state.knowledge["player_1"]["rum_a"] = {
   없음, 옛 팩의 save는 호환·유효). canonical path: ... 조사 → 마을 → 휴식 → (선택) 원로 보고 → 대면 → (뒷받침한 경우) 원로에게 도적단의
   처분을 맡김. 검증: `tests/v2/data-world.test.js`(조직 edge/선택지 노출·거부/스스로 닫힘/실패 분기/재생/저장·불러오기 추가),
   `tests/v2-ui-faction-browser.spec.js`.
+  **V2-Core-33 추가 (Issue #96, 새 semantics 없음)**: 사건 결과의 지속성을 추적했다. 확인한 사실 — 관계 edge/태그, flag, case,
+  `state.fired`는 모두 JSON state의 일반 필드이고 이를 시간에 따라 바꾸는 코드가 없다(relation rule은 미결정이라 감쇠도 없다):
+  probe에서 결정 뒤 2040분을 기다리고 이동해도 `state.relations` 전체가 바이트 단위로 같았다. `data.events` trigger 패스는
+  `wait`/`perform`/`move`/`choose`/`startCharacter` 모든 step의 끝(행동 Effect와 `time` 뒤)에서 그 시점의 state로 돌기 때문에
+  이전 step에서 만들어진 결과를 다른 장소의 나중 step에서 읽는다 — 시장으로 `move`하는 step의 이벤트 순서는 `actor.moved`,
+  `time.advanced`, event의 Effect(`money.changed`, `narration`), `trigger.fired`(internal), `action.resolved`다. `once`는
+  `state.fired[id].count`로 세계 전체에 하나(캐릭터별이 아님)이고 `cooldown`은 필요하지 않았다. trigger가 거짓인 step은 `fired`
+  기록을 남기지 않으며, `fired`는 state의 일부라 저장/불러오기 뒤에도 유지된다(불러온 뒤 두 번째 방문은 지급하지 않는다). 그래서
+  `evt_market_reopens`(`once`)를 더했다 — trigger는 `location` 시장 ∧ `org_bandits`→self `cowed` ∧ ¬(두목→`org_bandits`
+  `member`)이고(`not`은 Condition 하나를 `of`로 받는다), 효과는 `money` +3과 narrate다. `cowed`만으로는 원로의 결정 전에도 참이
+  되므로 `¬member`가 결정(V2-Core-32의 `untag`)을 읽는다 — `cowed`는 대면에 성공해야 써지고 대면은 조사 성공(`member`를 붙임)이
+  필요하니 `cowed ∧ ¬member`는 "결정했다"와 같다(조사를 다시 성공하면 `member`가 다시 붙어 trigger가 다시 거짓이 된다).
+  같은 장소·행동(시장으로 이동)에서 이전 역사에 따라 결과가 갈린다: 대면 안 함/뒷받침 없는 대면/뒷받침했지만 결정 안 함은
+  지급 없음, 결정한 경우만 지급(시장을 결정 전에 방문하면 지급 없고 이후에는 지급). 대면에 실패하면 남는 것이 없다. **캐릭터에
+  묶임**: `relation` edge는 `player_<n>` ID로 키가 정해져 있고 `startCharacter`는 edge를 옮기지 않으므로 후계자(`player_2`)에게는
+  `org_bandits:player_2`가 없어 `to:"self"`인 trigger가 거짓이다 — 세계 수준인 두목의 조직 이탈(`npc_bandit_leader:org_bandits`)은
+  후계자에게도 남지만 이 event는 행동한 캐릭터의 태도(`cowed`)를 읽는다. 후계자도 받게 하려면 비플레이어 edge에 표식을 남겨야
+  하는데(예: V2-Core-32의 `untag`와 함께 `tag`) 그것은 기존 선택지의 효과를 바꾸는 콘텐츠 결정이라 이번에 하지 않았다. 기존 테스트 중
+  `data-world-lifecycle.test.js`의 "이 팩의 event 목록" 단정 한 줄만 새 event를 반영하도록 고쳤다(데이터 모양 단정이며 동작
+  회귀가 아니다). D-68: 팩 `version`은 `0.1.0` 유지(state 모양 변화 없음, 옛 팩의 save는 호환·유효). 검증:
+  `tests/v2/data-world.test.js`(지속/나중 event/역사별 차이/`once`/거부/실패/후계자/재생/저장·불러오기 추가),
+  `tests/v2-ui-persistence-browser.spec.js`.
 - `validateData(data)`는 다음을 검사하고 오류 목록을 반환한다: ID 형식, 참조 무결성, Condition/Effect op와 인자,
   handler 등록과 reason, player 문맥의 fact 사용 금지, Resolvable의 success/fail 필수 여부.
   **검증을 통과하지 못한 data로 step을 호출하는 것은 프로그래머 오류다.**
@@ -1814,3 +1836,14 @@ state.knowledge["player_1"]["rum_a"] = {
     안 읽음, 소속을 안 읽음, 소속을 안 지움, 잘못된 edge, 뒷받침 없는 대면에도 기록, 실패 대면에도 기록) 각각 Node 테스트가 실패하는지 확인한 뒤
     복원했다(브라우저 spec은 canonical seed가 항상 성공이라 실패 분기 하나를 잡지 못한다 — Node가 검증). `version`은 올리지 않았다.
     `facts[*].initial`/relation rule/`completeWhen`/D-09/D-67은 결정하지 않았다.
+  - 작업 30 = V2-Core-33 (Issue #96): 사건·상태 변화 기반 후속 consequence slice. 엔진/저장/UI 코드와 검증기는 바꾸지 않았고
+    (`web/v2/data/world.js`와 테스트/문서/CI만) 새 D-decision도 없다. 결정(V2-Core-32의 조직 edge와 `untag`)이 시간이 지난 뒤
+    다른 장소에서 드러나는 경로를 계약(§2.5 10단계/§11 `data.events`/§7) → runtime(`runTriggerStage`, `resolveStartCharacter`,
+    `evaluateRelationCondition`) → 데이터 → 테스트 → 실제 실행(Node probe와 실제 Chromium) 순으로 추적해, 결과가 state에 그대로
+    남는데도 나중 step의 event가 읽지 않는다는 것이 gap임을 확인했다(자세한 판단은 §11). 후계자 확인 probe는 처음에 이미
+    지급된 뒤라 결과를 가렸다(시장을 먼저 방문한 경로)는 것을 발견해 시장을 방문하기 전에 사망하는 경로로 다시 확인했다.
+    `data-world-lifecycle.test.js`의 event 목록 단정 한 줄을 새 event를 반영하도록 고쳤고 다른 기존 테스트는 수정하지 않았다.
+    새 브라우저 spec `tests/v2-ui-persistence-browser.spec.js`와 CI 단계를 추가했다. 일부러 코드를 깨뜨려(cowed 조건 제거, 이탈
+    조건 제거, 장소 조건 제거, `once` 제거, 보상 변경, 잘못된 edge, 첫 캐릭터 ID를 리터럴로 읽기, 지급이 관계를 건드림) 각각
+    Node 테스트가 실패하는지 확인한 뒤 복원했다(브라우저 spec은 후계자를 다루지 않아 리터럴 변형 하나를 잡지 못한다 — Node가
+    검증). `version`은 올리지 않았다. `facts[*].initial`/relation rule/`completeWhen`/D-09/D-67은 결정하지 않았다.
