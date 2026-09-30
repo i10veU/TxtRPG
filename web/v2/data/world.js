@@ -5,12 +5,14 @@
 // invented to build this content (see D-65 for the one genuine contract/
 // code gap this pack deliberately works around instead of relying on).
 //
-// Minimal playable loop:
-//   observe the village (grow `investigation` proficiency)
-//   -> talk to the elder (a real `choice`: ask about the ruins, or just
-//      small talk -- learns a rumor either way branches differently)
-//   -> buy a lantern from the market (spends money, gates the ruins link)
-//   -> investigate the ruins (a real check() against `wit`, decided by RNG)
+// Minimal playable loop (canonical path, V2-Core-29 -- each step happens where
+// it makes sense, enforced by `location` Conditions):
+//   village: observe (grow `investigation` proficiency)
+//   -> market: buy a lantern (spends money, gates the ruins link)
+//   -> ruins: investigate (a real check() against `wit`, decided by RNG); the
+//      ruins hazard costs HP on arrival and again while you stay
+//   -> village: rest (the recovery action) -> talk to the elder (a real
+//      `choice`: ask about the ruins, or just small talk)
 //   -> enough accumulated investigation unlocks `unl_keen_eye`, which
 //      together with what the investigation confirmed gates a final
 //      confrontation action (a second check(), tags:["social"]).
@@ -20,6 +22,13 @@
 // village activities, one `data.events` hazard at the ruins whose `hp`
 // Effect can kill the player, and `rules.succession` for the replacement
 // character. See CORE_CONTRACTS.md D-66's follow-up note.
+//
+// V2-Core-29 again adds no engine semantics: `act_buy_lantern` (market) and
+// `act_investigate_ruins` (ruins) are now location-gated with the same
+// `location` Condition, and `act_rest_village` heals through the existing `hp`
+// Effect. `version` stays "0.1.0" on purpose: the change adds one action and
+// restricts where two run, with no state-shape change, so saves made before it
+// stay valid (D-68 leaves bumping to the pack author).
 //
 // This is deliberately small (Ponytail): one data module, one growth
 // system, three locations, two NPCs (referenced only as relation/rumor
@@ -104,7 +113,7 @@ export const worldData = {
     },
     act_buy_lantern: {
       name: "등불 구입",
-      requires: { op: "money", min: 5 },
+      requires: { op: "and", of: [{ op: "location", at: "loc_market" }, { op: "money", min: 5 }] },
       effects: [
         { op: "money", add: -5 },
         { op: "item", item: "item_lantern", add: 1 },
@@ -119,7 +128,7 @@ export const worldData = {
     },
     act_investigate_ruins: {
       name: "폐허 조사",
-      requires: { op: "item", item: "item_lantern", min: 1 },
+      requires: { op: "and", of: [{ op: "location", at: "loc_ruins" }, { op: "item", item: "item_lantern", min: 1 }] },
       check: { stat: "wit", tags: ["investigation"], difficulty: "normal" },
       minutes: 60,
       outcomes: {
@@ -136,6 +145,18 @@ export const worldData = {
           { op: "narrate", textId: "txt_investigate_fail" }
         ]
       }
+    },
+    // V2-Core-29: the one recovery action. Only the existing `hp` Effect (positive
+    // add, clamped at max HP by the engine); it is a `perform`, so the engine's
+    // pending/dead gate rejects it for a dead player -- it can never revive anyone.
+    act_rest_village: {
+      name: "마을에서 쉬기",
+      requires: { op: "location", at: "loc_village" },
+      minutes: 60,
+      effects: [
+        { op: "hp", add: 4 },
+        { op: "narrate", textId: "txt_rest_village" }
+      ]
     },
     act_confront_leader: {
       name: "도적 두목과 대면",
@@ -248,6 +269,7 @@ export const worldData = {
     txt_investigate_fail: "폐허는 어둡고 흔적은 모호하다. 확실한 것을 찾지 못했다.",
     txt_confront_success: "당신은 도적 두목과 마주하고 진실을 밝혀낸다.",
     txt_confront_fail: "대치는 뜻대로 풀리지 않았다.",
+    txt_rest_village: "마을 어귀의 평상에 앉아 숨을 고르며 상처를 돌본다.",
     txt_ruins_hazard: "무너진 벽돌이 머리 위로 쏟아져 내린다.",
     txt_succession: "쓰러진 이가 남긴 은화 몇 닢이 새 방랑자의 손에 들어온다."
   }

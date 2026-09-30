@@ -68,7 +68,7 @@
   추상 ID 합성 fixture만 쓴다). 실제 IndexedDB/브라우저를 쓰는 smoke는 별도로 `npx playwright test
   tests/v2-storage-browser.spec.js tests/v2-data-world-browser.spec.js tests/v2-ui-browser.spec.js
   tests/v2-ui-lifecycle-browser.spec.js tests/v2-ui-view-boundary-browser.spec.js
-  tests/v2-ui-save-compat-browser.spec.js`로 실행한다(Node 테스트는 IndexedDB를 mock하는 새 의존성을
+  tests/v2-ui-save-compat-browser.spec.js tests/v2-ui-canonical-browser.spec.js`로 실행한다(Node 테스트는 IndexedDB를 mock하는 새 의존성을
   추가하지 않고 순수 함수만 검증한다). V1 회귀는 기존과 동일하게 `tests/*.js`(`.spec.js` 제외)
   41개를 개별 실행해 41/41을 확인한다. CI(`Unit & regression`/`Browser smoke`)가 두 계층 모두
   매 PR마다 자동으로 검증한다.
@@ -82,7 +82,7 @@
   만든 save를 조용히 실행하지 않도록, 현재 팩을 가진 caller(UI)가 로드 경계에서
   `checkDataCompatibility`로 거부한다(D-68).
 
-### 현재 진행 단계 (V2-Core-01 ~ V2-Core-28 완료)
+### 현재 진행 단계 (V2-Core-01 ~ V2-Core-29 완료)
 
 - **엔진 핵심**: `state`/`action`/`event` 스키마, RNG, `step()` 11단계 파이프라인, Condition
   DSL(and/or/not/eq류 6개 + shorthand 12개 + money/rumor), Effect DSL(20개 op 전부: flag/signal/
@@ -127,6 +127,11 @@
   `tests/v2-ui-browser.spec.js` 브라우저 smoke가 CI(`Browser smoke`)에서 실행된다.
   `tests/v2-ui-lifecycle-browser.spec.js`(V2-Core-25)는 위치 제약/시간 진행/이벤트/HP 감소/사망/
   `newCharacter` UI/succession과 그 상태들의 save-load를 실제 브라우저로 검증한다.
+  V2-Core-29에서 canonical 루프를 넓혔다(마을 → 시장에서 등불 → 폐허 조사 → 함정 HP 손실 → 마을에서
+  휴식으로 회복): `act_buy_lantern`은 `loc_market`, `act_investigate_ruins`는 `loc_ruins`에서만
+  실행되고(기존 `location` Condition), 새 `act_rest_village`는 기존 `hp` Effect(양수 add, max clamp)로
+  회복한다. 죽은 actor는 엔진의 pending/dead 게이트가 막아 회복 행동으로 되살릴 수 없다.
+  `tests/v2-ui-canonical-browser.spec.js`가 이 루프를 실제 브라우저로 검증한다.
 
 ### 이후 진행 단계
 
@@ -163,10 +168,16 @@
   `completeWhen`/relation rule은 전용 필드가 정말 필요한지부터 정해야 하고, `facts[*].initial`의
   `pickFrom`은 `deriveSeed`에 넘길 seed(계약은 숫자, 구현은 문자열 `worldSeed`와 그 hash `rng.seed`)에 따라
   결과가 갈린다. canonical 플레이는 이 네 가지 중 어느 것도 필요로 하지 않는다.
+- **V2-Core-29 결과** (콘텐츠와 테스트만 변경, 엔진/저장/UI 코드 변경 없음, 새 D-decision 없음, 상세는
+  `CORE_CONTRACTS.md` §11/§15): 데이터팩의 등불 구입과 폐허 조사를 각각 시장/폐허로 제한하고(기존
+  `location` Condition) 마을 휴식 행동 하나를 추가했다(기존 `hp` Effect). 팩 `version`은 일부러 `0.1.0`
+  그대로다 — 행동 하나 추가와 실행 위치 제한뿐이라 state 모양이 변하지 않고, D-68의 정확 일치 규칙 아래
+  기존 save를 불필요하게 막지 않기 위해서다. canonical path의 기존 테스트 3개 파일은 이동 단계를 넣도록
+  최소한으로 고쳤다.
 - **다음 issue 후보**: (1) 실제 콘텐츠가 요구할 때 위 C 항목을 각각 별도 D-decision으로 확정 — 우선
   후보는 "전용 필드 vs event" 결정(`completeWhen`/relation rules)과 seed 입력 결정(`facts[*].initial`).
-  (2) 콘텐츠 결정(core와 분리): 데이터팩의 HP 회복(죽은 actor를 대상으로 하지 않게 설계), 추가 위치 제약
-  (기존 canonical path와 테스트를 함께 바꿔야 함). (3) 서버/Worker 경계를 실제로 만들게 될 때 `view()` 확장
+  (2) 콘텐츠 결정(core와 분리): HP 회복과 위치 제약은 V2-Core-29에서 처리했다. 부활 semantics를 정의할지는
+  여전히 C다. (3) 서버/Worker 경계를 실제로 만들게 될 때 `view()` 확장
   (D-67)과 UI 외 caller의 호환성 검사 호출. (4) 실제로 데이터팩 version을 올려 옛 save가 문제가 되는
   시점의 version 범위/data migration 결정(D-68 (a)). (5) 별도 유지보수: V1 `phase255` 브라우저 테스트의
   타이밍 race 안정화.

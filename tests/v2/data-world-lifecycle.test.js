@@ -65,12 +65,18 @@ function testTimeAdvancement() {
   assert.strictEqual(observe.state.time.minute, 0, "an action without `minutes` must not advance time");
   assert.ok(!types(observe.events).includes("time.advanced"));
 
-  // same canonical path as data-world.test.js: still a valid playthrough
+  // same canonical path as data-world.test.js (V2-Core-29: every action happens
+  // where it belongs): still a valid playthrough
   const path = [
     { type: "perform", actionId: "act_observe_village" },
     { type: "perform", actionId: "act_observe_village" },
+    { type: "move", to: "loc_market" },
     { type: "perform", actionId: "act_buy_lantern" },
+    { type: "move", to: "loc_village" },
+    { type: "move", to: "loc_ruins" },
     { type: "perform", actionId: "act_investigate_ruins" },
+    { type: "move", to: "loc_village" },
+    { type: "perform", actionId: "act_rest_village" },
     { type: "perform", actionId: "act_talk_elder" },
     { type: "choose", optionId: "opt_ask_ruins" },
     { type: "perform", actionId: "act_confront_leader" }
@@ -81,14 +87,20 @@ function testTimeAdvancement() {
     log.push({ action, r });
     state = r.state;
   }
+  const stepOf = (actionId) => log.find((l) => l.action.actionId === actionId).r;
 
-  const investigate = log[3].r;
+  const investigate = stepOf("act_investigate_ruins");
   assert.deepStrictEqual(investigate.events.find((e) => e.type === "time.advanced").data, { minutes: 60 });
-  assert.strictEqual(log[3].r.state.time.minute, 60);
 
-  const confront = log[6].r;
+  const rest = stepOf("act_rest_village");
+  assert.deepStrictEqual(rest.events.find((e) => e.type === "time.advanced").data, { minutes: 60 });
+
+  const confront = stepOf("act_confront_leader");
   assert.deepStrictEqual(confront.events.find((e) => e.type === "time.advanced").data, { minutes: 30 });
-  assert.strictEqual(state.time.minute, 90);
+
+  // 15 + 15 (market and back) + 45 (to the ruins) + 60 (investigate) + 45 (back)
+  // + 60 (rest) + 30 (confront) = 270
+  assert.strictEqual(state.time.minute, 270);
 
   // fewer than 1440 minutes elapsed, so no day boundary was crossed
   assert.ok(log.every(({ r }) => !types(r.events).includes("day.started")));
@@ -122,7 +134,8 @@ function testLocationGating() {
     assert.deepStrictEqual(rejected.events.map((e) => [e.type, e.data.code]), [["action.rejected", "requirements_not_met"]]);
   }
 
-  // an ungated action still works away from the village
+  // the market's own action (location-gated to the market since V2-Core-29) is
+  // offered here
   assert.strictEqual(actionEntry(state, "act_buy_lantern").available, true);
 
   // back in the village they are offered/executable again
