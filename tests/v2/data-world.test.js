@@ -1242,4 +1242,198 @@ function testSuccessorProofReplayAndSaveLoad() {
 
 testSuccessorProofReplayAndSaveLoad();
 
+// 24. V2-Core-36: what a succession passes on -- asserted on real state, per candidate
+// (D-71). The classification comes from the existing contract (§9, D-47, D-70); nothing
+// here decides a new inheritance rule. The pack's only succession effect is a fixed
+// `money +3` that never reads the predecessor, so the successor is independent of
+// whatever the predecessor did.
+const B_DECIDE = [{ type: "perform", actionId: "act_talk_elder" }, REPORT_OPTION, CANONICAL_ACTIONS.at(-1), ...DISPERSE_ACTIONS];
+
+function testSuccessionAttribution() {
+  const drive = (state, actions) => actions.reduce((st, a) => step(st, a, worldData).state, state);
+  const dead = drive(runActions(DECIDED_ACTIONS).state, DIE_AT_RUINS);
+  const started = step(dead, START_SUCCESSOR, worldData);
+  const successor = started.state;
+  const a = dead.actors.player_1;
+  const b = successor.actors.player_2;
+  assert.strictEqual(a.alive, false);
+  assert.strictEqual(a.inventory.item_relic, 1);
+
+  // the rule itself: a fixed grant and a narration, nothing read from the predecessor
+  assert.deepStrictEqual(worldData.rules.succession, [{ op: "money", add: 3 }, { op: "narrate", textId: "txt_succession" }]);
+  assert.deepStrictEqual(started.events.map((e) => e.type), ["character.started", "money.changed", "narration", "action.resolved"]);
+  assert.strictEqual(started.events.find((e) => e.type === "money.changed").actorId, "player_2");
+
+  // Personal, not inherited: the new actor comes from the template plus the fixed rule
+  const template = worldData.characterTemplates.start_wanderer;
+  assert.strictEqual(b.money, template.money + 3);
+  assert.notStrictEqual(b.money, a.money);
+  assert.deepStrictEqual(b.inventory, {});
+  assert.deepStrictEqual(b.hp, { current: template.hp.max, max: template.hp.max });
+  assert.strictEqual(b.alive, true);
+  assert.strictEqual(b.locationId, template.locationId);
+  assert.deepStrictEqual(b.tags, []);
+  assert.strictEqual(b.growth.growth_wanderer.unlocks?.unl_keen_eye, undefined);
+  assert.strictEqual(b.growth.growth_wanderer.proficiency?.investigation ?? 0, 0);
+  assert.ok(a.growth.growth_wanderer.proficiency.investigation >= 50);
+  assert.ok(a.growth.growth_wanderer.unlocks.unl_keen_eye);
+
+  // ...including knowledge and every relation edge with the predecessor at one end
+  assert.ok(Object.keys(successor.knowledge.player_1).length > 0);
+  assert.strictEqual(successor.knowledge.player_2, undefined);
+  const edgesOf = (state, id) => Object.keys(state.relations).filter((k) => k.endsWith(`:${id}`)).sort();
+  assert.deepStrictEqual(edgesOf(successor, "player_1"), ["npc_bandit_leader:player_1", "npc_elder:player_1", "org_bandits:player_1"]);
+  assert.deepStrictEqual(edgesOf(successor, "player_2"), []);
+  const seen = view(successor, worldData);
+  assert.strictEqual(seen.actor.id, "player_2");
+  assert.deepStrictEqual(seen.knowledge ?? {}, {});
+  assert.deepStrictEqual(seen.relations ?? {}, {});
+
+  // World, kept exactly as it was at the moment of death
+  for (const field of ["time", "rng", "flags", "signals", "facts", "cases", "fired", "attempts", "relations", "knowledge"]) {
+    assert.deepStrictEqual(successor[field], dead[field], `${field} is untouched by the succession (money +3 is an actor field)`);
+  }
+  assert.strictEqual(successor.flags.ruins_secret_confirmed, true);
+  assert.strictEqual(successor.cases.case_ruins_mystery.stage, "resolved");
+  assert.ok(successor.fired.evt_ruins_hazard);
+  assert.deepStrictEqual(successor.relations["npc_bandit_leader:org_bandits"].tags, []);
+  assert.deepStrictEqual(successor.actors.player_1, dead.actors.player_1, "the dead actor's record is kept as it was");
+  assert.strictEqual(successor.player.characterCount, 2);
+  assert.deepStrictEqual(validateState(successor), []);
+
+  // the successor is independent of the predecessor: a bare predecessor who died the same
+  // way yields the identical new actor, and neither relics nor edges move anywhere
+  // (a full-HP character needs a lantern to reach the ruins and a few more waits than the decided one)
+  const bare = drive(createInitialState({ worldSeed: CANONICAL_SEED, data: worldData }).state, [MARKET, { type: "perform", actionId: "act_buy_lantern" }, VILLAGE, ...DIE_AT_RUINS, ...Array(8).fill({ type: "wait", minutes: 30 })]);
+  assert.strictEqual(bare.actors.player_1.alive, false);
+  assert.deepStrictEqual(step(bare, START_SUCCESSOR, worldData).state.actors.player_2, b, "nothing of the predecessor reaches the successor");
+
+  // startCharacter is only accepted while a new character is pending
+  assert.strictEqual(step(successor, START_SUCCESSOR, worldData).events[0].data.code, "invalid_action");
+}
+
+testSuccessionAttribution();
+
+// a seed on which the predecessor's and the successor's own confrontations and both
+// decisions succeed (used to put the same world condition in two characters' hands)
+function seedForRewardMatrix() {
+  const path = [...DECIDED_ACTIONS, ...DIE_AT_RUINS, ...SUCCESSOR_OWN_ACTIONS, ...B_DECIDE];
+  const tiersOf = (log, actionId) => log.filter((entry) => entry.action.actionId === actionId).map((entry) => entry.events.find((e) => e.type === "check.resolved")?.data.tier);
+  const good = (tier) => tier === "success" || tier === "great";
+  for (let i = 0; i < 600; i++) {
+    const seed = `reward-${i}`;
+    const { log } = runActions(path, seed);
+    const investigations = tiersOf(log, "act_investigate_ruins");
+    const confrontations = tiersOf(log, "act_confront_leader");
+    const decisions = log.filter((entry) => entry.action.optionId === "opt_bandits_disperse" && !entry.events.some((e) => e.type === "action.rejected"));
+    if (investigations.length === 2 && investigations.every(good) && confrontations.length === 2 && confrontations.every(good) && decisions.length === 2) return seed;
+  }
+  assert.fail("no trial seed where both characters earn the bandits' fate");
+}
+
+// 25. V2-Core-36: who the world reward pays. `evt_market_reopens` is checked against the
+// CURRENT player's own `cowed` edge and `once` is kept in the world-wide `state.fired`,
+// so the reward goes to whoever stands in the market holding their own edge first --
+// a predecessor's decision alone pays no successor, and a consumed `once` pays nobody
+// again. These assertions record the current behaviour (D-71); they do not choose an
+// owner for orphaned rewards.
+function testRewardRecipient() {
+  const seed = seedForRewardMatrix();
+  const fires = (result) => result.events.some((e) => e.type === "trigger.fired" && e.data.eventId === MARKET_EVENT);
+  const moneyOf = (state, id) => state.actors[id].money;
+  const drive = (state, actions) => actions.reduce((st, a) => step(st, a, worldData).state, state);
+  const offered = (state, optionId) => {
+    const talked = step(state, { type: "perform", actionId: "act_talk_elder" }, worldData).state;
+    return step(talked, { type: "choose", optionId }, worldData).events.every((e) => e.type !== "action.rejected");
+  };
+  const aDecided = runActions(DECIDED_ACTIONS, seed).state;
+  const dieThenStart = (state) => step(drive(state, DIE_AT_RUINS), START_SUCCESSOR, worldData).state;
+
+  // V1: A collects, then dies -- B standing in the market with no edge of their own gets nothing
+  const aCollected = step(aDecided, MARKET, worldData);
+  assert.ok(fires(aCollected));
+  assert.strictEqual(moneyOf(aCollected.state, "player_1"), moneyOf(aDecided, "player_1") + 3);
+  const bAfterCollect = dieThenStart(drive(aCollected.state, [VILLAGE]));
+  const bVisit1 = step(bAfterCollect, MARKET, worldData);
+  assert.ok(!fires(bVisit1));
+  assert.strictEqual(moneyOf(bVisit1.state, "player_2"), moneyOf(bAfterCollect, "player_2"));
+  assert.deepStrictEqual(bVisit1.state.fired[MARKET_EVENT], aCollected.state.fired[MARKET_EVENT], "A's consumed once is untouched");
+
+  // V2: A dies before collecting -- the reward stays unclaimed: B's visit pays nothing, leaves no
+  // fired record, and A (dead) can no longer collect it
+  const bUncollected = dieThenStart(aDecided);
+  assert.strictEqual(bUncollected.fired[MARKET_EVENT], undefined);
+  assert.deepStrictEqual(bUncollected.relations["org_bandits:player_1"].tags, ["cowed"], "A's edge is still on the dead character's record");
+  assert.strictEqual(step(drive(aDecided, DIE_AT_RUINS), MARKET, worldData).events[0].data.code, "pending_new_character");
+  const bVisit2 = step(bUncollected, MARKET, worldData);
+  assert.ok(!fires(bVisit2));
+  assert.strictEqual(bVisit2.state.fired[MARKET_EVENT], undefined);
+  assert.strictEqual(moneyOf(bVisit2.state, "player_2"), moneyOf(bUncollected, "player_2"));
+
+  // V3: B makes the world condition true for their own character -- B's own proof re-tags the
+  // leader's membership (a write a successful investigation always makes), B's own confrontation
+  // and decision then give B an edge of their own, and only then does the market pay B
+  const bProof = drive(bUncollected, SUCCESSOR_OWN_ACTIONS.slice(1));
+  assert.deepStrictEqual(bProof.relations["npc_bandit_leader:org_bandits"].tags, ["member"], "a later investigation re-writes the world edge A had cleared");
+  assert.ok(!offered(bProof, NEWS), "the bandit-news option closes again for everyone while the leader is a member");
+  assert.ok(!fires(step(bProof, MARKET, worldData)), "no edge of B's own yet, and the leader is a member again");
+  const bDecided = drive(bProof, B_DECIDE);
+  assert.deepStrictEqual(bDecided.relations["org_bandits:player_2"].tags, ["cowed"]);
+  assert.deepStrictEqual(bDecided.relations["npc_bandit_leader:org_bandits"].tags, []);
+  const bPaid = step(bDecided, MARKET, worldData);
+  assert.ok(fires(bPaid));
+  assert.strictEqual(moneyOf(bPaid.state, "player_2"), moneyOf(bDecided, "player_2") + 3);
+  assert.strictEqual(moneyOf(bPaid.state, "player_1"), moneyOf(aDecided, "player_1"), "the dead A is never paid");
+  assert.strictEqual(bPaid.state.fired[MARKET_EVENT].count, 1);
+
+  // V3c: A collected first -- the same B path with the same own edge is never paid (`once` is world-wide)
+  const bAfterCollectDecided = drive(drive(bAfterCollect, SUCCESSOR_OWN_ACTIONS.slice(1)), B_DECIDE);
+  assert.deepStrictEqual(bAfterCollectDecided.relations["org_bandits:player_2"].tags, ["cowed"]);
+  const bDenied = step(bAfterCollectDecided, MARKET, worldData);
+  assert.ok(!fires(bDenied));
+  assert.strictEqual(moneyOf(bDenied.state, "player_2"), moneyOf(bAfterCollectDecided, "player_2"));
+
+  // save -> load before the visit, and a JSON round trip, change nothing about who is paid
+  for (const state of [aDecided, bUncollected, bDecided]) {
+    const reloaded = parseLoadedRecord(JSON.parse(JSON.stringify(buildSaveRecord("slot_reward", state, { savedAt: 1 }))));
+    assert.deepStrictEqual(reloaded, state);
+    assert.deepStrictEqual(step(reloaded, MARKET, worldData), step(state, MARKET, worldData));
+    assert.deepStrictEqual(validateState(step(state, MARKET, worldData).state), []);
+  }
+
+  // the same input, the same result
+  assert.deepStrictEqual(step(bDecided, MARKET, worldData), step(bDecided, MARKET, worldData));
+}
+
+testRewardRecipient();
+
+// 26. V2-Core-36: the predecessor -> death -> successor -> reward path replays
+// deterministically, survives JSON, and gives the same result after a save -> load at
+// every step; rejected actions leave the state untouched.
+function testSuccessionReplayAndSaveLoad() {
+  const seed = seedForRewardMatrix();
+  const path = [...DECIDED_ACTIONS, ...DIE_AT_RUINS, ...SUCCESSOR_OWN_ACTIONS, ...B_DECIDE, MARKET];
+  const runA = runActions(path, seed);
+  const runB = runActions(path, seed);
+  assert.deepStrictEqual(runA.state, runB.state);
+  assert.deepStrictEqual(runA.log, runB.log);
+  assert.deepStrictEqual(JSON.parse(JSON.stringify(runA.state)), runA.state);
+  assert.deepStrictEqual(validateState(runA.state), []);
+  assert.strictEqual(runA.state.fired[MARKET_EVENT].count, 1);
+  assert.strictEqual(runA.state.player.actorId, "player_2");
+
+  let state = createInitialState({ worldSeed: seed, data: worldData }).state;
+  path.forEach((action, index) => {
+    const reloaded = parseLoadedRecord(JSON.parse(JSON.stringify(buildSaveRecord(`slot_s${index}`, state, { savedAt: index }))));
+    assert.deepStrictEqual(reloaded, state, `state before step ${index}`);
+    const result = step(state, action, worldData);
+    assert.deepStrictEqual(step(reloaded, action, worldData), result, `step ${index} result`);
+    if (result.events[0]?.type === "action.rejected") assert.deepStrictEqual(result.state, state, `rejected step ${index} changes nothing`);
+    state = result.state;
+  });
+  assert.deepStrictEqual(state, runA.state);
+}
+
+testSuccessionReplayAndSaveLoad();
+
 console.log("V2-Core-22 data-world.test.js: all checks passed");
