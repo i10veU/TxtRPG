@@ -72,7 +72,7 @@
   tests/v2-ui-information-browser.spec.js tests/v2-ui-consequence-browser.spec.js
   tests/v2-ui-faction-browser.spec.js tests/v2-ui-persistence-browser.spec.js
   tests/v2-ui-successor-browser.spec.js tests/v2-ui-successor-gate-browser.spec.js
-  tests/v2-ui-succession-browser.spec.js tests/v2-ui-core-semantics-browser.spec.js`로 실행한다(Node 테스트는 IndexedDB를 mock하는 새 의존성을
+  tests/v2-ui-succession-browser.spec.js tests/v2-ui-core-semantics-browser.spec.js tests/v2-ui-case-completion-browser.spec.js`로 실행한다(Node 테스트는 IndexedDB를 mock하는 새 의존성을
   추가하지 않고 순수 함수만 검증한다). V1 회귀는 기존과 동일하게 `tests/*.js`(`.spec.js` 제외)
   41개를 개별 실행해 41/41을 확인한다. CI(`Unit & regression`/`Browser smoke`)가 두 계층 모두
   매 PR마다 자동으로 검증한다.
@@ -86,7 +86,7 @@
   만든 save를 조용히 실행하지 않도록, 현재 팩을 가진 caller(UI)가 로드 경계에서
   `checkDataCompatibility`로 거부한다(D-68).
 
-### 현재 진행 단계 (V2-Core-01 ~ V2-Core-37 완료)
+### 현재 진행 단계 (V2-Core-01 ~ V2-Core-38 완료)
 
 - **엔진 핵심**: `state`/`action`/`event` 스키마, RNG, `step()` 11단계 파이프라인, Condition
   DSL(and/or/not/eq류 6개 + shorthand 12개 + money/rumor), Effect DSL(20개 op 전부: flag/signal/
@@ -175,6 +175,9 @@
   V2-Core-37은 역시 코드/콘텐츠를 바꾸지 않고 미결 세 항목(`completeWhen`, relation rule `when`, `facts[*].initial`)을 다시 추적했다(D-72): 소비 코드는 여전히 검증기뿐이고 실제 팩은 쓰지
   않으며, 같은 일을 하는 `data.events`가 이미 있어 "전용 경로를 둘 것인가"가 첫 결정이다. `facts[*].initial`은 seed 입력(문자열 `worldSeed` / `rng.seed` / 숫자)이 미정이다.
   `tests/v2/core-semantics-gap.test.js`와 `tests/v2-ui-core-semantics-browser.spec.js`가 현재 동작을 고정한다(새 semantics를 구현하는 테스트는 아님).
+  V2-Core-38은 `completeWhen`을 결정했다(D-73): 활성화하지 않는다. `data.events`의 trigger + `case` Effect가 같은 일을 하고 전이 Effect, `check`/`outcomes`, `once`/`cooldown`까지 더 표현력이 크며,
+  전용 evaluator는 연쇄 1단계 제한과 충돌하거나 별개의 순서 규칙을 만든다. 그래서 `completeWhen`은 모양만 검사하는 예약 필드로 남고 엔진/콘텐츠는 바뀌지 않았다.
+  `tests/v2/case-completion.test.js`와 `tests/v2-ui-case-completion-browser.spec.js`(실제 IndexedDB, 페이지 새로고침 포함)가 그 전제를 고정한다.
 
 ### 이후 진행 단계
 
@@ -261,6 +264,9 @@
   조건부 case 전이와 관계 변화는 지금 `data.events`로 표현된다. C: 전용 `completeWhen` 실행, 전용 relation rule 실행, `facts[*].initial` 시딩(seed 입력 포함). 결합도가 낮아 후속 이슈를 나누도록 권한다:
   (i) `completeWhen`+relation rule의 공통 전제(event와 별도 경로를 둘 것인가)와 cadence/순서 결정, (ii) `facts[*].initial` seed 입력과 옛 save 호환, (iii) D-67, (iv) D-68. 기존 테스트는 하나도
   수정하지 않았다. 팩 `version`은 `0.1.0` 그대로다(state 모양 변화 없음, D-68). D-09/D-67은 결정하지 않았다.
+- **V2-Core-38 결과** (코드/콘텐츠 변경 없음, 새 테스트/문서/CI만, 상세는 `CORE_CONTRACTS.md` D-73/§3.3/§11): `completeWhen`은 활성화하지 않는다(예약 필드, `data.events` + `case` Effect가 지원 경로).
+  평가 cadence는 event 경로의 것(10단계, 수락된 모든 step 종류 뒤, id 오름차순 한 패스), 전이는 event의 `case` Effect, 같은 step 연쇄는 id 순서(고정점 없음)다. state/save/replay는 그대로다.
+  relation rule `when`(D-62)과 `facts[*].initial`(D-65)은 이번에도 결정하지 않았다 — 각각 별도 이슈로 남는다. 기존 테스트는 하나도 수정하지 않았다. 팩 `version`은 `0.1.0` 그대로다(D-68).
 - **다음 issue 후보**: (1) 실제 콘텐츠가 요구할 때 위 C 항목을 각각 별도 D-decision으로 확정 — 우선
   후보는 "전용 필드 vs event" 결정(`completeWhen`/relation rules)과 seed 입력 결정(`facts[*].initial`).
   (2) 콘텐츠 결정(core와 분리): HP 회복과 위치 제약(V2-Core-29), 소문 → 행동 연결(V2-Core-30)은 처리했다.
