@@ -145,3 +145,6 @@ jobs:
 
       - name: V2 successor gate browser smoke
         run: npx playwright test tests/v2-ui-successor-gate-browser.spec.js --reporter=line
+
+      - name: V2 succession browser smoke
+        run: npx playwright test tests/v2-ui-succession-browser.spec.js --reporter=line

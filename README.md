@@ -71,7 +71,8 @@
   tests/v2-ui-save-compat-browser.spec.js tests/v2-ui-canonical-browser.spec.js
   tests/v2-ui-information-browser.spec.js tests/v2-ui-consequence-browser.spec.js
   tests/v2-ui-faction-browser.spec.js tests/v2-ui-persistence-browser.spec.js
-  tests/v2-ui-successor-browser.spec.js tests/v2-ui-successor-gate-browser.spec.js`로 실행한다(Node 테스트는 IndexedDB를 mock하는 새 의존성을
+  tests/v2-ui-successor-browser.spec.js tests/v2-ui-successor-gate-browser.spec.js
+  tests/v2-ui-succession-browser.spec.js`로 실행한다(Node 테스트는 IndexedDB를 mock하는 새 의존성을
   추가하지 않고 순수 함수만 검증한다). V1 회귀는 기존과 동일하게 `tests/*.js`(`.spec.js` 제외)
   41개를 개별 실행해 41/41을 확인한다. CI(`Unit & regression`/`Browser smoke`)가 두 계층 모두
   매 PR마다 자동으로 검증한다.
@@ -85,7 +86,7 @@
   만든 save를 조용히 실행하지 않도록, 현재 팩을 가진 caller(UI)가 로드 경계에서
   `checkDataCompatibility`로 거부한다(D-68).
 
-### 현재 진행 단계 (V2-Core-01 ~ V2-Core-35 완료)
+### 현재 진행 단계 (V2-Core-01 ~ V2-Core-36 완료)
 
 - **엔진 핵심**: `state`/`action`/`event` 스키마, RNG, `step()` 11단계 파이프라인, Condition
   DSL(and/or/not/eq류 6개 + shorthand 12개 + money/rumor), Effect DSL(20개 op 전부: flag/signal/
@@ -168,6 +169,9 @@
   V2-Core-35에서 그 경계의 누수 하나를 막았다: 보고 선택지와 대면 행동이 세계 flag `ruins_secret_confirmed`를 개인 정보처럼 읽어 조사한 적 없는
   후계자도 통과할 수 있었다. 이제 두 관문은 그 캐릭터 자신의 증표 `item_relic`(성공한 조사만 조사한 캐릭터의 인벤토리에 쓴다)을 요구하고, 후계자는 세계의
   역사(소식 선택지)는 제안받되 보고/대면은 직접 조사해 증표를 얻어야 열린다. `tests/v2-ui-successor-gate-browser.spec.js`가 이를 실제 브라우저로 검증한다.
+  V2-Core-36은 코드나 콘텐츠를 바꾸지 않고 계승을 실제 state로 조사했다(D-71): 후계자가 전 캐릭터에게서 받는 것은 없고(고정 `money +3`뿐), 세계 필드는 succession이 하나도
+  바꾸지 않는다. 시장 보상은 현재 플레이어 자신의 `cowed` edge와 세계 전체의 `once`로 정해져, 전 캐릭터가 먼저 받았거나 받기 전에 죽었을 때의 결과를 테스트로 고정했다(새 semantics를
+  정하지 않음). `tests/v2-ui-succession-browser.spec.js`가 실제 사망 → 후계자 → 시장 → 저장/불러오기를 실제 브라우저로 검증한다.
 
 ### 이후 진행 단계
 
@@ -246,6 +250,10 @@
   결정해 해소했다. `flag`는 계약상 세계 단위라 위반이 아니라 팩 불일치였고, 두 관문을 캐릭터 자신의 증표 `item_relic`으로 바꿨다. 소문 confidence는 옛 save를
   가두고 구제 수치는 우회를 열어 기각했다. 후계자가 물려받는 범위, 세계 수준 보상의 수혜자, 죽은 캐릭터 edge의 누적은 여전히 C다. 기존 테스트는 하나도 수정하지
   않았다. 팩 `version`은 `0.1.0` 그대로다(state 모양 변화 없음, D-68). `facts[*].initial`/relation rule/`completeWhen`/D-09/D-67은 결정하지 않았다.
+- **V2-Core-36 결과** (코드/콘텐츠 변경 없음, 새 테스트/문서/CI만, 상세는 `CORE_CONTRACTS.md` D-71/§9/§11): 후계자의 상태를 World/Personal/Inherited/Undecided로 분류했고
+  (Inherited는 없음), 세계 보상의 귀속을 기존 contract가 결정하는 현재 동작으로 고정했다. B(구현 가능) 항목은 없었다. C 네 가지는 결정하지 않고 선택지와 영향을 D-71에 남겼다:
+  후계자가 받을 범위, 세계 보상의 귀속과 `once`의 단위, 개인 행동이 세계 edge(`member`)를 되돌리는 것, 죽은 캐릭터 기록의 누적. 기존 테스트는 하나도 수정하지 않았다. 팩 `version`은
+  `0.1.0` 그대로다(state 모양 변화 없음, D-68). `facts[*].initial`/relation rule/`completeWhen`/D-09/D-67은 결정하지 않았다.
 - **다음 issue 후보**: (1) 실제 콘텐츠가 요구할 때 위 C 항목을 각각 별도 D-decision으로 확정 — 우선
   후보는 "전용 필드 vs event" 결정(`completeWhen`/relation rules)과 seed 입력 결정(`facts[*].initial`).
   (2) 콘텐츠 결정(core와 분리): HP 회복과 위치 제약(V2-Core-29), 소문 → 행동 연결(V2-Core-30)은 처리했다.
