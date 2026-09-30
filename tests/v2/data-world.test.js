@@ -814,4 +814,137 @@ function testOrganisationReplayAndSaveLoad() {
 
 testOrganisationReplayAndSaveLoad();
 
+// 18. V2-Core-33: a result that outlives the moment it was made. The organisation
+// state written by the confrontation and the elder's decision is read, in a later
+// step and another place, by a `data.events` entry (once). Nothing decays it, and
+// only a player who made the decisions is affected.
+const MARKET = { type: "move", to: "loc_market" };
+const VILLAGE = { type: "move", to: "loc_village" };
+const MARKET_EVENT = "evt_market_reopens";
+// the whole path up to and including the elder's decision (the market is not visited)
+const DECIDED_ACTIONS = [...REPORTED_ACTIONS, ...DISPERSE_ACTIONS];
+
+function testPersistentConsequence() {
+  const fires = (result) => result.events.some((e) => e.type === "trigger.fired" && e.data.eventId === MARKET_EVENT);
+  const moneyOf = (state) => state.actors[state.player.actorId].money;
+  const drive = (state, actions) => actions.reduce((st, a) => step(st, a, worldData).state, state);
+  const relationsJson = (state) => JSON.stringify(state.relations);
+
+  const decided = runActions(DECIDED_ACTIONS).state;
+
+  // the decision step itself does not fire it: the player is in the village, not the market
+  assert.ok(!runActions(DECIDED_ACTIONS).log.some(fires), "nothing fires on the way to the decision");
+  assert.strictEqual(decided.fired[MARKET_EVENT], undefined);
+
+  // it persists: 2040 minutes of waiting and a round trip change none of the relation edges
+  const aged = drive(decided, [{ type: "wait", minutes: 600 }, { type: "wait", minutes: 1440 }]);
+  assert.strictEqual(relationsJson(aged), relationsJson(decided), "no relation edge decays with time");
+  assert.strictEqual(aged.time.minute, decided.time.minute + 2040);
+
+  // ...and a later step in another place reads it: the market pays once, and only then
+  const visit = step(aged, MARKET, worldData);
+  assert.deepStrictEqual(
+    visit.events.map((e) => e.type),
+    ["actor.moved", "time.advanced", "money.changed", "narration", "trigger.fired", "action.resolved"]
+  );
+  assert.deepStrictEqual(visit.events.find((e) => e.type === "money.changed").data, { delta: 3 });
+  assert.strictEqual(visit.events.find((e) => e.type === "narration").data.textId, "txt_market_reopens");
+  assert.strictEqual(visit.events.find((e) => e.type === "trigger.fired").visibility, "internal");
+  assert.strictEqual(moneyOf(visit.state), moneyOf(aged) + 3);
+  assert.deepStrictEqual(visit.state.fired[MARKET_EVENT], { count: 1, lastMinute: visit.state.time.minute });
+  assert.strictEqual(relationsJson(visit.state), relationsJson(aged), "collecting it does not touch the relations");
+  const revisit = drive(visit.state, [VILLAGE]);
+  const second = step(revisit, MARKET, worldData);
+  assert.ok(!fires(second), "once: the market does not pay twice");
+  assert.strictEqual(moneyOf(second.state), moneyOf(visit.state));
+  assert.deepStrictEqual(validateState(visit.state), []);
+
+  // the same place and action, four different earlier histories
+  const histories = {
+    "no confrontation at all": CANONICAL_ACTIONS.slice(0, -1),
+    "confronted without the village's backing": CANONICAL_ACTIONS,
+    "backed, but the bandits' fate never decided": REPORTED_ACTIONS,
+    "backed and decided": DECIDED_ACTIONS
+  };
+  const rewarded = Object.fromEntries(Object.entries(histories).map(([label, path]) => [label, fires(step(runActions(path).state, MARKET, worldData))]));
+  assert.deepStrictEqual(rewarded, {
+    "no confrontation at all": false,
+    "confronted without the village's backing": false,
+    "backed, but the bandits' fate never decided": false,
+    "backed and decided": true
+  });
+
+  // a market visit before the decision pays nothing; the same visit afterwards does
+  const early = runActions(REPORTED_ACTIONS).state; // backed, undecided
+  const beforeVisit = step(early, MARKET, worldData);
+  assert.ok(!fires(beforeVisit));
+  assert.strictEqual(beforeVisit.state.fired[MARKET_EVENT], undefined, "a false trigger leaves no fired record");
+  const decidedLater = drive(drive(beforeVisit.state, [VILLAGE]), DISPERSE_ACTIONS);
+  assert.ok(fires(step(decidedLater, MARKET, worldData)));
+
+  // a rejected decision leaves no hidden trace: no fired record, no reward later
+  const rejected = step(step(runActions(CANONICAL_ACTIONS).state, { type: "perform", actionId: "act_talk_elder" }, worldData).state, DISPERSE_ACTIONS[1], worldData);
+  assert.strictEqual(rejected.events[0].data.code, "requirements_not_met");
+  assert.strictEqual(rejected.state.fired?.[MARKET_EVENT], undefined);
+
+  // a failed confrontation leaves nothing to persist
+  const reported = runActions(REPORTED_ACTIONS.slice(0, -1));
+  let failed;
+  for (let i = 0; i < 200 && !failed; i++) {
+    const trial = { ...reported.state, rng: createInitialState({ worldSeed: `persistence-trial-${i}`, data: worldData }).state.rng };
+    const result = step(trial, CANONICAL_ACTIONS.at(-1), worldData);
+    if (result.events.find((e) => e.type === "check.resolved").data.tier === "fail") failed = result;
+  }
+  assert.ok(failed, "found a failing trial seed");
+  assert.ok(!fires(step(failed.state, MARKET, worldData)));
+
+  // death and succession: the `cowed` edge is the acting character's, so the successor
+  // gets nothing -- and the character who made the decisions still does (control)
+  const control = fires(step(decided, MARKET, worldData));
+  assert.strictEqual(control, true);
+  const dead = drive(decided, [
+    { type: "move", to: "loc_ruins" },
+    { type: "wait", minutes: 30 },
+    { type: "wait", minutes: 30 },
+    { type: "wait", minutes: 30 }
+  ]);
+  assert.strictEqual(dead.actors.player_1.alive, false);
+  assert.strictEqual(dead.fired[MARKET_EVENT], undefined, "the market was never visited");
+  const successor = step(dead, { type: "startCharacter", templateId: "start_wanderer" }, worldData).state;
+  assert.strictEqual(successor.player.actorId, "player_2");
+  assert.deepStrictEqual(Object.keys(successor.relations).filter((k) => k.startsWith("org_")), ["org_bandits:player_1"]);
+  assert.deepStrictEqual(successor.relations["npc_bandit_leader:org_bandits"].tags, [], "the leader's departure is world state");
+  const successorVisit = step(successor, MARKET, worldData);
+  assert.ok(!fires(successorVisit));
+  assert.strictEqual(moneyOf(successorVisit.state), moneyOf(successor));
+  assert.deepStrictEqual(validateState(successorVisit.state), []);
+}
+
+testPersistentConsequence();
+
+// 19. V2-Core-33: the same result after a save -> load, at every step of the path
+// that reaches it, and with the `once` record surviving the load.
+function testPersistentConsequenceSaveLoad() {
+  const path = [...DECIDED_ACTIONS, MARKET, VILLAGE, MARKET];
+  const runA = runActions(path);
+  const runB = runActions(path);
+  assert.deepStrictEqual(runA.state, runB.state);
+  assert.deepStrictEqual(runA.log, runB.log);
+  assert.deepStrictEqual(JSON.parse(JSON.stringify(runA.state)), runA.state);
+  assert.deepStrictEqual(validateState(runA.state), []);
+  const paid = runA.log.filter((r) => r.events.some((e) => e.type === "trigger.fired" && e.data.eventId === MARKET_EVENT));
+  assert.strictEqual(paid.length, 1, "paid exactly once over two market visits");
+
+  let state = createInitialState({ worldSeed: CANONICAL_SEED, data: worldData }).state;
+  path.forEach((action, index) => {
+    const reloaded = parseLoadedRecord(JSON.parse(JSON.stringify(buildSaveRecord(`slot_p${index}`, state, { savedAt: index }))));
+    assert.deepStrictEqual(reloaded, state, `state before step ${index}`);
+    assert.deepStrictEqual(step(reloaded, action, worldData), step(state, action, worldData), `step ${index} result`);
+    state = step(state, action, worldData).state;
+  });
+  assert.deepStrictEqual(state, runA.state);
+}
+
+testPersistentConsequenceSaveLoad();
+
 console.log("V2-Core-22 data-world.test.js: all checks passed");

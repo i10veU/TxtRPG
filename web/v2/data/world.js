@@ -25,6 +25,8 @@
 //      shaken further, and the bandits as a group are cowed
 //   -> village: talk to the elder once more; a confrontation the village stood
 //      behind opens one more option -- leave the bandits' fate to the elder
+//   -> market (any later step): once the bandits are cowed and the leader is no
+//      longer one of them, the merchants show their relief -- once
 //
 // V2-Core-25 wires already-implemented mechanics into this same pack (no new
 // engine semantics): `minutes` on the two long actions, `location`-gated
@@ -68,6 +70,16 @@
 // exactly what it was. `data.events` could read the same edges (a trigger sees a
 // same-step tag change) but nothing here needs an event. `version` stays "0.1.0"
 // (no state-shape change; D-68).
+//
+// V2-Core-33 also adds no engine semantics: that result now outlives the moment it
+// was made. `evt_market_reopens` (a `data.events` entry, `once`) reads the same two
+// edges -- the bandits are cowed and the leader is no longer a member -- and fires in
+// whichever later step the player is standing in the market. Nothing decays those
+// edges (there are no relation rules), so the event sees them however much time and
+// travel has passed; `state.fired` keeps it from paying twice. The `cowed` edge is
+// the acting character's (`org_bandits` -> `player_<n>`): a successor does not inherit
+// it, and the event is simply false for them. `version` stays "0.1.0" (no state-shape
+// change; D-68).
 //
 // This is deliberately small (Ponytail): one data module, one growth
 // system, three locations, two NPCs (referenced only as relation/rumor
@@ -113,6 +125,23 @@ export const worldData = {
   // three hits take the 10-HP wanderer to 0, which is the existing `hp`
   // Effect's own death trigger (D-34), not a new mechanic.
   events: {
+    // V2-Core-33: a consequence that shows up later, elsewhere. Read through `relation`
+    // Conditions only; `once` (state.fired) keeps it from paying twice.
+    evt_market_reopens: {
+      trigger: {
+        op: "and",
+        of: [
+          { op: "location", at: "loc_market" },
+          { op: "relation", from: "org_bandits", to: "self", tag: "cowed" },
+          { op: "not", of: { op: "relation", from: "npc_bandit_leader", to: "org_bandits", tag: "member" } }
+        ]
+      },
+      once: true,
+      effects: [
+        { op: "money", add: 3 },
+        { op: "narrate", textId: "txt_market_reopens" }
+      ]
+    },
     evt_ruins_hazard: {
       trigger: { op: "location", at: "loc_ruins" },
       cooldown: 30,
@@ -364,6 +393,7 @@ export const worldData = {
     txt_report_findings: "당신이 알아낸 것을 전하자 원로는 오래 침묵하다 천천히 고개를 끄덕인다.",
     txt_confront_backed: "마을 사람들이 당신 뒤에 서 있다는 사실이 도적 두목을 더욱 흔든다.",
     txt_bandits_disperse: "원로는 도적단 잔당에게 사람을 보내 해산을 권한다. 두목은 더 이상 도적단의 일원이 아니다.",
+    txt_market_reopens: "도적단이 흩어졌다는 소식에 상인들이 안도하며 은화 몇 닢을 사례한다.",
     txt_rest_village: "마을 어귀의 평상에 앉아 숨을 고르며 상처를 돌본다.",
     txt_ruins_hazard: "무너진 벽돌이 머리 위로 쏟아져 내린다.",
     txt_succession: "쓰러진 이가 남긴 은화 몇 닢이 새 방랑자의 손에 들어온다."

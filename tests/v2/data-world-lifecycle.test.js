@@ -47,7 +47,8 @@ function walkToRuins(state) {
 // 1. the extended pack still validates and actually contains the new wiring
 function testDataShape() {
   assert.deepStrictEqual(validateData(worldData), []);
-  assert.deepStrictEqual(Object.keys(worldData.events), ["evt_ruins_hazard"]);
+  // the ruins hazard (V2-Core-25) and, since V2-Core-33, the later market event
+  assert.deepStrictEqual(Object.keys(worldData.events), ["evt_market_reopens", "evt_ruins_hazard"]);
   assert.ok(Array.isArray(worldData.rules.succession) && worldData.rules.succession.length > 0);
   assert.ok(worldData.actions.act_investigate_ruins.minutes > 0);
   assert.strictEqual(worldData.actions.act_talk_elder.requires.op, "location");
