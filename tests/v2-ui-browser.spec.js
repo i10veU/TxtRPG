@@ -83,6 +83,15 @@ test.describe("V2 minimal browser UI (real entry point)", () => {
     await clickAction("마을 살피기");
     await clickAction("마을 살피기");
 
+    // talk to the elder -> real pending choice UI. V2-Core-30: this comes before
+    // the ruins now -- the investigation needs the rumor the elder teaches
+    await clickAction("원로와 대화");
+    await expect(page.locator("#choice")).toBeVisible();
+    await expect(page.locator("#actions")).toBeEmpty();
+    await expect(page.locator("#moves")).toBeEmpty();
+    await page.locator("#choiceOptions button", { hasText: "폐허에 대해 묻기" }).click();
+    await expect(page.locator("#choice")).toBeHidden();
+
     // V2-Core-29: the lantern is bought at the market, the ruins are visited
     // (location-gated), and the village rest heals what the hazard took
     await clickMove("시장");
@@ -98,14 +107,6 @@ test.describe("V2 minimal browser UI (real entry point)", () => {
 
     await clickMove("변경 마을");
     await clickAction("마을에서 쉬기");
-
-    // talk to the elder -> real pending choice UI
-    await clickAction("원로와 대화");
-    await expect(page.locator("#choice")).toBeVisible();
-    await expect(page.locator("#actions")).toBeEmpty();
-    await expect(page.locator("#moves")).toBeEmpty();
-    await page.locator("#choiceOptions button", { hasText: "폐허에 대해 묻기" }).click();
-    await expect(page.locator("#choice")).toBeHidden();
 
     // growth-gate: investigation proficiency (15+15+30=60) crossed the 50
     // threshold during the investigate action, unlocking unl_keen_eye; the

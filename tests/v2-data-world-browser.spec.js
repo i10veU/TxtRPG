@@ -14,6 +14,8 @@ const CANONICAL_SEED = "frontier-canonical-4";
 const CANONICAL_ACTIONS = [
   { type: "perform", actionId: "act_observe_village" },
   { type: "perform", actionId: "act_observe_village" },
+  { type: "perform", actionId: "act_talk_elder" },
+  { type: "choose", optionId: "opt_ask_ruins" },
   { type: "move", to: "loc_market" },
   { type: "perform", actionId: "act_buy_lantern" },
   { type: "move", to: "loc_village" },
@@ -21,8 +23,6 @@ const CANONICAL_ACTIONS = [
   { type: "perform", actionId: "act_investigate_ruins" },
   { type: "move", to: "loc_village" },
   { type: "perform", actionId: "act_rest_village" },
-  { type: "perform", actionId: "act_talk_elder" },
-  { type: "choose", optionId: "opt_ask_ruins" },
   { type: "perform", actionId: "act_confront_leader" }
 ];
 

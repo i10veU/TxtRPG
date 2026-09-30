@@ -68,7 +68,8 @@
   추상 ID 합성 fixture만 쓴다). 실제 IndexedDB/브라우저를 쓰는 smoke는 별도로 `npx playwright test
   tests/v2-storage-browser.spec.js tests/v2-data-world-browser.spec.js tests/v2-ui-browser.spec.js
   tests/v2-ui-lifecycle-browser.spec.js tests/v2-ui-view-boundary-browser.spec.js
-  tests/v2-ui-save-compat-browser.spec.js tests/v2-ui-canonical-browser.spec.js`로 실행한다(Node 테스트는 IndexedDB를 mock하는 새 의존성을
+  tests/v2-ui-save-compat-browser.spec.js tests/v2-ui-canonical-browser.spec.js
+  tests/v2-ui-information-browser.spec.js`로 실행한다(Node 테스트는 IndexedDB를 mock하는 새 의존성을
   추가하지 않고 순수 함수만 검증한다). V1 회귀는 기존과 동일하게 `tests/*.js`(`.spec.js` 제외)
   41개를 개별 실행해 41/41을 확인한다. CI(`Unit & regression`/`Browser smoke`)가 두 계층 모두
   매 PR마다 자동으로 검증한다.
@@ -82,7 +83,7 @@
   만든 save를 조용히 실행하지 않도록, 현재 팩을 가진 caller(UI)가 로드 경계에서
   `checkDataCompatibility`로 거부한다(D-68).
 
-### 현재 진행 단계 (V2-Core-01 ~ V2-Core-29 완료)
+### 현재 진행 단계 (V2-Core-01 ~ V2-Core-30 완료)
 
 - **엔진 핵심**: `state`/`action`/`event` 스키마, RNG, `step()` 11단계 파이프라인, Condition
   DSL(and/or/not/eq류 6개 + shorthand 12개 + money/rumor), Effect DSL(20개 op 전부: flag/signal/
@@ -132,6 +133,13 @@
   실행되고(기존 `location` Condition), 새 `act_rest_village`는 기존 `hp` Effect(양수 add, max clamp)로
   회복한다. 죽은 actor는 엔진의 pending/dead 게이트가 막아 회복 행동으로 되살릴 수 없다.
   `tests/v2-ui-canonical-browser.spec.js`가 이 루프를 실제 브라우저로 검증한다.
+  V2-Core-30에서 정보 흐름을 실제 플레이에 연결했다(원로 대화 → 소문 → 시장/등불 → 폐허 → 조사 → 소문 확인
+  → 대면): `act_investigate_ruins`는 원로에게서 `rum_ruins_secret`을 들었을 때만 실행되고(기존 `rumor`
+  Condition — player 문맥에서 허용됨, 진실인 `fact`만 제한), 조사에 성공하면 같은 소문을 관찰 모드로
+  다시 배워(기존 `rumor` Effect) 두 번째 출처가 기록된다(`confirmations` 2). 안부만 물은 플레이어는 조사를
+  할 수 없지만 원로에게 다시 물으면 열리므로 막다른 길은 없다. UI는 `knowledge`를 화면에 그리지 않는다 —
+  플레이어는 로그 문장과 "어떤 행동이 보이는가"로 정보를 얻는다. `tests/v2-ui-information-browser.spec.js`가
+  이 흐름을 실제 브라우저로 검증한다.
 
 ### 이후 진행 단계
 
@@ -174,10 +182,21 @@
   그대로다 — 행동 하나 추가와 실행 위치 제한뿐이라 state 모양이 변하지 않고, D-68의 정확 일치 규칙 아래
   기존 save를 불필요하게 막지 않기 위해서다. canonical path의 기존 테스트 3개 파일은 이동 단계를 넣도록
   최소한으로 고쳤다.
+- **V2-Core-30 결과** (콘텐츠와 테스트만 변경, 엔진/저장/UI 코드 변경 없음, 새 D-decision 없음, 상세는
+  `CORE_CONTRACTS.md` §11/§15): 정보 흐름(원로 대화 → 소문 → 조사 → fact/flag → 대면)을 계약 → runtime →
+  데이터 → 테스트 → 브라우저 순으로 추적했다. `rumor` Condition과 selector는 이미 player 문맥에서 소비할 수
+  있었고(D-24) 데이터팩이 소문을 기록만 하고 있었다는 것이 실제 gap이었다. 등불/위치처럼 이미 있는 조건과
+  겹치지 않는 조건이 되도록 조사 행동에만 소문 조건을 붙였다. 팩 `version`은 `0.1.0` 그대로다(state 모양
+  변화 없음, D-68 호환성 통과 — 이전 팩으로 만든 save는 그대로 불러와지고, 소문이 없으면 조사가 다시 원로와
+  대화한 뒤에 열린다). canonical path를 밟는 기존 테스트 5개 파일(Node 2개, 브라우저 spec 3개 — #89의 spec 포함)은
+  원로 대화 단계를 앞으로 옮기도록만 고쳤다. `facts[*].initial`/relation rule/`completeWhen`/D-09/D-67은
+  결정하지 않았다.
 - **다음 issue 후보**: (1) 실제 콘텐츠가 요구할 때 위 C 항목을 각각 별도 D-decision으로 확정 — 우선
   후보는 "전용 필드 vs event" 결정(`completeWhen`/relation rules)과 seed 입력 결정(`facts[*].initial`).
-  (2) 콘텐츠 결정(core와 분리): HP 회복과 위치 제약은 V2-Core-29에서 처리했다. 부활 semantics를 정의할지는
-  여전히 C다. (3) 서버/Worker 경계를 실제로 만들게 될 때 `view()` 확장
+  (2) 콘텐츠 결정(core와 분리): HP 회복과 위치 제약(V2-Core-29), 소문 → 행동 연결(V2-Core-30)은 처리했다.
+  남은 후보 — 원로와의 `relation` 점수를 읽는 콘텐츠(지금은 아무 Condition도 읽지 않음), `knowledge`를 화면에
+  보여줄지(UI 결정), `data.rules.rumor` 증감폭과 `minConfidence`를 함께 쓰는 콘텐츠. 부활 semantics를
+  정의할지는 여전히 C다. (3) 서버/Worker 경계를 실제로 만들게 될 때 `view()` 확장
   (D-67)과 UI 외 caller의 호환성 검사 호출. (4) 실제로 데이터팩 version을 올려 옛 save가 문제가 되는
   시점의 version 범위/data migration 결정(D-68 (a)). (5) 별도 유지보수: V1 `phase255` 브라우저 테스트의
   타이밍 race 안정화.

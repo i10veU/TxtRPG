@@ -65,11 +65,14 @@ function testTimeAdvancement() {
   assert.strictEqual(observe.state.time.minute, 0, "an action without `minutes` must not advance time");
   assert.ok(!types(observe.events).includes("time.advanced"));
 
-  // same canonical path as data-world.test.js (V2-Core-29: every action happens
-  // where it belongs): still a valid playthrough
+  // same canonical path as data-world.test.js (V2-Core-29/30: every action
+  // happens where it belongs, and the elder's rumor comes before the ruins):
+  // still a valid playthrough
   const path = [
     { type: "perform", actionId: "act_observe_village" },
     { type: "perform", actionId: "act_observe_village" },
+    { type: "perform", actionId: "act_talk_elder" },
+    { type: "choose", optionId: "opt_ask_ruins" },
     { type: "move", to: "loc_market" },
     { type: "perform", actionId: "act_buy_lantern" },
     { type: "move", to: "loc_village" },
@@ -77,8 +80,6 @@ function testTimeAdvancement() {
     { type: "perform", actionId: "act_investigate_ruins" },
     { type: "move", to: "loc_village" },
     { type: "perform", actionId: "act_rest_village" },
-    { type: "perform", actionId: "act_talk_elder" },
-    { type: "choose", optionId: "opt_ask_ruins" },
     { type: "perform", actionId: "act_confront_leader" }
   ];
   const log = [];

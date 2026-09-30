@@ -36,6 +36,13 @@ async function startCanonicalGame(page) {
   await expect(page.locator("#game")).toBeVisible();
 }
 
+// V2-Core-30: the investigation needs the elder's rumor, so the loop starts here
+async function askElder(page) {
+  await act(page, "원로와 대화");
+  await page.locator("#choiceOptions button", { hasText: "폐허에 대해 묻기" }).click();
+  await expect(page.locator("#choice")).toBeHidden();
+}
+
 test.describe("V2 canonical loop (location gates / hazard / recovery)", () => {
   test("new game -> village -> market -> buy lantern -> ruins -> investigate -> hazard HP loss -> rest recovers HP", async ({ page }) => {
     const { pageErrors, consoleErrors } = await gotoApp(page);
@@ -50,6 +57,7 @@ test.describe("V2 canonical loop (location gates / hazard / recovery)", () => {
     await expect(actionButton(page, "폐허 조사")).toHaveCount(0);
     await act(page, "마을 살피기");
     await act(page, "마을 살피기");
+    await askElder(page);
 
     // 2. village -> market
     await move(page, "시장");
@@ -91,8 +99,6 @@ test.describe("V2 canonical loop (location gates / hazard / recovery)", () => {
     await expect(page.locator("#log")).toContainText("상처를 돌본다");
 
     // the recovered player continues with the existing progression path
-    await act(page, "원로와 대화");
-    await page.locator("#choiceOptions button", { hasText: "폐허에 대해 묻기" }).click();
     await expect(actionButton(page, "도적 두목과 대면")).toBeEnabled();
     await act(page, "도적 두목과 대면");
     const final = await getState(page);
@@ -181,6 +187,7 @@ test.describe("V2 canonical loop (location gates / hazard / recovery)", () => {
     const { pageErrors, consoleErrors } = await gotoApp(page);
     await startCanonicalGame(page);
 
+    await askElder(page);
     await move(page, "시장");
     await act(page, "등불 구입");
     await move(page, "변경 마을");

@@ -1308,6 +1308,31 @@ state.knowledge["player_1"]["rum_a"] = {
   (체류 중 함정 -4) → 마을 → 휴식(+4) → 원로 대화/선택 → 대면(HP 10→6→2→6, 총 270분). 검증:
   `tests/v2/data-world.test.js`/`data-world-lifecycle.test.js`(기존 canonical path를 이동 단계 포함으로
   수정, 위치 제약/회복/clamp/죽은 actor 무부활/succession 유지 추가), `tests/v2-ui-canonical-browser.spec.js`.
+  **V2-Core-30 추가 (Issue #90, 새 semantics 없음)**: 정보 흐름을 실제 플레이에 연결했다. 추적 결과 —
+  `rumor` Effect는 `state.knowledge.<actor>.<rumor>`에 §8.2의 RumorEntry를 그대로 쓰고(`opt_ask_ruins`:
+  confidence 60, `confirmations` 1, `sources:["npc_elder"]`), `view().knowledge`가 그 항목을 정확성 필드 없이
+  그대로 돌려준다. `rumor` Condition(`{op:"rumor", rumor, minConfidence?}`)과 selector는 D-24로 이미 구현돼
+  있고 player 문맥에서 허용된다(§8.4가 제한하는 것은 `fact`뿐). 그런데 데이터팩은 소문을 기록만 했고 어떤
+  행동도 읽지 않았다 — 원로와 조사는 `fact_ruins_secret`을 가리키는 같은 문자열로만 이어져 있었다. 그래서
+  (A) `act_investigate_ruins`의 `requires`에 `{op:"rumor", rumor:"rum_ruins_secret"}`을 더했다(위치/등불과
+  겹치지 않는 별개의 정보 조건, 숨김 정책은 그대로 `showWhenLocked` 없음). 안부만 물으면(`opt_small_talk`은
+  소문을 가르치지 않는다) 조사가 안 열리지만 `act_talk_elder`는 반복 가능하므로 막다른 길이 아니다.
+  (B) 조사 성공 outcome에서 `fact`를 설정한 바로 뒤에 `rumor` 관찰 모드(`observe:true`,
+  `source:"obs_loc_ruins"`)를 더해 그 fact 값을 claim으로 다시 배운다 — 같은 claim의 새 출처 재확인이라
+  `confirmations` 2, `sources:["npc_elder","obs_loc_ruins"]`, `rumor.updated`(delta 0)가 된다. 순서가
+  중요하다(관찰 모드는 fact가 아직 없으면 skip, §8.3). 실패 outcome은 소문도 fact도 바꾸지 않으며 조사는 다시
+  시도할 수 있다. `data.rules.rumor`의 증감폭은 설정하지 않았다: confidence를 읽는 소비자가 없어 수치를 만들
+  근거가 없다(그래서 확인은 `confirmations`/`sources`로만 나타난다). 대면(`act_confront_leader`)의 접근
+  조건(flag + unlock)은 그대로 둔다 — 소문 조건을 더하면 flag와 겹쳐 의미가 없다. UI 확인: `web/v2/ui/app.js`는
+  `rumor.*` 이벤트를 로그에 쓰지 않고 `knowledge`를 그리지 않는다 — 플레이어는 로그 문장(narration)과 행동
+  노출 여부로만 정보를 얻는다(UI 기능 결정이며 core 결정이 아니라 이번에 만들지 않았다). D-68 확인: 팩
+  `version`은 `0.1.0` 유지, 같은 id·version에서 내용만 바뀌므로 호환성 검사는 통과하고(D-68이 이미 C로
+  남긴 "내용 변경 검출 없음"), 옛 팩으로 만든 폐허의 save는 `validateState`를 통과하며 소문이 없으면 조사가
+  닫혀 있다가 원로에게 물은 뒤 열린다. canonical path: 새 게임 → 마을 살피기 x2 → 원로 대화/선택 → 시장 →
+  등불 → 마을 → 폐허 → 조사(소문 확인) → 마을 → 휴식 → 대면(HP 10→6→2→6, 총 270분, 두 check는 같은 등급).
+  원로와의 `relation`(+5/+1)은 명시적 Effect로만 기록되고 어떤 Condition도 읽지 않는다(콘텐츠 후보, 새
+  semantics 아님). 검증: `tests/v2/data-world.test.js`(정보 흐름/저장·불러오기 테스트 추가),
+  `tests/v2-ui-information-browser.spec.js`.
 - `validateData(data)`는 다음을 검사하고 오류 목록을 반환한다: ID 형식, 참조 무결성, Condition/Effect op와 인자,
   handler 등록과 reason, player 문맥의 fact 사용 금지, Resolvable의 success/fail 필수 여부.
   **검증을 통과하지 못한 data로 step을 호출하는 것은 프로그래머 오류다.**
@@ -1704,3 +1729,18 @@ state.knowledge["player_1"]["rum_a"] = {
     조사/휴식 위치 제약 제거, 회복량 0, 회복량 과다로 clamp 확인) 각각 Node와 브라우저 테스트가 실패하는지
     확인한 뒤 복원했다. `version`을 올리지 않은 이유는 §11 참고. D-09/`completeWhen`/relation rules/
     `facts[*].initial`/D-67은 결정하지 않았다.
+  - 작업 27 = V2-Core-30 (Issue #90): 정보·소문 기반 gameplay slice. 엔진/저장/UI 코드와 검증기는 바꾸지 않았고
+    (`web/v2/data/world.js`와 테스트/문서/CI만) 새 D-decision도 없다. 원로 대화 → 소문 → 지식 → 조사 →
+    fact/flag → 대면 흐름을 계약(§8/§3.2) → runtime(`applyRumorEffect`, `evaluateRumorCondition`) → 데이터 →
+    테스트 → 실제 실행(Node probe와 실제 Chromium) 순으로 추적해, 소문을 소비하는 기존 Condition이 있는데 데이터팩이
+    쓰지 않는다는 것이 gap임을 확인했다. `act_investigate_ruins`에 `rumor` Condition을 붙이고 성공 outcome에
+    관찰 모드 `rumor` Effect를 더했다(자세한 판단은 §11). 사전 probe로 canonical seed에서 두 check가 같은 등급이고
+    총 270분/HP 6임을 확인했다. canonical path를 밟는 기존 테스트(`data-world.test.js`,
+    `data-world-lifecycle.test.js`, `v2-data-world-browser.spec.js`, `v2-ui-browser.spec.js` 테스트 2,
+    `v2-ui-canonical-browser.spec.js`)는 원로 대화 단계를 앞으로 옮기도록만 고쳤고 나머지 V2 브라우저 spec은
+    그대로 통과한다. 새 브라우저 spec `tests/v2-ui-information-browser.spec.js`와 CI 단계를 추가했다. 일부러 코드를
+    깨뜨려(소문 조건 제거, 확인 Effect 제거, 원로 선택이 소문을 안 가르침, 안부 선택이 소문을 가르침, 관찰이 fact
+    설정보다 앞섬, 잘못된 소문 조건, 실패도 확인) 각각 Node 테스트가 실패하는지 확인한 뒤 복원했다(브라우저 spec은
+    canonical seed가 항상 성공이라 마지막 변형 하나를 잡지 못한다 — 실패 분기는 Node가 검증). `version`은 올리지
+    않았다. `facts[*].initial`(D-65: 소문을 배워도 fact는 설정되지 않는다)/relation rule/`completeWhen`/D-09/D-67은
+    결정하지 않았다.
