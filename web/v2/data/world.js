@@ -5,14 +5,17 @@
 // invented to build this content (see D-65 for the one genuine contract/
 // code gap this pack deliberately works around instead of relying on).
 //
-// Minimal playable loop (canonical path, V2-Core-29 -- each step happens where
-// it makes sense, enforced by `location` Conditions):
+// Minimal playable loop (canonical path, V2-Core-29/30 -- each step happens
+// where it makes sense, enforced by `location` and `rumor` Conditions):
 //   village: observe (grow `investigation` proficiency)
+//   -> village: talk to the elder (a real `choice`: ask about the ruins, which
+//      teaches the `rum_ruins_secret` rumor, or just small talk)
 //   -> market: buy a lantern (spends money, gates the ruins link)
-//   -> ruins: investigate (a real check() against `wit`, decided by RNG); the
-//      ruins hazard costs HP on arrival and again while you stay
-//   -> village: rest (the recovery action) -> talk to the elder (a real
-//      `choice`: ask about the ruins, or just small talk)
+//   -> ruins: investigate -- only once the rumor is known (a real check()
+//      against `wit`, decided by RNG); a success confirms the rumor from a
+//      second, first-hand source; the ruins hazard costs HP on arrival and
+//      again while you stay
+//   -> village: rest (the recovery action)
 //   -> enough accumulated investigation unlocks `unl_keen_eye`, which
 //      together with what the investigation confirmed gates a final
 //      confrontation action (a second check(), tags:["social"]).
@@ -29,6 +32,15 @@
 // Effect. `version` stays "0.1.0" on purpose: the change adds one action and
 // restricts where two run, with no state-shape change, so saves made before it
 // stay valid (D-68 leaves bumping to the pack author).
+//
+// V2-Core-30 also adds no engine semantics: `act_investigate_ruins` now needs
+// the elder's rumor (the existing `rumor` Condition, allowed in player context
+// -- only `fact` is restricted, §8.4) and its success re-learns that rumor in
+// observe mode (existing `rumor` Effect: the claim is copied from the fact the
+// investigation just set, from the new source `obs_loc_ruins`). No
+// `data.rules.rumor` gains are set: nothing reads confidence, so the
+// confirmation shows up as `confirmations`/`sources` only. `version` stays
+// "0.1.0" for the same reason as above (no state-shape change; D-68).
 //
 // This is deliberately small (Ponytail): one data module, one growth
 // system, three locations, two NPCs (referenced only as relation/rumor
@@ -128,12 +140,22 @@ export const worldData = {
     },
     act_investigate_ruins: {
       name: "폐허 조사",
-      requires: { op: "and", of: [{ op: "location", at: "loc_ruins" }, { op: "item", item: "item_lantern", min: 1 }] },
+      requires: {
+        op: "and",
+        of: [
+          { op: "location", at: "loc_ruins" },
+          { op: "item", item: "item_lantern", min: 1 },
+          { op: "rumor", rumor: "rum_ruins_secret" }
+        ]
+      },
       check: { stat: "wit", tags: ["investigation"], difficulty: "normal" },
       minutes: 60,
       outcomes: {
         success: [
           { op: "fact", fact: "fact_ruins_secret", set: "bandit_hideout" },
+          // observe mode copies the fact set just above as the claim; `confidence`
+          // only matters if the claim ever conflicted with a believed one
+          { op: "rumor", rumor: "rum_ruins_secret", observe: true, source: "obs_loc_ruins", confidence: 80 },
           { op: "flag", key: "ruins_secret_confirmed", value: true },
           { op: "proficiency", id: "investigation", add: 30 },
           { op: "item", item: "item_relic", add: 1 },

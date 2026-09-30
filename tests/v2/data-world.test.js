@@ -18,13 +18,14 @@ function snapshot(value) {
   return JSON.parse(JSON.stringify(value));
 }
 
-// The canonical playthrough (V2-Core-29: each step runs where it belongs):
+// The canonical playthrough (V2-Core-29/30: each step runs where it belongs):
 // observe x2 in the village (crosses the 50-point investigation threshold
-// together with the later +30), walk to the market and buy the lantern, walk
-// back and on to the ruins, investigate (a real check(); the ruins hazard
-// costs HP), return to the village and rest (the recovery action), talk to
-// the elder and pick the rumor option, then confront the bandit leader (a
-// second real check()). worldSeed
+// together with the later +30), talk to the elder and pick the rumor option
+// (the investigation needs that rumor), walk to the market and buy the
+// lantern, walk back and on to the ruins, investigate (a real check(); the
+// ruins hazard costs HP; a success confirms the rumor first-hand), return to
+// the village and rest (the recovery action), then confront the bandit
+// leader (a second real check()). worldSeed
 // "frontier-canonical-4" was picked empirically (see PR description) to
 // make both checks land on a non-"fail" tier, so the full path -- including
 // the `case` Effect in act_confront_leader's success outcome -- is
@@ -33,6 +34,8 @@ const CANONICAL_SEED = "frontier-canonical-4";
 const CANONICAL_ACTIONS = [
   { type: "perform", actionId: "act_observe_village" },
   { type: "perform", actionId: "act_observe_village" },
+  { type: "perform", actionId: "act_talk_elder" },
+  { type: "choose", optionId: "opt_ask_ruins" },
   { type: "move", to: "loc_market" },
   { type: "perform", actionId: "act_buy_lantern" },
   { type: "move", to: "loc_village" },
@@ -40,8 +43,6 @@ const CANONICAL_ACTIONS = [
   { type: "perform", actionId: "act_investigate_ruins" },
   { type: "move", to: "loc_village" },
   { type: "perform", actionId: "act_rest_village" },
-  { type: "perform", actionId: "act_talk_elder" },
-  { type: "choose", optionId: "opt_ask_ruins" },
   { type: "perform", actionId: "act_confront_leader" }
 ];
 
@@ -56,7 +57,7 @@ function runCanonicalPlaythrough(worldSeed) {
   const stepsLog = [];
   for (const action of CANONICAL_ACTIONS) {
     const result = step(state, action, worldData);
-    stepsLog.push({ action, events: result.events });
+    stepsLog.push({ action, events: result.events, stateAfter: result.state });
     state = result.state;
   }
   return { finalState: state, stepsLog };
@@ -149,8 +150,29 @@ function testCanonicalPlaythrough() {
   assert.deepStrictEqual(finalState.cases, { case_ruins_mystery: { stage: "resolved", since: finalState.cases.case_ruins_mystery.since } });
   assert.deepStrictEqual(validateState(finalState), []);
 
+  // V2-Core-30: the elder's rumor was learned before the ruins (one source, one
+  // confirmation), and the successful investigation confirmed it first-hand --
+  // same claim, a second source, no confidence gain (the pack sets none)
+  const afterAsk = chooseAsk.stateAfter.knowledge.player_1.rum_ruins_secret;
+  assert.deepStrictEqual(afterAsk, {
+    rumorId: "rum_ruins_secret",
+    factId: "fact_ruins_secret",
+    claim: "bandit_hideout",
+    source: "npc_elder",
+    sources: ["npc_elder"],
+    confidence: 60,
+    confirmations: 1,
+    firstSeenDay: 0,
+    lastSeenDay: 0
+  });
+  assert.strictEqual(chooseAsk.stateAfter.facts, undefined, "asking the elder sets no fact");
+  const confirmed = finalState.knowledge.player_1.rum_ruins_secret;
+  assert.deepStrictEqual(confirmed, { ...afterAsk, sources: ["npc_elder", "obs_loc_ruins"], confirmations: 2 });
+  assert.ok(investigate.events.some((e) => e.type === "rumor.updated" && e.data.rumor === "rum_ruins_secret" && e.data.delta === 0));
+
   // §8.4: the hidden fact must never leak into view()
   const playerView = view(finalState, worldData);
+  assert.deepStrictEqual(playerView.knowledge.rum_ruins_secret, confirmed, "view() shows the player's own knowledge entry as stored");
   assert.strictEqual(playerView.actor.growth.growth_wanderer.stats.wit, 8);
   assert.ok(!("facts" in playerView));
 }
@@ -257,6 +279,12 @@ function testSaveLoadRoundTrip() {
 
 testSaveLoadRoundTrip();
 
+// Talk to the elder and ask about the ruins: teaches `rum_ruins_secret`.
+function askElder(state) {
+  const talked = step(state, { type: "perform", actionId: "act_talk_elder" }, worldData).state;
+  return step(talked, { type: "choose", optionId: "opt_ask_ruins" }, worldData).state;
+}
+
 // 8. V2-Core-29: location-gated buy/investigate (existing `location`
 // Condition only). Wrong place -> requirements_not_met and no state change;
 // view() lists them only at the right place and never with a reason (D-06/D-15).
@@ -267,7 +295,9 @@ function testLocationGatedActions() {
   const move = (state, to) => step(state, { type: "move", to }, worldData).state;
   const listed = (state, actionId) => view(state, worldData).actions.find((a) => a.actionId === actionId);
 
-  const { state: village } = createInitialState({ worldSeed: "gate-check", data: worldData });
+  // the investigation also needs the elder's rumor (V2-Core-30); learn it up
+  // front so this test isolates the location gate
+  const village = askElder(createInitialState({ worldSeed: "gate-check", data: worldData }).state);
 
   // lantern: only at the market (money is sufficient everywhere, so the
   // rejection below is the location gate and nothing else)
@@ -406,5 +436,125 @@ function testCanonicalSaveLoadAtEveryStep() {
 }
 
 testCanonicalSaveLoadAtEveryStep();
+
+// 12. V2-Core-30: information -> judgment -> action -> result -> new
+// information. The elder's rumor is what makes the investigation available;
+// the investigation's outcome decides whether the rumor is confirmed.
+function testInformationFlow() {
+  const rejectedCode = (result) => result.events.find((e) => e.type === "action.rejected")?.data.code;
+  const investigate = { type: "perform", actionId: "act_investigate_ruins" };
+  const listed = (state, actionId) => view(state, worldData).actions.find((a) => a.actionId === actionId);
+  const drive = (state, actions) => actions.reduce((s2, a) => step(s2, a, worldData).state, state);
+  const toRuins = [
+    { type: "move", to: "loc_market" },
+    { type: "perform", actionId: "act_buy_lantern" },
+    { type: "move", to: "loc_village" },
+    { type: "move", to: "loc_ruins" }
+  ];
+  const fresh = createInitialState({ worldSeed: "info-flow", data: worldData }).state;
+
+  // the elder's two options: asking teaches the rumor, small talk does not
+  const talked = step(fresh, { type: "perform", actionId: "act_talk_elder" }, worldData).state;
+  const asked = step(talked, { type: "choose", optionId: "opt_ask_ruins" }, worldData);
+  assert.deepStrictEqual(asked.events.map((e) => e.type), ["relation.changed", "rumor.learned", "narration", "action.resolved"]);
+  assert.deepStrictEqual(asked.events[0].data, { from: "npc_elder", to: "player_1", delta: 5 });
+  assert.deepStrictEqual(asked.events[1].data, {
+    rumor: "rum_ruins_secret", factId: "fact_ruins_secret", claim: "bandit_hideout", confidence: 60, delta: 60
+  });
+  assert.strictEqual(asked.state.relations["npc_elder:player_1"].score, 5);
+  const small = step(talked, { type: "choose", optionId: "opt_small_talk" }, worldData);
+  assert.deepStrictEqual(small.events.map((e) => e.type), ["relation.changed", "narration", "action.resolved"]);
+  assert.strictEqual(small.state.relations["npc_elder:player_1"].score, 1);
+  assert.strictEqual(small.state.knowledge, undefined, "small talk teaches nothing");
+  // learning a rumor never sets the fact it is about (the fact stays hidden)
+  assert.strictEqual(asked.state.facts, undefined);
+
+  // without the rumor the investigation is unavailable at the ruins -- with the
+  // lantern in hand -- and hidden (no showWhenLocked), with no reason (D-06/D-15)
+  for (const [label, state] of [["never talked", fresh], ["small talk only", small.state]]) {
+    const atRuins = drive(state, toRuins);
+    assert.strictEqual(atRuins.actors.player_1.locationId, "loc_ruins");
+    assert.strictEqual(atRuins.actors.player_1.inventory.item_lantern, 1);
+    const result = step(atRuins, investigate, worldData);
+    assert.strictEqual(rejectedCode(result), "requirements_not_met", label);
+    assert.deepStrictEqual(result.state, atRuins, label);
+    assert.strictEqual(listed(atRuins, "act_investigate_ruins"), undefined, label);
+  }
+
+  // ...but that is not a dead end: the elder can be asked later (talking is repeatable)
+  const late = drive(drive(small.state, toRuins), [
+    { type: "move", to: "loc_village" },
+    { type: "perform", actionId: "act_talk_elder" },
+    { type: "choose", optionId: "opt_ask_ruins" },
+    { type: "move", to: "loc_ruins" }
+  ]);
+  assert.deepStrictEqual(listed(late, "act_investigate_ruins"), { actionId: "act_investigate_ruins", available: true });
+
+  // the rumor alone is not enough: location and lantern are still required
+  assert.strictEqual(rejectedCode(step(asked.state, investigate, worldData)), "requirements_not_met", "rumor at the village");
+  const ruinsNoLantern = structuredClone(drive(asked.state, toRuins));
+  delete ruinsNoLantern.actors.player_1.inventory.item_lantern;
+  assert.strictEqual(rejectedCode(step(ruinsNoLantern, investigate, worldData)), "requirements_not_met", "rumor at the ruins, no lantern");
+
+  // outcome: a success confirms the rumor first-hand; a failure sets nothing
+  const before = drive(asked.state, toRuins);
+  const rumorEntry = (state) => state.knowledge.player_1.rum_ruins_secret;
+  let success;
+  let failure;
+  for (let i = 0; i < 200 && !(success && failure); i++) {
+    const trial = { ...before, rng: createInitialState({ worldSeed: `info-trial-${i}`, data: worldData }).state.rng };
+    const result = step(trial, investigate, worldData);
+    const tier = result.events.find((e) => e.type === "check.resolved").data.tier;
+    if (tier === "fail") failure ??= result;
+    else success ??= result;
+  }
+  assert.ok(success && failure, "found both a success and a failure among the trial seeds");
+
+  assert.deepStrictEqual(rumorEntry(success.state).sources, ["npc_elder", "obs_loc_ruins"]);
+  assert.strictEqual(rumorEntry(success.state).confirmations, 2);
+  assert.strictEqual(rumorEntry(success.state).claim, "bandit_hideout");
+  assert.strictEqual(success.state.facts.fact_ruins_secret.value, "bandit_hideout");
+  assert.strictEqual(success.state.flags.ruins_secret_confirmed, true);
+
+  assert.deepStrictEqual(rumorEntry(failure.state), rumorEntry(before), "a failed investigation leaves the rumor as it was");
+  assert.strictEqual(failure.state.facts, undefined, "a failed investigation sets no fact");
+  assert.strictEqual(failure.state.flags?.ruins_secret_confirmed, undefined);
+  assert.ok(!failure.events.some((e) => e.type.startsWith("rumor.")));
+  // ...and the investigation can simply be retried
+  assert.deepStrictEqual(listed(failure.state, "act_investigate_ruins"), { actionId: "act_investigate_ruins", available: true });
+
+  // only the player's own knowledge is exposed: no accuracy/truth field, no facts
+  for (const state of [asked.state, success.state]) {
+    const playerView = view(state, worldData);
+    assert.deepStrictEqual(
+      Object.keys(playerView.knowledge.rum_ruins_secret).sort(),
+      ["claim", "confidence", "confirmations", "factId", "firstSeenDay", "lastSeenDay", "rumorId", "source", "sources"]
+    );
+    assert.ok(!("facts" in playerView));
+  }
+
+  // confrontation keeps its own gating (flag + unlock), unchanged by the rumor
+  assert.deepStrictEqual(listed(success.state, "act_confront_leader"), { actionId: "act_confront_leader", available: false }, "unlock still missing after one success");
+}
+
+testInformationFlow();
+
+// 13. V2-Core-30: the information state survives save -> load at the points
+// where it matters (rumor learned, rumor confirmed) and gives the same next
+// action result.
+function testInformationSaveLoad() {
+  const { stepsLog } = runCanonicalPlaythrough(CANONICAL_SEED);
+  for (const [label, index] of [["after asking the elder", stepOf("act_talk_elder") + 1], ["after the investigation", stepOf("act_investigate_ruins")]]) {
+    const state = stepsLog[index].stateAfter;
+    const reloaded = parseLoadedRecord(JSON.parse(JSON.stringify(buildSaveRecord("slot_info", state, { savedAt: 1 }))));
+    assert.deepStrictEqual(reloaded, state, label);
+    assert.deepStrictEqual(reloaded.knowledge, state.knowledge, label);
+    assert.deepStrictEqual(view(reloaded, worldData), view(state, worldData), label);
+    const next = CANONICAL_ACTIONS[index + 1];
+    assert.deepStrictEqual(step(reloaded, next, worldData), step(state, next, worldData), `${label}: next action`);
+  }
+}
+
+testInformationSaveLoad();
 
 console.log("V2-Core-22 data-world.test.js: all checks passed");
