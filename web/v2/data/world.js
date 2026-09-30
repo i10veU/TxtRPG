@@ -16,9 +16,13 @@
 //      second, first-hand source; the ruins hazard costs HP on arrival and
 //      again while you stay
 //   -> village: rest (the recovery action)
+//   -> village: talk to the elder again; once the investigation is confirmed a
+//      third option appears -- report what you found (optional, V2-Core-31)
 //   -> enough accumulated investigation unlocks `unl_keen_eye`, which
 //      together with what the investigation confirmed gates a final
-//      confrontation action (a second check(), tags:["social"]).
+//      confrontation action (a second check(), tags:["social"]); if you
+//      reported to the elder, the village stands behind you and the leader is
+//      shaken further.
 //
 // V2-Core-25 wires already-implemented mechanics into this same pack (no new
 // engine semantics): `minutes` on the two long actions, `location`-gated
@@ -41,6 +45,16 @@
 // `data.rules.rumor` gains are set: nothing reads confidence, so the
 // confirmation shows up as `confirmations`/`sources` only. `version` stays
 // "0.1.0" for the same reason as above (no state-shape change; D-68).
+//
+// V2-Core-31 also adds no engine semantics: a third elder option is gated by the
+// confirmed-investigation flag (choice-option `requires`, the existing `flag`
+// Condition) and writes the elder's relation edge (existing `relation` Effect:
+// score, mode and a `confidant` tag); the confrontation's success outcome reads
+// that edge with the existing `relation` Condition inside an `if` Effect. The tag,
+// not the score, is what counts: talking to the elder is free and repeatable, so a
+// score threshold could be farmed without ever learning anything. `act_confront_
+// leader`'s own requirements and its check are unchanged. `version` stays "0.1.0"
+// (no state-shape change; D-68).
 //
 // This is deliberately small (Ponytail): one data module, one growth
 // system, three locations, two NPCs (referenced only as relation/rumor
@@ -196,7 +210,16 @@ export const worldData = {
         success: [
           { op: "case", case: "case_ruins_mystery", stage: "resolved" },
           { op: "relation", from: "npc_bandit_leader", to: "self", add: -10 },
-          { op: "narrate", textId: "txt_confront_success" }
+          { op: "narrate", textId: "txt_confront_success" },
+          // V2-Core-31: only a player who reported to the elder has the village behind them
+          {
+            op: "if",
+            when: { op: "relation", from: "npc_elder", to: "self", tag: "confidant" },
+            then: [
+              { op: "relation", from: "npc_bandit_leader", to: "self", add: -10 },
+              { op: "narrate", textId: "txt_confront_backed" }
+            ]
+          }
         ],
         fail: [
           { op: "relation", from: "npc_bandit_leader", to: "self", add: -20 },
@@ -229,6 +252,18 @@ export const worldData = {
           effects: [
             { op: "relation", from: "npc_elder", add: 1 },
             { op: "narrate", textId: "txt_small_talk" }
+          ]
+        },
+        // V2-Core-31: only offered once the investigation is confirmed (the same
+        // flag that gates the confrontation). Rejected with requirements_not_met
+        // otherwise, leaving the choice pending like any other rejected `choose`.
+        {
+          id: "opt_report_findings",
+          name: "조사에서 알아낸 것을 전한다",
+          requires: { op: "flag", key: "ruins_secret_confirmed", eq: true },
+          effects: [
+            { op: "relation", from: "npc_elder", add: 10, mode: "cooperation", tag: "confidant" },
+            { op: "narrate", textId: "txt_report_findings" }
           ]
         }
       ]
@@ -291,6 +326,8 @@ export const worldData = {
     txt_investigate_fail: "폐허는 어둡고 흔적은 모호하다. 확실한 것을 찾지 못했다.",
     txt_confront_success: "당신은 도적 두목과 마주하고 진실을 밝혀낸다.",
     txt_confront_fail: "대치는 뜻대로 풀리지 않았다.",
+    txt_report_findings: "당신이 알아낸 것을 전하자 원로는 오래 침묵하다 천천히 고개를 끄덕인다.",
+    txt_confront_backed: "마을 사람들이 당신 뒤에 서 있다는 사실이 도적 두목을 더욱 흔든다.",
     txt_rest_village: "마을 어귀의 평상에 앉아 숨을 고르며 상처를 돌본다.",
     txt_ruins_hazard: "무너진 벽돌이 머리 위로 쏟아져 내린다.",
     txt_succession: "쓰러진 이가 남긴 은화 몇 닢이 새 방랑자의 손에 들어온다."

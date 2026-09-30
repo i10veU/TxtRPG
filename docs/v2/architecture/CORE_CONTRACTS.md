@@ -1333,6 +1333,32 @@ state.knowledge["player_1"]["rum_a"] = {
   원로와의 `relation`(+5/+1)은 명시적 Effect로만 기록되고 어떤 Condition도 읽지 않는다(콘텐츠 후보, 새
   semantics 아님). 검증: `tests/v2/data-world.test.js`(정보 흐름/저장·불러오기 테스트 추가),
   `tests/v2-ui-information-browser.spec.js`.
+  **V2-Core-31 추가 (Issue #92, 새 semantics 없음)**: 정보 → 관계/선택 → 결과 경로를 추적했다. 확인한 사실 —
+  `relation` Effect는 `state.relations["<from>:<to>"]`의 edge(`score`/`mode`/`lastDay`/`cooperationCount`/
+  `conflictCount`/`tags`, §7.2)만 바꾸고 `relation.changed`에는 실제로 바뀐 필드만 담는다(`add`/`mode`/
+  `tagAdded`). `view().relations`는 플레이어가 한쪽 끝인 edge를 돌려준다. `relation` Condition은 player 문맥에서
+  쓸 수 있고(`from` 기본값 `target`, `to` 기본값 `self`, 리터럴 ID 가능, 없는 edge는 점수 0/`neutral`/태그 없음)
+  선택지 `requires`(§3.3 표: player 문맥)와 행동 `requires`, `if.when`(world 문맥)이 읽을 수 있다. 그런데 데이터팩에서
+  원로 relation(+5/+1)과 두목 relation(-10/-20)은 기록만 되고 아무것도 읽지 않았다. 선택지 `requires`가 거짓이면
+  엔진은 `choose`를 `requirements_not_met`로 거부하고 `pending`은 그대로 남으며(다른 선택지로 계속 답할 수 있음)
+  UI는 그 선택지를 그리지 않는다. `fact`는 world 문맥에서만 쓸 수 있으므로(§8.4) 플레이어 쪽 조건은 확인된 조사가
+  남기는 `flag`(`ruins_secret_confirmed`)를 읽는다. 그래서 (A) `choice_elder_dialogue`에 세 번째 선택지
+  `opt_report_findings`를 더했다 — `requires`는 그 flag이고(소문만 아는 것으로는 열리지 않는다), 효과는 원로 edge에
+  `add:10, mode:"cooperation", tag:"confidant"`(기존 `relation` Effect의 네 필드 중 세 개)와 narrate다. (B)
+  `act_confront_leader`의 success outcome 끝에 `if`(`when`: 원로 edge의 `tag:"confidant"`)를 더해 두목 edge에
+  `-10`을 한 번 더하고 narrate한다. 같은 check/같은 case 결과/같은 시간에서 결과만 다르다(두목 edge -20 대 -10, 로그
+  한 줄). 실패 outcome에는 붙이지 않았다. **점수가 아니라 태그를 읽는다**: `act_talk_elder`는 `minutes`가 없고 반복
+  가능하며 `opt_ask_ruins`가 매번 +5라서(clamp 100) 점수 문턱은 정보를 하나도 얻지 않고도 넘을 수 있다 — 태그는 정보
+  조건이 걸린 선택지로만 얻는다(probe와 Node 테스트로 확인). 쓰지 않은 것: relation의 check 보정(`useRelation` +
+  `targetId`, `floor(score/25)`)은 이미 있지만 `act_confront_leader`에는 `targetId`가 없고 점수 5/1은 25에 못 미쳐
+  아무 효과가 없다 — check를 건드리면 canonical seed의 결과가 흔들리므로 쓰지 않았다. `data.events`도 relation/flag를
+  다시 사건에 연결할 수 있지만 이번 결과에는 필요하지 않았다. 대면의 접근 조건(flag + unlock)과 check는 그대로라서
+  보고하지 않는 기존 canonical path의 결과는 변하지 않고, 기존 테스트는 수정 없이 통과한다. UI 확인: `renderChoice`가
+  선택지 `requires`를 `evaluateCondition`으로 직접 평가한다(`view().pending`에는 선택지 목록이 없다) — D-67이 이미 다루는
+  "UI가 view() 밖을 읽는" 경계이며 이번에 결정하지 않았다. D-68: 팩 `version`은 `0.1.0` 유지(state 모양 변화 없음,
+  옛 팩의 save는 호환·유효). canonical path: ... 조사(소문 확인) → 마을 → 휴식 → (선택) 원로 대화/보고 → 대면(HP
+  10→6→2→6, 총 270분, 두 check는 보고 여부와 무관하게 같은 등급). 검증: `tests/v2/data-world.test.js`(관계 결과/거부/
+  파밍/실패 분기/재생/저장·불러오기 테스트 추가), `tests/v2-ui-consequence-browser.spec.js`.
 - `validateData(data)`는 다음을 검사하고 오류 목록을 반환한다: ID 형식, 참조 무결성, Condition/Effect op와 인자,
   handler 등록과 reason, player 문맥의 fact 사용 금지, Resolvable의 success/fail 필수 여부.
   **검증을 통과하지 못한 data로 step을 호출하는 것은 프로그래머 오류다.**
@@ -1744,3 +1770,16 @@ state.knowledge["player_1"]["rum_a"] = {
     canonical seed가 항상 성공이라 마지막 변형 하나를 잡지 못한다 — 실패 분기는 Node가 검증). `version`은 올리지
     않았다. `facts[*].initial`(D-65: 소문을 배워도 fact는 설정되지 않는다)/relation rule/`completeWhen`/D-09/D-67은
     결정하지 않았다.
+  - 작업 28 = V2-Core-31 (Issue #92): 정보·관계 기반 consequence slice. 엔진/저장/UI 코드와 검증기는 바꾸지 않았고
+    (`web/v2/data/world.js`와 새 테스트/문서/CI만) 새 D-decision도 없다. 정보(확인된 조사) → 선택(원로에게 보고) →
+    관계(`confidant` 태그) → 결과(대면 성공 시 추가 타격) 경로를 계약(§7/§3.3) → runtime(`applyRelationEffect`,
+    `evaluateRelationCondition`, `resolveChoose`, `applyIfEffect`) → 데이터 → 테스트 → 실제 실행(Node probe와 실제
+    Chromium) 순으로 추적해, 소비할 수 있는 기존 Condition이 있는데 데이터팩이 읽지 않는다는 것이 gap임을 확인했다(자세한
+    판단은 §11). 원로 대화가 무료·반복 가능해 relation 점수를 파밍할 수 있다는 사실을 probe로 확인하고 태그를 읽는
+    설계를 택했다. 기존 테스트는 하나도 수정하지 않았다(보고하지 않는 경로가 그대로 유효). 새 브라우저 spec
+    `tests/v2-ui-consequence-browser.spec.js`와 CI 단계를 추가했다. 일부러 코드를 깨뜨려(보고 선택지의 `requires` 제거,
+    소문만 요구하도록 변경, 태그/`cooperation` 제거, 점수 문턱으로 변경, 잘못된 edge 읽기, 추가 타격 제거, 실패에도
+    적용) 각각 Node 테스트가 실패하는지 확인한 뒤 복원했다 — 이 과정에서 "소문만 요구" 변형이 처음에는 살아남는 테스트
+    빈틈을 발견해(거부 검사가 소문을 배우기 전에만 있었다) 고쳤다(브라우저 spec은 파밍/실패 분기를 잡지 못한다 — 둘은
+    Node가 검증). `version`은 올리지 않았다. `facts[*].initial`/relation rule/`completeWhen`/D-09/D-67은 결정하지
+    않았다.

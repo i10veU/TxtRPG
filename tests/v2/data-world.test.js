@@ -557,4 +557,149 @@ function testInformationSaveLoad() {
 
 testInformationSaveLoad();
 
+// 14. V2-Core-31: information -> relationship -> consequence. Once the
+// investigation is confirmed the elder offers a third option; reporting writes
+// the elder's relation edge, and a confrontation that succeeds reads that edge.
+// The existing canonical path (never reporting) keeps its results.
+const REPORT_ACTIONS = [
+  { type: "perform", actionId: "act_talk_elder" },
+  { type: "choose", optionId: "opt_report_findings" }
+];
+// canonical path with the (optional) report between the rest and the confrontation
+const REPORTED_ACTIONS = [...CANONICAL_ACTIONS.slice(0, -1), ...REPORT_ACTIONS, CANONICAL_ACTIONS.at(-1)];
+
+function runActions(actions, worldSeed = CANONICAL_SEED) {
+  let state = createInitialState({ worldSeed, data: worldData }).state;
+  const log = [];
+  for (const action of actions) {
+    const result = step(state, action, worldData);
+    log.push({ action, ...result });
+    state = result.state;
+  }
+  return { state, log };
+}
+
+function testRelationConsequence() {
+  const rejectedCode = (result) => result.events.find((e) => e.type === "action.rejected")?.data.code;
+  const confront = CANONICAL_ACTIONS.at(-1);
+  const edge = (state, key) => state.relations?.[key];
+  const talk = { type: "perform", actionId: "act_talk_elder" };
+
+  // the report option is not available before the investigation is confirmed: the
+  // engine rejects it, nothing changes (the choice stays pending and answerable)
+  const fresh = createInitialState({ worldSeed: "consequence-gate", data: worldData }).state;
+  const pending = step(fresh, talk, worldData).state;
+  const early = step(pending, REPORT_ACTIONS[1], worldData);
+  assert.strictEqual(rejectedCode(early), "requirements_not_met");
+  assert.deepStrictEqual(early.state, pending);
+  assert.deepStrictEqual(early.state.pending, { kind: "choice", choiceId: "choice_elder_dialogue", sourceId: "act_talk_elder" });
+  assert.strictEqual(edge(early.state, "npc_elder:player_1"), undefined, "a rejected report writes no relation");
+  assert.strictEqual(rejectedCode(step(early.state, { type: "choose", optionId: "opt_ask_ruins" }, worldData)), undefined);
+
+  // knowing the rumor is not enough either: it is the confirmed investigation that
+  // opens the option (rumor known, investigation not done yet -> still rejected)
+  const knowsRumor = step(step(fresh, talk, worldData).state, { type: "choose", optionId: "opt_ask_ruins" }, worldData).state;
+  assert.ok(knowsRumor.knowledge.player_1.rum_ruins_secret, "the rumor is known");
+  assert.strictEqual(knowsRumor.flags?.ruins_secret_confirmed, undefined, "the investigation is not confirmed");
+  const knowsRumorTalk = step(knowsRumor, talk, worldData).state;
+  const rumorOnly = step(knowsRumorTalk, REPORT_ACTIONS[1], worldData);
+  assert.strictEqual(rejectedCode(rumorOnly), "requirements_not_met");
+  assert.deepStrictEqual(rumorOnly.state, knowsRumorTalk);
+
+  // canonical path up to (not including) the confrontation
+  const reported = runActions(REPORTED_ACTIONS.slice(0, -1));
+  const [talkResult, reportResult] = reported.log.slice(-2);
+  assert.strictEqual(rejectedCode(talkResult), undefined);
+  assert.deepStrictEqual(
+    reportResult.events.map((e) => e.type),
+    ["relation.changed", "narration", "action.resolved"]
+  );
+  assert.deepStrictEqual(reportResult.events[0].data, { from: "npc_elder", to: "player_1", delta: 10, mode: "cooperation", tagAdded: "confidant" });
+  // asked once (+5), reported once (+10)
+  assert.deepStrictEqual(edge(reported.state, "npc_elder:player_1"), {
+    score: 15, mode: "cooperation", lastDay: 0, cooperationCount: 1, conflictCount: 0, tags: ["confidant"]
+  });
+  assert.deepStrictEqual(validateState(reported.state), []);
+
+  // the same confrontation, with and without the elder's tag: same check, same
+  // case result, same time -- only the consequence differs
+  const backed = step(reported.state, confront, worldData);
+  const untagged = structuredClone(reported.state);
+  untagged.relations["npc_elder:player_1"].tags = [];
+  const unbacked = step(untagged, confront, worldData);
+  const tierOf = (r) => r.events.find((e) => e.type === "check.resolved").data.tier;
+  assert.strictEqual(tierOf(backed), "success");
+  assert.strictEqual(tierOf(backed), tierOf(unbacked));
+  assert.strictEqual(backed.state.cases.case_ruins_mystery.stage, "resolved");
+  assert.deepStrictEqual(backed.state.cases, unbacked.state.cases);
+  assert.strictEqual(backed.state.time.minute, unbacked.state.time.minute);
+  assert.strictEqual(backed.state.time.minute, 270);
+  assert.strictEqual(edge(backed.state, "npc_bandit_leader:player_1").score, -20);
+  assert.strictEqual(edge(unbacked.state, "npc_bandit_leader:player_1").score, -10);
+  const narrations = (r) => r.events.filter((e) => e.type === "narration").map((e) => e.data.textId);
+  assert.deepStrictEqual(narrations(backed), ["txt_confront_success", "txt_confront_backed"]);
+  assert.deepStrictEqual(narrations(unbacked), ["txt_confront_success"]);
+
+  // the path that never reports (the pre-existing canonical path) is unchanged
+  const plain = runActions(CANONICAL_ACTIONS);
+  assert.strictEqual(edge(plain.state, "npc_bandit_leader:player_1").score, -10);
+  assert.deepStrictEqual(narrations(plain.log.at(-1)), ["txt_confront_success"]);
+  assert.strictEqual(plain.state.time.minute, 270);
+
+  // farming the score cannot stand in for the information: asking the elder over and
+  // over (free, repeatable) raises the score but never writes the tag
+  const farmedPath = [
+    ...CANONICAL_ACTIONS.slice(0, 2),
+    ...Array(4).fill([talk, { type: "choose", optionId: "opt_ask_ruins" }]).flat(),
+    ...CANONICAL_ACTIONS.slice(4)
+  ];
+  const farmed = runActions(farmedPath);
+  assert.ok(edge(farmed.state, "npc_elder:player_1").score >= 20);
+  assert.deepStrictEqual(edge(farmed.state, "npc_elder:player_1").tags, []);
+  assert.strictEqual(edge(farmed.state, "npc_bandit_leader:player_1").score, -10);
+
+  // a failed confrontation has no backed consequence, tag or not
+  let failed;
+  for (let i = 0; i < 200 && !failed; i++) {
+    const trial = { ...reported.state, rng: createInitialState({ worldSeed: `consequence-trial-${i}`, data: worldData }).state.rng };
+    const result = step(trial, confront, worldData);
+    if (tierOf(result) === "fail") failed = result;
+  }
+  assert.ok(failed, "found a failing trial seed");
+  assert.deepStrictEqual(narrations(failed), ["txt_confront_fail"]);
+  assert.strictEqual(edge(failed.state, "npc_bandit_leader:player_1").score, -20, "the fail outcome's own -20, no extra backed -10");
+  assert.strictEqual(failed.state.cases, undefined, "a failure does not resolve the case");
+
+  // the player sees the relation edges they are an end of, and never the truth
+  const playerView = view(backed.state, worldData);
+  assert.deepStrictEqual(playerView.relations["npc_elder:player_1"].tags, ["confidant"]);
+  assert.strictEqual(playerView.relations["npc_bandit_leader:player_1"].score, -20);
+  assert.ok(!("facts" in playerView));
+}
+
+testRelationConsequence();
+
+// 15. V2-Core-31: the reported path replays deterministically, round-trips through
+// JSON, and gives the same next result after a save -> load at every step.
+function testConsequenceReplayAndSaveLoad() {
+  const runA = runActions(REPORTED_ACTIONS);
+  const runB = runActions(REPORTED_ACTIONS);
+  assert.deepStrictEqual(runA.state, runB.state);
+  assert.deepStrictEqual(runA.log, runB.log);
+  assert.notDeepStrictEqual(runA.state.rng, runActions(REPORTED_ACTIONS, "a-completely-different-seed").state.rng);
+  assert.deepStrictEqual(JSON.parse(JSON.stringify(runA.state)), runA.state);
+  assert.deepStrictEqual(validateState(runA.state), []);
+
+  let state = createInitialState({ worldSeed: CANONICAL_SEED, data: worldData }).state;
+  REPORTED_ACTIONS.forEach((action, index) => {
+    const reloaded = parseLoadedRecord(JSON.parse(JSON.stringify(buildSaveRecord(`slot_c${index}`, state, { savedAt: index }))));
+    assert.deepStrictEqual(reloaded, state, `state before step ${index}`);
+    assert.deepStrictEqual(step(reloaded, action, worldData), step(state, action, worldData), `step ${index} result`);
+    state = step(state, action, worldData).state;
+  });
+  assert.deepStrictEqual(state, runA.state);
+}
+
+testConsequenceReplayAndSaveLoad();
+
 console.log("V2-Core-22 data-world.test.js: all checks passed");

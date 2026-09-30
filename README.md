@@ -69,7 +69,7 @@
   tests/v2-storage-browser.spec.js tests/v2-data-world-browser.spec.js tests/v2-ui-browser.spec.js
   tests/v2-ui-lifecycle-browser.spec.js tests/v2-ui-view-boundary-browser.spec.js
   tests/v2-ui-save-compat-browser.spec.js tests/v2-ui-canonical-browser.spec.js
-  tests/v2-ui-information-browser.spec.js`로 실행한다(Node 테스트는 IndexedDB를 mock하는 새 의존성을
+  tests/v2-ui-information-browser.spec.js tests/v2-ui-consequence-browser.spec.js`로 실행한다(Node 테스트는 IndexedDB를 mock하는 새 의존성을
   추가하지 않고 순수 함수만 검증한다). V1 회귀는 기존과 동일하게 `tests/*.js`(`.spec.js` 제외)
   41개를 개별 실행해 41/41을 확인한다. CI(`Unit & regression`/`Browser smoke`)가 두 계층 모두
   매 PR마다 자동으로 검증한다.
@@ -83,7 +83,7 @@
   만든 save를 조용히 실행하지 않도록, 현재 팩을 가진 caller(UI)가 로드 경계에서
   `checkDataCompatibility`로 거부한다(D-68).
 
-### 현재 진행 단계 (V2-Core-01 ~ V2-Core-30 완료)
+### 현재 진행 단계 (V2-Core-01 ~ V2-Core-31 완료)
 
 - **엔진 핵심**: `state`/`action`/`event` 스키마, RNG, `step()` 11단계 파이프라인, Condition
   DSL(and/or/not/eq류 6개 + shorthand 12개 + money/rumor), Effect DSL(20개 op 전부: flag/signal/
@@ -140,6 +140,13 @@
   할 수 없지만 원로에게 다시 물으면 열리므로 막다른 길은 없다. UI는 `knowledge`를 화면에 그리지 않는다 —
   플레이어는 로그 문장과 "어떤 행동이 보이는가"로 정보를 얻는다. `tests/v2-ui-information-browser.spec.js`가
   이 흐름을 실제 브라우저로 검증한다.
+  V2-Core-31에서 정보가 관계와 결과로 이어지게 했다(조사 확인 → 원로에게 보고 → 대면): 조사가 확인되면 원로
+  대화에 세 번째 선택지 "조사에서 알아낸 것을 전한다"가 생기고(선택지 `requires` + 기존 `flag` Condition),
+  고르면 원로의 relation edge에 점수/`cooperation`/`confidant` 태그가 기록된다(기존 `relation` Effect).
+  대면에 성공하면 그 태그를 읽는 `if`가 두목에게 추가 타격을 준다(기존 `relation` Condition). 보고는 선택
+  사항이며 대면의 접근 조건과 check는 그대로다 — 보고하지 않은 기존 경로의 결과는 변하지 않는다. 점수가
+  아니라 태그를 읽는 이유는 원로 대화가 무료이고 반복 가능해서 점수는 정보 없이도 쌓을 수 있기 때문이다.
+  `tests/v2-ui-consequence-browser.spec.js`가 이 흐름을 실제 브라우저로 검증한다.
 
 ### 이후 진행 단계
 
@@ -191,11 +198,19 @@
   대화한 뒤에 열린다). canonical path를 밟는 기존 테스트 5개 파일(Node 2개, 브라우저 spec 3개 — #89의 spec 포함)은
   원로 대화 단계를 앞으로 옮기도록만 고쳤다. `facts[*].initial`/relation rule/`completeWhen`/D-09/D-67은
   결정하지 않았다.
+- **V2-Core-31 결과** (콘텐츠와 테스트만 변경, 엔진/저장/UI 코드 변경 없음, 새 D-decision 없음, 상세는
+  `CORE_CONTRACTS.md` §11/§15): 정보 → 관계/선택 → 결과 경로를 계약 → runtime → 데이터 → 테스트 → 브라우저
+  순으로 추적했다. `relation` Condition과 선택지 `requires`는 이미 player 문맥에서 쓸 수 있었고, 원로 relation
+  (+5/+1)을 읽는 곳이 없다는 것이 실제 gap이었다. 기존 테스트는 하나도 수정하지 않았다(보고하지 않는 경로가 그대로
+  유효하므로). 팩 `version`은 `0.1.0` 그대로다(state 모양 변화 없음, D-68). `facts[*].initial`/relation rule/
+  `completeWhen`/D-09/D-67은 결정하지 않았다.
 - **다음 issue 후보**: (1) 실제 콘텐츠가 요구할 때 위 C 항목을 각각 별도 D-decision으로 확정 — 우선
   후보는 "전용 필드 vs event" 결정(`completeWhen`/relation rules)과 seed 입력 결정(`facts[*].initial`).
   (2) 콘텐츠 결정(core와 분리): HP 회복과 위치 제약(V2-Core-29), 소문 → 행동 연결(V2-Core-30)은 처리했다.
-  남은 후보 — 원로와의 `relation` 점수를 읽는 콘텐츠(지금은 아무 Condition도 읽지 않음), `knowledge`를 화면에
-  보여줄지(UI 결정), `data.rules.rumor` 증감폭과 `minConfidence`를 함께 쓰는 콘텐츠. 부활 semantics를
+  V2-Core-31에서 원로 relation을 읽는 지점을 만들었다. 남은 후보 — 무료·반복 가능한 원로 대화로 relation 점수를
+  정보 없이 쌓을 수 있는 점(지금은 태그를 읽어 우회했지만 다른 콘텐츠가 점수를 읽으면 문제), `data.events`로
+  relation/flag 결과를 다시 사건에 연결, `org_bandits` `member` 태그를 읽는 콘텐츠, `knowledge`를 화면에 보여줄지
+  (UI 결정), `data.rules.rumor` 증감폭과 `minConfidence`를 함께 쓰는 콘텐츠. 부활 semantics를
   정의할지는 여전히 C다. (3) 서버/Worker 경계를 실제로 만들게 될 때 `view()` 확장
   (D-67)과 UI 외 caller의 호환성 검사 호출. (4) 실제로 데이터팩 version을 올려 옛 save가 문제가 되는
   시점의 version 범위/data migration 결정(D-68 (a)). (5) 별도 유지보수: V1 `phase255` 브라우저 테스트의
