@@ -72,7 +72,8 @@
   tests/v2-ui-information-browser.spec.js tests/v2-ui-consequence-browser.spec.js
   tests/v2-ui-faction-browser.spec.js tests/v2-ui-persistence-browser.spec.js
   tests/v2-ui-successor-browser.spec.js tests/v2-ui-successor-gate-browser.spec.js
-  tests/v2-ui-succession-browser.spec.js tests/v2-ui-core-semantics-browser.spec.js tests/v2-ui-case-completion-browser.spec.js`로 실행한다(Node 테스트는 IndexedDB를 mock하는 새 의존성을
+  tests/v2-ui-succession-browser.spec.js tests/v2-ui-core-semantics-browser.spec.js tests/v2-ui-case-completion-browser.spec.js
+  tests/v2-ui-golden-browser.spec.js`로 실행한다(Node 테스트는 IndexedDB를 mock하는 새 의존성을
   추가하지 않고 순수 함수만 검증한다). V1 회귀는 기존과 동일하게 `tests/*.js`(`.spec.js` 제외)
   41개를 개별 실행해 41/41을 확인한다. CI(`Unit & regression`/`Browser smoke`)가 두 계층 모두
   매 PR마다 자동으로 검증한다.
@@ -86,7 +87,7 @@
   만든 save를 조용히 실행하지 않도록, 현재 팩을 가진 caller(UI)가 로드 경계에서
   `checkDataCompatibility`로 거부한다(D-68).
 
-### 현재 진행 단계 (V2-Core-01 ~ V2-Core-39 완료)
+### 현재 진행 단계 (V2-Core-01 ~ V2-Core-40 완료)
 
 - **엔진 핵심**: `state`/`action`/`event` 스키마, RNG, `step()` 11단계 파이프라인, Condition
   DSL(and/or/not/eq류 6개 + shorthand 12개 + money/rumor), Effect DSL(20개 op 전부: flag/signal/
@@ -181,6 +182,9 @@
   V2-Core-39는 relation rule을 결정했다(D-74): 역시 활성화하지 않는다. 관계는 `relation` Effect로만 바뀌고 시간이 지나도 저절로 감쇠하지 않는다. V1의 관계 규칙 모양(이름이 정해진 edge, 하루 한 번,
   세계 상태에 따른 분기)은 `data.events`와 `day` selector·`signal` 카운터로 정확히 표현되고, event로 표현할 수 없는 것은 여러 edge에 걸친 규칙뿐인데 그 수요가 없다.
   `tests/v2/relation-rules.test.js`가 그 전제와 저작 패턴을 고정한다.
+  V2-Core-40은 계약 §13.2의 golden 테스트를 구현했다(D-75): 추상 ID 합성 fixture(`tests/v2/fixtures/golden-path.json`)의 고정 seed·action 시퀀스가 만드는 step별 `{state, events}`와
+  최종 state의 fingerprint를 기록값과 비교한다. 엔진 변경이 결과를 바꾸면 실패하고, 의도된 변경일 때만 `node tests/v2/golden.test.js --print`로 사유와 함께 갱신한다.
+  `tests/v2-ui-golden-browser.spec.js`는 같은 fixture를 실제 Chromium에서 돌려 지금의 Node 값·기록값과 step마다 맞춘다(§2.7의 "서버-클라이언트 결과 일치").
 
 ### 이후 진행 단계
 
@@ -273,6 +277,9 @@
 - **V2-Core-39 결과** (코드/콘텐츠 변경 없음, 새 Node 테스트/문서만, 상세는 `CORE_CONTRACTS.md` D-74/§3.3/§7.4/§11): relation rule은 활성화하지 않는다(예약 필드, `data.events` + `relation` Effect가
   지원 경로). 저작 주의: event 안의 `relation` Effect는 `from`을 명시한다(기본값 `target`이 event 문맥에 없어 조용히 건너뛰어진다). 여러 edge에 걸친 관계 규칙과 엔진이 도는 NPC 자율 행동은
   실제 수요가 생길 때 새 scheduler 설계(설계 게이트, 인간 결정)로 연다. 기존 테스트는 하나도 수정하지 않았다. 팩 `version`은 `0.1.0` 그대로다(D-68).
+- **V2-Core-40 결과** (테스트/CI/문서만, 엔진·콘텐츠 변경 없음, 상세는 `CORE_CONTRACTS.md` D-75/§13.2): golden 테스트(Node)와 Node↔Chromium 일치·실제 IndexedDB 이어 실행(브라우저)을
+  추가했다. 변이 5개(주사위, trigger 순서, Resolvable 시간 순서, attempts, stat 수정자)를 모두 잡고 키 생성 순서만 바꾼 리팩터는 통과한다. §13.2의 "seed 차이"/"파생 스트림 격리"는 world-generation
+  소비자가 없어 여전히 쓸 수 없다(`facts[*].initial` 결정에 묶임). 기존 테스트는 하나도 수정하지 않았다.
 - **다음 issue 후보**: (1) 실제 콘텐츠가 요구할 때 남은 C 항목을 각각 별도 D-decision으로 확정 — `completeWhen`(D-73)과 relation rule(D-74)은
   "event로 쓴다"로 결정했고, 남은 core 결정은 seed 입력(`facts[*].initial`, D-65/D-72)이다.
   (2) 콘텐츠 결정(core와 분리): HP 회복과 위치 제약(V2-Core-29), 소문 → 행동 연결(V2-Core-30)은 처리했다.
