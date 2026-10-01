@@ -1,0 +1,837 @@
+{
+  "description": [
+    "V2-Core-40 golden fixture (CORE_CONTRACTS section 13.2, D-75): a synthetic abstract-ID pack, a fixed worldSeed and a fixed action sequence.",
+    "stepHashes[0] fingerprints createInitialState's {state, events}; stepHashes[i] fingerprints step i's {state, events}; finalStateHash fingerprints the final state alone.",
+    "A fingerprint is hashString (web/v2/core/rng.js, FNV-1a) of the value's JSON with object keys sorted, as lowercase hex.",
+    "Update only for an intended change, with the reason in the commit/PR and the D-75 row: run `node tests/v2/golden.test.js --print` and paste its output over stepHashes/finalStateHash."
+  ],
+  "worldSeed": "golden-0",
+  "actions": [
+    {
+      "type": "perform",
+      "actionId": "act_learn"
+    },
+    {
+      "type": "perform",
+      "actionId": "act_train"
+    },
+    {
+      "type": "perform",
+      "actionId": "act_train"
+    },
+    {
+      "type": "perform",
+      "actionId": "act_haggle",
+      "targetId": "npc_a"
+    },
+    {
+      "type": "perform",
+      "actionId": "act_talk"
+    },
+    {
+      "type": "choose",
+      "optionId": "opt_ask"
+    },
+    {
+      "type": "choose",
+      "optionId": "opt_ask"
+    },
+    {
+      "type": "perform",
+      "actionId": "act_search"
+    },
+    {
+      "type": "move",
+      "to": "loc_b"
+    },
+    {
+      "type": "perform",
+      "actionId": "act_search"
+    },
+    {
+      "type": "perform",
+      "actionId": "act_search"
+    },
+    {
+      "type": "perform",
+      "actionId": "act_search"
+    },
+    {
+      "type": "perform",
+      "actionId": "act_search"
+    },
+    {
+      "type": "perform",
+      "actionId": "act_search"
+    },
+    {
+      "type": "move",
+      "to": "loc_c"
+    },
+    {
+      "type": "perform",
+      "actionId": "act_observe"
+    },
+    {
+      "type": "wait",
+      "minutes": 1440
+    },
+    {
+      "type": "move",
+      "to": "loc_b"
+    },
+    {
+      "type": "move",
+      "to": "loc_a"
+    },
+    {
+      "type": "perform",
+      "actionId": "act_train"
+    },
+    {
+      "type": "perform",
+      "actionId": "act_train"
+    },
+    {
+      "type": "perform",
+      "actionId": "act_train"
+    },
+    {
+      "type": "perform",
+      "actionId": "act_haggle",
+      "targetId": "npc_a"
+    },
+    {
+      "type": "perform",
+      "actionId": "act_talk"
+    },
+    {
+      "type": "choose",
+      "optionId": "opt_flatter"
+    },
+    {
+      "type": "move",
+      "to": "loc_c"
+    },
+    {
+      "type": "perform",
+      "actionId": "act_hazard"
+    },
+    {
+      "type": "perform",
+      "actionId": "act_rest"
+    },
+    {
+      "type": "perform",
+      "actionId": "act_hazard"
+    },
+    {
+      "type": "perform",
+      "actionId": "act_hazard"
+    },
+    {
+      "type": "perform",
+      "actionId": "act_hazard"
+    },
+    {
+      "type": "wait",
+      "minutes": 30
+    },
+    {
+      "type": "wait",
+      "minutes": 0
+    },
+    {
+      "type": "startCharacter",
+      "templateId": "tmpl_start"
+    },
+    {
+      "type": "perform",
+      "actionId": "act_train"
+    },
+    {
+      "type": "perform",
+      "actionId": "act_haggle",
+      "targetId": "npc_a"
+    },
+    {
+      "type": "move",
+      "to": "loc_b"
+    },
+    {
+      "type": "perform",
+      "actionId": "act_search"
+    },
+    {
+      "type": "wait",
+      "minutes": 1440
+    }
+  ],
+  "data": {
+    "formatVersion": 1,
+    "id": "golden_pack",
+    "version": "1.0.0",
+    "world": {
+      "id": "golden_world",
+      "growthSystemId": "growth_a",
+      "startTemplateId": "tmpl_start"
+    },
+    "rules": {
+      "check": {
+        "retryPenalty": 1
+      },
+      "succession": [
+        {
+          "op": "money",
+          "add": 2
+        },
+        {
+          "op": "item",
+          "item": "item_charm",
+          "add": 1
+        },
+        {
+          "op": "narrate",
+          "textId": "txt_succession"
+        }
+      ]
+    },
+    "growthSystems": {
+      "growth_a": {
+        "id": "growth_a",
+        "stats": [
+          {
+            "id": "stat_a",
+            "min": 0,
+            "max": 20,
+            "base": 10
+          },
+          {
+            "id": "stat_b",
+            "min": 0,
+            "max": 20,
+            "base": 8
+          }
+        ],
+        "level": {
+          "max": 3,
+          "expTable": [
+            0,
+            10,
+            25
+          ]
+        },
+        "levelRewards": {
+          "2": [
+            {
+              "op": "stat",
+              "stat": "stat_a",
+              "add": 1
+            }
+          ],
+          "3": [
+            {
+              "op": "unlock",
+              "id": "unl_b"
+            }
+          ]
+        },
+        "proficiencies": [
+          {
+            "id": "prof_a",
+            "max": 100,
+            "checkStep": 20,
+            "thresholds": [
+              {
+                "at": 30,
+                "effects": [
+                  {
+                    "op": "unlock",
+                    "id": "unl_a"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "skills": [
+          {
+            "id": "skill_a",
+            "maxRank": 3,
+            "checkBonusPerRank": 1,
+            "tags": [
+              "tag_x"
+            ]
+          }
+        ],
+        "traits": [
+          {
+            "id": "trait_a",
+            "modifiers": [
+              {
+                "tags": [
+                  "tag_x"
+                ],
+                "value": 1
+              }
+            ]
+          }
+        ],
+        "unlocks": [
+          {
+            "id": "unl_a",
+            "kind": "action"
+          },
+          {
+            "id": "unl_b",
+            "kind": "other"
+          }
+        ]
+      }
+    },
+    "characterTemplates": {
+      "tmpl_start": {
+        "kind": "player",
+        "locationId": "loc_a",
+        "hp": {
+          "max": 6
+        },
+        "money": 5,
+        "inventory": {},
+        "growth": {
+          "growth_a": {
+            "stats": {
+              "stat_a": 10,
+              "stat_b": 8
+            }
+          }
+        },
+        "tags": []
+      }
+    },
+    "locations": {
+      "loc_a": {
+        "links": [
+          {
+            "to": "loc_b",
+            "minutes": 40
+          }
+        ]
+      },
+      "loc_b": {
+        "links": [
+          {
+            "to": "loc_a",
+            "minutes": 40
+          },
+          {
+            "to": "loc_c",
+            "minutes": 60,
+            "requires": {
+              "op": "item",
+              "item": "item_key"
+            }
+          }
+        ]
+      },
+      "loc_c": {
+        "links": [
+          {
+            "to": "loc_b",
+            "minutes": 60
+          }
+        ]
+      }
+    },
+    "items": {
+      "item_key": {},
+      "item_charm": {
+        "modifiers": [
+          {
+            "tags": [
+              "tag_x"
+            ],
+            "value": 1
+          }
+        ]
+      }
+    },
+    "npcs": {
+      "npc_a": {},
+      "npc_b": {}
+    },
+    "orgs": {
+      "org_a": {}
+    },
+    "facts": {
+      "fact_a": {}
+    },
+    "rumors": {
+      "rum_a": {
+        "factId": "fact_a",
+        "claim": "value_x"
+      }
+    },
+    "texts": {
+      "txt_train": "t",
+      "txt_rest": "t",
+      "txt_leave": "t",
+      "txt_alarm": "t",
+      "txt_day": "t",
+      "txt_found": "t",
+      "txt_succession": "t",
+      "txt_hazard": "t"
+    },
+    "actions": {
+      "act_train": {
+        "requires": {
+          "op": "location",
+          "at": "loc_a"
+        },
+        "minutes": 30,
+        "effects": [
+          {
+            "op": "exp",
+            "amount": 6
+          },
+          {
+            "op": "proficiency",
+            "id": "prof_a",
+            "add": 15
+          },
+          {
+            "op": "narrate",
+            "textId": "txt_train"
+          }
+        ]
+      },
+      "act_search": {
+        "requires": {
+          "op": "location",
+          "at": "loc_b"
+        },
+        "minutes": 20,
+        "check": {
+          "stat": "stat_a",
+          "proficiency": "prof_a",
+          "tags": [
+            "tag_x"
+          ],
+          "difficulty": "normal",
+          "attemptKey": "search_b"
+        },
+        "outcomes": {
+          "great": [
+            {
+              "op": "item",
+              "item": "item_key",
+              "add": 1
+            },
+            {
+              "op": "fact",
+              "fact": "fact_a",
+              "set": "value_x"
+            },
+            {
+              "op": "flag",
+              "key": "found_great",
+              "value": true
+            }
+          ],
+          "success": [
+            {
+              "op": "item",
+              "item": "item_key",
+              "add": 1
+            },
+            {
+              "op": "fact",
+              "fact": "fact_a",
+              "set": "value_x"
+            }
+          ],
+          "partial": [
+            {
+              "op": "signal",
+              "key": "noise",
+              "add": 1
+            },
+            {
+              "op": "proficiency",
+              "id": "prof_a",
+              "add": 5
+            }
+          ],
+          "fail": [
+            {
+              "op": "hp",
+              "add": -2
+            },
+            {
+              "op": "signal",
+              "key": "noise",
+              "add": 1
+            }
+          ]
+        }
+      },
+      "act_haggle": {
+        "requires": {
+          "op": "location",
+          "at": "loc_a"
+        },
+        "check": {
+          "stat": "stat_b",
+          "skill": "skill_a",
+          "tags": [
+            "tag_x"
+          ],
+          "difficulty": {
+            "base": 9,
+            "opposed": {
+              "subject": "target",
+              "stat": "stat_a"
+            }
+          },
+          "useRelation": true,
+          "situational": [
+            {
+              "source": "crowd",
+              "value": 1
+            }
+          ]
+        },
+        "outcomes": {
+          "great": [
+            {
+              "op": "money",
+              "add": 4
+            },
+            {
+              "op": "relation",
+              "from": "target",
+              "add": 3,
+              "mode": "cooperation"
+            }
+          ],
+          "success": [
+            {
+              "op": "money",
+              "add": 2
+            },
+            {
+              "op": "relation",
+              "from": "target",
+              "add": 1
+            }
+          ],
+          "partial": [
+            {
+              "op": "money",
+              "add": 1
+            }
+          ],
+          "fail": [
+            {
+              "op": "relation",
+              "from": "target",
+              "add": -3,
+              "mode": "conflict"
+            }
+          ]
+        }
+      },
+      "act_learn": {
+        "effects": [
+          {
+            "op": "skill",
+            "skill": "skill_a",
+            "add": 1
+          },
+          {
+            "op": "trait",
+            "trait": "trait_a",
+            "value": true
+          }
+        ]
+      },
+      "act_talk": {
+        "requires": {
+          "op": "location",
+          "at": "loc_a"
+        },
+        "effects": [
+          {
+            "op": "choice",
+            "choice": "choice_a",
+            "sourceId": "act_talk"
+          }
+        ]
+      },
+      "act_observe": {
+        "requires": {
+          "op": "location",
+          "at": "loc_c"
+        },
+        "minutes": 15,
+        "effects": [
+          {
+            "op": "rumor",
+            "rumor": "rum_a",
+            "observe": true,
+            "source": "obs_c",
+            "confidence": 80
+          },
+          {
+            "op": "case",
+            "case": "case_a",
+            "stage": "seen"
+          }
+        ]
+      },
+      "act_hazard": {
+        "effects": [
+          {
+            "op": "hp",
+            "add": -3
+          },
+          {
+            "op": "narrate",
+            "textId": "txt_hazard"
+          }
+        ]
+      },
+      "act_rest": {
+        "requires": {
+          "op": "location",
+          "at": "loc_a"
+        },
+        "minutes": 60,
+        "effects": [
+          {
+            "op": "hp",
+            "add": 2
+          },
+          {
+            "op": "narrate",
+            "textId": "txt_rest"
+          }
+        ]
+      }
+    },
+    "choices": {
+      "choice_a": {
+        "options": [
+          {
+            "id": "opt_ask",
+            "effects": [
+              {
+                "op": "rumor",
+                "rumor": "rum_a",
+                "source": "npc_a",
+                "confidence": 50
+              },
+              {
+                "op": "relation",
+                "from": "npc_a",
+                "add": 5
+              }
+            ]
+          },
+          {
+            "id": "opt_flatter",
+            "requires": {
+              "op": "unlock",
+              "id": "unl_a"
+            },
+            "effects": [
+              {
+                "op": "relation",
+                "from": "npc_a",
+                "add": 10,
+                "mode": "cooperation",
+                "tag": "friend"
+              },
+              {
+                "op": "time",
+                "minutes": 10
+              }
+            ]
+          },
+          {
+            "id": "opt_leave",
+            "effects": [
+              {
+                "op": "narrate",
+                "textId": "txt_leave"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "events": {
+      "e_alarm": {
+        "trigger": {
+          "op": "signal",
+          "key": "noise",
+          "min": 2
+        },
+        "cooldown": 120,
+        "check": {
+          "stat": "stat_b",
+          "difficulty": 11
+        },
+        "outcomes": {
+          "great": [
+            {
+              "op": "relation",
+              "from": "org_a",
+              "to": "self",
+              "add": 4,
+              "tag": "noticed"
+            }
+          ],
+          "success": [
+            {
+              "op": "relation",
+              "from": "org_a",
+              "to": "self",
+              "add": 2,
+              "tag": "noticed"
+            }
+          ],
+          "partial": [
+            {
+              "op": "relation",
+              "from": "org_a",
+              "to": "self",
+              "add": -1
+            }
+          ],
+          "fail": [
+            {
+              "op": "relation",
+              "from": "org_a",
+              "to": "self",
+              "add": -4,
+              "mode": "conflict"
+            },
+            {
+              "op": "narrate",
+              "textId": "txt_alarm"
+            }
+          ]
+        }
+      },
+      "e_day": {
+        "trigger": {
+          "op": "day",
+          "min": 1
+        },
+        "once": true,
+        "effects": [
+          {
+            "op": "signal",
+            "key": "days_seen",
+            "add": 1
+          },
+          {
+            "op": "narrate",
+            "textId": "txt_day"
+          }
+        ]
+      },
+      "e_found": {
+        "trigger": {
+          "op": "item",
+          "item": "item_key",
+          "min": 1
+        },
+        "once": true,
+        "effects": [
+          {
+            "op": "case",
+            "case": "case_a",
+            "stage": "found"
+          },
+          {
+            "op": "relation",
+            "from": "npc_b",
+            "to": "org_a",
+            "tag": "member"
+          },
+          {
+            "op": "narrate",
+            "textId": "txt_found"
+          }
+        ]
+      },
+      "e_report": {
+        "trigger": {
+          "op": "case",
+          "case": "case_a",
+          "stage": "found"
+        },
+        "once": true,
+        "effects": [
+          {
+            "op": "relation",
+            "from": "npc_a",
+            "to": "self",
+            "add": 2,
+            "tag": "informed"
+          },
+          {
+            "op": "signal",
+            "key": "reports",
+            "add": 1
+          }
+        ]
+      }
+    }
+  },
+  "stepHashes": [
+    "709abb54",
+    "abaef83c",
+    "75a301c3",
+    "bdf4556d",
+    "636a0fbf",
+    "7dc0368f",
+    "b2fa93eb",
+    "e7cc66b8",
+    "17e12416",
+    "1955cb2f",
+    "c7b73377",
+    "77a55e69",
+    "81bdcbaa",
+    "ebbcebdb",
+    "7ba987a6",
+    "04fa995d",
+    "2a865887",
+    "02458dde",
+    "7d6ec106",
+    "5eca5799",
+    "e310b234",
+    "ae1be2a9",
+    "eccb9f3a",
+    "170cd60d",
+    "41c97e76",
+    "0905da9a",
+    "7c71c43a",
+    "9841aebf",
+    "88bf681e",
+    "432aa720",
+    "5c010d8f",
+    "3220f6f4",
+    "3220f6f4",
+    "1e3bc9c2",
+    "96bfd930",
+    "007063f1",
+    "92b4c574",
+    "e0d059f4",
+    "622158ab",
+    "a5164edb"
+  ],
+  "finalStateHash": "9aec0923"
+}
