@@ -81,6 +81,9 @@ function testFixtureCoverage() {
   assert.ok(finalState.attempts.search_b > 1, "a retried check (retryPenalty)");
   const chained = results.find((result) => result.events.filter((e) => e.type === "trigger.fired").length === 2);
   assert.deepStrictEqual(chained?.events.filter((e) => e.type === "trigger.fired").map((e) => e.data.eventId), ["e_found", "e_report"], "a same-step chain in id order");
+  // world generation (D-76): both `initial` forms are seeded at creation, so the C1 seed input is locked
+  assert.deepStrictEqual(Object.keys(results[0].state.facts), ["fact_fixed", "fact_seeded"], "seeded at creation (fact_a stays lazy)");
+  assert.deepStrictEqual(results[0].state.facts.fact_fixed, { value: "start", since: 0 });
   assert.deepStrictEqual(validateState(finalState), []);
 }
 

@@ -213,29 +213,30 @@ function testRelationRule() {
 
 testRelationRule();
 
-// 3. facts[*].initial: timing, stream label and idempotence are contract (§2.7/§8.1); the seed
-// input, `pickFrom` shape and the creation-time events are not. Nothing reads `initial`.
+// 3. facts[*].initial: decided by D-76 (V2-Core-43, Issue #118) and tested in
+// tests/v2/facts-initial.test.js -- createInitialState seeds it, with C1 (`state.worldSeed`) as the
+// seed input. What stays here is the evidence the decision rested on.
 function testFactsInitial() {
   const withFacts = (facts) => fixture({ facts });
 
-  // validator: only the fact id is checked; any `initial` shape is accepted, including ones
-  // `pickFrom` could never use
+  // validator: the fact id and (D-76) a usable `pickFrom`; the unusable shapes are in facts-initial.test.js
   assert.deepStrictEqual(validateData(withFacts({ f1: { initial: "x" } })), []);
   assert.deepStrictEqual(validateData(withFacts({ f1: { initial: { pickFrom: ["a", "b"] } } })), []);
-  for (const initial of [{ pickFrom: [] }, { pickFrom: "ab" }, { pickFrom: ["a"], note: 1 }, null, undefined]) {
+  for (const initial of [null, undefined]) {
     assert.deepStrictEqual(validateData(withFacts({ f1: { initial } })), [], JSON.stringify(initial));
   }
   assert.deepStrictEqual(validateData(withFacts({ f1: "x" })), []);
   assert.deepStrictEqual(validateData(withFacts({ Bad_Id: { initial: 1 } })), ['invalid id format at facts key: "Bad_Id"']);
 
-  // runtime consumer (none): createInitialState neither seeds nor reports anything
+  // runtime consumer (D-76): createInitialState seeds both forms, with no event
   const seeded = fixture({ facts: { f_fixed: { initial: "x" }, f_pick: { initial: { pickFrom: ["a", "b", "c"] } } } });
   const created = createInitialState({ worldSeed: "seed-1", data: seeded });
-  assert.strictEqual(created.state.facts, undefined);
+  const c1Pick = ["a", "b", "c"][nextUint32({ seed: deriveSeed("seed-1", "fact:f_pick"), cursor: 0 }).value % 3];
+  assert.deepStrictEqual(created.state.facts, { f_fixed: { value: "x", since: 0 }, f_pick: { value: c1Pick, since: 0 } });
   assert.deepStrictEqual(created.events, []);
-  assert.strictEqual(evaluateCondition({ op: "fact", fact: "f_fixed", eq: "x" }, { state: created.state, data: seeded, contextKind: "world" }), false);
-  assert.deepStrictEqual(realPack.facts, { fact_ruins_secret: { initial: "unknown" } }, "the real pack's `initial` is documentation only");
-  assert.strictEqual(start(realPack, "frontier-canonical-4").facts, undefined);
+  assert.strictEqual(evaluateCondition({ op: "fact", fact: "f_fixed", eq: "x" }, { state: created.state, data: seeded, contextKind: "world" }), true);
+  assert.deepStrictEqual(realPack.facts, { fact_ruins_secret: { initial: "unknown" } }, "the real pack's `initial`, now its starting value");
+  assert.deepStrictEqual(start(realPack, "frontier-canonical-4").facts, { fact_ruins_secret: { value: "unknown", since: 0 } });
   assert.deepStrictEqual(created.state, start(seeded, "seed-1"), "same seed, same state");
   // a state saved without a `facts` key (every state so far) is valid, and `state.facts` appears lazily
   assert.deepStrictEqual(validateState(created.state), []);
@@ -243,8 +244,8 @@ function testFactsInitial() {
   assert.deepStrictEqual(step(start(lazy), PERFORM("set"), lazy).state.facts, { f_fixed: { value: "y", since: 0 } });
   assertSurvivesSaveAndReplay(lazy, step(start(lazy), PERFORM("set"), lazy).state, WAIT);
 
-  // the seed input is undecided: the contract formula (§2.7) assumes a NUMBER, the state holds a
-  // string `worldSeed` and its hash `rng.seed` (uint32). Three inputs, three different streams
+  // why the seed input needed a decision (now C1, D-76): the contract formula (§2.7) assumes a NUMBER,
+  // the state holds a string `worldSeed` and its hash `rng.seed` (uint32). Three inputs, three streams
   const label = "fact:f_pick";
   const pick = (derived) => nextUint32({ seed: derived, cursor: 0 }).value % 3;
   let stringVsHash = 0;

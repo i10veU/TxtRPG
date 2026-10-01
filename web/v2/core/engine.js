@@ -25,7 +25,7 @@
 // IndexedDB/localStorage/Date.now/host APIs).
 // Do not add Date/Date.now, Math.random, DOM, window, or any host API here.
 
-import { hashString } from "./rng.js";
+import { deriveSeed, hashString, nextUint32 } from "./rng.js";
 import { applyEffectList, evaluateCondition, check } from "./rules.js";
 
 export const SCHEMA_VERSION = 1;
@@ -132,13 +132,44 @@ function deriveProvenance(data, worldSeed) {
   return provenance;
 }
 
+// The world-generation seed input (§2.7, D-76): C1, the stored `worldSeed`
+// string. This is the ONE place that decides it; the way to C2 (`state.rng.seed`)
+// is to return that here and update what D-76 lists (the C1 tests, the golden).
+function worldGenerationSeed(state) {
+  return state.worldSeed;
+}
+
+// §8.1/§2.7/D-76: every `data.facts[id].initial` is seeded once, at creation,
+// at the creation minute, with no event. An object holding `pickFrom` picks one
+// option from its own stream (label "fact:<id>", local cursor 0); any other
+// value is copied as is. A fact without `initial` stays lazy (D-44), and an
+// unusable `pickFrom` seeds nothing (validateData reports it).
+function seedFacts(state, data) {
+  const definitions = isPlainObject(data?.facts) ? data.facts : {};
+  const facts = {};
+  Object.keys(definitions).sort().forEach((factId) => {
+    const initial = isPlainObject(definitions[factId]) ? definitions[factId].initial : undefined;
+    if (initial === undefined) return;
+    if (isPlainObject(initial) && Object.hasOwn(initial, "pickFrom")) {
+      const options = initial.pickFrom;
+      if (!Array.isArray(options) || options.length === 0) return;
+      const { value } = nextUint32({ seed: deriveSeed(worldGenerationSeed(state), "fact:" + factId), cursor: 0 });
+      facts[factId] = { value: structuredClone(options[value % options.length]), since: state.time.minute };
+    } else {
+      facts[factId] = { value: structuredClone(initial), since: state.time.minute };
+    }
+  });
+  if (Object.keys(facts).length > 0) state.facts = facts;
+}
+
 // { worldSeed, data? } -> { state, events }. `data` is optional (D-47): when
 // it lacks a usable `world.startTemplateId` + characterTemplate, the result
 // is byte-for-byte the same minimal V2-Core-01 state as before (no player,
 // no actors, no pending) -- existing callers that never passed `data` are
 // unaffected. When a template IS resolvable, `player_1` is created directly
 // here (not via `startCharacter`, which is reserved for post-death only,
-// D-47).
+// D-47). Facts with an `initial` are then seeded, with or without a player
+// (world-level, D-76); without any, no `facts` key is added.
 export function createInitialState({ worldSeed, data }) {
   const state = {
     schemaVersion: SCHEMA_VERSION,
@@ -158,6 +189,7 @@ export function createInitialState({ worldSeed, data }) {
     state.pending = null;
     state.actors = { player_1: buildActorFromTemplate("player_1", template) };
   }
+  seedFacts(state, data);
 
   return { state, events: [] };
 }

@@ -87,7 +87,7 @@
   만든 save를 조용히 실행하지 않도록, 현재 팩을 가진 caller(UI)가 로드 경계에서
   `checkDataCompatibility`로 거부한다(D-68).
 
-### 현재 진행 단계 (V2-Core-01 ~ V2-Core-42 완료)
+### 현재 진행 단계 (V2-Core-01 ~ V2-Core-43 완료)
 
 - **엔진 핵심**: `state`/`action`/`event` 스키마, RNG, `step()` 11단계 파이프라인, Condition
   DSL(and/or/not/eq류 6개 + shorthand 12개 + money/rumor), Effect DSL(20개 op 전부: flag/signal/
@@ -188,6 +188,8 @@
   V2-Core-41은 §13.2의 invalid action 기준을 9개 reason code 전부에 대해 확인한다: 엔진에서 각 code를 내는 모든 분기에서 입력 state가 그대로이고 rng·time이 움직이지 않으며
   `action.rejected` 이벤트가 정확히 1개다. `tests/v2/reject-codes.test.js`는 엔진이 쓰는 code 목록이 §2.6의 고정 목록과 같은지도 정적으로 확인한다.
   V2-Core-42는 §13.2의 immutability 기준을 확인한다: 동결한 state·data로 `step`/`view`/`check`를 호출해도 예외가 없고 입력이 그대로다(`tests/v2/immutability.test.js`).
+  V2-Core-43은 `facts[*].initial`을 시딩한다(D-76): 새 게임을 만들 때 고정값은 그대로, `pickFrom`은 world-generation 스트림(seed 입력 C1 = 저장된 `worldSeed` 문자열,
+  라벨 `fact:<id>`)으로 고른다. C2(`rng.seed`)로 바꾸는 절차는 D-76에 있다.
 
 ### 이후 진행 단계
 
@@ -288,8 +290,11 @@
   V2 브라우저 spec 46개를 모두 통과하던 것이다. 반환 state의 객체 동일성은 고정하지 않는다(복사본을 돌려주는 리팩터는 통과). 기존 테스트는 하나도 수정하지 않았다.
 - **V2-Core-42 결과** (테스트/문서만, 상세는 `CORE_CONTRACTS.md` §13.2): golden fixture의 모든 state와 실제 팩에서 동결 입력으로 `step`/`view`/`check`를 호출한다. `view`/`check`가 입력에 썼다가
   되돌리는 변이는 기존 테스트를 모두 통과하던 것을 새 테스트가 잡는다. §13.2의 엔진 전반 기준 중 남은 것은 seed 입력 결정에 묶인 "seed 차이"/"파생 스트림 격리"뿐이다.
+- **V2-Core-43 결과** (엔진 시딩 + validator + 테스트/문서, 상세는 `CORE_CONTRACTS.md` D-76/§2.7/§8.1/§13.2): #117 결정 1(C1으로 시작, C2로 가는 경로)을 구현했다. §13.2의 "seed 차이"/"파생 스트림 격리"가
+  이제 테스트된다. golden fixture는 의도적으로 갱신했다(D-75 갱신 기록 1). 실제 팩의 새 게임은 `fact_ruins_secret:"unknown"`으로 시작하지만 플레이·이벤트는 같고 옛 save도 그대로다.
+  팩 `version`은 `0.1.0` 그대로다.
 - **다음 issue 후보**: (1) 실제 콘텐츠가 요구할 때 남은 C 항목을 각각 별도 D-decision으로 확정 — `completeWhen`(D-73)과 relation rule(D-74)은
-  "event로 쓴다"로 결정했고, 남은 core 결정은 seed 입력(`facts[*].initial`, D-65/D-72)이다.
+  "event로 쓴다"로 결정했고, seed 입력(`facts[*].initial`)은 C1으로 구현했다(D-76, C2 경로 문서화). 남은 결정은 #117의 2~4번(D-68 (a), D-67, world tick)이다.
   (2) 콘텐츠 결정(core와 분리): HP 회복과 위치 제약(V2-Core-29), 소문 → 행동 연결(V2-Core-30)은 처리했다.
   V2-Core-31에서 원로 relation을 읽는 지점을 만들었다. 남은 후보 — 무료·반복 가능한 원로 대화로 relation 점수를
   정보 없이 쌓을 수 있는 점(지금은 태그를 읽어 우회했지만 다른 콘텐츠가 점수를 읽으면 문제), 후계자가 물려받는

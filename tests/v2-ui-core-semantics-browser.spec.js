@@ -3,7 +3,9 @@
 // only -- the scenarios pin what `completeWhen`, relation rule `when` and `facts[*].initial`
 // do TODAY (nothing reads them; the existing `data.events` pipeline already expresses the same
 // intent) and that the seed conventions give the same numbers in the browser as in Node. They do
-// not implement or choose any semantics for the three fields.
+// not implement or choose any semantics for the three fields. Since V2-Core-43 (Issue #118, D-76)
+// `facts[*].initial` IS seeded at creation (seed input C1, `state.worldSeed`): the facts pins below
+// were replaced with the decided behaviour; `completeWhen` and relation rules are still never read.
 //
 // Node coverage of the same facts lives in tests/v2/core-semantics-gap.test.js. Every older spec
 // is untouched.
@@ -61,14 +63,14 @@ const play = (page, seed, actions) =>
   }, { s: seed, list: actions });
 
 test.describe("V2 core semantics investigation (completeWhen / relation rule when / facts.initial)", () => {
-  test("the real pack: no fact is seeded, cases and relations move only through Effects, and it survives save -> reload -> load", async ({ page }) => {
+  test("the real pack: its fact starts at its `initial` (D-76), cases and relations move only through Effects, and it survives save -> reload -> load", async ({ page }) => {
     const { pageErrors, consoleErrors } = await gotoApp(page);
 
-    // the fact's `initial` is documentation only: a new game starts with no facts, no cases, no edges
+    // a new game starts with the fact's `initial` (D-76), and no cases, no edges
     await page.evaluate((s) => window.__v2App.newGame(s), SEED);
     await expect(page.locator("#game")).toBeVisible();
     const fresh = await getState(page);
-    expect(fresh.facts).toBeUndefined();
+    expect(fresh.facts).toEqual({ fact_ruins_secret: { value: "unknown", since: 0 } });
     expect(fresh.cases).toBeUndefined();
     expect(fresh.relations ?? {}).toEqual({});
     const pack = await page.evaluate(async () => (await import("/v2/data/world.js")).worldData);
@@ -109,7 +111,7 @@ test.describe("V2 core semantics investigation (completeWhen / relation rule whe
     expect(consoleErrors).toEqual([]);
   });
 
-  test("the real engine in Chromium: the three fields are validated but never read, and the same intent is expressible with data.events", async ({ page }) => {
+  test("the real engine in Chromium: completeWhen and relation rules are validated but never read, facts are seeded (D-76), and the same intent is expressible with data.events", async ({ page }) => {
     const { pageErrors, consoleErrors } = await gotoApp(page);
     const result = await page.evaluate(async () => {
       const engine = await import("/v2/core/engine.js");
@@ -127,7 +129,7 @@ test.describe("V2 core semantics investigation (completeWhen / relation rule whe
       const start = (data, seed) => engine.createInitialState({ worldSeed: seed, data }).state;
       const wait = { type: "wait", minutes: 1440 };
 
-      // declared, valid, and ignored
+      // declared and valid: completeWhen and the relation rule are ignored, the facts are seeded
       const declared = base({
         cases: { case_a: { stages: [{ id: "s1", completeWhen: { op: "always" } }, { id: "s2" }] } },
         rules: { check: {}, succession: [], relation: { rule_a: { when: { op: "always" }, effects: [{ op: "relation", from: "npc_a", to: "self", add: 5 }] } } },
@@ -157,6 +159,7 @@ test.describe("V2 core semantics investigation (completeWhen / relation rule whe
       const st = start(base({}), "seed-1");
       return {
         declaredValid: rules.validateData(declared),
+        c1Pick: ["a", "b", "c"][rng.nextUint32({ seed: rng.deriveSeed("seed-1", "fact:f_pick"), cursor: 0 }).value % 3],
         initial,
         seen: [...new Set(seen)],
         finalFacts: state.facts ?? null, finalCases: state.cases ?? null, finalRelations: state.relations ?? null,
@@ -177,9 +180,10 @@ test.describe("V2 core semantics investigation (completeWhen / relation rule whe
     });
 
     expect(result.declaredValid).toEqual([]);
-    expect(result.initial).toEqual({ facts: null, cases: null, relations: null });
+    const seededFacts = { f_fixed: { value: "x", since: 0 }, f_pick: { value: result.c1Pick, since: 0 } };
+    expect(result.initial).toEqual({ facts: seededFacts, cases: null, relations: null });
     expect(result.seen).toEqual(["time.advanced", "day.started"]); // no case.updated, no relation.changed, no fact.changed
-    expect(result.finalFacts).toBeNull();
+    expect(result.finalFacts).toEqual(seededFacts);
     expect(result.finalCases).toBeNull();
     expect(result.finalRelations).toBeNull();
     expect(result.expressedValid).toEqual([]);
