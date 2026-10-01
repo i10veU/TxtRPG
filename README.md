@@ -87,7 +87,7 @@
   만든 save를 조용히 실행하지 않도록, 현재 팩을 가진 caller(UI)가 로드 경계에서
   `checkDataCompatibility`로 거부한다(D-68).
 
-### 현재 진행 단계 (V2-Core-01 ~ V2-Core-44 완료)
+### 현재 진행 단계 (V2-Core-01 ~ V2-Core-45 완료)
 
 - **엔진 핵심**: `state`/`action`/`event` 스키마, RNG, `step()` 11단계 파이프라인, Condition
   DSL(and/or/not/eq류 6개 + shorthand 12개 + money/rumor), Effect DSL(20개 op 전부: flag/signal/
@@ -296,6 +296,9 @@
 - **V2-Core-44 결과** (데이터·테스트·CI·문서, 엔진 변경 없음, 상세는 `CORE_CONTRACTS.md` D-71): 인간 결정으로 D-71 (3)을 정했다 — 해산된 도적단은 이후의 재조사(같은
   캐릭터든 후계자든)로 되살아나지 않는다. 원로의 도적단 소식은 계속 제안되고 처분은 다시 고를 수 없다. 후계자는 자기 증표·보고·대면으로 자기 edge를 얻어 시장 보상을 받는다
   (D-71 (1)/(2)는 그대로). 팩 `version`은 `0.1.0` 그대로이며 이미 되살아난 save는 고치지 않는다.
+- **V2-Core-45 결과** (#66의 V2 vertical slice, 데이터·테스트·CI·문서만): 도적단 해산이 역사가 된다. 해산 직후 원로는 소식("흩어졌다")을 전하고, 이틀쯤 지나면 같은
+  질문에 마을 전설("모두 쓰러졌다")을 전한다. 폐허를 조사하면 비어 있는 은신처가 진실을 보여 주고 믿던 전설이 교정된다. 후계자는 아무것도 물려받지 않고 같은 역사를
+  스스로 발견한다. 기존 Event/Fact/Rumor/Signal/`if`만 썼고 새 scheduler·history engine·state 필드는 없다. 팩 `version`은 `0.1.0` 그대로다.
 - **다음 issue 후보**: (1) 실제 콘텐츠가 요구할 때 남은 C 항목을 각각 별도 D-decision으로 확정 — `completeWhen`(D-73)과 relation rule(D-74)은
   "event로 쓴다"로 결정했고, seed 입력(`facts[*].initial`)은 C1으로 구현했다(D-76, C2 경로 문서화). 남은 결정은 #117의 2~4번(D-68 (a), D-67, world tick)이다.
   (2) 콘텐츠 결정(core와 분리): HP 회복과 위치 제약(V2-Core-29), 소문 → 행동 연결(V2-Core-30)은 처리했다.

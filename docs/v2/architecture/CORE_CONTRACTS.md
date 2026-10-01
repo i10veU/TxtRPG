@@ -2010,3 +2010,11 @@ state.knowledge["player_1"]["rum_a"] = {
     `act_investigate_ruins` success에서 `member` 태그 Effect를 `if`(case 미해결일 때만)로 감쌌다(데이터만, 엔진/state/save/`version` 변경 없음, 이미 되살아난
     save는 고치지 않음). D-71 (1)/(2)는 현재 상태 유지. 새 테스트 `tests/v2/data-world-history.test.js`와 `tests/v2-ui-world-history-browser.spec.js`(+CI 단계),
     옛 동작을 고정하던 `testRewardRecipient` V3와 succession browser spec의 후계자 시나리오는 결정된 동작으로 바꿨다. 변이: `if` 제거 시 두 새 테스트가 실패한다.
+  - 작업 42 = V2-Core-45 (Issue #123, #66의 V2 vertical slice): 도적단 해산이 역사가 된다 — 즉각적 변화 → 시간 경과 → 전하는 내용의 변화 → 후대의 발견.
+    엔진/state 필드/save schema/scheduler/history engine 없이 기존 계약만 썼다: `data.events.evt_bandits_tale`(해산 상태일 때 `cooldown:1440`마다 객관적 `fact_bandits_fate`
+    ="dispersed"를 기록하고 signal `bandits_tale_age`를 1→3까지 셈, D-74의 지연 변화 패턴), 원로 `opt_ask_bandit_news`의 `if`(나이 3 미만이면 소식 = rumor
+    `rum_bandits_fate` "dispersed" 70, 이상이면 마을 전설 = `rum_bandits_legend` "slain" 40), 조사 성공의 observe mode rumor(해산 뒤에만 fact가 있어 관찰되며 믿던 전설을
+    더 높은 confidence로 교정, D-14; 해산 전에는 fact가 없어 아무것도 관찰되지 않으므로 이전 경로는 그대로). 후계자는 knowledge를 상속하지 않고(D-71 (1)) 같은 역사를 원로와
+    폐허에서 스스로 발견한다. 해산 step과 뉴스 선택에 새 이벤트가 생겨 그것을 고정하던 테스트(해산 step 이벤트 목록, 후계자 뉴스 이벤트, 팩 events/facts 목록 — Node와
+    core-semantics browser spec)를 사유와 함께 갱신했다. 새 테스트 `tests/v2/data-world-tale.test.js`, `tests/v2-ui-world-tale-browser.spec.js`(+CI 단계). 변이(시계 제거,
+    시계가 멈추지 않음, 전설 분기 제거, 전설 교정 제거)는 모두 새 테스트를 실패시킨다. 팩 `version`은 `0.1.0` 그대로이며 이 변경 전의 save는 다음 step에서 시계가 시작된다.
