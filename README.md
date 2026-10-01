@@ -86,7 +86,7 @@
   만든 save를 조용히 실행하지 않도록, 현재 팩을 가진 caller(UI)가 로드 경계에서
   `checkDataCompatibility`로 거부한다(D-68).
 
-### 현재 진행 단계 (V2-Core-01 ~ V2-Core-38 완료)
+### 현재 진행 단계 (V2-Core-01 ~ V2-Core-39 완료)
 
 - **엔진 핵심**: `state`/`action`/`event` 스키마, RNG, `step()` 11단계 파이프라인, Condition
   DSL(and/or/not/eq류 6개 + shorthand 12개 + money/rumor), Effect DSL(20개 op 전부: flag/signal/
@@ -178,6 +178,9 @@
   V2-Core-38은 `completeWhen`을 결정했다(D-73): 활성화하지 않는다. `data.events`의 trigger + `case` Effect가 같은 일을 하고 전이 Effect, `check`/`outcomes`, `once`/`cooldown`까지 더 표현력이 크며,
   전용 evaluator는 연쇄 1단계 제한과 충돌하거나 별개의 순서 규칙을 만든다. 그래서 `completeWhen`은 모양만 검사하는 예약 필드로 남고 엔진/콘텐츠는 바뀌지 않았다.
   `tests/v2/case-completion.test.js`와 `tests/v2-ui-case-completion-browser.spec.js`(실제 IndexedDB, 페이지 새로고침 포함)가 그 전제를 고정한다.
+  V2-Core-39는 relation rule을 결정했다(D-74): 역시 활성화하지 않는다. 관계는 `relation` Effect로만 바뀌고 시간이 지나도 저절로 감쇠하지 않는다. V1의 관계 규칙 모양(이름이 정해진 edge, 하루 한 번,
+  세계 상태에 따른 분기)은 `data.events`와 `day` selector·`signal` 카운터로 정확히 표현되고, event로 표현할 수 없는 것은 여러 edge에 걸친 규칙뿐인데 그 수요가 없다.
+  `tests/v2/relation-rules.test.js`가 그 전제와 저작 패턴을 고정한다.
 
 ### 이후 진행 단계
 
@@ -267,8 +270,11 @@
 - **V2-Core-38 결과** (코드/콘텐츠 변경 없음, 새 테스트/문서/CI만, 상세는 `CORE_CONTRACTS.md` D-73/§3.3/§11): `completeWhen`은 활성화하지 않는다(예약 필드, `data.events` + `case` Effect가 지원 경로).
   평가 cadence는 event 경로의 것(10단계, 수락된 모든 step 종류 뒤, id 오름차순 한 패스), 전이는 event의 `case` Effect, 같은 step 연쇄는 id 순서(고정점 없음)다. state/save/replay는 그대로다.
   relation rule `when`(D-62)과 `facts[*].initial`(D-65)은 이번에도 결정하지 않았다 — 각각 별도 이슈로 남는다. 기존 테스트는 하나도 수정하지 않았다. 팩 `version`은 `0.1.0` 그대로다(D-68).
-- **다음 issue 후보**: (1) 실제 콘텐츠가 요구할 때 위 C 항목을 각각 별도 D-decision으로 확정 — 우선
-  후보는 "전용 필드 vs event" 결정(`completeWhen`/relation rules)과 seed 입력 결정(`facts[*].initial`).
+- **V2-Core-39 결과** (코드/콘텐츠 변경 없음, 새 Node 테스트/문서만, 상세는 `CORE_CONTRACTS.md` D-74/§3.3/§7.4/§11): relation rule은 활성화하지 않는다(예약 필드, `data.events` + `relation` Effect가
+  지원 경로). 저작 주의: event 안의 `relation` Effect는 `from`을 명시한다(기본값 `target`이 event 문맥에 없어 조용히 건너뛰어진다). 여러 edge에 걸친 관계 규칙과 엔진이 도는 NPC 자율 행동은
+  실제 수요가 생길 때 새 scheduler 설계(설계 게이트, 인간 결정)로 연다. 기존 테스트는 하나도 수정하지 않았다. 팩 `version`은 `0.1.0` 그대로다(D-68).
+- **다음 issue 후보**: (1) 실제 콘텐츠가 요구할 때 남은 C 항목을 각각 별도 D-decision으로 확정 — `completeWhen`(D-73)과 relation rule(D-74)은
+  "event로 쓴다"로 결정했고, 남은 core 결정은 seed 입력(`facts[*].initial`, D-65/D-72)이다.
   (2) 콘텐츠 결정(core와 분리): HP 회복과 위치 제약(V2-Core-29), 소문 → 행동 연결(V2-Core-30)은 처리했다.
   V2-Core-31에서 원로 relation을 읽는 지점을 만들었다. 남은 후보 — 무료·반복 가능한 원로 대화로 relation 점수를
   정보 없이 쌓을 수 있는 점(지금은 태그를 읽어 우회했지만 다른 콘텐츠가 점수를 읽으면 문제), 후계자가 물려받는
