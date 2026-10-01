@@ -165,7 +165,7 @@ function testCanonicalPlaythrough() {
     firstSeenDay: 0,
     lastSeenDay: 0
   });
-  assert.strictEqual(chooseAsk.stateAfter.facts, undefined, "asking the elder sets no fact");
+  assert.deepStrictEqual(chooseAsk.stateAfter.facts, { fact_ruins_secret: { value: "unknown", since: 0 } }, "asking the elder sets no fact (the seeded starting value stays, D-76)");
   const confirmed = finalState.knowledge.player_1.rum_ruins_secret;
   assert.deepStrictEqual(confirmed, { ...afterAsk, sources: ["npc_elder", "obs_loc_ruins"], confirmations: 2 });
   assert.ok(investigate.events.some((e) => e.type === "rumor.updated" && e.data.rumor === "rum_ruins_secret" && e.data.delta === 0));
@@ -467,7 +467,7 @@ function testInformationFlow() {
   assert.strictEqual(small.state.relations["npc_elder:player_1"].score, 1);
   assert.strictEqual(small.state.knowledge, undefined, "small talk teaches nothing");
   // learning a rumor never sets the fact it is about (the fact stays hidden)
-  assert.strictEqual(asked.state.facts, undefined);
+  assert.deepStrictEqual(asked.state.facts, { fact_ruins_secret: { value: "unknown", since: 0 } }); // only the starting value seeded at creation (D-76)
 
   // without the rumor the investigation is unavailable at the ruins -- with the
   // lantern in hand -- and hidden (no showWhenLocked), with no reason (D-06/D-15)
@@ -517,7 +517,7 @@ function testInformationFlow() {
   assert.strictEqual(success.state.flags.ruins_secret_confirmed, true);
 
   assert.deepStrictEqual(rumorEntry(failure.state), rumorEntry(before), "a failed investigation leaves the rumor as it was");
-  assert.strictEqual(failure.state.facts, undefined, "a failed investigation sets no fact");
+  assert.deepStrictEqual(failure.state.facts, { fact_ruins_secret: { value: "unknown", since: 0 } }, "a failed investigation sets no fact (the seeded starting value stays, D-76)");
   assert.strictEqual(failure.state.flags?.ruins_secret_confirmed, undefined);
   assert.ok(!failure.events.some((e) => e.type.startsWith("rumor.")));
   // ...and the investigation can simply be retried

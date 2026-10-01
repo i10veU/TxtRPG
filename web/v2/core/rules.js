@@ -2187,6 +2187,21 @@ export function validateData(data) {
     }
   });
 
+  // D-76 (V2-Core-43): an `initial` object holding `pickFrom` is the seeded form
+  // (§8.1) and must be usable as is; any other `initial` is a fixed value.
+  if (isPlainObject(data.facts)) {
+    Object.keys(data.facts).forEach((factId) => {
+      const initial = isPlainObject(data.facts[factId]) ? data.facts[factId].initial : undefined;
+      if (!isPlainObject(initial) || !Object.hasOwn(initial, "pickFrom")) return;
+      if (!Array.isArray(initial.pickFrom) || initial.pickFrom.length === 0) {
+        errors.push(`facts.${factId}.initial.pickFrom must be a non-empty array (§8.1)`);
+      }
+      if (Object.keys(initial).length > 1) {
+        errors.push(`facts.${factId}.initial must have no other key next to pickFrom (§8.1)`);
+      }
+    });
+  }
+
   // D-61 (V2-Core-20): data.cases[*].stages[*].completeWhen is exactly one
   // Condition, world context (§3.3), reusing evaluateCondition via
   // walkCondition as-is. Optional -- absent completeWhen means the stage has
