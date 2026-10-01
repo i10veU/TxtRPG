@@ -763,7 +763,8 @@ function testOrganisationConsequence() {
   // using it: the leader leaves the organisation, the elder is pleased, and the option closes itself
   const used = runActions([...REPORTED_ACTIONS, ...DISPERSE_ACTIONS]);
   const useResult = used.log.at(-1);
-  assert.deepStrictEqual(useResult.events.map((e) => e.type), ["relation.changed", "relation.changed", "narration", "action.resolved"]);
+  // since V2-Core-45 the dispersal also starts its history (evt_bandits_tale: the fact and the day count, internal)
+  assert.deepStrictEqual(useResult.events.map((e) => e.type), ["relation.changed", "relation.changed", "narration", "fact.changed", "signal.raised", "trigger.fired", "action.resolved"]);
   assert.deepStrictEqual(relationEvents(useResult), [
     { from: "npc_bandit_leader", to: "org_bandits", tagRemoved: "member" },
     { from: "npc_elder", to: "player_1", delta: 5 }
@@ -1017,12 +1018,15 @@ function testCharacterVersusWorldState() {
   assert.strictEqual(offered(successor, NEWS), true, "the successor is offered the news");
   assert.strictEqual(offered(runActions(DECIDED_ACTIONS).state, NEWS), true, "...exactly as the character who made it true is");
   const asked = step(step(successor, talk, worldData).state, { type: "choose", optionId: NEWS }, worldData);
-  assert.deepStrictEqual(asked.events.map((e) => e.type), ["relation.changed", "narration", "action.resolved"]);
-  assert.strictEqual(asked.events[1].data.textId, "txt_bandit_news");
+  // since V2-Core-45 the elder's news is also a rumor the asker learns (their own knowledge, D-71 (1))
+  assert.deepStrictEqual(asked.events.map((e) => e.type), ["relation.changed", "rumor.learned", "narration", "action.resolved"]);
+  assert.strictEqual(asked.events[2].data.textId, "txt_bandit_news");
   assert.deepStrictEqual(asked.events[0].data, { from: "npc_elder", to: "player_2", delta: 1 }, "the effect lands on the asker's own edge");
-  for (const field of ["flags", "cases", "fired", "facts", "knowledge"]) {
+  for (const field of ["flags", "cases", "fired", "facts"]) {
     assert.deepStrictEqual(asked.state[field], successor[field], `asking changes no world-level ${field}`);
   }
+  assert.deepStrictEqual(Object.keys(asked.state.knowledge.player_2), ["rum_bandits_fate"], "the asker learns it for themselves");
+  assert.deepStrictEqual(asked.state.knowledge.player_1, successor.knowledge.player_1, "the predecessor's knowledge is untouched");
   assert.deepStrictEqual(asked.state.relations["npc_elder:player_1"], successor.relations["npc_elder:player_1"], "the predecessor's edge is untouched");
 
   // -- ...but the predecessor's personal decision is not the successor's --

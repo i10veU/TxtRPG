@@ -121,6 +121,18 @@
 // the case is resolved. A save already in the revived state is not repaired (no migration).
 // `version` stays "0.1.0" (no state-shape change; D-68).
 //
+// V2-Core-45 also adds no engine semantics; it is the V2 slice of #66 (world history & discovery):
+// an immediate change -> time -> the account changes -> a later character discovers. The dispersal
+// (case resolved, the leader no longer a member) starts `evt_bandits_tale`, which records the
+// objective `fact_bandits_fate` and counts `bandits_tale_age` 1..3 a day apart (`cooldown`, D-74's
+// pattern -- no scheduler, no new state field). While it is fresh the elder tells the news (rumor
+// `rum_bandits_fate`, "dispersed"); after about two days the same option tells the village's legend
+// (`rum_bandits_legend`, "slain", lower confidence). A successful investigation at the ruins then
+// observes the fact: the truth first-hand, and a believed legend corrected (D-14). Before the
+// dispersal there is no fact, so the earlier path is unchanged. A successor inherits no knowledge
+// (D-71 (1)) and finds both on their own. `version` stays "0.1.0" (no state-shape change; D-68):
+// a save made before this change starts the clock at its next step.
+//
 // This is deliberately small (Ponytail): one data module, one growth
 // system, three locations, two NPCs (referenced only as relation/rumor
 // participant IDs -- see D-65, no `state.actors` records for them; a full
@@ -165,6 +177,26 @@ export const worldData = {
   // three hits take the 10-HP wanderer to 0, which is the existing `hp`
   // Effect's own death trigger (D-34), not a new mechanic.
   events: {
+    // V2-Core-45 (#66 slice): the dispersal becomes history. Once the bandits are dispersed (the
+    // case is resolved and the leader is no longer a member -- not reversible since V2-Core-44),
+    // this records the objective fact and counts the days: 1 on the dispersal step, then +1 at the
+    // first step a full day later, until 3 (D-74's delayed-change pattern; no scheduler). The
+    // elder's account reads the count.
+    evt_bandits_tale: {
+      trigger: {
+        op: "and",
+        of: [
+          { op: "case", case: "case_ruins_mystery", stage: "resolved" },
+          { op: "not", of: { op: "relation", from: "npc_bandit_leader", to: "org_bandits", tag: "member" } },
+          { op: "signal", key: "bandits_tale_age", max: 2 }
+        ]
+      },
+      cooldown: 1440,
+      effects: [
+        { op: "fact", fact: "fact_bandits_fate", set: "dispersed" },
+        { op: "signal", key: "bandits_tale_age", add: 1 }
+      ]
+    },
     // V2-Core-33: a consequence that shows up later, elsewhere. Read through `relation`
     // Conditions only; `once` (state.fired) keeps it from paying twice.
     evt_market_reopens: {
@@ -263,7 +295,21 @@ export const worldData = {
             when: { op: "not", of: { op: "case", case: "case_ruins_mystery", stage: "resolved" } },
             then: [{ op: "relation", from: "npc_bandit_leader", to: "org_bandits", tag: "member" }]
           },
-          { op: "narrate", textId: "txt_investigate_success" }
+          { op: "narrate", textId: "txt_investigate_success" },
+          // V2-Core-45: after the dispersal the hideout itself tells what happened -- first-hand,
+          // and it corrects a believed legend (higher confidence wins, D-14). Before the dispersal
+          // there is no fact to observe, so none of this happens
+          { op: "rumor", rumor: "rum_bandits_fate", observe: true, source: "obs_loc_ruins", confidence: 80 },
+          {
+            op: "if",
+            when: { op: "rumor", rumor: "rum_bandits_legend" },
+            then: [{ op: "rumor", rumor: "rum_bandits_legend", observe: true, source: "obs_loc_ruins", confidence: 80 }]
+          },
+          {
+            op: "if",
+            when: { op: "fact", fact: "fact_bandits_fate", eq: "dispersed" },
+            then: [{ op: "narrate", textId: "txt_hideout_abandoned" }]
+          }
         ],
         fail: [
           { op: "proficiency", id: "investigation", add: 10 },
@@ -376,9 +422,21 @@ export const worldData = {
               { op: "not", of: { op: "relation", from: "npc_bandit_leader", to: "org_bandits", tag: "member" } }
             ]
           },
+          // V2-Core-45: news while it is fresh (about two days), the village's legend afterwards
           effects: [
             { op: "relation", from: "npc_elder", add: 1 },
-            { op: "narrate", textId: "txt_bandit_news" }
+            {
+              op: "if",
+              when: { op: "signal", key: "bandits_tale_age", min: 3 },
+              then: [
+                { op: "rumor", rumor: "rum_bandits_legend", source: "src_village_legend", confidence: 40 },
+                { op: "narrate", textId: "txt_bandit_legend" }
+              ],
+              else: [
+                { op: "rumor", rumor: "rum_bandits_fate", source: "npc_elder", confidence: 70 },
+                { op: "narrate", textId: "txt_bandit_news" }
+              ]
+            }
           ]
         },
         {
@@ -426,11 +484,16 @@ export const worldData = {
   // game starts with this fact at "unknown". Nothing reads that value; the truth
   // is set by act_investigate_ruins's own `fact` Effect, as before.
   facts: {
-    fact_ruins_secret: { initial: "unknown" }
+    fact_ruins_secret: { initial: "unknown" },
+    // V2-Core-45: what really happened to the bandits -- set by evt_bandits_tale, never in the view
+    fact_bandits_fate: {}
   },
 
   rumors: {
-    rum_ruins_secret: { factId: "fact_ruins_secret", claim: "bandit_hideout" }
+    rum_ruins_secret: { factId: "fact_ruins_secret", claim: "bandit_hideout" },
+    // V2-Core-45: the same history told two ways -- the elder's news, and the legend it becomes
+    rum_bandits_fate: { factId: "fact_bandits_fate", claim: "dispersed" },
+    rum_bandits_legend: { factId: "fact_bandits_fate", claim: "slain" }
   },
 
   // Referenced only as relation-edge/rumor-source IDs (§7.1/§8.3) -- no
@@ -458,6 +521,8 @@ export const worldData = {
     txt_report_findings: "당신이 알아낸 것을 전하자 원로는 오래 침묵하다 천천히 고개를 끄덕인다.",
     txt_confront_backed: "마을 사람들이 당신 뒤에 서 있다는 사실이 도적 두목을 더욱 흔든다.",
     txt_bandit_news: "원로는 폐허의 도적단이 흩어졌다는 소식을 들려준다. 마을 사람들 사이에서 그 이야기는 오래 회자된다.",
+    txt_bandit_legend: "원로는 이제 마을에서 전해지는 이야기를 들려준다. 폐허의 도적단이 마을 사람들 손에 모두 쓰러졌다는 전설이다.",
+    txt_hideout_abandoned: "은신처는 텅 비어 있다. 서둘러 짐을 챙겨 떠난 흔적뿐, 싸움의 자국은 없다. 도적단은 쓰러진 것이 아니라 흩어졌다.",
     txt_bandits_disperse: "원로는 도적단 잔당에게 사람을 보내 해산을 권한다. 두목은 더 이상 도적단의 일원이 아니다.",
     txt_market_reopens: "도적단이 흩어졌다는 소식에 상인들이 안도하며 은화 몇 닢을 사례한다.",
     txt_rest_village: "마을 어귀의 평상에 앉아 숨을 고르며 상처를 돌본다.",
