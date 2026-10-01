@@ -1515,7 +1515,7 @@ state.knowledge["player_1"]["rum_a"] = {
 | golden | 고정 seed와 고정 시퀀스의 최종 state 해시를 기록한다. 바뀌면 실패하며, 갱신은 의도된 변경일 때만 사유와 함께 한다 **구현됨(D-75, V2-Core-40)**: `tests/v2/golden.test.js`가 `tests/v2/fixtures/golden-path.json`(추상 ID 합성 팩, seed `golden-0`, action 39개)의 step별 `{state, events}`와 최종 state의 fingerprint(키를 정렬한 JSON의 `hashString`, 16진수)를 기록값과 비교하고, `tests/v2-ui-golden-browser.spec.js`가 같은 fixture를 실제 Chromium에서 실행해 지금의 Node 값·기록값과 맞춘다. 갱신은 `node tests/v2/golden.test.js --print`로 하고 사유를 커밋/PR과 D-75에 남긴다 |
 | seed 차이 | 다른 seed이면 pickFrom fact 초기값 등 파생 스트림 결과가 달라진다 (fixture로 보장) |
 | 파생 스트림 격리 | fixture에 NPC를 하나 추가해도 기존 NPC 초기값과 첫 check 결과가 바뀌지 않는다 |
-| immutability | 동결된 입력으로 step, view, check를 호출해도 예외가 없고, 입력은 호출 전과 deepEqual이다 |
+| immutability | 동결된 입력으로 step, view, check를 호출해도 예외가 없고, 입력은 호출 전과 deepEqual이다 **구현됨(V2-Core-42)**: `tests/v2/immutability.test.js`가 golden fixture의 모든 state(행동 종류 전부, check, events, 성장, 사망과 계승)와 실제 팩의 시작 state에서 state와 data를 재귀적으로 동결하고(§13.1) 그 단계의 `step`, `view`, data가 정의한 모든 check spec(opposed와 event의 것 포함)의 `check`를 호출해 예외가 없고 입력이 그대로이며 `step`/`view` 결과가 동결하지 않은 입력과 같은지 확인한다. 그 전에는 `view`/`check`가 호출 전후 deepEqual만 검사돼 입력에 썼다가 되돌리는 구현을 잡지 못했다 |
 | JSON 안전성 | 모든 step 결과 state가 JSON 왕복 후 deepEqual이다 |
 | invalid action | 9개 reason code 각각에서 state가 입력과 deepEqual이고, rng, time이 변하지 않으며, 이벤트는 `action.rejected` 1개다 (state에 `seq`가 없으므로 검사 대상도 아니다) **구현됨(V2-Core-41)**: `tests/v2/reject-codes.test.js`가 엔진에서 각 code를 내는 모든 분기(32개 경우 — 형식 오류, 부트스트랩 안 된 world의 `wait` 외 action, pending 없는 `startCharacter`, 없는 action·template·option·location과 정의가 사라진 pending choice, 링크 없음·링크 `requires` 거짓·목적지 `requires` 거짓·action과 option의 `requires` 거짓, pending 중의 다른 action 종류, 죽은 actor의 `perform`/`move`/`choose`와 actor 기록이 없는 경우)를 동결 입력(§13.1)으로 실행해 이 기준과 함께 `visibility:"player"`, 입력 시각의 `minute`, `requirements_not_met`의 `data`에 `code`만 있음(§2.6)을 확인하고, 엔진의 reject 호출 지점이 쓰는 code 집합이 §2.6의 고정 목록 9개와 같은지 정적으로 스캔한다. 반환 state의 객체 동일성과 다른 code의 `detail` 유무는 계약이 정하지 않아 고정하지 않는다 |
 | Condition | 연산자마다 참, 거짓, 누락 참조 케이스를 검사한다. `and` 빈 배열은 참, `or` 빈 배열은 거짓이다. `always`/`never`는 인자 없이 고정값을 반환한다. `eq`/`neq`/`gt`/`gte`/`lt`/`lte`는 숫자·문자열·타입 불일치·selector 미해석(`undefined`) 케이스를 모두 검사한다. 알 수 없는 op/selector는 `false`로 평가된다(§3.1 — `validateData`가 이를 콘텐츠 오류로 잡아도, `evaluateCondition` 자체의 이 동작은 바뀌지 않는다, D-56). player 문맥의 `fact` selector는 항상 `undefined`로 해석되는지 검사한다 |
@@ -1986,3 +1986,8 @@ state.knowledge["player_1"]["rum_a"] = {
     visibility)는 기존 Node V2 테스트 전체와 V2 브라우저 spec 46개를 모두 통과했다. 반환 state를 복사본으로 바꾼 리팩터는 통과한다(계약이 동일성을 요구하지 않는다). 엔진이 바뀌지 않았고 UI는
     모든 code를 같은 문구(`할 수 없다. (code)`)로 보여 주므로 새 브라우저 spec은 만들지 않았다 — Chromium과 Node의 step 결과 일치는 golden spec(D-75, 거절 4종 포함)이 검증한다. Issue #113의
     "왜 필요한가"에 처음 쓴 기존 커버리지 설명이 실제보다 좁아 issue 본문을 정정했다. 새 D-decision은 없다. `version`은 올리지 않았다.
+  - 작업 39 = V2-Core-42 (Issue #115, Master Goal #109의 네 번째 하위 작업): §13.2 "immutability" 행을 그대로 검증했다. 엔진/저장/UI 코드와 검증기와 팩 콘텐츠는 바꾸지 않았고 기존 테스트도
+    수정하지 않았다. `view()`와 `check()`는 호출 전후 deepEqual만 검사됐고 동결 입력으로 호출하는 테스트가 없었다. 새 테스트 `tests/v2/immutability.test.js`(golden fixture의 모든 state와 실제 팩의
+    시작 state에서 동결한 state·data로 `step`/`view`/`check`). 일부러 엔진을 깨뜨려(`view`와 `check`가 입력에 썼다가 되돌림, `move` 경로가 입력에 같은 값을 다시 씀) 새 테스트가 모두 실패하는지
+    확인한 뒤 복원했다. 앞의 둘은 기존 Node V2 테스트를 모두 통과했다. 이것으로 §13.2의 엔진 전반 기준(금지 의존성, 반복 재현, golden, immutability, JSON 안전성, invalid action)에는 모두 그 기준을
+    그대로 검사하는 테스트가 있다(연산자별 행은 이번에 다시 감사하지 않았다). 남은 "seed 차이"/"파생 스트림 격리"는 world-generation seed 입력 결정(D-65/D-72)에 묶여 있다. 새 D-decision은 없다. `version`은 올리지 않았다.
