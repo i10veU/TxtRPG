@@ -111,6 +111,16 @@
 // its observe source recorded) could then never reach the threshold. The relic is already in
 // such a save, so nobody is stranded. `version` stays "0.1.0" (no state-shape change; D-68).
 //
+// V2-Core-44 also adds no engine semantics; it applies the human decision on D-71 (3): a world
+// edge the story has settled is not reversed by a character's later action. `act_investigate_ruins`
+// can be repeated, and its success wrote the leader's `member` tag every time -- so investigating
+// again after `opt_bandits_disperse` brought the dispersed gang back (the elder's news stopped, the
+// market's relief became false, the dispersal reopened), for the same character and for a successor.
+// The membership is now written only while `case_ruins_mystery` is unresolved (an `if` Effect in
+// the same position, so every earlier path keeps its events); the dispersal is only reachable after
+// the case is resolved. A save already in the revived state is not repaired (no migration).
+// `version` stays "0.1.0" (no state-shape change; D-68).
+//
 // This is deliberately small (Ponytail): one data module, one growth
 // system, three locations, two NPCs (referenced only as relation/rumor
 // participant IDs -- see D-65, no `state.actors` records for them; a full
@@ -245,7 +255,14 @@ export const worldData = {
           { op: "flag", key: "ruins_secret_confirmed", value: true },
           { op: "proficiency", id: "investigation", add: 30 },
           { op: "item", item: "item_relic", add: 1 },
-          { op: "relation", from: "npc_bandit_leader", to: "org_bandits", tag: "member" },
+          // V2-Core-44 (D-71 (3) decided): the ruins reveal the membership only while the
+          // mystery is open -- once it is resolved (and possibly the bandits dispersed),
+          // investigating again does not write the world's history back
+          {
+            op: "if",
+            when: { op: "not", of: { op: "case", case: "case_ruins_mystery", stage: "resolved" } },
+            then: [{ op: "relation", from: "npc_bandit_leader", to: "org_bandits", tag: "member" }]
+          },
           { op: "narrate", textId: "txt_investigate_success" }
         ],
         fail: [

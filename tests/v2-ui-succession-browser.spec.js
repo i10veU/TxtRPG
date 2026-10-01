@@ -2,7 +2,8 @@
 // (web/v2/index.html + ui/app.js) driven in real Chromium, with real
 // IndexedDB, against the real world data pack -- what a succession passes on
 // and who a world reward pays. The scenarios record the CURRENT behaviour
-// (docs/v2/architecture/CORE_CONTRACTS.md §9, D-70, D-71); none of them decides
+// (docs/v2/architecture/CORE_CONTRACTS.md §9, D-70, D-71; D-71 (3) decided in
+// V2-Core-44: a successor's investigation does not undo the dispersal); none of them decides
 // an inheritance rule: the predecessor's inventory / relations / knowledge are
 // NOT handed to the successor, and the world reward belongs to whoever holds
 // the triggering edge first.
@@ -80,6 +81,15 @@ async function playToDecision(page) {
   await talkAndChoose(page, REPORT);
   await act(page, CONFRONT);
   await talkAndChoose(page, FATE);
+}
+
+// a successor in a world where the bandits are already dispersed: their own proof, report and
+// confrontation (V2-Core-44, D-71 (3) decided: the dispersal is not undone, so there is no second
+// decision about the bandits' fate)
+async function playToOwnEdge(page) {
+  await playToConfirmedVillage(page);
+  await talkAndChoose(page, REPORT);
+  await act(page, CONFRONT);
 }
 
 // the character dies at the ruins through the real wait button (rested to 6 HP, the hazard takes
@@ -214,23 +224,23 @@ test.describe("V2 succession investigation (what passes on, and who the world re
     await dieAndStartSuccessor(page);
     const before = await getState(page);
 
-    // the successor's own proof: the world edge A had cleared is re-tagged by their investigation
+    // the successor's own proof: the dispersal A decided stands (V2-Core-44, D-71 (3) decided)
     await playToConfirmedVillage(page);
     const proven = await getState(page);
     expect(relic(proven, "player_2")).toBe(1);
-    expect(proven.relations["npc_bandit_leader:org_bandits"].tags).toEqual(["member"]);
+    expect(proven.relations["npc_bandit_leader:org_bandits"].tags).toEqual([]);
     await act(page, "원로와 대화");
-    await expect(choiceButton(page, NEWS)).toHaveCount(0); // closed for everyone while the leader is a member again
+    await expect(choiceButton(page, NEWS)).toHaveCount(1); // the world's history holds: still offered
+    await expect(choiceButton(page, FATE)).toHaveCount(0); // and the fate cannot be decided again
     await choiceButton(page, "안부만 묻기").click();
     await expect(page.locator("#choice")).toBeHidden();
     await move(page, "시장");
     expect(fired(await getState(page))).toBeUndefined(); // no edge of their own yet
     await move(page, "변경 마을");
 
-    // their own report, confrontation and decision
+    // their own report and confrontation
     await talkAndChoose(page, REPORT);
     await act(page, CONFRONT);
-    await talkAndChoose(page, FATE);
     const decided = await getState(page);
     expect(decided.relations["org_bandits:player_2"].tags).toEqual(["cowed"]);
     expect(decided.relations["npc_bandit_leader:org_bandits"].tags).toEqual([]);
@@ -276,7 +286,7 @@ test.describe("V2 succession investigation (what passes on, and who the world re
     await move(page, "변경 마을");
 
     // and with an edge of their own: still nothing, and the world-wide record is untouched
-    await playToDecision(page);
+    await playToOwnEdge(page);
     const own = await getState(page);
     expect(own.relations["org_bandits:player_2"].tags).toEqual(["cowed"]);
     const ownMoney = own.actors.player_2.money;
@@ -305,7 +315,8 @@ test.describe("V2 succession investigation (what passes on, and who the world re
       { type: "move", to: "loc_village" },
       { type: "perform", actionId: "act_rest_village" }
     ];
-    const DECIDE = [{ type: "perform", actionId: "act_talk_elder" }, choose("opt_report_findings"), { type: "perform", actionId: "act_confront_leader" }, { type: "perform", actionId: "act_talk_elder" }, choose("opt_bandits_disperse")];
+    const OWN_EDGE = [{ type: "perform", actionId: "act_talk_elder" }, choose("opt_report_findings"), { type: "perform", actionId: "act_confront_leader" }];
+    const DECIDE = [...OWN_EDGE, { type: "perform", actionId: "act_talk_elder" }, choose("opt_bandits_disperse")];
     const path = [
       ...PROOF,
       ...DECIDE,
@@ -313,7 +324,7 @@ test.describe("V2 succession investigation (what passes on, and who the world re
       { type: "wait", minutes: 30 },
       { type: "startCharacter", templateId: "start_wanderer" },
       ...PROOF,
-      ...DECIDE,
+      ...OWN_EDGE, // the bandits stay dispersed: no second decision (V2-Core-44)
       { type: "move", to: "loc_market" }
     ];
     const replay = () =>
