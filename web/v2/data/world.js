@@ -405,11 +405,9 @@ export const worldData = {
     item_relic: { name: "폐허의 유물" }
   },
 
-  // NOTE (D-65): `initial` is documented (§8.1) but not seeded by any
-  // runtime code yet -- createInitialState never reads data.facts. This
-  // pack does not rely on it: the fact is set explicitly by
-  // act_investigate_ruins's own `fact` Effect instead. Declared here only
-  // as authored content metadata for a future seeding implementation.
+  // `initial` is seeded by createInitialState since V2-Core-43 (D-76): every new
+  // game starts with this fact at "unknown". Nothing reads that value; the truth
+  // is set by act_investigate_ruins's own `fact` Effect, as before.
   facts: {
     fact_ruins_secret: { initial: "unknown" }
   },
