@@ -87,7 +87,7 @@
   만든 save를 조용히 실행하지 않도록, 현재 팩을 가진 caller(UI)가 로드 경계에서
   `checkDataCompatibility`로 거부한다(D-68).
 
-### 현재 진행 단계 (V2-Core-01 ~ V2-Core-40 완료)
+### 현재 진행 단계 (V2-Core-01 ~ V2-Core-41 완료)
 
 - **엔진 핵심**: `state`/`action`/`event` 스키마, RNG, `step()` 11단계 파이프라인, Condition
   DSL(and/or/not/eq류 6개 + shorthand 12개 + money/rumor), Effect DSL(20개 op 전부: flag/signal/
@@ -185,6 +185,8 @@
   V2-Core-40은 계약 §13.2의 golden 테스트를 구현했다(D-75): 추상 ID 합성 fixture(`tests/v2/fixtures/golden-path.json`)의 고정 seed·action 시퀀스가 만드는 step별 `{state, events}`와
   최종 state의 fingerprint를 기록값과 비교한다. 엔진 변경이 결과를 바꾸면 실패하고, 의도된 변경일 때만 `node tests/v2/golden.test.js --print`로 사유와 함께 갱신한다.
   `tests/v2-ui-golden-browser.spec.js`는 같은 fixture를 실제 Chromium에서 돌려 지금의 Node 값·기록값과 step마다 맞춘다(§2.7의 "서버-클라이언트 결과 일치").
+  V2-Core-41은 §13.2의 invalid action 기준을 9개 reason code 전부에 대해 확인한다: 엔진에서 각 code를 내는 모든 분기에서 입력 state가 그대로이고 rng·time이 움직이지 않으며
+  `action.rejected` 이벤트가 정확히 1개다. `tests/v2/reject-codes.test.js`는 엔진이 쓰는 code 목록이 §2.6의 고정 목록과 같은지도 정적으로 확인한다.
 
 ### 이후 진행 단계
 
@@ -280,6 +282,9 @@
 - **V2-Core-40 결과** (테스트/CI/문서만, 엔진·콘텐츠 변경 없음, 상세는 `CORE_CONTRACTS.md` D-75/§13.2): golden 테스트(Node)와 Node↔Chromium 일치·실제 IndexedDB 이어 실행(브라우저)을
   추가했다. 변이 5개(주사위, trigger 순서, Resolvable 시간 순서, attempts, stat 수정자)를 모두 잡고 키 생성 순서만 바꾼 리팩터는 통과한다. §13.2의 "seed 차이"/"파생 스트림 격리"는 world-generation
   소비자가 없어 여전히 쓸 수 없다(`facts[*].initial` 결정에 묶임). 기존 테스트는 하나도 수정하지 않았다.
+- **V2-Core-41 결과** (테스트/문서만, 엔진·콘텐츠 변경 없음, 상세는 `CORE_CONTRACTS.md` §13.2): 거절 32개 경우(9개 code를 내는 엔진의 모든 분기)와 엔진 code 목록 = 계약 목록의 정적 스캔을
+  추가했다. 변이 8개를 모두 잡는다. 그중 5개(`pending_choice` 거절의 시간 전진, 링크·목적지 `requires` 거절에만 붙는 detail, 새 code 두 가지, `unknown_option`의 visibility)는 기존 Node V2 테스트와
+  V2 브라우저 spec 46개를 모두 통과하던 것이다. 반환 state의 객체 동일성은 고정하지 않는다(복사본을 돌려주는 리팩터는 통과). 기존 테스트는 하나도 수정하지 않았다.
 - **다음 issue 후보**: (1) 실제 콘텐츠가 요구할 때 남은 C 항목을 각각 별도 D-decision으로 확정 — `completeWhen`(D-73)과 relation rule(D-74)은
   "event로 쓴다"로 결정했고, 남은 core 결정은 seed 입력(`facts[*].initial`, D-65/D-72)이다.
   (2) 콘텐츠 결정(core와 분리): HP 회복과 위치 제약(V2-Core-29), 소문 → 행동 연결(V2-Core-30)은 처리했다.
