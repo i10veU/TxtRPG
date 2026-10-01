@@ -1247,7 +1247,9 @@ testSuccessorProofReplayAndSaveLoad();
 // here decides a new inheritance rule. The pack's only succession effect is a fixed
 // `money +3` that never reads the predecessor, so the successor is independent of
 // whatever the predecessor did.
-const B_DECIDE = [{ type: "perform", actionId: "act_talk_elder" }, REPORT_OPTION, CANONICAL_ACTIONS.at(-1), ...DISPERSE_ACTIONS];
+// the successor's own report and confrontation; since V2-Core-44 (D-71 (3) decided) the bandits stay
+// dispersed after the successor's investigation, so there is no second decision about their fate
+const B_DECIDE = [{ type: "perform", actionId: "act_talk_elder" }, REPORT_OPTION, CANONICAL_ACTIONS.at(-1)];
 
 function testSuccessionAttribution() {
   const drive = (state, actions) => actions.reduce((st, a) => step(st, a, worldData).state, state);
@@ -1314,8 +1316,9 @@ function testSuccessionAttribution() {
 
 testSuccessionAttribution();
 
-// a seed on which the predecessor's and the successor's own confrontations and both
-// decisions succeed (used to put the same world condition in two characters' hands)
+// a seed on which the predecessor's and the successor's own investigations and confrontations
+// succeed and the predecessor decides the bandits' fate (used to put the same world condition in
+// two characters' hands)
 function seedForRewardMatrix() {
   const path = [...DECIDED_ACTIONS, ...DIE_AT_RUINS, ...SUCCESSOR_OWN_ACTIONS, ...B_DECIDE];
   const tiersOf = (log, actionId) => log.filter((entry) => entry.action.actionId === actionId).map((entry) => entry.events.find((e) => e.type === "check.resolved")?.data.tier);
@@ -1326,7 +1329,7 @@ function seedForRewardMatrix() {
     const investigations = tiersOf(log, "act_investigate_ruins");
     const confrontations = tiersOf(log, "act_confront_leader");
     const decisions = log.filter((entry) => entry.action.optionId === "opt_bandits_disperse" && !entry.events.some((e) => e.type === "action.rejected"));
-    if (investigations.length === 2 && investigations.every(good) && confrontations.length === 2 && confrontations.every(good) && decisions.length === 2) return seed;
+    if (investigations.length === 2 && investigations.every(good) && confrontations.length === 2 && confrontations.every(good) && decisions.length === 1) return seed;
   }
   assert.fail("no trial seed where both characters earn the bandits' fate");
 }
@@ -1370,13 +1373,13 @@ function testRewardRecipient() {
   assert.strictEqual(bVisit2.state.fired[MARKET_EVENT], undefined);
   assert.strictEqual(moneyOf(bVisit2.state, "player_2"), moneyOf(bUncollected, "player_2"));
 
-  // V3: B makes the world condition true for their own character -- B's own proof re-tags the
-  // leader's membership (a write a successful investigation always makes), B's own confrontation
-  // and decision then give B an edge of their own, and only then does the market pay B
+  // V3: B makes the world condition true for their own character -- B's own proof leaves the
+  // dispersal A decided as it is (V2-Core-44, D-71 (3) decided), B's own report and confrontation
+  // give B an edge of their own, and only then does the market pay B
   const bProof = drive(bUncollected, SUCCESSOR_OWN_ACTIONS.slice(1));
-  assert.deepStrictEqual(bProof.relations["npc_bandit_leader:org_bandits"].tags, ["member"], "a later investigation re-writes the world edge A had cleared");
-  assert.ok(!offered(bProof, NEWS), "the bandit-news option closes again for everyone while the leader is a member");
-  assert.ok(!fires(step(bProof, MARKET, worldData)), "no edge of B's own yet, and the leader is a member again");
+  assert.deepStrictEqual(bProof.relations["npc_bandit_leader:org_bandits"].tags, [], "a later investigation does not undo the dispersal");
+  assert.ok(offered(bProof, NEWS), "the bandit-news option stays open: the world's history holds");
+  assert.ok(!fires(step(bProof, MARKET, worldData)), "no edge of B's own yet");
   const bDecided = drive(bProof, B_DECIDE);
   assert.deepStrictEqual(bDecided.relations["org_bandits:player_2"].tags, ["cowed"]);
   assert.deepStrictEqual(bDecided.relations["npc_bandit_leader:org_bandits"].tags, []);
