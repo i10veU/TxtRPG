@@ -1,313 +1,654 @@
 # TxtRPG
 
-대규모 오프라인 우선 텍스트 RPG 프로젝트.
+대규모 텍스트 RPG 프로젝트.  
+**V2는 순수 게임 Core 위에 실제 RPG 시스템을 구축하고, 이를 세계관·정보·다회차 구조와 연결하는 방향으로 개발한다.**
 
-## 현재 설계 방향
+## 현재 개발 단계
 
-- 플레이어가 세계를 탐험하며 스스로 목표를 발견하는 구조
-- NPC가 플레이어와 무관하게 일정·목표에 따라 행동하는 세계 시뮬레이션
-- 사건을 Trigger → Event → Consequence 구조로 연결
-- 지역·인물·조직·경제·아이템·역사를 서로 연결하는 설정망
-- Microsoft Edge 로컬 환경을 기준으로 IndexedDB + Web Worker + Canvas 기반 확장
-- 현재 web/에는 바로 실행 가능한 TXT RPG 코어를 유지하며 이후 오프라인 엔진으로 확장
+현재 기준 브랜치: `feature/v2-core`
 
-## V2 코어 재작성 (`feature/v2-core`, 진행 중)
+```
+V2 Core
+  ↓
+실제 세계 데이터팩
+  ↓
+정보·관계·세력·시간·사건 수직 슬라이스
+  ↓
+다회차/후계자/세계 연속성 검증
+  ↓
+RPG 시스템 구축  ← 현재 단계
+  ↓
+RPG 시스템 + 세계 수직 슬라이스
+  ↓
+대규모 세계관·콘텐츠 확장
+```
 
-기존 V1(`web/core`, `web/data`, `web/ui`, `web/worker`, `web/storage`, `web/index.html`, `web/game.js`,
-`tests/*.js`)은 그대로 유지하면서, 순수 함수 기반의 새 게임 엔진을 별도 트리(`web/v2/`)에서
-계약(contract) 우선 방식으로 병행 개발하고 있다. V1과 V2는 서로 다른 브랜치 전략과 개발 규칙을
-따르며, V2 작업은 V1 런타임 코드를 절대 수정하지 않는다.
+최근 V2 개발 기준점은 `6de17fb`이며 Core와 초기 세계 역사 수직 슬라이스가 병합된 상태다.
 
-### 왜 다시 만드는가
+> 현재 목표는 단순히 세계관 콘텐츠를 늘리는 것이 아니다.  
+> **실제 RPG 플레이를 성립시키는 Character / Stats / Skill / Trait / Talent / Mastery / Technique / Loadout / Resource / Action / Combat / Item / Growth / Exploration 등의 시스템을 Core 위에 구축하고 실제 세계와 연결하는 것**이다.
 
-- V1은 IIFE + `window` 전역 네임스페이스 구조라 Node 테스트가 `vm` 컨텍스트를 거쳐야 했다. V2는
-  ES Module만 사용해 브라우저와 Node 테스트가 같은 소스를 그대로 import한다.
-- 엔진 로직을 `state, action, data -> {state, events}` 형태의 순수 함수로 고정해, 결정론(같은
-  seed·같은 액션 시퀀스는 항상 같은 결과)과 재현 가능한 테스트를 구조적으로 보장한다.
-- 새 콘텐츠(사건/성장/아이템/관계)를 추가할 때 엔진 코드를 바꾸지 않도록, 게임 규칙을 선언형
-  Condition/Effect DSL과 JSON 데이터로 분리한다.
+---
 
-### 자세한 설명 — 아키텍처
+# 1. 게임의 핵심 철학
 
-- **위치**: 엔진 코어는 `web/v2/core/{rng,engine,rules}.js` 3개 파일만 사용한다(Ponytail 원칙 —
-  실제 필요가 생기기 전까지 파일을 분리하지 않는다). 저장 계층은 코어 밖의 별도 어댑터
-  `web/v2/storage/idb.js` 1개 파일이다 — 엔진은 이 파일을 import하지 않는다. 세계관 데이터는
-  `web/v2/data/world.js` 1개 파일이다(콘텐츠가 실제로 커질 때만 분리한다). 브라우저 진입점은
-  `web/v2/index.html` + `web/v2/ui/app.js`(V2-Core-23) — 엔진/저장/데이터 공개 API 위의 얇은
-  어댑터 하나뿐이며, `state`/`action`/`check`/Condition·Effect 세만틱스를 재구현하지 않는다.
-  - `rng.js` — FNV-1a 해시, 시드 파생, 결정론적 난수. **보호 파일**(모든 라운드에서 수정 금지).
-  - `rules.js` — `evaluateCondition`, `applyEffects`/`applyEffectList`, `check()`,
-    `validateData()`. Condition(25개 op + `handler`)과 Effect(20개 op + `handler`) DSL,
-    판정(주사위+modifier+등급) 로직, 콘텐츠 데이터 정적 검증기가 모두 여기 있다.
-  - `engine.js` — `SCHEMA_VERSION`, `createInitialState`, `step`, `view`, `migrateState()`,
-    `validateState()`, `checkDataCompatibility()`(D-68 — state가 현재 데이터팩과 호환되는지 판정하는
-    순수 함수). 행동 처리 파이프라인(§2.5, 11단계: 스키마 검사 → action 형태 검사 →
-    pending/사망 게이트 → 대상 조회 → requires → 상태 복제 → check → effects/outcomes → day
-    경계 → trigger → 이벤트 반환)과 사망/캐릭터 계승을 담당한다.
-  - `storage/idb.js` — `save(slot, state, metadata)`/`load(slot)`/`list()`/`remove(slot)` 4개
-    함수뿐인 IndexedDB adapter(Ponytail — repository/DAO 추상화 없음). `engine.js`의
-    `validateState`/`migrateState`/`SCHEMA_VERSION`을 그대로 재사용해 저장/로드 경계를 검증하고,
-    IndexedDB/`Date.now`를 쓰는 V2의 유일한 파일이다.
-  - `data/world.js` — 첫 실제 세계관 데이터팩("변경 마을" 시나리오, V2-Core-22). `validateData`를
-    그대로 통과하며, 엔진 코드는 전혀 바꾸지 않는다.
-- **핵심 계약 문서**: `docs/v2/architecture/CORE_CONTRACTS.md`(설계 전체, D-01~D-65 결정 이력,
-  §13 테스트 계약, §15 작업 이력)와 `docs/v2/DEVELOPMENT_RULES.md`(브랜치·회귀 기준·Ponytail
-  원칙 등 상위 규칙 — 두 문서가 충돌하면 DEVELOPMENT_RULES가 우선한다).
-- **데이터 모델**: `state`(schemaVersion/rng/time/actors/flags/signals/facts/knowledge/relations/
-  cases/fired 등)와 `data`(월드 정의 — actions/choices/events/locations/growthSystems/
-  characterTemplates/rules 등)를 분리하고, 둘 다 순수 JSON으로 직렬화 가능해야 한다.
+TxtRPG는 세계가 제공하는 정보를 이용해 플레이어가 스스로 판단하고 목표를 형성하는 RPG를 지향한다.
 
-### 기타 설정
+핵심 루프:
 
-- **개발 브랜치**: `feature/v2-core` (V1의 회귀 기준점 `v1-final` = `54593cb`에서 분기).
-- **테스트 실행**: `node tests/v2/run.js` — `tests/v2/*.test.js` 8개 파일(core/effects/rules/
-  storage/data-world/data-world-lifecycle/save-compat-view/save-compat-policy)을 모두 실행하고
-  `V2 tests: N/N passed`를 출력한다. **보호 파일**(수정 금지). `data-world.test.js`,
-  `data-world-lifecycle.test.js`, `save-compat-view.test.js`, `save-compat-policy.test.js`가 실제 세계관
-  데이터(`web/v2/data/world.js`)를 쓰는 테스트 파일이다(DEVELOPMENT_RULES §17 — 다른 테스트는 여전히
-  추상 ID 합성 fixture만 쓴다). 실제 IndexedDB/브라우저를 쓰는 smoke는 별도로 `npx playwright test
-  tests/v2-storage-browser.spec.js tests/v2-data-world-browser.spec.js tests/v2-ui-browser.spec.js
-  tests/v2-ui-lifecycle-browser.spec.js tests/v2-ui-view-boundary-browser.spec.js
-  tests/v2-ui-save-compat-browser.spec.js`로 실행한다(Node 테스트는 IndexedDB를 mock하는 새 의존성을
-  추가하지 않고 순수 함수만 검증한다). V1 회귀는 기존과 동일하게 `tests/*.js`(`.spec.js` 제외)
-  41개를 개별 실행해 41/41을 확인한다. CI(`Unit & regression`/`Browser smoke`)가 두 계층 모두
-  매 PR마다 자동으로 검증한다.
-- **금지 사항**: 새 npm 의존성 추가 금지, 루트 `package.json` 생성 금지(V1의 CommonJS 테스트가
-  깨짐), DOM/`window`/`Date.now`/`Math.random`/`indexedDB`/`fetch` 등 호스트 API를 엔진 코드
-  (`web/v2/core/*`)에서 사용 금지 — Node 22.12+의 ESM 자동 감지만으로 별도 빌드 설정 없이 동작한다.
-  저장 어댑터(`web/v2/storage/idb.js`)는 코어 밖이므로 IndexedDB/`Date.now` 사용이 허용된다.
-- **저장 계층**: 구현 완료(D-63/D-64, V2-Core-21) — IndexedDB DB명 `txtrpg_v2`, 스토어 `saves`
-  (keyPath `slot`), V1의 `AnonymousChroniclesDB`/`anonymous_chronicles_*` 키와 완전히 분리된
-  네임스페이스를 쓴다. 저장소는 현재 데이터팩을 모르므로 호환성은 판정하지 않는다 — 다른 데이터팩으로
-  만든 save를 조용히 실행하지 않도록, 현재 팩을 가진 caller(UI)가 로드 경계에서
-  `checkDataCompatibility`로 거부한다(D-68).
+```
+Information
+    ↓
+Judgment
+    ↓
+Action
+    ↓
+Check / Resolution
+    ↓
+Consequence
+    ↓
+World Change
+    ↓
+New Information
+    ↓
+Growth / New Possibility
+    ↺
+```
 
-### 현재 진행 단계 (V2-Core-01 ~ V2-Core-28 완료)
+정보는 단순 lore가 아니라 행동 가능성·위험 판단·목표 형성에 영향을 주는 플레이 자원이다.
 
-- **엔진 핵심**: `state`/`action`/`event` 스키마, RNG, `step()` 11단계 파이프라인, Condition
-  DSL(and/or/not/eq류 6개 + shorthand 12개 + money/rumor), Effect DSL(20개 op 전부: flag/signal/
-  time/if/stat/hp/money/item/relation/skill/trait/unlock/case/exp/proficiency/fact/rumor/move/
-  choice/narrate), `check()`(주사위·modifier·등급 판정), 사망/캐릭터 계승, `choose`/`pending`
-  흐름, `day.started`/사건 trigger 단계, `view()`(플레이어 노출 투영) — 모두 구현·테스트 완료.
-- **검증 계층**: `validateState(state)`(§2.1 불변 조건 — JSON 안전성/정수 필드/ID 형식/`seq` 금지)와
-  `validateData(data)`(§11 — ID 형식, 확정된 참조 무결성, Condition/Effect op와 인자, handler
-  등록/reason, player 문맥 fact 금지, Resolvable success/fail 필수, characterTemplate.locationId
-  필수, CheckSpec shape, case stage `completeWhen`/relation rule `when`의 Condition shape)를
-  구현했다 — 모두 순수 함수이며 런타임 세만틱스를 바꾸지 않는다. `migrateState(raw)`(D-63)로
-  §10 로드 파이프라인(`migrateState → validateState → 오류 시 거부`)이 처음부터 끝까지 실제로
-  연결됐다.
-- **의도적으로 미구현/보류** (근거 없이 임의로 확정하지 않는다는 원칙에 따라 blocker로 유지):
-  - `handler` — 선언형 op로 표현 불가능한 실제 사용례가 아직 없음(§4.4).
-  - D-09(`maxTotalModifier`, 판정 modifier 총합 상한) — 밸런스 테스트 데이터 없이 cap 방식을
-    정할 근거가 없음.
-  - `data.cases[*].stages[*]`/`data.rules.relation.*`의 `completeWhen`/`when` **자체**는 D-61/D-62로
-    "Condition 하나"까지 확정됐지만, 그 평가 시점(stage 전이 실행)과 relation rule의 effect/
-    우선순위/실행 cadence는 여전히 스키마가 없다 — 사건/퀘스트/관계 시스템 설계와 함께 결정한다.
-  - `data.facts[id].initial`(고정값/`pickFrom` seed 초기화, §8.1) — 이를 읽어 `state.facts`를
-    채우는 런타임 코드가 아직 없다(D-65, V2-Core-22에서 재확인). `state.facts`는 지금은 오직
-    `fact` Effect로만 채워진다.
-  - Effect 개별 op가 참조하는 콘텐츠 ID 중 명시적 "우아한 폴백"이 있는 것들(성장 정의/아이템/
-    소문/fact/case) — 존재하지 않아도 정상 동작하도록 계약이 이미 확정했으므로 검사하지 않음.
-- **실제 게임 콘텐츠**: `web/v2/data/world.js`에 첫 실제 세계관 데이터팩이 생겼다(V2-Core-22) —
-  "변경 마을" 시나리오 하나(world 1개, location 3개, action 5개(`choice` 1개 포함), growthSystem
-  1개, item 2개, fact/rumor 각 1개, npc 2명 + org 1개). `validateData`를 그대로 통과하며(`[]`),
-  `handler`/D-09/completeWhen·relation rule 실행 semantics/`data.facts[*].initial` 중 어느 것에도
-  기대지 않고 이미 구현된 계약만으로 `data → createInitialState → step → view → save/load` 전체
-  경로를 실제로 검증한다. V2-Core-25에서 같은 데이터팩에 이미 구현된 mechanics만 추가로 연결했다:
-  긴 action 2개의 `minutes`(시간 진행), 마을 행동 2개의 `location` 조건(위치 제약 — 하나는
-  `showWhenLocked`), 폐허에서 `cooldown`으로 반복 발동하는 `data.events` 1개(`hp` Effect — 3번 맞으면
-  사망), 사망 후 `rules.succession`(새 캐릭터에게 `money`+`narrate`). 새 엔진 semantics는 없다.
-- **최소 브라우저 진입점**: `web/v2/index.html` + `web/v2/ui/app.js`(V2-Core-23)가 위 콘텐츠를
-  실제 화면/입력에 연결한다 — 새 게임/저장/불러오기, 이동(`evaluateCondition`으로 location
-  `links[*].requires`를 재평가해 노출 — 엔진이 이미 하는 것과 동일한 평가, 새 evaluator 아님),
-  행동 수행, 대기, 선택지(`choice`/`newCharacter` pending) 처리를 포함한다. UI가 들고 있는 상태는
-  `state` 자체(엔진이 반환한 그대로)·`worldData`·현재 저장 슬롯·재진입 방지 플래그·표시용 로그뿐이며,
-  매 렌더마다 `view(state, worldData)`를 새로 계산한다(D-06/D-15 — 잠긴 행동의 사유는 `view()`가
-  원래 노출하지 않으며, UI도 이를 우회하지 않고 그대로 따른다). V1과 완전히 분리된
-  `tests/v2-ui-browser.spec.js` 브라우저 smoke가 CI(`Browser smoke`)에서 실행된다.
-  `tests/v2-ui-lifecycle-browser.spec.js`(V2-Core-25)는 위치 제약/시간 진행/이벤트/HP 감소/사망/
-  `newCharacter` UI/succession과 그 상태들의 save-load를 실제 브라우저로 검증한다.
+---
 
-### 이후 진행 단계
+# 2. 장기 세계관 방향
 
-- **V2-Core-24 조사 결과** (코드 변경 없음, 상세는 `CORE_CONTRACTS.md` D-66/D-67): 플레이 루프를
-  막는 core gap은 없다. `handler`와 D-09는 의도적 미구현(D), `migrateState`는 이미 구현됨(A),
-  case `completeWhen` 자동 평가·relation rule 실행·`data.facts[*].initial` 시딩은 각각 새 설계 결정이
-  필요하다(C) — 실제 콘텐츠가 필요로 하기 전에는 구현하지 않는다. 실제 gap은 데이터팩 쪽이었다: action에
-  시간/위치 제약이 없고 `events`/HP/`succession` 콘텐츠가 없어 day/trigger 파이프라인과 사망·새 캐릭터
-  경로가 실제 콘텐츠에서 도달 불가였다.
-- **V2-Core-25 결과**: 위 데이터팩 gap을 이미 구현된 계약만으로 채웠다(시간/위치/이벤트/HP·사망/
-  succession 모두 구현, 새 D-decision 없음, 엔진 코드 변경 없음). 사망 → `newCharacter` UI 경로가 처음으로
-  실제 브라우저에서 실행·검증됐다.
-- **V2-Core-26 결과** (엔진/저장/UI 코드 변경 없음, 테스트와 문서만 추가, 상세는 `CORE_CONTRACTS.md`
-  D-66/D-67의 후속 노트): 저장 provenance와 `view()` 경계를 실제 함수 호출로 조사했다. D-66 — `dataRef`/
-  `worldId`의 의미와 `migrateState`/`validateState`/`validateData`의 책임 경계는 확정된 사실로
-  기록했고, 불일치 save의 비교 기준·처리 정책·검사 위치는 계약이 정하지 않아 C로 남겼다(임의로 throw/
-  migration/fallback을 만들지 않았다). 새 gap: `version`이 없는 팩은 플레이는 되지만 저장할 수 없다(C).
-  D-67 — 문서는 현재 프로토타입을 브라우저에서 엔진을 실행하는 local-client 모델로 기술하고 서버 권위
-  모델을 미래 확장으로만 두므로 현재 UI 구조는 문서와 일치한다(변경 없음); `view()`를 확장할지는 서버/
-  Worker 경계를 실제로 만들 때 정할 C로 남겼다.
-- **V2-Core-27 결과** (상세는 `CORE_CONTRACTS.md` D-68): 저장 호환성 정책을 확정하고 최소 구현했다.
-  정책은 "호환되지 않는 save는 검출해서 거부하고 고치지 않는다"이다 — state의 `dataRef`(id와 version의
-  정확한 일치)와 `worldId`(그 state 자신의 seed로 재계산한 값)가 현재 데이터팩에서 도출한 값과 같아야
-  호환이다. 순수 함수 `checkDataCompatibility(state, data)`(engine.js)를 추가하고 UI의 `loadGame`이
-  로드 경계에서 호출한다(불일치면 사유를 보여주고 불러오지 않으며 save는 삭제/수정하지 않는다). record
-  헤더는 색인일 뿐 **state가 권위**이고, `migrateState`/`validateState`/저장 어댑터/`step()`은 그대로다.
-  `version`이 없는 팩도 이제 저장할 수 있다(`dataRef:{id}`). 새 versioning/migration semantics는 만들지
-  않았다.
-- **V2-Core-28 결과** (조사만, 코드/데이터/테스트 변경 없음, 상세는 `CORE_CONTRACTS.md` D-69): 남은 미결
-  core semantics 네 가지를 실제 함수 호출(Node와 실제 Chromium)로 조사했다. D-09 `maxTotalModifier`는
-  의도적 미사용(D — 어떤 값을 넣어도 무시되며 실제 팩은 필요 없음), case `completeWhen`·relation rules·
-  `facts[*].initial`은 각각 새 설계 결정이 필요하다(C). 기존 계약만으로 구현 가능한 항목(B)은 없었다.
-  핵심 사실: 기존 event 파이프라인이 "조건이 참이면 stage 전이/관계 변경"을 이미 표현하므로
-  `completeWhen`/relation rule은 전용 필드가 정말 필요한지부터 정해야 하고, `facts[*].initial`의
-  `pickFrom`은 `deriveSeed`에 넘길 seed(계약은 숫자, 구현은 문자열 `worldSeed`와 그 hash `rng.seed`)에 따라
-  결과가 갈린다. canonical 플레이는 이 네 가지 중 어느 것도 필요로 하지 않는다.
-- **다음 issue 후보**: (1) 실제 콘텐츠가 요구할 때 위 C 항목을 각각 별도 D-decision으로 확정 — 우선
-  후보는 "전용 필드 vs event" 결정(`completeWhen`/relation rules)과 seed 입력 결정(`facts[*].initial`).
-  (2) 콘텐츠 결정(core와 분리): 데이터팩의 HP 회복(죽은 actor를 대상으로 하지 않게 설계), 추가 위치 제약
-  (기존 canonical path와 테스트를 함께 바꿔야 함). (3) 서버/Worker 경계를 실제로 만들게 될 때 `view()` 확장
-  (D-67)과 UI 외 caller의 호환성 검사 호출. (4) 실제로 데이터팩 version을 올려 옛 save가 문제가 되는
-  시점의 version 범위/data migration 결정(D-68 (a)). (5) 별도 유지보수: V1 `phase255` 브라우저 테스트의
-  타이밍 race 안정화.
+TxtRPG의 장기 세계관은 **여러 장르와 세계가 공존하고 연결되는 대규모 멀티버스/다차원 세계**를 목표로 한다.
 
-## 릴리스 기록
+예정되는 세계와 장르:
 
-- [Phase 1–205 통합 릴리스 인덱스](PHASES_1_205_RELEASE_INDEX.md)
-- [Phase 206–220](docs/phase206-220-release.md)
-- [Phase 221–235](docs/phase221-235-release.md)
-- [Phase 236–250](docs/phase236-250-release.md)
-- [Phase 251 엔진화](docs/phase251-engineization.md)
-- [Phase 252 NPC 자율 시뮬레이션](docs/phase252-npc-simulation.md)
-- [Phase 254 NPC 틱 중복 수정](docs/phase254-npc-tick-fix.md)
-- [Phase 255 브라우저 런타임 스모크 테스트](docs/phase255-browser-smoke.md)
-- [Phase 256 NPC 일정 효과/알림 주기 분리](docs/phase256-npc-routine-cadence.md)
-- [Phase 257 NPC 사건 Trigger 연결](docs/phase257-npc-event-triggers.md)
-- [Phase 257 세력 압력과 연쇄 사건](docs/phase257-faction-world.md)
-- [Phase 260 동적 곡물 경제](docs/phase260-economy-world.md)
-- [Phase 261 정보·소문 시스템](docs/phase261-information.md)
-- [Phase 262 NPC 목표 상태](docs/phase262-npc-goals.md)
-- [Phase 263 조직 자율 의사결정](docs/phase263-organizations.md)
-- [Phase 264 조직 연계 NPC 목표 동역학](docs/phase264-goal-dynamics.md)
-- [Phase 265 조직 협력·충돌 관계망](docs/phase265-organization-relations.md)
-- [Phase 266 조직 충돌과 사건 연결](docs/phase266-organization-events.md)
-- [Phase 267 사건 Consequence와 조직 피드백](docs/phase267-case-consequences.md)
-- [Phase 268 경제 압력과 시장 위기](docs/phase268-economic-pressure.md)
-- [Phase 269 NPC 개인 관계망과 갈등](docs/phase269-npc-relations.md)
-- [Phase 270 지역 자원과 교역로](docs/phase270-regional-economy.md)
-- [Phase 271 사건 인과망과 후속 사건](docs/phase271-case-causality.md)
-- [Phase 274 후속 사건 조직 목표 압력](docs/phase274-case-causality-goal-impact.md)
-- [Phase 275 NPC 충돌 후속 사건](docs/phase275-npc-causality.md)
-- [Phase 276 지역 사건과 장기 NPC 목표](docs/phase276-regional-goal-causality.md)
-- [Phase 277 Worker/fallback reset parity](docs/phase277-reset-parity.md)
-- [Phase 278 지연 사건 후폭풍 장기 검증](docs/phase278-case-aftermath-stress.md)
-- [Phase 279 플레이어 목표 연쇄](docs/phase279-player-quest-chains.md)
-- [Phase 280 사건 후폭풍 목표 연쇄](docs/phase280-quest-aftermath.md)
-- [Phase 281 fallback reset 목표 연쇄 parity](docs/phase281-fallback-quest-parity.md)
-- [Phase 282 persistence-boundary state normalization](docs/phase282-storage-normalization.md)
-- [Phase 283 persistence save-boundary normalization](docs/phase283-storage-save-normalization.md)
-- [Phase 284 game loop tutorial and end states](docs/phase284-game-loop.md)
-- [Phase 285 terminal-state persistence](docs/phase285-terminal-persistence.md)
-- [Phase 286 장기 플레이와 결말 게이트](docs/phase286-long-play-ending.md)
-- [Phase 287 IndexedDB 엔티티 스냅샷](docs/phase287-storage-entities.md)
-- [Phase 288 IndexedDB 엔티티 스냅샷 스트레스 검증](docs/phase288-storage-entity-stress.md)
-- [Phase 289 결말 상태 저장 왕복 검증](docs/phase289-finale-storage-persistence.md)
-- [Phase 290 브라우저 결말 진행·복원 검증](docs/phase290-browser-finale.md)
-- [Phase 291 대표 장기 플레이 브라우저 진행](docs/phase291-browser-long-play.md)
-- [Phase 292 세계 연속성/생 경계 모델](docs/phase292-world-continuity-model.md)
-- [Phase 1–205 파일 목록](docs/phase1-205-file-manifest.md)
+- 판타지
+- 무협
+- SF
+- 사이버펑크
+- 현대 판타지
+- 중세 판타지
+- 히어로
+- 아카데미
+- 배틀월드
+- 이세계
+- 탑 / 던전
+- 게이트 / 헌터
+- 다크 판타지
+- 미스터리 / 괴이
+- 대체역사
+- 성좌
+- VR 게임
+- AI / 시스템 기반 세계
 
-## 문서
+각 세계는 독립적인 성장 방식과 **Combat Grammar**를 가질 수 있다.
 
-### 아키텍처
+장기적으로 플레이어는 한 세계의 능력·성장체계를 다른 세계로 가져가고 조합할 수 있는 구조를 목표로 한다.
 
-- [오프라인 Edge RPG 아키텍처](docs/architecture/offline-edge-architecture.md)
+---
+
+# 3. RPG 시스템 설계 언어
+
+최근 실제 게임 리서치에서 반복적으로 확인된 구현 패턴을 기준으로 RPG를 단순한 `Stats + Skill` 목록으로 취급하지 않는다.
+
+핵심 모델:
+
+```
+Capability
+    ↓
+Availability
+    ↓
+Loadout
+    ↓
+Condition
+    ↓
+Cost
+    ↓
+Modifier
+    ↓
+Technique / Combo
+    ↓
+Resolution
+    ↓
+Consequence
+    ↓
+Progression
+```
+
+장기 Character 상태 후보:
+
+```
+Stats
++ Skill
++ Trait
++ Talent
++ Mastery
++ Wound / Mental
++ Relations
++ Equipment
++ Knowledge
+```
+
+기본 역할:
+
+| 요소 | 핵심 질문 | 기본 역할 |
+|---|---|---|
+| Trait | 나는 어떤 존재인가? | 정체성·성향·규칙 변형 |
+| Talent | 무엇에 얼마나 뛰어날 가능성이 있는가? | 적성·잠재력·성장 경향 |
+| Skill | 무엇을 할 수 있는가? | 실제 능력·기능·지식 |
+| Technique | 그 능력을 어떻게 사용하는가? | 폼·수법·응용 |
+| Mastery | 실제로 얼마나 잘하는가? | 실행 품질·숙련 |
+| Modifier | 기존 규칙을 어떻게 바꾸는가? | 수치/조건/상호작용/계산 변경 |
+| Loadout | 무엇을 지금 사용할 수 있는가? | 장착·슬롯·Capacity·호환성 |
+| Resource / Cost | 무엇을 지불하는가? | HP·Mana·Energy·Time·Risk 등 |
+
+이 표는 현재 설계 언어이며 세부 semantics는 실제 구현 필요가 생길 때 결정한다.
+
+---
+
+# 4. RPG 시스템의 9개 설계 축
+
+실제 게임 사례에서 반복적으로 관찰된 축을 설계 검토 기준으로 사용한다.
+
+1. **규칙 변형** — Build가 규칙을 어떻게 바꾸는가
+2. **전투 문법** — 어떤 방식으로 싸우는가
+3. **스탯·정보** — 무엇을 알고 무엇을 시도할 수 있는가
+4. **세계 시스템** — 시간·사건·관계가 세계를 어떻게 변화시키는가
+5. **심리·성격** — Trait·Need·Stress·Value가 행동에 어떻게 개입하는가
+6. **신체·부상** — Wound·Limb·Status·Death State를 어떻게 표현하는가
+7. **사회·관계** — Reputation·Trust·Obligation·Faction이 어떤 접근권을 만드는가
+8. **Loadout·제약** — Slot·Capacity·Prerequisite·Compatibility가 Build를 어떻게 제한하는가
+9. **자원·대가** — HP·Energy·Mana·Time·Heat·Risk가 선택을 어떻게 제한하는가
+
+모든 축을 즉시 구현하지 않는다. 현재 vertical slice에 필요한 축만 단계적으로 도입한다.
+
+---
+
+# 5. 세계별 Combat Grammar
+
+공통 Core가 모든 세계를 동일한 전투 공식으로 강제하지 않는다.
+
+Core는 가능한 한 다음과 같은 추상 요소를 제공한다.
+
+`Resource / Requirement / Cost / Condition / Capability / Mastery / Technique / Effect / Counter / Event`
+
+세계가 정의할 수 있는 예:
+
+### 판타지
+
+무기 / 마법 / 속성 / Mana / Spellcraft / Enchantment
+
+### 무협
+
+내공 / 경맥 / 심법 / 초식 / 무공 / 경지 / 기혈
+
+### SF
+
+무기체계 / 탄약 / 전술 AI / Shield / Heat / Targeting
+
+### 사이버펑크
+
+Implant / Hack / Program / Power / Heat / Cybernetic Reflex
+
+### 헌터·탑
+
+Skill / Trait / Rank / Cooldown / Boss Mechanic / Dungeon Rule
+
+### 성좌·시스템
+
+Contract / Buff / Requirement / External Resource / System Rule
+
+장기적으로 서로 다른 세계의 전투·성장 grammar를 습득하고 조합할 수 있어야 한다.
+
+---
+
+# 6. 실제 RPG 시스템의 개발 범위
+
+초기 후보:
+
+1. Character
+2. Stats / Skill
+3. Action / Check
+4. Combat
+5. Inventory / Item
+6. Growth / Mastery
+7. Exploration
+8. Relationship / Reputation
+9. Goal / Quest
+10. Death / Successor / Multi-run
+11. Trait / Talent / Modifier
+12. Equipment / Loadout
+13. Resource / Cost
+14. 세계별 Combat Grammar
+
+구현 순서는 고정하지 않는다. 실제 선행조건과 현재 repository 상태에 따라 **하나의 bounded vertical slice**를 선택한다.
+
+---
+
+# 7. RPG와 세계를 연결하는 핵심 루프
+
+전투와 비전투를 별도 미니게임으로 분리하지 않는다.
+
+### 비전투
+
+```
+탐색
+→ 발견
+→ Skill / Knowledge 판정
+→ 결과
+→ Item / Relation / World Change
+→ 새로운 행동
+```
+
+### 전투
+
+```
+관찰
+→ 정보
+→ Technique 선택
+→ Condition / Cost 확인
+→ Resolution
+→ Damage / Status / Wound
+→ 승패
+→ Growth / Relation / World Consequence
+→ 새로운 정보
+```
+
+전투도 최종적으로 **Information → Judgment → Action → Consequence → New Information** 루프에 포함된다.
+
+---
+
+# 8. V2 Core
+
+V2의 핵심 실행 계약:
+
+```
+step(state, action, data)
+→ { state, events }
+```
+
+Core는 순수 함수 기반이며 브라우저/저장소 API에 직접 의존하지 않는다.
+
+## Core 구성
+
+- `web/v2/core/rng.js`
+  - 결정론적 RNG
+  - FNV-1a
+  - seed 파생
+  - cursor 기반 난수
+  - **보호 파일**
+
+- `web/v2/core/rules.js`
+  - Condition
+  - Effect
+  - Check
+  - Resolvable
+  - Data validation
+
+- `web/v2/core/engine.js`
+  - state 생성
+  - action 처리
+  - `step()`
+  - `view()`
+  - state validation
+  - migration
+  - data compatibility
+
+- `web/v2/storage/idb.js`
+  - IndexedDB 저장/로드 adapter
+  - Core와 분리
+
+- `web/v2/data/world.js`
+  - 현재 실제 세계 데이터팩
+
+- `web/v2/ui/app.js`
+  - 브라우저 UI adapter
+
+---
+
+# 9. 현재 구현된 RPG 기반
+
+현재 V2 세계 데이터팩과 Core에는 다음 기반이 연결되어 있다.
+
+- 캐릭터 생성 / 생존 / 사망
+- HP
+- 시간 진행
+- 위치 기반 행동 제한
+- Action Requirement
+- Check 기반 판정
+- Item
+- Money
+- Skill / Proficiency 데이터 구조
+- Growth System 데이터 구조
+- Relation / 조직 Relation
+- Flag / Signal
+- Fact / Rumor
+- Event / Trigger
+- Choice / Pending
+- Consequence
+- Character Succession
+- Save / Load
+- 결정론적 RNG
+- Data Compatibility
+
+현재 구현은 완성된 RPG가 아니라 **RPG 시스템 확장을 위한 최소 기반**이다.
+
+---
+
+# 10. 현재 세계 수직 슬라이스
+
+첫 세계는 작은 판타지 마을과 폐허 시나리오다.
+
+주요 루프:
+
+```
+마을
+ ↓
+원로와 대화
+ ↓
+소문 획득
+ ↓
+시장
+ ↓
+필요한 준비
+ ↓
+폐허 탐색
+ ↓
+위험 / HP 손실
+ ↓
+조사
+ ↓
+정보 확인
+ ↓
+원로 보고
+ ↓
+관계 변화
+ ↓
+두목 대면
+ ↓
+도적단 상태 변화
+ ↓
+시장 후속 결과
+```
+
+역사/정보 vertical slice:
+
+```
+도적단 해산
+ ↓
+원로의 실제 소식
+ ↓
+시간 경과
+ ↓
+마을의 잘못된 전설
+ ↓
+폐허 재조사
+ ↓
+전설의 교정
+```
+
+이를 통해 정보의 출처·신뢰도·시간·세계 변화·후계자의 독립적인 발견을 검증했다.
+
+---
+
+# 11. 다회차와 세계/개인 경계
+
+V2는 세계 상태와 캐릭터 개인 상태를 분리한다.
+
+### Character-owned
+
+- 캐릭터 상태
+- 개인 Knowledge
+- 플레이어와 연결된 Relation
+- 개인 Inventory
+- 개인 Growth
+- 개인 능력/숙련
+
+### World-owned
+
+- World Facts
+- World Flags
+- Cases
+- Fired Event History
+- World Time
+- 세계 개체 간 Relation
+
+후계자는 전 캐릭터의 개인 정보나 관계를 자동으로 물려받지 않는다.
+
+> **세계의 역사는 계속되지만 캐릭터의 기억은 자동으로 계속되지 않는다.**
+
+---
+
+# 12. 실제 게임 리서치에서 도출한 구현 원칙
+
+실제 게임 사례에서 다음 패턴을 확인했다.
+
+- 기본 Capability와 Trait/Talent/Mod/Boon/Affinity 같은 Modifier를 분리한다.
+- 능력의 획득과 실제 사용 가능 상태를 분리한다.
+- Slot·Capacity·Equipment·Prerequisite·Practice 같은 제약이 Build의 의미를 만든다.
+- Combo·Gauge·Cooldown·Position·Resource가 Skill의 사용 가능성 자체를 정의할 수 있다.
+- 조합은 별도 메커니즘으로 구현할 수 있다.
+- Modifier는 단순 수치 증가뿐 아니라 규칙 변경·행동 변환·Resource 생성·Counter·Condition 추가가 가능하다.
+- Run/전투/영구 Meta의 지속성을 분리할 수 있다.
+- HP 하나에 모든 심리·부상·생존 상태를 압축할 필요가 없다.
+- 관계는 숫자뿐 아니라 Trust·Obligation·Faction·Access 같은 질적 상태를 가질 수 있다.
+- 세계의 시간·역사·관계와 캐릭터 성장의 지속성을 서로 다른 층으로 둘 수 있다.
+
+이는 구현 명령이 아니라 **향후 시스템 설계를 판단하는 기준**이다.
+
+---
+
+# 13. 기술 원칙
+
+```
+YAGNI
+→ 기존 코드 재사용
+→ 표준 라이브러리
+→ 브라우저 / 플랫폼 native
+→ 기존 dependency
+→ 최소 구현
+```
+
+주요 원칙:
+
+- 새 subsystem보다 기존 계약 재사용
+- 데이터 주도 설계
+- bounded vertical slice 우선
+- 결정론 유지
+- 테스트 가능한 순수 Core
+- V1 regression 보호
+- 실제 필요 전 scheduler/history engine 등을 만들지 않음
+- 설계가 필요한 semantics는 추측하지 않음
+- 제품/게임 방향을 실질적으로 바꾸는 결정은 인간에게 decision point로 제시
+
+---
+
+# 14. 설계 결정 게이트
+
+다음은 실제 요구가 발생했을 때 근거를 확인하고 결정한다.
+
+- 새로운 state semantics
+- save format / migration
+- RNG / seed semantics
+- 새로운 Condition / Effect semantics
+- scheduler / world tick
+- inheritance / world-memory semantics
+- server / worker authority boundary
+- data-pack version compatibility
+- 기존 Core로 표현할 수 없는 RPG semantics
+
+기본 순서:
+
+`Evidence → Alternatives → Impact → Decision Record → Implementation`
+
+기존 Event / Condition / Effect / Data 조합으로 충분하면 새 시스템을 만들지 않는다.
+
+---
+
+# 15. 테스트 및 검증
+
+V2는 Node와 실제 Chromium 브라우저 양쪽에서 검증한다.
+
+주요 범위:
+
+- Core contract
+- Condition / Effect
+- RNG determinism
+- State validation
+- Data validation
+- Save / Load
+- Data compatibility
+- World data
+- Character lifecycle
+- Death / Successor
+- Information flow
+- Consequence
+- Faction / Relation
+- Persistence
+- Browser smoke
+- RPG vertical slice
+
+최근 기준:
+
+- V2 Node: **17/17**
+- V1 regression: **41/41**
+- V2 browser: **49/49**
+
+각 RPG 기능도 관련 Node/browser/save-load/determinism 검증을 추가한다.
+
+---
+
+# 16. V1과 V2
+
+V1은 기존 프로토타입과 개발 기록으로 유지한다.
+
+V1:
+
+```
+web/core
+web/data
+web/ui
+web/worker
+web/storage
+web/index.html
+web/game.js
+tests/*.js
+```
+
+V2:
+
+```
+web/v2
+tests/v2
+docs/v2
+```
+
+V2 개발 편의를 위해 V1 runtime이나 regression 기준을 변경하지 않는다.
+
+---
+
+# 17. 개발 브랜치와 Master Goal
+
+현재 V2 개발 브랜치:
+
+```
+feature/v2-core
+```
+
+Master Goal:
+
+**GitHub Issue #109 — V2 Core → RPG 플레이 기반 → 세계 확장 기반 완성**
+
+현재 목표는:
+
+```
+Core
+→ RPG System
+→ RPG + World Vertical Slice
+→ 대규모 세계 / 콘텐츠 확장
+```
+
+개발 루프:
+
+```
+Human Goal
+ ↓
+Master Goal
+ ↓
+AI Planner
+ ↓
+검증 가능한 Issue
+ ↓
+Claude Code
+ ↓
+Test / Browser Verification
+ ↓
+PR / CI
+ ↓
+Merge
+ ↓
+Repository 재검증
+ ↓
+다음 Issue
+```
+
+---
+
+# 18. 현재 다음 단계
+
+Planner는 다음 순서로 현재 gap을 평가한다.
+
+1. Core blocker / contract 문제
+2. Persistence / determinism
+3. Verification gap
+4. Architecture / semantics decision
+5. RPG gameplay-system gap
+6. RPG system + world vertical slice
+7. Content / world depth
+8. UI polish
+
+RPG 시스템의 다음 작업은 단순한 독립 시스템 구현보다 다음을 관통하는 수직 슬라이스를 우선한다.
+
+```
+Character
+→ Information
+→ Judgment
+→ Action
+→ Check / Combat
+→ Consequence
+→ Growth
+→ New Possibility
+```
+
+**모든 RPG 시스템을 한 번에 완성하는 것이 목표가 아니다. 확장 가능한 RPG 플레이 기반을 먼저 검증하는 것이 목표다.**
+
+---
+
+# 19. 문서
+
+### V2
+
+- `docs/v2/architecture/CORE_CONTRACTS.md`
+- `docs/v2/DEVELOPMENT_RULES.md`
 
 ### 세계관
 
-- [무명의 연대기 — 세계관 설계 원칙](docs/world/world-design-principles.md)
-- [세계관 연구 적용 메모](docs/world/source-analysis.md)
+- `docs/world/world-design-principles.md`
+- `docs/world/source-analysis.md`
 
-## Agent 개발 체계
+과거 V1 Phase 문서는 개발 역사로 유지하고, 현재 V2 계약은 실제 코드와 V2 문서를 기준으로 한다.
 
-TxtRPG는 GitHub Copilot custom agents를 역할별로 사용한다.
+---
 
-- `txtrpg-director`: 전체 작업 분해, 우선순위, 통합 관리
-- `txtrpg-lore`: 세계관·NPC·조직·지역·사건·퀘스트·정보
-- `txtrpg-engine`: 게임 상태·시뮬레이션·IndexedDB·Worker·경제·이벤트
-- `txtrpg-ui`: HTML/CSS/Canvas·입력·렌더링
-- `txtrpg-qa`: 테스트·회귀·브라우저 smoke·보안 검증
+## 프로젝트의 장기 목표
 
-운영 기준은 `.github/copilot-instructions.md`, 현재 프로젝트 상태는 `PROJECT_STATE.md`에 기록한다. 각 Agent 프로필은 `.github/agents/`에 있다.
+TxtRPG는 단순한 텍스트 어드벤처가 아니라,
 
-표준 개발 흐름은 다음과 같다.
+**정보를 수집하고 → 판단하고 → 행동하고 → 결과를 만들고 → 성장하고 → 다시 세계를 해석하는**
 
-`Inspect → Plan → Issue → Implement → Test → Review → Integrate → Update Project State`
+과정을 중심으로 하는 **대규모 다회차 텍스트 RPG**를 목표로 한다.
 
-Agent가 다른 Agent에게 작업을 넘겼다고 주장하는 것만으로 완료로 간주하지 않는다. 실제 변경, 테스트 결과, PR 또는 커밋이 확인되어야 한다.
-
-## 실행
-
-web/index.html을 Edge/Chromium 계열 브라우저에서 열면 현재 TXT RPG 프로토타입을 실행할 수 있습니다.
-
-주요 입력 예시:
-- 시장 조사
-- 기록관으로 이동
-- 세린과 대화
-- 사건목록
-- 사건분기 1
-- 사건분기 1 2
-- 연쇄사건
-- 목표추천
-- 곡물 가격
-- 곡물 구매 2
-- 곡물 판매 1
-- 지역자원
-- 목재 시세
-- 어물 시세
-- 목재 구매 2
-
-## 현재 엔진 구조
-
-web/ 아래에서 상태, 데이터, 입력, 렌더링, 저장, Worker를 분리하여 유지합니다.
-
-- core/: 상태, 액션, NPC/세력/경제 시뮬레이션
-- data/: 지역/NPC/사건 데이터
-- storage/: IndexedDB 저장 계층
-- worker/: 게임 시뮬레이션
-- ui/: 렌더링/입력
-
-기존 localStorage 세이브는 IndexedDB로 최초 1회 자동 마이그레이션하며 IndexedDB를 사용할 수 없는 환경에서는 기존 키를 fallback으로 사용합니다.
-
-NPC는 플레이어의 행동과 함께 흐른 시간을 기준으로 30분 단위 자율 시뮬레이션을 수행하며, 현재 위치와 최근 행동을 UI에 표시한다.
-
-NPC의 개인 목표는 goalState로 구조화되며 일정 진입에 따라 관련 행동의 진행도가 누적된다. 조직 압력이 목표 우선순위를 올리거나 목표를 중단시킬 수 있으며, 중단이 하루 이상 지속되면 다음 목표로 재계획한다. 목표 완료 후에도 짧은 목표 체인이 이어지며 완료·중단 이력이 저장된다.
-
-조직은 하루에 한 번 현재 세계 상태를 평가해 독립적인 의사결정을 내린다. 상인회·경비대·기록관·농촌 대표단·여관망·노동자 조합의 결정은 시장 재고, 치안, 긴장, 행정 신뢰, 소문 압력 등에 직접 영향을 주며, 그 결과는 소속 NPC 목표의 goalPressure로도 전달된다. 조직 간 관계도 별도 상태로 계산되며 협력은 목표 압력을 높이고 충돌은 긴장을 높이면서 두 조직의 NPC 목표를 압박한다. 조직 충돌은 event signal과 소문으로 기록되고 기존 세력 충돌 사건 Trigger를 열어 플레이어 선택으로 이어진다. 사건 선택의 Consequence는 다시 조직 관계 점수와 goalPressure를 바꿔 다음 자율 행동에 피드백된다.
-
-세력 세계 압력 계산은 NPC 시뮬레이션의 동일한 경로에서 하루 1회 수행되며 Worker와 fallback이 같은 결과를 사용한다.
-
-NPC 일정의 생산·치안·소문 같은 효과는 활동 중인 30분 틱마다 유지하고, 일정 진입을 알리는 서술은 같은 활동에서 반복하지 않도록 분리되어 있다.
-
-NPC 일정은 필요할 때 event signal을 생성하며, 이 신호는 기존 사건 Trigger와 연결되어 NPC의 자율 행동이 새로운 사건을 열 수 있다.
-
-NPC event signal은 출처와 확인 횟수를 가진 소문으로도 저장되며, 여러 출처에서 같은 정황이 반복되면 정보 신뢰도가 상승한다. 플레이어는 `소문` 명령 또는 6번 정보 패널에서 이를 확인할 수 있다.
-
-세력 관계는 곡물·치안·긴장·행정 신뢰·소문 압력에 따라 하루 단위로 변화하며, 적대 세력이 동시에 늘어나면 세력 충돌 사건이 생성된다. 충돌 사건의 선택은 다시 세력 관계와 세계 상태에 영향을 준다.
-
-동적 경제는 곡물을 기본 시장 상품으로 사용하고, 지역 경제 모듈에서 목재·어물을 별도 지역 자원으로 확장한다. 구릉·부두의 생산량이 교역로 신뢰도와 시장 재고에 따라 이동하며 지역 자원 가격이 변한다. 가격·재고가 임계치를 넘으면 시장 위기 신호가 생성되어 상인회·농촌·노동자·여관망의 관계와 긴장·소문 압력을 변화시키며, `market-crisis` 사건으로 플레이어의 개입을 요구한다. 지역 교역로의 신뢰도가 낮아지면 `tradeRouteCrisis:*` 신호가 생성되고 `trade-route` 사건으로 연결된다. NPC 사이에도 별도 관계망이 존재하며 협력·갈등이 조직 목표 압력과 `npc-dispute` 사건으로 연결된다.
-
-해결된 사건은 `caseHistory`에 선택과 결과를 남기며, 원 사건의 선택 결과가 다음 날 이후 후속 사건 Trigger로 이어진다. 현재 곡물 창고·교역로·세력 충돌·NPC 충돌 사건에 후속 사건이 연결되어 `연쇄사건` 명령과 8번 패널에서 인과 흐름을 확인할 수 있다. 플레이어 목표 연쇄는 후속 사건까지 진행되어 원 사건의 결과가 완료될 때까지 유지된다.
-
-브라우저 smoke test는 실제 Chromium에서 Worker 실행, IndexedDB 저장, 액션 처리, 페이지 새로고침 후 복원을 검증한다.
-
-## 다음 단계
-
-1. 장기 시뮬레이션 저장/복원 스트레스 테스트와 엔티티 경계 보강
-2. 플레이어 목표 연쇄를 사건 후속 결과·다단계 발견으로 확장
-3. 최종 게임 루프·튜토리얼·엔딩/장기 플레이 구조 검증
-4. 최종 게임 루프·튜토리얼·엔딩/장기 플레이 구조 검증
-
-## 프로젝트 원칙
-
-세계관 문서와 구현 문서를 분리하고, 설정은 데이터화하여 게임 엔진과 독립적으로 관리한다.
+작은 판타지 마을에서 시작하지만 최종적으로는 서로 다른 장르·세계·성장 시스템·사회 구조가 연결되는 거대한 세계를 플레이어가 직접 탐험하고, 자신의 목표를 발견하며, 자신만의 역사를 만들어가는 구조를 지향한다.
