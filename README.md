@@ -23,10 +23,8 @@ RPG 시스템 + 세계 수직 슬라이스
 대규모 세계관·콘텐츠 확장
 ```
 
-최근 V2 개발 기준점은 `6de17fb`이며 Core와 초기 세계 역사 수직 슬라이스가 병합된 상태다.
-
-> 현재 목표는 단순히 세계관 콘텐츠를 늘리는 것이 아니다.  
-> **실제 RPG 플레이를 성립시키는 Character / Stats / Skill / Trait / Talent / Mastery / Technique / Loadout / Resource / Action / Combat / Item / Growth / Exploration 등의 시스템을 Core 위에 구축하고 실제 세계와 연결하는 것**이다.
+현재 목표는 단순히 세계관 콘텐츠를 늘리는 것이 아니다.  
+**실제 RPG 플레이를 성립시키는 Character / Stats / Skill / Trait / Talent / Mastery / Technique / Loadout / Resource / Action / Combat / Item / Growth / Exploration 등의 시스템을 Core 위에 구축하고 실제 세계와 연결하는 것**이다.
 
 ---
 
@@ -145,23 +143,21 @@ Stats
 | Loadout | 무엇을 지금 사용할 수 있는가? | 장착·슬롯·Capacity·호환성 |
 | Resource / Cost | 무엇을 지불하는가? | HP·Mana·Energy·Time·Risk 등 |
 
-이 표는 현재 설계 언어이며 세부 semantics는 실제 구현 필요가 생길 때 결정한다.
+세부 semantics는 실제 구현 필요가 생길 때 결정한다.
 
 ---
 
 # 4. RPG 시스템의 9개 설계 축
 
-실제 게임 사례에서 반복적으로 관찰된 축을 설계 검토 기준으로 사용한다.
-
-1. **규칙 변형** — Build가 규칙을 어떻게 바꾸는가
-2. **전투 문법** — 어떤 방식으로 싸우는가
-3. **스탯·정보** — 무엇을 알고 무엇을 시도할 수 있는가
-4. **세계 시스템** — 시간·사건·관계가 세계를 어떻게 변화시키는가
-5. **심리·성격** — Trait·Need·Stress·Value가 행동에 어떻게 개입하는가
-6. **신체·부상** — Wound·Limb·Status·Death State를 어떻게 표현하는가
-7. **사회·관계** — Reputation·Trust·Obligation·Faction이 어떤 접근권을 만드는가
-8. **Loadout·제약** — Slot·Capacity·Prerequisite·Compatibility가 Build를 어떻게 제한하는가
-9. **자원·대가** — HP·Energy·Mana·Time·Heat·Risk가 선택을 어떻게 제한하는가
+1. **규칙 변형**
+2. **전투 문법**
+3. **스탯·정보**
+4. **세계 시스템**
+5. **심리·성격**
+6. **신체·부상**
+7. **사회·관계**
+8. **Loadout·제약**
+9. **자원·대가**
 
 모든 축을 즉시 구현하지 않는다. 현재 vertical slice에 필요한 축만 단계적으로 도입한다.
 
@@ -178,27 +174,21 @@ Core는 가능한 한 다음과 같은 추상 요소를 제공한다.
 세계가 정의할 수 있는 예:
 
 ### 판타지
-
 무기 / 마법 / 속성 / Mana / Spellcraft / Enchantment
 
 ### 무협
-
 내공 / 경맥 / 심법 / 초식 / 무공 / 경지 / 기혈
 
 ### SF
-
 무기체계 / 탄약 / 전술 AI / Shield / Heat / Targeting
 
 ### 사이버펑크
-
 Implant / Hack / Program / Power / Heat / Cybernetic Reflex
 
 ### 헌터·탑
-
 Skill / Trait / Rank / Cooldown / Boss Mechanic / Dungeon Rule
 
 ### 성좌·시스템
-
 Contract / Buff / Requirement / External Resource / System Rule
 
 장기적으로 서로 다른 세계의 전투·성장 grammar를 습득하고 조합할 수 있어야 한다.
@@ -206,8 +196,6 @@ Contract / Buff / Requirement / External Resource / System Rule
 ---
 
 # 6. 실제 RPG 시스템의 개발 범위
-
-초기 후보:
 
 1. Character
 2. Stats / Skill
@@ -230,40 +218,22 @@ Contract / Buff / Requirement / External Resource / System Rule
 
 # 7. RPG와 세계를 연결하는 핵심 루프
 
-전투와 비전투를 별도 미니게임으로 분리하지 않는다.
-
-### 비전투
-
 ```
-탐색
-→ 발견
-→ Skill / Knowledge 판정
-→ 결과
-→ Item / Relation / World Change
-→ 새로운 행동
+Information
+→ Judgment
+→ Action
+→ Check / Resolution
+→ Consequence
+→ World Change
+→ New Information
+→ Growth / New Possibility
 ```
 
-### 전투
-
-```
-관찰
-→ 정보
-→ Technique 선택
-→ Condition / Cost 확인
-→ Resolution
-→ Damage / Status / Wound
-→ 승패
-→ Growth / Relation / World Consequence
-→ 새로운 정보
-```
-
-전투도 최종적으로 **Information → Judgment → Action → Consequence → New Information** 루프에 포함된다.
+전투도 동일한 상위 루프에 포함된다.
 
 ---
 
 # 8. V2 Core
-
-V2의 핵심 실행 계약:
 
 ```
 step(state, action, data)
@@ -272,40 +242,14 @@ step(state, action, data)
 
 Core는 순수 함수 기반이며 브라우저/저장소 API에 직접 의존하지 않는다.
 
-## Core 구성
+주요 구성:
 
 - `web/v2/core/rng.js`
-  - 결정론적 RNG
-  - FNV-1a
-  - seed 파생
-  - cursor 기반 난수
-  - **보호 파일**
-
 - `web/v2/core/rules.js`
-  - Condition
-  - Effect
-  - Check
-  - Resolvable
-  - Data validation
-
 - `web/v2/core/engine.js`
-  - state 생성
-  - action 처리
-  - `step()`
-  - `view()`
-  - state validation
-  - migration
-  - data compatibility
-
 - `web/v2/storage/idb.js`
-  - IndexedDB 저장/로드 adapter
-  - Core와 분리
-
 - `web/v2/data/world.js`
-  - 현재 실제 세계 데이터팩
-
 - `web/v2/ui/app.js`
-  - 브라우저 UI adapter
 
 ---
 
@@ -341,8 +285,6 @@ Core는 순수 함수 기반이며 브라우저/저장소 API에 직접 의존�
 # 10. 현재 세계 수직 슬라이스
 
 첫 세계는 작은 판타지 마을과 폐허 시나리오다.
-
-주요 루프:
 
 ```
 마을
@@ -390,8 +332,6 @@ Core는 순수 함수 기반이며 브라우저/저장소 API에 직접 의존�
 전설의 교정
 ```
 
-이를 통해 정보의 출처·신뢰도·시간·세계 변화·후계자의 독립적인 발견을 검증했다.
-
 ---
 
 # 11. 다회차와 세계/개인 경계
@@ -399,7 +339,6 @@ Core는 순수 함수 기반이며 브라우저/저장소 API에 직접 의존�
 V2는 세계 상태와 캐릭터 개인 상태를 분리한다.
 
 ### Character-owned
-
 - 캐릭터 상태
 - 개인 Knowledge
 - 플레이어와 연결된 Relation
@@ -408,7 +347,6 @@ V2는 세계 상태와 캐릭터 개인 상태를 분리한다.
 - 개인 능력/숙련
 
 ### World-owned
-
 - World Facts
 - World Flags
 - Cases
@@ -416,15 +354,11 @@ V2는 세계 상태와 캐릭터 개인 상태를 분리한다.
 - World Time
 - 세계 개체 간 Relation
 
-후계자는 전 캐릭터의 개인 정보나 관계를 자동으로 물려받지 않는다.
-
 > **세계의 역사는 계속되지만 캐릭터의 기억은 자동으로 계속되지 않는다.**
 
 ---
 
 # 12. 실제 게임 리서치에서 도출한 구현 원칙
-
-실제 게임 사례에서 다음 패턴을 확인했다.
 
 - 기본 Capability와 Trait/Talent/Mod/Boon/Affinity 같은 Modifier를 분리한다.
 - 능력의 획득과 실제 사용 가능 상태를 분리한다.
@@ -441,7 +375,64 @@ V2는 세계 상태와 캐릭터 개인 상태를 분리한다.
 
 ---
 
-# 13. 기술 원칙
+# 13. 세계관·신화 연구
+
+장기 세계관에서 **인간 → 영웅 → 전설 → 신화 → 초월체 → 성좌 → 신격**이 되는 과정을 연구한다.
+
+### 2차 조사에서 강화된 연구 결론
+
+신격화·초월을 하나의 단일 성장치로 취급하지 않는다.
+
+```
+Power
+Mastery
+Deed
+Recognition
+Memory
+Authority
+Worship
+Domain
+Immortality
+Transcendence
+```
+
+이 축들은 서로 독립적인 현상이 될 수 있다.
+
+예를 들어:
+- 강력한 전투력과 신격은 동일하지 않다.
+- 불멸과 신격화는 동일하지 않다.
+- 영웅의 업적과 사후 숭배는 별도 층으로 축적될 수 있다.
+- 특정 신격은 도시·국가·자연·의례·질서·저승 등의 **Domain**과 연결될 수 있다.
+- 세계에 따라 죽음이 초월의 선행조건일 수도 있고, 신조차 예정된 죽음을 가진 존재일 수도 있다.
+
+### Transcendence Grammar
+
+세계별 Combat Grammar와 별도로 **Transcendence Grammar**를 연구한다.
+
+```
+World
+→ Transcendence Rules
+→ Character Path
+→ Social / World Consequence
+```
+
+주요 연구 문법:
+
+- **사후 신격화** — 인간/영웅 → 업적 → 죽음/사후 전환 → 기억·숭배 → 신격
+- **신성 혈통/강림** — 천상 계보 → 인간세계 진입 → 혈통/권위 → 영웅·건국자
+- **불멸 탐구** — 죽음 인식 → 탐색 → 시련 → 실패/획득 → 죽음에 대한 재해석
+- **저승 통과** — 상실 → 저승 → 규칙/시험 → 귀환/변화
+- **우주질서 담당** — 개인 → 질서와 결합 → 권능/책무 → 세계 수준 결과
+- **신도 죽는 세계** — 초월적 존재 → 운명/종말 → 죽음 → 세계 재생
+
+이 연구결과는 현재 정식 canon이 아니다.
+
+상세 조사 인덱스:
+`docs/world/mythology-transcendence-research.md`
+
+---
+
+# 14. 기술 원칙
 
 ```
 YAGNI
@@ -452,23 +443,11 @@ YAGNI
 → 최소 구현
 ```
 
-주요 원칙:
-
-- 새 subsystem보다 기존 계약 재사용
-- 데이터 주도 설계
-- bounded vertical slice 우선
-- 결정론 유지
-- 테스트 가능한 순수 Core
-- V1 regression 보호
-- 실제 필요 전 scheduler/history engine 등을 만들지 않음
-- 설계가 필요한 semantics는 추측하지 않음
-- 제품/게임 방향을 실질적으로 바꾸는 결정은 인간에게 decision point로 제시
-
 ---
 
-# 14. 설계 결정 게이트
+# 15. 설계 결정 게이트
 
-다음은 실제 요구가 발생했을 때 근거를 확인하고 결정한다.
+다음 사항은 근거 없이 자동 확정하지 않는다.
 
 - 새로운 state semantics
 - save format / migration
@@ -479,37 +458,17 @@ YAGNI
 - server / worker authority boundary
 - data-pack version compatibility
 - 기존 Core로 표현할 수 없는 RPG semantics
+- 신화/문명 연구를 정식 canon 또는 게임 규칙으로 승격하는 semantics
 
 기본 순서:
 
 `Evidence → Alternatives → Impact → Decision Record → Implementation`
 
-기존 Event / Condition / Effect / Data 조합으로 충분하면 새 시스템을 만들지 않는다.
-
 ---
 
-# 15. 테스트 및 검증
+# 16. 테스트 및 검증
 
 V2는 Node와 실제 Chromium 브라우저 양쪽에서 검증한다.
-
-주요 범위:
-
-- Core contract
-- Condition / Effect
-- RNG determinism
-- State validation
-- Data validation
-- Save / Load
-- Data compatibility
-- World data
-- Character lifecycle
-- Death / Successor
-- Information flow
-- Consequence
-- Faction / Relation
-- Persistence
-- Browser smoke
-- RPG vertical slice
 
 최근 기준:
 
@@ -521,22 +480,9 @@ V2는 Node와 실제 Chromium 브라우저 양쪽에서 검증한다.
 
 ---
 
-# 16. V1과 V2
+# 17. V1과 V2
 
-V1은 기존 프로토타입과 개발 기록으로 유지한다.
-
-V1:
-
-```
-web/core
-web/data
-web/ui
-web/worker
-web/storage
-web/index.html
-web/game.js
-tests/*.js
-```
+V1 runtime이나 regression 기준을 V2 개발 편의를 위해 변경하지 않는다.
 
 V2:
 
@@ -546,11 +492,9 @@ tests/v2
 docs/v2
 ```
 
-V2 개발 편의를 위해 V1 runtime이나 regression 기준을 변경하지 않는다.
-
 ---
 
-# 17. 개발 브랜치와 Master Goal
+# 18. 개발 브랜치와 Master Goal
 
 현재 V2 개발 브랜치:
 
@@ -562,7 +506,7 @@ Master Goal:
 
 **GitHub Issue #109 — V2 Core → RPG 플레이 기반 → 세계 확장 기반 완성**
 
-현재 목표는:
+현재 목표:
 
 ```
 Core
@@ -571,35 +515,11 @@ Core
 → 대규모 세계 / 콘텐츠 확장
 ```
 
-개발 루프:
-
-```
-Human Goal
- ↓
-Master Goal
- ↓
-AI Planner
- ↓
-검증 가능한 Issue
- ↓
-Claude Code
- ↓
-Test / Browser Verification
- ↓
-PR / CI
- ↓
-Merge
- ↓
-Repository 재검증
- ↓
-다음 Issue
-```
-
 ---
 
-# 18. 현재 다음 단계
+# 19. 현재 다음 단계
 
-Planner는 다음 순서로 현재 gap을 평가한다.
+Planner는 다음 순서로 gap을 평가한다.
 
 1. Core blocker / contract 문제
 2. Persistence / determinism
@@ -623,23 +543,22 @@ Character
 → New Possibility
 ```
 
-**모든 RPG 시스템을 한 번에 완성하는 것이 목표가 아니다. 확장 가능한 RPG 플레이 기반을 먼저 검증하는 것이 목표다.**
+세계관 연구와 RPG 기반 구축은 병행하지만, 근거 없는 canon 확정이나 대규모 구현을 앞서 진행하지 않는다.
 
 ---
 
-# 19. 문서
+# 20. 문서
 
 ### V2
-
 - `docs/v2/architecture/CORE_CONTRACTS.md`
 - `docs/v2/DEVELOPMENT_RULES.md`
 
 ### 세계관
-
 - `docs/world/world-design-principles.md`
 - `docs/world/source-analysis.md`
+- `docs/world/mythology-transcendence-research.md`
 
-과거 V1 Phase 문서는 개발 역사로 유지하고, 현재 V2 계약은 실제 코드와 V2 문서를 기준으로 한다.
+과거 V1 Phase 문서는 개발 역사로 유지한다.
 
 ---
 
