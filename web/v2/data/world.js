@@ -133,6 +133,14 @@
 // (D-71 (1)) and finds both on their own. `version` stays "0.1.0" (no state-shape change; D-68):
 // a save made before this change starts the clock at its next step.
 //
+// V2-Core-46 also adds no engine semantics; it closes the information loop of that slice. A
+// character who heard the legend and then saw the truth at the ruins (their legend corrected) can
+// tell the elder (`opt_correct_legend`, once): the world flag `bandits_tale_corrected` is written,
+// and from then on the elder tells everyone the true account instead of the legend -- a successor
+// included, without inheriting anyone's knowledge (D-71 (1)); no reward beyond a one-time +5 with
+// the elder (D-71 (2)). Information -> judgment -> action -> world change -> new information for
+// the next generation. `version` stays "0.1.0" (no state-shape change; D-68).
+//
 // This is deliberately small (Ponytail): one data module, one growth
 // system, three locations, two NPCs (referenced only as relation/rumor
 // participant IDs -- see D-65, no `state.actors` records for them; a full
@@ -422,21 +430,55 @@ export const worldData = {
               { op: "not", of: { op: "relation", from: "npc_bandit_leader", to: "org_bandits", tag: "member" } }
             ]
           },
-          // V2-Core-45: news while it is fresh (about two days), the village's legend afterwards
+          // V2-Core-45: news while it is fresh (about two days), the village's legend afterwards;
+          // V2-Core-46: once someone has corrected the legend, the true account again, for anyone
           effects: [
             { op: "relation", from: "npc_elder", add: 1 },
             {
               op: "if",
-              when: { op: "signal", key: "bandits_tale_age", min: 3 },
+              when: {
+                op: "and",
+                of: [
+                  { op: "signal", key: "bandits_tale_age", min: 3 },
+                  { op: "not", of: { op: "flag", key: "bandits_tale_corrected" } }
+                ]
+              },
               then: [
                 { op: "rumor", rumor: "rum_bandits_legend", source: "src_village_legend", confidence: 40 },
                 { op: "narrate", textId: "txt_bandit_legend" }
               ],
               else: [
                 { op: "rumor", rumor: "rum_bandits_fate", source: "npc_elder", confidence: 70 },
-                { op: "narrate", textId: "txt_bandit_news" }
+                {
+                  op: "if",
+                  when: { op: "flag", key: "bandits_tale_corrected" },
+                  then: [{ op: "narrate", textId: "txt_bandit_news_corrected" }],
+                  else: [{ op: "narrate", textId: "txt_bandit_news" }]
+                }
               ]
             }
+          ]
+        },
+        // V2-Core-46: the truth a character found becomes something they can act on. Only a
+        // character who heard the legend and then saw at the ruins that it was wrong (their
+        // legend corrected to "dispersed"; the ruins correct only a legend already heard, and it
+        // is told only in the legend's time), while it is uncorrected. It
+        // changes the world's record (a world flag), not anyone's knowledge -- the elder tells
+        // the true account from then on, to a successor too -- and closes itself
+        {
+          id: "opt_correct_legend",
+          name: "폐허에서 본 것을 바로잡아 전한다",
+          requires: {
+            op: "and",
+            of: [
+              { op: "not", of: { op: "flag", key: "bandits_tale_corrected" } },
+              { op: "eq", left: { rumor: "rum_bandits_legend" }, right: "dispersed" }
+            ]
+          },
+          effects: [
+            { op: "flag", key: "bandits_tale_corrected", value: true },
+            { op: "relation", from: "npc_elder", add: 5 },
+            { op: "narrate", textId: "txt_correct_legend" }
           ]
         },
         {
@@ -522,6 +564,8 @@ export const worldData = {
     txt_confront_backed: "마을 사람들이 당신 뒤에 서 있다는 사실이 도적 두목을 더욱 흔든다.",
     txt_bandit_news: "원로는 폐허의 도적단이 흩어졌다는 소식을 들려준다. 마을 사람들 사이에서 그 이야기는 오래 회자된다.",
     txt_bandit_legend: "원로는 이제 마을에서 전해지는 이야기를 들려준다. 폐허의 도적단이 마을 사람들 손에 모두 쓰러졌다는 전설이다.",
+    txt_correct_legend: "당신은 폐허에서 본 것을 원로에게 전한다. 원로는 한참을 생각하더니, 앞으로는 있었던 그대로 전하겠다고 말한다.",
+    txt_bandit_news_corrected: "원로는 마을의 전설 대신, 도적단이 쓰러진 것이 아니라 흩어졌다는 사실을 들려준다. 누군가 폐허에서 그것을 직접 보았다고 한다.",
     txt_hideout_abandoned: "은신처는 텅 비어 있다. 서둘러 짐을 챙겨 떠난 흔적뿐, 싸움의 자국은 없다. 도적단은 쓰러진 것이 아니라 흩어졌다.",
     txt_bandits_disperse: "원로는 도적단 잔당에게 사람을 보내 해산을 권한다. 두목은 더 이상 도적단의 일원이 아니다.",
     txt_market_reopens: "도적단이 흩어졌다는 소식에 상인들이 안도하며 은화 몇 닢을 사례한다.",
