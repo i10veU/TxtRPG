@@ -2018,3 +2018,11 @@ state.knowledge["player_1"]["rum_a"] = {
     폐허에서 스스로 발견한다. 해산 step과 뉴스 선택에 새 이벤트가 생겨 그것을 고정하던 테스트(해산 step 이벤트 목록, 후계자 뉴스 이벤트, 팩 events/facts 목록 — Node와
     core-semantics browser spec)를 사유와 함께 갱신했다. 새 테스트 `tests/v2/data-world-tale.test.js`, `tests/v2-ui-world-tale-browser.spec.js`(+CI 단계). 변이(시계 제거,
     시계가 멈추지 않음, 전설 분기 제거, 전설 교정 제거)는 모두 새 테스트를 실패시킨다. 팩 `version`은 `0.1.0` 그대로이며 이 변경 전의 save는 다음 step에서 시계가 시작된다.
+  - 작업 43 = V2-Core-46 (Issue #125): 정보 → 판단 → 행동 → 세계 변화 → 다음 세대의 새 정보를 닫는다. 전설을 들은 뒤 폐허에서 진실을 보아 자기 전설이 교정된
+    캐릭터만 원로에게 바로잡아 전할 수 있다(`opt_correct_legend`, requires: 세계 flag `bandits_tale_corrected`가 없음 + `{rumor:"rum_bandits_legend"}` `eq` "dispersed").
+    선택하면 세계 flag를 쓰고 원로와 한 번 +5, 다시 제안되지 않는다. 이후 `opt_ask_bandit_news`는 나이와 무관하게 사실(`rum_bandits_fate`, 원로 출처 70)과 교정된 서술
+    `txt_bandit_news_corrected`를 전한다 — 후계자에게도, knowledge 상속 없이(D-71 (1)); 바뀌는 것은 누구의 지식이 아니라 세계의 기록이다. 보상은 한 번의 관계뿐이다(D-71 (2)).
+    폐허는 이미 들은 전설만 교정하고 전설은 나이 3 이상에서만 전해지므로 별도의 나이 조건은 두지 않았다(도달 불가능한 조건, 변이로 확인). 기존 계약만 썼다: 선택지
+    `requires`의 `rumor` selector·`eq`·`flag`, 세계 `flag` Effect, `if`. 엔진/state 필드/save schema 변경 없음, 팩 `version`은 `0.1.0` 그대로(flag가 없는 옛 save는 교정 전 세계).
+    새 테스트 `tests/v2/data-world-legend-correction.test.js`, `tests/v2-ui-world-tale-browser.spec.js`의 세 번째 시나리오(기존 CI 단계). 변이(진실 조건 제거, 한 번 조건
+    제거, 뉴스가 flag를 무시, flag를 쓰지 않음)는 모두 새 Node 테스트를 실패시키고, 이 변경 전 팩에서는 새 browser 시나리오가 실패한다.
