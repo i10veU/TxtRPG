@@ -441,7 +441,110 @@ V2는 세계 상태와 캐릭터 개인 상태를 분리한다.
 
 ---
 
-# 13. 기술 원칙
+# 13. 세계관·신화 연구
+
+장기 세계관에서 **인간 → 영웅 → 전설 → 신화 → 초월체 → 성좌 → 신격**이 되는 과정을 연구한다.
+
+핵심 질문:
+
+> 인간이 언제 더 이상 인간으로만 기억되지 않고, 문명을 대표하는 전설·신화·초월적 존재가 되는가?
+
+문명별 비교 프레임:
+
+```
+창세/우주관
+→ 인간의 기원
+→ 문명/왕조의 기원
+→ 영웅 서사
+→ 시련/희생
+→ 죽음·저승·귀환
+→ 불멸/신격화
+→ 사회·왕권·질서
+→ 종말/재창조
+```
+
+게임 설계 연구 후보:
+
+```
+인간
+→ 경험
+→ 능력
+→ 숙련
+→ 업적
+→ 전설
+→ 신화
+→ 인정/숭배
+→ 권능/권위
+→ 초월
+```
+
+1차 조사권:
+
+- 메소포타미아
+- 이집트
+- 중국
+- 한국
+- 그리스
+- 로마
+- 일본
+- 북유럽
+- 인도
+- 이란/페르시아
+- 켈트
+- 마야
+- 아즈텍
+- 잉카/안데스
+- Yoruba
+- Polynesia/Māori
+- 북미 원주민 전승
+- 슬라브
+- 핀란드
+- 아르메니아/코카서스
+- 고대 레반트/아라비아
+
+주요 비교축:
+
+- 신성한 혈통
+- 천상 강림
+- 인간의 신성화
+- 불멸 추구
+- 저승 통과와 귀환
+- 죽음과 부활
+- 괴물/혼돈 극복
+- 문명·도시·국가 건립
+- 왕권 신성화
+- 영웅 숭배/조상화
+- 이름·명성의 불멸
+- 우주 질서의 대표자
+- 세계의 반복적 파괴와 재창조
+- 희생과 대가
+- 지식·기술·의례를 통한 초월
+
+대표 원전 후보:
+
+- Mesopotamia — `Enuma Elish`, `Epic of Gilgamesh`, `Atrahasis`, `Eridu Genesis`, `Inanna's Descent`
+- Egypt — `Pyramid Texts`, `Coffin Texts`, `Book of the Dead`, Osiris–Isis–Horus, Ra의 저승 여정
+- China — `Shan Hai Jing`, `Chu Ci`, `Huainanzi`, `Shiji`, Pangu, Nuwa, Yellow Emperor, Yu
+- Korea — `Samguk Yusa`, `Samguk Sagi`, Dangun, Jumong, Hyeokgeose, Suro, Princess Bari, Jacheongbi
+- Greece — Hesiod `Theogony`, Homer `Iliad`, `Odyssey`, Homeric Hymns, Heracles, Achilles, Odysseus, Prometheus
+- Rome — `Aeneid`, Aeneas, Romulus/Remus, Quirinus, imperial apotheosis
+- Japan — `Kojiki`, `Nihon Shoki`, Izanagi/Izanami, Amaterasu, Susanoo, Ōkuninushi, 천손강림
+- Norse — `Poetic Edda`, `Prose Edda`, Ragnarok, Odin, Thor, Loki, Sigurd
+- India — Vedas, `Mahabharata`, `Ramayana`, Puranas, Avatar, Dharma, Karma, Samsara, Moksha, Yuga
+- Iran — Avesta, `Shahnameh`, Ahura Mazda, Mithra, Anahita, Jamshid, Zahhak, Rostam
+- Celtic — Ulster/Fenian/Mythological Cycles, `Mabinogion`, Cú Chulainn, Fionn, Lugh
+- Mesoamerica — `Popol Vuh`, Five Suns, Hero Twins, Quetzalcoatl
+- Andes — Viracocha, Inti, Manco Capac, Mama Ocllo, Ayar brothers
+- Others — Yoruba, Māori, Slavic, `Kalevala`, Armenian/Caucasus, Ugaritic, Haudenosaunee/Cherokee/Navajo/Diné/Inuit
+
+**연구 자료는 정식 canon이 아니다.** 문헌·지역·시대별 전승을 구분하고, 역사적 사실·종교적 전승·후대 해석·게임용 창작을 분리한다.
+
+상세 연구 인덱스:
+`docs/world/mythology-transcendence-research.md`
+
+---
+
+# 14. 기술 원칙
 
 ```
 YAGNI
@@ -466,7 +569,7 @@ YAGNI
 
 ---
 
-# 14. 설계 결정 게이트
+# 15. 설계 결정 게이트
 
 다음은 실제 요구가 발생했을 때 근거를 확인하고 결정한다.
 
@@ -479,6 +582,7 @@ YAGNI
 - server / worker authority boundary
 - data-pack version compatibility
 - 기존 Core로 표현할 수 없는 RPG semantics
+- **신화/문명 연구에서 정식 세계관 canon 또는 게임 규칙으로 승격하는 semantics**
 
 기본 순서:
 
@@ -488,7 +592,7 @@ YAGNI
 
 ---
 
-# 15. 테스트 및 검증
+# 16. 테스트 및 검증
 
 V2는 Node와 실제 Chromium 브라우저 양쪽에서 검증한다.
 
@@ -521,7 +625,7 @@ V2는 Node와 실제 Chromium 브라우저 양쪽에서 검증한다.
 
 ---
 
-# 16. V1과 V2
+# 17. V1과 V2
 
 V1은 기존 프로토타입과 개발 기록으로 유지한다.
 
@@ -550,7 +654,7 @@ V2 개발 편의를 위해 V1 runtime이나 regression 기준을 변경하지 �
 
 ---
 
-# 17. 개발 브랜치와 Master Goal
+# 18. 개발 브랜치와 Master Goal
 
 현재 V2 개발 브랜치:
 
@@ -597,7 +701,7 @@ Repository 재검증
 
 ---
 
-# 18. 현재 다음 단계
+# 19. 현재 다음 단계
 
 Planner는 다음 순서로 현재 gap을 평가한다.
 
@@ -623,11 +727,13 @@ Character
 → New Possibility
 ```
 
-**모든 RPG 시스템을 한 번에 완성하는 것이 목표가 아니다. 확장 가능한 RPG 플레이 기반을 먼저 검증하는 것이 목표다.**
+세계관 연구는 **RPG 기반과 병행하되**, 근거 없는 canon 확정이나 대규모 구현을 앞서 진행하지 않는다.
+
+**모든 RPG 시스템을 한 번에 완성하는 것이 목표가 아니다. 확장 가능한 RPG 플레이 기반과 세계관 설계 기반을 먼저 검증하는 것이 목표다.**
 
 ---
 
-# 19. 문서
+# 20. 문서
 
 ### V2
 
@@ -638,6 +744,7 @@ Character
 
 - `docs/world/world-design-principles.md`
 - `docs/world/source-analysis.md`
+- `docs/world/mythology-transcendence-research.md`
 
 과거 V1 Phase 문서는 개발 역사로 유지하고, 현재 V2 계약은 실제 코드와 V2 문서를 기준으로 한다.
 
