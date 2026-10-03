@@ -22,44 +22,30 @@ V2는 "기능 구현"이 아니라 "V1을 깨뜨리지 않으면서 새 코어�
 - `feature/v2-core`는 `v1-final`(= `origin/main` = `54593cb`) 지점에서 분기했다.
 - V2 작업 중 "기존 동작이 깨지지 않았는가"는 항상 이 기준점과 비교해서 판단한다.
 
-## 2. 개발 경계
+## 2. 개발 경계와 자율 개발
 
 ### V1
 
 - `v1-final`을 회귀 기준점으로 보존한다.
-- V1 런타임 파일(`web/core`, `web/ui`, `web/worker`, `web/storage`, `web/data`, `web/index.html`,
-  `web/game.js` 등)을 V2 때문에 수정하지 않는다. 예외 없음 — 통합이 필요해지면 V2 쪽 진입점을
-  새로 만든다 (예: `web/v2/index.html`).
-- 기존 V1 테스트(`tests/*.js`, `tests/*.spec.js`)와 문서(`docs/phase*.md`)를 삭제하거나 고치지 않는다.
-- 기존 Serka 세계관 콘텐츠(`web/data/*.js`)를 V2 콘텐츠로 임의 변환하지 않는다.
-- Worker/fallback 이중 경로 구조를 제거하지 않는다.
-- V1 세이브를 V2로 import하지 않는다.
-- V1의 `world.continuity` 구현(phase292 사망/nextLife 모델)을 V2에 이식하지 않는다. V2의 사망/세계
-  전환 설계는 15절 기준으로 별도로 진행한다.
+- V1 런타임 파일, 기존 V1 테스트/문서, 기존 Serka 콘텐츠를 V2 때문에 수정하거나 임의 변환하지 않는다.
+- V1 save를 V2로 import하지 않는다.
+- V1의 continuity 구현을 V2에 이식하지 않는다.
 
 ### V2
 
 - `feature/v2-core`에서 개발한다.
 - V2 런타임은 `web/v2/` 아래에 둔다.
-- V2 저장소는 V1과 별도의 namespace를 사용한다 (별도 IndexedDB DB 이름/버전, 별도 localStorage 키
-  프리픽스 — 구체적인 이름은 저장소 구현 시점에 확정).
-- V2 개발 작업은 사람이 검토한 뒤 다음 작업으로 넘어간다. 작업 단위를 임의로 이어 붙여 진행하지
-  않는다.
-- 자동 commit / merge / push를 하지 않는다.
-- Stop hook이나 다른 자동화가 commit/push를 요구하더라도, 사용자 지시가 이를 금지하는 동안에는
-  사용자 지시를 우선하여 작업을 중단하고 그 사실을 보고한다.
-- 기존 legacy 자동화(AGENTS.md의 자율개발 루프, `txt-rpg-task.yml` 등)가 V2 개발을 자동으로
-  진행하도록 허용하지 않는다. V2는 이 문서의 승인 경계 밖에서 자동 진행되지 않는다.
-
-## 2.5 자율 개발 결정 규칙
-
-V2의 일반 작업은 사용자에게 매 단계 승인을 묻지 않고 자율적으로 판단하고 연속해서 진행한다.
-새 결정이 필요하면 기존 구현, 테스트, 현재 계약, 게임철학, Ponytail/YAGNI, Save/Core/Regression 영향을 먼저 조사한 뒤 가장 일관되고 최소인 선택을 스스로 결정한다.
-중요한 결정은 `Decision / Alternatives / Reason / Risk / Compatibility impact`를 기록한다.
+- V2 저장소는 V1과 별도 namespace를 사용한다.
+- **일반적인 V2 작업은 사용자에게 매 단계 승인을 묻지 않고 자율적으로 판단하고 연속해서 진행한다.**
+- 새 결정이 필요하면 기존 구현, 테스트, 현재 계약, 게임철학, Ponytail/YAGNI, Save/Core/Regression 영향을 조사한 뒤 가장 일관되고 최소인 선택을 스스로 결정한다.
+- 중요한 자체 결정은 `Decision / Alternatives / Reason / Risk / Compatibility impact` 형식으로 Issue/PR 또는 적절한 문서에 기록한다.
+- 테스트/CI 실패는 원인을 스스로 분석하고 수정한 뒤 재검증한다.
+- 완료 조건을 만족하면 다음 Issue/Phase의 Research로 이어간다.
+- 자동 commit/push/merge 여부는 실제 실행 환경의 별도 권한 및 작업 지시에 따른다. 이 문서는 **의사결정 승인 경계**를 정의한다.
 
 ### Hard Gate — 사용자 승인 필수
 
-다음 변경만 반드시 중단하고 사용자 승인을 요청한다.
+다음 변경만 자율적으로 확정하지 않는다.
 
 - `step(state, action, data)` 등 Core Engine 계약의 근본적 변경
 - 기존 State schema의 의미 변경
@@ -72,41 +58,7 @@ V2의 일반 작업은 사용자에게 매 단계 승인을 묻지 않고 자율
 - 보안 경계/권한 모델의 근본적 변경
 - 상용 출시 구조에 직접 영향을 주는 비가역적 아키텍처 결정
 
-Hard Gate에서는 분석 결과, 선택지, 영향, 추천안을 정리한 뒤 승인을 기다린다. 그 외 결정은 질문하지 않고 진행한다.
-
-## 2.6 자율 개발 루프
-
-```
-Issue → Research → Gap Analysis → Design → Self Review → Decision
-→ Implementation → Unit → Mutation → Browser → Save/Load
-→ V1 Regression → Final Self Review → PR → CI → Merge → Next Phase
-```
-
-테스트/CI 실패가 발생하면 원인을 스스로 분석하고 수정한 뒤 재검증한다. 현재 작업의 완료 조건을 만족하면 다음 Issue/Phase의 Research로 이어간다. 다음 작업이 Hard Gate에 도달할 때만 중단한다.
-
-## 2.7 모델/에이전트 라우팅
-
-작업의 난이도보다 위험도와 판단 비용을 우선 평가한다.
-
-- LOW: 단순 탐색, 테스트 실행, 기존 패턴을 따르는 데이터 변경, 국소 UI → 저비용/경량 모델 가능
-- MEDIUM: 일반 기능 구현, 테스트 작성, 국소적인 시스템 연결, 일반 버그 수정 → 표준 모델
-- HIGH: 아키텍처 분석, 복수 시스템 상호작용, Capability/전투/성장 구조 변경 → 고성능 모델
-- CRITICAL: Core contract, State/Save, RNG, V1 boundary, 비가역 architecture → 최고 성능 모델 독립 검토 + Hard Gate
-
-모델 다양화 자체를 목적으로 하지 않으며, 판단 수준에 맞는 모델을 배정한다.
-
-## 2.8 Decision Record
-
-중요한 자체 결정은 다음 형식으로 남긴다.
-
-```
-Decision:
-Alternatives:
-Reason:
-Risks:
-Compatibility:
-Validation:
-```
+Hard Gate가 발생하면 단순히 질문하지 않는다. 현재 분석 결과, 대안, 영향, 위험, 추천안을 먼저 정리한 뒤 사용자 승인까지 그 작업을 중단한다.
 
 ## 3. Ponytail 원칙 (확정)
 
