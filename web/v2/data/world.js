@@ -141,6 +141,15 @@
 // the elder (D-71 (2)). Information -> judgment -> action -> world change -> new information for
 // the next generation. `version` stays "0.1.0" (no state-shape change; D-68).
 //
+// V2-Core-70 (#170 Slice 3, step 3 -- the village's trust): the two stories add up. A character the
+// elder and the herbalist both trust (15 or more on each one's edge towards them) once both cases are
+// resolved is honoured in the village's name, once (`org_village -> self`, `trusted` -- their own edge,
+// D-71 (2)); the world remembers that someone was (`village_honored`, narration only). The standing
+// changes what is offered afterwards: the merchants sell the lantern for 2 instead of 5, the herbalist
+// her salve for 1 instead of 3. Giving the herbalist two purifying herbs earns +10 once (`helped`) -- a
+// real choice before the purification (the remedy needs the same two), and a way for a successor, who
+// can no longer be thanked for the spring, to earn her trust. Additive only.
+//
 // V2-Core-69 (#170 Slice 3, step 2 -- the spring's tale): the purification becomes history, as the
 // bandits' dispersal did (V2-Core-45/46, D-74's day-clock pattern). `evt_well_tale` records the
 // objective `fact_well_fate` ("purified") and counts `well_tale_age` 1..3 a day apart. While it is
@@ -331,6 +340,8 @@ const EXAMINE_CARCASS = [
 ];
 // V2-Core-69 (#170): the spring's tale -- the legend's time (about two days on) unless someone corrected it
 const WELL_LEGEND_TIME = { op: "and", of: [{ op: "signal", key: "well_tale_age", min: 3 }, { op: "not", of: { op: "flag", key: "well_tale_corrected" } }] };
+// V2-Core-70 (#170): the village's standing towards this character (their own edge)
+const VILLAGE_TRUSTED = { op: "relation", from: "org_village", to: "self", tag: "trusted" };
 // what the village says once the elder has been told -- and whether the one behind it still lives
 const ARROWS_IN_THE_ACCOUNT = {
   op: "if",
@@ -624,6 +635,22 @@ export const worldData = {
         { op: "narrate", textId: "txt_buy_lantern" }
       ]
     },
+    // V2-Core-70 (#170): the merchants' price for one the village honoured
+    act_buy_lantern_trusted: {
+      name: "등불 구입 (마을의 호의, 은화 2)",
+      requires: { op: "and", of: [{ op: "location", at: "loc_market" }, VILLAGE_TRUSTED, { op: "money", min: 2 }] },
+      effects: [
+        { op: "money", add: -2 },
+        { op: "item", item: "item_lantern", add: 1 },
+        { op: "narrate", textId: "txt_buy_lantern_trusted" }
+      ]
+    },
+    // V2-Core-70 (#170): the herbalist's salve -- anywhere, while hurt
+    act_apply_salve: {
+      name: "약초 연고를 바른다",
+      requires: { op: "and", of: [{ op: "item", item: "item_herbal_salve", min: 1 }, { op: "lt", left: { hp: "current" }, right: { hp: "max" } }] },
+      effects: [{ op: "item", item: "item_herbal_salve", add: -1 }, { op: "hp", add: 5 }, say("txt_apply_salve")]
+    },
     // V2-Core-58 (D-87): the sword is sold where the lantern is; wielding it is a choice of its own
     act_buy_iron_sword: {
       name: "철검 구입",
@@ -817,7 +844,32 @@ export const worldData = {
           id: "opt_small_talk",
           name: "안부만 묻기",
           // V2-Core-55 (D-84): dialogue only -- repeatable, so it earns no trust
-          effects: [{ op: "narrate", textId: "txt_small_talk" }]
+          effects: [
+            { op: "narrate", textId: "txt_small_talk" },
+            // V2-Core-70: the village remembers whom it honoured -- told to anyone else, a successor too
+            { op: "if", when: { op: "and", of: [{ op: "flag", key: "village_honored" }, { op: "not", of: VILLAGE_TRUSTED }] }, then: [say("txt_small_talk_honored_memory")] }
+          ]
+        },
+        // V2-Core-70 (#170): the elder and the herbalist both trust this character, and both stories are
+        // over -- the village's thanks, once (their own edge); the world remembers that someone was honoured
+        {
+          id: "opt_village_honor",
+          name: "마을의 이름으로 감사를 받는다",
+          requires: {
+            op: "and",
+            of: [
+              { op: "case", case: "case_ruins_mystery", stage: "resolved" },
+              WELL_RESOLVED,
+              { op: "relation", from: "npc_elder", to: "self", min: 15 },
+              { op: "relation", from: "npc_herbalist", to: "self", min: 15 },
+              { op: "not", of: VILLAGE_TRUSTED }
+            ]
+          },
+          effects: [
+            { op: "relation", from: "org_village", add: 20, tag: "trusted" },
+            { op: "flag", key: "village_honored", value: true },
+            say("txt_village_honor")
+          ]
         },
         // V2-Core-31: only offered once the investigation is confirmed -- since V2-Core-35
         // by the CHARACTER's own proof (the relic), the same one the confrontation takes.
@@ -1048,6 +1100,39 @@ export const worldData = {
             { op: "relation", from: "npc_herbalist", add: 5 },
             say("txt_herbalist_correct_legend")
           ]
+        },
+        // V2-Core-70 (#170): two purifying herbs for her stock -- +10 once (`helped`)
+        {
+          id: "opt_herbalist_give_herbs",
+          name: "정화초 두 묶음을 나눠 준다",
+          requires: {
+            op: "and",
+            of: [
+              { op: "item", item: "item_purifying_herb", min: 2 },
+              { op: "not", of: { op: "relation", from: "npc_herbalist", to: "self", tag: "helped" } }
+            ]
+          },
+          effects: [
+            { op: "item", item: "item_purifying_herb", add: -2 },
+            { op: "relation", from: "npc_herbalist", add: 10, tag: "helped" },
+            say("txt_herbalist_given_herbs")
+          ]
+        },
+        // V2-Core-70 (#170): her salve -- 3 silver to one she has talked with, 1 to one the village honoured
+        {
+          id: "opt_herbalist_buy_salve",
+          name: "약초 연고를 산다 (은화 3)",
+          requires: {
+            op: "and",
+            of: [{ op: "relation", from: "npc_herbalist", to: "self", tag: "consulted" }, { op: "not", of: VILLAGE_TRUSTED }, { op: "money", min: 3 }]
+          },
+          effects: [{ op: "money", add: -3 }, { op: "item", item: "item_herbal_salve", add: 1 }, say("txt_herbalist_salve")]
+        },
+        {
+          id: "opt_herbalist_buy_salve_trusted",
+          name: "약초 연고를 산다 (마을의 호의, 은화 1)",
+          requires: { op: "and", of: [VILLAGE_TRUSTED, { op: "money", min: 1 }] },
+          effects: [{ op: "money", add: -1 }, { op: "item", item: "item_herbal_salve", add: 1 }, say("txt_herbalist_salve_trusted")]
         }
       ]
     },
@@ -1180,7 +1265,9 @@ export const worldData = {
     item_iron_sword: { name: "철검", slot: "hand" },
     // V2-Core-65 (#160): what the spring's remedy is made of, and the remedy
     item_purifying_herb: { name: "정화초" },
-    item_spring_remedy: { name: "샘 정화제" }
+    item_spring_remedy: { name: "샘 정화제" },
+    // V2-Core-70 (#170): the herbalist's salve (+5 HP)
+    item_herbal_salve: { name: "약초 연고" }
   },
 
   // `initial` is seeded by createInitialState since V2-Core-43 (D-76): every new
@@ -1242,7 +1329,9 @@ export const worldData = {
     }
   },
   orgs: {
-    org_bandits: { name: "폐허의 도적단" }
+    org_bandits: { name: "폐허의 도적단" },
+    // V2-Core-70 (#170): the village as a whole -- its standing towards a character is an ordinary edge
+    org_village: { name: "변경 마을 사람들" }
   },
 
   texts: {
@@ -1311,6 +1400,13 @@ export const worldData = {
     txt_search_spring_purified: "샘은 맑고 고요하다. 바위 틈 아래 새로 덮은 흙과 정화제의 쌉쌀한 냄새가, 누군가 이곳을 손수 정화했음을 말해 준다.",
     txt_herbalist_well_legend: "약초꾼은 시장에 도는 이야기를 들려준다. 마을 사람들이 제물을 바치자 노한 샘의 정령이 누그러졌다는 것이다.",
     txt_herbalist_correct_legend: "당신이 샘에서 본 것을 전하자 약초꾼은 고개를 끄덕인다. 정령이 아니라 사람이 한 일이었다고, 앞으로는 그렇게 전하겠다고 한다.",
-    txt_herbalist_well_corrected: "약초꾼은 시장의 정령 이야기 대신, 누군가 샘에서 사체를 치우고 정화제를 부었다는 사실을 들려준다. 직접 본 사람이 있다고 한다."
+    txt_herbalist_well_corrected: "약초꾼은 시장의 정령 이야기 대신, 누군가 샘에서 사체를 치우고 정화제를 부었다는 사실을 들려준다. 직접 본 사람이 있다고 한다.",
+    txt_village_honor: "원로는 마을 사람들을 모아 당신 앞에 선다. 도적을 몰아내고 샘을 되살린 이에게 마을의 이름으로 감사한다고, 이제 이 마을은 당신의 편이라고 말한다.",
+    txt_small_talk_honored_memory: "원로는 마을이 이름을 걸고 감사했던 방랑자 이야기를 꺼낸다. 마을 사람들은 아직도 그 이야기를 한다고 한다.",
+    txt_buy_lantern_trusted: "상인은 손사래를 치며 은화 두 닢만 받고 등불을 건넨다. 마을을 구한 사람에게 제값을 받을 수는 없다고 한다.",
+    txt_herbalist_given_herbs: "약초꾼은 정화초 두 묶음을 받아 들고 환하게 웃는다. 앓는 집들에 나눠 주겠다고 한다.",
+    txt_herbalist_salve: "약초꾼은 은화 세 닢을 받고 작은 연고 단지를 건넨다.",
+    txt_herbalist_salve_trusted: "약초꾼은 은화 한 닢만 받고 연고 단지를 쥐여 준다. 마을이 감사한 사람에게서 더 받을 수는 없다고 한다.",
+    txt_apply_salve: "상처에 약초 연고를 바르자 쓰라림이 가라앉는다."
   }
 };
