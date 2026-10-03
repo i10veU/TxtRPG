@@ -85,6 +85,29 @@ function resolveGrowthValue(selectorKey, growthMapKey, selector, ctx) {
   return ctx.state?.actors?.[subjectId]?.growth?.[system]?.[growthMapKey]?.[id];
 }
 
+// V2-Core-56 (D-85, Gate 4 = C): a resource belongs to a growth system --
+// `data.growthSystems[system].resources` defines it ({id, max}), the actor keeps
+// `growth[system].resources[id] = {current, max}`. A missing entry is full (the
+// definition's max): new characters get one from their template, a save made
+// before resources existed has none (D-68: no migration, no repair). A broken
+// entry (not {current, max} integers) is not read; no definition and no entry
+// is undefined. Exported for the UI's status line.
+function findResourceDefinition(data, system, resourceId) {
+  const resources = data?.growthSystems?.[system]?.resources;
+  return Array.isArray(resources) ? resources.find((r) => isPlainObject(r) && r.id === resourceId) : undefined;
+}
+export function actorResource(actor, data, resourceId, system = data?.world?.growthSystemId) {
+  if (!isPlainObject(actor) || typeof resourceId !== "string" || typeof system !== "string") return undefined;
+  const entry = actor.growth?.[system]?.resources?.[resourceId];
+  if (entry !== undefined) {
+    return isPlainObject(entry) && Number.isInteger(entry.current) && Number.isInteger(entry.max)
+      ? { current: entry.current, max: entry.max }
+      : undefined;
+  }
+  const definition = findResourceDefinition(data, system, resourceId);
+  return definition && Number.isInteger(definition.max) ? { current: definition.max, max: definition.max } : undefined;
+}
+
 function resolveItem(selector, ctx) {
   if (typeof selector.item !== "string") return undefined;
   const subjectId = resolveSubjectId(selector.subject, ctx);
@@ -424,6 +447,14 @@ export function evaluateCondition(condition, ctx) {
     }
     case "rumor":
       return evaluateRumorCondition(condition, ctx);
+    case "resource": {
+      // D-85: the subject's current amount (missing = full); bare = at least 1, like `skill`
+      if (condition.system !== undefined && typeof condition.system !== "string") return false;
+      const subjectId = resolveSubjectId(condition.subject, ctx);
+      const system = condition.system ?? ctx.data?.world?.growthSystemId;
+      const resource = actorResource(ctx.state?.actors?.[subjectId], ctx.data, condition.resource, system);
+      return matchScalarArgs(resource?.current, condition, 1);
+    }
     case "alive": {
       // D-78 (Gate 3): an existing actor whose `alive` is true; no actor is false
       const subjectId = resolveSubjectId(condition.subject, ctx);
@@ -650,6 +681,52 @@ function applyHpEffect(effect, workingState, events, ctx) {
       workingState.pending = { kind: "newCharacter" };
     }
   }
+}
+
+// V2-Core-56 (D-85): `current` += add, clamped to [0, max] (the entry's own max;
+// a missing entry starts full from the definition). A delta of 0 changes nothing --
+// no event (D-30), and a missing (full) entry stays missing. No definition and no
+// entry is a resolution failure: skip (D-29). A broken entry in state throws, like a
+// broken hp record -- it is never silently replaced.
+function applyResourceEffect(effect, workingState, events, ctx) {
+  if (typeof effect.resource !== "string") {
+    throw new TypeError("resource Effect requires a string `resource`");
+  }
+  if (!Number.isInteger(effect.add)) {
+    throw new TypeError("resource Effect requires an integer `add`");
+  }
+  if (effect.system !== undefined && typeof effect.system !== "string") {
+    throw new TypeError("resource Effect's `system`, when present, must be a string");
+  }
+
+  const resolved = resolveActor(effect.subject, ctx, workingState);
+  if (!resolved) return; // D-29: skip
+  const system = resolveGrowthSystemId(effect, ctx);
+  if (system === undefined) return; // D-29: skip
+
+  const actor = resolved.actor;
+  const entry = actor.growth?.[system]?.resources?.[effect.resource];
+  const before = actorResource(actor, ctx.data, effect.resource, system);
+  if (before === undefined) {
+    if (entry !== undefined) throw new TypeError(`broken resource entry for ${effect.resource} on ${resolved.id}`);
+    return; // no definition and no entry: nothing to resolve against (D-29)
+  }
+  const after = Math.min(before.max, Math.max(0, before.current + effect.add));
+  const delta = after - before.current;
+  if (delta === 0) return; // D-30
+
+  if (!isPlainObject(actor.growth)) actor.growth = {};
+  if (!isPlainObject(actor.growth[system])) actor.growth[system] = {};
+  if (!isPlainObject(actor.growth[system].resources)) actor.growth[system].resources = {};
+  actor.growth[system].resources[effect.resource] = { current: after, max: before.max };
+
+  events.push({
+    minute: workingState.time.minute,
+    type: "resource.changed",
+    visibility: isPlayerActor(resolved.id, workingState) ? "player" : "internal",
+    actorId: resolved.id,
+    data: { resource: effect.resource, delta }
+  });
 }
 
 const MAX_SAFE = Number.MAX_SAFE_INTEGER;
@@ -1404,6 +1481,8 @@ function applyOneEffect(effect, workingState, events, ctx) {
       return applyStatEffect(effect, workingState, events, ctx);
     case "hp":
       return applyHpEffect(effect, workingState, events, ctx);
+    case "resource":
+      return applyResourceEffect(effect, workingState, events, ctx);
     case "money":
       return applyMoneyEffect(effect, workingState, events, ctx);
     case "skill":
@@ -1683,14 +1762,14 @@ const KNOWN_CONDITION_OPS = new Set([
   "always", "never", "not", "and", "or",
   "eq", "neq", "gt", "gte", "lt", "lte",
   "stat", "flag", "signal", "skill", "trait", "item", "relation", "rumor",
-  "fact", "day", "location", "unlock", "case", "money", "alive",
+  "fact", "day", "location", "unlock", "case", "money", "alive", "resource",
   "handler"
 ]);
 
 const KNOWN_EFFECT_OPS = new Set([
   "flag", "signal", "time", "if", "stat", "hp", "money", "skill", "trait",
   "unlock", "case", "item", "relation", "exp", "proficiency", "fact", "rumor",
-  "move", "choice", "narrate",
+  "move", "choice", "narrate", "resource",
   "handler"
 ]);
 
@@ -1752,6 +1831,8 @@ function checkConditionArgs(node, path, errors) {
     errors.push(`fact Condition at ${path} requires a string \`fact\``);
   } else if (op === "unlock" && typeof node.id !== "string") {
     errors.push(`unlock Condition at ${path} requires a string \`id\``);
+  } else if (op === "resource" && typeof node.resource !== "string") {
+    errors.push(`resource Condition at ${path} requires a string \`resource\``);
   } else if (op === "rumor" && typeof node.rumor !== "string" && typeof node.fact !== "string") {
     errors.push(`rumor Condition at ${path} requires a string \`rumor\` or \`fact\``);
   } else if (op === "day") {
@@ -1824,9 +1905,9 @@ function walkCondition(node, contextKind, path, errors) {
 // accepts them, are always optional-if-string (resolveActor/
 // resolveGrowthSystemId's own type check).
 const SUBJECT_BEARING_EFFECT_OPS = new Set([
-  "stat", "hp", "money", "item", "move", "exp", "proficiency", "skill", "trait", "unlock", "rumor"
+  "stat", "hp", "money", "item", "move", "exp", "proficiency", "skill", "trait", "unlock", "rumor", "resource"
 ]);
-const SYSTEM_BEARING_EFFECT_OPS = new Set(["stat", "exp", "proficiency", "skill", "trait", "unlock"]);
+const SYSTEM_BEARING_EFFECT_OPS = new Set(["stat", "exp", "proficiency", "skill", "trait", "unlock", "resource"]);
 
 function checkEffectArgs(effect, path, errors, data) {
   const op = effect.op;
@@ -1856,6 +1937,9 @@ function checkEffectArgs(effect, path, errors, data) {
     if (!Number.isInteger(effect.add)) errors.push(`stat Effect at ${path} requires an integer \`add\``);
   } else if (op === "hp" || op === "money") {
     if (!Number.isInteger(effect.add)) errors.push(`${op} Effect at ${path} requires an integer \`add\``);
+  } else if (op === "resource") {
+    if (typeof effect.resource !== "string") errors.push(`resource Effect at ${path} requires a string \`resource\``);
+    if (!Number.isInteger(effect.add)) errors.push(`resource Effect at ${path} requires an integer \`add\``);
   } else if (op === "item") {
     if (typeof effect.item !== "string") errors.push(`item Effect at ${path} requires a string \`item\``);
     if (!Number.isInteger(effect.add)) errors.push(`item Effect at ${path} requires an integer \`add\``);
@@ -2206,7 +2290,7 @@ export function validateData(data) {
       if (system.id !== undefined && system.id !== systemId) {
         errors.push(`growthSystems.${systemId}.id (${JSON.stringify(system.id)}) does not match its key`);
       }
-      ["stats", "proficiencies", "skills", "traits", "unlocks"].forEach((collection) => {
+      ["stats", "proficiencies", "skills", "traits", "unlocks", "resources"].forEach((collection) => {
         if (Array.isArray(system[collection])) {
           system[collection].forEach((def, i) => {
             if (isPlainObject(def) && def.id !== undefined) {
@@ -2215,6 +2299,14 @@ export function validateData(data) {
           });
         }
       });
+      // V2-Core-56 (D-85): a resource's max is what a missing entry is filled with
+      if (Array.isArray(system.resources)) {
+        system.resources.forEach((resource, i) => {
+          if (isPlainObject(resource) && !(Number.isInteger(resource.max) && resource.max > 0)) {
+            errors.push(`growthSystems.${systemId}.resources[${i}].max must be a positive integer`);
+          }
+        });
+      }
       if (Array.isArray(system.skills)) {
         system.skills.forEach((skill, i) => {
           if (isPlainObject(skill) && skill.requires !== undefined) {

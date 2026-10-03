@@ -141,6 +141,12 @@
 // the elder (D-71 (2)). Information -> judgment -> action -> world change -> new information for
 // the next generation. `version` stays "0.1.0" (no state-shape change; D-68).
 //
+// V2-Core-56 (Gate 4 = C, D-85): the first resource, stamina (max 6), defined by the growth system
+// and kept by each character (`growth.growth_wanderer.resources.stamina = {current, max}`; both
+// backgrounds start full, so does a successor; a save without it is full). The counter costs 3 and
+// the old wound 2 (the option requires it, every outcome pays it); the strike and fleeing are free;
+// the village rest refills it. No NPC resources, no version bump.
+//
 // V2-Core-55 (Reputation Decision, D-84): the elder's trust is earned once per meaningful event, per
 // character -- asking about the ruins +5 only on the first telling (the character's own knowledge),
 // reporting +10 only to a non-confidant (his own tag), the dispersal and the correction +5 as before
@@ -246,6 +252,11 @@ const rankUps = (skill) => [20, 40, 60, 80, 100].map((at) => ({ at, effects: [{ 
 const FIGHT_DIFFICULTY = (base, stat) => ({ base, opposed: { subject: "npc_bandit_leader", stat } });
 // the strike (V2-Core-50/51) and, since V2-Core-55, the weak spot: one blow, one damage table
 const STRIKE_CHECK = (base) => ({ stat: "str", skill: "swordsmanship", tags: ["combat"], difficulty: FIGHT_DIFFICULTY(base, "str") });
+// V2-Core-56 (D-85, Gate 4 = C): a technique's stamina cost -- the option requires it, and every
+// outcome of its exchange pays it first (an option with a check runs only its tier's outcome)
+const STAMINA_AT_LEAST = (n) => ({ op: "resource", resource: "stamina", min: n });
+const payStamina = (n, outcomes) =>
+  Object.fromEntries(Object.entries(outcomes).map(([tier, effects]) => [tier, [{ op: "resource", resource: "stamina", add: -n }, ...effects]]));
 const STRIKE_OUTCOMES = {
   great: fightExchange([hitLeader(-7), say("txt_fight_strike_great")]),
   success: fightExchange([hitLeader(-5), say("txt_fight_strike_hit")]),
@@ -270,8 +281,8 @@ export const worldData = {
       hp: { max: 10 },
       money: 8,
       inventory: {},
-      // V2-Core-51 (D-80): the six common stats, 8 each (the old `wit`)
-      growth: { growth_wanderer: { stats: { str: 8, dex: 8, con: 8, int: 8, wis: 8, per: 8 } } },
+      // V2-Core-51 (D-80): the six common stats, 8 each (the old `wit`); V2-Core-56 (D-85): full stamina
+      growth: { growth_wanderer: { stats: { str: 8, dex: 8, con: 8, int: 8, wis: 8, per: 8 }, resources: { stamina: { current: 6, max: 6 } } } },
       tags: []
     },
     // V2-Core-53 (D-82): the first starting background with a trait. The same stats; less money (no
@@ -287,7 +298,8 @@ export const worldData = {
       growth: {
         growth_wanderer: {
           stats: { str: 8, dex: 8, con: 8, int: 8, wis: 8, per: 8 },
-          traits: { night_vision: true }
+          traits: { night_vision: true },
+          resources: { stamina: { current: 6, max: 6 } }
         }
       },
       tags: []
@@ -472,6 +484,8 @@ export const worldData = {
       minutes: 60,
       effects: [
         { op: "hp", add: 4 },
+        // V2-Core-56 (D-85): the rest refills stamina (the only way back; no regeneration over time)
+        { op: "resource", resource: "stamina", add: 6 },
         { op: "narrate", textId: "txt_rest_village" }
       ]
     },
@@ -693,24 +707,26 @@ export const worldData = {
         {
           id: "opt_fight_weak_spot",
           name: "그의 오래된 상처를 노린다",
-          requires: { op: "rumor", rumor: "rum_leader_old_wound" },
+          // V2-Core-56 (D-85): 2 stamina
+          requires: { op: "and", of: [{ op: "rumor", rumor: "rum_leader_old_wound" }, STAMINA_AT_LEAST(2)] },
           check: STRIKE_CHECK(9),
           minutes: 5,
-          outcomes: STRIKE_OUTCOMES
+          outcomes: payStamina(2, STRIKE_OUTCOMES)
         },
         // the technique: only for a character whose keen eye reads the leader's attacks
         {
           id: "opt_fight_counter",
           name: "그의 공격을 읽고 받아친다",
-          requires: { op: "unlock", id: "unl_keen_eye" },
+          // V2-Core-56 (D-85): 3 stamina
+          requires: { op: "and", of: [{ op: "unlock", id: "unl_keen_eye" }, STAMINA_AT_LEAST(3)] },
           check: { stat: "dex", skill: "swordsmanship", tags: ["combat"], difficulty: FIGHT_DIFFICULTY(12, "dex") },
           minutes: 5,
-          outcomes: {
+          outcomes: payStamina(3, {
             great: fightExchange([hitLeader(-10), say("txt_fight_counter_great")]),
             success: fightExchange([hitLeader(-7), say("txt_fight_counter_hit")]),
             partial: fightExchange([hitSelf(-1), say("txt_fight_counter_graze")]),
             fail: fightExchange([hitSelf(-4), say("txt_fight_counter_miss")])
-          }
+          })
         },
         // breaking off: back to the village; the leader lives, keeps his wounds and remembers
         {
@@ -772,7 +788,10 @@ export const worldData = {
         { minRank: 3, label: "Apprentice" },
         { minRank: 5, label: "Adept" }
       ],
-      unlocks: [{ id: "unl_keen_eye", kind: "action" }]
+      unlocks: [{ id: "unl_keen_eye", kind: "action" }],
+      // V2-Core-56 (Gate 4 = C, D-85): resources belong to the growth system. Stamina pays for the
+      // fight's techniques (the counter 3, the old wound 2); a character without the entry is full
+      resources: [{ id: "stamina", max: 6 }]
     }
   },
 

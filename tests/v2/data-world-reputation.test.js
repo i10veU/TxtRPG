@@ -70,10 +70,13 @@ function testData() {
   const weak = option("choice_fight_leader", "opt_fight_weak_spot");
   const strike = option("choice_fight_leader", "opt_fight_strike");
   assert.strictEqual(weak.name, "그의 오래된 상처를 노린다");
-  assert.deepStrictEqual(weak.requires, { op: "rumor", rumor: "rum_leader_old_wound" });
+  // since V2-Core-56 (D-85) it also costs 2 stamina (tests/v2/data-world-resource.test.js)
+  assert.deepStrictEqual(weak.requires, { op: "and", of: [{ op: "rumor", rumor: "rum_leader_old_wound" }, { op: "resource", resource: "stamina", min: 2 }] });
   assert.deepStrictEqual(weak.check, { ...strike.check, difficulty: { base: 9, opposed: { subject: "npc_bandit_leader", stat: "str" } } });
   assert.strictEqual(strike.check.difficulty.base, 11);
-  assert.deepStrictEqual(weak.outcomes, strike.outcomes, "the existing combat structure: the strike's damage and results");
+  for (const tier of Object.keys(strike.outcomes)) {
+    assert.deepStrictEqual(weak.outcomes[tier].slice(1), strike.outcomes[tier], `${tier}: the strike's damage and results, after the stamina (V2-Core-56)`);
+  }
   assert.strictEqual(weak.minutes, strike.minutes);
   // small talk and the news no longer touch the edge; the dispersal and the correction keep +5
   const writesElder = (o) => JSON.stringify(o.effects).includes('"op":"relation","from":"npc_elder"');

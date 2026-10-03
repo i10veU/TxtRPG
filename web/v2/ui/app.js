@@ -17,7 +17,7 @@
 // with no explanation, by design, not by omission.
 
 import { createInitialState, step, view, validateState, checkDataCompatibility } from "../core/engine.js";
-import { evaluateCondition } from "../core/rules.js";
+import { actorResource, evaluateCondition } from "../core/rules.js";
 import * as storage from "../storage/idb.js";
 import { worldData } from "../data/world.js";
 
@@ -221,6 +221,13 @@ function renderStatus(actor) {
     .sort()
     .join(", ");
   const unlocks = Object.keys(growth.unlocks ?? {}).sort().join(", ");
+  // V2-Core-56 (D-85): every resource the world's growth system defines, as the engine reads it
+  // (an entry the save does not have is full)
+  const resources = (worldData.growthSystems?.[worldData.world.growthSystemId]?.resources ?? [])
+    .map((def) => [def.id, actorResource(actor, worldData, def.id)])
+    .filter(([, r]) => r !== undefined)
+    .map(([id, r]) => `${id} ${r.current}/${r.max}`)
+    .join(", ");
   const inventory = Object.keys(actor.inventory ?? {})
     .sort()
     .map((k) => `${worldData.items?.[k]?.name ?? k} x${actor.inventory[k]}`)
@@ -230,6 +237,7 @@ function renderStatus(actor) {
   const lines = [
     `HP ${actor.hp.current}/${actor.hp.max}`,
     `소지금 ${actor.money}`,
+    resources && `자원: ${resources}`,
     stats && `능력치: ${stats}`,
     proficiency && `숙련도: ${proficiency}`,
     skills && `기술: ${skills}`,

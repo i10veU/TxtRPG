@@ -450,6 +450,7 @@ rollDie(rng, sides)    = nextUint32의 value % sides + 1
 | `case` | `{"op":"case","case":"case_a","stage":"stage_b"}` 또는 `{"op":"case","case":"case_a","in":[...]}` | 사건/퀘스트 단계. **후보 목록에 추가한 연산자** |
 | `money` | `{"op":"money","min":10}` | 보유 금액. **후보 목록에 추가한 연산자** |
 | `alive` | `{"op":"alive","subject":"npc_a"}` | subject actor이 존재하고 `alive === true`면 참. actor가 없으면 거짓. 죽음은 `not alive`. 인자는 `subject`(선택)뿐이다. player/world 문맥 모두 허용한다(actor 상태이지 Fact가 아니다, §8.4). **D-78(Gate 3)으로 추가** |
+| `resource` | `{"op":"resource","resource":"res_a","min":2}` | subject의 성장체계 resource의 `current`를 비교한다(`subject`/`system` 선택, 기본은 self와 `data.world.growthSystemId`). 인자가 없으면 1 이상. **항목이 없으면 정의의 `max`(가득 참)로 읽는다.** 정의도 항목도 없거나 actor가 없으면 거짓. player/world 문맥 모두 허용한다(actor 상태). **D-85(Gate 4 = C)로 추가** |
 | `handler` | `{"op":"handler","name":"x.y","params":{}}` | 예외 경로 (4.4절). boolean만 반환 |
 | `eq` | `{"op":"eq","left":Value,"right":Value}` | 둘 중 하나라도 `undefined`면 거짓(D-25). 아니면 `left === right` (strict). D-23, 3.2a절 |
 | `neq` | `{"op":"neq","left":Value,"right":Value}` | 둘 중 하나라도 `undefined`면 거짓(D-25). 아니면 `left !== right` (strict). D-23, 3.2a절 |
@@ -488,7 +489,7 @@ rollDie(rng, sides)    = nextUint32의 value % sides + 1
 | `skill` | `{"skill":"<id>","subject"?:Subject,"system"?:"<id>"}` | skill rank (§6.3 `growth[system].skills[id]`) | §3.2 `skill` op |
 | `proficiency` | `{"proficiency":"<id>","subject"?:Subject,"system"?:"<id>"}` | 누적 포인트 (§6.3 `growth[system].proficiency[id]`) | §6.2 Proficiency |
 | `item` | `{"item":"<id>","subject"?:Subject}` | 보유 수량 (§2.1 `actors[id].inventory[item]`) | §3.2 `item` op |
-| `money` | `{"money":true,"subject"?:Subject}` | 보유 금액 (§2.1 `actors[id].money`). 유일한 자원이라 식별자가 필요 없으므로 `true`를 고정 마커로 쓴다 | §3.2 `money` op |
+| `money` | `{"money":true,"subject"?:Subject}` | 보유 금액 (§2.1 `actors[id].money`). `actors[id]`에 하나뿐인 금액이라 식별자가 필요 없으므로 `true`를 고정 마커로 쓴다 | §3.2 `money` op |
 | `relation` | `{"relation":{"from":Subject,"to":Subject}}` | edge의 `score` (§7.2). 없으면 기본 Relation(`score:0`)으로 간주 | §7.1~7.2, §3.2 `relation` op |
 | `flag` | `{"flag":"<key>"}` | `state.flags[key]`, 없으면 `null` | §3.1 누락 참조 규칙 |
 | `signal` | `{"signal":"<key>"}` | `state.signals[key] ?? 0` | §3.2 `signal` op |
@@ -617,6 +618,7 @@ resolver 코드를 바꾸지 않고도 자동으로 실제 값을 비교하게 �
 | --- | --- | --- | --- |
 | `stat` | `{op, stat, add, subject?, system?}` | **구현됨.** `stat`은 string, `add`는 정수, `system`은 있으면 string(그 외 malformed→throw). subject 해석은 위 공통 규칙. `system` 기본값은 `data.world.growthSystemId`(§3.2a `stat` selector와 동일). `actor.growth[system].stats[stat]`을 `add`만큼 바꾸고, `data.growthSystems[system].stats`에서 같은 `id`의 정의를 찾아 `[min,max]`로 clamp한다 — 정의를 못 찾으면 clamp 없이 적용한다(범위를 모르므로) | `stat.changed` (subject 기준, D-31), `data:{stat, delta}` |
 | `hp` | `{op, add, subject?}` | **구현됨(§9 사망 트리거 포함, D-34 resolved, V2-Core-10).** `add`는 정수(그 외 malformed→throw). subject 해석은 위 공통 규칙. `actor.hp.current`를 `[0, actor.hp.max]`로 clamp하며 변경한다. **current가 실제로 0이 되는 전이(alive였다가 처음 0이 됨) 순간에만** `actor.alive=false`로 바꾸고 `actor.died` 이벤트를 낸다(이미 죽은 actor에게 다시 적용해도 중복 발생하지 않음). 죽은 actor가 플레이어면 `state.pending={kind:"newCharacter"}`를 설정한다. `startCharacter`/succession(§9)은 action/step() 영역이라 이번 범위 밖이다(D-40, engine.js 미변경) | `hp.changed`(subject 기준, D-31, `data:{delta}`) + 사망 전이 시 `actor.died`(subject 기준, `data:{}`) |
+| `resource` | `{op, resource, add, subject?, system?}` | **구현됨(D-85, V2-Core-56).** `resource`는 string, `add`는 정수, `system`은 있으면 string(그 외 malformed→throw). subject/system 해석은 위 공통 규칙. `actor.growth[system].resources[resource].current`를 `[0, max]`로 clamp하며 바꾼다. `max`는 항목의 것이고, 항목이 없으면 정의(`data.growthSystems[system].resources`)의 `max`로 가득 찬 값에서 시작해 `{current, max}`로 기록한다. delta 0이면 아무것도 바꾸지 않는다(이벤트 없음, 없는 항목은 없는 채로, D-30). 정의도 항목도 없으면 skip(D-29). state의 항목이 깨져 있으면(`{current, max}` 정수가 아님) throw한다(hp 기록과 같다, 고치지 않는다) | `resource.changed` (subject 기준, D-31), `data:{resource, delta}` |
 | `money` | `{op, add, subject?}` | **구현됨.** `add`는 정수(그 외 malformed→throw). subject 해석은 위 공통 규칙. `actor.money`를 `[0, Number.MAX_SAFE_INTEGER]`로 clamp하며 변경한다 | `money.changed` (subject 기준, D-31), `data:{delta}` |
 | `time` | `{op, minutes}` | **구현됨.** `minutes`는 정수이고 0 이상이어야 한다(그 외 malformed). `state.time.minute += minutes`만 한다 — day 경계 계산과 `day.started` 발행은 `step()`의 책임이다(§2.5 9단계), `time` Effect는 만들지 않는다(D-39 확정, 이전 초안의 "day 경계 기록"은 폐기). `minutes:0`은 no-op(이벤트 없음) | `time.advanced` (player), `data:{minutes: 실제 적용값}` |
 | `move` | `{op, to, subject?}` | **구현됨(D-46, V2-Core-11).** `to`는 string(그 외 malformed→throw). `move`는 4.1절의 "world 전용이라 subject 무시" 목록(`fact`/`flag`/`signal`/`time`/`narrate`/`choice`/`case`/`if`)에 없으므로 subject 해석은 위 공통 규칙(기본값 self)을 그대로 따른다. `actor.locationId`를 `to`로 직접 설정한다. 연결 검사는 하지 않는다(requires/링크 requires가 책임, §2.2). 이미 같은 위치면 no-op(D-30) | `actor.moved`(subject 기준, D-31 — skill/trait/unlock이 이미 "player" 하드코딩을 subject 기준으로 갱신한 것과 같은 선례를 적용), `data:{to}` |
@@ -817,7 +819,8 @@ resolver 코드를 바꾸지 않고도 자동으로 실제 값을 비교하게 �
   "proficiencies": [ Proficiency, ... ],
   "skills": [ Skill, ... ],
   "traits": [ Trait, ... ],
-  "unlocks": [ Unlock, ... ]
+  "unlocks": [ Unlock, ... ],
+  "resources": [ Resource, ... ]                         // D-85 (선택)
 }
 ```
 
@@ -846,6 +849,10 @@ resolver 코드를 바꾸지 않고도 자동으로 실제 값을 비교하게 �
 // masteryTiers (D-82, 선택): [{ "minRank": 0, "label": "Untrained" }, ...] -- skill rank 위의 표시용 label.
 // UI만 읽는다. 엔진/view/check는 읽지 않는다(gameplay modifier가 아니다)
 { "id": "unl_a", "kind": "action" | "choice" | "system" | "location" | "other" }
+
+// Resource (D-85, Gate 4 = C): 성장체계에 속한 소모 자원(stamina, mana, qi, ... 어떤 id든). `max`는 양의 정수이고,
+// actor에 항목이 없을 때 채우는 값(가득 참)이다. 비용은 새 문법 없이 `resource` Condition(requires)과 `resource` Effect로 쓴다
+{ "id": "res_a", "max": 6 }
 ```
 
 ### 6.3 GrowthState (actor 상태)
@@ -858,7 +865,8 @@ resolver 코드를 바꾸지 않고도 자동으로 실제 값을 비교하게 �
     "proficiency": { "prof_a": 0 },
     "skills": { "skill_a": 1 },
     "traits": { "trait_a": true },
-    "unlocks": { "unl_a": true }
+    "unlocks": { "unl_a": true },
+    "resources": { "res_a": { "current": 6, "max": 6 } }   // D-85: 없으면 정의의 max로 가득 찬 것으로 읽는다(migration 없음)
   }
 }
 ```
@@ -1645,6 +1653,7 @@ state.knowledge["player_1"]["rum_a"] = {
 | D-82 | Trait / Talent / Mastery Decision (Issue #139, V2-Core-53) | **인간 결정·구현**: **Trait**은 기존 Trait 시스템을 그대로 쓴다(§6.2 Trait, `trait` Condition/Effect). 획득 경로는 장기적으로 제한하지 않는다(시작 배경, 사건/세계 결과, 기존 Effect). 첫 slice는 시작 배경 `start_scout`(characterTemplate)이다. 떠돌이와 같은 stat, money 3(떠돌이 8), `traits: { night_vision: true }`. `night_vision`은 modifier 없이 규칙을 바꾸는 trait다. 폐허로 가는 link와 `act_investigate_ruins`의 requires가 `or(item_lantern, trait night_vision)`이 되고, 등불의 조사 보정(+1)은 등불의 것으로 남는다. 새 Trait engine은 없다. 배경 선택 지점은 기존 후계자 template 목록(UI의 "새 캐릭터로 시작 (templateId)" 버튼)이다. 첫 캐릭터는 여전히 `world.startTemplateId`(D-47)이다. 첫 캐릭터가 배경을 고르려면 `createInitialState`에 선택 인자가 필요하다(공개 API 변경, 후속 결정). **Talent**: 보류한다(시스템/state/modifier semantics 없음, Practice → Skill 속도를 관찰한 뒤 별도 Gate). **Mastery**: 별도 state는 없다. Skill Rank 위의 tier label만 둔다. growth system의 `masteryTiers`(`[{minRank, label}]`, 0부터 오름차순: Untrained 0 / Novice 1 / Apprentice 3 / Adept 5)는 **UI만 읽는 표시/분류용 데이터**다. 엔진, `view()`, state, check는 읽지 않는다(gameplay modifier 없음, 테스트로 고정). 이름은 Master Spec 예시의 영어를 그대로 썼다(한국어 UI의 "숙련도" = practice와 겹치지 않게). UI 상태에 "특성: …"과 기술의 tier가 표시된다. version bump 없음(기존 actor와 save 모양 그대로). 테스트: `tests/v2/data-world-background.test.js`, `tests/v2-ui-background-browser.spec.js`(+CI 단계). |
 | D-83 | 첫 캐릭터의 배경 선택 (Issue #141, V2-Core-54) | **인간 결정·구현**: 첫 캐릭터도 New Game에서 배경을 고른다. 공개 API `createInitialState({ worldSeed, data, templateId? })`에 선택 인자를 더했다(§1.4, 하위 호환). 배경 = characterTemplate이므로 이름은 `startCharacter`와 같은 `templateId`다. 생략하면 `data.world.startTemplateId`(D-47 그대로, 이전과 같은 초기 state, 테스트로 고정). 문자열이 아니거나 없는 template이면 throw한다. actor 없는 세계(D-48)를 조용히 만들면 호출 오류를 숨기기 때문이다. 선택은 `player_1` actor만 바꾼다. seed, RNG, provenance, NPC/fact 시딩은 같다(테스트와 변이로 고정). UI 메뉴에 "배경" 선택(`#backgroundSelect`, 기존 template 목록, 기본값 = 세계의 start template)이 있다. `newGame(seed, templateId?)`은 인자가 없으면 그 선택값을 쓴다. 배경 시스템, Trait/Skill/Mastery/Save schema, 배경 종류는 바꾸지 않았다(Scout의 night vision은 template 그대로). 테스트: `tests/v2/new-game-background.test.js`, `tests/v2-ui-new-game-background-browser.spec.js`(+CI 단계). |
 | D-84 | Reputation Decision — 원로의 신뢰 (Issue #143, V2-Core-55) | **인간 결정·구현**: 기존 relation edge(`npc_elder` → 캐릭터)의 점수를 신뢰로 쓴다. 새 Relation Engine, save schema, pack version 변경은 없다. (1) **farming 수정 (a)**: 의미 있는 상승은 캐릭터마다 한 번이다. 폐허 질문 +5는 그 캐릭터가 `rum_ruins_secret`을 처음 들을 때만이다(`if` + 기존 `rumor` Condition, 그 캐릭터의 지식). 보고 +10과 `confidant`는 이미 confidant가 아닐 때만이다(`if` + 기존 `relation` Condition의 tag). 잡담과 도적단 소식은 relation을 바꾸지 않는다(대화/정보만). 해산 +5와 전설 정정 +5는 그대로다(각각 이미 한 번뿐). 다시 묻거나 다시 보고해도 대답은 그대로 나온다. 후계자는 자기 edge와 자기 지식을 가지며 아무것도 물려받지 않는다(D-71 (1)). 정준 경로 점수: 5 → 15(보고) → 20(해산), 소식은 +0. (2) **임계값 15**: `{ op:"relation", from:"npc_elder", to:"self", min:15 }`. decay 없음. 이미 저장된 높은 점수는 고치지도 낮추지도 않는다(그 save도 신뢰로 센다, 테스트로 고정). (3) **보상 R1**: 신뢰가 있으면 원로 선택지 「두목에 대해 더 묻는다」가 소문 `rum_leader_old_wound`(fact `fact_leader_wound`, initial 없음, 아무것도 그 fact를 쓰지 않는다)를 가르친다. 그 소문을 알면 전투 선택지 「그의 오래된 상처를 노린다」가 열린다(`rumor` Condition). 정면 공격과 같은 check(STR, swordsmanship, STR 대항)에 base 9(정면은 11)를 쓰고, outcome/피해는 정면 공격과 같은 표(`STRIKE_OUTCOMES`)다. Talent, Resource, stat 비례 피해는 없다. 테스트: `tests/v2/data-world-reputation.test.js`, `tests/v2-ui-reputation-browser.spec.js`(+CI 단계). 옛 동작을 고정하던 단언(잡담 +1, 소식 +1, 반복 질문으로 20 이상)은 결정된 동작으로 갱신했다. |
+| D-85 | Gate 4 = C — 성장체계의 Resource (Issue #145, V2-Core-56) | **인간 결정·구현**: (1) **구조**: resource는 성장체계에 속한다. 정의는 `growthSystems.X.resources: [{id, max}]`, state는 `actor.growth[X].resources[id] = {current, max}`(§6.1~6.3). 엔진은 특정 resource를 알지 못한다(stamina 하드코딩 없음). 새 `resource` Condition(§3.2)과 `resource` Effect(§4.2), 공용 resolver `actorResource`(UI도 쓴다), validator(op, 필수 인자, 정의 id 형식, `max` 양의 정수)를 추가했다. 별도 Resource Engine이나 Combat Cost 문법은 없다. (2) **첫 resource**: 실제 팩의 `stamina`, max 6. 두 배경의 template이 `{current:6, max:6}`을 넣으므로 새 캐릭터와 후계자는 6이다(엔진의 actor 생성은 바뀌지 않았다). NPC resource는 없다. (3) **save 호환**: 항목이 없으면 정의의 `max`(가득 참)로 읽는다. migration/repair 없음, 팩 version bump 없음, D-68 그대로다. 변화가 없는 Effect(가득 찬 상태의 휴식, 비용 0)는 없는 항목을 만들지 않고, 처음 실제로 바뀔 때 기록한다. validateState는 D-55 범위 그대로라 resource 정수 검사를 더하지 않았다. (4) **비용**: 정면 공격 0, 오래된 상처 2, 받아치기 3, 도주 0. 선택지의 `requires`에 resource 최소치를 넣고(부족하면 `requirements_not_met`, state/RNG/시간 불변), 차감 Effect는 그 교환의 모든 outcome 맨 앞에 둔다. `check`가 있는 선택지는 tier의 outcome만 실행하기 때문이며(§5.7), 시도한 교환은 결과와 상관없이 비용을 치른다. (5) **회복**: 마을 휴식이 stamina를 max까지 채운다(`add: 6`, clamp). 시간 경과 회복은 없다. (6) Talent, stat 비례 피해, 장비, 다른 resource는 없다. UI 상태에 `자원:` 줄이 있다(없는 항목은 가득 찬 값으로 보인다). 테스트: `tests/v2/resource.test.js`, `tests/v2/data-world-resource.test.js`, `tests/v2-ui-resource-browser.spec.js`(+CI 단계). |
 
 ---
 
@@ -2089,3 +2098,8 @@ state.knowledge["player_1"]["rum_a"] = {
     `tests/v2-ui-reputation-browser.spec.js`(+CI 단계, 실제 버튼, save → reload → load, 같은 save에서 정면 공격보다 margin이 2 높다. 변이 2개 실패).
     browser spec 4개(consequence, core-semantics, successor, successor-gate)의 옛 relation 단언(잡담/소식 +1, fact 목록)도 결정된 동작으로 갱신했다. Playwright로 센 V2 browser 테스트는 60개다
     (기준 58 + 2). README가 적었던 62는 잘못 센 값이라 실측값으로 고쳤다.
+  - 작업 53 = V2-Core-56 (Issue #145, D-85): Gate 4 = C. 성장체계에 속한 resource(`growthSystems.X.resources`, `growth[X].resources[id] = {current, max}`, 없으면 가득 참)와
+    `resource` Condition/Effect/validator/UI 줄을 추가했다. 실제 팩은 stamina(max 6)를 쓰고, 받아치기 3과 오래된 상처 2를 requires + 모든 outcome의 차감 Effect로 치르며, 마을 휴식이 다시 채운다.
+    팩 version과 save schema는 그대로다. 오래된 상처의 requires/outcome 단언(data-world-reputation)은 비용을 포함하도록 갱신했다. 새 테스트 `tests/v2/resource.test.js`, `tests/v2/data-world-resource.test.js`
+    (변이 22개 중 21개 실패. 남은 하나 — 인자 없는 Condition의 기본값 1을 빼는 변이 — 는 resolver가 0 이상 정수만 돌려주므로 동치다), `tests/v2-ui-resource-browser.spec.js`(+CI 단계, 실제 버튼,
+    save → reload → load로 부족한 save와 resource 이전 save 둘 다 확인, 변이 3개 실패).
