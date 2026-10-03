@@ -49,8 +49,9 @@ function testDataShape() {
   assert.deepStrictEqual(validateData(worldData), []);
   // the ruins hazard (V2-Core-25), since V2-Core-33 the later market event, and since V2-Core-45 the
   // dispersal's history clock; since V2-Core-64 the forest spring's miasma, since V2-Core-66 the clear well, since
-  // V2-Core-69 the spring's history clock, since V2-Core-72 the reopened road's first walker
-  assert.deepStrictEqual(Object.keys(worldData.events), ["evt_bandits_tale", "evt_market_reopens", "evt_crossroads_first", "evt_well_tale", "evt_well_clears", "evt_spring_miasma", "evt_ruins_hazard"]);
+  // V2-Core-69 the spring's history clock, since V2-Core-72 the reopened road's first walker, since V2-Core-73
+  // the hamlet's carts at the market
+  assert.deepStrictEqual(Object.keys(worldData.events), ["evt_bandits_tale", "evt_market_reopens", "evt_hamlet_carts", "evt_crossroads_first", "evt_well_tale", "evt_well_clears", "evt_spring_miasma", "evt_ruins_hazard"]);
   assert.ok(Array.isArray(worldData.rules.succession) && worldData.rules.succession.length > 0);
   assert.ok(worldData.actions.act_investigate_ruins.minutes > 0);
   assert.strictEqual(worldData.actions.act_talk_elder.requires.op, "location");
