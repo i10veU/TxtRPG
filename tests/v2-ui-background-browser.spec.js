@@ -43,7 +43,7 @@ test.describe("V2 starting background (the scout and night vision)", () => {
     await expect(choiceButton(page, SCOUT)).toHaveCount(1);
     await choiceButton(page, SCOUT).click();
     await expect(page.locator("#choice")).toBeHidden();
-    await expect(page.locator("#status")).toContainText("특성: night_vision");
+    await expect(page.locator("#status")).toContainText("특성: investigation_talent, night_vision");
     await expect(page.locator("#status")).toContainText("소지금 6");
     await expect(page.locator("#status")).not.toContainText("낡은 등불");
 
@@ -57,7 +57,7 @@ test.describe("V2 starting background (the scout and night vision)", () => {
     const state = await getState(page);
     expect(state.player.actorId).toBe("player_2");
     expect(state.actors.player_2.inventory.item_lantern).toBeUndefined();
-    expect(state.actors.player_2.growth.growth_wanderer.traits).toEqual({ night_vision: true });
+    expect(state.actors.player_2.growth.growth_wanderer.traits).toEqual({ night_vision: true, investigation_talent: true });
     expect(state.actors.player_2.growth.growth_wanderer.proficiency.investigation).toBeGreaterThan(0); // the search happened
 
     expect(pageErrors).toEqual([]);

@@ -141,6 +141,11 @@
 // the elder (D-71 (2)). Information -> judgment -> action -> world change -> new information for
 // the next generation. `version` stays "0.1.0" (no state-shape change; D-68).
 //
+// V2-Core-57 (#147 Phase A, D-86): the first talent. The scout background keeps night vision and
+// gains `investigation_talent` -- a trait whose `practice` adds 2 to every investigation practice
+// gain (the engine applies it where practice grows). The wanderer is unchanged; a scout saved
+// before it has none. No new background, no version bump.
+//
 // V2-Core-56 (Gate 4 = C, D-85): the first resource, stamina (max 6), defined by the growth system
 // and kept by each character (`growth.growth_wanderer.resources.stamina = {current, max}`; both
 // backgrounds start full, so does a successor; a save without it is full). The counter costs 3 and
@@ -298,7 +303,8 @@ export const worldData = {
       growth: {
         growth_wanderer: {
           stats: { str: 8, dex: 8, con: 8, int: 8, wis: 8, per: 8 },
-          traits: { night_vision: true },
+          // V2-Core-57 (D-86): and an investigation talent (a growth tendency, not a check bonus)
+          traits: { night_vision: true, investigation_talent: true },
           resources: { stamina: { current: 6, max: 6 } }
         }
       },
@@ -777,8 +783,10 @@ export const worldData = {
         { id: "swordsmanship", maxRank: 5, checkBonusPerRank: 1 },
         { id: "investigation", maxRank: 5, checkBonusPerRank: 1 }
       ],
-      // V2-Core-53 (D-82): a trait that changes a rule (the ruins' light requirement), no modifier
-      traits: [{ id: "night_vision" }],
+      // V2-Core-53 (D-82): a trait that changes a rule (the ruins' light requirement), no modifier.
+      // V2-Core-57 (D-86, #147 Phase A): a talent is a trait with `practice` -- every investigation
+      // practice gain of whoever holds it is 2 more (observing 17, a search 32 / 12); no modifier
+      traits: [{ id: "night_vision" }, { id: "investigation_talent", practice: { investigation: 2 } }],
       // V2-Core-53 (D-82): Mastery is a label over the skill rank, for display and classification
       // only -- read by the UI, never by the engine (no state, no modifier). English names, so they
       // never read as the UI's "숙련도" (the practice)

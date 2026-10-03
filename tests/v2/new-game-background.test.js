@@ -29,7 +29,7 @@ function testDefault() {
 function testScout() {
   const plain = create().state;
   const scout = create({ templateId: "start_scout" }).state;
-  assert.deepStrictEqual(scout.actors.player_1.growth.growth_wanderer.traits, { night_vision: true });
+  assert.deepStrictEqual(scout.actors.player_1.growth.growth_wanderer.traits, { night_vision: true, investigation_talent: true });
   assert.strictEqual(scout.actors.player_1.money, 3);
   assert.strictEqual(scout.actors.player_1.id, "player_1");
   assert.deepStrictEqual(scout.player, { actorId: "player_1", characterCount: 1 });
@@ -40,7 +40,7 @@ function testScout() {
   };
   assert.deepStrictEqual(rest(scout), rest(plain), "the seed, RNG, provenance, NPCs and facts are the same");
   assert.deepStrictEqual(validateState(scout), []);
-  assert.deepStrictEqual(view(scout, worldData).actor.growth.growth_wanderer.traits, { night_vision: true });
+  assert.deepStrictEqual(view(scout, worldData).actor.growth.growth_wanderer.traits, { night_vision: true, investigation_talent: true });
   assert.deepStrictEqual(create({ templateId: "start_scout" }), create({ templateId: "start_scout" }), "deterministic");
 
   // night vision from the first step: the dark ruins without a lantern

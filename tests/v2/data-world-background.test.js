@@ -44,10 +44,10 @@ const me = (state) => state.actors[state.player.actorId];
 
 // 1. the background and the trait, in data
 function testData() {
-  assert.deepStrictEqual(SYSTEM.traits, [{ id: "night_vision" }]);
+  assert.deepStrictEqual(SYSTEM.traits[0], { id: "night_vision" }); // V2-Core-57 adds the investigation talent after it
   const scout = worldData.characterTemplates.start_scout;
   const wanderer = worldData.characterTemplates.start_wanderer;
-  assert.deepStrictEqual(scout.growth.growth_wanderer.traits, { night_vision: true });
+  assert.deepStrictEqual(scout.growth.growth_wanderer.traits, { night_vision: true, investigation_talent: true });
   assert.deepStrictEqual(scout.growth.growth_wanderer.stats, wanderer.growth.growth_wanderer.stats, "the same stats");
   assert.deepStrictEqual([scout.money, wanderer.money], [3, 8]);
   assert.strictEqual(wanderer.growth.growth_wanderer.traits, undefined, "the wanderer has no trait");
@@ -58,10 +58,10 @@ function testData() {
 function testScoutSuccessor() {
   const s = successor("start_scout");
   assert.strictEqual(s.player.actorId, "player_2");
-  assert.deepStrictEqual(me(s).growth.growth_wanderer.traits, { night_vision: true });
+  assert.deepStrictEqual(me(s).growth.growth_wanderer.traits, { night_vision: true, investigation_talent: true });
   assert.strictEqual(me(s).money, 6, "3 + the succession's 3");
   assert.strictEqual(me(s).inventory.item_lantern, undefined);
-  assert.deepStrictEqual(view(s, worldData).actor.growth.growth_wanderer.traits, { night_vision: true });
+  assert.deepStrictEqual(view(s, worldData).actor.growth.growth_wanderer.traits, { night_vision: true, investigation_talent: true });
   const w = successor("start_wanderer");
   assert.strictEqual(me(w).growth.growth_wanderer.traits, undefined);
 }
