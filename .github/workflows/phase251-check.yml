@@ -213,3 +213,5 @@ jobs:
         run: npx playwright test tests/v2-ui-spring-tale-browser.spec.js --reporter=line
       - name: V2 village trust browser smoke
         run: npx playwright test tests/v2-ui-village-trust-browser.spec.js --reporter=line
+      - name: V2 continuity browser smoke
+        run: npx playwright test tests/v2-ui-continuity-browser.spec.js --reporter=line
