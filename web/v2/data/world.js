@@ -141,6 +141,10 @@
 // the elder (D-71 (2)). Information -> judgment -> action -> world change -> new information for
 // the next generation. `version` stays "0.1.0" (no state-shape change; D-68).
 //
+// V2-Core-48: the investigation proficiency, until now only the way to `unl_keen_eye`, also takes part
+// in the ruins investigation's check (+floor(points / 20), §5.4) -- practice is execution quality.
+// Data only; `version` stays "0.2.0" (no state-shape change).
+//
 // V2-Core-47 (D-77, Gate 1/2 decided): the bandit leader is an actor (`npcs.*.actor`, seeded
 // by createInitialState, `kind:"npc"`), and the confrontation is opposed by his `wit`. The
 // canonical play is unchanged (base 14 + 0 = the old "hard"). `version` is "0.2.0": a save of
@@ -289,7 +293,9 @@ export const worldData = {
           { op: "rumor", rumor: "rum_ruins_secret" }
         ]
       },
-      check: { stat: "wit", tags: ["investigation"], difficulty: "normal" },
+      // V2-Core-48: practice is execution quality -- the investigation proficiency adds
+      // floor(points / checkStep 20) to this check (§5.4)
+      check: { stat: "wit", proficiency: "investigation", tags: ["investigation"], difficulty: "normal" },
       minutes: 60,
       outcomes: {
         success: [
