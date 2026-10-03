@@ -141,6 +141,13 @@
 // the elder (D-71 (2)). Information -> judgment -> action -> world change -> new information for
 // the next generation. `version` stays "0.1.0" (no state-shape change; D-68).
 //
+// V2-Core-65 (#160 Slice 2, step 2 -- herbalism): the remedy the spring needs. Gathering purifying
+// herbs at the spring is WIS with a new skill, `herbalism` (its own practice -> rank at every 20, the
+// mastery labels as every skill), and costs 2 stamina whatever comes of it (the resource outside a
+// fight; the miasma goes on meanwhile). The herbalist teaches the basics once, for 2 silver, to a
+// character she has talked with (+20 practice: rank 1), and brews a remedy from two herbs. Additive
+// only (D-92): a proficiency and a skill (lazy, rank 0), two items, one action, two options.
+//
 // V2-Core-64 (#160 Slice 2, step 1 -- discovery): a second case, 흐려진 우물, built from what exists.
 // The village well (PER, the first check to read it) points to the forest spring; the market herbalist
 // (a dialogue-only NPC, no actor) tells the same, and earns +5 trust once (her own `consulted` tag,
@@ -497,6 +504,19 @@ export const worldData = {
         fail: [{ op: "proficiency", id: "investigation", add: 5 }, say("txt_search_spring_fail")]
       }
     },
+    // V2-Core-65 (#160): gathering purifying herbs -- WIS with the herbalism skill, 2 stamina whatever
+    // comes of it (the option requires it, every outcome pays it, as the fight's techniques)
+    act_gather_herbs: {
+      name: "정화초 채집",
+      requires: { op: "and", of: [{ op: "location", at: "loc_forest_spring" }, KNOWS_WELL_SOURCE, STAMINA_AT_LEAST(2)] },
+      check: { stat: "wis", skill: "herbalism", tags: ["herbalism"], difficulty: "normal" },
+      minutes: 30,
+      outcomes: payStamina(2, {
+        great: [{ op: "item", item: "item_purifying_herb", add: 2 }, { op: "proficiency", id: "herbalism", add: 10 }, say("txt_gather_herbs_great")],
+        success: [{ op: "item", item: "item_purifying_herb", add: 1 }, { op: "proficiency", id: "herbalism", add: 10 }, say("txt_gather_herbs_success")],
+        fail: [{ op: "proficiency", id: "herbalism", add: 5 }, say("txt_gather_herbs_fail")]
+      })
+    },
     act_buy_lantern: {
       name: "등불 구입",
       requires: { op: "and", of: [{ op: "location", at: "loc_market" }, { op: "money", min: 5 }] },
@@ -832,7 +852,38 @@ export const worldData = {
             say("txt_herbalist_sickness")
           ]
         },
-        { id: "opt_herbalist_small_talk", name: "약초 이야기만 나눈다", effects: [say("txt_herbalist_small_talk")] }
+        { id: "opt_herbalist_small_talk", name: "약초 이야기만 나눈다", effects: [say("txt_herbalist_small_talk")] },
+        // V2-Core-65 (#160): once, for 2 silver, to a character she has talked with (her `taught` tag
+        // closes it); +20 herbalism practice -- the first rank
+        {
+          id: "opt_herbalist_teach",
+          name: "약초 고르는 법을 배운다 (은화 2)",
+          requires: {
+            op: "and",
+            of: [
+              { op: "relation", from: "npc_herbalist", to: "self", tag: "consulted" },
+              { op: "not", of: { op: "relation", from: "npc_herbalist", to: "self", tag: "taught" } },
+              { op: "money", min: 2 }
+            ]
+          },
+          effects: [
+            { op: "money", add: -2 },
+            { op: "relation", from: "npc_herbalist", tag: "taught" },
+            { op: "proficiency", id: "herbalism", add: 20 },
+            say("txt_herbalist_teach")
+          ]
+        },
+        // V2-Core-65 (#160): two herbs make one remedy
+        {
+          id: "opt_herbalist_brew",
+          name: "정화초로 정화제를 달여 달라고 한다",
+          requires: { op: "item", item: "item_purifying_herb", min: 2 },
+          effects: [
+            { op: "item", item: "item_purifying_herb", add: -2 },
+            { op: "item", item: "item_spring_remedy", add: 1 },
+            say("txt_herbalist_brew")
+          ]
+        }
       ]
     },
     // V2-Core-50: one exchange of the fight per choice. Each is an opposed check against the
@@ -926,11 +977,14 @@ export const worldData = {
           ]
         },
         // V2-Core-50: grown by every exchange of a fight; V2-Core-52: it grows swordsmanship
-        { id: "combat", max: 100, thresholds: rankUps("swordsmanship") }
+        { id: "combat", max: 100, thresholds: rankUps("swordsmanship") },
+        // V2-Core-65 (#160): grown by gathering herbs and the herbalist's lesson
+        { id: "herbalism", max: 100, thresholds: rankUps("herbalism") }
       ],
       skills: [
         { id: "swordsmanship", maxRank: 5, checkBonusPerRank: 1 },
-        { id: "investigation", maxRank: 5, checkBonusPerRank: 1 }
+        { id: "investigation", maxRank: 5, checkBonusPerRank: 1 },
+        { id: "herbalism", maxRank: 5, checkBonusPerRank: 1 }
       ],
       // V2-Core-53 (D-82): a trait that changes a rule (the ruins' light requirement), no modifier.
       // V2-Core-57 (D-86, #147 Phase A): a talent is a trait with `practice` -- every investigation
@@ -958,7 +1012,10 @@ export const worldData = {
     // V2-Core-58 (D-87, #147 Phase B): equipment -- an item with a slot. It counts only while
     // equipped (the lantern and the relic have no slot: held is enough, D-10). No modifier: what
     // wielding it changes is a technique (choice_fight_leader.opt_fight_sword_cut)
-    item_iron_sword: { name: "철검", slot: "hand" }
+    item_iron_sword: { name: "철검", slot: "hand" },
+    // V2-Core-65 (#160): what the spring's remedy is made of, and the remedy
+    item_purifying_herb: { name: "정화초" },
+    item_spring_remedy: { name: "샘 정화제" }
   },
 
   // `initial` is seeded by createInitialState since V2-Core-43 (D-76): every new
@@ -1060,6 +1117,11 @@ export const worldData = {
     txt_search_spring_success: "샘 위쪽 바위 틈에 짐승의 사체가 걸려 썩어 가고 있다. 샘물을 흐리는 것은 이것이다.",
     txt_search_spring_fail: "샘가는 안개와 악취로 가득하다. 원인을 찾지 못했다.",
     txt_spring_miasma: "샘에서 피어오르는 독한 기운에 숨이 막히고 속이 뒤집힌다.",
-    txt_spring_miasma_resisted: "샘의 독한 기운이 밀려오지만, 숨을 고르며 버텨 낸다."
+    txt_spring_miasma_resisted: "샘의 독한 기운이 밀려오지만, 숨을 고르며 버텨 낸다.",
+    txt_gather_herbs_great: "물가 바위 그늘에서 싱싱한 정화초 무더기를 찾아 두 묶음을 거둔다.",
+    txt_gather_herbs_success: "독한 풀들 사이에서 정화초 한 묶음을 가려 거둔다.",
+    txt_gather_herbs_fail: "비슷하게 생긴 풀만 한 아름이다. 정화초는 찾지 못했다.",
+    txt_herbalist_teach: "약초꾼은 은화를 받아 넣고, 잎맥과 향으로 정화초를 가려내는 법을 차근차근 일러 준다.",
+    txt_herbalist_brew: "약초꾼은 정화초 두 묶음을 달여 맑은 정화제 한 병을 만들어 준다. 샘의 원인을 치운 뒤 부으라고 한다."
   }
 };

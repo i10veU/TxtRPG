@@ -284,6 +284,7 @@ Core는 순수 함수 기반이며 브라우저/저장소 API에 직접 의존�
 - Integrated Combat 검증 (한 전투에서 Talent·Skill·Mastery·Equipment·Resource·Technique·NPC capability가 함께 작동 — save/load 포함)
 - World Grammar 이식성 검증 (엔진 수정 없이 data만으로 쓴 두 번째 무협 세계가 qi·Talent·부적 slot·NPC 기술로 동작)
 - Vertical Slice 2 「흐려진 우물」 1단계 — 발견 (우물 살피기 PER, 시장의 약초꾼 대화와 1회 신뢰, 근원을 알아야 열리는 숲속 샘, 판정이 있는 독기 이벤트 CON, 샘 조사 — 엔진 변경·version 변경 없음, 0.3.0 save 그대로 플레이)
+- Vertical Slice 2 2단계 — 약초학 (정화초 채집: WIS + 새 기술 `herbalism`, stamina 2 소모 — 전투 밖의 자원 사용; 약초꾼의 1회 강습 은화 2로 herbalism 1; 정화초 2개로 샘 정화제)
 - 판타지 공통 Stats STR / DEX / CON / INT / WIS / PER (조사 INT, 대면 WIS, 공격 STR, 받아치기 DEX — 모두 opposed 판정; 우물·샘 조사 PER, 독기 CON)
 - 첫 Combat (도적 두목과 싸운다: 교환마다 opposed 판정, 받아치기 Technique, 도주, 승리/패배의 세계 결과 — 전투 엔진 없이 choice/check/outcomes)
 - NPC Actor (도적 두목: player와 같은 Actor record, `kind:"npc"`; 두목 대면 판정이 그의 WIS에 대한 opposed check)
@@ -538,9 +539,9 @@ V2는 Node와 실제 Chromium 브라우저 양쪽에서 검증한다.
 
 최근 기준:
 
-- V2 Node: **37/37**
+- V2 Node: **38/38**
 - V1 regression: **41/41**
-- V2 browser: **72/72**
+- V2 browser: **73/73**
 
 각 RPG 기능도 관련 Node/browser/save-load/determinism 검증을 추가한다.
 

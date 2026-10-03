@@ -86,7 +86,8 @@ function testEveryCheckNamesADefinedStat() {
     // V2-Core-64 (#160): the fouled well -- the first checks to read PER and CON
     act_inspect_well: ["per", null],
     act_search_spring: ["per", null],
-    evt_spring_miasma: ["con", null]
+    evt_spring_miasma: ["con", null],
+    act_gather_herbs: ["wis", null] // V2-Core-65: knowing the herbs
   });
   for (const [where, [stat, opposed]] of Object.entries(mapping)) {
     assert.ok(STATS.includes(stat), where);

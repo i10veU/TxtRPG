@@ -50,18 +50,20 @@ function checkSpecs() {
   return specs;
 }
 
-// 1. the schema: two skills; the practices have thresholds and no checkStep
+// 1. the schema: the skills (herbalism since V2-Core-65); the practices have thresholds and no checkStep
 function testSchema() {
   assert.deepStrictEqual(SYSTEM.skills, [
     { id: "swordsmanship", maxRank: 5, checkBonusPerRank: 1 },
-    { id: "investigation", maxRank: 5, checkBonusPerRank: 1 }
+    { id: "investigation", maxRank: 5, checkBonusPerRank: 1 },
+    { id: "herbalism", maxRank: 5, checkBonusPerRank: 1 } // V2-Core-65 (#160)
   ]);
   const byId = Object.fromEntries(SYSTEM.proficiencies.map((p) => [p.id, p]));
-  assert.deepStrictEqual(Object.keys(byId), ["investigation", "combat"]);
+  assert.deepStrictEqual(Object.keys(byId), ["investigation", "combat", "herbalism"]);
   for (const p of SYSTEM.proficiencies) assert.ok(!("checkStep" in p), `${p.id}: no checkStep -- practice is not a bonus by itself`);
   const rankUps = (p, skill) => p.thresholds.filter((t) => t.effects.some((e) => e.op === "skill" && e.skill === skill && e.add === 1)).map((t) => t.at);
   assert.deepStrictEqual(rankUps(byId.investigation, "investigation"), [20, 40, 60, 80, 100]);
   assert.deepStrictEqual(rankUps(byId.combat, "swordsmanship"), [20, 40, 60, 80, 100]);
+  assert.deepStrictEqual(rankUps(byId.herbalism, "herbalism"), [20, 40, 60, 80, 100]);
   assert.ok(byId.investigation.thresholds.some((t) => t.at === 50 && t.effects.some((e) => e.op === "unlock" && e.id === "unl_keen_eye")), "the keen eye stays");
 }
 
@@ -79,7 +81,8 @@ function testChecksReadSkills() {
     // miasma is endured with CON alone
     act_inspect_well: ["investigation", null],
     act_search_spring: ["investigation", null],
-    evt_spring_miasma: [null, null]
+    evt_spring_miasma: [null, null],
+    act_gather_herbs: ["herbalism", null] // V2-Core-65
   });
 }
 
