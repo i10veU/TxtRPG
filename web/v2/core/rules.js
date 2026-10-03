@@ -1005,6 +1005,23 @@ function applyExpEffect(effect, workingState, events, ctx) {
 // processed in ascending `at` order; only before<at<=after fires; each
 // threshold's effects run depth-first via the same reward-ctx pattern as
 // exp. No re-entry/un-firing logic: growth here is monotonic-only (add>=0).
+// V2-Core-57 (D-86, #147 Phase A, T1 = A / T2 = R2): a talent is a trait whose definition
+// lists `practice: { <proficiency id>: <non-negative integer> }` -- a growth tendency, not a check
+// modifier (that is `modifiers`). This is the one place practice grows, so every gain (and only a
+// gain) of a listed proficiency gets the bonus of every trait the actor holds in the same growth
+// system, once per gain. An integer sum, never a multiplier; malformed entries count as 0 (the
+// validator reports them).
+function practiceBonus(traits, ctx, system, proficiencyId) {
+  if (!isPlainObject(traits)) return 0;
+  return Object.keys(traits)
+    .sort()
+    .reduce((sum, traitId) => {
+      if (traits[traitId] !== true) return sum;
+      const value = findGrowthDefinition(ctx, system, "traits", traitId)?.practice?.[proficiencyId];
+      return Number.isInteger(value) && value > 0 ? sum + value : sum;
+    }, 0);
+}
+
 function applyProficiencyEffect(effect, workingState, events, ctx) {
   if (typeof effect.id !== "string") {
     throw new TypeError("proficiency Effect requires a string `id`");
@@ -1031,7 +1048,9 @@ function applyProficiencyEffect(effect, workingState, events, ctx) {
   const before = Number.isInteger(profMap[effect.id]) ? profMap[effect.id] : 0;
   const definition = findGrowthDefinition(ctx, system, "proficiencies", effect.id);
   const max = definition && Number.isInteger(definition.max) ? definition.max : MAX_SAFE;
-  const after = Math.min(max, Math.max(0, before + effect.add));
+  // D-86 (#147 Phase A): a gain (add > 0) also gets each held trait's talent bonus
+  const bonus = effect.add > 0 ? practiceBonus(actor.growth[system].traits, ctx, system, effect.id) : 0;
+  const after = Math.min(max, Math.max(0, before + effect.add + bonus));
   const delta = after - before;
   profMap[effect.id] = after;
   if (delta === 0) return; // D-30: add=0 or clamp absorbed the whole change -> no event
@@ -2318,6 +2337,21 @@ export function validateData(data) {
         system.traits.forEach((trait, i) => {
           if (isPlainObject(trait) && trait.requires !== undefined) {
             walkCondition(trait.requires, "world", `growthSystems.${systemId}.traits[${i}].requires`, errors);
+          }
+          // V2-Core-57 (D-86): a talent's practice bonuses, by proficiency id
+          if (isPlainObject(trait) && trait.practice !== undefined) {
+            const path = `growthSystems.${systemId}.traits[${i}].practice`;
+            if (!isPlainObject(trait.practice)) {
+              errors.push(`${path} must be an object of proficiency id -> non-negative integer`);
+            } else {
+              Object.keys(trait.practice).forEach((proficiencyId) => {
+                checkDataIdFormat(errors, proficiencyId, `${path} key`);
+                const value = trait.practice[proficiencyId];
+                if (!(Number.isInteger(value) && value >= 0)) {
+                  errors.push(`${path}.${proficiencyId} must be a non-negative integer`);
+                }
+              });
+            }
           }
         });
       }
