@@ -141,6 +141,17 @@
 // the elder (D-71 (2)). Information -> judgment -> action -> world change -> new information for
 // the next generation. `version` stays "0.1.0" (no state-shape change; D-68).
 //
+// V2-Core-74 (#180 Slice 4, step 3 -- the river ford and the outside world): north of the crossroads
+// the river ford, for a character who knows the way (`rum_road_ford`). The world does not wait: once the
+// reopened road is in use (`road_walked`, set by its first walker) a caravan comes every three days (`evt_caravan`, `caravan_visits` 1..3,
+// wherever the player is) and leaves the realm's news as the world's facts -- the lord's levy, then the
+// royal fair, then unrest on the border. The ferryman (a dialogue NPC, no actor) tells the latest of it,
+// and the leader's fate: a scarred man he ferried across (`fact_leader_crossed`), or the tale of his fall
+// already told on the far bank. Crossing costs 3 silver, or nothing with the elder's letter of passage
+// (asked of an elder who trusts the character, 15+). The far bank is the threshold of the outside world:
+// its waystation board tells of the royal city beyond, the realm's notices, a bounty on the scarred
+// bandit chief if he lives, and -- if the village honoured someone -- the village's name. Additive only.
+//
 // V2-Core-73 (#180 Slice 4, step 2 -- the mill hamlet): the region's second settlement, east of the
 // crossroads, reached by a character who knows the way (`rum_road_hamlet`). Its miller (a dialogue NPC,
 // no actor) tells the region's news -- coloured by the leader's fate (a scarred man asking for boats at
@@ -361,6 +372,8 @@ const WELL_LEGEND_TIME = { op: "and", of: [{ op: "signal", key: "well_tale_age",
 // V2-Core-72 (#180): the road out -- the bandits who held it are gone; the leader's fate in the land
 const BANDITS_GONE = { op: "case", case: "case_ruins_mystery", stage: "resolved" };
 const LEADER_LIVES = { op: "alive", subject: "npc_bandit_leader" };
+// V2-Core-74 (#180): the realm's news the caravans have brought so far (the world's facts)
+const NEWS = (fact) => ({ op: "fact", fact, eq: "known" });
 // V2-Core-73 (#180): the two settlements trade (a world edge between world entities, D-70)
 const HAMLET_TRADES = { op: "relation", from: "org_mill_hamlet", to: "org_village", tag: "trading" };
 // V2-Core-70 (#170): the village's standing towards this character (their own edge)
@@ -485,6 +498,25 @@ export const worldData = {
         { op: "narrate", textId: "txt_market_reopens" }
       ]
     },
+    // V2-Core-74 (#180): the world does not wait -- once the reopened road is in use (someone has walked
+    // it), a caravan every three days, wherever the player is, brings the realm's news: the levy, then the
+    // fair, then the unrest
+    evt_caravan: {
+      trigger: { op: "and", of: [{ op: "flag", key: "road_walked" }, { op: "signal", key: "caravan_visits", max: 2 }] },
+      cooldown: 4320,
+      effects: [
+        { op: "signal", key: "caravan_visits", add: 1 },
+        { op: "if", when: { op: "signal", key: "caravan_visits", eq: 1 }, then: [{ op: "fact", fact: "fact_realm_levy", set: "known" }] },
+        { op: "if", when: { op: "signal", key: "caravan_visits", eq: 2 }, then: [{ op: "fact", fact: "fact_realm_fair", set: "known" }] },
+        { op: "if", when: { op: "signal", key: "caravan_visits", eq: 3 }, then: [{ op: "fact", fact: "fact_realm_unrest", set: "known" }] }
+      ]
+    },
+    // V2-Core-74 (#180): the first time anyone sets foot on the far bank (narration, once for the world)
+    evt_far_bank_first: {
+      trigger: { op: "location", at: "loc_far_bank" },
+      once: true,
+      effects: [say("txt_far_bank_first")]
+    },
     // V2-Core-73 (#180): the hamlet's carts reach the market (narration, once for the world)
     evt_hamlet_carts: {
       trigger: { op: "and", of: [{ op: "location", at: "loc_market" }, HAMLET_TRADES] },
@@ -495,7 +527,8 @@ export const worldData = {
     evt_crossroads_first: {
       trigger: { op: "location", at: "loc_crossroads" },
       once: true,
-      effects: [say("txt_crossroads_first")]
+      // V2-Core-74: the road is in use again -- the caravans start coming
+      effects: [say("txt_crossroads_first"), { op: "flag", key: "road_walked", value: true }]
     },
     // V2-Core-69 (#170): the purification becomes history -- 1 on the purification's step, then +1 at
     // the first step a full day later, until 3 (as evt_bandits_tale)
@@ -572,12 +605,23 @@ export const worldData = {
       links: [
         { to: "loc_village", minutes: 45 },
         // V2-Core-73 (#180): east, for a character who knows the way
-        { to: "loc_mill_hamlet", minutes: 40, requires: { op: "rumor", rumor: "rum_road_hamlet" } }
+        { to: "loc_mill_hamlet", minutes: 40, requires: { op: "rumor", rumor: "rum_road_hamlet" } },
+        // V2-Core-74 (#180): north, for a character who knows the way
+        { to: "loc_river_ford", minutes: 50, requires: { op: "rumor", rumor: "rum_road_ford" } }
       ]
     },
     loc_mill_hamlet: {
       name: "물레방아 마을",
       links: [{ to: "loc_crossroads", minutes: 40 }]
+    },
+    // V2-Core-74 (#180): the far bank is reached only by the ferryman (no link that way); back is free
+    loc_river_ford: {
+      name: "강나루",
+      links: [{ to: "loc_crossroads", minutes: 50 }]
+    },
+    loc_far_bank: {
+      name: "강 건너 길목",
+      links: [{ to: "loc_river_ford", minutes: 30 }]
     }
   },
 
@@ -724,6 +768,38 @@ export const worldData = {
         ],
         fail: [{ op: "proficiency", id: "investigation", add: 5 }, say("txt_search_crossroads_fail")]
       }
+    },
+    // V2-Core-74 (#180): the ferryman (a dialogue NPC)
+    act_talk_ferryman: {
+      name: "뱃사공과 대화",
+      requires: { op: "location", at: "loc_river_ford" },
+      effects: [{ op: "choice", choice: "choice_ferryman_dialogue", sourceId: "act_talk_ferryman" }]
+    },
+    // V2-Core-74 (#180): the waystation board on the far bank -- the outside world, as notices
+    act_read_waystation_board: {
+      name: "길목의 게시판을 읽는다",
+      requires: { op: "location", at: "loc_far_bank" },
+      minutes: 20,
+      effects: [
+        { op: "fact", fact: "fact_royal_city", set: "five_days_north" },
+        { op: "rumor", rumor: "rum_royal_city", observe: true, source: "obs_loc_far_bank", confidence: 80 },
+        say("txt_board_royal_city"),
+        { op: "if", when: NEWS("fact_realm_levy"), then: [{ op: "rumor", rumor: "rum_realm_levy", observe: true, source: "obs_loc_far_bank", confidence: 80 }, say("txt_board_levy")] },
+        // the leader's fate reaches the outside world
+        {
+          op: "if",
+          when: LEADER_LIVES,
+          then: [
+            { op: "fact", fact: "fact_leader_bounty", set: "posted" },
+            { op: "rumor", rumor: "rum_leader_bounty", observe: true, source: "obs_loc_far_bank", confidence: 80 },
+            say("txt_board_bounty")
+          ],
+          else: [say("txt_board_road_safe")]
+        },
+        // the village's name, if it honoured someone
+        { op: "if", when: { op: "flag", key: "village_honored" }, then: [say("txt_board_village_name")] },
+        { op: "proficiency", id: "investigation", add: 5 }
+      ]
     },
     // V2-Core-73 (#180): the miller (a dialogue NPC, like the elder and the herbalist)
     act_talk_miller: {
@@ -1010,6 +1086,20 @@ export const worldData = {
             { op: "narrate", textId: "txt_report_findings" }
           ]
         },
+        // V2-Core-74 (#180): a letter of passage for the ferry -- from an elder who trusts this character
+        {
+          id: "opt_elder_letter",
+          name: "강을 건널 통행 편지를 청한다",
+          requires: {
+            op: "and",
+            of: [
+              { op: "rumor", rumor: "rum_road_ford" },
+              { op: "relation", from: "npc_elder", to: "self", min: 15 },
+              { op: "not", of: { op: "item", item: "item_passage_letter", min: 1 } }
+            ]
+          },
+          effects: [{ op: "item", item: "item_passage_letter", add: 1 }, say("txt_elder_letter")]
+        },
         // V2-Core-73 (#180): the miller's flour, carried to the elder -- trade opens between the two
         // settlements (the world's), +5 on the carrier's own edge
         {
@@ -1143,6 +1233,63 @@ export const worldData = {
             { op: "relation", from: "npc_elder", add: 5 },
             { op: "narrate", textId: "txt_bandits_disperse" }
           ]
+        }
+      ]
+    },
+    // V2-Core-74 (#180): the ferryman -- the outside world's news, the leader's fate, the crossing
+    choice_ferryman_dialogue: {
+      options: [
+        {
+          id: "opt_ferryman_news",
+          name: "강 건너 소식을 묻는다",
+          effects: [
+            // the latest the caravans brought
+            {
+              op: "if",
+              when: NEWS("fact_realm_unrest"),
+              then: [{ op: "rumor", rumor: "rum_realm_unrest", source: "npc_ferryman", confidence: 60 }, say("txt_ferryman_unrest")],
+              else: [
+                {
+                  op: "if",
+                  when: NEWS("fact_realm_fair"),
+                  then: [{ op: "rumor", rumor: "rum_realm_fair", source: "npc_ferryman", confidence: 60 }, say("txt_ferryman_fair")],
+                  else: [
+                    {
+                      op: "if",
+                      when: NEWS("fact_realm_levy"),
+                      then: [{ op: "rumor", rumor: "rum_realm_levy", source: "npc_ferryman", confidence: 60 }, say("txt_ferryman_levy")],
+                      else: [say("txt_ferryman_quiet")]
+                    }
+                  ]
+                }
+              ]
+            },
+            // the leader's fate, as the river saw it
+            {
+              op: "if",
+              when: LEADER_LIVES,
+              then: [
+                { op: "fact", fact: "fact_leader_crossed", set: "far_bank" },
+                { op: "rumor", rumor: "rum_leader_crossed", source: "npc_ferryman", confidence: 70 },
+                say("txt_ferryman_scarred_man")
+              ],
+              else: [say("txt_ferryman_leader_fell")]
+            }
+          ]
+        },
+        {
+          id: "opt_ferryman_cross",
+          name: "강을 건넌다 (뱃삯 은화 3)",
+          requires: { op: "and", of: [{ op: "money", min: 3 }, { op: "not", of: { op: "item", item: "item_passage_letter", min: 1 } }] },
+          minutes: 30,
+          effects: [{ op: "money", add: -3 }, { op: "move", to: "loc_far_bank" }, say("txt_ferryman_cross")]
+        },
+        {
+          id: "opt_ferryman_cross_letter",
+          name: "원로의 통행 편지를 보이고 강을 건넌다",
+          requires: { op: "item", item: "item_passage_letter", min: 1 },
+          minutes: 30,
+          effects: [{ op: "move", to: "loc_far_bank" }, say("txt_ferryman_cross_letter")]
         }
       ]
     },
@@ -1449,7 +1596,9 @@ export const worldData = {
     item_herbal_salve: { name: "약초 연고" },
     // V2-Core-73 (#180): the hamlet's goods
     item_flour_sack: { name: "밀가루 자루" },
-    item_mill_bread: { name: "물레방아 빵" }
+    item_mill_bread: { name: "물레방아 빵" },
+    // V2-Core-74 (#180): the elder's letter for the ferry (kept, not spent)
+    item_passage_letter: { name: "원로의 통행 편지" }
   },
 
   // `initial` is seeded by createInitialState since V2-Core-43 (D-76): every new
@@ -1473,7 +1622,14 @@ export const worldData = {
     fact_road_ford: {},
     fact_road_royal: {},
     fact_leader_trail: {},
-    fact_bandit_toll: {}
+    fact_bandit_toll: {},
+    // V2-Core-74 (#180): the realm's news the caravans bring, the leader beyond the river, the royal city
+    fact_realm_levy: {},
+    fact_realm_fair: {},
+    fact_realm_unrest: {},
+    fact_leader_crossed: {},
+    fact_leader_bounty: {},
+    fact_royal_city: {}
   },
 
   rumors: {
@@ -1496,7 +1652,14 @@ export const worldData = {
     rum_road_ford: { factId: "fact_road_ford", claim: "north" },
     rum_road_royal: { factId: "fact_road_royal", claim: "beyond_ford" },
     rum_leader_trail: { factId: "fact_leader_trail", claim: "toward_ford" },
-    rum_bandit_toll: { factId: "fact_bandit_toll", claim: "abandoned" }
+    rum_bandit_toll: { factId: "fact_bandit_toll", claim: "abandoned" },
+    // V2-Core-74 (#180): the outside world, as a character knows it
+    rum_realm_levy: { factId: "fact_realm_levy", claim: "known" },
+    rum_realm_fair: { factId: "fact_realm_fair", claim: "known" },
+    rum_realm_unrest: { factId: "fact_realm_unrest", claim: "known" },
+    rum_leader_crossed: { factId: "fact_leader_crossed", claim: "far_bank" },
+    rum_leader_bounty: { factId: "fact_leader_bounty", claim: "posted" },
+    rum_royal_city: { factId: "fact_royal_city", claim: "five_days_north" }
   },
 
   // Relation-edge/rumor-source IDs (§7.1/§8.3). An entry without `actor` is
@@ -1509,6 +1672,7 @@ export const worldData = {
     npc_herbalist: { name: "약초꾼" },
     // V2-Core-73 (#180): dialogue only (no actor: D-92)
     npc_miller: { name: "방앗간 주인" },
+    npc_ferryman: { name: "뱃사공" },
     // V2-Core-47 (D-77): the leader is an actor -- the same record a player character is,
     // `kind:"npc"`, seeded by createInitialState under this ID (the ID his relation edges
     // already use). What reads it: the opposed difficulties of the confrontation and the fight
@@ -1623,6 +1787,21 @@ export const worldData = {
     txt_deliver_flour: "원로는 밀가루 자루를 받아 들고 한참을 바라본다. 물레방아 마을과 다시 거래를 하자고, 곧 장터에 수레가 올 거라고 말한다.",
     txt_hamlet_carts: "장터에 물레방아 마을의 수레가 들어와 있다. 갓 구운 빵 냄새가 장터에 퍼진다.",
     txt_buy_mill_bread: "상인에게 은화 한 닢을 건네고 물레방아 마을의 빵을 받는다.",
-    txt_eat_mill_bread: "빵을 뜯어 먹자 허기가 가시고 몸에 힘이 돈다."
+    txt_eat_mill_bread: "빵을 뜯어 먹자 허기가 가시고 몸에 힘이 돈다.",
+    txt_ferryman_quiet: "뱃사공은 노를 손질하며 고개를 젓는다. 길이 막혀 있던 동안 강 건너 소식도 끊겼다고 한다.",
+    txt_ferryman_levy: "뱃사공은 지난번 상단이 전한 소식을 들려준다. 영주가 징집령을 내려 강 건너 마을마다 젊은이들을 모으고 있다고 한다.",
+    txt_ferryman_fair: "뱃사공은 새 소식을 들려준다. 왕도에서 큰 장이 열려 상단들이 앞다투어 북쪽으로 올라간다고 한다.",
+    txt_ferryman_unrest: "뱃사공은 얼굴을 찌푸린다. 국경이 소란스럽다는 소식이 상단을 따라 내려왔다고, 강 건너 분위기가 예전 같지 않다고 한다.",
+    txt_ferryman_scarred_man: "그는 목소리를 낮춘다. 도적들이 흩어진 뒤 옆구리를 감싼 사내 하나를 건네 주었다고, 은화를 두 배로 쳐주며 아무것도 묻지 말라 했다고 한다.",
+    txt_ferryman_leader_fell: "그는 폐허의 두목이 쓰러졌다는 이야기를 강 건너 사람들도 벌써 안다고 한다. 소문은 배보다 빨리 강을 건넌다며 웃는다.",
+    txt_ferryman_cross: "은화 세 닢을 건네자 뱃사공이 밧줄을 푼다. 잿빛 강물을 가르며 배가 건너편으로 나아간다.",
+    txt_ferryman_cross_letter: "원로의 편지를 읽은 뱃사공은 뱃삯을 받지 않고 밧줄을 푼다. 변경 마을 원로의 부탁이라면 얼마든지라고 한다.",
+    txt_elder_letter: "원로는 낡은 양피지에 몇 줄을 적고 인장을 눌러 건넨다. 강나루의 뱃사공은 이 편지를 알아볼 거라고 한다.",
+    txt_far_bank_first: "강 건너 길목에 발을 딛는다. 처음 보는 땅, 북쪽으로 곧게 뻗은 넓은 길이 지평선 너머로 사라진다.",
+    txt_board_royal_city: "길목의 게시판에는 이정표가 그려져 있다. 이 길을 따라 북쪽으로 닷새를 걸으면 왕도라고 한다.",
+    txt_board_levy: "영주의 징집령이 나붙어 있다. 열여섯 살이 넘은 남자는 성으로 오라는 내용이다.",
+    txt_board_bounty: "빛바랜 수배서 한 장이 눈에 띈다. 옆구리에 오래된 상처가 있는 도적 두목, 현상금 은화 쉰 닢.",
+    txt_board_road_safe: "남쪽 변경의 길이 다시 안전해졌다는 상단 조합의 공고가 붙어 있다.",
+    txt_board_village_name: "게시판 귀퉁이에 누군가 적어 놓았다. 남쪽 변경 마을에서 도적을 몰아내고 샘을 살린 이가 있다고."
   }
 };

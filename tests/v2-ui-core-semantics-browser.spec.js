@@ -74,7 +74,7 @@ test.describe("V2 core semantics investigation (completeWhen / relation rule whe
     expect(fresh.cases).toBeUndefined();
     expect(fresh.relations ?? {}).toEqual({});
     const pack = await page.evaluate(async () => (await import("/v2/data/world.js")).worldData);
-    expect(pack.facts).toEqual({ fact_ruins_secret: { initial: "unknown" }, fact_bandits_fate: {}, fact_leader_wound: {}, fact_well_source: {}, fact_spring_cause: {}, fact_spring_fouler: {}, fact_well_fate: {}, fact_road_hamlet: {}, fact_road_ford: {}, fact_road_royal: {}, fact_leader_trail: {}, fact_bandit_toll: {} }); // V2-Core-45, V2-Core-55, V2-Core-64 (the well's two), V2-Core-68, V2-Core-69 and V2-Core-72 (the crossroads' five): no `initial`
+    expect(pack.facts).toEqual({ fact_ruins_secret: { initial: "unknown" }, fact_bandits_fate: {}, fact_leader_wound: {}, fact_well_source: {}, fact_spring_cause: {}, fact_spring_fouler: {}, fact_well_fate: {}, fact_road_hamlet: {}, fact_road_ford: {}, fact_road_royal: {}, fact_leader_trail: {}, fact_bandit_toll: {}, fact_realm_levy: {}, fact_realm_fair: {}, fact_realm_unrest: {}, fact_leader_crossed: {}, fact_leader_bounty: {}, fact_royal_city: {} }); // V2-Core-45, V2-Core-55, V2-Core-64 (the well's two), V2-Core-68, V2-Core-69, V2-Core-72 (the crossroads' five) and V2-Core-74 (the river's six): no `initial`
     expect(pack.cases).toBeUndefined();
     expect(pack.rules.relation).toBeUndefined();
     expect(JSON.stringify(pack)).not.toContain("completeWhen");
