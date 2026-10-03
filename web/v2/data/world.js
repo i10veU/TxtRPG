@@ -141,15 +141,20 @@
 // the elder (D-71 (2)). Information -> judgment -> action -> world change -> new information for
 // the next generation. `version` stays "0.1.0" (no state-shape change; D-68).
 //
+// V2-Core-47 (D-77, Gate 1/2 decided): the bandit leader is an actor (`npcs.*.actor`, seeded
+// by createInitialState, `kind:"npc"`), and the confrontation is opposed by his `wit`. The
+// canonical play is unchanged (base 14 + 0 = the old "hard"). `version` is "0.2.0": a save of
+// "0.1.0" has no leader actor and is refused by D-68 (not repaired, not migrated, not deleted).
+//
 // This is deliberately small (Ponytail): one data module, one growth
-// system, three locations, two NPCs (referenced only as relation/rumor
-// participant IDs -- see D-65, no `state.actors` records for them; a full
-// NPC actor/scheduler is explicitly out of scope per Issue #74).
+// system, three locations, two NPCs (the elder only a relation/rumor
+// participant ID; the leader also an actor since V2-Core-47 -- an NPC
+// scheduler or NPC autonomy is still out of scope).
 
 export const worldData = {
   formatVersion: 1,
   id: "frontier_village_pack",
-  version: "0.1.0",
+  version: "0.2.0",
   world: {
     id: "frontier_village",
     growthSystemId: "growth_wanderer",
@@ -348,7 +353,9 @@ export const worldData = {
         ]
       },
       showWhenLocked: true,
-      check: { stat: "wit", tags: ["social"], difficulty: "hard" },
+      // V2-Core-47: opposed by the leader's own wit -- 14 + his stat modifier (0 at wit 10, the
+      // old "hard"); a leader with a different wit makes it harder or easier
+      check: { stat: "wit", tags: ["social"], difficulty: { base: 14, opposed: { subject: "npc_bandit_leader", stat: "wit" } } },
       minutes: 30,
       outcomes: {
         success: [
@@ -538,14 +545,20 @@ export const worldData = {
     rum_bandits_legend: { factId: "fact_bandits_fate", claim: "slain" }
   },
 
-  // Referenced only as relation-edge/rumor-source IDs (§7.1/§8.3) -- no
-  // `state.actors` records are created for them (no NPC actor spawning
-  // exists in createInitialState, and a full NPC scheduler is explicitly
-  // out of scope, Issue #74). Entries here are inert authored metadata
-  // (validateData only checks their key format, D-56).
+  // Relation-edge/rumor-source IDs (§7.1/§8.3). An entry without `actor` is
+  // inert authored metadata (validateData checks its key format, D-56); one
+  // with `actor` is also seeded as `state.actors[id]` by createInitialState
+  // (D-77, V2-Core-47). A full NPC scheduler is still out of scope (Issue #74).
   npcs: {
     npc_elder: { name: "마을 원로" },
-    npc_bandit_leader: { name: "도적 두목" }
+    // V2-Core-47 (D-77): the leader is an actor -- the same record a player character is,
+    // `kind:"npc"`, seeded by createInitialState under this ID (the ID his relation edges
+    // already use). What reads it: the confrontation's opposed difficulty (his `wit`). His
+    // `locationId` is where the hideout was; nothing moves NPCs (no scheduler) and nothing reads it
+    npc_bandit_leader: {
+      name: "도적 두목",
+      actor: { locationId: "loc_ruins", hp: { max: 10 }, growth: { growth_wanderer: { stats: { wit: 10 } } } }
+    }
   },
   orgs: {
     org_bandits: { name: "폐허의 도적단" }

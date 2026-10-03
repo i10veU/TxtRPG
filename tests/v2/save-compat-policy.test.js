@@ -67,11 +67,13 @@ testExactMatch();
 function testDataRefMismatch() {
   const state = fresh();
 
-  const versionBumped = checkDataCompatibility(state, packWith({ version: "0.2.0" }));
+  // a later pack version (any other label; V2-Core-47 made the real pack "0.2.0", so the
+  // bumped label is no longer spelled as that literal)
+  const versionBumped = checkDataCompatibility(state, packWith({ version: "9.9.9" }));
   assert.strictEqual(versionBumped.length, 1);
   assert.match(versionBumped[0], /^dataRef mismatch: /);
-  assert.match(versionBumped[0], /0\.1\.0/);
-  assert.match(versionBumped[0], /0\.2\.0/);
+  assert.ok(versionBumped[0].includes(JSON.stringify(worldData.version)));
+  assert.match(versionBumped[0], /9\.9\.9/);
 
   const otherId = checkDataCompatibility(state, packWith({ id: "other_pack" }));
   assert.strictEqual(otherId.length, 1);
@@ -292,7 +294,7 @@ testCreationAndCheckNeverDrift();
 // 11. purity: inputs are never mutated
 function testPurity() {
   const state = fresh();
-  const pack = packWith({ version: "0.2.0" });
+  const pack = packWith({ version: "9.9.9" });
   const stateBefore = JSON.stringify(state);
   const packBefore = JSON.stringify(pack);
   checkDataCompatibility(state, pack);
