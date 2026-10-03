@@ -146,6 +146,16 @@ function resolveRumorClaim(selector, ctx) {
   return ctx.state?.knowledge?.[subjectId]?.[selector.rumor]?.claim;
 }
 
+// D-78 (Gate 3, V2-Core-49): `{hp:"current"|"max", subject?}` -- the subject
+// actor's hp field (§2.1). No actor, or any other field, is undefined (D-25
+// then makes every comparison false). Actor state, not a Fact: no contextKind
+// restriction (§8.4), like `stat`/`money`.
+function resolveHp(selector, ctx) {
+  if (selector.hp !== "current" && selector.hp !== "max") return undefined;
+  const subjectId = resolveSubjectId(selector.subject, ctx);
+  return ctx.state?.actors?.[subjectId]?.hp?.[selector.hp];
+}
+
 const SELECTOR_RESOLVERS = {
   stat: (selector, ctx) => resolveGrowthValue("stat", "stats", selector, ctx),
   skill: (selector, ctx) => resolveGrowthValue("skill", "skills", selector, ctx),
@@ -157,14 +167,32 @@ const SELECTOR_RESOLVERS = {
   signal: resolveSignal,
   day: resolveDay,
   fact: resolveFact,
-  rumor: resolveRumorClaim
+  rumor: resolveRumorClaim,
+  hp: resolveHp
 };
 
+// The optional arguments each selector's own §3.2a row lists, next to its one
+// selector key. (Until V2-Core-49 any second key made a selector unresolvable,
+// so these documented arguments never worked -- D-78.)
+const SELECTOR_ARGUMENTS = {
+  stat: ["subject", "system"],
+  skill: ["subject", "system"],
+  proficiency: ["subject", "system"],
+  item: ["subject"],
+  money: ["subject"],
+  rumor: ["subject"],
+  hp: ["subject"]
+};
+
+// Exactly one selector key (§3.2a), plus only that selector's own arguments;
+// anything else is unresolvable.
 function resolveSelector(selector, ctx) {
   const keys = Object.keys(selector);
-  if (keys.length !== 1) return undefined; // exactly one recognized key required (§3.2a)
-  const resolver = SELECTOR_RESOLVERS[keys[0]];
-  return resolver ? resolver(selector, ctx) : undefined;
+  const selectorKeys = keys.filter((key) => Object.hasOwn(SELECTOR_RESOLVERS, key));
+  if (selectorKeys.length !== 1) return undefined;
+  const allowed = SELECTOR_ARGUMENTS[selectorKeys[0]] ?? [];
+  if (keys.some((key) => key !== selectorKeys[0] && !allowed.includes(key))) return undefined;
+  return SELECTOR_RESOLVERS[selectorKeys[0]](selector, ctx);
 }
 
 function resolveValue(value, ctx) {
@@ -396,6 +424,11 @@ export function evaluateCondition(condition, ctx) {
     }
     case "rumor":
       return evaluateRumorCondition(condition, ctx);
+    case "alive": {
+      // D-78 (Gate 3): an existing actor whose `alive` is true; no actor is false
+      const subjectId = resolveSubjectId(condition.subject, ctx);
+      return ctx.state?.actors?.[subjectId]?.alive === true;
+    }
     default:
       return false; // unknown op, or `handler` (deliberately deferred, D-38) (§3.1, pending validateData)
   }
@@ -1650,7 +1683,7 @@ const KNOWN_CONDITION_OPS = new Set([
   "always", "never", "not", "and", "or",
   "eq", "neq", "gt", "gte", "lt", "lte",
   "stat", "flag", "signal", "skill", "trait", "item", "relation", "rumor",
-  "fact", "day", "location", "unlock", "case", "money",
+  "fact", "day", "location", "unlock", "case", "money", "alive",
   "handler"
 ]);
 
@@ -1677,6 +1710,14 @@ function checkHandlerReference(node, path, errors) {
   errors.push(`handler at ${path} references an unregistered name ${JSON.stringify(node.name)} (no handlers.js registry exists yet, §4.4/D-04)`);
 }
 
+// D-78: an `hp` selector names one of the two hp fields (§3.2a); any other
+// value would silently never resolve.
+function checkValueHpSelector(value, path, errors) {
+  if (isPlainObject(value) && Object.hasOwn(value, "hp") && value.hp !== "current" && value.hp !== "max") {
+    errors.push(`hp selector at ${path} must be "current" or "max": ${JSON.stringify(value.hp)}`);
+  }
+}
+
 // D-56 (5): the only two Value shapes that can leak a `fact` into a
 // player-context Condition -- the `fact` op itself, and a `{fact:"..."}`
 // selector used as an eq/neq/gt/gte/lt/lte operand (§3.2a).
@@ -1690,8 +1731,8 @@ function checkValueForFactLeak(value, path, errors) {
 // structural requirements the already-implemented shorthand resolvers
 // (D-54/D-24) use -- a field these already treat as mandatory to produce
 // anything other than an always-false result. Ops not listed here
-// (`relation`, `money`) have no required field: every argument is optional
-// in the current implementation (D-54), so there is nothing to check beyond
+// (`relation`, `money`, `alive` -- D-78) have no required field: every argument
+// is optional in the current implementation (D-54), so there is nothing to check beyond
 // the already-existing unknown-op/structure checks.
 function checkConditionArgs(node, path, errors) {
   const op = node.op;
@@ -1766,6 +1807,8 @@ function walkCondition(node, contextKind, path, errors) {
       node.of.forEach((sub, i) => walkCondition(sub, contextKind, `${path}.of[${i}]`, errors));
     }
   } else if (op === "eq" || op === "neq" || op === "gt" || op === "gte" || op === "lt" || op === "lte") {
+    checkValueHpSelector(node.left, `${path}.left`, errors);
+    checkValueHpSelector(node.right, `${path}.right`, errors);
     if (contextKind === "player") {
       checkValueForFactLeak(node.left, `${path}.left`, errors);
       checkValueForFactLeak(node.right, `${path}.right`, errors);
