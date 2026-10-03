@@ -186,7 +186,13 @@ function seedFacts(state, data) {
 // here (not via `startCharacter`, which is reserved for post-death only,
 // D-47). Facts with an `initial` are then seeded, with or without a player
 // (world-level, D-76); without any, no `facts` key is added.
-export function createInitialState({ worldSeed, data }) {
+export function createInitialState({ worldSeed, data, templateId: chosenTemplateId }) {
+  // D-83 (V2-Core-54): the first character's background -- an optional characterTemplate id (the
+  // same name `startCharacter` takes); without it the world's startTemplateId (D-47), as before.
+  // A choice that names no template is the caller's error, not a world without a character (D-48).
+  if (chosenTemplateId !== undefined && (typeof chosenTemplateId !== "string" || !isPlainObject(data?.characterTemplates?.[chosenTemplateId]))) {
+    throw new TypeError("createInitialState: unknown templateId " + JSON.stringify(chosenTemplateId));
+  }
   const state = {
     schemaVersion: SCHEMA_VERSION,
     worldSeed: String(worldSeed),
@@ -198,7 +204,7 @@ export function createInitialState({ worldSeed, data }) {
   if (provenance.dataRef !== undefined) state.dataRef = provenance.dataRef;
   if (provenance.worldId !== undefined) state.worldId = provenance.worldId;
 
-  const templateId = data?.world?.startTemplateId;
+  const templateId = chosenTemplateId ?? data?.world?.startTemplateId;
   const template = typeof templateId === "string" ? data.characterTemplates?.[templateId] : undefined;
   if (isPlainObject(template)) {
     state.player = { actorId: "player_1", characterCount: 1 };
