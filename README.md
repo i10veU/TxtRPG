@@ -275,8 +275,9 @@ Core는 순수 함수 기반이며 브라우저/저장소 API에 직접 의존�
 - Consequence
 - Character Succession
 - HP / 생사 관측 (`hp` selector, `alive` Condition — 전투 승패와 이후 부상·빈사 조건의 기반)
+- 판타지 공통 Stats STR / DEX / CON / INT / WIS / PER (조사 INT, 대면 WIS, 공격 STR, 받아치기 DEX — 모두 opposed 판정; CON/PER는 정의만)
 - 첫 Combat (도적 두목과 싸운다: 교환마다 opposed 판정, 받아치기 Technique, 도주, 승리/패배의 세계 결과 — 전투 엔진 없이 choice/check/outcomes)
-- NPC Actor (도적 두목: player와 같은 Actor record, `kind:"npc"`; 두목 대면 판정이 그의 `wit`에 대한 opposed check)
+- NPC Actor (도적 두목: player와 같은 Actor record, `kind:"npc"`; 두목 대면 판정이 그의 WIS에 대한 opposed check)
 - Save / Load
 - 결정론적 RNG
 - Data Compatibility
@@ -528,9 +529,9 @@ V2는 Node와 실제 Chromium 브라우저 양쪽에서 검증한다.
 
 최근 기준:
 
-- V2 Node: **22/22**
+- V2 Node: **23/23**
 - V1 regression: **41/41**
-- V2 browser: **56/56**
+- V2 browser: **58/58**
 
 각 RPG 기능도 관련 Node/browser/save-load/determinism 검증을 추가한다.
 

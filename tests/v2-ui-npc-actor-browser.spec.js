@@ -1,7 +1,7 @@
 // V2-Core-47 browser scenario (Issue #127, D-77): the real entry point (web/v2/index.html +
 // ui/app.js) in real Chromium with real IndexedDB, against the real world data pack. The bandit
 // leader is an actor from the start of a new game; the real confrontation button is opposed by his
-// `wit` (a save whose leader is sharper shows a margin 2 lower on the same roll); he survives
+// stat (`wit`; WIS since V2-Core-51 -- a save whose leader is wiser shows a margin 2 lower on the same roll); he survives
 // save -> reload -> load; he never appears in the view; and a save of the previous pack (0.1.0, no
 // leader actor) is refused visibly and left as it is (D-68, Gate 2).
 const { test, expect } = require("@playwright/test");
@@ -60,7 +60,7 @@ async function plant(page, slot, mutateSource) {
 }
 
 test.describe("V2 NPC actor (the bandit leader is an actor, and the confrontation reads him)", () => {
-  test("the leader is an actor; the real confrontation is opposed by his wit; he survives save -> reload -> load", async ({ page }) => {
+  test("the leader is an actor; the real confrontation is opposed by his WIS; he survives save -> reload -> load", async ({ page }) => {
     const { pageErrors, consoleErrors } = await gotoApp(page);
     await page.evaluate(async ({ seed, actions }) => {
       await window.__v2App.newGame(seed);
@@ -72,19 +72,19 @@ test.describe("V2 NPC actor (the bandit leader is an actor, and the confrontatio
     expect(before.actors.npc_bandit_leader).toEqual({
       id: "npc_bandit_leader", kind: "npc", alive: true, locationId: "loc_ruins",
       hp: { current: 10, max: 10 }, money: 0, inventory: {},
-      growth: { growth_wanderer: { stats: { wit: 10 } } }, tags: []
+      growth: { growth_wanderer: { stats: { str: 10, dex: 10, con: 10, int: 10, wis: 10, per: 10 } } }, tags: []
     });
-    expect(before.dataRef).toEqual({ id: "frontier_village_pack", version: "0.2.0" });
+    expect(before.dataRef).toEqual({ id: "frontier_village_pack", version: "0.3.0" });
     const shown = await page.evaluate(() => window.__v2App.getView());
     expect(shown.actor.id).toBe("player_1");
     expect("actors" in shown).toBe(false);
     expect(JSON.stringify(shown)).not.toContain('"kind":"npc"');
 
-    // saved through the UI; a second save whose leader is sharper (wit 14 -> +2 difficulty)
+    // saved through the UI; a second save whose leader is wiser (WIS 14 -> +2 difficulty)
     await page.locator("#saveSlotInput").fill("slot_before");
     await page.locator("#saveBtn").click();
     await expect.poll(() => page.locator("#slotList li").count()).toBe(1);
-    await plant(page, "slot_sharp", "s.actors.npc_bandit_leader.growth.growth_wanderer.stats.wit = 14;");
+    await plant(page, "slot_sharp", "s.actors.npc_bandit_leader.growth.growth_wanderer.stats.wis = 14;");
 
     // the real button, against the template's leader
     const margin = await confront(page);

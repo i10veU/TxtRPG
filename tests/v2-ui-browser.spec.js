@@ -45,13 +45,13 @@ test.describe("V2 minimal browser UI (real entry point)", () => {
       return {
         hasPlayer: Boolean(state.player),
         actorId: state.player.actorId,
-        wit: state.actors.player_1.growth.growth_wanderer.stats.wit,
+        stats: state.actors.player_1.growth.growth_wanderer.stats,
         viewHasFacts: "facts" in v
       };
     });
     expect(check.hasPlayer).toBe(true);
     expect(check.actorId).toBe("player_1");
-    expect(check.wit).toBe(8);
+    expect(check.stats).toEqual({ str: 8, dex: 8, con: 8, int: 8, wis: 8, per: 8 }); // V2-Core-51 (was `wit` 8)
     expect(check.viewHasFacts).toBe(false);
 
     // action buttons rendered from view().actions

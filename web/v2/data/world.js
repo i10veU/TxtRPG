@@ -12,7 +12,7 @@
 //      teaches the `rum_ruins_secret` rumor, or just small talk)
 //   -> market: buy a lantern (spends money, gates the ruins link)
 //   -> ruins: investigate -- only once the rumor is known (a real check()
-//      against `wit`, decided by RNG); a success confirms the rumor from a
+//      against INT since V2-Core-51, decided by RNG); a success confirms the rumor from a
 //      second, first-hand source; the ruins hazard costs HP on arrival and
 //      again while you stay
 //   -> village: rest (the recovery action)
@@ -141,9 +141,16 @@
 // the elder (D-71 (2)). Information -> judgment -> action -> world change -> new information for
 // the next generation. `version` stays "0.1.0" (no state-shape change; D-68).
 //
+// V2-Core-51 (Stats Decision, D-80): the fantasy prototype's common stats STR / DEX / CON / INT /
+// WIS / PER replace `wit`: the investigation reads INT, the confrontation WIS (against the leader's
+// WIS), the strike STR and the counter DEX (each against the leader's own). CON and PER are defined
+// only. The player is 8 and the leader 10 in every stat, so every check keeps its numbers (the old
+// wit's). Damage stays tier-fixed. `version` is "0.3.0": a "0.2.0" save is refused by D-68 (not
+// repaired, not migrated, not deleted).
+//
 // V2-Core-50: the first fight (Master Spec Milestone F, Gate 3 = C / Gate 4 = C, D-78). At the
 // ruins, with the character's own proof, while the leader lives and the case is open: exchanges of
-// one opposed wit check each (§5.7: choice -> option check -> outcomes, no combat engine), the tier
+// one opposed check each (STR or DEX since V2-Core-51) (§5.7: choice -> option check -> outcomes, no combat engine), the tier
 // deciding who is hit; the technique (counter) needs the keen eye; fleeing returns to the village.
 // The leader's death (`alive`) ends the case: his gang loses him and is cowed before the victor, so
 // the existing history (the tale, the market's relief, the elder's news) follows. A wounded leader
@@ -155,7 +162,7 @@
 // Data only; `version` stays "0.2.0" (no state-shape change).
 //
 // V2-Core-47 (D-77, Gate 1/2 decided): the bandit leader is an actor (`npcs.*.actor`, seeded
-// by createInitialState, `kind:"npc"`), and the confrontation is opposed by his `wit`. The
+// by createInitialState, `kind:"npc"`), and the confrontation is opposed by his stat (`wit`, WIS since V2-Core-51). The
 // canonical play is unchanged (base 14 + 0 = the old "hard"). `version` is "0.2.0": a save of
 // "0.1.0" has no leader actor and is refused by D-68 (not repaired, not migrated, not deleted).
 //
@@ -205,12 +212,12 @@ function fightExchange(effects) {
 const hitLeader = (add) => ({ op: "hp", subject: "npc_bandit_leader", add });
 const hitSelf = (add) => ({ op: "hp", add });
 const say = (textId) => ({ op: "narrate", textId });
-const FIGHT_DIFFICULTY = (base) => ({ base, opposed: { subject: "npc_bandit_leader", stat: "wit" } });
+const FIGHT_DIFFICULTY = (base, stat) => ({ base, opposed: { subject: "npc_bandit_leader", stat } });
 
 export const worldData = {
   formatVersion: 1,
   id: "frontier_village_pack",
-  version: "0.2.0",
+  version: "0.3.0",
   world: {
     id: "frontier_village",
     growthSystemId: "growth_wanderer",
@@ -224,7 +231,8 @@ export const worldData = {
       hp: { max: 10 },
       money: 8,
       inventory: {},
-      growth: { growth_wanderer: { stats: { wit: 8 } } },
+      // V2-Core-51 (D-80): the six common stats, 8 each (the old `wit`)
+      growth: { growth_wanderer: { stats: { str: 8, dex: 8, con: 8, int: 8, wis: 8, per: 8 } } },
       tags: []
     }
   },
@@ -347,7 +355,8 @@ export const worldData = {
       },
       // V2-Core-48: practice is execution quality -- the investigation proficiency adds
       // floor(points / checkStep 20) to this check (§5.4)
-      check: { stat: "wit", proficiency: "investigation", tags: ["investigation"], difficulty: "normal" },
+      // V2-Core-51: searching the ruins is INT (D-80)
+      check: { stat: "int", proficiency: "investigation", tags: ["investigation"], difficulty: "normal" },
       minutes: 60,
       outcomes: {
         success: [
@@ -421,9 +430,10 @@ export const worldData = {
         ]
       },
       showWhenLocked: true,
-      // V2-Core-47: opposed by the leader's own wit -- 14 + his stat modifier (0 at wit 10, the
-      // old "hard"); a leader with a different wit makes it harder or easier
-      check: { stat: "wit", tags: ["social"], difficulty: { base: 14, opposed: { subject: "npc_bandit_leader", stat: "wit" } } },
+      // V2-Core-47: opposed by the leader -- 14 + his stat modifier (0 at 10, the old "hard"); a
+      // leader with a different stat makes it harder or easier. V2-Core-51 (D-80): pressing him with
+      // the evidence is a contest of will and insight, WIS against his WIS
+      check: { stat: "wis", tags: ["social"], difficulty: { base: 14, opposed: { subject: "npc_bandit_leader", stat: "wis" } } },
       minutes: 30,
       outcomes: {
         success: [
@@ -592,14 +602,15 @@ export const worldData = {
       ]
     },
     // V2-Core-50: one exchange of the fight per choice. Each is an opposed check against the
-    // leader's wit (the existing stat; no new stat, D-78) with the combat proficiency; the tier
+    // leader (V2-Core-51, D-80: the strike STR against his STR, the counter DEX against his DEX)
+    // with the combat proficiency; the tier
     // decides who is hit (fightExchange above). No resource cost (Gate 4 = C)
     choice_fight_leader: {
       options: [
         {
           id: "opt_fight_strike",
           name: "정면으로 맞붙는다",
-          check: { stat: "wit", proficiency: "combat", tags: ["combat"], difficulty: FIGHT_DIFFICULTY(11) },
+          check: { stat: "str", proficiency: "combat", tags: ["combat"], difficulty: FIGHT_DIFFICULTY(11, "str") },
           minutes: 5,
           outcomes: {
             great: fightExchange([hitLeader(-7), say("txt_fight_strike_great")]),
@@ -613,7 +624,7 @@ export const worldData = {
           id: "opt_fight_counter",
           name: "그의 공격을 읽고 받아친다",
           requires: { op: "unlock", id: "unl_keen_eye" },
-          check: { stat: "wit", proficiency: "combat", tags: ["combat"], difficulty: FIGHT_DIFFICULTY(12) },
+          check: { stat: "dex", proficiency: "combat", tags: ["combat"], difficulty: FIGHT_DIFFICULTY(12, "dex") },
           minutes: 5,
           outcomes: {
             great: fightExchange([hitLeader(-10), say("txt_fight_counter_great")]),
@@ -640,7 +651,17 @@ export const worldData = {
   growthSystems: {
     growth_wanderer: {
       id: "growth_wanderer",
-      stats: [{ id: "wit", min: 0, max: 20, base: 8 }],
+      // V2-Core-51 (D-80): the fantasy prototype's common stats. Read by checks today: INT (the
+      // investigation), WIS (the confrontation), STR (the strike), DEX (the counter); CON and PER are
+      // defined for what needs them later (no derived values: HP is not computed from CON)
+      stats: [
+        { id: "str", min: 0, max: 20, base: 8 },
+        { id: "dex", min: 0, max: 20, base: 8 },
+        { id: "con", min: 0, max: 20, base: 8 },
+        { id: "int", min: 0, max: 20, base: 8 },
+        { id: "wis", min: 0, max: 20, base: 8 },
+        { id: "per", min: 0, max: 20, base: 8 }
+      ],
       proficiencies: [
         {
           id: "investigation",
@@ -684,11 +705,16 @@ export const worldData = {
     npc_elder: { name: "마을 원로" },
     // V2-Core-47 (D-77): the leader is an actor -- the same record a player character is,
     // `kind:"npc"`, seeded by createInitialState under this ID (the ID his relation edges
-    // already use). What reads it: the confrontation's opposed difficulty (his `wit`). His
+    // already use). What reads it: the opposed difficulties of the confrontation and the fight
+    // (his WIS / STR / DEX, V2-Core-51). His
     // `locationId` is where the hideout was; nothing moves NPCs (no scheduler) and nothing reads it
     npc_bandit_leader: {
       name: "도적 두목",
-      actor: { locationId: "loc_ruins", hp: { max: 10 }, growth: { growth_wanderer: { stats: { wit: 10 } } } }
+      actor: {
+        locationId: "loc_ruins",
+        hp: { max: 10 },
+        growth: { growth_wanderer: { stats: { str: 10, dex: 10, con: 10, int: 10, wis: 10, per: 10 } } }
+      }
     }
   },
   orgs: {
