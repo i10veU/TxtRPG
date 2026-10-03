@@ -20,7 +20,7 @@ const REPORT = "조사에서 알아낸 것을 전한다";
 const FATE = "도적단 잔당의 처분을 원로에게 맡긴다";
 const NEWS = "도적단의 소식을 묻는다";
 const NEWS_TEXT = "원로는 폐허의 도적단이 흩어졌다는 소식을 들려준다";
-const NEW_CHARACTER = "새 캐릭터로 시작";
+const NEW_CHARACTER = "새 캐릭터로 시작 (start_wanderer)"; // V2-Core-53: one button per background
 const CONFRONT = "도적 두목과 대면";
 
 async function gotoApp(page) {
