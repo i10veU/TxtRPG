@@ -287,6 +287,7 @@ Core는 순수 함수 기반이며 브라우저/저장소 API에 직접 의존�
 - Vertical Slice 2 2단계 — 약초학 (정화초 채집: WIS + 새 기술 `herbalism`, stamina 2 소모 — 전투 밖의 자원 사용; 약초꾼의 1회 강습 은화 2로 herbalism 1; 정화초 2개로 샘 정화제)
 - Vertical Slice 2 3단계 — 해결과 그 세계 (자기가 찾은 원인과 정화제로 샘을 정화 → 사건 해결, 독기 정지; 마을이 맑아진 우물을 봄; 우물과 약초꾼이 후계자에게도 바뀐 세계를 말함; 감사는 정화한 캐릭터에게만 한 번)
 - Vertical Slice 2 통합 검증 (결정적 플레이 정책으로 두 이야기를 한 세계에서: 한 캐릭터가 두목 전투와 우물을 모두 해결 / 샘에서 쓰러진 캐릭터의 이야기를 후계자가 이어 해결 — Node와 Chromium, save/load 포함)
+- Vertical Slice 3 「세계의 연속성과 결과」 1단계 — 샘의 화살 (은신처를 아는 캐릭터만 샘의 사체에서 도적단의 화살을 알아봄; 원로에게 한 번 전하면 원로·약초꾼이 누구에게나, 후계자에게도 바뀐 이야기를 함 — 두목의 생사에 따라 다르게)
 - 판타지 공통 Stats STR / DEX / CON / INT / WIS / PER (조사 INT, 대면 WIS, 공격 STR, 받아치기 DEX — 모두 opposed 판정; 우물·샘 조사 PER, 독기 CON)
 - 첫 Combat (도적 두목과 싸운다: 교환마다 opposed 판정, 받아치기 Technique, 도주, 승리/패배의 세계 결과 — 전투 엔진 없이 choice/check/outcomes)
 - NPC Actor (도적 두목: player와 같은 Actor record, `kind:"npc"`; 두목 대면 판정이 그의 WIS에 대한 opposed check)
@@ -541,9 +542,9 @@ V2는 Node와 실제 Chromium 브라우저 양쪽에서 검증한다.
 
 최근 기준:
 
-- V2 Node: **40/40**
+- V2 Node: **41/41**
 - V1 regression: **41/41**
-- V2 browser: **75/75**
+- V2 browser: **76/76**
 
 각 RPG 기능도 관련 Node/browser/save-load/determinism 검증을 추가한다.
 
