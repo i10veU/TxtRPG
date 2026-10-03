@@ -139,6 +139,22 @@ function worldGenerationSeed(state) {
   return state.worldSeed;
 }
 
+// D-77 (Gate 1): an NPC with an `actor` template (characterTemplate's shape) is
+// an actor from the start -- the same record a player character is, built by
+// the same function, `kind` fixed to "npc", under the NPC's own ID (the ID its
+// relation edges already use). Created once, at creation, in ID order, with no
+// event; only next to a player actor (D-48). An NPC without `actor` stays a
+// plain relation/rumor endpoint.
+function seedNpcActors(state, data) {
+  const npcs = isPlainObject(data?.npcs) ? data.npcs : {};
+  Object.keys(npcs)
+    .sort()
+    .forEach((npcId) => {
+      const actor = isPlainObject(npcs[npcId]) ? npcs[npcId].actor : undefined;
+      if (isPlainObject(actor)) state.actors[npcId] = buildActorFromTemplate(npcId, { ...actor, kind: "npc" });
+    });
+}
+
 // §8.1/§2.7/D-76: every `data.facts[id].initial` is seeded once, at creation,
 // at the creation minute, with no event. An object holding `pickFrom` picks one
 // option from its own stream (label "fact:<id>", local cursor 0); any other
@@ -188,6 +204,7 @@ export function createInitialState({ worldSeed, data }) {
     state.player = { actorId: "player_1", characterCount: 1 };
     state.pending = null;
     state.actors = { player_1: buildActorFromTemplate("player_1", template) };
+    seedNpcActors(state, data);
   }
   seedFacts(state, data);
 

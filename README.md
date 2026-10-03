@@ -274,6 +274,7 @@ Core는 순수 함수 기반이며 브라우저/저장소 API에 직접 의존�
 - Choice / Pending
 - Consequence
 - Character Succession
+- NPC Actor (도적 두목: player와 같은 Actor record, `kind:"npc"`; 두목 대면 판정이 그의 `wit`에 대한 opposed check)
 - Save / Load
 - 결정론적 RNG
 - Data Compatibility
@@ -525,9 +526,9 @@ V2는 Node와 실제 Chromium 브라우저 양쪽에서 검증한다.
 
 최근 기준:
 
-- V2 Node: **18/18**
+- V2 Node: **19/19**
 - V1 regression: **41/41**
-- V2 browser: **50/50**
+- V2 browser: **52/52**
 
 각 RPG 기능도 관련 Node/browser/save-load/determinism 검증을 추가한다.
 

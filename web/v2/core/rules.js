@@ -2040,18 +2040,42 @@ export function validateData(data) {
     }
   }
 
+  // D-60: buildActorFromTemplate's own first check (engine.js) -- locationId is
+  // unconditionally required, not just "if present". Shared by characterTemplates
+  // and NPC actor templates (D-77), which the same function builds.
+  const checkActorTemplateLocation = (template, label) => {
+    if (typeof template.locationId !== "string") {
+      errors.push(`${label} requires a string \`locationId\``);
+    } else if (isPlainObject(data.locations) && !(template.locationId in data.locations)) {
+      errors.push(`${label}.locationId references unknown location: ${JSON.stringify(template.locationId)}`);
+    }
+  };
+
   if (isPlainObject(data.characterTemplates)) {
     Object.keys(data.characterTemplates).forEach((templateId) => {
       checkDataIdFormat(errors, templateId, "characterTemplates key");
       const template = data.characterTemplates[templateId];
-      if (isPlainObject(template)) {
-        // D-60: buildActorFromTemplate's own first check (engine.js) --
-        // locationId is unconditionally required, not just "if present".
-        if (typeof template.locationId !== "string") {
-          errors.push(`characterTemplates.${templateId} requires a string \`locationId\``);
-        } else if (isPlainObject(data.locations) && !(template.locationId in data.locations)) {
-          errors.push(`characterTemplates.${templateId}.locationId references unknown location: ${JSON.stringify(template.locationId)}`);
-        }
+      if (isPlainObject(template)) checkActorTemplateLocation(template, `characterTemplates.${templateId}`);
+    });
+  }
+
+  // D-77: `npcs[id].actor` is seeded as `state.actors[id]` with kind "npc"; it
+  // cannot claim another kind, and its ID cannot be one a successor will take
+  // (`player_<n>`, resolveStartCharacter).
+  if (isPlainObject(data.npcs)) {
+    Object.keys(data.npcs).forEach((npcId) => {
+      const actor = isPlainObject(data.npcs[npcId]) ? data.npcs[npcId].actor : undefined;
+      if (actor === undefined) return;
+      if (!isPlainObject(actor)) {
+        errors.push(`npcs.${npcId}.actor must be an object`);
+        return;
+      }
+      checkActorTemplateLocation(actor, `npcs.${npcId}.actor`);
+      if (actor.kind !== undefined && actor.kind !== "npc") {
+        errors.push(`npcs.${npcId}.actor.kind must be "npc" when present: ${JSON.stringify(actor.kind)}`);
+      }
+      if (/^player_\d+$/.test(npcId)) {
+        errors.push(`npcs.${npcId} with an actor would collide with a player character's ID`);
       }
     });
   }
