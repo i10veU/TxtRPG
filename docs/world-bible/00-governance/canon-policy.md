@@ -1,0 +1,41 @@
+# 정본 등급과 승격 절차
+
+## 등급
+
+| 등급 | 의미 | 게임 구현에 쓸 수 있는가 |
+|---|---|---|
+| `Canon` | 소유자가 승인한 세계의 사실. 이후 설정과 구현은 이것과 모순되면 안 된다. | 예 |
+| `Provisional` | 게임에 이미 구현되었지만 아직 정본 검토를 받지 않은 설정. 검토 결과 Canon이 되거나, 수정·폐기될 수 있다. | 이미 구현된 범위에서만. 이 설정을 *더 확장*하기 전에 검토를 거친다 |
+| `Draft` | 제안된 설정. 아직 승인되지 않았다. | 아니오 |
+| `Research` | 참고 자료(비교 신화, 출처 분석 등). 그 자체로는 설정이 아니다. | 아니오 |
+| `Deprecated` | 폐기된 설정. 기록을 위해 남긴다. 대체 항목을 함께 적는다. | 아니오 |
+
+모든 설정 항목은 머리에 등급을 적는다. 등급이 없는 항목은 `Draft`로 취급한다.
+
+## 승격 절차
+
+`docs/world/mythology-transcendence-research.md`의 Design Gate를 세계관 전체에 적용한다.
+
+```
+Evidence → Alternatives → Impact → Decision Record → (Canon) → Implementation
+```
+
+1. **Evidence**: 근거. 기존 Canon, 설계 원칙, 연구 자료, 이미 구현된 콘텐츠.
+2. **Alternatives**: 다른 가능성들과 그 장단점.
+3. **Impact**: 이 설정이 연결되는 지역·인물·조직·사건·역사, 그리고 이미 구현된 게임 콘텐츠와 저장 데이터에 미치는 영향.
+4. **Decision Record**: `decision-log.md`에 `WB-NNNN`으로 기록하고 소유자가 승인한다.
+5. 승인된 항목의 등급을 `Canon`으로 바꾼다.
+6. 게임에 구현할 때는 데이터팩 주석이나 PR에서 해당 `WB-NNNN`/항목을 인용한다.
+
+## Provisional 설정의 검토
+
+- 게임에 먼저 구현된 설정(`canon-review/`)은 검토해서 다음 중 하나로 처리한다:
+  **승인(Canon)**, **수정 후 승인**, **폐기(Deprecated)**.
+- 수정이나 폐기가 이미 구현된 게임 콘텐츠를 바꾸어야 한다면, 그 변경은 `feature/v2-core`의
+  규칙(저장 호환성, Hard Gate)을 따른다. World Bible만으로 게임 데이터를 고치지 않는다.
+
+## 권위의 경계
+
+- World Bible은 **설정**의 기준이다. 엔진 **규칙**은 `CORE_CONTRACTS.md`가 기준이다.
+- 설정이 새 엔진 기능을 요구하면, World Bible에서 직접 정하지 않고 `feature/v2-core`의
+  절차(필요하면 Hard Gate)로 넘긴다.
