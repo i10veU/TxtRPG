@@ -141,6 +141,15 @@
 // the elder (D-71 (2)). Information -> judgment -> action -> world change -> new information for
 // the next generation. `version` stays "0.1.0" (no state-shape change; D-68).
 //
+// V2-Core-69 (#170 Slice 3, step 2 -- the spring's tale): the purification becomes history, as the
+// bandits' dispersal did (V2-Core-45/46, D-74's day-clock pattern). `evt_well_tale` records the
+// objective `fact_well_fate` ("purified") and counts `well_tale_age` 1..3 a day apart. While it is
+// fresh the herbalist tells the news (`rum_well_fate`); after about two days the market's legend
+// (`rum_well_legend`, "the spring's spirit was appeased", low confidence). A successful search at the
+// purified spring sees the truth first-hand and corrects a believed legend (D-14); a character whose
+// legend was corrected so can tell the herbalist, once for the world (`well_tale_corrected`; +5 on
+// their own edge): from then on she tells everyone the true account, a successor too. Additive only.
+//
 // V2-Core-68 (#170 Slice 3, step 1 -- the arrows at the spring): the two stories meet. The carcass
 // in the spring was shot with bandit arrows (`fact_spring_fouler`, the world's truth, set wherever the
 // carcass is handled: a successful search, the purification). Only a character who knows the bandits'
@@ -320,6 +329,8 @@ const EXAMINE_CARCASS = [
     then: [{ op: "rumor", rumor: "rum_spring_bandits", observe: true, source: "obs_loc_forest_spring", confidence: 80 }, say("txt_spring_bandit_arrows")]
   }
 ];
+// V2-Core-69 (#170): the spring's tale -- the legend's time (about two days on) unless someone corrected it
+const WELL_LEGEND_TIME = { op: "and", of: [{ op: "signal", key: "well_tale_age", min: 3 }, { op: "not", of: { op: "flag", key: "well_tale_corrected" } }] };
 // what the village says once the elder has been told -- and whether the one behind it still lives
 const ARROWS_IN_THE_ACCOUNT = {
   op: "if",
@@ -440,6 +451,16 @@ export const worldData = {
         { op: "narrate", textId: "txt_market_reopens" }
       ]
     },
+    // V2-Core-69 (#170): the purification becomes history -- 1 on the purification's step, then +1 at
+    // the first step a full day later, until 3 (as evt_bandits_tale)
+    evt_well_tale: {
+      trigger: { op: "and", of: [WELL_RESOLVED, { op: "signal", key: "well_tale_age", max: 2 }] },
+      cooldown: 1440,
+      effects: [
+        { op: "fact", fact: "fact_well_fate", set: "purified" },
+        { op: "signal", key: "well_tale_age", add: 1 }
+      ]
+    },
     // V2-Core-66 (#160): the village sees its well clear -- once, for whoever stands in the village
     // after the spring is purified (narration only: the world changed, nobody is paid)
     evt_well_clears: {
@@ -543,8 +564,17 @@ export const worldData = {
           { op: "fact", fact: "fact_spring_cause", set: "rotting_carcass" },
           { op: "rumor", rumor: "rum_spring_cause", observe: true, source: "obs_loc_forest_spring", confidence: 80 },
           { op: "proficiency", id: "investigation", add: 20 },
-          say("txt_search_spring_success"),
-          ...EXAMINE_CARCASS // V2-Core-68
+          {
+            op: "if",
+            when: WELL_RESOLVED,
+            // V2-Core-69: the purified spring shows what was done -- first-hand, correcting a believed legend
+            then: [
+              say("txt_search_spring_purified"),
+              { op: "rumor", rumor: "rum_well_fate", observe: true, source: "obs_loc_forest_spring", confidence: 80 },
+              { op: "if", when: { op: "rumor", rumor: "rum_well_legend" }, then: [{ op: "rumor", rumor: "rum_well_legend", observe: true, source: "obs_loc_forest_spring", confidence: 80 }] }
+            ],
+            else: [say("txt_search_spring_success"), ...EXAMINE_CARCASS] // V2-Core-68
+          }
         ],
         fail: [{ op: "proficiency", id: "investigation", add: 5 }, say("txt_search_spring_fail")]
       }
@@ -934,7 +964,23 @@ export const worldData = {
             },
             { op: "rumor", rumor: "rum_well_source", source: "npc_herbalist", confidence: 50 },
             // V2-Core-66: once the spring is purified she tells that the sickness has passed
-            { op: "if", when: WELL_RESOLVED, then: [say("txt_herbalist_sickness_passed")], else: [say("txt_herbalist_sickness")] },
+            {
+              op: "if",
+              when: WELL_RESOLVED,
+              // V2-Core-69: news while it is fresh, the market's legend afterwards, the truth once corrected
+              then: [
+                {
+                  op: "if",
+                  when: WELL_LEGEND_TIME,
+                  then: [{ op: "rumor", rumor: "rum_well_legend", source: "src_market_legend", confidence: 40 }, say("txt_herbalist_well_legend")],
+                  else: [
+                    { op: "rumor", rumor: "rum_well_fate", source: "npc_herbalist", confidence: 70 },
+                    { op: "if", when: { op: "flag", key: "well_tale_corrected" }, then: [say("txt_herbalist_well_corrected")], else: [say("txt_herbalist_sickness_passed")] }
+                  ]
+                }
+              ],
+              else: [say("txt_herbalist_sickness")]
+            },
             // V2-Core-68: the village's account reaches her stall too
             { op: "if", when: ARROWS_TOLD, then: [say("txt_herbalist_bandit_rumor")] }
           ]
@@ -984,6 +1030,24 @@ export const worldData = {
             ]
           },
           effects: [{ op: "relation", from: "npc_herbalist", add: 10, tag: "thanked" }, say("txt_herbalist_thanks")]
+        },
+        // V2-Core-69 (#170): a character who heard the legend and saw the truth at the spring (their
+        // legend corrected to "purified") tells her, once for the world; +5 on their own edge
+        {
+          id: "opt_herbalist_correct_legend",
+          name: "샘에서 본 것을 바로잡아 전한다",
+          requires: {
+            op: "and",
+            of: [
+              { op: "not", of: { op: "flag", key: "well_tale_corrected" } },
+              { op: "eq", left: { rumor: "rum_well_legend" }, right: "purified" }
+            ]
+          },
+          effects: [
+            { op: "flag", key: "well_tale_corrected", value: true },
+            { op: "relation", from: "npc_herbalist", add: 5 },
+            say("txt_herbalist_correct_legend")
+          ]
         }
       ]
     },
@@ -1132,7 +1196,9 @@ export const worldData = {
     fact_well_source: {},
     fact_spring_cause: {},
     // V2-Core-68 (#170): whose arrows were in the carcass -- set where it is handled
-    fact_spring_fouler: {}
+    fact_spring_fouler: {},
+    // V2-Core-69 (#170): what happened to the spring -- set by evt_well_tale
+    fact_well_fate: {}
   },
 
   rumors: {
@@ -1146,7 +1212,10 @@ export const worldData = {
     rum_well_source: { factId: "fact_well_source", claim: "forest_spring" },
     rum_spring_cause: { factId: "fact_spring_cause", claim: "rotting_carcass" },
     // V2-Core-68 (#170): the arrows, read by a character who knows the hideout
-    rum_spring_bandits: { factId: "fact_spring_fouler", claim: "bandits" }
+    rum_spring_bandits: { factId: "fact_spring_fouler", claim: "bandits" },
+    // V2-Core-69 (#170): the same history told two ways -- the herbalist's news, and the market's legend
+    rum_well_fate: { factId: "fact_well_fate", claim: "purified" },
+    rum_well_legend: { factId: "fact_well_fate", claim: "spirit_appeased" }
   },
 
   // Relation-edge/rumor-source IDs (§7.1/§8.3). An entry without `actor` is
@@ -1238,6 +1307,10 @@ export const worldData = {
     txt_spring_bandits_leader_lives: "원로는 덧붙인다. 샘을 흐린 것도 그 도적들이었다고. 그 일을 시킨 두목은 아직 어딘가 살아 있다고 한다.",
     txt_spring_bandits_leader_dead: "원로는 덧붙인다. 샘을 흐린 것도 그 도적들이었다고. 그 일을 시킨 두목은 이미 죽었으니, 적어도 다시는 그런 일이 없을 거라고 한다.",
     txt_ask_ruins_spring: "원로는 폐허의 도적들이 숲속 샘까지 흐려 놓았다는 이야기도 잊지 않고 덧붙인다.",
-    txt_herbalist_bandit_rumor: "약초꾼은 목소리를 낮춘다. 샘을 흐린 게 폐허의 도적들이었다는 이야기가 시장에도 돈다고 한다."
+    txt_herbalist_bandit_rumor: "약초꾼은 목소리를 낮춘다. 샘을 흐린 게 폐허의 도적들이었다는 이야기가 시장에도 돈다고 한다.",
+    txt_search_spring_purified: "샘은 맑고 고요하다. 바위 틈 아래 새로 덮은 흙과 정화제의 쌉쌀한 냄새가, 누군가 이곳을 손수 정화했음을 말해 준다.",
+    txt_herbalist_well_legend: "약초꾼은 시장에 도는 이야기를 들려준다. 마을 사람들이 제물을 바치자 노한 샘의 정령이 누그러졌다는 것이다.",
+    txt_herbalist_correct_legend: "당신이 샘에서 본 것을 전하자 약초꾼은 고개를 끄덕인다. 정령이 아니라 사람이 한 일이었다고, 앞으로는 그렇게 전하겠다고 한다.",
+    txt_herbalist_well_corrected: "약초꾼은 시장의 정령 이야기 대신, 누군가 샘에서 사체를 치우고 정화제를 부었다는 사실을 들려준다. 직접 본 사람이 있다고 한다."
   }
 };
