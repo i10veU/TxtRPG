@@ -141,6 +141,14 @@
 // the elder (D-71 (2)). Information -> judgment -> action -> world change -> new information for
 // the next generation. `version` stays "0.1.0" (no state-shape change; D-68).
 //
+// V2-Core-66 (#160 Slice 2, step 3 -- resolution and its world): at the spring, a character who found
+// the cause with their own eyes (`rum_spring_cause`, their knowledge) and carries a remedy purifies it:
+// `case_fouled_well` is resolved (the world's), the miasma stops for everyone, and the herbalist's edge
+// towards that character records it (`purifier`, a personal edge, D-70). What follows: the village
+// sees its well clear (a `data.events` entry, once, narration only); the well and the herbalist tell
+// the changed world to whoever asks (a successor too, no knowledge inherited); the purifier -- only
+// them -- can tell her, once (+10, `thanked`). No reward beyond trust (D-71 (2)). Additive only.
+//
 // V2-Core-65 (#160 Slice 2, step 2 -- herbalism): the remedy the spring needs. Gathering purifying
 // herbs at the spring is WIS with a new skill, `herbalism` (its own practice -> rank at every 20, the
 // mastery labels as every skill), and costs 2 stamina whatever comes of it (the resource outside a
@@ -290,6 +298,8 @@ const LIGHT_OR_NIGHT_VISION = {
 };
 // V2-Core-64 (#160): the way to the forest spring is known only from the well or the herbalist
 const KNOWS_WELL_SOURCE = { op: "rumor", rumor: "rum_well_source" };
+// V2-Core-66 (#160): the well's case, closed by purifying the spring (world state, D-70)
+const WELL_RESOLVED = { op: "case", case: "case_fouled_well", stage: "resolved" };
 // V2-Core-52: a skill rank at every 20 practice points (thresholds are applied in `at` order, D-42)
 const rankUps = (skill) => [20, 40, 60, 80, 100].map((at) => ({ at, effects: [{ op: "skill", skill, add: 1 }] }));
 const FIGHT_DIFFICULTY = (base, stat) => ({ base, opposed: { subject: "npc_bandit_leader", stat } });
@@ -404,6 +414,13 @@ export const worldData = {
         { op: "narrate", textId: "txt_market_reopens" }
       ]
     },
+    // V2-Core-66 (#160): the village sees its well clear -- once, for whoever stands in the village
+    // after the spring is purified (narration only: the world changed, nobody is paid)
+    evt_well_clears: {
+      trigger: { op: "and", of: [{ op: "location", at: "loc_village" }, WELL_RESOLVED] },
+      once: true,
+      effects: [say("txt_well_clears")]
+    },
     // V2-Core-64 (#160): the spring's miasma -- a checked trigger (CON): resisted, or 2 HP. Only while
     // the well's case is open; at most once per 30 minutes, like the ruins' hazard
     evt_spring_miasma: {
@@ -411,7 +428,7 @@ export const worldData = {
         op: "and",
         of: [
           { op: "location", at: "loc_forest_spring" },
-          { op: "not", of: { op: "case", case: "case_fouled_well", stage: "resolved" } }
+          { op: "not", of: WELL_RESOLVED }
         ]
       },
       cooldown: 30,
@@ -477,7 +494,8 @@ export const worldData = {
           { op: "fact", fact: "fact_well_source", set: "forest_spring" },
           { op: "rumor", rumor: "rum_well_source", observe: true, source: "obs_village_well", confidence: 70 },
           { op: "proficiency", id: "investigation", add: 10 },
-          say("txt_inspect_well_success")
+          // V2-Core-66: after the spring is purified, the same water runs clear
+          { op: "if", when: WELL_RESOLVED, then: [say("txt_inspect_well_clear")], else: [say("txt_inspect_well_success")] }
         ],
         fail: [{ op: "proficiency", id: "investigation", add: 5 }, say("txt_inspect_well_fail")]
       }
@@ -503,6 +521,28 @@ export const worldData = {
         ],
         fail: [{ op: "proficiency", id: "investigation", add: 5 }, say("txt_search_spring_fail")]
       }
+    },
+    // V2-Core-66 (#160): purifying the spring -- the character's own finding (their knowledge of the
+    // cause, not the world's fact) and a remedy, while the case is open
+    act_purify_spring: {
+      name: "샘을 정화한다",
+      requires: {
+        op: "and",
+        of: [
+          { op: "location", at: "loc_forest_spring" },
+          { op: "rumor", rumor: "rum_spring_cause" },
+          { op: "item", item: "item_spring_remedy", min: 1 },
+          { op: "not", of: WELL_RESOLVED }
+        ]
+      },
+      minutes: 30,
+      effects: [
+        { op: "item", item: "item_spring_remedy", add: -1 },
+        { op: "case", case: "case_fouled_well", stage: "resolved" },
+        { op: "relation", from: "npc_herbalist", tag: "purifier" },
+        { op: "proficiency", id: "herbalism", add: 10 },
+        say("txt_purify_spring")
+      ]
     },
     // V2-Core-65 (#160): gathering purifying herbs -- WIS with the herbalism skill, 2 stamina whatever
     // comes of it (the option requires it, every outcome pays it, as the fight's techniques)
@@ -849,7 +889,8 @@ export const worldData = {
               then: [{ op: "relation", from: "npc_herbalist", add: 5, tag: "consulted" }]
             },
             { op: "rumor", rumor: "rum_well_source", source: "npc_herbalist", confidence: 50 },
-            say("txt_herbalist_sickness")
+            // V2-Core-66: once the spring is purified she tells that the sickness has passed
+            { op: "if", when: WELL_RESOLVED, then: [say("txt_herbalist_sickness_passed")], else: [say("txt_herbalist_sickness")] }
           ]
         },
         { id: "opt_herbalist_small_talk", name: "약초 이야기만 나눈다", effects: [say("txt_herbalist_small_talk")] },
@@ -883,6 +924,20 @@ export const worldData = {
             { op: "item", item: "item_spring_remedy", add: 1 },
             say("txt_herbalist_brew")
           ]
+        },
+        // V2-Core-66 (#160): only the character who purified the spring (her `purifier` tag on her
+        // edge towards them), once (`thanked`)
+        {
+          id: "opt_herbalist_report_spring",
+          name: "샘을 정화했다고 전한다",
+          requires: {
+            op: "and",
+            of: [
+              { op: "relation", from: "npc_herbalist", to: "self", tag: "purifier" },
+              { op: "not", of: { op: "relation", from: "npc_herbalist", to: "self", tag: "thanked" } }
+            ]
+          },
+          effects: [{ op: "relation", from: "npc_herbalist", add: 10, tag: "thanked" }, say("txt_herbalist_thanks")]
         }
       ]
     },
@@ -1122,6 +1177,11 @@ export const worldData = {
     txt_gather_herbs_success: "독한 풀들 사이에서 정화초 한 묶음을 가려 거둔다.",
     txt_gather_herbs_fail: "비슷하게 생긴 풀만 한 아름이다. 정화초는 찾지 못했다.",
     txt_herbalist_teach: "약초꾼은 은화를 받아 넣고, 잎맥과 향으로 정화초를 가려내는 법을 차근차근 일러 준다.",
-    txt_herbalist_brew: "약초꾼은 정화초 두 묶음을 달여 맑은 정화제 한 병을 만들어 준다. 샘의 원인을 치운 뒤 부으라고 한다."
+    txt_herbalist_brew: "약초꾼은 정화초 두 묶음을 달여 맑은 정화제 한 병을 만들어 준다. 샘의 원인을 치운 뒤 부으라고 한다.",
+    txt_purify_spring: "바위 틈의 사체를 끌어내 묻고, 샘에 정화제를 붓는다. 독한 안개가 천천히 걷히고 물빛이 맑아진다.",
+    txt_well_clears: "마을 우물가에 사람들이 모여 있다. 길어 올린 물이 다시 맑다며, 배앓이하던 아이들도 일어났다고 한다.",
+    txt_inspect_well_clear: "두레박으로 길어 올린 물이 맑고 차다. 물길은 여전히 숲속 샘에서 흘러오지만, 이제 썩은 냄새는 없다.",
+    txt_herbalist_sickness_passed: "약초꾼은 배앓이가 잦아들었다며 웃는다. 누군가 숲속 샘을 정화했다는 소문이 돈다고 한다.",
+    txt_herbalist_thanks: "당신이 샘에서 한 일을 듣자 약초꾼은 손을 꼭 잡고 고맙다고 말한다. 마을 사람들 대신 하는 인사라고 한다."
   }
 };
