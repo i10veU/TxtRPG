@@ -114,6 +114,18 @@ function resolveItem(selector, ctx) {
   return ctx.state?.actors?.[subjectId]?.inventory?.[selector.item];
 }
 
+// V2-Core-58 (D-87, #147 Phase B): the actor's loadout ({ <slot>: <itemId> }) names the
+// item. The loadout is a set of references into the inventory, never a store of its own;
+// both callers (the `item` Condition's count, check()'s inventory walk) have already
+// required the item to be held. No loadout = nothing equipped.
+function isEquipped(actor, itemId) {
+  return isPlainObject(actor?.loadout) && Object.values(actor.loadout).includes(itemId);
+}
+function itemSlot(data, itemId) {
+  const slot = data?.items?.[itemId]?.slot;
+  return typeof slot === "string" ? slot : undefined;
+}
+
 function resolveMoney(selector, ctx) {
   if (selector.money !== true) return undefined;
   const subjectId = resolveSubjectId(selector.subject, ctx);
@@ -427,8 +439,12 @@ export function evaluateCondition(condition, ctx) {
       return matchScalarArgs(resolveGrowthValue("skill", "skills", condition, ctx), condition, 1);
     case "trait":
       return Boolean(resolveGrowthValue("trait", "traits", condition, ctx));
-    case "item":
-      return matchScalarArgs(resolveItem(condition, ctx), condition, 1);
+    case "item": {
+      if (!matchScalarArgs(resolveItem(condition, ctx), condition, 1)) return false;
+      // D-87: `equipped: true` also asks for the subject's loadout
+      if (condition.equipped !== true) return true;
+      return isEquipped(ctx.state?.actors?.[resolveSubjectId(condition.subject, ctx)], condition.item);
+    }
     case "relation":
       return evaluateRelationCondition(condition, ctx);
     case "fact":
@@ -783,6 +799,57 @@ function applyItemEffect(effect, workingState, events, ctx) {
     actorId: resolved.id,
     data: { item: effect.item, delta }
   });
+  // D-87: the loadout never names an item the actor no longer holds
+  if (after === 0) unequipItem(actor, effect.item, resolved.id, workingState, events);
+}
+
+// V2-Core-58 (D-87): equip / unequip -- the loadout is { <slot>: <itemId> }, the slot is
+// the item definition's `slot` (the world names its slots; one item per slot). Equipping
+// never changes counts. An item not held, or without a slot, cannot be equipped: skip (D-29).
+// Already equipped / not equipped: nothing (D-30).
+function unequipItem(actor, itemId, actorId, workingState, events) {
+  if (!isPlainObject(actor.loadout)) return;
+  const slot = Object.keys(actor.loadout).sort().find((key) => actor.loadout[key] === itemId);
+  if (slot === undefined) return;
+  delete actor.loadout[slot];
+  events.push({
+    minute: workingState.time.minute,
+    type: "item.unequipped",
+    visibility: isPlayerActor(actorId, workingState) ? "player" : "internal",
+    actorId,
+    data: { item: itemId, slot }
+  });
+}
+
+function applyEquipEffect(effect, workingState, events, ctx) {
+  if (typeof effect.item !== "string") {
+    throw new TypeError("equip Effect requires a string `item`");
+  }
+  const resolved = resolveActor(effect.subject, ctx, workingState);
+  if (!resolved) return; // D-29: skip
+  const actor = resolved.actor;
+  const slot = itemSlot(ctx.data, effect.item);
+  if (slot === undefined || !(actor.inventory?.[effect.item] > 0)) return; // D-29: nothing to equip
+  if (!isPlainObject(actor.loadout)) actor.loadout = {};
+  const replaced = actor.loadout[slot];
+  if (replaced === effect.item) return; // D-30
+  actor.loadout[slot] = effect.item;
+  events.push({
+    minute: workingState.time.minute,
+    type: "item.equipped",
+    visibility: isPlayerActor(resolved.id, workingState) ? "player" : "internal",
+    actorId: resolved.id,
+    data: replaced === undefined ? { item: effect.item, slot } : { item: effect.item, slot, replaced }
+  });
+}
+
+function applyUnequipEffect(effect, workingState, events, ctx) {
+  if (typeof effect.item !== "string") {
+    throw new TypeError("unequip Effect requires a string `item`");
+  }
+  const resolved = resolveActor(effect.subject, ctx, workingState);
+  if (!resolved) return; // D-29: skip
+  unequipItem(resolved.actor, effect.item, resolved.id, workingState, events);
 }
 
 // move Effect (D-46, §4.2/§2.2): `to` is set directly on the actor, no
@@ -1514,6 +1581,10 @@ function applyOneEffect(effect, workingState, events, ctx) {
       return applyCaseEffect(effect, workingState, events);
     case "item":
       return applyItemEffect(effect, workingState, events, ctx);
+    case "equip":
+      return applyEquipEffect(effect, workingState, events, ctx);
+    case "unequip":
+      return applyUnequipEffect(effect, workingState, events, ctx);
     case "relation":
       return applyRelationEffect(effect, workingState, events, ctx);
     case "exp":
@@ -1639,6 +1710,8 @@ function computeCheckModifiers(spec, ctx, system, rules) {
       .sort()
       .forEach((itemId) => {
         if (!(inventory[itemId] > 0)) return;
+        // D-87: equipment (an item with a slot) counts only while equipped; any other item as held
+        if (itemSlot(ctx.data, itemId) !== undefined && !isEquipped(actor, itemId)) return;
         const m = sumMatchingModifiers(ctx.data?.items?.[itemId]?.modifiers, tags);
         if (m !== 0) modifiers.push({ source: "item:" + itemId, value: m });
       });
@@ -1788,7 +1861,7 @@ const KNOWN_CONDITION_OPS = new Set([
 const KNOWN_EFFECT_OPS = new Set([
   "flag", "signal", "time", "if", "stat", "hp", "money", "skill", "trait",
   "unlock", "case", "item", "relation", "exp", "proficiency", "fact", "rumor",
-  "move", "choice", "narrate", "resource",
+  "move", "choice", "narrate", "resource", "equip", "unequip",
   "handler"
 ]);
 
@@ -1846,6 +1919,8 @@ function checkConditionArgs(node, path, errors) {
     errors.push(`trait Condition at ${path} requires a string \`trait\``);
   } else if (op === "item" && typeof node.item !== "string") {
     errors.push(`item Condition at ${path} requires a string \`item\``);
+  } else if (op === "item" && node.equipped !== undefined && typeof node.equipped !== "boolean") {
+    errors.push(`item Condition at ${path}'s \`equipped\`, when present, must be a boolean`);
   } else if (op === "fact" && typeof node.fact !== "string") {
     errors.push(`fact Condition at ${path} requires a string \`fact\``);
   } else if (op === "unlock" && typeof node.id !== "string") {
@@ -1924,7 +1999,7 @@ function walkCondition(node, contextKind, path, errors) {
 // accepts them, are always optional-if-string (resolveActor/
 // resolveGrowthSystemId's own type check).
 const SUBJECT_BEARING_EFFECT_OPS = new Set([
-  "stat", "hp", "money", "item", "move", "exp", "proficiency", "skill", "trait", "unlock", "rumor", "resource"
+  "stat", "hp", "money", "item", "move", "exp", "proficiency", "skill", "trait", "unlock", "rumor", "resource", "equip", "unequip"
 ]);
 const SYSTEM_BEARING_EFFECT_OPS = new Set(["stat", "exp", "proficiency", "skill", "trait", "unlock", "resource"]);
 
@@ -1956,6 +2031,8 @@ function checkEffectArgs(effect, path, errors, data) {
     if (!Number.isInteger(effect.add)) errors.push(`stat Effect at ${path} requires an integer \`add\``);
   } else if (op === "hp" || op === "money") {
     if (!Number.isInteger(effect.add)) errors.push(`${op} Effect at ${path} requires an integer \`add\``);
+  } else if (op === "equip" || op === "unequip") {
+    if (typeof effect.item !== "string") errors.push(`${op} Effect at ${path} requires a string \`item\``);
   } else if (op === "resource") {
     if (typeof effect.resource !== "string") errors.push(`resource Effect at ${path} requires a string \`resource\``);
     if (!Number.isInteger(effect.add)) errors.push(`resource Effect at ${path} requires an integer \`add\``);
@@ -2379,6 +2456,13 @@ export function validateData(data) {
       Object.keys(data[collection]).forEach((id) => checkDataIdFormat(errors, id, `${collection} key`));
     }
   });
+  // V2-Core-58 (D-87): an equipment item's slot is a world-named ID
+  if (isPlainObject(data.items)) {
+    Object.keys(data.items).forEach((itemId) => {
+      const item = data.items[itemId];
+      if (isPlainObject(item) && item.slot !== undefined) checkDataIdFormat(errors, item.slot, `items.${itemId}.slot`);
+    });
+  }
 
   // D-76 (V2-Core-43): an `initial` object holding `pickFrom` is the seeded form
   // (§8.1) and must be usable as is; any other `initial` is a fixed value.

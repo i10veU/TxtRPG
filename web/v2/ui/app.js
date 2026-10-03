@@ -228,6 +228,11 @@ function renderStatus(actor) {
     .filter(([, r]) => r !== undefined)
     .map(([id, r]) => `${id} ${r.current}/${r.max}`)
     .join(", ");
+  // V2-Core-58 (D-87): what is wielded (slot -> item), apart from what is owned
+  const loadout = Object.keys(actor.loadout ?? {})
+    .sort()
+    .map((slot) => `${slot} ${worldData.items?.[actor.loadout[slot]]?.name ?? actor.loadout[slot]}`)
+    .join(", ");
   const inventory = Object.keys(actor.inventory ?? {})
     .sort()
     .map((k) => `${worldData.items?.[k]?.name ?? k} x${actor.inventory[k]}`)
@@ -243,6 +248,7 @@ function renderStatus(actor) {
     skills && `기술: ${skills}`,
     traits && `특성: ${traits}`,
     unlocks && `해금: ${unlocks}`,
+    loadout && `장비: ${loadout}`,
     inventory && `소지품: ${inventory}`
   ].filter(Boolean);
   lines.forEach((line) => {

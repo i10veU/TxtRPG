@@ -141,6 +141,11 @@
 // the elder (D-71 (2)). Information -> judgment -> action -> world change -> new information for
 // the next generation. `version` stays "0.1.0" (no state-shape change; D-68).
 //
+// V2-Core-58 (#147 Phase B, D-87): the first equipment. The iron sword (slot `hand`, 3 silver at the
+// market) is owned by buying it and wielded by "철검을 든다" (the `equip` Effect; "철검을 내려놓는다"
+// unequips). While it is in hand the fight offers "철검으로 베어 든다" -- the strike at base 10.
+// Owning it is not enough; it has no modifier. No NPC equipment, no version bump.
+//
 // V2-Core-57 (#147 Phase A, D-86): the first talent. The scout background keeps night vision and
 // gains `investigation_talent` -- a trait whose `practice` adds 2 to every investigation practice
 // gain (the engine applies it where practice grows). The wanderer is unchanged; a scout saved
@@ -412,6 +417,32 @@ export const worldData = {
         { op: "item", item: "item_lantern", add: 1 },
         { op: "narrate", textId: "txt_buy_lantern" }
       ]
+    },
+    // V2-Core-58 (D-87): the sword is sold where the lantern is; wielding it is a choice of its own
+    act_buy_iron_sword: {
+      name: "철검 구입",
+      requires: { op: "and", of: [{ op: "location", at: "loc_market" }, { op: "money", min: 3 }] },
+      effects: [
+        { op: "money", add: -3 },
+        { op: "item", item: "item_iron_sword", add: 1 },
+        { op: "narrate", textId: "txt_buy_iron_sword" }
+      ]
+    },
+    act_equip_iron_sword: {
+      name: "철검을 든다",
+      requires: {
+        op: "and",
+        of: [
+          { op: "item", item: "item_iron_sword", min: 1 },
+          { op: "not", of: { op: "item", item: "item_iron_sword", equipped: true } }
+        ]
+      },
+      effects: [{ op: "equip", item: "item_iron_sword" }, { op: "narrate", textId: "txt_equip_iron_sword" }]
+    },
+    act_unequip_iron_sword: {
+      name: "철검을 내려놓는다",
+      requires: { op: "item", item: "item_iron_sword", equipped: true },
+      effects: [{ op: "unequip", item: "item_iron_sword" }, { op: "narrate", textId: "txt_unequip_iron_sword" }]
     },
     act_talk_elder: {
       name: "원로와 대화",
@@ -719,6 +750,16 @@ export const worldData = {
           minutes: 5,
           outcomes: payStamina(2, STRIKE_OUTCOMES)
         },
+        // V2-Core-58 (D-87): with the iron sword in hand -- the strike's blow at an easier mark (10).
+        // Unequipped, it is not offered: what is wielded, not what is owned, decides
+        {
+          id: "opt_fight_sword_cut",
+          name: "철검으로 베어 든다",
+          requires: { op: "item", item: "item_iron_sword", equipped: true },
+          check: STRIKE_CHECK(10),
+          minutes: 5,
+          outcomes: STRIKE_OUTCOMES
+        },
         // the technique: only for a character whose keen eye reads the leader's attacks
         {
           id: "opt_fight_counter",
@@ -805,7 +846,11 @@ export const worldData = {
 
   items: {
     item_lantern: { name: "낡은 등불", modifiers: [{ tags: ["investigation"], value: 1 }] },
-    item_relic: { name: "폐허의 유물" }
+    item_relic: { name: "폐허의 유물" },
+    // V2-Core-58 (D-87, #147 Phase B): equipment -- an item with a slot. It counts only while
+    // equipped (the lantern and the relic have no slot: held is enough, D-10). No modifier: what
+    // wielding it changes is a technique (choice_fight_leader.opt_fight_sword_cut)
+    item_iron_sword: { name: "철검", slot: "hand" }
   },
 
   // `initial` is seeded by createInitialState since V2-Core-43 (D-76): every new
@@ -855,6 +900,9 @@ export const worldData = {
   texts: {
     txt_observe_village: "당신은 마을 곳곳을 둘러보며 사람들의 표정과 대화를 살핀다.",
     txt_buy_lantern: "상인에게 은화를 건네고 낡은 등불을 받는다.",
+    txt_buy_iron_sword: "상인에게 은화 세 닢을 건네고 손때 묻은 철검을 받는다.",
+    txt_equip_iron_sword: "철검을 뽑아 손에 쥔다.",
+    txt_unequip_iron_sword: "철검을 칼집에 넣고 허리에 찬다.",
     txt_ask_ruins: "원로는 목소리를 낮추며 마을 외곽의 폐허에 대해 이야기한다.",
     txt_small_talk: "원로와 짧은 안부를 나눈다.",
     txt_investigate_success: "등불 아래 드러난 흔적은 도적들의 은신처를 가리키고 있었다.",

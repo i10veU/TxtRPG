@@ -71,6 +71,7 @@ function testChecksReadSkills() {
     act_investigate_ruins: ["investigation", null],
     act_confront_leader: [null, null],
     "choice_fight_leader.opt_fight_strike": ["swordsmanship", null],
+    "choice_fight_leader.opt_fight_sword_cut": ["swordsmanship", null], // V2-Core-58
     "choice_fight_leader.opt_fight_counter": ["swordsmanship", null],
     "choice_fight_leader.opt_fight_weak_spot": ["swordsmanship", null] // V2-Core-55
   });

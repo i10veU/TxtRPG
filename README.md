@@ -279,6 +279,7 @@ Core는 순수 함수 기반이며 브라우저/저장소 API에 직접 의존�
 - 평판 (원로의 신뢰: 의미 있는 사건마다 캐릭터당 한 번만 오른다 — 잡담·반복 질문으로는 오르지 않음. 신뢰 15 이상이면 두목의 오래된 상처 소문을 듣고, 그 소문이 전투 선택지 「그의 오래된 상처를 노린다」(난이도 9)를 연다)
 - Resource (성장체계에 속한 소모 자원: stamina 6 — 받아치기 3, 오래된 상처 2, 정면 공격·도주 0, 마을 휴식으로 회복. 이전 save는 가득 찬 것으로 읽음)
 - Talent (성장 경향: Trait의 `practice` 보너스로 표현 — 정찰자의 조사 Talent는 조사 연습마다 +2. 판정 보정이 아님)
+- Equipment (소지품과 장비를 구분: slot이 있는 아이템을 장착해야 효과 — 철검을 들면 「철검으로 베어 든다」가 열림. 등불 같은 일반 아이템은 보유만으로 그대로)
 - 판타지 공통 Stats STR / DEX / CON / INT / WIS / PER (조사 INT, 대면 WIS, 공격 STR, 받아치기 DEX — 모두 opposed 판정; CON/PER는 정의만)
 - 첫 Combat (도적 두목과 싸운다: 교환마다 opposed 판정, 받아치기 Technique, 도주, 승리/패배의 세계 결과 — 전투 엔진 없이 choice/check/outcomes)
 - NPC Actor (도적 두목: player와 같은 Actor record, `kind:"npc"`; 두목 대면 판정이 그의 WIS에 대한 opposed check)
@@ -533,9 +534,9 @@ V2는 Node와 실제 Chromium 브라우저 양쪽에서 검증한다.
 
 최근 기준:
 
-- V2 Node: **31/31**
+- V2 Node: **33/33**
 - V1 regression: **41/41**
-- V2 browser: **63/63**
+- V2 browser: **65/65**
 
 각 RPG 기능도 관련 Node/browser/save-load/determinism 검증을 추가한다.
 
