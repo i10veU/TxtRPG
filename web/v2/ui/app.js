@@ -44,6 +44,7 @@ const el = {
   saveSlotInput: document.getElementById("saveSlotInput"),
   saveBtn: document.getElementById("saveBtn"),
   newGameBtn: document.getElementById("newGameBtn"),
+  backgroundSelect: document.getElementById("backgroundSelect"),
   waitBtn: document.getElementById("waitBtn"),
   backToMenuBtn: document.getElementById("backToMenuBtn"),
   error: document.getElementById("error")
@@ -307,9 +308,26 @@ async function refreshSlotList() {
   });
 }
 
-function newGame(seed) {
+// V2-Core-54 (D-83): the first character's background is the menu's choice (a characterTemplate);
+// the select starts at the world's own start template, so a game started without touching it is
+// the same as before.
+function renderBackgroundChoice() {
+  if (!el.backgroundSelect) return;
+  clearChildren(el.backgroundSelect);
+  Object.keys(worldData.characterTemplates ?? {})
+    .sort()
+    .forEach((templateId) => {
+      const option = document.createElement("option");
+      option.value = templateId;
+      option.textContent = templateId;
+      option.selected = templateId === worldData.world.startTemplateId;
+      el.backgroundSelect.appendChild(option);
+    });
+}
+
+function newGame(seed, templateId = el.backgroundSelect?.value || undefined) {
   const worldSeed = seed || (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()));
-  const result = createInitialState({ worldSeed, data: worldData });
+  const result = createInitialState({ worldSeed, data: worldData, templateId });
   state = result.state;
   currentSlot = null;
   logEntries.length = 0;
@@ -376,6 +394,7 @@ el.saveBtn?.addEventListener("click", () => {
   saveGame(slot);
 });
 
+renderBackgroundChoice();
 refreshSlotList();
 render();
 
