@@ -205,6 +205,10 @@ function renderStatus(actor) {
     .sort()
     .map((k) => `${k} ${growth.proficiency[k]}`)
     .join(", ");
+  const skills = Object.keys(growth.skills ?? {})
+    .sort()
+    .map((k) => `${k} ${growth.skills[k]}`)
+    .join(", ");
   const unlocks = Object.keys(growth.unlocks ?? {}).sort().join(", ");
   const inventory = Object.keys(actor.inventory ?? {})
     .sort()
@@ -217,6 +221,7 @@ function renderStatus(actor) {
     `소지금 ${actor.money}`,
     stats && `능력치: ${stats}`,
     proficiency && `숙련도: ${proficiency}`,
+    skills && `기술: ${skills}`,
     unlocks && `해금: ${unlocks}`,
     inventory && `소지품: ${inventory}`
   ].filter(Boolean);

@@ -265,7 +265,7 @@ Core는 순수 함수 기반이며 브라우저/저장소 API에 직접 의존�
 - Check 기반 판정
 - Item
 - Money
-- Skill / Proficiency 데이터 구조 (조사 숙련도가 폐허 조사 판정에 반영: 숙련 = 실행 품질)
+- Skill / Practice (연습(proficiency)이 20점마다 Skill 랭크를 올리고 판정은 Skill만 읽는다: `investigation`, `swordsmanship` — 이중 계산 없음)
 - Growth System 데이터 구조
 - Relation / 조직 Relation
 - Flag / Signal
@@ -529,9 +529,9 @@ V2는 Node와 실제 Chromium 브라우저 양쪽에서 검증한다.
 
 최근 기준:
 
-- V2 Node: **23/23**
+- V2 Node: **24/24**
 - V1 regression: **41/41**
-- V2 browser: **58/58**
+- V2 browser: **59/59**
 
 각 RPG 기능도 관련 Node/browser/save-load/determinism 검증을 추가한다.
 

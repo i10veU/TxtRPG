@@ -141,6 +141,12 @@
 // the elder (D-71 (2)). Information -> judgment -> action -> world change -> new information for
 // the next generation. `version` stays "0.1.0" (no state-shape change; D-68).
 //
+// V2-Core-52 (Skill Decision = A, D-81): practice -> threshold -> skill rank -> the check's bonus.
+// `swordsmanship` (grown by the combat practice) and `investigation` (by the investigation practice),
+// a rank at every 20 points, +1 per rank: the same numbers the practice gave directly before, now
+// from the skill; no check names a proficiency, no proficiency has a `checkStep` (never counted
+// twice). No version bump: a missing rank is rank 0 (a save already past thresholds starts at 0).
+//
 // V2-Core-51 (Stats Decision, D-80): the fantasy prototype's common stats STR / DEX / CON / INT /
 // WIS / PER replace `wit`: the investigation reads INT, the confrontation WIS (against the leader's
 // WIS), the strike STR and the counter DEX (each against the leader's own). CON and PER are defined
@@ -212,6 +218,8 @@ function fightExchange(effects) {
 const hitLeader = (add) => ({ op: "hp", subject: "npc_bandit_leader", add });
 const hitSelf = (add) => ({ op: "hp", add });
 const say = (textId) => ({ op: "narrate", textId });
+// V2-Core-52: a skill rank at every 20 practice points (thresholds are applied in `at` order, D-42)
+const rankUps = (skill) => [20, 40, 60, 80, 100].map((at) => ({ at, effects: [{ op: "skill", skill, add: 1 }] }));
 const FIGHT_DIFFICULTY = (base, stat) => ({ base, opposed: { subject: "npc_bandit_leader", stat } });
 
 export const worldData = {
@@ -353,10 +361,10 @@ export const worldData = {
           { op: "rumor", rumor: "rum_ruins_secret" }
         ]
       },
-      // V2-Core-48: practice is execution quality -- the investigation proficiency adds
-      // floor(points / checkStep 20) to this check (§5.4)
-      // V2-Core-51: searching the ruins is INT (D-80)
-      check: { stat: "int", proficiency: "investigation", tags: ["investigation"], difficulty: "normal" },
+      // V2-Core-51: searching the ruins is INT (D-80). V2-Core-52 (D-81): the investigation skill's
+      // rank is the bonus (the practice grows the rank; the practice itself adds nothing -- V2-Core-48's
+      // direct proficiency bonus is replaced, the same number)
+      check: { stat: "int", skill: "investigation", tags: ["investigation"], difficulty: "normal" },
       minutes: 60,
       outcomes: {
         success: [
@@ -610,7 +618,7 @@ export const worldData = {
         {
           id: "opt_fight_strike",
           name: "정면으로 맞붙는다",
-          check: { stat: "str", proficiency: "combat", tags: ["combat"], difficulty: FIGHT_DIFFICULTY(11, "str") },
+          check: { stat: "str", skill: "swordsmanship", tags: ["combat"], difficulty: FIGHT_DIFFICULTY(11, "str") },
           minutes: 5,
           outcomes: {
             great: fightExchange([hitLeader(-7), say("txt_fight_strike_great")]),
@@ -624,7 +632,7 @@ export const worldData = {
           id: "opt_fight_counter",
           name: "그의 공격을 읽고 받아친다",
           requires: { op: "unlock", id: "unl_keen_eye" },
-          check: { stat: "dex", proficiency: "combat", tags: ["combat"], difficulty: FIGHT_DIFFICULTY(12, "dex") },
+          check: { stat: "dex", skill: "swordsmanship", tags: ["combat"], difficulty: FIGHT_DIFFICULTY(12, "dex") },
           minutes: 5,
           outcomes: {
             great: fightExchange([hitLeader(-10), say("txt_fight_counter_great")]),
@@ -662,15 +670,25 @@ export const worldData = {
         { id: "wis", min: 0, max: 20, base: 8 },
         { id: "per", min: 0, max: 20, base: 8 }
       ],
+      // V2-Core-52 (Skill Decision = A, D-81): practice (a proficiency: how much one has practised)
+      // grows a skill (what one can do) at thresholds; checks read only the skill's rank. No
+      // `checkStep`: practice is never a bonus by itself, so it is never counted twice. A rank at
+      // every 20 points (+1 per rank) keeps every check's number: rank = floor(points / 20)
       proficiencies: [
         {
           id: "investigation",
           max: 100,
-          checkStep: 20,
-          thresholds: [{ at: 50, effects: [{ op: "unlock", id: "unl_keen_eye" }] }]
+          thresholds: [
+            ...rankUps("investigation"),
+            { at: 50, effects: [{ op: "unlock", id: "unl_keen_eye" }] }
+          ]
         },
-        // V2-Core-50: grown by every exchange of a fight, read by the fight's checks
-        { id: "combat", max: 100, checkStep: 20 }
+        // V2-Core-50: grown by every exchange of a fight; V2-Core-52: it grows swordsmanship
+        { id: "combat", max: 100, thresholds: rankUps("swordsmanship") }
+      ],
+      skills: [
+        { id: "swordsmanship", maxRank: 5, checkBonusPerRank: 1 },
+        { id: "investigation", maxRank: 5, checkBonusPerRank: 1 }
       ],
       unlocks: [{ id: "unl_keen_eye", kind: "action" }]
     }

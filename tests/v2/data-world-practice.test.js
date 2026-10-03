@@ -2,12 +2,18 @@
 // pack already grows (observing the village +15, investigating +30 / +10) and already declares a
 // `checkStep` for (20) now takes part in the ruins investigation's check: +floor(points / 20), the
 // existing §5.4 proficiency modifier. Data only: no engine, state, save or Condition/Effect change.
+// V2-Core-52 (D-81, Skill Decision = A): the practice now grows the `investigation` skill at every 20
+// points and the check reads the skill's rank instead -- the same number, from the skill (no
+// double counting, tests/v2/data-world-skills.test.js). This test's claims stand as they were; the
+// bonus's source is `skill:investigation`, and "a character with N practice points" is grown through
+// the real `proficiency` Effect (its thresholds raise the rank) instead of written directly.
 //
 // `.test.js`, not `.spec.js`: tests/v2/run.js runs every `*.js` directly under tests/v2/ and skips
 // `*.spec.js`. node:assert/strict only (§13.1).
 
 import assert from "node:assert/strict";
 import { createInitialState, step } from "../../web/v2/core/engine.js";
+import { applyEffects } from "../../web/v2/core/rules.js";
 import { validateData } from "../../web/v2/core/rules.js";
 import { worldData } from "../../web/v2/data/world.js";
 
@@ -41,12 +47,14 @@ function run(state, actions) {
 const start = (seed = SEED) => createInitialState({ worldSeed: seed, data: worldData }).state;
 const rejected = (log) => log.some((r) => r.events.some((e) => e.type === "action.rejected"));
 const checkOf = (result) => result.events.find((e) => e.type === "check.resolved").data;
-const practiceModifier = (check) => check.modifiers.find((m) => m.source === "proficiency:investigation")?.value;
+const practiceModifier = (check) => check.modifiers.find((m) => m.source === "skill:investigation")?.value;
 const growthOf = (state) => state.actors.player_1.growth.growth_wanderer;
 function investigateWith(state, points) {
   const s = structuredClone(state);
-  growthOf(s).proficiency = { ...growthOf(s).proficiency, investigation: points };
-  return checkOf(step(s, INVESTIGATE, worldData));
+  growthOf(s).proficiency = { ...growthOf(s).proficiency, investigation: 0 };
+  delete growthOf(s).skills;
+  const practised = points === 0 ? s : applyEffects([{ op: "proficiency", id: "investigation", add: points }], { state: s, data: worldData, actorId: "player_1" }).state;
+  return checkOf(step(practised, INVESTIGATE, worldData));
 }
 
 // 1. the canonical first investigation: two observations (30 points) give +1
