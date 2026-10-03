@@ -141,6 +141,12 @@
 // the elder (D-71 (2)). Information -> judgment -> action -> world change -> new information for
 // the next generation. `version` stays "0.1.0" (no state-shape change; D-68).
 //
+// V2-Core-53 (Trait / Talent / Mastery Decision, D-82): a starting background, `start_scout`, gives
+// the trait `night_vision`, and the trait changes a rule in data: the dark ruins ask for a lantern
+// OR night vision (the link and the search). Mastery is a label over the skill rank
+// (`masteryTiers`: Untrained / Novice / Apprentice / Adept), display only. No Talent. No engine
+// change, no version bump (no existing actor changes shape).
+//
 // V2-Core-52 (Skill Decision = A, D-81): practice -> threshold -> skill rank -> the check's bonus.
 // `swordsmanship` (grown by the combat practice) and `investigation` (by the investigation practice),
 // a rank at every 20 points, +1 per rank: the same numbers the practice gave directly before, now
@@ -218,6 +224,15 @@ function fightExchange(effects) {
 const hitLeader = (add) => ({ op: "hp", subject: "npc_bandit_leader", add });
 const hitSelf = (add) => ({ op: "hp", add });
 const say = (textId) => ({ op: "narrate", textId });
+// V2-Core-53 (D-82): the ruins are dark: a lantern, or the night vision a background gives (a rule
+// the trait changes, not a bonus -- the lantern's +1 to the search stays the lantern's)
+const LIGHT_OR_NIGHT_VISION = {
+  op: "or",
+  of: [
+    { op: "item", item: "item_lantern", min: 1 },
+    { op: "trait", trait: "night_vision" }
+  ]
+};
 // V2-Core-52: a skill rank at every 20 practice points (thresholds are applied in `at` order, D-42)
 const rankUps = (skill) => [20, 40, 60, 80, 100].map((at) => ({ at, effects: [{ op: "skill", skill, add: 1 }] }));
 const FIGHT_DIFFICULTY = (base, stat) => ({ base, opposed: { subject: "npc_bandit_leader", stat } });
@@ -241,6 +256,24 @@ export const worldData = {
       inventory: {},
       // V2-Core-51 (D-80): the six common stats, 8 each (the old `wit`)
       growth: { growth_wanderer: { stats: { str: 8, dex: 8, con: 8, int: 8, wis: 8, per: 8 } } },
+      tags: []
+    },
+    // V2-Core-53 (D-82): the first starting background with a trait. The same stats; less money (no
+    // spare coin for a lantern) but night vision, which the dark ruins ask for instead of a lantern.
+    // Chosen where a template is chosen today -- a successor's start (the first character is the
+    // world's startTemplateId, D-47)
+    start_scout: {
+      kind: "player",
+      locationId: "loc_village",
+      hp: { max: 10 },
+      money: 3,
+      inventory: {},
+      growth: {
+        growth_wanderer: {
+          stats: { str: 8, dex: 8, con: 8, int: 8, wis: 8, per: 8 },
+          traits: { night_vision: true }
+        }
+      },
       tags: []
     }
   },
@@ -314,7 +347,8 @@ export const worldData = {
       name: "변경 마을",
       links: [
         { to: "loc_market", minutes: 15 },
-        { to: "loc_ruins", minutes: 45, requires: { op: "item", item: "item_lantern", min: 1 } }
+        // V2-Core-53 (D-82): a lantern, or night vision (the scout's trait)
+        { to: "loc_ruins", minutes: 45, requires: LIGHT_OR_NIGHT_VISION }
       ]
     },
     loc_market: {
@@ -357,7 +391,7 @@ export const worldData = {
         op: "and",
         of: [
           { op: "location", at: "loc_ruins" },
-          { op: "item", item: "item_lantern", min: 1 },
+          LIGHT_OR_NIGHT_VISION, // V2-Core-53 (D-82)
           { op: "rumor", rumor: "rum_ruins_secret" }
         ]
       },
@@ -689,6 +723,17 @@ export const worldData = {
       skills: [
         { id: "swordsmanship", maxRank: 5, checkBonusPerRank: 1 },
         { id: "investigation", maxRank: 5, checkBonusPerRank: 1 }
+      ],
+      // V2-Core-53 (D-82): a trait that changes a rule (the ruins' light requirement), no modifier
+      traits: [{ id: "night_vision" }],
+      // V2-Core-53 (D-82): Mastery is a label over the skill rank, for display and classification
+      // only -- read by the UI, never by the engine (no state, no modifier). English names, so they
+      // never read as the UI's "숙련도" (the practice)
+      masteryTiers: [
+        { minRank: 0, label: "Untrained" },
+        { minRank: 1, label: "Novice" },
+        { minRank: 3, label: "Apprentice" },
+        { minRank: 5, label: "Adept" }
       ],
       unlocks: [{ id: "unl_keen_eye", kind: "action" }]
     }

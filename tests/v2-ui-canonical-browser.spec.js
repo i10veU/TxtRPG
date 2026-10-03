@@ -170,7 +170,7 @@ test.describe("V2 canonical loop (location gates / hazard / recovery)", () => {
     expect(stillDead.actors.player_1.alive).toBe(false);
 
     // succession is intact
-    await page.locator("#choiceOptions button", { hasText: "새 캐릭터로 시작" }).click();
+    await page.locator("#choiceOptions button", { hasText: "새 캐릭터로 시작 (start_wanderer)" }).click();
     await expect(page.locator("#choice")).toBeHidden();
     await expect(page.locator("#status")).toContainText("HP 10/10");
     await expect(page.locator("#status")).toContainText("소지금 11");

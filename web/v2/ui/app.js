@@ -205,9 +205,19 @@ function renderStatus(actor) {
     .sort()
     .map((k) => `${k} ${growth.proficiency[k]}`)
     .join(", ");
+  // V2-Core-53 (D-82): a skill's mastery tier is a label over its rank, from the world's data
+  const tiers = worldData.growthSystems?.[worldData.world.growthSystemId]?.masteryTiers ?? [];
+  const tierOf = (rank) => tiers.filter((t) => rank >= t.minRank).at(-1)?.label;
   const skills = Object.keys(growth.skills ?? {})
     .sort()
-    .map((k) => `${k} ${growth.skills[k]}`)
+    .map((k) => {
+      const tier = tierOf(growth.skills[k]);
+      return tier ? `${k} ${growth.skills[k]} (${tier})` : `${k} ${growth.skills[k]}`;
+    })
+    .join(", ");
+  const traits = Object.keys(growth.traits ?? {})
+    .filter((k) => growth.traits[k] === true)
+    .sort()
     .join(", ");
   const unlocks = Object.keys(growth.unlocks ?? {}).sort().join(", ");
   const inventory = Object.keys(actor.inventory ?? {})
@@ -222,6 +232,7 @@ function renderStatus(actor) {
     stats && `능력치: ${stats}`,
     proficiency && `숙련도: ${proficiency}`,
     skills && `기술: ${skills}`,
+    traits && `특성: ${traits}`,
     unlocks && `해금: ${unlocks}`,
     inventory && `소지품: ${inventory}`
   ].filter(Boolean);

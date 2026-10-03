@@ -69,7 +69,7 @@ test.describe("V2 UI / view() boundary (D-67, current local-client model)", () =
     expect(v.pending).toEqual({ kind: "newCharacter" });
     expect(v.actor.alive).toBe(false);
 
-    await page.locator("#choiceOptions button", { hasText: "새 캐릭터로 시작" }).click();
+    await page.locator("#choiceOptions button", { hasText: "새 캐릭터로 시작 (start_wanderer)" }).click();
     v = await expectScreenMatchesView(page);
     expect(v.pending).toBeNull();
     expect(v.actor.id).toBe("player_2");
