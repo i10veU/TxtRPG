@@ -104,8 +104,8 @@ function testOpposedConfrontation() {
   assert.strictEqual(withLeaderWit(10), 14);
 
   // the canonical play is unchanged: the same events as the previous pack's fixed "hard" check
-  // against no leader actor
-  const previous = packWith({ npcs: { ...worldData.npcs, npc_bandit_leader: { name: worldData.npcs.npc_bandit_leader.name } } });
+  // (the leader actor is kept: since V2-Core-50 the confrontation also requires him alive)
+  const previous = packWith({});
   previous.actions.act_confront_leader.check = { ...previous.actions.act_confront_leader.check, difficulty: "hard" };
   const now = run(start(), TO_DISPERSAL).log.map((r) => r.events);
   const then = run(start(previous), TO_DISPERSAL, previous).log.map((r) => r.events);
