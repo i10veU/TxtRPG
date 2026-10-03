@@ -269,7 +269,11 @@ V1의 `world.continuity` 구현은 재사용하지 않는다 (2절 참고).
   이상 존재해야 하며, 테스트 없이 코드만 추가된 상태를 통과로 보고하지 않는다 (이 규칙은
   `run.js`의 "0개=성공" 로직을 대체하는 것이 아니라, 코드 존재와 테스트 존재를 연결하는 리뷰
   기준이다).
-- V1 CI(`.github/workflows/phase251-check.yml`)는 건드리지 않는다.
+- V1 런타임 경계는 보호한다: V1 런타임 파일, V1 테스트, V1 CI의 기존 V1 단계는 수정하거나 삭제하지
+  않는다 (2절).
+- 기존 CI workflow(`.github/workflows/phase251-check.yml`)에 **V2 테스트 단계를 추가하는 것은 허용**한다
+  (`node tests/v2/run.js` 단계와 V2 브라우저 spec마다 단계 하나 -- 이미 그렇게 운영되어 온 관행을 문서에
+  맞춘 것). V2 단계를 추가할 때 기존 V1 단계는 바꾸지 않는다 (2026-10-03 사용자 결정, #160).
 - 최소한 다음 검증 영역을 준비한다: deterministic seed, Condition, Effect, check(), step(), state
   immutability, 성장, 관계, 사건, 저장/복원. 영역별 합격 기준은 `docs/v2/architecture/CORE_CONTRACTS.md`
   13절을 따른다.
