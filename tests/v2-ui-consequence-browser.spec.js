@@ -134,9 +134,9 @@ test.describe("V2 consequence loop (confirmed information -> elder -> confrontat
     await expect(page.locator("#choice")).toBeHidden();
     await expect(page.locator("#log")).toContainText("원로는 오래 침묵하다");
     const reported = await getState(page);
-    // asked (+5), small talk while closing the earlier dialogue (+1), reported (+10)
+    // asked (+5), reported (+10); small talk while closing the earlier dialogue earns nothing since V2-Core-55 (D-84)
     expect(edge(reported, "npc_elder:player_1")).toEqual({
-      score: 16, mode: "cooperation", lastDay: 0, cooperationCount: 1, conflictCount: 0, tags: ["confidant"]
+      score: 15, mode: "cooperation", lastDay: 0, cooperationCount: 1, conflictCount: 0, tags: ["confidant"]
     });
 
     // 5/6. the confrontation is the same check and result, with a different consequence

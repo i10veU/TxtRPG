@@ -141,6 +141,14 @@
 // the elder (D-71 (2)). Information -> judgment -> action -> world change -> new information for
 // the next generation. `version` stays "0.1.0" (no state-shape change; D-68).
 //
+// V2-Core-55 (Reputation Decision, D-84): the elder's trust is earned once per meaningful event, per
+// character -- asking about the ruins +5 only on the first telling (the character's own knowledge),
+// reporting +10 only to a non-confidant (his own tag), the dispersal and the correction +5 as before
+// (each already once); small talk and the news are dialogue and information only. At 15 (the
+// `relation` Condition, no decay) the elder tells of the leader's old wound (a rumor), and knowing it
+// opens a fight option: the strike at base 9 instead of 11, the same damage. A successor has their
+// own edge and knowledge. No engine change, no version bump: a saved score is kept as it is.
+//
 // V2-Core-53 (Trait / Talent / Mastery Decision, D-82): a starting background, `start_scout`, gives
 // the trait `night_vision`, and the trait changes a rule in data: the dark ruins ask for a lantern
 // OR night vision (the link and the search). Mastery is a label over the skill rank
@@ -236,6 +244,14 @@ const LIGHT_OR_NIGHT_VISION = {
 // V2-Core-52: a skill rank at every 20 practice points (thresholds are applied in `at` order, D-42)
 const rankUps = (skill) => [20, 40, 60, 80, 100].map((at) => ({ at, effects: [{ op: "skill", skill, add: 1 }] }));
 const FIGHT_DIFFICULTY = (base, stat) => ({ base, opposed: { subject: "npc_bandit_leader", stat } });
+// the strike (V2-Core-50/51) and, since V2-Core-55, the weak spot: one blow, one damage table
+const STRIKE_CHECK = (base) => ({ stat: "str", skill: "swordsmanship", tags: ["combat"], difficulty: FIGHT_DIFFICULTY(base, "str") });
+const STRIKE_OUTCOMES = {
+  great: fightExchange([hitLeader(-7), say("txt_fight_strike_great")]),
+  success: fightExchange([hitLeader(-5), say("txt_fight_strike_hit")]),
+  partial: fightExchange([hitLeader(-2), hitSelf(-2), say("txt_fight_trade")]),
+  fail: fightExchange([hitSelf(-3), say("txt_fight_struck")])
+};
 
 export const worldData = {
   formatVersion: 1,
@@ -530,8 +546,10 @@ export const worldData = {
         {
           id: "opt_ask_ruins",
           name: "폐허에 대해 묻기",
+          // V2-Core-55 (D-84): the +5 is for the first telling only -- once per character (their own
+          // knowledge), so asking again is not a way to earn trust
           effects: [
-            { op: "relation", from: "npc_elder", add: 5 },
+            { op: "if", when: { op: "not", of: { op: "rumor", rumor: "rum_ruins_secret" } }, then: [{ op: "relation", from: "npc_elder", add: 5 }] },
             { op: "rumor", rumor: "rum_ruins_secret", source: "npc_elder", confidence: 60 },
             { op: "narrate", textId: "txt_ask_ruins" }
           ]
@@ -539,10 +557,8 @@ export const worldData = {
         {
           id: "opt_small_talk",
           name: "안부만 묻기",
-          effects: [
-            { op: "relation", from: "npc_elder", add: 1 },
-            { op: "narrate", textId: "txt_small_talk" }
-          ]
+          // V2-Core-55 (D-84): dialogue only -- repeatable, so it earns no trust
+          effects: [{ op: "narrate", textId: "txt_small_talk" }]
         },
         // V2-Core-31: only offered once the investigation is confirmed -- since V2-Core-35
         // by the CHARACTER's own proof (the relic), the same one the confrontation takes.
@@ -552,9 +568,26 @@ export const worldData = {
           id: "opt_report_findings",
           name: "조사에서 알아낸 것을 전한다",
           requires: { op: "item", item: "item_relic", min: 1 },
+          // V2-Core-55 (D-84): +10 and the tag once -- reporting again to a confidant earns nothing
           effects: [
-            { op: "relation", from: "npc_elder", add: 10, mode: "cooperation", tag: "confidant" },
+            {
+              op: "if",
+              when: { op: "not", of: { op: "relation", from: "npc_elder", to: "self", tag: "confidant" } },
+              then: [{ op: "relation", from: "npc_elder", add: 10, mode: "cooperation", tag: "confidant" }]
+            },
             { op: "narrate", textId: "txt_report_findings" }
+          ]
+        },
+        // V2-Core-55 (D-84): the elder's trust (his edge towards this character at 15 or more -- in the
+        // canonical play, asking about the ruins and reporting) opens what he knows of the leader: an
+        // old wound (a rumor of this character's own), which opens a weaker spot in the fight
+        {
+          id: "opt_ask_about_leader",
+          name: "두목에 대해 더 묻는다",
+          requires: { op: "relation", from: "npc_elder", to: "self", min: 15 },
+          effects: [
+            { op: "rumor", rumor: "rum_leader_old_wound", source: "npc_elder", confidence: 70 },
+            { op: "narrate", textId: "txt_leader_old_wound" }
           ]
         },
         // V2-Core-32: only offered while the bandits are cowed AND the leader is still a
@@ -576,8 +609,8 @@ export const worldData = {
           },
           // V2-Core-45: news while it is fresh (about two days), the village's legend afterwards;
           // V2-Core-46: once someone has corrected the legend, the true account again, for anyone
+          // V2-Core-55 (D-84): information only (it is repeatable, so it earns no trust)
           effects: [
-            { op: "relation", from: "npc_elder", add: 1 },
             {
               op: "if",
               when: {
@@ -652,14 +685,18 @@ export const worldData = {
         {
           id: "opt_fight_strike",
           name: "정면으로 맞붙는다",
-          check: { stat: "str", skill: "swordsmanship", tags: ["combat"], difficulty: FIGHT_DIFFICULTY(11, "str") },
+          check: STRIKE_CHECK(11),
           minutes: 5,
-          outcomes: {
-            great: fightExchange([hitLeader(-7), say("txt_fight_strike_great")]),
-            success: fightExchange([hitLeader(-5), say("txt_fight_strike_hit")]),
-            partial: fightExchange([hitLeader(-2), hitSelf(-2), say("txt_fight_trade")]),
-            fail: fightExchange([hitSelf(-3), say("txt_fight_struck")])
-          }
+          outcomes: STRIKE_OUTCOMES
+        },
+        // V2-Core-55 (D-84): the old wound the elder told of -- the strike's blow at an easier mark
+        {
+          id: "opt_fight_weak_spot",
+          name: "그의 오래된 상처를 노린다",
+          requires: { op: "rumor", rumor: "rum_leader_old_wound" },
+          check: STRIKE_CHECK(9),
+          minutes: 5,
+          outcomes: STRIKE_OUTCOMES
         },
         // the technique: only for a character whose keen eye reads the leader's attacks
         {
@@ -750,14 +787,18 @@ export const worldData = {
   facts: {
     fact_ruins_secret: { initial: "unknown" },
     // V2-Core-45: what really happened to the bandits -- set by evt_bandits_tale, never in the view
-    fact_bandits_fate: {}
+    fact_bandits_fate: {},
+    // V2-Core-55: the leader's old wound -- only ever told (nothing sets it)
+    fact_leader_wound: {}
   },
 
   rumors: {
     rum_ruins_secret: { factId: "fact_ruins_secret", claim: "bandit_hideout" },
     // V2-Core-45: the same history told two ways -- the elder's news, and the legend it becomes
     rum_bandits_fate: { factId: "fact_bandits_fate", claim: "dispersed" },
-    rum_bandits_legend: { factId: "fact_bandits_fate", claim: "slain" }
+    rum_bandits_legend: { factId: "fact_bandits_fate", claim: "slain" },
+    // V2-Core-55 (D-84): what the elder tells a character he trusts
+    rum_leader_old_wound: { factId: "fact_leader_wound", claim: "old_wound" }
   },
 
   // Relation-edge/rumor-source IDs (§7.1/§8.3). An entry without `actor` is
@@ -794,6 +835,7 @@ export const worldData = {
     txt_confront_success: "당신은 도적 두목과 마주하고 진실을 밝혀낸다.",
     txt_confront_fail: "대치는 뜻대로 풀리지 않았다.",
     txt_report_findings: "당신이 알아낸 것을 전하자 원로는 오래 침묵하다 천천히 고개를 끄덕인다.",
+    txt_leader_old_wound: "원로는 주위를 살피고 낮게 말한다. 두목은 젊은 시절 왼쪽 옆구리에 깊은 상처를 입었고, 그 뒤로 그쪽을 늘 감싼다고 한다.",
     txt_confront_backed: "마을 사람들이 당신 뒤에 서 있다는 사실이 도적 두목을 더욱 흔든다.",
     txt_bandit_news: "원로는 폐허의 도적단이 흩어졌다는 소식을 들려준다. 마을 사람들 사이에서 그 이야기는 오래 회자된다.",
     txt_bandit_legend: "원로는 이제 마을에서 전해지는 이야기를 들려준다. 폐허의 도적단이 마을 사람들 손에 모두 쓰러졌다는 전설이다.",

@@ -154,8 +154,8 @@ test.describe("V2 successor gates (the world's flag is not a character's own pro
     await expect(page.locator("#choice")).toBeHidden();
     await expect(page.locator("#log")).toContainText(NEWS_TEXT);
     const afterNews = await getState(page);
-    expect(afterNews.relations["npc_elder:player_2"].score).toBe(1);
-    expect(afterNews.relations["npc_elder:player_2"].tags).toEqual([]);
+    expect(afterNews.knowledge.player_2.rum_bandits_fate).toBeDefined();
+    expect(afterNews.relations["npc_elder:player_2"]).toBeUndefined(); // information only since V2-Core-55 (D-84)
     expect(afterNews.flags).toEqual(successor.flags);
     expect(afterNews.cases).toEqual(successor.cases);
 

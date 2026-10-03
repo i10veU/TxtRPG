@@ -464,8 +464,9 @@ function testInformationFlow() {
   });
   assert.strictEqual(asked.state.relations["npc_elder:player_1"].score, 5);
   const small = step(talked, { type: "choose", optionId: "opt_small_talk" }, worldData);
-  assert.deepStrictEqual(small.events.map((e) => e.type), ["relation.changed", "narration", "action.resolved"]);
-  assert.strictEqual(small.state.relations["npc_elder:player_1"].score, 1);
+  // V2-Core-55 (D-84): small talk is dialogue only -- it earns no trust
+  assert.deepStrictEqual(small.events.map((e) => e.type), ["narration", "action.resolved"]);
+  assert.strictEqual(small.state.relations, undefined);
   assert.strictEqual(small.state.knowledge, undefined, "small talk teaches nothing");
   // learning a rumor never sets the fact it is about (the fact stays hidden)
   assert.deepStrictEqual(asked.state.facts, { fact_ruins_secret: { value: "unknown", since: 0 } }); // only the starting value seeded at creation (D-76)
@@ -647,15 +648,16 @@ function testRelationConsequence() {
   assert.deepStrictEqual(narrations(plain.log.at(-1)), ["txt_confront_success"]);
   assert.strictEqual(plain.state.time.minute, 270);
 
-  // farming the score cannot stand in for the information: asking the elder over and
-  // over (free, repeatable) raises the score but never writes the tag
+  // farming cannot stand in for the information: asking the elder over and over (free,
+  // repeatable) never writes the tag -- and since V2-Core-55 (D-84) not even the score: the
+  // +5 is for the first telling only
   const farmedPath = [
     ...CANONICAL_ACTIONS.slice(0, 2),
     ...Array(4).fill([talk, { type: "choose", optionId: "opt_ask_ruins" }]).flat(),
     ...CANONICAL_ACTIONS.slice(4)
   ];
   const farmed = runActions(farmedPath);
-  assert.ok(edge(farmed.state, "npc_elder:player_1").score >= 20);
+  assert.strictEqual(edge(farmed.state, "npc_elder:player_1").score, 5);
   assert.deepStrictEqual(edge(farmed.state, "npc_elder:player_1").tags, []);
   assert.strictEqual(edge(farmed.state, "npc_bandit_leader:player_1").score, -10);
 
@@ -1020,9 +1022,10 @@ function testCharacterVersusWorldState() {
   assert.strictEqual(offered(runActions(DECIDED_ACTIONS).state, NEWS), true, "...exactly as the character who made it true is");
   const asked = step(step(successor, talk, worldData).state, { type: "choose", optionId: NEWS }, worldData);
   // since V2-Core-45 the elder's news is also a rumor the asker learns (their own knowledge, D-71 (1))
-  assert.deepStrictEqual(asked.events.map((e) => e.type), ["relation.changed", "rumor.learned", "narration", "action.resolved"]);
-  assert.strictEqual(asked.events[2].data.textId, "txt_bandit_news");
-  assert.deepStrictEqual(asked.events[0].data, { from: "npc_elder", to: "player_2", delta: 1 }, "the effect lands on the asker's own edge");
+  // since V2-Core-55 (D-84) it is information only: no relation change (it is repeatable)
+  assert.deepStrictEqual(asked.events.map((e) => e.type), ["rumor.learned", "narration", "action.resolved"]);
+  assert.strictEqual(asked.events[1].data.textId, "txt_bandit_news");
+  assert.strictEqual(asked.state.relations["npc_elder:player_2"], undefined, "no trust from the news");
   for (const field of ["flags", "cases", "fired", "facts"]) {
     assert.deepStrictEqual(asked.state[field], successor[field], `asking changes no world-level ${field}`);
   }
@@ -1073,7 +1076,8 @@ function testSuccessorReplayAndSaveLoad() {
   assert.deepStrictEqual(JSON.parse(JSON.stringify(runA.state)), runA.state);
   assert.deepStrictEqual(validateState(runA.state), []);
   assert.strictEqual(runA.state.player.actorId, "player_2");
-  assert.strictEqual(runA.state.relations["npc_elder:player_2"].score, 1);
+  assert.ok(runA.state.knowledge.player_2.rum_bandits_fate, "the successor heard the news");
+  assert.strictEqual(runA.state.relations["npc_elder:player_2"], undefined, "information only since V2-Core-55 (D-84)");
 
   let state = createInitialState({ worldSeed: CANONICAL_SEED, data: worldData }).state;
   path.forEach((action, index) => {

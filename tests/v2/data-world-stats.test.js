@@ -78,7 +78,8 @@ function testEveryCheckNamesADefinedStat() {
     act_investigate_ruins: ["int", null],
     act_confront_leader: ["wis", "wis"],
     "choice_fight_leader.opt_fight_strike": ["str", "str"],
-    "choice_fight_leader.opt_fight_counter": ["dex", "dex"]
+    "choice_fight_leader.opt_fight_counter": ["dex", "dex"],
+    "choice_fight_leader.opt_fight_weak_spot": ["str", "str"] // V2-Core-55: the strike at an easier mark
   });
   for (const [where, [stat, opposed]] of Object.entries(mapping)) {
     assert.ok(STATS.includes(stat), where);
