@@ -205,3 +205,5 @@ jobs:
         run: npx playwright test tests/v2-ui-herbalism-browser.spec.js --reporter=line
       - name: V2 fouled well resolution browser smoke
         run: npx playwright test tests/v2-ui-well-resolution-browser.spec.js --reporter=line
+      - name: V2 two stories browser smoke
+        run: npx playwright test tests/v2-ui-two-stories-browser.spec.js --reporter=line
