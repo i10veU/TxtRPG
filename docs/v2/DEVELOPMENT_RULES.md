@@ -51,6 +51,63 @@ V2는 "기능 구현"이 아니라 "V1을 깨뜨리지 않으면서 새 코어�
 - 기존 legacy 자동화(AGENTS.md의 자율개발 루프, `txt-rpg-task.yml` 등)가 V2 개발을 자동으로
   진행하도록 허용하지 않는다. V2는 이 문서의 승인 경계 밖에서 자동 진행되지 않는다.
 
+## 2.5 자율 개발 결정 규칙
+
+V2의 일반 작업은 사용자에게 매 단계 승인을 묻지 않고 자율적으로 판단하고 연속해서 진행한다.
+새 결정이 필요하면 기존 구현, 테스트, 현재 계약, 게임철학, Ponytail/YAGNI, Save/Core/Regression 영향을 먼저 조사한 뒤 가장 일관되고 최소인 선택을 스스로 결정한다.
+중요한 결정은 `Decision / Alternatives / Reason / Risk / Compatibility impact`를 기록한다.
+
+### Hard Gate — 사용자 승인 필수
+
+다음 변경만 반드시 중단하고 사용자 승인을 요청한다.
+
+- `step(state, action, data)` 등 Core Engine 계약의 근본적 변경
+- 기존 State schema의 의미 변경
+- 기존 Save의 의미를 깨뜨리거나 호환 불가하게 만드는 변경
+- RNG/결정론 계약 변경
+- 기존 시스템 제거 또는 비호환 대체
+- World/Game Loop의 핵심 철학 변경
+- V1과의 격리 경계 변경
+- 대규모 dependency 도입 또는 플랫폼 구조의 근본적 변경
+- 보안 경계/권한 모델의 근본적 변경
+- 상용 출시 구조에 직접 영향을 주는 비가역적 아키텍처 결정
+
+Hard Gate에서는 분석 결과, 선택지, 영향, 추천안을 정리한 뒤 승인을 기다린다. 그 외 결정은 질문하지 않고 진행한다.
+
+## 2.6 자율 개발 루프
+
+```
+Issue → Research → Gap Analysis → Design → Self Review → Decision
+→ Implementation → Unit → Mutation → Browser → Save/Load
+→ V1 Regression → Final Self Review → PR → CI → Merge → Next Phase
+```
+
+테스트/CI 실패가 발생하면 원인을 스스로 분석하고 수정한 뒤 재검증한다. 현재 작업의 완료 조건을 만족하면 다음 Issue/Phase의 Research로 이어간다. 다음 작업이 Hard Gate에 도달할 때만 중단한다.
+
+## 2.7 모델/에이전트 라우팅
+
+작업의 난이도보다 위험도와 판단 비용을 우선 평가한다.
+
+- LOW: 단순 탐색, 테스트 실행, 기존 패턴을 따르는 데이터 변경, 국소 UI → 저비용/경량 모델 가능
+- MEDIUM: 일반 기능 구현, 테스트 작성, 국소적인 시스템 연결, 일반 버그 수정 → 표준 모델
+- HIGH: 아키텍처 분석, 복수 시스템 상호작용, Capability/전투/성장 구조 변경 → 고성능 모델
+- CRITICAL: Core contract, State/Save, RNG, V1 boundary, 비가역 architecture → 최고 성능 모델 독립 검토 + Hard Gate
+
+모델 다양화 자체를 목적으로 하지 않으며, 판단 수준에 맞는 모델을 배정한다.
+
+## 2.8 Decision Record
+
+중요한 자체 결정은 다음 형식으로 남긴다.
+
+```
+Decision:
+Alternatives:
+Reason:
+Risks:
+Compatibility:
+Validation:
+```
+
 ## 3. Ponytail 원칙 (확정)
 
 우선순위:
