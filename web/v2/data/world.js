@@ -141,6 +141,15 @@
 // the elder (D-71 (2)). Information -> judgment -> action -> world change -> new information for
 // the next generation. `version` stays "0.1.0" (no state-shape change; D-68).
 //
+// V2-Core-68 (#170 Slice 3, step 1 -- the arrows at the spring): the two stories meet. The carcass
+// in the spring was shot with bandit arrows (`fact_spring_fouler`, the world's truth, set wherever the
+// carcass is handled: a successful search, the purification). Only a character who knows the bandits'
+// hideout (`rum_ruins_secret`, their knowledge) reads the arrows for what they are (`rum_spring_bandits`).
+// Telling the elder, once for the world (`spring_bandits_told`, a world flag; +5 on the teller's own
+// edge, D-71 (2)), changes what the village says from then on, to anyone, a successor too: the elder's
+// account of the ruins and of the bandits' fate, and the herbalist's of the sickness -- and whether
+// the one behind it still lives (the leader's `alive`, gap 5). Additive only (D-92).
+//
 // V2-Core-66 (#160 Slice 2, step 3 -- resolution and its world): at the spring, a character who found
 // the cause with their own eyes (`rum_spring_cause`, their knowledge) and carries a remedy purifies it:
 // `case_fouled_well` is resolved (the world's), the miasma stops for everyone, and the herbalist's edge
@@ -300,6 +309,23 @@ const LIGHT_OR_NIGHT_VISION = {
 const KNOWS_WELL_SOURCE = { op: "rumor", rumor: "rum_well_source" };
 // V2-Core-66 (#160): the well's case, closed by purifying the spring (world state, D-70)
 const WELL_RESOLVED = { op: "case", case: "case_fouled_well", stage: "resolved" };
+// V2-Core-68 (#170): handling the carcass records whose arrows killed it (the world's truth); a
+// character who knows the bandits' hideout reads them, once
+const ARROWS_TOLD = { op: "flag", key: "spring_bandits_told" };
+const EXAMINE_CARCASS = [
+  { op: "fact", fact: "fact_spring_fouler", set: "bandits" },
+  {
+    op: "if",
+    when: { op: "and", of: [{ op: "rumor", rumor: "rum_ruins_secret" }, { op: "not", of: { op: "rumor", rumor: "rum_spring_bandits" } }] },
+    then: [{ op: "rumor", rumor: "rum_spring_bandits", observe: true, source: "obs_loc_forest_spring", confidence: 80 }, say("txt_spring_bandit_arrows")]
+  }
+];
+// what the village says once the elder has been told -- and whether the one behind it still lives
+const ARROWS_IN_THE_ACCOUNT = {
+  op: "if",
+  when: ARROWS_TOLD,
+  then: [{ op: "if", when: { op: "alive", subject: "npc_bandit_leader" }, then: [say("txt_spring_bandits_leader_lives")], else: [say("txt_spring_bandits_leader_dead")] }]
+};
 // V2-Core-52: a skill rank at every 20 practice points (thresholds are applied in `at` order, D-42)
 const rankUps = (skill) => [20, 40, 60, 80, 100].map((at) => ({ at, effects: [{ op: "skill", skill, add: 1 }] }));
 const FIGHT_DIFFICULTY = (base, stat) => ({ base, opposed: { subject: "npc_bandit_leader", stat } });
@@ -517,7 +543,8 @@ export const worldData = {
           { op: "fact", fact: "fact_spring_cause", set: "rotting_carcass" },
           { op: "rumor", rumor: "rum_spring_cause", observe: true, source: "obs_loc_forest_spring", confidence: 80 },
           { op: "proficiency", id: "investigation", add: 20 },
-          say("txt_search_spring_success")
+          say("txt_search_spring_success"),
+          ...EXAMINE_CARCASS // V2-Core-68
         ],
         fail: [{ op: "proficiency", id: "investigation", add: 5 }, say("txt_search_spring_fail")]
       }
@@ -541,7 +568,8 @@ export const worldData = {
         { op: "case", case: "case_fouled_well", stage: "resolved" },
         { op: "relation", from: "npc_herbalist", tag: "purifier" },
         { op: "proficiency", id: "herbalism", add: 10 },
-        say("txt_purify_spring")
+        say("txt_purify_spring"),
+        ...EXAMINE_CARCASS // V2-Core-68: burying it, the arrows are in hand
       ]
     },
     // V2-Core-65 (#160): gathering purifying herbs -- WIS with the herbalism skill, 2 stamina whatever
@@ -750,7 +778,9 @@ export const worldData = {
           effects: [
             { op: "if", when: { op: "not", of: { op: "rumor", rumor: "rum_ruins_secret" } }, then: [{ op: "relation", from: "npc_elder", add: 5 }] },
             { op: "rumor", rumor: "rum_ruins_secret", source: "npc_elder", confidence: 60 },
-            { op: "narrate", textId: "txt_ask_ruins" }
+            { op: "narrate", textId: "txt_ask_ruins" },
+            // V2-Core-68: once he has heard of the arrows, the ruins and the spring are one story to him
+            { op: "if", when: ARROWS_TOLD, then: [say("txt_ask_ruins_spring")] }
           ]
         },
         {
@@ -832,7 +862,21 @@ export const worldData = {
                   else: [{ op: "narrate", textId: "txt_bandit_news" }]
                 }
               ]
-            }
+            },
+            ARROWS_IN_THE_ACCOUNT // V2-Core-68
+          ]
+        },
+        // V2-Core-68 (#170): a character who read the arrows tells the elder -- once for the world (the
+        // flag), +5 on the teller's own edge
+        {
+          id: "opt_tell_spring_arrows",
+          name: "샘의 짐승에 박힌 도적단의 화살을 전한다",
+          requires: { op: "and", of: [{ op: "rumor", rumor: "rum_spring_bandits" }, { op: "not", of: ARROWS_TOLD }] },
+          effects: [
+            { op: "flag", key: "spring_bandits_told", value: true },
+            { op: "relation", from: "npc_elder", add: 5 },
+            say("txt_tell_spring_arrows"),
+            ARROWS_IN_THE_ACCOUNT
           ]
         },
         // V2-Core-46: the truth a character found becomes something they can act on. Only a
@@ -890,7 +934,9 @@ export const worldData = {
             },
             { op: "rumor", rumor: "rum_well_source", source: "npc_herbalist", confidence: 50 },
             // V2-Core-66: once the spring is purified she tells that the sickness has passed
-            { op: "if", when: WELL_RESOLVED, then: [say("txt_herbalist_sickness_passed")], else: [say("txt_herbalist_sickness")] }
+            { op: "if", when: WELL_RESOLVED, then: [say("txt_herbalist_sickness_passed")], else: [say("txt_herbalist_sickness")] },
+            // V2-Core-68: the village's account reaches her stall too
+            { op: "if", when: ARROWS_TOLD, then: [say("txt_herbalist_bandit_rumor")] }
           ]
         },
         { id: "opt_herbalist_small_talk", name: "약초 이야기만 나눈다", effects: [say("txt_herbalist_small_talk")] },
@@ -1084,7 +1130,9 @@ export const worldData = {
     fact_leader_wound: {},
     // V2-Core-64 (#160): no `initial` (a 0.3.0 save would not have it) -- set where it is found
     fact_well_source: {},
-    fact_spring_cause: {}
+    fact_spring_cause: {},
+    // V2-Core-68 (#170): whose arrows were in the carcass -- set where it is handled
+    fact_spring_fouler: {}
   },
 
   rumors: {
@@ -1096,7 +1144,9 @@ export const worldData = {
     rum_leader_old_wound: { factId: "fact_leader_wound", claim: "old_wound" },
     // V2-Core-64 (#160): the fouled well
     rum_well_source: { factId: "fact_well_source", claim: "forest_spring" },
-    rum_spring_cause: { factId: "fact_spring_cause", claim: "rotting_carcass" }
+    rum_spring_cause: { factId: "fact_spring_cause", claim: "rotting_carcass" },
+    // V2-Core-68 (#170): the arrows, read by a character who knows the hideout
+    rum_spring_bandits: { factId: "fact_spring_fouler", claim: "bandits" }
   },
 
   // Relation-edge/rumor-source IDs (§7.1/§8.3). An entry without `actor` is
@@ -1182,6 +1232,12 @@ export const worldData = {
     txt_well_clears: "마을 우물가에 사람들이 모여 있다. 길어 올린 물이 다시 맑다며, 배앓이하던 아이들도 일어났다고 한다.",
     txt_inspect_well_clear: "두레박으로 길어 올린 물이 맑고 차다. 물길은 여전히 숲속 샘에서 흘러오지만, 이제 썩은 냄새는 없다.",
     txt_herbalist_sickness_passed: "약초꾼은 배앓이가 잦아들었다며 웃는다. 누군가 숲속 샘을 정화했다는 소문이 돈다고 한다.",
-    txt_herbalist_thanks: "당신이 샘에서 한 일을 듣자 약초꾼은 손을 꼭 잡고 고맙다고 말한다. 마을 사람들 대신 하는 인사라고 한다."
+    txt_herbalist_thanks: "당신이 샘에서 한 일을 듣자 약초꾼은 손을 꼭 잡고 고맙다고 말한다. 마을 사람들 대신 하는 인사라고 한다.",
+    txt_spring_bandit_arrows: "사체에 박힌 화살의 깃이 눈에 익다. 폐허의 은신처에서 본 것과 같은, 도적단의 화살이다.",
+    txt_tell_spring_arrows: "당신이 샘의 짐승에 박혀 있던 화살 이야기를 하자 원로의 얼굴이 굳는다. 샘을 흐린 것도 도적들이었다는 말이 곧 마을에 퍼질 것이다.",
+    txt_spring_bandits_leader_lives: "원로는 덧붙인다. 샘을 흐린 것도 그 도적들이었다고. 그 일을 시킨 두목은 아직 어딘가 살아 있다고 한다.",
+    txt_spring_bandits_leader_dead: "원로는 덧붙인다. 샘을 흐린 것도 그 도적들이었다고. 그 일을 시킨 두목은 이미 죽었으니, 적어도 다시는 그런 일이 없을 거라고 한다.",
+    txt_ask_ruins_spring: "원로는 폐허의 도적들이 숲속 샘까지 흐려 놓았다는 이야기도 잊지 않고 덧붙인다.",
+    txt_herbalist_bandit_rumor: "약초꾼은 목소리를 낮춘다. 샘을 흐린 게 폐허의 도적들이었다는 이야기가 시장에도 돈다고 한다."
   }
 };
