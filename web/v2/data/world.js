@@ -141,6 +141,15 @@
 // the elder (D-71 (2)). Information -> judgment -> action -> world change -> new information for
 // the next generation. `version` stays "0.1.0" (no state-shape change; D-68).
 //
+// V2-Core-73 (#180 Slice 4, step 2 -- the mill hamlet): the region's second settlement, east of the
+// crossroads, reached by a character who knows the way (`rum_road_hamlet`). Its miller (a dialogue NPC,
+// no actor) tells the region's news -- coloured by the leader's fate (a scarred man asking for boats at
+// the ford, or the tale of his fall) -- and greets one the village honoured, once (+5). He buys purifying
+// herbs (2 silver each: the herbalism of Slice 2 becomes a trade), and asks for a sack of flour to be
+// carried to the elder: delivered, it opens trade between the two settlements -- a world edge between
+// world entities (`org_mill_hamlet -> org_village`, `trading`), for everyone after, a successor too: the
+// market sells the hamlet's bread (+2 HP, +3 stamina). +5 with the elder for the carrier. Additive only.
+//
 // V2-Core-72 (#180 Slice 4, step 1 -- the old crossroads): the world beyond the village begins. The
 // bandits held the road; once their case is resolved the village links to the old crossroads (first
 // arrival narrated once for the world). The milestone (INT with the investigation skill) or the elder
@@ -352,6 +361,8 @@ const WELL_LEGEND_TIME = { op: "and", of: [{ op: "signal", key: "well_tale_age",
 // V2-Core-72 (#180): the road out -- the bandits who held it are gone; the leader's fate in the land
 const BANDITS_GONE = { op: "case", case: "case_ruins_mystery", stage: "resolved" };
 const LEADER_LIVES = { op: "alive", subject: "npc_bandit_leader" };
+// V2-Core-73 (#180): the two settlements trade (a world edge between world entities, D-70)
+const HAMLET_TRADES = { op: "relation", from: "org_mill_hamlet", to: "org_village", tag: "trading" };
 // V2-Core-70 (#170): the village's standing towards this character (their own edge)
 const VILLAGE_TRUSTED = { op: "relation", from: "org_village", to: "self", tag: "trusted" };
 // what the village says once the elder has been told -- and whether the one behind it still lives
@@ -474,6 +485,12 @@ export const worldData = {
         { op: "narrate", textId: "txt_market_reopens" }
       ]
     },
+    // V2-Core-73 (#180): the hamlet's carts reach the market (narration, once for the world)
+    evt_hamlet_carts: {
+      trigger: { op: "and", of: [{ op: "location", at: "loc_market" }, HAMLET_TRADES] },
+      once: true,
+      effects: [say("txt_hamlet_carts")]
+    },
     // V2-Core-72 (#180): the first time anyone walks the reopened road (narration, once for the world)
     evt_crossroads_first: {
       trigger: { op: "location", at: "loc_crossroads" },
@@ -552,7 +569,15 @@ export const worldData = {
     // V2-Core-72 (#180): the first place beyond the village
     loc_crossroads: {
       name: "옛 갈림길",
-      links: [{ to: "loc_village", minutes: 45 }]
+      links: [
+        { to: "loc_village", minutes: 45 },
+        // V2-Core-73 (#180): east, for a character who knows the way
+        { to: "loc_mill_hamlet", minutes: 40, requires: { op: "rumor", rumor: "rum_road_hamlet" } }
+      ]
+    },
+    loc_mill_hamlet: {
+      name: "물레방아 마을",
+      links: [{ to: "loc_crossroads", minutes: 40 }]
     }
   },
 
@@ -699,6 +724,28 @@ export const worldData = {
         ],
         fail: [{ op: "proficiency", id: "investigation", add: 5 }, say("txt_search_crossroads_fail")]
       }
+    },
+    // V2-Core-73 (#180): the miller (a dialogue NPC, like the elder and the herbalist)
+    act_talk_miller: {
+      name: "방앗간 주인과 대화",
+      requires: { op: "location", at: "loc_mill_hamlet" },
+      effects: [{ op: "choice", choice: "choice_miller_dialogue", sourceId: "act_talk_miller" }]
+    },
+    // V2-Core-73 (#180): the hamlet's bread, once the two settlements trade
+    act_buy_mill_bread: {
+      name: "물레방아 빵 구입 (은화 1)",
+      requires: { op: "and", of: [{ op: "location", at: "loc_market" }, HAMLET_TRADES, { op: "money", min: 1 }] },
+      effects: [{ op: "money", add: -1 }, { op: "item", item: "item_mill_bread", add: 1 }, say("txt_buy_mill_bread")]
+    },
+    act_eat_mill_bread: {
+      name: "물레방아 빵을 먹는다",
+      requires: { op: "item", item: "item_mill_bread", min: 1 },
+      effects: [
+        { op: "item", item: "item_mill_bread", add: -1 },
+        { op: "hp", add: 2 },
+        { op: "resource", resource: "stamina", add: 3 },
+        say("txt_eat_mill_bread")
+      ]
     },
     act_buy_lantern: {
       name: "등불 구입",
@@ -963,6 +1010,19 @@ export const worldData = {
             { op: "narrate", textId: "txt_report_findings" }
           ]
         },
+        // V2-Core-73 (#180): the miller's flour, carried to the elder -- trade opens between the two
+        // settlements (the world's), +5 on the carrier's own edge
+        {
+          id: "opt_deliver_flour",
+          name: "물레방아 마을의 밀가루를 전한다",
+          requires: { op: "and", of: [{ op: "item", item: "item_flour_sack", min: 1 }, { op: "not", of: HAMLET_TRADES }] },
+          effects: [
+            { op: "item", item: "item_flour_sack", add: -1 },
+            { op: "relation", from: "org_mill_hamlet", to: "org_village", tag: "trading" },
+            { op: "relation", from: "npc_elder", add: 5 },
+            say("txt_deliver_flour")
+          ]
+        },
         // V2-Core-72 (#180): once the road is open, the elder tells of the region -- told, not seen
         {
           id: "opt_ask_region",
@@ -1083,6 +1143,40 @@ export const worldData = {
             { op: "relation", from: "npc_elder", add: 5 },
             { op: "narrate", textId: "txt_bandits_disperse" }
           ]
+        }
+      ]
+    },
+    // V2-Core-73 (#180): the miller of the hamlet
+    choice_miller_dialogue: {
+      options: [
+        {
+          id: "opt_miller_news",
+          name: "이 근방의 소식을 묻는다",
+          effects: [
+            say("txt_miller_news"),
+            // the leader's fate, as the region tells it
+            { op: "if", when: LEADER_LIVES, then: [say("txt_miller_news_scarred_man")], else: [say("txt_miller_news_leader_fell")] },
+            // one the village honoured is known here -- greeted once (his `welcomed` tag on his edge)
+            {
+              op: "if",
+              when: { op: "and", of: [VILLAGE_TRUSTED, { op: "not", of: { op: "relation", from: "npc_miller", to: "self", tag: "welcomed" } }] },
+              then: [{ op: "relation", from: "npc_miller", add: 5, tag: "welcomed" }, say("txt_miller_welcome")]
+            },
+            { op: "if", when: HAMLET_TRADES, then: [say("txt_miller_trade_running")] }
+          ]
+        },
+        {
+          id: "opt_miller_sell_herb",
+          name: "정화초를 판다 (은화 2)",
+          requires: { op: "item", item: "item_purifying_herb", min: 1 },
+          effects: [{ op: "item", item: "item_purifying_herb", add: -1 }, { op: "money", add: 2 }, say("txt_miller_buy_herb")]
+        },
+        // while the settlements do not trade: a sack of flour for the elder (one in hand at a time)
+        {
+          id: "opt_miller_flour",
+          name: "원로에게 밀가루를 전해 주겠다고 한다",
+          requires: { op: "and", of: [{ op: "not", of: HAMLET_TRADES }, { op: "not", of: { op: "item", item: "item_flour_sack", min: 1 } }] },
+          effects: [{ op: "item", item: "item_flour_sack", add: 1 }, say("txt_miller_flour")]
         }
       ]
     },
@@ -1352,7 +1446,10 @@ export const worldData = {
     item_purifying_herb: { name: "정화초" },
     item_spring_remedy: { name: "샘 정화제" },
     // V2-Core-70 (#170): the herbalist's salve (+5 HP)
-    item_herbal_salve: { name: "약초 연고" }
+    item_herbal_salve: { name: "약초 연고" },
+    // V2-Core-73 (#180): the hamlet's goods
+    item_flour_sack: { name: "밀가루 자루" },
+    item_mill_bread: { name: "물레방아 빵" }
   },
 
   // `initial` is seeded by createInitialState since V2-Core-43 (D-76): every new
@@ -1410,6 +1507,8 @@ export const worldData = {
     npc_elder: { name: "마을 원로" },
     // V2-Core-64 (#160): dialogue only (no actor: a new actor would not be in a 0.3.0 save)
     npc_herbalist: { name: "약초꾼" },
+    // V2-Core-73 (#180): dialogue only (no actor: D-92)
+    npc_miller: { name: "방앗간 주인" },
     // V2-Core-47 (D-77): the leader is an actor -- the same record a player character is,
     // `kind:"npc"`, seeded by createInitialState under this ID (the ID his relation edges
     // already use). What reads it: the opposed difficulties of the confrontation and the fight
@@ -1428,7 +1527,9 @@ export const worldData = {
   orgs: {
     org_bandits: { name: "폐허의 도적단" },
     // V2-Core-70 (#170): the village as a whole -- its standing towards a character is an ordinary edge
-    org_village: { name: "변경 마을 사람들" }
+    org_village: { name: "변경 마을 사람들" },
+    // V2-Core-73 (#180): the region's second settlement
+    org_mill_hamlet: { name: "물레방아 마을 사람들" }
   },
 
   texts: {
@@ -1511,6 +1612,17 @@ export const worldData = {
     txt_elder_region: "원로는 지팡이로 땅에 길을 그린다. 갈림길에서 동쪽으로 가면 물레방아 마을이 있고, 북쪽으로 가면 강나루가 나온다고 한다. 도적들 때문에 몇 해나 끊겼던 길이다.",
     txt_crossroads_leader_trail: "진흙에 찍힌 발자국 하나가 눈에 띈다. 한쪽 옆구리를 감싸 안은 듯 무게가 기운 걸음, 도적 두목의 것이다. 발자국은 강나루 쪽으로 이어진다.",
     txt_crossroads_toll_post: "길가에 무너진 초소가 있다. 도적들이 지나는 이들에게 통행세를 뜯던 곳이다. 두목이 쓰러진 뒤로 아무도 돌아오지 않았다.",
-    txt_search_crossroads_fail: "갈림길에는 오래된 바퀴 자국과 짐승 발자국뿐이다."
+    txt_search_crossroads_fail: "갈림길에는 오래된 바퀴 자국과 짐승 발자국뿐이다.",
+    txt_miller_news: "방앗간 주인은 물레방아 소리 너머로 목소리를 높인다. 길이 막혀 있던 몇 해 동안 밀을 내다 팔 곳이 없었다고 한다.",
+    txt_miller_news_scarred_man: "그는 목소리를 낮춘다. 며칠 전 옆구리를 감싼 사내가 강나루에서 배를 찾더라는 소문이 있다고, 그 뒤로 사람들이 밤길을 꺼린다고 한다.",
+    txt_miller_news_leader_fell: "그는 폐허의 두목이 쓰러졌다는 이야기를 이곳에서도 들었다고 한다. 이제 짐수레가 다시 길에 나설 수 있겠다며 웃는다.",
+    txt_miller_welcome: "변경 마을이 감사했다는 사람이 당신이냐며, 그는 밀가루 묻은 손으로 당신의 손을 잡는다.",
+    txt_miller_trade_running: "요즘은 변경 마을 장터로 수레가 오간다며 그는 흡족해한다.",
+    txt_miller_buy_herb: "방앗간 주인은 정화초를 받아 들고 은화 두 닢을 건넨다. 이 근방에서는 귀한 풀이라고 한다.",
+    txt_miller_flour: "그는 밀가루 한 자루를 내준다. 변경 마을 원로에게 전해 주면, 다시 거래를 트자는 뜻으로 알아들을 거라고 한다.",
+    txt_deliver_flour: "원로는 밀가루 자루를 받아 들고 한참을 바라본다. 물레방아 마을과 다시 거래를 하자고, 곧 장터에 수레가 올 거라고 말한다.",
+    txt_hamlet_carts: "장터에 물레방아 마을의 수레가 들어와 있다. 갓 구운 빵 냄새가 장터에 퍼진다.",
+    txt_buy_mill_bread: "상인에게 은화 한 닢을 건네고 물레방아 마을의 빵을 받는다.",
+    txt_eat_mill_bread: "빵을 뜯어 먹자 허기가 가시고 몸에 힘이 돈다."
   }
 };

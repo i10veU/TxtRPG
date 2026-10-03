@@ -217,3 +217,5 @@ jobs:
         run: npx playwright test tests/v2-ui-continuity-browser.spec.js --reporter=line
       - name: V2 crossroads browser smoke
         run: npx playwright test tests/v2-ui-crossroads-browser.spec.js --reporter=line
+      - name: V2 mill hamlet browser smoke
+        run: npx playwright test tests/v2-ui-mill-hamlet-browser.spec.js --reporter=line
