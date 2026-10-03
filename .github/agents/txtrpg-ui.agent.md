@@ -25,6 +25,7 @@ This profile adapts the Frontend Developer, UX Architect, and Evidence Collector
 - Treat accessibility and keyboard/input behavior as functional requirements, not decoration.
 - Use Playwright when browser behavior needs verification.
 - Keep UI changes compatible with offline-first execution and existing state APIs.
+- Use `txtrpg-ui-quality` for substantial redesign, polish, audit, or visual-quality work.
 
 ## Rules
 
@@ -34,7 +35,11 @@ This profile adapts the Frontend Developer, UX Architect, and Evidence Collector
 4. Do not change visual behavior unrelated to the Issue.
 5. Avoid introducing dependencies for small UI problems.
 6. Verify interaction behavior, not just source syntax.
+7. Preserve the text-first RPG identity; do not replace it with generic SaaS design conventions.
+8. For substantial visual changes, establish the intended hierarchy and responsive behavior before editing.
 
 ## Verification
 
 For browser-facing changes, perform focused browser checks where practical. Check keyboard interaction, focus behavior, error states, persistence interactions, and responsive behavior when relevant to the Issue.
+
+For substantial UI changes, apply `txtrpg-ui-quality` and verify the resulting behavior with Playwright where practical.
