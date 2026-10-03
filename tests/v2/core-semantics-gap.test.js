@@ -235,7 +235,7 @@ function testFactsInitial() {
   assert.deepStrictEqual(created.state.facts, { f_fixed: { value: "x", since: 0 }, f_pick: { value: c1Pick, since: 0 } });
   assert.deepStrictEqual(created.events, []);
   assert.strictEqual(evaluateCondition({ op: "fact", fact: "f_fixed", eq: "x" }, { state: created.state, data: seeded, contextKind: "world" }), true);
-  assert.deepStrictEqual(realPack.facts, { fact_ruins_secret: { initial: "unknown" }, fact_bandits_fate: {} }, "the real pack's `initial`, now its starting value (fact_bandits_fate, V2-Core-45, has none)");
+  assert.deepStrictEqual(realPack.facts, { fact_ruins_secret: { initial: "unknown" }, fact_bandits_fate: {}, fact_leader_wound: {} }, "the real pack's `initial`, now its starting value (fact_bandits_fate, V2-Core-45, and fact_leader_wound, V2-Core-55, have none)");
   assert.deepStrictEqual(start(realPack, "frontier-canonical-4").facts, { fact_ruins_secret: { value: "unknown", since: 0 } });
   assert.deepStrictEqual(created.state, start(seeded, "seed-1"), "same seed, same state");
   // a state saved without a `facts` key (every state so far) is valid, and `state.facts` appears lazily

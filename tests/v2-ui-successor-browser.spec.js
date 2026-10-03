@@ -157,8 +157,9 @@ test.describe("V2 successor (what the world keeps, what a character keeps)", () 
     await expect(page.locator("#choice")).toBeHidden();
     await expect(page.locator("#log")).toContainText(NEWS_TEXT);
     const asked = await getState(page);
-    // the effect is the asker's own; the world is as it was
-    expect(asked.relations["npc_elder:player_2"].score).toBe(1);
+    // the news is the asker's own (information only since V2-Core-55, D-84: no trust); the world is as it was
+    expect(asked.knowledge.player_2.rum_bandits_fate).toBeDefined();
+    expect(asked.relations["npc_elder:player_2"]).toBeUndefined();
     expect(asked.relations["npc_elder:player_1"]).toEqual(successor.relations["npc_elder:player_1"]);
     expect(asked.cases).toEqual(decided.cases);
     expect(asked.flags).toEqual(decided.flags);
