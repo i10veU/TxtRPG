@@ -87,7 +87,9 @@ function testEveryCheckNamesADefinedStat() {
     act_inspect_well: ["per", null],
     act_search_spring: ["per", null],
     evt_spring_miasma: ["con", null],
-    act_gather_herbs: ["wis", null] // V2-Core-65: knowing the herbs
+    act_gather_herbs: ["wis", null], // V2-Core-65: knowing the herbs
+    act_read_milestone: ["int", null], // V2-Core-72: the worn letters
+    act_search_crossroads: ["per", null]
   });
   for (const [where, [stat, opposed]] of Object.entries(mapping)) {
     assert.ok(STATS.includes(stat), where);

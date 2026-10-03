@@ -141,6 +141,15 @@
 // the elder (D-71 (2)). Information -> judgment -> action -> world change -> new information for
 // the next generation. `version` stays "0.1.0" (no state-shape change; D-68).
 //
+// V2-Core-72 (#180 Slice 4, step 1 -- the old crossroads): the world beyond the village begins. The
+// bandits held the road; once their case is resolved the village links to the old crossroads (first
+// arrival narrated once for the world). The milestone (INT with the investigation skill) or the elder
+// tells where the mill hamlet and the river ford lie, and that the royal road runs on past the ford --
+// the region's geography is the world's truth (`fact_road_*`), what a character knows of it is theirs
+// (`rum_road_*`; the next steps open their links by that knowledge). Searching the crossroads (PER)
+// reads the bandit leader's fate in the land: a trail toward the ford if he lives, the bandits'
+// abandoned toll post if he fell. Additive only (D-92/D-94).
+//
 // V2-Core-70 (#170 Slice 3, step 3 -- the village's trust): the two stories add up. A character the
 // elder and the herbalist both trust (15 or more on each one's edge towards them) once both cases are
 // resolved is honoured in the village's name, once (`org_village -> self`, `trusted` -- their own edge,
@@ -340,6 +349,9 @@ const EXAMINE_CARCASS = [
 ];
 // V2-Core-69 (#170): the spring's tale -- the legend's time (about two days on) unless someone corrected it
 const WELL_LEGEND_TIME = { op: "and", of: [{ op: "signal", key: "well_tale_age", min: 3 }, { op: "not", of: { op: "flag", key: "well_tale_corrected" } }] };
+// V2-Core-72 (#180): the road out -- the bandits who held it are gone; the leader's fate in the land
+const BANDITS_GONE = { op: "case", case: "case_ruins_mystery", stage: "resolved" };
+const LEADER_LIVES = { op: "alive", subject: "npc_bandit_leader" };
 // V2-Core-70 (#170): the village's standing towards this character (their own edge)
 const VILLAGE_TRUSTED = { op: "relation", from: "org_village", to: "self", tag: "trusted" };
 // what the village says once the elder has been told -- and whether the one behind it still lives
@@ -462,6 +474,12 @@ export const worldData = {
         { op: "narrate", textId: "txt_market_reopens" }
       ]
     },
+    // V2-Core-72 (#180): the first time anyone walks the reopened road (narration, once for the world)
+    evt_crossroads_first: {
+      trigger: { op: "location", at: "loc_crossroads" },
+      once: true,
+      effects: [say("txt_crossroads_first")]
+    },
     // V2-Core-69 (#170): the purification becomes history -- 1 on the purification's step, then +1 at
     // the first step a full day later, until 3 (as evt_bandits_tale)
     evt_well_tale: {
@@ -514,7 +532,9 @@ export const worldData = {
         // V2-Core-53 (D-82): a lantern, or night vision (the scout's trait)
         { to: "loc_ruins", minutes: 45, requires: LIGHT_OR_NIGHT_VISION },
         // V2-Core-64 (#160): the spring the well's water comes from -- once the character knows it
-        { to: "loc_forest_spring", minutes: 60, requires: KNOWS_WELL_SOURCE }
+        { to: "loc_forest_spring", minutes: 60, requires: KNOWS_WELL_SOURCE },
+        // V2-Core-72 (#180): the road out, once the bandits who held it are gone
+        { to: "loc_crossroads", minutes: 45, requires: BANDITS_GONE }
       ]
     },
     loc_market: {
@@ -528,6 +548,11 @@ export const worldData = {
     loc_forest_spring: {
       name: "숲속 샘",
       links: [{ to: "loc_village", minutes: 60 }]
+    },
+    // V2-Core-72 (#180): the first place beyond the village
+    loc_crossroads: {
+      name: "옛 갈림길",
+      links: [{ to: "loc_village", minutes: 45 }]
     }
   },
 
@@ -625,6 +650,55 @@ export const worldData = {
         success: [{ op: "item", item: "item_purifying_herb", add: 1 }, { op: "proficiency", id: "herbalism", add: 10 }, say("txt_gather_herbs_success")],
         fail: [{ op: "proficiency", id: "herbalism", add: 5 }, say("txt_gather_herbs_fail")]
       })
+    },
+    // V2-Core-72 (#180): the milestone -- INT (the worn letters) with the investigation skill. A success
+    // records the region's roads (the world's truth) and the character reads them first-hand
+    act_read_milestone: {
+      name: "이정표 읽기",
+      requires: { op: "location", at: "loc_crossroads" },
+      check: { stat: "int", skill: "investigation", tags: ["investigation"], difficulty: "normal" },
+      minutes: 20,
+      outcomes: {
+        success: [
+          { op: "fact", fact: "fact_road_hamlet", set: "east" },
+          { op: "fact", fact: "fact_road_ford", set: "north" },
+          { op: "fact", fact: "fact_road_royal", set: "beyond_ford" },
+          { op: "rumor", rumor: "rum_road_hamlet", observe: true, source: "obs_loc_crossroads", confidence: 80 },
+          { op: "rumor", rumor: "rum_road_ford", observe: true, source: "obs_loc_crossroads", confidence: 80 },
+          { op: "rumor", rumor: "rum_road_royal", observe: true, source: "obs_loc_crossroads", confidence: 80 },
+          { op: "proficiency", id: "investigation", add: 10 },
+          say("txt_read_milestone_success")
+        ],
+        fail: [{ op: "proficiency", id: "investigation", add: 5 }, say("txt_read_milestone_fail")]
+      }
+    },
+    // V2-Core-72 (#180): the crossroads remember who used the road -- PER with the investigation skill;
+    // what is found depends on whether the bandit leader lives
+    act_search_crossroads: {
+      name: "갈림길 살피기",
+      requires: { op: "location", at: "loc_crossroads" },
+      check: { stat: "per", skill: "investigation", tags: ["investigation"], difficulty: "normal" },
+      minutes: 30,
+      outcomes: {
+        success: [
+          { op: "proficiency", id: "investigation", add: 10 },
+          {
+            op: "if",
+            when: LEADER_LIVES,
+            then: [
+              { op: "fact", fact: "fact_leader_trail", set: "toward_ford" },
+              { op: "rumor", rumor: "rum_leader_trail", observe: true, source: "obs_loc_crossroads", confidence: 70 },
+              say("txt_crossroads_leader_trail")
+            ],
+            else: [
+              { op: "fact", fact: "fact_bandit_toll", set: "abandoned" },
+              { op: "rumor", rumor: "rum_bandit_toll", observe: true, source: "obs_loc_crossroads", confidence: 80 },
+              say("txt_crossroads_toll_post")
+            ]
+          }
+        ],
+        fail: [{ op: "proficiency", id: "investigation", add: 5 }, say("txt_search_crossroads_fail")]
+      }
     },
     act_buy_lantern: {
       name: "등불 구입",
@@ -887,6 +961,17 @@ export const worldData = {
               then: [{ op: "relation", from: "npc_elder", add: 10, mode: "cooperation", tag: "confidant" }]
             },
             { op: "narrate", textId: "txt_report_findings" }
+          ]
+        },
+        // V2-Core-72 (#180): once the road is open, the elder tells of the region -- told, not seen
+        {
+          id: "opt_ask_region",
+          name: "마을 바깥의 길에 대해 묻는다",
+          requires: BANDITS_GONE,
+          effects: [
+            { op: "rumor", rumor: "rum_road_hamlet", source: "npc_elder", confidence: 60 },
+            { op: "rumor", rumor: "rum_road_ford", source: "npc_elder", confidence: 60 },
+            say("txt_elder_region")
           ]
         },
         // V2-Core-55 (D-84): the elder's trust (his edge towards this character at 15 or more -- in the
@@ -1285,7 +1370,13 @@ export const worldData = {
     // V2-Core-68 (#170): whose arrows were in the carcass -- set where it is handled
     fact_spring_fouler: {},
     // V2-Core-69 (#170): what happened to the spring -- set by evt_well_tale
-    fact_well_fate: {}
+    fact_well_fate: {},
+    // V2-Core-72 (#180): the region's roads, and what the crossroads remember
+    fact_road_hamlet: {},
+    fact_road_ford: {},
+    fact_road_royal: {},
+    fact_leader_trail: {},
+    fact_bandit_toll: {}
   },
 
   rumors: {
@@ -1302,7 +1393,13 @@ export const worldData = {
     rum_spring_bandits: { factId: "fact_spring_fouler", claim: "bandits" },
     // V2-Core-69 (#170): the same history told two ways -- the herbalist's news, and the market's legend
     rum_well_fate: { factId: "fact_well_fate", claim: "purified" },
-    rum_well_legend: { factId: "fact_well_fate", claim: "spirit_appeased" }
+    rum_well_legend: { factId: "fact_well_fate", claim: "spirit_appeased" },
+    // V2-Core-72 (#180): the region, as a character knows it
+    rum_road_hamlet: { factId: "fact_road_hamlet", claim: "east" },
+    rum_road_ford: { factId: "fact_road_ford", claim: "north" },
+    rum_road_royal: { factId: "fact_road_royal", claim: "beyond_ford" },
+    rum_leader_trail: { factId: "fact_leader_trail", claim: "toward_ford" },
+    rum_bandit_toll: { factId: "fact_bandit_toll", claim: "abandoned" }
   },
 
   // Relation-edge/rumor-source IDs (§7.1/§8.3). An entry without `actor` is
@@ -1407,6 +1504,13 @@ export const worldData = {
     txt_herbalist_given_herbs: "약초꾼은 정화초 두 묶음을 받아 들고 환하게 웃는다. 앓는 집들에 나눠 주겠다고 한다.",
     txt_herbalist_salve: "약초꾼은 은화 세 닢을 받고 작은 연고 단지를 건넨다.",
     txt_herbalist_salve_trusted: "약초꾼은 은화 한 닢만 받고 연고 단지를 쥐여 준다. 마을이 감사한 사람에게서 더 받을 수는 없다고 한다.",
-    txt_apply_salve: "상처에 약초 연고를 바르자 쓰라림이 가라앉는다."
+    txt_apply_salve: "상처에 약초 연고를 바르자 쓰라림이 가라앉는다.",
+    txt_crossroads_first: "도적들이 막고 있던 길이 다시 트였다. 잡초가 무성한 옛 갈림길에 오랜만에 사람의 발자국이 찍힌다.",
+    txt_read_milestone_success: "닳은 이정표의 글자를 더듬어 읽는다. 동쪽은 물레방아 마을, 북쪽은 강나루. 그 아래 희미하게, 강을 건너 왕도로 이어지는 길이라고 새겨져 있다.",
+    txt_read_milestone_fail: "이정표의 글자는 이끼와 비바람에 닳아 알아보기 어렵다.",
+    txt_elder_region: "원로는 지팡이로 땅에 길을 그린다. 갈림길에서 동쪽으로 가면 물레방아 마을이 있고, 북쪽으로 가면 강나루가 나온다고 한다. 도적들 때문에 몇 해나 끊겼던 길이다.",
+    txt_crossroads_leader_trail: "진흙에 찍힌 발자국 하나가 눈에 띈다. 한쪽 옆구리를 감싸 안은 듯 무게가 기운 걸음, 도적 두목의 것이다. 발자국은 강나루 쪽으로 이어진다.",
+    txt_crossroads_toll_post: "길가에 무너진 초소가 있다. 도적들이 지나는 이들에게 통행세를 뜯던 곳이다. 두목이 쓰러진 뒤로 아무도 돌아오지 않았다.",
+    txt_search_crossroads_fail: "갈림길에는 오래된 바퀴 자국과 짐승 발자국뿐이다."
   }
 };

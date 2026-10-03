@@ -82,7 +82,9 @@ function testChecksReadSkills() {
     act_inspect_well: ["investigation", null],
     act_search_spring: ["investigation", null],
     evt_spring_miasma: [null, null],
-    act_gather_herbs: ["herbalism", null] // V2-Core-65
+    act_gather_herbs: ["herbalism", null], // V2-Core-65
+    act_read_milestone: ["investigation", null], // V2-Core-72
+    act_search_crossroads: ["investigation", null]
   });
 }
 
