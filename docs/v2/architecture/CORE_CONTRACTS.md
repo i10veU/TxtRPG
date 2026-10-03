@@ -2035,3 +2035,10 @@ state.knowledge["player_1"]["rum_a"] = {
     실제 팩이 0.2.0이 되어 `9.9.9`로 바꿨다(검사 내용은 같다). 새 테스트 `tests/v2/npc-actor.test.js`, `tests/v2-ui-npc-actor-browser.spec.js`(+CI 단계).
     변이 9개(시딩 제거, player 분기 밖 시딩, kind 고정 제거, 고정 difficulty, opposed subject 오류, 팩의 actor 제거, 검증기 세 규칙 각각 제거)는 모두 새 Node 테스트를
     실패시키고, 이 변경 전 코드에서는 새 browser 시나리오 둘 다 실패한다. Gate 3(hp/alive observability), Gate 4(resource/cost), 전투는 결정·구현하지 않았다.
+  - 작업 45 = V2-Core-48 (Issue #129, Master Spec §7 Mastery / §37 최소 slice): 숙련이 실행 품질이 된다. 팩은 `investigation` proficiency에 `checkStep: 20`을 선언해 두었지만
+    `act_investigate_ruins`의 check spec이 `proficiency`를 이름으로 부르지 않아, 조사 숙련은 판정에 쓰이지 않고 50에서의 unlock에만 쓰였다. check spec에
+    `proficiency:"investigation"`을 더해 기존 §5.4 modifier(+floor(points/20))가 들어가게 했다(데이터 한 줄). 엔진/state/save/Condition/Effect 변경은 없고, state 모양이
+    그대로이므로 팩 `version`은 0.2.0 그대로다. canonical 경로(seed `history-41`)의 첫 조사는 30점이라 +1이다. margin이 5에서 6이 되어 tier가 `great`가 되지만, 팩에
+    great outcome이 없어 success로 fallback하므로(§2.3) 플레이 결과는 같다. 새 테스트 `tests/v2/data-world-practice.test.js`,
+    `tests/v2-ui-practice-browser.spec.js`(+CI 단계: 실제 버튼만으로 같은 굴림에서 숙련한 캐릭터의 margin이 1 높다). 변이 3개(필드 제거, 잘못된 id, checkStep 변경)는
+    모두 새 Node 테스트를 실패시키고, 이 변경 전 팩에서는 새 browser 시나리오가 실패한다.
