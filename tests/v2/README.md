@@ -15,7 +15,7 @@ PASS/FAIL을 요약한다. 아직 V2 테스트가 없으면 통과(exit 0)로 �
 
 ## 규칙
 
-- 이 디렉터리의 테스트는 V1 CI(`.github/workflows/phase251-check.yml`)에 포함되지 않는다.
+- 이 디렉터리의 테스트는 V2-Core-21부터 CI(`.github/workflows/phase251-check.yml`)의 `V2 core regression` 단계에서 실행되고, V2 브라우저 spec(`tests/v2-ui-*.spec.js`)은 spec마다 별도 단계로 실행된다. V1 단계는 그대로 둔다.
 - V1 테스트 파일을 이 디렉터리로 옮기거나 수정하지 않는다.
 - `web/v2/**` 코드가 실제로 존재하기 시작하면, 그 코드를 검증하는 테스트가 이 디렉터리에 최소
   1개 이상 함께 존재해야 한다 (코드만 추가되고 테스트가 0개인 상태를 통과로 보지 않는다).
