@@ -141,6 +141,15 @@
 // the elder (D-71 (2)). Information -> judgment -> action -> world change -> new information for
 // the next generation. `version` stays "0.1.0" (no state-shape change; D-68).
 //
+// V2-Core-64 (#160 Slice 2, step 1 -- discovery): a second case, 흐려진 우물, built from what exists.
+// The village well (PER, the first check to read it) points to the forest spring; the market herbalist
+// (a dialogue-only NPC, no actor) tells the same, and earns +5 trust once (her own `consulted` tag,
+// D-84's pattern); knowing the source opens the way to the spring (a link `requires`, as the dark
+// ruins); there the miasma is a checked `data.events` entry (CON, the first check to read it) while
+// the case is open, and searching the spring (PER) finds what fouls it. Additive only -- a new place,
+// actions, a choice, an event, facts without `initial`, rumors, texts, a dialogue NPC -- so a 0.3.0
+// save loads and plays it unchanged (no version bump, no new actor).
+//
 // V2-Core-59 (#147 Phase D, D-88): an NPC capability. The leader's actor declares the growth
 // system's stamina (6/6); on a clean hit (`fail`) with 3 of it he lands a heavy blow (1 more damage, 3
 // of his stamina) -- twice a fight at most, never recovered. The same Condition/Effect language as
@@ -272,6 +281,8 @@ const LIGHT_OR_NIGHT_VISION = {
     { op: "trait", trait: "night_vision" }
   ]
 };
+// V2-Core-64 (#160): the way to the forest spring is known only from the well or the herbalist
+const KNOWS_WELL_SOURCE = { op: "rumor", rumor: "rum_well_source" };
 // V2-Core-52: a skill rank at every 20 practice points (thresholds are applied in `at` order, D-42)
 const rankUps = (skill) => [20, 40, 60, 80, 100].map((at) => ({ at, effects: [{ op: "skill", skill, add: 1 }] }));
 const FIGHT_DIFFICULTY = (base, stat) => ({ base, opposed: { subject: "npc_bandit_leader", stat } });
@@ -386,6 +397,23 @@ export const worldData = {
         { op: "narrate", textId: "txt_market_reopens" }
       ]
     },
+    // V2-Core-64 (#160): the spring's miasma -- a checked trigger (CON): resisted, or 2 HP. Only while
+    // the well's case is open; at most once per 30 minutes, like the ruins' hazard
+    evt_spring_miasma: {
+      trigger: {
+        op: "and",
+        of: [
+          { op: "location", at: "loc_forest_spring" },
+          { op: "not", of: { op: "case", case: "case_fouled_well", stage: "resolved" } }
+        ]
+      },
+      cooldown: 30,
+      check: { stat: "con", tags: ["endurance"], difficulty: "normal" },
+      outcomes: {
+        success: [say("txt_spring_miasma_resisted")],
+        fail: [{ op: "hp", add: -2 }, say("txt_spring_miasma")]
+      }
+    },
     evt_ruins_hazard: {
       trigger: { op: "location", at: "loc_ruins" },
       cooldown: 30,
@@ -402,7 +430,9 @@ export const worldData = {
       links: [
         { to: "loc_market", minutes: 15 },
         // V2-Core-53 (D-82): a lantern, or night vision (the scout's trait)
-        { to: "loc_ruins", minutes: 45, requires: LIGHT_OR_NIGHT_VISION }
+        { to: "loc_ruins", minutes: 45, requires: LIGHT_OR_NIGHT_VISION },
+        // V2-Core-64 (#160): the spring the well's water comes from -- once the character knows it
+        { to: "loc_forest_spring", minutes: 60, requires: KNOWS_WELL_SOURCE }
       ]
     },
     loc_market: {
@@ -412,6 +442,10 @@ export const worldData = {
     loc_ruins: {
       name: "폐허",
       links: [{ to: "loc_village", minutes: 45 }]
+    },
+    loc_forest_spring: {
+      name: "숲속 샘",
+      links: [{ to: "loc_village", minutes: 60 }]
     }
   },
 
@@ -423,6 +457,45 @@ export const worldData = {
         { op: "proficiency", id: "investigation", add: 15 },
         { op: "narrate", textId: "txt_observe_village" }
       ]
+    },
+    // V2-Core-64 (#160): the well -- PER (what one notices) with the investigation skill. A success
+    // records where the water comes from (the world's fact) and the character sees it first-hand
+    act_inspect_well: {
+      name: "우물 살피기",
+      requires: { op: "location", at: "loc_village" },
+      check: { stat: "per", skill: "investigation", tags: ["investigation"], difficulty: "normal" },
+      minutes: 20,
+      outcomes: {
+        success: [
+          { op: "fact", fact: "fact_well_source", set: "forest_spring" },
+          { op: "rumor", rumor: "rum_well_source", observe: true, source: "obs_village_well", confidence: 70 },
+          { op: "proficiency", id: "investigation", add: 10 },
+          say("txt_inspect_well_success")
+        ],
+        fail: [{ op: "proficiency", id: "investigation", add: 5 }, say("txt_inspect_well_fail")]
+      }
+    },
+    // V2-Core-64 (#160): the herbalist keeps a stall at the market (a dialogue NPC, like the elder)
+    act_talk_herbalist: {
+      name: "약초꾼과 대화",
+      requires: { op: "location", at: "loc_market" },
+      effects: [{ op: "choice", choice: "choice_herbalist_dialogue", sourceId: "act_talk_herbalist" }]
+    },
+    // V2-Core-64 (#160): searching the spring -- PER with the investigation skill, under the miasma
+    act_search_spring: {
+      name: "샘 조사",
+      requires: { op: "and", of: [{ op: "location", at: "loc_forest_spring" }, KNOWS_WELL_SOURCE] },
+      check: { stat: "per", skill: "investigation", tags: ["investigation"], difficulty: "normal" },
+      minutes: 40,
+      outcomes: {
+        success: [
+          { op: "fact", fact: "fact_spring_cause", set: "rotting_carcass" },
+          { op: "rumor", rumor: "rum_spring_cause", observe: true, source: "obs_loc_forest_spring", confidence: 80 },
+          { op: "proficiency", id: "investigation", add: 20 },
+          say("txt_search_spring_success")
+        ],
+        fail: [{ op: "proficiency", id: "investigation", add: 5 }, say("txt_search_spring_fail")]
+      }
     },
     act_buy_lantern: {
       name: "등불 구입",
@@ -742,6 +815,26 @@ export const worldData = {
         }
       ]
     },
+    // V2-Core-64 (#160): the herbalist. Asking about the sickness tells where the water comes from;
+    // the +5 is once (her `consulted` tag on her edge towards this character, D-84's pattern)
+    choice_herbalist_dialogue: {
+      options: [
+        {
+          id: "opt_herbalist_ask_sickness",
+          name: "마을의 배앓이에 대해 묻는다",
+          effects: [
+            {
+              op: "if",
+              when: { op: "not", of: { op: "relation", from: "npc_herbalist", to: "self", tag: "consulted" } },
+              then: [{ op: "relation", from: "npc_herbalist", add: 5, tag: "consulted" }]
+            },
+            { op: "rumor", rumor: "rum_well_source", source: "npc_herbalist", confidence: 50 },
+            say("txt_herbalist_sickness")
+          ]
+        },
+        { id: "opt_herbalist_small_talk", name: "약초 이야기만 나눈다", effects: [say("txt_herbalist_small_talk")] }
+      ]
+    },
     // V2-Core-50: one exchange of the fight per choice. Each is an opposed check against the
     // leader (V2-Core-51, D-80: the strike STR against his STR, the counter DEX against his DEX)
     // with the combat proficiency; the tier
@@ -809,8 +902,8 @@ export const worldData = {
     growth_wanderer: {
       id: "growth_wanderer",
       // V2-Core-51 (D-80): the fantasy prototype's common stats. Read by checks today: INT (the
-      // investigation), WIS (the confrontation), STR (the strike), DEX (the counter); CON and PER are
-      // defined for what needs them later (no derived values: HP is not computed from CON)
+      // investigation), WIS (the confrontation), STR (the strike), DEX (the counter); since V2-Core-64 PER
+      // (the well, the spring) and CON (the miasma). No derived values: HP is not computed from CON
       stats: [
         { id: "str", min: 0, max: 20, base: 8 },
         { id: "dex", min: 0, max: 20, base: 8 },
@@ -876,7 +969,10 @@ export const worldData = {
     // V2-Core-45: what really happened to the bandits -- set by evt_bandits_tale, never in the view
     fact_bandits_fate: {},
     // V2-Core-55: the leader's old wound -- only ever told (nothing sets it)
-    fact_leader_wound: {}
+    fact_leader_wound: {},
+    // V2-Core-64 (#160): no `initial` (a 0.3.0 save would not have it) -- set where it is found
+    fact_well_source: {},
+    fact_spring_cause: {}
   },
 
   rumors: {
@@ -885,7 +981,10 @@ export const worldData = {
     rum_bandits_fate: { factId: "fact_bandits_fate", claim: "dispersed" },
     rum_bandits_legend: { factId: "fact_bandits_fate", claim: "slain" },
     // V2-Core-55 (D-84): what the elder tells a character he trusts
-    rum_leader_old_wound: { factId: "fact_leader_wound", claim: "old_wound" }
+    rum_leader_old_wound: { factId: "fact_leader_wound", claim: "old_wound" },
+    // V2-Core-64 (#160): the fouled well
+    rum_well_source: { factId: "fact_well_source", claim: "forest_spring" },
+    rum_spring_cause: { factId: "fact_spring_cause", claim: "rotting_carcass" }
   },
 
   // Relation-edge/rumor-source IDs (§7.1/§8.3). An entry without `actor` is
@@ -894,6 +993,8 @@ export const worldData = {
   // (D-77, V2-Core-47). A full NPC scheduler is still out of scope (Issue #74).
   npcs: {
     npc_elder: { name: "마을 원로" },
+    // V2-Core-64 (#160): dialogue only (no actor: a new actor would not be in a 0.3.0 save)
+    npc_herbalist: { name: "약초꾼" },
     // V2-Core-47 (D-77): the leader is an actor -- the same record a player character is,
     // `kind:"npc"`, seeded by createInitialState under this ID (the ID his relation edges
     // already use). What reads it: the opposed difficulties of the confrontation and the fight
@@ -951,6 +1052,14 @@ export const worldData = {
     txt_market_reopens: "도적단이 흩어졌다는 소식에 상인들이 안도하며 은화 몇 닢을 사례한다.",
     txt_rest_village: "마을 어귀의 평상에 앉아 숨을 고르며 상처를 돌본다.",
     txt_ruins_hazard: "무너진 벽돌이 머리 위로 쏟아져 내린다.",
-    txt_succession: "쓰러진 이가 남긴 은화 몇 닢이 새 방랑자의 손에 들어온다."
+    txt_succession: "쓰러진 이가 남긴 은화 몇 닢이 새 방랑자의 손에 들어온다.",
+    txt_inspect_well_success: "두레박으로 길어 올린 물에서 썩은 풀 냄새가 난다. 우물 벽의 물때가 숲 쪽에서 흘러드는 물길을 가리킨다. 이 물은 숲속 샘에서 온다.",
+    txt_inspect_well_fail: "우물물은 조금 탁해 보이지만, 무엇이 문제인지는 알 수 없다.",
+    txt_herbalist_sickness: "약초꾼은 요즘 배앓이를 하는 사람이 부쩍 늘었다며 혀를 찬다. 마을 우물은 숲속 샘에서 물을 받는데, 그 샘이 탈이 난 게 틀림없다고 한다.",
+    txt_herbalist_small_talk: "약초꾼은 말린 약초 다발을 정리하며 계절 이야기를 늘어놓는다.",
+    txt_search_spring_success: "샘 위쪽 바위 틈에 짐승의 사체가 걸려 썩어 가고 있다. 샘물을 흐리는 것은 이것이다.",
+    txt_search_spring_fail: "샘가는 안개와 악취로 가득하다. 원인을 찾지 못했다.",
+    txt_spring_miasma: "샘에서 피어오르는 독한 기운에 숨이 막히고 속이 뒤집힌다.",
+    txt_spring_miasma_resisted: "샘의 독한 기운이 밀려오지만, 숨을 고르며 버텨 낸다."
   }
 };

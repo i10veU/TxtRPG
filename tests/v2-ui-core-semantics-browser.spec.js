@@ -74,7 +74,7 @@ test.describe("V2 core semantics investigation (completeWhen / relation rule whe
     expect(fresh.cases).toBeUndefined();
     expect(fresh.relations ?? {}).toEqual({});
     const pack = await page.evaluate(async () => (await import("/v2/data/world.js")).worldData);
-    expect(pack.facts).toEqual({ fact_ruins_secret: { initial: "unknown" }, fact_bandits_fate: {}, fact_leader_wound: {} }); // the second since V2-Core-45, the third since V2-Core-55, no `initial`
+    expect(pack.facts).toEqual({ fact_ruins_secret: { initial: "unknown" }, fact_bandits_fate: {}, fact_leader_wound: {}, fact_well_source: {}, fact_spring_cause: {} }); // V2-Core-45, V2-Core-55 and V2-Core-64 (the well's two): no `initial`
     expect(pack.cases).toBeUndefined();
     expect(pack.rules.relation).toBeUndefined();
     expect(JSON.stringify(pack)).not.toContain("completeWhen");
