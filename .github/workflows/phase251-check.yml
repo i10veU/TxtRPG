@@ -169,3 +169,6 @@ jobs:
 
       - name: V2 practice browser smoke
         run: npx playwright test tests/v2-ui-practice-browser.spec.js --reporter=line
+
+      - name: V2 hp / alive browser smoke
+        run: npx playwright test tests/v2-ui-hp-alive-browser.spec.js --reporter=line
