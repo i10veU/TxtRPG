@@ -2,7 +2,7 @@
 // CON / INT / WIS / PER (`str`/`dex`/`con`/`int`/`wis`/`per`); `wit` is gone, its roles mapped:
 //   ruins investigation -> INT; confrontation -> WIS vs the leader's WIS;
 //   frontal strike -> STR vs the leader's STR; counter -> DEX vs the leader's DEX.
-// CON and PER are defined only (no check reads them yet). The values keep every existing check's
+// CON and PER were defined only (since V2-Core-64 the well and the spring read PER, the miasma CON). The values keep every existing check's
 // numbers (the player 8 everywhere, the old wit; the leader 10 everywhere), so the play is the same
 // with the stats' names changed. Pack version 0.3.0: a 0.2.0 save is refused (D-68). Data only.
 //
@@ -48,6 +48,8 @@ function checkSpecs(data) {
   for (const [id, choice] of Object.entries(data.choices)) {
     for (const option of choice.options) if (option.check) specs.push({ where: `${id}.${option.id}`, spec: option.check });
   }
+  // V2-Core-64: a checked data.events entry is a check too
+  for (const [id, event] of Object.entries(data.events)) if (event.check) specs.push({ where: id, spec: event.check });
   return specs;
 }
 
@@ -80,7 +82,11 @@ function testEveryCheckNamesADefinedStat() {
     "choice_fight_leader.opt_fight_strike": ["str", "str"],
     "choice_fight_leader.opt_fight_sword_cut": ["str", "str"], // V2-Core-58: the strike, with a blade
     "choice_fight_leader.opt_fight_counter": ["dex", "dex"],
-    "choice_fight_leader.opt_fight_weak_spot": ["str", "str"] // V2-Core-55: the strike at an easier mark
+    "choice_fight_leader.opt_fight_weak_spot": ["str", "str"], // V2-Core-55: the strike at an easier mark
+    // V2-Core-64 (#160): the fouled well -- the first checks to read PER and CON
+    act_inspect_well: ["per", null],
+    act_search_spring: ["per", null],
+    evt_spring_miasma: ["con", null]
   });
   for (const [where, [stat, opposed]] of Object.entries(mapping)) {
     assert.ok(STATS.includes(stat), where);

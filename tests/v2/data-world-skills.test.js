@@ -46,6 +46,7 @@ function checkSpecs() {
   const specs = [];
   for (const [id, action] of Object.entries(worldData.actions)) if (action.check) specs.push([id, action.check]);
   for (const [id, choice] of Object.entries(worldData.choices)) for (const o of choice.options) if (o.check) specs.push([`${id}.${o.id}`, o.check]);
+  for (const [id, event] of Object.entries(worldData.events)) if (event.check) specs.push([id, event.check]); // V2-Core-64
   return specs;
 }
 
@@ -73,7 +74,12 @@ function testChecksReadSkills() {
     "choice_fight_leader.opt_fight_strike": ["swordsmanship", null],
     "choice_fight_leader.opt_fight_sword_cut": ["swordsmanship", null], // V2-Core-58
     "choice_fight_leader.opt_fight_counter": ["swordsmanship", null],
-    "choice_fight_leader.opt_fight_weak_spot": ["swordsmanship", null] // V2-Core-55
+    "choice_fight_leader.opt_fight_weak_spot": ["swordsmanship", null], // V2-Core-55
+    // V2-Core-64 (#160): the well and the spring are searched with the investigation skill; the
+    // miasma is endured with CON alone
+    act_inspect_well: ["investigation", null],
+    act_search_spring: ["investigation", null],
+    evt_spring_miasma: [null, null]
   });
 }
 
