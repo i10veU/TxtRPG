@@ -141,6 +141,11 @@
 // the elder (D-71 (2)). Information -> judgment -> action -> world change -> new information for
 // the next generation. `version` stays "0.1.0" (no state-shape change; D-68).
 //
+// V2-Core-59 (#147 Phase D, D-88): an NPC capability. The leader's actor declares the growth
+// system's stamina (6/6); on a clean hit (`fail`) with 3 of it he lands a heavy blow (1 more damage, 3
+// of his stamina) -- twice a fight at most, never recovered. The same Condition/Effect language as
+// the player's techniques, with `subject`. No engine change, no version bump.
+//
 // V2-Core-58 (#147 Phase B, D-87): the first equipment. The iron sword (slot `hand`, 3 silver at the
 // market) is owned by buying it and wielded by "철검을 든다" (the `equip` Effect; "철검을 내려놓는다"
 // unequips). While it is in hand the fight offers "철검으로 베어 든다" -- the strike at base 10.
@@ -247,6 +252,16 @@ function fightExchange(effects) {
 }
 const hitLeader = (add) => ({ op: "hp", subject: "npc_bandit_leader", add });
 const hitSelf = (add) => ({ op: "hp", add });
+// V2-Core-59 (D-88, #147 Phase D): the leader's technique -- the same capability language as the
+// player's (the growth system's stamina, a cost, a Condition on it). On a clean hit (`fail`), with 3
+// of his stamina he puts his weight behind the blow: 1 more damage. Below 3, the plain hit
+const LEADER = "npc_bandit_leader";
+const leaderHits = (damage) => ({
+  op: "if",
+  when: { op: "resource", subject: LEADER, resource: "stamina", min: 3 },
+  then: [{ op: "resource", subject: LEADER, resource: "stamina", add: -3 }, { op: "narrate", textId: "txt_fight_leader_heavy_blow" }, hitSelf(-(damage + 1))],
+  else: [hitSelf(-damage)]
+});
 const say = (textId) => ({ op: "narrate", textId });
 // V2-Core-53 (D-82): the ruins are dark: a lantern, or the night vision a background gives (a rule
 // the trait changes, not a bonus -- the lantern's +1 to the search stays the lantern's)
@@ -271,7 +286,7 @@ const STRIKE_OUTCOMES = {
   great: fightExchange([hitLeader(-7), say("txt_fight_strike_great")]),
   success: fightExchange([hitLeader(-5), say("txt_fight_strike_hit")]),
   partial: fightExchange([hitLeader(-2), hitSelf(-2), say("txt_fight_trade")]),
-  fail: fightExchange([hitSelf(-3), say("txt_fight_struck")])
+  fail: fightExchange([leaderHits(3), say("txt_fight_struck")])
 };
 
 export const worldData = {
@@ -772,7 +787,7 @@ export const worldData = {
             great: fightExchange([hitLeader(-10), say("txt_fight_counter_great")]),
             success: fightExchange([hitLeader(-7), say("txt_fight_counter_hit")]),
             partial: fightExchange([hitSelf(-1), say("txt_fight_counter_graze")]),
-            fail: fightExchange([hitSelf(-4), say("txt_fight_counter_miss")])
+            fail: fightExchange([leaderHits(4), say("txt_fight_counter_miss")])
           })
         },
         // breaking off: back to the village; the leader lives, keeps his wounds and remembers
@@ -889,7 +904,8 @@ export const worldData = {
       actor: {
         locationId: "loc_ruins",
         hp: { max: 10 },
-        growth: { growth_wanderer: { stats: { str: 10, dex: 10, con: 10, int: 10, wis: 10, per: 10 } } }
+        // V2-Core-59 (D-88): the growth system's stamina, declared -- he pays for his heavy blow with it
+        growth: { growth_wanderer: { stats: { str: 10, dex: 10, con: 10, int: 10, wis: 10, per: 10 }, resources: { stamina: { current: 6, max: 6 } } } }
       }
     }
   },
@@ -922,6 +938,7 @@ export const worldData = {
     txt_fight_strike_hit: "당신의 공격이 두목에게 닿는다.",
     txt_fight_trade: "서로의 칼이 스치고, 둘 다 상처를 입는다.",
     txt_fight_struck: "두목의 칼이 당신을 벤다.",
+    txt_fight_leader_heavy_blow: "두목이 온 힘을 실어 칼을 내려친다.",
     txt_fight_counter_great: "그의 공격을 정확히 읽고 받아친 칼이 깊이 박힌다.",
     txt_fight_counter_hit: "그의 공격을 흘리고 받아친다.",
     txt_fight_counter_graze: "받아치려 했지만 그의 칼끝이 당신을 스친다.",

@@ -6,7 +6,8 @@
 //     every outcome of the exchange (the check decides the result, not whether it was attempted)
 //   - the village rest refills it; nothing else does (no regeneration over time)
 //   - a save without the entry (made before resources) is full -- not migrated, not repaired
-//   - no NPC resources; no version bump
+//   - no version bump (V2-Core-59, D-88: the leader declares stamina too and pays for his own blow --
+//     tests/v2/data-world-npc-capability.test.js; the player's costs here are the player's)
 //
 // `.test.js`, not `.spec.js`: tests/v2/run.js runs every `*.js` directly under tests/v2/ and skips
 // `*.spec.js`. node:assert/strict only (§13.1).
@@ -46,7 +47,8 @@ const start = (extra = {}) => createInitialState({ worldSeed: SEED, data: worldD
 const rejectedCode = (result) => result.events.find((e) => e.type === "action.rejected")?.data.code;
 const me = (state) => state.actors[state.player.actorId];
 const stamina = (state) => me(state).growth.growth_wanderer.resources?.stamina;
-const resourceEvents = (result) => result.events.filter((e) => e.type === "resource.changed").map((e) => e.data);
+// the player's own resource events (the leader's blow, V2-Core-59, is his)
+const resourceEvents = (result) => result.events.filter((e) => e.type === "resource.changed" && e.actorId === result.state.player.actorId).map((e) => e.data);
 // the fight, with the leader made hard to fell (so a sequence of exchanges stays a fight)
 function inFight({ current } = {}) {
   const { state, log } = run(start(), IN_FIGHT);
@@ -67,7 +69,7 @@ function testData() {
   for (const id of ["start_wanderer", "start_scout"]) {
     assert.deepStrictEqual(worldData.characterTemplates[id].growth.growth_wanderer.resources, { stamina: { current: 6, max: 6 } }, id);
   }
-  assert.strictEqual(worldData.npcs.npc_bandit_leader.actor.growth.growth_wanderer.resources, undefined, "no NPC resources");
+  assert.deepStrictEqual(worldData.npcs.npc_bandit_leader.actor.growth.growth_wanderer.resources, { stamina: { current: 6, max: 6 } }, "V2-Core-59: his own stamina");
   // the costs: the counter and the old wound pay in every outcome, the strike and fleeing nothing
   assert.deepStrictEqual(option("opt_fight_counter").requires, { op: "and", of: [{ op: "unlock", id: "unl_keen_eye" }, { op: "resource", resource: "stamina", min: 3 }] });
   assert.deepStrictEqual(option("opt_fight_weak_spot").requires, { op: "and", of: [{ op: "rumor", rumor: "rum_leader_old_wound" }, { op: "resource", resource: "stamina", min: 2 }] });
@@ -79,7 +81,8 @@ function testData() {
     }
   }
   const strike = option("opt_fight_strike");
-  assert.ok(!JSON.stringify(strike).includes('"resource"'), "the strike is free");
+  // free for the player: no resource Effect of the player's own (the leader's blow names its subject, V2-Core-59)
+  assert.ok(!JSON.stringify(strike).includes('"op":"resource","resource"'), "the strike is free");
   assert.ok(!JSON.stringify(option("opt_fight_flee")).includes('"resource"'), "fleeing is free");
   // the old wound is still the strike's blow: the same outcomes after its cost
   for (const tier of ["great", "success", "partial", "fail"]) {
@@ -93,7 +96,7 @@ function testNewCharacters() {
   assert.deepStrictEqual(stamina(start()), { current: 6, max: 6 });
   assert.deepStrictEqual(stamina(start({ templateId: "start_scout" })), { current: 6, max: 6 });
   assert.deepStrictEqual(validateState(start()), []);
-  assert.strictEqual(start().actors.npc_bandit_leader.growth.growth_wanderer.resources, undefined);
+  assert.deepStrictEqual(start().actors.npc_bandit_leader.growth.growth_wanderer.resources, { stamina: { current: 6, max: 6 } });
 
   // a character who spent it all and fell: the successor starts at 6, the predecessor keeps 0
   let s = inFight({ current: 0 });
@@ -128,7 +131,9 @@ function testCosts() {
     assert.deepStrictEqual(resourceEvents(r), [], free);
     assert.deepStrictEqual(stamina(r.state), { current: 6, max: 6 }, free);
   }
-  assert.strictEqual(counter.state.actors.npc_bandit_leader.growth.growth_wanderer.resources, undefined, "the leader pays nothing");
+  // the player's cost is not the leader's: his stamina moves only by his own blow (a `fail`, V2-Core-59)
+  const counterTier = counter.events.find((e) => e.type === "check.resolved").data.tier;
+  assert.strictEqual(counter.state.actors.npc_bandit_leader.growth.growth_wanderer.resources.stamina.current, counterTier === "fail" ? 3 : 6);
 
   // every tier pays: across seeds, each outcome of the counter cost exactly 3
   const seen = new Set();
