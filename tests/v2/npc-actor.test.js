@@ -39,7 +39,7 @@ const LEADER = {
   hp: { current: 10, max: 10 },
   money: 0,
   inventory: {},
-  growth: { growth_wanderer: { stats: { str: 10, dex: 10, con: 10, int: 10, wis: 10, per: 10 } } }, // V2-Core-51
+  growth: { growth_wanderer: { stats: { str: 10, dex: 10, con: 10, int: 10, wis: 10, per: 10 }, resources: { stamina: { current: 6, max: 6 } } } }, // V2-Core-51, V2-Core-59
   tags: []
 };
 

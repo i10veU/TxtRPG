@@ -105,9 +105,11 @@ function testWhoMayFight() {
 // 2. one exchange: the tier decides who is hit; 5 minutes; the combat practice grows; the next
 // exchange follows while both stand
 function testExchangeRules() {
+  // a first exchange: the leader has his full stamina, so a clean hit (`fail`) is his heavy blow, +1
+  // (V2-Core-59, D-88; tests/v2/data-world-npc-capability.test.js has the plain hit below 3)
   const expected = {
-    opt_fight_strike: { great: [-7, 0], success: [-5, 0], partial: [-2, -2], fail: [0, -3] },
-    opt_fight_counter: { great: [-10, 0], success: [-7, 0], partial: [0, -1], fail: [0, -4] }
+    opt_fight_strike: { great: [-7, 0], success: [-5, 0], partial: [-2, -2], fail: [0, -4] },
+    opt_fight_counter: { great: [-10, 0], success: [-7, 0], partial: [0, -1], fail: [0, -5] }
   };
   const seen = new Set();
   for (const { state } of readySeeds) {

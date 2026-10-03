@@ -195,3 +195,5 @@ jobs:
         run: npx playwright test tests/v2-ui-talent-browser.spec.js --reporter=line
       - name: V2 equipment browser smoke
         run: npx playwright test tests/v2-ui-equipment-browser.spec.js --reporter=line
+      - name: V2 NPC capability browser smoke
+        run: npx playwright test tests/v2-ui-npc-capability-browser.spec.js --reporter=line

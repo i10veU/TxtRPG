@@ -72,7 +72,7 @@ test.describe("V2 NPC actor (the bandit leader is an actor, and the confrontatio
     expect(before.actors.npc_bandit_leader).toEqual({
       id: "npc_bandit_leader", kind: "npc", alive: true, locationId: "loc_ruins",
       hp: { current: 10, max: 10 }, money: 0, inventory: {},
-      growth: { growth_wanderer: { stats: { str: 10, dex: 10, con: 10, int: 10, wis: 10, per: 10 } } }, tags: []
+      growth: { growth_wanderer: { stats: { str: 10, dex: 10, con: 10, int: 10, wis: 10, per: 10 }, resources: { stamina: { current: 6, max: 6 } } } }, tags: [] // V2-Core-59: his stamina
     });
     expect(before.dataRef).toEqual({ id: "frontier_village_pack", version: "0.3.0" });
     const shown = await page.evaluate(() => window.__v2App.getView());
