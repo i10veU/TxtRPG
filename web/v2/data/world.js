@@ -141,6 +141,15 @@
 // the elder (D-71 (2)). Information -> judgment -> action -> world change -> new information for
 // the next generation. `version` stays "0.1.0" (no state-shape change; D-68).
 //
+// V2-Core-50: the first fight (Master Spec Milestone F, Gate 3 = C / Gate 4 = C, D-78). At the
+// ruins, with the character's own proof, while the leader lives and the case is open: exchanges of
+// one opposed wit check each (§5.7: choice -> option check -> outcomes, no combat engine), the tier
+// deciding who is hit; the technique (counter) needs the keen eye; fleeing returns to the village.
+// The leader's death (`alive`) ends the case: his gang loses him and is cowed before the victor, so
+// the existing history (the tale, the market's relief, the elder's news) follows. A wounded leader
+// keeps his wounds (his actor's hp). A new `combat` proficiency grows with every exchange. Data
+// only; `version` stays "0.2.0" (no state-shape change: proficiencies are lazy).
+//
 // V2-Core-48: the investigation proficiency, until now only the way to `unl_keen_eye`, also takes part
 // in the ruins investigation's check (+floor(points / 20), §5.4) -- practice is execution quality.
 // Data only; `version` stays "0.2.0" (no state-shape change).
@@ -154,6 +163,49 @@
 // system, three locations, two NPCs (the elder only a relation/rumor
 // participant ID; the leader also an actor since V2-Core-47 -- an NPC
 // scheduler or NPC autonomy is still out of scope).
+
+// V2-Core-50: one exchange of the fight with the bandit leader (§5.7: a Resolvable chain, the same
+// check() and choice -- no combat engine, no turn queue). Practice first, then the exchange's own
+// effects (who is hit is the check's tier: the leader's answer is part of the resolution), then
+// what follows: the leader fallen -> the fight is won (`alive`, D-78); both standing -> the next
+// exchange (a wounded leader is narrated from his `hp`); the player fallen -> nothing more (§9 has
+// already asked for a new character).
+const LEADER_DOWN = { op: "not", of: { op: "alive", subject: "npc_bandit_leader" } };
+function fightExchange(effects) {
+  return [
+    { op: "proficiency", id: "combat", add: 5 },
+    ...effects,
+    {
+      op: "if",
+      when: LEADER_DOWN,
+      then: [
+        // the leader fell: the case is over, his gang has no leader and is cowed before the victor
+        { op: "case", case: "case_ruins_mystery", stage: "resolved" },
+        { op: "relation", from: "npc_bandit_leader", to: "org_bandits", untag: "member" },
+        { op: "relation", from: "org_bandits", to: "self", add: -10, tag: "cowed" },
+        { op: "narrate", textId: "txt_fight_victory" }
+      ],
+      else: [
+        {
+          op: "if",
+          when: { op: "alive" },
+          then: [
+            {
+              op: "if",
+              when: { op: "lte", left: { hp: "current", subject: "npc_bandit_leader" }, right: 4 },
+              then: [{ op: "narrate", textId: "txt_fight_leader_reels" }]
+            },
+            { op: "choice", choice: "choice_fight_leader", sourceId: "act_fight_leader" }
+          ]
+        }
+      ]
+    }
+  ];
+}
+const hitLeader = (add) => ({ op: "hp", subject: "npc_bandit_leader", add });
+const hitSelf = (add) => ({ op: "hp", add });
+const say = (textId) => ({ op: "narrate", textId });
+const FIGHT_DIFFICULTY = (base) => ({ base, opposed: { subject: "npc_bandit_leader", stat: "wit" } });
 
 export const worldData = {
   formatVersion: 1,
@@ -327,7 +379,15 @@ export const worldData = {
           {
             op: "if",
             when: { op: "fact", fact: "fact_bandits_fate", eq: "dispersed" },
-            then: [{ op: "narrate", textId: "txt_hideout_abandoned" }]
+            // V2-Core-50: where the leader fell in a fight, the hideout shows it
+            then: [
+              {
+                op: "if",
+                when: { op: "alive", subject: "npc_bandit_leader" },
+                then: [{ op: "narrate", textId: "txt_hideout_abandoned" }],
+                else: [{ op: "narrate", textId: "txt_hideout_after_fight" }]
+              }
+            ]
           }
         ],
         fail: [
@@ -355,7 +415,9 @@ export const worldData = {
         of: [
           // V2-Core-35: the character's own proof, not the world's flag
           { op: "item", item: "item_relic", min: 1 },
-          { op: "unlock", id: "unl_keen_eye" }
+          { op: "unlock", id: "unl_keen_eye" },
+          // V2-Core-50: a fallen leader cannot be confronted
+          { op: "alive", subject: "npc_bandit_leader" }
         ]
       },
       showWhenLocked: true,
@@ -385,6 +447,23 @@ export const worldData = {
           { op: "narrate", textId: "txt_confront_fail" }
         ]
       }
+    },
+    // V2-Core-50: the first fight. Where the leader is (his actor's location, D-77), with the
+    // character's own proof that the hideout is his, while he lives and the case is open. It
+    // opens the fight's choice; each exchange is an option of it (choice_fight_leader)
+    act_fight_leader: {
+      name: "도적 두목과 싸운다",
+      requires: {
+        op: "and",
+        of: [
+          { op: "location", at: "loc_ruins" },
+          { op: "location", subject: "npc_bandit_leader", at: "loc_ruins" },
+          { op: "item", item: "item_relic", min: 1 },
+          { op: "alive", subject: "npc_bandit_leader" },
+          { op: "not", of: { op: "case", case: "case_ruins_mystery", stage: "resolved" } }
+        ]
+      },
+      effects: [say("txt_fight_start"), { op: "choice", choice: "choice_fight_leader", sourceId: "act_fight_leader" }]
     }
   },
 
@@ -511,6 +590,50 @@ export const worldData = {
           ]
         }
       ]
+    },
+    // V2-Core-50: one exchange of the fight per choice. Each is an opposed check against the
+    // leader's wit (the existing stat; no new stat, D-78) with the combat proficiency; the tier
+    // decides who is hit (fightExchange above). No resource cost (Gate 4 = C)
+    choice_fight_leader: {
+      options: [
+        {
+          id: "opt_fight_strike",
+          name: "정면으로 맞붙는다",
+          check: { stat: "wit", proficiency: "combat", tags: ["combat"], difficulty: FIGHT_DIFFICULTY(11) },
+          minutes: 5,
+          outcomes: {
+            great: fightExchange([hitLeader(-7), say("txt_fight_strike_great")]),
+            success: fightExchange([hitLeader(-5), say("txt_fight_strike_hit")]),
+            partial: fightExchange([hitLeader(-2), hitSelf(-2), say("txt_fight_trade")]),
+            fail: fightExchange([hitSelf(-3), say("txt_fight_struck")])
+          }
+        },
+        // the technique: only for a character whose keen eye reads the leader's attacks
+        {
+          id: "opt_fight_counter",
+          name: "그의 공격을 읽고 받아친다",
+          requires: { op: "unlock", id: "unl_keen_eye" },
+          check: { stat: "wit", proficiency: "combat", tags: ["combat"], difficulty: FIGHT_DIFFICULTY(12) },
+          minutes: 5,
+          outcomes: {
+            great: fightExchange([hitLeader(-10), say("txt_fight_counter_great")]),
+            success: fightExchange([hitLeader(-7), say("txt_fight_counter_hit")]),
+            partial: fightExchange([hitSelf(-1), say("txt_fight_counter_graze")]),
+            fail: fightExchange([hitSelf(-4), say("txt_fight_counter_miss")])
+          }
+        },
+        // breaking off: back to the village; the leader lives, keeps his wounds and remembers
+        {
+          id: "opt_fight_flee",
+          name: "물러서서 달아난다",
+          minutes: 45,
+          effects: [
+            { op: "relation", from: "npc_bandit_leader", to: "self", add: -10 },
+            { op: "move", to: "loc_village" },
+            say("txt_fight_flee")
+          ]
+        }
+      ]
     }
   },
 
@@ -524,7 +647,9 @@ export const worldData = {
           max: 100,
           checkStep: 20,
           thresholds: [{ at: 50, effects: [{ op: "unlock", id: "unl_keen_eye" }] }]
-        }
+        },
+        // V2-Core-50: grown by every exchange of a fight, read by the fight's checks
+        { id: "combat", max: 100, checkStep: 20 }
       ],
       unlocks: [{ id: "unl_keen_eye", kind: "action" }]
     }
@@ -585,6 +710,19 @@ export const worldData = {
     txt_bandit_legend: "원로는 이제 마을에서 전해지는 이야기를 들려준다. 폐허의 도적단이 마을 사람들 손에 모두 쓰러졌다는 전설이다.",
     txt_correct_legend: "당신은 폐허에서 본 것을 원로에게 전한다. 원로는 한참을 생각하더니, 앞으로는 있었던 그대로 전하겠다고 말한다.",
     txt_bandit_news_corrected: "원로는 마을의 전설 대신, 도적단이 쓰러진 것이 아니라 흩어졌다는 사실을 들려준다. 누군가 폐허에서 그것을 직접 보았다고 한다.",
+    txt_hideout_after_fight: "은신처에는 두목이 쓰러진 싸움의 흔적이 남아 있다. 남은 도적들은 짐을 챙겨 흩어졌다.",
+    txt_fight_start: "당신은 은신처의 도적 두목 앞에 선다. 그가 칼을 뽑는다.",
+    txt_fight_strike_great: "당신의 일격이 두목을 크게 베어 낸다.",
+    txt_fight_strike_hit: "당신의 공격이 두목에게 닿는다.",
+    txt_fight_trade: "서로의 칼이 스치고, 둘 다 상처를 입는다.",
+    txt_fight_struck: "두목의 칼이 당신을 벤다.",
+    txt_fight_counter_great: "그의 공격을 정확히 읽고 받아친 칼이 깊이 박힌다.",
+    txt_fight_counter_hit: "그의 공격을 흘리고 받아친다.",
+    txt_fight_counter_graze: "받아치려 했지만 그의 칼끝이 당신을 스친다.",
+    txt_fight_counter_miss: "공격을 잘못 읽었다. 두목의 칼이 당신을 깊이 벤다.",
+    txt_fight_leader_reels: "두목이 비틀거린다. 그의 숨이 거칠다.",
+    txt_fight_victory: "도적 두목이 쓰러진다. 두목을 잃은 도적들이 당신 앞에서 물러선다.",
+    txt_fight_flee: "당신은 칼을 거두고 폐허를 빠져나와 마을로 달아난다. 두목은 쫓아오지 않지만, 당신을 기억할 것이다.",
     txt_hideout_abandoned: "은신처는 텅 비어 있다. 서둘러 짐을 챙겨 떠난 흔적뿐, 싸움의 자국은 없다. 도적단은 쓰러진 것이 아니라 흩어졌다.",
     txt_bandits_disperse: "원로는 도적단 잔당에게 사람을 보내 해산을 권한다. 두목은 더 이상 도적단의 일원이 아니다.",
     txt_market_reopens: "도적단이 흩어졌다는 소식에 상인들이 안도하며 은화 몇 닢을 사례한다.",
