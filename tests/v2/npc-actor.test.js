@@ -2,8 +2,9 @@
 // same Actor record a player character is (`buildActorFromTemplate`, `kind:"npc"`), created by
 // `createInitialState` from `data.npcs[id].actor`, under the same ID its relation edges already
 // use. No NPC engine, no new Condition/Effect/selector. The one thing that reads it now is the
-// confrontation check: its difficulty is opposed by the leader's own `wit` (base 14 + the leader's
-// stat modifier, 0 at wit 10 -- the old "hard", so the canonical play is unchanged). The pack
+// confrontation check: its difficulty is opposed by the leader's own stat (base 14 + the leader's
+// stat modifier, 0 at 10 -- the old "hard", so the canonical play is unchanged; the stat was `wit`,
+// WIS since V2-Core-51, D-80). The pack
 // version is bumped (Gate 2): a save of the previous pack is refused by D-68, never repaired.
 //
 // `.test.js`, not `.spec.js`: tests/v2/run.js runs every `*.js` directly under tests/v2/ and skips
@@ -38,7 +39,7 @@ const LEADER = {
   hp: { current: 10, max: 10 },
   money: 0,
   inventory: {},
-  growth: { growth_wanderer: { stats: { wit: 10 } } },
+  growth: { growth_wanderer: { stats: { str: 10, dex: 10, con: 10, int: 10, wis: 10, per: 10 } } }, // V2-Core-51
   tags: []
 };
 
@@ -69,7 +70,7 @@ function testSeeded() {
   assert.strictEqual(state.actors.player_1.kind, "player");
   assert.deepStrictEqual(state.player, { actorId: "player_1", characterCount: 1 });
   assert.deepStrictEqual(validateState(state), []);
-  state.actors.npc_bandit_leader.growth.growth_wanderer.stats.wit = 99;
+  state.actors.npc_bandit_leader.growth.growth_wanderer.stats.wis = 99;
   assert.deepStrictEqual(worldData, before, "the state does not share the template's objects");
 
   // D-48: a world without a start template has no actor system, so no NPC actor either
@@ -87,16 +88,16 @@ function testSameIdAsRelationEndpoint() {
   assert.deepStrictEqual(state.actors.npc_bandit_leader, LEADER, "playing the case does not touch the actor");
 }
 
-// 3. the confrontation is opposed by the leader's own wit: 14 at the template's wit 10 (the old
+// 3. the confrontation is opposed by the leader's own WIS (V2-Core-51; was `wit`): 14 at the template's 10 (the old
 // "hard"), and it follows the leader's stat
 function testOpposedConfrontation() {
   const before = run(start(), TO_CONFRONT).state;
   const confronted = step(before, CONFRONT, worldData);
   assert.strictEqual(checkOf(confronted).difficulty, 14);
 
-  const withLeaderWit = (wit) => {
+  const withLeaderWit = (wis) => {
     const s = structuredClone(before);
-    s.actors.npc_bandit_leader.growth.growth_wanderer.stats.wit = wit;
+    s.actors.npc_bandit_leader.growth.growth_wanderer.stats.wis = wis;
     return checkOf(step(s, CONFRONT, worldData)).difficulty;
   };
   assert.strictEqual(withLeaderWit(14), 16);

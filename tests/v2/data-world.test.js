@@ -83,7 +83,8 @@ function testCreateInitialStateFromWorldData() {
   assert.strictEqual(actor.hp.current, 10);
   assert.strictEqual(actor.hp.max, 10);
   assert.strictEqual(actor.money, 8);
-  assert.strictEqual(actor.growth.growth_wanderer.stats.wit, 8);
+  // V2-Core-51 (D-80): the six common stats replace `wit`, 8 each
+  assert.deepStrictEqual(actor.growth.growth_wanderer.stats, { str: 8, dex: 8, con: 8, int: 8, wis: 8, per: 8 });
 }
 
 testCreateInitialStateFromWorldData();
@@ -173,7 +174,7 @@ function testCanonicalPlaythrough() {
   // §8.4: the hidden fact must never leak into view()
   const playerView = view(finalState, worldData);
   assert.deepStrictEqual(playerView.knowledge.rum_ruins_secret, confirmed, "view() shows the player's own knowledge entry as stored");
-  assert.strictEqual(playerView.actor.growth.growth_wanderer.stats.wit, 8);
+  assert.strictEqual(playerView.actor.growth.growth_wanderer.stats.int, 8); // V2-Core-51: the investigation's stat (was `wit`)
   assert.ok(!("facts" in playerView));
 }
 

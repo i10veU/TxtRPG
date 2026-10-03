@@ -73,7 +73,7 @@ test.describe("V2 world data pack (real content, real IndexedDB)", () => {
 
     // §8.4: the hidden fact must never leak into view()
     expect(result.view.facts).toBeUndefined();
-    expect(result.view.actor.growth.growth_wanderer.stats.wit).toBe(8);
+    expect(result.view.actor.growth.growth_wanderer.stats.int).toBe(8); // V2-Core-51: the investigation's stat (was `wit`)
     expect(result.view.actions.find((a) => a.actionId === "act_confront_leader").available).toBe(true);
 
     expect(pageErrors).toEqual([]);
