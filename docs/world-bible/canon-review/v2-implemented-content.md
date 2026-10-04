@@ -153,3 +153,13 @@ ID는 저장 파일에 남으므로 게임 쪽에서 바꾸기 어렵다. **정�
 | `act_walk_royal_market` | 왕도의 큰 시장을 둘러봄 (관찰만, 값 없음). 큰 장의 기간에는 그 자리에서 큰 장을 봄 (`rum_realm_fair` 관찰) | 가장 큰 시장은 **Canon WB-0011**. 서술은 Provisional. 시장의 내부 구조는 소유자 보류 |
 | `act_read_royal_records` | 왕도에 내걸린 글을 읽음. 먼 국경의 소란은 서로 다른 글로 (주장), 남쪽 변경은 어디에도 없음 | 글이 내걸리는 곳은 **Canon DC-07** (WB-0024). 누가 관리하는가는 미결. 국경의 진실은 소유자 보류 (WB-0012). 서술은 Provisional |
 
+## RPG Depth 1 — 길 위의 이름 (Master Goal #226)
+
+새 정본 없음. 모두 캐릭터의 것(관계·특성·장비)이거나 게임 값이다.
+
+| ID | 무엇 | 처리 |
+|---|---|---|
+| `GUILD_KNOWS` / `GUILD_REMEMBERS` | 좋은 호위가 상단 조합 서기와의 평판(`npc_guild_clerk → self`)을 쌓고, 아는 호위는 은화 한 닢을 더 받음 | 평판은 플레이가 정하는 역사이자 캐릭터의 것(D-71). 서기의 말은 Provisional. 수치는 게임 값 |
+| `road_wound` / `act_treat_road_wound` | 실패한 호위가 남기는 상처(combat -2), 연고로만 닫힘 | 상처는 캐릭터의 것. 수치·치료는 게임 값 |
+| `item_leather_jerkin` | 성읍에서 파는 가죽 조끼 (`body` 칸, combat +1) | Provisional 유지(정본화 불필요). 값·수정치는 게임 값 |
+
