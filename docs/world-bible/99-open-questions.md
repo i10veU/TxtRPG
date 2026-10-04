@@ -44,7 +44,7 @@
 |---|---|---|---|---|
 | Q-12 | `docs/world-continuity-rules` 브랜치의 `docs/world/world-continuity.md`를 `main`에 병합하고 정본 원칙으로 채택할 것인가 | A | `01-foundations/world-continuity.md` | **결정: WB-0005** (정본 원칙으로 채택, 두 명확화). 남은 것: 원문의 `main` 병합, 새 생이 일어나는 세계 안의 이유 |
 | Q-13 | 기존 문서의 등급 매김(WB-0002)과 구현 설정의 처리 방침(WB-0003)을 승인하는가 | A | `00-governance/decision-log.md` | **결정: WB-0004** (승인 + "새 설정이 없는 작업" 단서) |
-| Q-14 | `canon-review/v2-implemented-content.md`의 항목을 어떤 순서로 검토할 것인가 (제안: 지역 이름·정치 구조 → 상단의 소식 → 인물) | A | `canon-review/v2-implemented-content.md` | **결정: WB-0006** (제약 우선 순서). 4단계(구현 항목 검토) 완료: **WB-0015**. 다음: 5단계 — 소유자 지시 대기 |
+| Q-14 | `canon-review/v2-implemented-content.md`의 항목을 어떤 순서로 검토할 것인가 (제안: 지역 이름·정치 구조 → 상단의 소식 → 인물) | A | `canon-review/v2-implemented-content.md` | **결정: WB-0006** (제약 우선 순서). 4단계(구현 항목 검토) 완료: **WB-0015**. 5단계 추천: `canon-review/stage5-expansion-recommendations.md` (`Draft`, 승인 대기) |
 
 ## 메가월드 (WB-0014 범위 밖 — 의도적으로 미룸)
 
