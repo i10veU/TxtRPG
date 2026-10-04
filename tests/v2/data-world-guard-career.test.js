@@ -1,14 +1,17 @@
 // V2-Core-95 (#226, RPG Depth 1, step 4 -- integrated: a name on the road): a guard's career in natural play,
 // through the ordinary step() API and the real pack -- no stats edited. No new rule.
-//   1. the honoured scout of Slice 3 (integrated-36) guards the caravans: two good escorts make the guild know her;
-//      the third fails -- no bonus, a road wound. Home, the village that honoured her sells the salve cheap; rest
-//      does not close the wound, the salve does;
-//   2. the same career, but with the silver earned she buys the jerkin and wears it before the third escort: the
-//      same roll now succeeds -- the known guard's bonus, and no wound. The gear decision changes the outcome;
+//   1. the honoured scout of Slice 3 (integrated-36) guards the caravans: two good escorts make the guild know her,
+//      and teach her (V2-Core-99: the escort's practice is `combat`'s, which ranks swordsmanship -- D-81). The third
+//      escort succeeds on that rank alone: a known guard's pay, no wound. Against the counterfactual -- the same
+//      third escort for a guard the road had not taught (her practice as it stood before the first escort; the
+//      only edited state here) -- the same roll fails: no bonus, a road wound. Home, the village that honoured her
+//      sells the salve cheap; rest does not close the wound, the salve does;
+//   2. with the silver earned she buys the jerkin and wears it before the third escort: the same roll one point
+//      steadier (the practice already decided it). For the untaught guard the jerkin is what turns the failure;
 //   3. a weak wanderer (history-41): every escort fails; the first wounds, the second kills. The successor carries
 //      no wound and no standing, but the world remembers its hired guards;
 //   4. save/load in the middle of the career, and determinism.
-// Standing, wounds and gear are the character's; counts of hired guards are the world's. All values are gameplay
+// Standing, wounds, practice and gear are the character's; counts of hired guards are the world's. All values are gameplay
 // values; no Canon.
 //
 // `.test.js`, not `.spec.js`: tests/v2/run.js runs every `*.js` directly under tests/v2/ and skips
@@ -65,6 +68,10 @@ function play(state, actions) {
 const me = (s) => s.actors[s.player.actorId];
 const traits = (s) => me(s).growth?.growth_wanderer?.traits ?? {};
 const standing = (s) => s.relations?.[`npc_guild_clerk:${s.player.actorId}`]?.score;
+const growthOf = (s) => me(s).growth.growth_wanderer;
+// the counterfactual: the road teaches nothing -- her combat practice and swordsmanship rank as before the first escort
+const untaught = (s, before) => { const c = structuredClone(s); growthOf(c).proficiency.combat = growthOf(before).proficiency.combat; growthOf(c).skills.swordsmanship = growthOf(before).skills.swordsmanship; return c; };
+const skillMod = (c) => c.modifiers.find((m) => m.source === "skill:swordsmanship")?.value ?? 0;
 const lastCheck = (r) => r.log.map((x) => x.events.find((e) => e.type === "check.resolved")).filter(Boolean).at(-1).data;
 
 const scoutInTown = play(createInitialState({ worldSeed: "integrated-36", data: worldData, templateId: "start_scout" }).state, [...SCOUT_HONOURED, ...SCOUT_TO_TOWN]).state;
@@ -82,13 +89,34 @@ const known = (() => {
   return play(second.state, BACK_AND_WAIT).state;
 })();
 
-// 1. the third escort fails: no bonus, a wound; home, a cheap salve closes it, rest does not
-function testWounded() {
+// 1. the road taught her: the third escort succeeds; untaught, the same roll fails -- a wound; home, a cheap salve closes it
+function testTaught() {
   assert.strictEqual(standing(known), 10, "known to the guild after two good escorts");
+  assert.strictEqual(growthOf(scoutInTown).skills.swordsmanship, 1, "the leader fight's rank");
+  assert.strictEqual(growthOf(known).proficiency.combat - growthOf(scoutInTown).proficiency.combat, 20, "two good escorts: 10 each");
+  assert.strictEqual(growthOf(known).skills.swordsmanship, 2, "the road taught her a rank");
   const before = me(known).money;
   const third = play(known, ESCORT);
   const c = lastCheck(third);
-  assert.strictEqual(c.tier, "partial", "the third escort fails (no partial outcome: the failure's)");
+  assert.strictEqual(skillMod(c), 2);
+  assert.strictEqual(c.tier, "success", "the rank the road taught decides it");
+  assert.strictEqual(c.margin, 0);
+  assert.ok(third.said.includes("txt_escort_known_bonus"), "a known guard's pay");
+  assert.strictEqual(me(third.state).money - before, 5, "4 and the bonus");
+  assert.ok(!traits(third.state).road_wound, "no wound");
+  assert.strictEqual(standing(third.state), 15);
+  return third.state;
+}
+
+// 1b. the counterfactual: untaught, the third escort fails; rest does not close the wound, the village's cheap salve does
+function testUntaughtWounded() {
+  const raw = untaught(known, scoutInTown);
+  const before = me(raw).money;
+  const third = play(raw, ESCORT);
+  const c = lastCheck(third);
+  assert.strictEqual(skillMod(c), 1);
+  assert.strictEqual(c.total, lastCheck(play(known, ESCORT)).total - 1, "the same roll, one rank less");
+  assert.strictEqual(c.tier, "partial", "untaught, the third escort fails (no partial outcome: the failure's)");
   assert.ok(!third.said.includes("txt_escort_known_bonus"), "no bonus for a failure");
   assert.strictEqual(me(third.state).money - before, 1, "the failure's pay");
   assert.ok(traits(third.state).road_wound, "a road wound");
@@ -100,10 +128,9 @@ function testWounded() {
   assert.ok(treated.said.includes("txt_treat_road_wound"));
   assert.ok(!traits(treated.state).road_wound, "closed");
   assert.strictEqual(me(treated.state).inventory.item_herbal_salve ?? 0, 0, "the salve is used up");
-  return treated.state;
 }
 
-// 2. the same career with the jerkin bought from her earnings: the third escort succeeds
+// 2. the jerkin bought from her earnings: the same roll one point steadier; for the untaught guard it turns the failure
 function testGear() {
   assert.ok(me(known).money >= 3, "two escorts paid for it");
   const geared = play(known, BUY_JERKIN).state;
@@ -113,11 +140,18 @@ function testGear() {
   const third = play(geared, ESCORT);
   const c = lastCheck(third);
   assert.deepStrictEqual(c.modifiers.find((m) => m.source === "item:item_leather_jerkin"), { source: "item:item_leather_jerkin", value: 1 });
-  assert.strictEqual(c.tier, "success", "the same roll, one point steadier, succeeds");
+  assert.strictEqual(c.tier, "success");
+  assert.strictEqual(c.margin, 1, "one point steadier than without it");
   assert.ok(third.said.includes("txt_escort_known_bonus"), "a known guard's pay");
   assert.strictEqual(me(third.state).money - before, 5, "4 and the bonus");
   assert.ok(!traits(third.state).road_wound, "no wound");
   assert.strictEqual(standing(third.state), 15);
+  // untaught, the jerkin is what turns the failure
+  const rawGeared = play(untaught(known, scoutInTown), BUY_JERKIN).state;
+  const rawThird = play(rawGeared, ESCORT);
+  assert.strictEqual(lastCheck(rawThird).tier, "success", "untaught, the jerkin turns the failure");
+  assert.strictEqual(lastCheck(rawThird).margin, 0);
+  assert.ok(!traits(rawThird.state).road_wound);
 }
 
 // 3. a weak wanderer: the road wounds, then kills; the successor carries nothing personal
@@ -151,7 +185,8 @@ function testSaveAndDeterminism() {
   assert.deepStrictEqual(again, end, "the same input, the same world");
 }
 
-testWounded();
+testTaught();
+testUntaughtWounded();
 testGear();
 testWanderer();
 testSaveAndDeterminism();

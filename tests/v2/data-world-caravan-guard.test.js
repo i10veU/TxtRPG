@@ -3,9 +3,9 @@
 //   the merchants' guild clerk in the castle town (a dialogue NPC, no actor) hires guards for the caravans
 //   (World Bible delegated decision WB-0021). The escort is a STR check with the swordsmanship skill and
 //   costs 2 stamina whatever comes of it; it pays by tier (a failure still pays a little but wounds), it
-//   practises swordsmanship, and it ends at the far bank with the caravan. One guard per caravan: the world
-//   cannot hire more guards than caravans have come (`guards_hired` < `caravan_visits`). Who guarded is
-//   player-dependent history; pay, difficulty, costs and time are gameplay values.
+//   practises swordsmanship (the `combat` proficiency, since V2-Core-99), and it ends at the far bank with the
+//   caravan. One guard per caravan: the world cannot hire more guards than caravans have come (`guards_hired` <
+//   `caravan_visits`). Who guarded is player-dependent history; pay, difficulty, costs and time are gameplay values.
 //
 // `.test.js`, not `.spec.js`: tests/v2/run.js runs every `*.js` directly under tests/v2/ and skips
 // `*.spec.js`. node:assert/strict only (§13.1).
@@ -89,7 +89,10 @@ function testEscort() {
     const pay = { great: 6, success: 4, fail: 1 }[tier];
     const practice = { great: 10, success: 10, fail: 5 }[tier];
     assert.strictEqual(me(done.state).money, me(before).money + pay, `pay on ${tier}`);
-    assert.strictEqual(growth(done.state).proficiency.swordsmanship - (growth(before).proficiency?.swordsmanship ?? 0), practice, `practice on ${tier}`);
+    // V2-Core-99: the practice is `combat`'s, the proficiency that ranks swordsmanship (D-81) -- it wrote a dead
+    // `swordsmanship` proficiency until then
+    assert.strictEqual(growth(done.state).proficiency.combat - (growth(before).proficiency?.combat ?? 0), practice, `practice on ${tier}`);
+    assert.strictEqual(growth(done.state).proficiency.swordsmanship, undefined, "no dead entry");
     assert.strictEqual(growth(done.state).resources.stamina.current, growth(before).resources.stamina.current - 2, "2 stamina, whatever comes of it");
     assert.strictEqual(me(done.state).hp.current, me(before).hp.current - (tier === "fail" ? 3 : 0), `wounds on ${tier}`);
     assert.strictEqual(me(done.state).locationId, "loc_far_bank", "the escort ends at the far bank");
