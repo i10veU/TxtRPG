@@ -23,7 +23,7 @@
 | Q-6 | 왕국의 이름과 정치 구조, 변경을 다스리는 영주는 누구인가 | A | `04-peoples-and-factions/factions.md` | 징집령(`fact_realm_levy`)의 주체 — **결정: WB-0010** (왕국, 성을 가진 영주들, 강까지의 영주권, 변경의 사실상 자치). 남은 것: 이름, 왕조, 왕권의 성격 |
 | Q-7 | 왕도는 어떤 곳인가 ("북쪽으로 닷새", "큰 장"만 구현됨) | A | `04-peoples-and-factions/factions.md`, `03-geography/frontier-region.md` | `fact_royal_city`, `fact_realm_fair` — **결정: WB-0011** (왕권의 자리, 가장 큰 시장, 북쪽 닷새). 남은 것: 이름·규모·구조·세력 (도시 단계) |
 | Q-8 | "국경의 소란"은 어느 국경에서, 누구와의 갈등인가 | A | `04-peoples-and-factions/factions.md` | `fact_realm_unrest` — **결정: WB-0012 (범위 제한)** — 먼 국경의 분쟁은 존재한다, 그것뿐. 남은 것: 원인·참여자·진실·결과, 남쪽 변경의 더 남쪽 |
-| Q-9 | 남쪽 변경 지역과 그 마을들, 강의 이름. 이름 없는 "변경"이 의도인가 | A | `03-geography/frontier-region.md` | 모든 장소 이름이 일반명사 — **결정: WB-0013** (명명 원칙). 남은 것: 실제 이름들, 명명 언어 |
+| Q-9 | 남쪽 변경 지역과 그 마을들, 강의 이름. 이름 없는 "변경"이 의도인가 | A | `03-geography/frontier-region.md` | 모든 장소 이름이 일반명사 — **결정: WB-0013** (명명 원칙). 남은 것: 실제 이름들, 명명 언어. 명명 지침 추천: `canon-review/naming-guidelines-recommendations.md` (`Draft`, 승인 대기) |
 
 ## 「무명의 연대기」
 
@@ -44,7 +44,7 @@
 |---|---|---|---|---|
 | Q-12 | `docs/world-continuity-rules` 브랜치의 `docs/world/world-continuity.md`를 `main`에 병합하고 정본 원칙으로 채택할 것인가 | A | `01-foundations/world-continuity.md` | **결정: WB-0005** (정본 원칙으로 채택, 두 명확화). 남은 것: 원문의 `main` 병합, 새 생이 일어나는 세계 안의 이유 |
 | Q-13 | 기존 문서의 등급 매김(WB-0002)과 구현 설정의 처리 방침(WB-0003)을 승인하는가 | A | `00-governance/decision-log.md` | **결정: WB-0004** (승인 + "새 설정이 없는 작업" 단서) |
-| Q-14 | `canon-review/v2-implemented-content.md`의 항목을 어떤 순서로 검토할 것인가 (제안: 지역 이름·정치 구조 → 상단의 소식 → 인물) | A | `canon-review/v2-implemented-content.md` | **결정: WB-0006** (제약 우선 순서). 4단계(구현 항목 검토) 완료: **WB-0015**. 5단계: **WB-0016** (N-01 ~ N-08). 미결 O-01 ~ O-20은 `canon-review/stage5-expansion-recommendations.md` §12.3. 다음: 명명 지침 |
+| Q-14 | `canon-review/v2-implemented-content.md`의 항목을 어떤 순서로 검토할 것인가 (제안: 지역 이름·정치 구조 → 상단의 소식 → 인물) | A | `canon-review/v2-implemented-content.md` | **결정: WB-0006** (제약 우선 순서). 4단계(구현 항목 검토) 완료: **WB-0015**. 5단계: **WB-0016** (N-01 ~ N-08). 미결 O-01 ~ O-20은 `canon-review/stage5-expansion-recommendations.md` §12.3. 다음: 명명 지침 (추천 작성됨, 승인 대기) |
 
 ## 메가월드 (WB-0014 범위 밖 — 의도적으로 미룸)
 
