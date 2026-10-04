@@ -84,7 +84,8 @@ function testChecksReadSkills() {
     evt_spring_miasma: [null, null],
     act_gather_herbs: ["herbalism", null], // V2-Core-65
     act_read_milestone: ["investigation", null], // V2-Core-72
-    act_search_crossroads: ["investigation", null]
+    act_search_crossroads: ["investigation", null],
+    "choice_guild_clerk_dialogue.opt_guild_clerk_escort": ["swordsmanship", null] // V2-Core-78: the caravan guard
   });
 }
 
