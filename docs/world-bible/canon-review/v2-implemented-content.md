@@ -121,4 +121,6 @@ ID는 저장 파일에 남으므로 게임 쪽에서 바꾸기 어렵다. **정�
 | `act_read_castle_notices` | 영주의 포고(원천에서), 상단이 나른 뒤에만 닿는 변경의 전설, 이름 없는 별칭 | 포고판 **Canon DC-02**, 소식의 경로 **Canon DC-03**. 전해지는 이야기는 세계 안의 믿음. 신뢰도는 게임 값 |
 | `npc_town_merchant` | 성읍의 상인 (대화 전용, actor 아님) | 상인이 있다는 것은 **Canon DC-04** (WB-0020). 역할의 세부는 Provisional |
 | `choice_town_merchant_dialogue` | 강 남쪽 물건에 대한 상인의 말, 정화초를 삼(4), 철검을 팖(2) | 상인의 말은 세계 안의 주장. 값은 게임 값 |
+| `npc_guild_clerk` | 상단 조합의 서기 (대화 전용, actor 아님) | 상단 조합이 성읍에서 호위를 구한다는 것은 **Canon DC-05** (WB-0021). 직책은 Provisional |
+| `choice_guild_clerk_dialogue` | 호위 일 (상단 한 번에 하나, 힘·검술 판정, 강 건너 길목에서 끝남) | 누가 맡았는가는 플레이가 정하는 역사. 품삯·난이도·비용·시간·제한은 게임 값 |
 
