@@ -3,6 +3,7 @@
 > 이 질문들은 World Bible이 **스스로 정하지 않는다.** 답이 정해지면 `00-governance/decision-log.md`에 WB 번호로 기록하고,
 > 해당 문서의 등급을 바꾼다. 선택지가 적혀 있는 경우에도 그것은 예시일 뿐 제안된 정본이 아니다.
 > 우선순위: **A** = Slice 4 이후의 세계 확장 전에 필요, **B** = 다음 지역·시대를 쓰기 전에 필요, **C** = 나중에.
+> 우선순위 A 질문의 연구·대안·추천(`Draft`, 정본 아님): `canon-review/priority-a-recommendations.md`.
 
 ## 세계의 뼈대
 
