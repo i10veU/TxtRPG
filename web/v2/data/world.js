@@ -376,6 +376,10 @@ const LEADER_LIVES = { op: "alive", subject: "npc_bandit_leader" };
 const NEWS = (fact) => ({ op: "fact", fact, eq: "known" });
 // V2-Core-76 (#189): the frontier's news travels north only with the caravans (World Bible WB-0019)
 const CARAVANS_WENT_NORTH = { op: "signal", key: "caravan_visits", min: 1 };
+// V2-Core-86 (#207): while the royal fair is the realm's latest news -- the second caravan brought it, the third
+// brings the unrest -- flour fetches more in the castle town (a world count, as GUARD_WANTED reads; a fact
+// Condition may not gate a player's option, D-06)
+const FAIR_TIME = { op: "signal", key: "caravan_visits", eq: 2 };
 // V2-Core-82 (#198): and the town's talk comes back south with the next caravan (a round trip)
 const NORTH_TALK_BACK = { op: "signal", key: "caravan_visits", min: 2 };
 // what the north says of a frontier story: the corrected account once it reached the town, the legend
@@ -1466,7 +1470,11 @@ export const worldData = {
             {
               op: "if",
               when: HAMLET_TRADES,
-              then: [{ op: "if", when: { op: "signal", key: "town_flour_wanted", min: 1 }, then: [say("txt_town_merchant_flour_wanted")], else: [say("txt_town_merchant_flour_enough")] }]
+              then: [
+                { op: "if", when: { op: "signal", key: "town_flour_wanted", min: 1 }, then: [say("txt_town_merchant_flour_wanted")], else: [say("txt_town_merchant_flour_enough")] },
+                // V2-Core-86 (#207): and why it is dear now
+                { op: "if", when: FAIR_TIME, then: [say("txt_town_merchant_flour_fair")] }
+              ]
             }
           ]
         },
@@ -1487,8 +1495,15 @@ export const worldData = {
         {
           id: "opt_town_merchant_sell_flour",
           name: "밀가루 자루를 판다 (은화 4)",
-          requires: { op: "and", of: [HAMLET_TRADES, { op: "item", item: "item_flour_sack", min: 1 }, { op: "signal", key: "town_flour_wanted", min: 1 }] },
+          requires: { op: "and", of: [HAMLET_TRADES, { op: "item", item: "item_flour_sack", min: 1 }, { op: "signal", key: "town_flour_wanted", min: 1 }, { op: "not", of: FAIR_TIME }] },
           effects: [{ op: "item", item: "item_flour_sack", add: -1 }, { op: "money", add: 4 }, { op: "signal", key: "town_flour_wanted", add: -1 }, say("txt_town_merchant_buy_flour")]
+        },
+        // V2-Core-86 (#207): the fair's price -- the same want, the same sack, more silver
+        {
+          id: "opt_town_merchant_sell_flour_fair",
+          name: "밀가루 자루를 판다 (은화 6)",
+          requires: { op: "and", of: [HAMLET_TRADES, { op: "item", item: "item_flour_sack", min: 1 }, { op: "signal", key: "town_flour_wanted", min: 1 }, FAIR_TIME] },
+          effects: [{ op: "item", item: "item_flour_sack", add: -1 }, { op: "money", add: 6 }, { op: "signal", key: "town_flour_wanted", add: -1 }, say("txt_town_merchant_buy_flour_fair")]
         }
       ]
     },
@@ -2063,6 +2078,8 @@ export const worldData = {
     txt_town_merchant_buy_flour: "상인은 자루를 열어 밀가루를 손끝으로 비벼 본다. 강 남쪽 밀은 곱게 빻였다며 은화 네 닢을 내준다.",
     txt_town_merchant_flour_wanted: "밀가루도 가져오면 사겠다고 한다. 성읍 빵집들이 강 남쪽 밀을 찾는다고.",
     txt_town_merchant_flour_enough: "밀가루는 지난번에 들어온 것으로 당분간 넉넉하다고 한다. 상단이 몇 번 오가고 나면 다시 찾을 거라고.",
+    txt_town_merchant_flour_fair: "요즘은 밀가루 값이 올랐다고 한다. 왕도의 큰 장으로 상단들이 곡식을 실어 올라가는 통에 성읍에는 밀이 귀하다고.",
+    txt_town_merchant_buy_flour_fair: "상인은 자루를 반기며 은화 여섯 닢을 세어 준다. 큰 장이 끝나기 전에 더 가져오라고 한다.",
     txt_town_merchant_sell_sword: "상인에게 은화 두 닢을 건네고 새로 벼린 철검을 받는다.",
     txt_guild_clerk_work: "서기는 장부를 넘기며 말한다. 강나루로 내려가는 상단이 호위를 구한다고, 길이 험하니 칼을 쓸 줄 알면 좋겠다고 한다.",
     txt_guild_clerk_no_work: "서기는 고개를 젓는다. 지금 길에 오를 상단은 이미 호위를 구했으니 다음 상단을 기다리라고 한다.",
