@@ -28,7 +28,7 @@ main                    안정된 정식 기준
 | `03-geography/` | 지역·장소 항목 |
 | `04-peoples-and-factions/` | 조직·세력, 인물 |
 | `05-world-systems/` | 세계 속의 경제·능력·정보 체계 (사회적 의미) |
-| `canon-review/` | 게임에 이미 구현된 설정의 검토 목록, 미결 질문에 대한 추천(`Draft`) |
+| `canon-review/` | 게임에 이미 구현된 설정의 목록과 항목별 검토 추천, 미결 질문에 대한 추천 (모두 `Draft`, 결정은 `00-governance/decision-log.md`) |
 | `templates/` | 새 항목을 쓸 때 쓰는 양식 |
 | `99-open-questions.md` | 소유자의 결정이 필요한 질문 |
 
