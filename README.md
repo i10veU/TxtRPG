@@ -299,6 +299,7 @@ Core는 순수 함수 기반이며 브라우저/저장소 API에 직접 의존�
 - Vertical Slice 5 2단계 — 성읍의 시장 (성읍의 상인이 같은 물건을 다르게 침: 강 남쪽의 정화초는 물레방아 마을보다 비싸게 사고, 북쪽의 철검은 변경 장터보다 싸게 팖 — 길을 오갈 이유)
 - Vertical Slice 5 3단계 — 상단의 호위 (상단 조합의 서기가 상단마다 호위 하나를 구함: STR + 검술 판정, 스태미나 2, 단계별 품삯과 검술 숙련, 상단과 함께 강 건너 길목까지 — 다음 상단이 올 때까지 일은 없음)
 - Vertical Slice 5 통합 검증 (경로 탐색 플레이 정책으로 변경에서 성읍까지 한 세계에서: 두목이 살아 있는 세계, 그 세계의 후계자, 감사받은 정찰자의 세계 — Node와 Chromium, save/load 포함)
+- Vertical Slice 6 「소식의 길」 1단계 — 바로잡힌 말이 북으로 (마을에서 바로잡힌 이야기도 길이 쓰이는 한 상단의 주기만큼 늦게 성읍에 닿고, 그 뒤 성읍의 포고판은 전설 대신 바로잡힌 말을 전함)
 - 판타지 공통 Stats STR / DEX / CON / INT / WIS / PER (조사 INT, 대면 WIS, 공격 STR, 받아치기 DEX — 모두 opposed 판정; 우물·샘 조사 PER, 독기 CON)
 - 첫 Combat (도적 두목과 싸운다: 교환마다 opposed 판정, 받아치기 Technique, 도주, 승리/패배의 세계 결과 — 전투 엔진 없이 choice/check/outcomes)
 - NPC Actor (도적 두목: player와 같은 Actor record, `kind:"npc"`; 두목 대면 판정이 그의 WIS에 대한 opposed check)
@@ -553,9 +554,9 @@ V2는 Node와 실제 Chromium 브라우저 양쪽에서 검증한다.
 
 최근 기준:
 
-- V2 Node: **52/52**
+- V2 Node: **53/53**
 - V1 regression: **41/41**
-- V2 browser: **87/87**
+- V2 browser: **88/88**
 
 각 RPG 기능도 관련 Node/browser/save-load/determinism 검증을 추가한다.
 
