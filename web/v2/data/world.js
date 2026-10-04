@@ -376,6 +376,21 @@ const LEADER_LIVES = { op: "alive", subject: "npc_bandit_leader" };
 const NEWS = (fact) => ({ op: "fact", fact, eq: "known" });
 // V2-Core-76 (#189): the frontier's news travels north only with the caravans (World Bible WB-0019)
 const CARAVANS_WENT_NORTH = { op: "signal", key: "caravan_visits", min: 1 };
+// V2-Core-82 (#198): and the town's talk comes back south with the next caravan (a round trip)
+const NORTH_TALK_BACK = { op: "signal", key: "caravan_visits", min: 2 };
+// what the north says of a frontier story: the corrected account once it reached the town, the legend
+// while the town still tells it (low confidence; it never overwrites what a character saw, D-14)
+const NORTH_ECHO = (story, fate, legend, truthText, taleText) => ({
+  op: "if",
+  when: { op: "flag", key: `${story}_truth_north` },
+  then: [{ op: "rumor", rumor: fate, source: "npc_ferryman", confidence: 50 }, say(truthText)],
+  else: [{ op: "if", when: { op: "signal", key: `${story}_tale_age`, min: 3 }, then: [{ op: "rumor", rumor: legend, source: "npc_ferryman", confidence: 30 }, say(taleText)] }]
+});
+// the village corrected a story the town still tells as the legend
+const NORTH_STILL_TELLS = (story) => ({
+  op: "and",
+  of: [NORTH_TALK_BACK, { op: "flag", key: `${story}_tale_corrected` }, { op: "not", of: { op: "flag", key: `${story}_truth_north` } }]
+});
 // V2-Core-78 (#189): one guard per caravan -- the world has hired fewer guards than caravans have come
 const GUARD_WANTED = {
   op: "or",
@@ -1297,7 +1312,9 @@ export const worldData = {
                   when: { op: "flag", key: "bandits_tale_corrected" },
                   then: [{ op: "narrate", textId: "txt_bandit_news_corrected" }],
                   else: [{ op: "narrate", textId: "txt_bandit_news" }]
-                }
+                },
+                // V2-Core-82 (#198): the north still tells the legend the village has corrected
+                { op: "if", when: NORTH_STILL_TELLS("bandits"), then: [say("txt_elder_north_legend")] }
               ]
             },
             ARROWS_IN_THE_ACCOUNT // V2-Core-68
@@ -1394,6 +1411,15 @@ export const worldData = {
                 say("txt_ferryman_scarred_man")
               ],
               else: [say("txt_ferryman_leader_fell")]
+            },
+            // V2-Core-82 (#198): the echo -- what the castle town says of the frontier, back with the caravans
+            {
+              op: "if",
+              when: NORTH_TALK_BACK,
+              then: [
+                NORTH_ECHO("bandits", "rum_bandits_fate", "rum_bandits_legend", "txt_ferryman_north_bandits_truth", "txt_ferryman_north_bandits_tale"),
+                NORTH_ECHO("well", "rum_well_fate", "rum_well_legend", "txt_ferryman_north_well_truth", "txt_ferryman_north_well_tale")
+              ]
             }
           ]
         },
@@ -1520,7 +1546,9 @@ export const worldData = {
                   then: [{ op: "rumor", rumor: "rum_well_legend", source: "src_market_legend", confidence: 40 }, say("txt_herbalist_well_legend")],
                   else: [
                     { op: "rumor", rumor: "rum_well_fate", source: "npc_herbalist", confidence: 70 },
-                    { op: "if", when: { op: "flag", key: "well_tale_corrected" }, then: [say("txt_herbalist_well_corrected")], else: [say("txt_herbalist_sickness_passed")] }
+                    { op: "if", when: { op: "flag", key: "well_tale_corrected" }, then: [say("txt_herbalist_well_corrected")], else: [say("txt_herbalist_sickness_passed")] },
+                    // V2-Core-82 (#198): the north still tells the legend the market has corrected
+                    { op: "if", when: NORTH_STILL_TELLS("well"), then: [say("txt_herbalist_north_legend")] }
                   ]
                 }
               ],
@@ -1883,6 +1911,7 @@ export const worldData = {
     txt_leader_old_wound: "원로는 주위를 살피고 낮게 말한다. 두목은 젊은 시절 왼쪽 옆구리에 깊은 상처를 입었고, 그 뒤로 그쪽을 늘 감싼다고 한다.",
     txt_confront_backed: "마을 사람들이 당신 뒤에 서 있다는 사실이 도적 두목을 더욱 흔든다.",
     txt_bandit_news: "원로는 폐허의 도적단이 흩어졌다는 소식을 들려준다. 마을 사람들 사이에서 그 이야기는 오래 회자된다.",
+    txt_elder_north_legend: "원로는 덧붙인다. 상단 사람들 말로는 강 건너 성읍에선 아직도 도적들이 모두 쓰러졌다고들 한다고, 고친 이야기가 그곳까지 가려면 아직 멀었다고 한다.",
     txt_bandit_legend: "원로는 이제 마을에서 전해지는 이야기를 들려준다. 폐허의 도적단이 마을 사람들 손에 모두 쓰러졌다는 전설이다.",
     txt_correct_legend: "당신은 폐허에서 본 것을 원로에게 전한다. 원로는 한참을 생각하더니, 앞으로는 있었던 그대로 전하겠다고 말한다.",
     txt_bandit_news_corrected: "원로는 마을의 전설 대신, 도적단이 쓰러진 것이 아니라 흩어졌다는 사실을 들려준다. 누군가 폐허에서 그것을 직접 보았다고 한다.",
@@ -1933,6 +1962,7 @@ export const worldData = {
     txt_search_spring_purified: "샘은 맑고 고요하다. 바위 틈 아래 새로 덮은 흙과 정화제의 쌉쌀한 냄새가, 누군가 이곳을 손수 정화했음을 말해 준다.",
     txt_herbalist_well_legend: "약초꾼은 시장에 도는 이야기를 들려준다. 마을 사람들이 제물을 바치자 노한 샘의 정령이 누그러졌다는 것이다.",
     txt_herbalist_correct_legend: "당신이 샘에서 본 것을 전하자 약초꾼은 고개를 끄덕인다. 정령이 아니라 사람이 한 일이었다고, 앞으로는 그렇게 전하겠다고 한다.",
+    txt_herbalist_north_legend: "약초꾼은 덧붙인다. 북쪽 성읍에선 아직도 샘의 정령이 제물을 받고 누그러졌다고들 한다더라고.",
     txt_herbalist_well_corrected: "약초꾼은 시장의 정령 이야기 대신, 누군가 샘에서 사체를 치우고 정화제를 부었다는 사실을 들려준다. 직접 본 사람이 있다고 한다.",
     txt_village_honor: "원로는 마을 사람들을 모아 당신 앞에 선다. 도적을 몰아내고 샘을 되살린 이에게 마을의 이름으로 감사한다고, 이제 이 마을은 당신의 편이라고 말한다.",
     txt_small_talk_honored_memory: "원로는 마을이 이름을 걸고 감사했던 방랑자 이야기를 꺼낸다. 마을 사람들은 아직도 그 이야기를 한다고 한다.",
@@ -1965,6 +1995,10 @@ export const worldData = {
     txt_ferryman_unrest: "뱃사공은 얼굴을 찌푸린다. 국경이 소란스럽다는 소식이 상단을 따라 내려왔다고, 강 건너 분위기가 예전 같지 않다고 한다.",
     txt_ferryman_scarred_man: "그는 목소리를 낮춘다. 도적들이 흩어진 뒤 옆구리를 감싼 사내 하나를 건네 주었다고, 은화를 두 배로 쳐주며 아무것도 묻지 말라 했다고 한다.",
     txt_ferryman_leader_fell: "그는 폐허의 두목이 쓰러졌다는 이야기를 강 건너 사람들도 벌써 안다고 한다. 소문은 배보다 빨리 강을 건넌다며 웃는다.",
+    txt_ferryman_north_bandits_tale: "돌아온 상단이 성읍에서 들은 말도 전해 준다. 그쪽에선 폐허의 도적 떼가 마을 사람들 손에 모두 쓰러졌다고들 한단다.",
+    txt_ferryman_north_bandits_truth: "돌아온 상단 말로는 성읍에서도 이제 고쳐 말한다고 한다. 폐허의 도적들은 다 쓰러진 게 아니라 흩어졌다고.",
+    txt_ferryman_north_well_tale: "샘 이야기도 북쪽에선 정령이 노했다가 제물을 받고 누그러졌다는 말로 돈다고 한다.",
+    txt_ferryman_north_well_truth: "샘 이야기도 성읍에선 바로잡혔다고 한다. 정령이 아니라 누군가 사체를 치우고 정화제를 부어 살렸다고.",
     txt_ferryman_cross: "은화 세 닢을 건네자 뱃사공이 밧줄을 푼다. 잿빛 강물을 가르며 배가 건너편으로 나아간다.",
     txt_ferryman_cross_letter: "원로의 편지를 읽은 뱃사공은 뱃삯을 받지 않고 밧줄을 푼다. 변경 마을 원로의 부탁이라면 얼마든지라고 한다.",
     txt_elder_letter: "원로는 낡은 양피지에 몇 줄을 적고 인장을 눌러 건넨다. 강나루의 뱃사공은 이 편지를 알아볼 거라고 한다.",
