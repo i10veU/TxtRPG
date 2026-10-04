@@ -65,7 +65,7 @@ function testClerk() {
   assert.strictEqual(town.signals.guards_hired, undefined);
   const farBank = run(town, [M("loc_far_bank")]).state;
   assert.strictEqual(rejected(farBank, P("act_talk_guild_clerk")), "requirements_not_met", "in the castle town");
-  assert.deepStrictEqual(texts(run(town, CLERK("opt_guild_clerk_ask")).log[1]), ["txt_guild_clerk_work"]);
+  assert.deepStrictEqual(texts(run(town, CLERK("opt_guild_clerk_ask")).log[1])[0], "txt_guild_clerk_work"); // V2-Core-97: then the clerk's assessment
   const noCaravan = structuredClone(town);
   delete noCaravan.signals.caravan_visits;
   assert.deepStrictEqual(texts(run(noCaravan, CLERK("opt_guild_clerk_ask")).log[1]), ["txt_guild_clerk_no_work"]);

@@ -1607,7 +1607,18 @@ export const worldData = {
           effects: [
             { op: "if", when: GUARD_WANTED, then: [say("txt_guild_clerk_work")], else: [say("txt_guild_clerk_no_work")] },
             // V2-Core-92 (#226): a guard the guild knows
-            { op: "if", when: GUILD_KNOWS, then: [say("txt_guild_clerk_knows_you")] }
+            { op: "if", when: GUILD_KNOWS, then: [say("txt_guild_clerk_knows_you")] },
+            // V2-Core-97 (#237): the clerk sizes up a guard before the road -- what the player can judge by; the risk
+            // itself is unchanged (a failed escort costs 3 hp and may wound)
+            {
+              op: "if",
+              when: GUARD_WANTED,
+              then: [
+                { op: "if", when: { op: "lte", left: { hp: "current" }, right: 3 }, then: [say("txt_guild_clerk_too_hurt")] },
+                { op: "if", when: ROAD_WOUND, then: [say("txt_guild_clerk_sees_wound")] },
+                { op: "if", when: { op: "not", of: { op: "item", item: "item_leather_jerkin", equipped: true } }, then: [say("txt_guild_clerk_no_leather")] }
+              ]
+            }
           ]
         },
         {
@@ -2200,6 +2211,9 @@ export const worldData = {
     txt_town_merchant_sell_jerkin: "상인은 두꺼운 가죽 조끼를 내민다. 상단 호위들이 즐겨 입는 것이라며, 칼끝 하나쯤은 막아 준다고 한다.",
     txt_equip_leather_jerkin: "가죽 조끼를 입고 끈을 단단히 조인다. 몸이 조금 무거워지는 대신 든든하다.",
     txt_unequip_leather_jerkin: "가죽 조끼를 벗어 둔다.",
+    txt_guild_clerk_too_hurt: "서기는 당신을 위아래로 훑어본다. 그 몸으로 길에 나섰다가 일이 틀어지면 돌아오지 못할 수도 있다고, 먼저 쉬고 오라고 한다.",
+    txt_guild_clerk_sees_wound: "서기는 옆구리를 감싼 당신의 손을 본다. 상처를 안고 칼을 들면 둔해진다고, 약초 연고부터 바르라고 한다.",
+    txt_guild_clerk_no_leather: "상단 호위들은 대개 가죽 조끼를 걸친다고 서기가 덧붙인다. 성읍 상인에게 가면 구할 수 있다고.",
     txt_town_merchant_sell_sword: "상인에게 은화 두 닢을 건네고 새로 벼린 철검을 받는다.",
     txt_guild_clerk_work: "서기는 장부를 넘기며 말한다. 강나루로 내려가는 상단이 호위를 구한다고, 길이 험하니 칼을 쓸 줄 알면 좋겠다고 한다.",
     txt_guild_clerk_no_work: "서기는 고개를 젓는다. 지금 길에 오를 상단은 이미 호위를 구했으니 다음 상단을 기다리라고 한다.",
