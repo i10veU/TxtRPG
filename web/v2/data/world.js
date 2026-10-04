@@ -1090,6 +1090,17 @@ export const worldData = {
       requires: { op: "item", item: "item_iron_sword", equipped: true },
       effects: [{ op: "unequip", item: "item_iron_sword" }, { op: "narrate", textId: "txt_unequip_iron_sword" }]
     },
+    // V2-Core-94 (#226): wearing the jerkin is a choice of its own, as wielding the sword is
+    act_equip_leather_jerkin: {
+      name: "가죽 조끼를 입는다",
+      requires: { op: "and", of: [{ op: "item", item: "item_leather_jerkin", min: 1 }, { op: "not", of: { op: "item", item: "item_leather_jerkin", equipped: true } }] },
+      effects: [{ op: "equip", item: "item_leather_jerkin" }, say("txt_equip_leather_jerkin")]
+    },
+    act_unequip_leather_jerkin: {
+      name: "가죽 조끼를 벗는다",
+      requires: { op: "item", item: "item_leather_jerkin", equipped: true },
+      effects: [{ op: "unequip", item: "item_leather_jerkin" }, say("txt_unequip_leather_jerkin")]
+    },
     act_talk_elder: {
       name: "원로와 대화",
       requires: { op: "location", at: "loc_village" },
@@ -1554,6 +1565,13 @@ export const worldData = {
           requires: { op: "money", min: 2 },
           effects: [{ op: "money", add: -2 }, { op: "item", item: "item_iron_sword", add: 1 }, say("txt_town_merchant_sell_sword")]
         },
+        // V2-Core-94 (#226): a jerkin for the road -- one is enough
+        {
+          id: "opt_town_merchant_buy_jerkin",
+          name: "가죽 조끼를 산다 (은화 3)",
+          requires: { op: "and", of: [{ op: "money", min: 3 }, { op: "not", of: { op: "item", item: "item_leather_jerkin", min: 1 } }] },
+          effects: [{ op: "money", add: -3 }, { op: "item", item: "item_leather_jerkin", add: 1 }, say("txt_town_merchant_sell_jerkin")]
+        },
         // V2-Core-84 (#207): frontier flour sells in the town too (World Bible WB-0022 DC-06) -- the hamlet's
         // trade flour only (an errand's sack for the elder exists only before the settlements trade)
         {
@@ -1916,6 +1934,8 @@ export const worldData = {
     // equipped (the lantern and the relic have no slot: held is enough, D-10). No modifier: what
     // wielding it changes is a technique (choice_fight_leader.opt_fight_sword_cut)
     item_iron_sword: { name: "철검", slot: "hand" },
+    // V2-Core-94 (#226): gear for the road -- worn, it steadies every combat check (counts only while equipped)
+    item_leather_jerkin: { name: "가죽 조끼", slot: "body", modifiers: [{ tags: ["combat"], value: 1 }] },
     // V2-Core-65 (#160): what the spring's remedy is made of, and the remedy
     item_purifying_herb: { name: "정화초" },
     item_spring_remedy: { name: "샘 정화제" },
@@ -2170,6 +2190,9 @@ export const worldData = {
     txt_guild_clerk_knows_you: "서기는 장부를 넘기다 고개를 든다. 상단 사람들이 당신 이야기를 하더라고, 믿을 만한 호위라고 한다.",
     txt_escort_wound: "옆구리에 받은 상처가 쉽게 아물지 않는다. 칼을 들 때마다 당긴다. 쉬는 것만으로는 낫지 않을 것 같다.",
     txt_treat_road_wound: "약초 연고를 상처에 두텁게 바르고 천으로 감는다. 며칠 동안 당기던 것이 풀린다.",
+    txt_town_merchant_sell_jerkin: "상인은 두꺼운 가죽 조끼를 내민다. 상단 호위들이 즐겨 입는 것이라며, 칼끝 하나쯤은 막아 준다고 한다.",
+    txt_equip_leather_jerkin: "가죽 조끼를 입고 끈을 단단히 조인다. 몸이 조금 무거워지는 대신 든든하다.",
+    txt_unequip_leather_jerkin: "가죽 조끼를 벗어 둔다.",
     txt_town_merchant_sell_sword: "상인에게 은화 두 닢을 건네고 새로 벼린 철검을 받는다.",
     txt_guild_clerk_work: "서기는 장부를 넘기며 말한다. 강나루로 내려가는 상단이 호위를 구한다고, 길이 험하니 칼을 쓸 줄 알면 좋겠다고 한다.",
     txt_guild_clerk_no_work: "서기는 고개를 젓는다. 지금 길에 오를 상단은 이미 호위를 구했으니 다음 상단을 기다리라고 한다.",
