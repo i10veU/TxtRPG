@@ -1627,12 +1627,14 @@ export const worldData = {
           requires: { op: "and", of: [GUARD_WANTED, STAMINA_AT_LEAST(2)] },
           check: { stat: "str", skill: "swordsmanship", tags: ["combat"], difficulty: "normal" },
           minutes: 720,
+          // V2-Core-99 (#244): the practice that ranks swordsmanship is `combat` (D-81). Until now this wrote
+          // `swordsmanship` -- the skill's name, a proficiency with no definition -- so the road taught nothing.
           outcomes: payStamina(2, {
-            great: GUARD_PAID(6, [{ op: "proficiency", id: "swordsmanship", add: 10 }, say("txt_escort_great"), ...GUILD_REMEMBERS]),
-            success: GUARD_PAID(4, [{ op: "proficiency", id: "swordsmanship", add: 10 }, say("txt_escort_success"), ...GUILD_REMEMBERS]),
+            great: GUARD_PAID(6, [{ op: "proficiency", id: "combat", add: 10 }, say("txt_escort_great"), ...GUILD_REMEMBERS]),
+            success: GUARD_PAID(4, [{ op: "proficiency", id: "combat", add: 10 }, say("txt_escort_success"), ...GUILD_REMEMBERS]),
             fail: GUARD_PAID(1, [
               { op: "hp", add: -3 },
-              { op: "proficiency", id: "swordsmanship", add: 5 },
+              { op: "proficiency", id: "combat", add: 5 },
               say("txt_escort_fail"),
               // V2-Core-93 (#226): and a wound that rest does not close
               { op: "if", when: { op: "not", of: ROAD_WOUND }, then: [{ op: "trait", trait: "road_wound" }, say("txt_escort_wound")] }
