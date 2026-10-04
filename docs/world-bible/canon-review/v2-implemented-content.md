@@ -172,3 +172,12 @@ ID는 저장 파일에 남으므로 게임 쪽에서 바꾸기 어렵다. **정�
 | `evt_caravan` (상한 제거) / `guards_owed` / `FIRST_CARAVANS_WANT` | 길이 쓰이면 상단은 사흘마다 계속 오고, 세 번째 뒤의 상단마다 호위 한 명의 몫이 쌓인다. 왕국의 소식은 처음 세 상단의 것 그대로 | 주기·몫은 게임 값(Provisional, R-29). 왕국의 소식 사슬은 바뀌지 않는다 |
 | `txt_guild_clerk_too_hurt` / `txt_guild_clerk_sees_wound` / `txt_guild_clerk_no_leather` | 일이 있을 때 서기가 호위의 상태를 말한다 (묻는 일은 아무것도 바꾸지 않는다) | 서기의 말은 Provisional. 기준(hp 3 이하 등)은 게임 값 |
 
+## RPG Depth 2 — 호위의 살림 (Master Goal #244)
+
+새 정본 없음. 캐릭터의 것(숙련·은화)이거나 게임 값이다.
+
+| ID | 무엇 | 처리 |
+|---|---|---|
+| `opt_guild_clerk_escort` (숙련 수정) | 호위의 숙련이 검술을 올리는 `combat`에 쌓인다 (이전에는 정의되지 않은 숙련에 쓰여 아무것도 키우지 않았다 — 데이터 결함, D-101) | 숙련은 캐릭터의 것. 수치는 게임 값 |
+| `act_lodge_castle_town` | 성읍에서 은화 두 닢으로 하룻밤 묵는다 (마을의 쉼과 같다; 길의 상처는 닫지 않는다) | **Provisional** — 이름·주인·성읍의 내부 구조 없음. 값·시간은 게임 값 |
+
