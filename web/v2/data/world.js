@@ -376,6 +376,17 @@ const LEADER_LIVES = { op: "alive", subject: "npc_bandit_leader" };
 const NEWS = (fact) => ({ op: "fact", fact, eq: "known" });
 // V2-Core-76 (#189): the frontier's news travels north only with the caravans (World Bible WB-0019)
 const CARAVANS_WENT_NORTH = { op: "signal", key: "caravan_visits", min: 1 };
+// V2-Core-78 (#189): one guard per caravan -- the world has hired fewer guards than caravans have come
+const GUARD_WANTED = {
+  op: "or",
+  of: [1, 2, 3].map((n) => ({ op: "and", of: [{ op: "signal", key: "caravan_visits", min: n }, { op: "signal", key: "guards_hired", max: n - 1 }] }))
+};
+const GUARD_PAID = (pay, extra) => [
+  { op: "signal", key: "guards_hired", add: 1 },
+  { op: "money", add: pay },
+  ...extra,
+  { op: "move", to: "loc_far_bank" }
+];
 // V2-Core-73 (#180): the two settlements trade (a world edge between world entities, D-70)
 const HAMLET_TRADES = { op: "relation", from: "org_mill_hamlet", to: "org_village", tag: "trading" };
 // V2-Core-70 (#170): the village's standing towards this character (their own edge)
@@ -820,6 +831,12 @@ export const worldData = {
       name: "성읍의 상인과 대화",
       requires: { op: "location", at: "loc_castle_town" },
       effects: [{ op: "choice", choice: "choice_town_merchant_dialogue", sourceId: "act_talk_town_merchant" }]
+    },
+    // V2-Core-78 (#189): the merchants' guild clerk (a dialogue NPC, no actor: D-92)
+    act_talk_guild_clerk: {
+      name: "상단 조합의 서기와 대화",
+      requires: { op: "location", at: "loc_castle_town" },
+      effects: [{ op: "choice", choice: "choice_guild_clerk_dialogue", sourceId: "act_talk_guild_clerk" }]
     },
     act_read_waystation_board: {
       name: "길목의 게시판을 읽는다",
@@ -1362,6 +1379,30 @@ export const worldData = {
         }
       ]
     },
+    // V2-Core-78 (#189): the caravan guard (World Bible WB-0021) -- STR with swordsmanship, 2 stamina whatever
+    // comes of it; the escort goes south with the caravan and ends at the far bank. One guard per caravan
+    // (GUARD_WANTED); pay, difficulty and costs are gameplay values
+    choice_guild_clerk_dialogue: {
+      options: [
+        {
+          id: "opt_guild_clerk_ask",
+          name: "일거리를 묻는다",
+          effects: [{ op: "if", when: GUARD_WANTED, then: [say("txt_guild_clerk_work")], else: [say("txt_guild_clerk_no_work")] }]
+        },
+        {
+          id: "opt_guild_clerk_escort",
+          name: "상단 호위를 맡는다",
+          requires: { op: "and", of: [GUARD_WANTED, STAMINA_AT_LEAST(2)] },
+          check: { stat: "str", skill: "swordsmanship", tags: ["combat"], difficulty: "normal" },
+          minutes: 720,
+          outcomes: payStamina(2, {
+            great: GUARD_PAID(6, [{ op: "proficiency", id: "swordsmanship", add: 10 }, say("txt_escort_great")]),
+            success: GUARD_PAID(4, [{ op: "proficiency", id: "swordsmanship", add: 10 }, say("txt_escort_success")]),
+            fail: GUARD_PAID(1, [{ op: "hp", add: -3 }, { op: "proficiency", id: "swordsmanship", add: 5 }, say("txt_escort_fail")])
+          })
+        }
+      ]
+    },
     choice_miller_dialogue: {
       options: [
         {
@@ -1743,6 +1784,8 @@ export const worldData = {
     npc_ferryman: { name: "뱃사공" },
     // V2-Core-77 (#189): dialogue only (no actor: D-92)
     npc_town_merchant: { name: "성읍의 상인" },
+    // V2-Core-78 (#189): dialogue only (no actor: D-92)
+    npc_guild_clerk: { name: "상단 조합의 서기" },
     // V2-Core-47 (D-77): the leader is an actor -- the same record a player character is,
     // `kind:"npc"`, seeded by createInitialState under this ID (the ID his relation edges
     // already use). What reads it: the opposed difficulties of the confrontation and the fight
@@ -1881,6 +1924,11 @@ export const worldData = {
     txt_castle_epithet: "남쪽 변경에 도적을 몰아내고 샘을 살린 떠돌이가 있었다는 말도 돈다. 그 이름을 아는 사람은 아무도 없다.",
     txt_town_merchant_south_goods: "상인은 강 남쪽 약초는 이곳에서 보기 드물어 값을 잘 쳐 준다고 한다. 대신 철물은 북쪽에서 내려오니 성읍이 강 남쪽보다 싸다고 덧붙인다.",
     txt_town_merchant_buy_herb: "상인은 정화초를 이리저리 살피더니 은화 네 닢을 내준다.",
-    txt_town_merchant_sell_sword: "상인에게 은화 두 닢을 건네고 새로 벼린 철검을 받는다."
+    txt_town_merchant_sell_sword: "상인에게 은화 두 닢을 건네고 새로 벼린 철검을 받는다.",
+    txt_guild_clerk_work: "서기는 장부를 넘기며 말한다. 강나루로 내려가는 상단이 호위를 구한다고, 길이 험하니 칼을 쓸 줄 알면 좋겠다고 한다.",
+    txt_guild_clerk_no_work: "서기는 고개를 젓는다. 지금 길에 오를 상단은 이미 호위를 구했으니 다음 상단을 기다리라고 한다.",
+    txt_escort_great: "길에서 덤벼든 좀도둑들을 단숨에 쫓아낸다. 상단은 무사히 강 건너 길목에 닿고, 상단주는 품삯에 웃돈을 얹어 준다.",
+    txt_escort_success: "길은 길었지만 상단은 무사히 강 건너 길목에 닿는다. 서기가 약속한 품삯을 받는다.",
+    txt_escort_fail: "길에서 덤벼든 좀도둑들과 엉켜 상처를 입는다. 상단은 간신히 강 건너 길목에 닿고, 품삯은 깎인다."
   }
 };
