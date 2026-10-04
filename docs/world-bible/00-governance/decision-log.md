@@ -392,3 +392,23 @@
   - *게임 값*: 값(방앗간 2, 성읍 4), 교역이 트인 뒤에만이라는 조건의 수치적 측면.
 - **승인**: 위임 결정 (2026-10-04, WB-0018).
 
+## WB-0023 — Slice 8: 왕도로 가는 길 (좁은 범위) · 추상 로드맵 · Artifact 정책 (소유자 결정)
+
+- **날짜**: 2026-10-04
+- **종류**: **소유자 결정**.
+- **결정 1 (Slice 8)**: 다음 Master Goal은 **왕도로 가는 길**(A안)이며 범위를 좁게 유지한다.
+  - 왕도에 관해 쓰는 정본은 WB-0011의 세 가지뿐이다: **왕권의 자리 / 왕국에서 가장 큰 시장 / 강 건너 넓은 길을 따라 북쪽으로 닷새**.
+  - **정하지 않는 것 (소유자 보류, Hard Gate)**: 왕도의 실제 이름, 왕조, 왕, 정치 세력, 규모, 역사, 도시 내부 구조의 상세, 종교, 문화·언어의 기원.
+  - 경험의 목표: 왕도는 우선 *변경 출신 플레이어가 처음 접하는 거대한 중심지*다. 왕도에 닿고, 중심지·시장·기록이라는 성격을 관찰하며, 이후 더 넓은 세계로 확장할 수 있는 기반을 만든다.
+  - 구현이 새 설정을 요구하면 WB-0018에 따라 최소 위임 결정으로 처리한다.
+- **결정 2 (추상 로드맵)**: 개발 방향은 다음 추상 구조로 재평가한다 — 고정 일정이 아니라 실제 저장소의 공백과 콘텐츠의 요구에 따라 다시 평가한다.
+  `V2 Core → 첫 세계 → 지역 확장 → 성읍 → 정보/교역 연결` (지금까지) →
+  `왕도 진입 → RPG Depth (Goal / Knowledge / Relationship / Reputation / Wound / Resource / Equipment / Technique / Mastery) → 플레이어 없이 움직이는 세계의 범위 확대 → Multi-run / World Memory 강화 → 첫 세계의 장기적 완성 → 두 번째 세계 / 세계별 Growth Grammar → Inter-world → Dimension → Transcendence / Multiverse`.
+- **결정 3 (전환점)**: 지금까지는 수평적 세계 확장이 중심이었다. 왕도 진입 뒤에는 장소만 계속 더하지 않는다. **각 Slice가 끝날 때** "현재 세계 확장에 필요한가?"와 함께 "이제 RPG Depth/System 확장이 더 높은 가치인가?"를 평가하여 다음 Master Goal을 고른다. 같은 종류의 "장소 하나 추가"를 무한히 반복하지 않는다.
+- **결정 4 (Artifact)**: Artifact는 개발 과정의 일부다. 역할은 **시각화·분석·프로토타입**이며 **정본(Source of Truth)이 아니다** — 정본은 GitHub, World Bible, 실제 V2 data/runtime, CORE_CONTRACTS, tests다.
+  - 첫 계열은 **World Observatory**: A. World Graph(지역·장소·이동) B. Information Graph(Fact/Rumor/Source/Player Knowledge) C. Consequence Graph(Action → Result → World Change → New Information) D. 인물·세력 관계 E. Capability/Growth 구조. 가장 작은 유효한 것부터(A + B/C 우선).
+  - 구현과 World Bible의 불일치는 숨기지 않고 표시한다. Canon / Provisional / Draft / Open을 구분한다. 추측으로 잇지 않는다.
+  - Artifact 작업은 보통 Hard Gate가 아니다. Core Contract, State 의미, Save 호환, RNG, World/Loop 철학, 소유자 보류 세계관 축을 바꿔야 할 때만 Hard Gate로 올린다.
+- **결정 5 (저장소)**: `main`의 뒤처진 문서 커밋은 Slice 8에 섞지 않는다 — 조사 결과는 별도 이슈(#216)에 기록했다.
+- **승인**: 소유자 결정 (2026-10-04).
+
