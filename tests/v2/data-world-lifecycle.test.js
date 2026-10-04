@@ -52,7 +52,7 @@ function testDataShape() {
   // V2-Core-69 the spring's history clock, since V2-Core-72 the reopened road's first walker, since V2-Core-73
   // the hamlet's carts at the market, since V2-Core-74 the caravans and the far bank's first visitor, since
   // V2-Core-76 the castle town's first visitor, since V2-Core-80 the corrections' road north
-  assert.deepStrictEqual(Object.keys(worldData.events), ["evt_bandits_tale", "evt_market_reopens", "evt_caravan", "evt_bandits_word_north", "evt_well_word_north", "evt_castle_town_first", "evt_far_bank_first", "evt_hamlet_carts", "evt_crossroads_first", "evt_well_tale", "evt_well_clears", "evt_spring_miasma", "evt_ruins_hazard"]);
+  assert.deepStrictEqual(Object.keys(worldData.events), ["evt_bandits_tale", "evt_market_reopens", "evt_caravan", "evt_bandits_word_north", "evt_well_word_north", "evt_town_flour_demand", "evt_mill_flour_stock", "evt_castle_town_first", "evt_far_bank_first", "evt_hamlet_carts", "evt_crossroads_first", "evt_well_tale", "evt_well_clears", "evt_spring_miasma", "evt_ruins_hazard"]);
   assert.ok(Array.isArray(worldData.rules.succession) && worldData.rules.succession.length > 0);
   assert.ok(worldData.actions.act_investigate_ruins.minutes > 0);
   assert.strictEqual(worldData.actions.act_talk_elder.requires.op, "location");
