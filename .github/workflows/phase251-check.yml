@@ -275,3 +275,5 @@ jobs:
         run: npx playwright test tests/v2-ui-castle-lodging-browser.spec.js --reporter=line
       - name: V2 guard living browser smoke
         run: npx playwright test tests/v2-ui-guard-living-browser.spec.js --reporter=line
+      - name: V2 guard fallen browser smoke
+        run: npx playwright test tests/v2-ui-guard-fallen-browser.spec.js --reporter=line
