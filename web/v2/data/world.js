@@ -406,6 +406,13 @@ const GUARD_PAID = (pay, extra) => [
   ...extra,
   { op: "move", to: "loc_far_bank" }
 ];
+// V2-Core-92 (#226): the guild knows a guard -- the clerk's standing with this character (their own edge, D-71:
+// not inherited); a good escort adds to it, and a known guard is paid a little more
+const GUILD_KNOWS = { op: "relation", from: "npc_guild_clerk", to: "self", min: 10 };
+const GUILD_REMEMBERS = [
+  { op: "if", when: GUILD_KNOWS, then: [{ op: "money", add: 1 }, say("txt_escort_known_bonus")] },
+  { op: "relation", from: "npc_guild_clerk", add: 5 }
+];
 // V2-Core-73 (#180): the two settlements trade (a world edge between world entities, D-70)
 const HAMLET_TRADES = { op: "relation", from: "org_mill_hamlet", to: "org_village", tag: "trading" };
 // V2-Core-70 (#170): the village's standing towards this character (their own edge)
@@ -1563,7 +1570,11 @@ export const worldData = {
         {
           id: "opt_guild_clerk_ask",
           name: "일거리를 묻는다",
-          effects: [{ op: "if", when: GUARD_WANTED, then: [say("txt_guild_clerk_work")], else: [say("txt_guild_clerk_no_work")] }]
+          effects: [
+            { op: "if", when: GUARD_WANTED, then: [say("txt_guild_clerk_work")], else: [say("txt_guild_clerk_no_work")] },
+            // V2-Core-92 (#226): a guard the guild knows
+            { op: "if", when: GUILD_KNOWS, then: [say("txt_guild_clerk_knows_you")] }
+          ]
         },
         {
           id: "opt_guild_clerk_escort",
@@ -1572,8 +1583,8 @@ export const worldData = {
           check: { stat: "str", skill: "swordsmanship", tags: ["combat"], difficulty: "normal" },
           minutes: 720,
           outcomes: payStamina(2, {
-            great: GUARD_PAID(6, [{ op: "proficiency", id: "swordsmanship", add: 10 }, say("txt_escort_great")]),
-            success: GUARD_PAID(4, [{ op: "proficiency", id: "swordsmanship", add: 10 }, say("txt_escort_success")]),
+            great: GUARD_PAID(6, [{ op: "proficiency", id: "swordsmanship", add: 10 }, say("txt_escort_great"), ...GUILD_REMEMBERS]),
+            success: GUARD_PAID(4, [{ op: "proficiency", id: "swordsmanship", add: 10 }, say("txt_escort_success"), ...GUILD_REMEMBERS]),
             fail: GUARD_PAID(1, [{ op: "hp", add: -3 }, { op: "proficiency", id: "swordsmanship", add: 5 }, say("txt_escort_fail")])
           })
         }
@@ -2135,6 +2146,8 @@ export const worldData = {
     txt_town_merchant_flour_enough: "밀가루는 지난번에 들어온 것으로 당분간 넉넉하다고 한다. 상단이 몇 번 오가고 나면 다시 찾을 거라고.",
     txt_town_merchant_flour_fair: "요즘은 밀가루 값이 올랐다고 한다. 왕도의 큰 장으로 상단들이 곡식을 실어 올라가는 통에 성읍에는 밀이 귀하다고.",
     txt_town_merchant_buy_flour_fair: "상인은 자루를 반기며 은화 여섯 닢을 세어 준다. 큰 장이 끝나기 전에 더 가져오라고 한다.",
+    txt_escort_known_bonus: "서기는 품삯에 은화 한 닢을 더 얹어 준다. 조합이 믿는 호위에게는 그만큼 더 쳐 준다고 한다.",
+    txt_guild_clerk_knows_you: "서기는 장부를 넘기다 고개를 든다. 상단 사람들이 당신 이야기를 하더라고, 믿을 만한 호위라고 한다.",
     txt_town_merchant_sell_sword: "상인에게 은화 두 닢을 건네고 새로 벼린 철검을 받는다.",
     txt_guild_clerk_work: "서기는 장부를 넘기며 말한다. 강나루로 내려가는 상단이 호위를 구한다고, 길이 험하니 칼을 쓸 줄 알면 좋겠다고 한다.",
     txt_guild_clerk_no_work: "서기는 고개를 젓는다. 지금 길에 오를 상단은 이미 호위를 구했으니 다음 상단을 기다리라고 한다.",
