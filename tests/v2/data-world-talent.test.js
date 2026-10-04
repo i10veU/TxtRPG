@@ -38,7 +38,11 @@ const rejectedCode = (result) => result.events.find((e) => e.type === "action.re
 function testData() {
   assert.deepStrictEqual(validateData(worldData), []);
   assert.strictEqual(worldData.version, "0.3.0", "no version bump");
-  assert.deepStrictEqual(SYSTEM.traits, [{ id: "night_vision" }, { id: "investigation_talent", practice: { investigation: 2 } }]);
+  assert.deepStrictEqual(SYSTEM.traits, [
+    { id: "night_vision" },
+    { id: "investigation_talent", practice: { investigation: 2 } },
+    { id: "road_wound", modifiers: [{ tags: ["combat"], value: -2 }] } // V2-Core-93: a wound, never a starting trait
+  ]);
   assert.deepStrictEqual(worldData.characterTemplates.start_scout.growth.growth_wanderer.traits, { night_vision: true, investigation_talent: true });
   assert.strictEqual(worldData.characterTemplates.start_wanderer.growth.growth_wanderer.traits, undefined, "the wanderer is unchanged");
   assert.deepStrictEqual(Object.keys(worldData.characterTemplates).sort(), ["start_scout", "start_wanderer"], "no new background");
