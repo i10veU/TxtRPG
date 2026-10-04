@@ -413,6 +413,8 @@ const GUILD_REMEMBERS = [
   { op: "if", when: GUILD_KNOWS, then: [{ op: "money", add: 1 }, say("txt_escort_known_bonus")] },
   { op: "relation", from: "npc_guild_clerk", add: 5 }
 ];
+// V2-Core-93 (#226): the character carries a wound from the road (their growth, not inherited)
+const ROAD_WOUND = { op: "trait", trait: "road_wound" };
 // V2-Core-73 (#180): the two settlements trade (a world edge between world entities, D-70)
 const HAMLET_TRADES = { op: "relation", from: "org_mill_hamlet", to: "org_village", tag: "trading" };
 // V2-Core-70 (#170): the village's standing towards this character (their own edge)
@@ -1055,6 +1057,13 @@ export const worldData = {
       requires: { op: "and", of: [{ op: "item", item: "item_herbal_salve", min: 1 }, { op: "lt", left: { hp: "current" }, right: { hp: "max" } }] },
       effects: [{ op: "item", item: "item_herbal_salve", add: -1 }, { op: "hp", add: 5 }, say("txt_apply_salve")]
     },
+    // V2-Core-93 (#226): the herbalist's salve closes a road wound (rest restores hp, never the wound)
+    act_treat_road_wound: {
+      name: "길에서 얻은 상처에 연고를 바른다",
+      requires: { op: "and", of: [ROAD_WOUND, { op: "item", item: "item_herbal_salve", min: 1 }] },
+      minutes: 30,
+      effects: [{ op: "item", item: "item_herbal_salve", add: -1 }, { op: "trait", trait: "road_wound", remove: true }, say("txt_treat_road_wound")]
+    },
     // V2-Core-58 (D-87): the sword is sold where the lantern is; wielding it is a choice of its own
     act_buy_iron_sword: {
       name: "철검 구입",
@@ -1585,7 +1594,13 @@ export const worldData = {
           outcomes: payStamina(2, {
             great: GUARD_PAID(6, [{ op: "proficiency", id: "swordsmanship", add: 10 }, say("txt_escort_great"), ...GUILD_REMEMBERS]),
             success: GUARD_PAID(4, [{ op: "proficiency", id: "swordsmanship", add: 10 }, say("txt_escort_success"), ...GUILD_REMEMBERS]),
-            fail: GUARD_PAID(1, [{ op: "hp", add: -3 }, { op: "proficiency", id: "swordsmanship", add: 5 }, say("txt_escort_fail")])
+            fail: GUARD_PAID(1, [
+              { op: "hp", add: -3 },
+              { op: "proficiency", id: "swordsmanship", add: 5 },
+              say("txt_escort_fail"),
+              // V2-Core-93 (#226): and a wound that rest does not close
+              { op: "if", when: { op: "not", of: ROAD_WOUND }, then: [{ op: "trait", trait: "road_wound" }, say("txt_escort_wound")] }
+            ])
           })
         }
       ]
@@ -1872,7 +1887,12 @@ export const worldData = {
       // V2-Core-53 (D-82): a trait that changes a rule (the ruins' light requirement), no modifier.
       // V2-Core-57 (D-86, #147 Phase A): a talent is a trait with `practice` -- every investigation
       // practice gain of whoever holds it is 2 more (observing 17, a search 32 / 12); no modifier
-      traits: [{ id: "night_vision" }, { id: "investigation_talent", practice: { investigation: 2 } }],
+      traits: [
+        { id: "night_vision" },
+        { id: "investigation_talent", practice: { investigation: 2 } },
+        // V2-Core-93 (#226): a wound a hard road leaves -- it weighs on every combat check until treated
+        { id: "road_wound", modifiers: [{ tags: ["combat"], value: -2 }] }
+      ],
       // V2-Core-53 (D-82): Mastery is a label over the skill rank, for display and classification
       // only -- read by the UI, never by the engine (no state, no modifier). English names, so they
       // never read as the UI's "숙련도" (the practice)
@@ -2148,6 +2168,8 @@ export const worldData = {
     txt_town_merchant_buy_flour_fair: "상인은 자루를 반기며 은화 여섯 닢을 세어 준다. 큰 장이 끝나기 전에 더 가져오라고 한다.",
     txt_escort_known_bonus: "서기는 품삯에 은화 한 닢을 더 얹어 준다. 조합이 믿는 호위에게는 그만큼 더 쳐 준다고 한다.",
     txt_guild_clerk_knows_you: "서기는 장부를 넘기다 고개를 든다. 상단 사람들이 당신 이야기를 하더라고, 믿을 만한 호위라고 한다.",
+    txt_escort_wound: "옆구리에 받은 상처가 쉽게 아물지 않는다. 칼을 들 때마다 당긴다. 쉬는 것만으로는 낫지 않을 것 같다.",
+    txt_treat_road_wound: "약초 연고를 상처에 두텁게 바르고 천으로 감는다. 며칠 동안 당기던 것이 풀린다.",
     txt_town_merchant_sell_sword: "상인에게 은화 두 닢을 건네고 새로 벼린 철검을 받는다.",
     txt_guild_clerk_work: "서기는 장부를 넘기며 말한다. 강나루로 내려가는 상단이 호위를 구한다고, 길이 험하니 칼을 쓸 줄 알면 좋겠다고 한다.",
     txt_guild_clerk_no_work: "서기는 고개를 젓는다. 지금 길에 오를 상단은 이미 호위를 구했으니 다음 상단을 기다리라고 한다.",
