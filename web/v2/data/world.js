@@ -855,6 +855,35 @@ export const worldData = {
         }
       ]
     },
+    // V2-Core-81 (#198): the carrier -- one who heard the legend and saw the truth (their legend corrected,
+    // the same test as the village's own corrections) tells it at the town's board: the correction is in
+    // the town at once, ahead of the caravans
+    act_tell_town_ruins: {
+      name: "포고판 앞 사람들에게 폐허에서 본 것을 전한다",
+      requires: {
+        op: "and",
+        of: [
+          { op: "location", at: "loc_castle_town" },
+          { op: "not", of: { op: "flag", key: "bandits_truth_north" } },
+          { op: "eq", left: { rumor: "rum_bandits_legend" }, right: "dispersed" }
+        ]
+      },
+      minutes: 20,
+      effects: [{ op: "flag", key: "bandits_truth_north", value: true }, say("txt_town_told_ruins")]
+    },
+    act_tell_town_spring: {
+      name: "포고판 앞 사람들에게 샘에서 본 것을 전한다",
+      requires: {
+        op: "and",
+        of: [
+          { op: "location", at: "loc_castle_town" },
+          { op: "not", of: { op: "flag", key: "well_truth_north" } },
+          { op: "eq", left: { rumor: "rum_well_legend" }, right: "purified" }
+        ]
+      },
+      minutes: 20,
+      effects: [{ op: "flag", key: "well_truth_north", value: true }, say("txt_town_told_spring")]
+    },
     // V2-Core-77 (#189): the castle town's merchant (a dialogue NPC, no actor: D-92)
     act_talk_town_merchant: {
       name: "성읍의 상인과 대화",
@@ -1953,6 +1982,8 @@ export const worldData = {
     txt_castle_epithet: "남쪽 변경에 도적을 몰아내고 샘을 살린 떠돌이가 있었다는 말도 돈다. 그 이름을 아는 사람은 아무도 없다.",
     txt_castle_bandits_truth: "포고판 앞에서 누군가 남쪽 변경 이야기를 고쳐 말한다. 폐허의 도적들이 다 쓰러진 게 아니라 흩어졌다고, 그 마을 원로가 그렇게 전하더라고 한다.",
     txt_castle_well_truth: "다른 이는 강 남쪽 마을의 샘 이야기를 바로잡는다. 정령이 아니라 누군가 사체를 치우고 정화제를 부어 살렸다고 한다.",
+    txt_town_told_ruins: "포고판 앞에 모인 사람들에게 폐허에서 본 것을 들려준다. 도적들은 다 쓰러진 게 아니라 흩어졌다고. 사람들은 웅성거리다 고개를 끄덕인다. 직접 본 사람의 말이다.",
+    txt_town_told_spring: "샘에서 본 것을 들려준다. 정령이 아니라 사람이 사체를 치우고 정화제를 부었다고. 듣던 이들이 그 이야기를 서로에게 옮기기 시작한다.",
     txt_town_merchant_south_goods: "상인은 강 남쪽 약초는 이곳에서 보기 드물어 값을 잘 쳐 준다고 한다. 대신 철물은 북쪽에서 내려오니 성읍이 강 남쪽보다 싸다고 덧붙인다.",
     txt_town_merchant_buy_herb: "상인은 정화초를 이리저리 살피더니 은화 네 닢을 내준다.",
     txt_town_merchant_sell_sword: "상인에게 은화 두 닢을 건네고 새로 벼린 철검을 받는다.",
