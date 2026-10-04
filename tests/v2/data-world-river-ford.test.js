@@ -80,7 +80,10 @@ function testCaravans() {
   const sixDays = run(threeDays, [DAY, DAY, DAY]).state;
   assert.strictEqual(sixDays.signals.caravan_visits, 3);
   assert.ok(known(sixDays, "fact_realm_unrest"));
-  assert.strictEqual(run(sixDays, [DAY, DAY, DAY, DAY]).state.signals.caravan_visits, 3, "three caravans, then the news stands");
+  // V2-Core-96 (#237): the caravans keep coming, but the realm's news stands after the third
+  const later = run(sixDays, [DAY, DAY, DAY, DAY]).state;
+  assert.strictEqual(later.signals.caravan_visits, 4, "the road keeps living");
+  assert.deepStrictEqual(["fact_realm_levy", "fact_realm_fair", "fact_realm_unrest"].map((f) => later.facts[f]), ["fact_realm_levy", "fact_realm_fair", "fact_realm_unrest"].map((f) => sixDays.facts[f]), "the news stands");
   return { threeDays, sixDays };
 }
 

@@ -396,11 +396,16 @@ const NORTH_STILL_TELLS = (story) => ({
   of: [NORTH_TALK_BACK, { op: "flag", key: `${story}_tale_corrected` }, { op: "not", of: { op: "flag", key: `${story}_truth_north` } }]
 });
 // V2-Core-78 (#189): one guard per caravan -- the world has hired fewer guards than caravans have come
-const GUARD_WANTED = {
+// over the first three caravans (V2-Core-78) -- kept as it was, so a save from before V2-Core-96 means what it meant
+const FIRST_CARAVANS_WANT = {
   op: "or",
   of: [1, 2, 3].map((n) => ({ op: "and", of: [{ op: "signal", key: "caravan_visits", min: n }, { op: "signal", key: "guards_hired", max: n - 1 }] }))
 };
+// V2-Core-96 (#237): caravans keep coming after the third; each later one is owed a guard (`guards_owed`)
+const GUARD_WANTED = { op: "or", of: [FIRST_CARAVANS_WANT, { op: "signal", key: "guards_owed", min: 1 }] };
 const GUARD_PAID = (pay, extra) => [
+  // the first three caravans' shortfall first, then the later caravans' (decided before the count moves)
+  { op: "if", when: FIRST_CARAVANS_WANT, then: [], else: [{ op: "signal", key: "guards_owed", add: -1 }] },
   { op: "signal", key: "guards_hired", add: 1 },
   { op: "money", add: pay },
   ...extra,
@@ -543,13 +548,15 @@ export const worldData = {
     // it), a caravan every three days, wherever the player is, brings the realm's news: the levy, then the
     // fair, then the unrest
     evt_caravan: {
-      trigger: { op: "and", of: [{ op: "flag", key: "road_walked" }, { op: "signal", key: "caravan_visits", max: 2 }] },
+      // V2-Core-96 (#237): the caravans keep coming -- the realm's news is the first three's; each later caravan is owed a guard
+      trigger: { op: "flag", key: "road_walked" },
       cooldown: 4320,
       effects: [
         { op: "signal", key: "caravan_visits", add: 1 },
         { op: "if", when: { op: "signal", key: "caravan_visits", eq: 1 }, then: [{ op: "fact", fact: "fact_realm_levy", set: "known" }] },
         { op: "if", when: { op: "signal", key: "caravan_visits", eq: 2 }, then: [{ op: "fact", fact: "fact_realm_fair", set: "known" }] },
-        { op: "if", when: { op: "signal", key: "caravan_visits", eq: 3 }, then: [{ op: "fact", fact: "fact_realm_unrest", set: "known" }] }
+        { op: "if", when: { op: "signal", key: "caravan_visits", eq: 3 }, then: [{ op: "fact", fact: "fact_realm_unrest", set: "known" }] },
+        { op: "if", when: { op: "signal", key: "caravan_visits", min: 4 }, then: [{ op: "signal", key: "guards_owed", add: 1 }] }
       ]
     },
     // V2-Core-74 (#180): the first time anyone sets foot on the far bank (narration, once for the world)
