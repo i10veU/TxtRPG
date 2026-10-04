@@ -888,6 +888,23 @@ export const worldData = {
         }
       ]
     },
+    // V2-Core-90 (#217): the centre's written word (World Bible N-06; WB-0024 DC-07: the realm's news is posted in
+    // writing in the royal city -- who keeps it stays open). The border's unrest is written many ways (its truth is
+    // the owner's, WB-0012); the frontier is in none of it -- the far end of the information gradient
+    act_read_royal_records: {
+      name: "왕도에 내걸린 글을 읽는다",
+      requires: { op: "location", at: "loc_royal_city" },
+      minutes: 40,
+      effects: [
+        say("txt_royal_records"),
+        {
+          op: "if",
+          when: NEWS("fact_realm_unrest"),
+          then: [{ op: "rumor", rumor: "rum_realm_unrest", source: "src_royal_records", confidence: 50 }, say("txt_royal_records_unrest")]
+        },
+        say("txt_royal_records_no_frontier")
+      ]
+    },
     act_read_castle_notices: {
       name: "성읍의 포고판을 읽는다",
       requires: { op: "location", at: "loc_castle_town" },
@@ -2092,6 +2109,9 @@ export const worldData = {
     txt_royal_market: "한 시간을 걸어도 시장의 끝이 나오지 않는다. 처음 보는 천과 그릇과 연장이 끝없이 늘어서 있고, 변경에서는 귀한 정화초도 여러 지방의 약초 더미 사이에 섞여 있다. 사방에서 값을 부르는 소리가 그치지 않는다.",
     txt_royal_market_fair: "뱃사공이 말하던 큰 장이 바로 눈앞에 서 있다. 상단들이 줄지어 짐을 풀고, 사람의 물결이 길을 메운다. 들은 소식이 이제 본 것이 된다.",
     txt_royal_market_after_fair: "큰 장은 끝났다. 장꾼들이 떠난 자리에 빈 수레 자국과 밟힌 짚만 남아 있다.",
+    txt_royal_records: "벽마다 글이 빽빽이 내걸려 있다. 변경에서는 원로의 인장 하나가 귀했는데, 이곳에서는 글이 글 위에 덧붙어 있고 사람들은 그것을 읽으며 지나간다.",
+    txt_royal_records_unrest: "먼 국경의 소란을 적은 글이 여럿 있다. 그런데 글마다 적힌 내용이 다르다. 누가 무엇 때문에 다투는지, 어느 글도 같은 말을 하지 않는다.",
+    txt_royal_records_no_frontier: "남쪽 변경에 관한 글은 한 줄도 찾을 수 없다. 폐허의 도적도, 숲속 샘도, 그곳에서 있었던 일은 이 벽에 닿지 않았다.",
     txt_royal_city_first: "닷새를 걸은 끝에 넓은 길이 끝없는 지붕들 사이로 빨려 들어간다. 변경 마을 사람을 다 모아도 이 거리 하나를 채우지 못할 것 같다. 길을 묻는 사람마다 이곳이 왕권의 자리이고, 왕국에서 가장 큰 시장이 서는 곳이라고 말한다.",
     txt_board_royal_city: "길목의 게시판에는 이정표가 그려져 있다. 이 길을 따라 북쪽으로 닷새를 걸으면 왕도라고 한다.",
     txt_board_levy: "영주의 징집령이 나붙어 있다. 열여섯 살이 넘은 남자는 성으로 오라는 내용이다.",
