@@ -47,6 +47,8 @@
 | S7-3 ✅ | Slice 7 3단계: 큰 장의 소식 (V2-Core-86) | 새 정본 없음, #213 병합 |
 | S7-4 ✅ | Slice 7 4단계: 통합 — 교역의 길 (V2-Core-87) | 새 정본 없음, #215 병합 — Slice 7 (#207) 완료 |
 | S8-1 ✅ | Slice 8 1단계: 왕도로 가는 길 (V2-Core-88) | 소유자 결정 WB-0023, 새 정본 없음, #219 병합 |
+| S8-2 ✅ | Slice 8 2단계: 가장 큰 시장 (V2-Core-89) | 새 정본 없음, #221 병합 |
+| S8-3 | Slice 8 3단계: 왕도의 글 (V2-Core-90) | WB-0024 (DC-07) |
 | A-1 ✅ | Artifact: World Observatory v1 (세계 지도 · 정보의 흐름 · 결과의 사슬 · 불일치) | 정본 아님. https://claude.ai/artifact/2qqDjLekcXTsPwCNy9Aif4 |
 
 ## 추상 로드맵 (WB-0023 — 고정 일정이 아니다)
