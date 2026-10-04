@@ -163,3 +163,12 @@ ID는 저장 파일에 남으므로 게임 쪽에서 바꾸기 어렵다. **정�
 | `road_wound` / `act_treat_road_wound` | 실패한 호위가 남기는 상처(combat -2), 연고로만 닫힘 | 상처는 캐릭터의 것. 수치·치료는 게임 값 |
 | `item_leather_jerkin` | 성읍에서 파는 가죽 조끼 (`body` 칸, combat +1) | Provisional 유지(정본화 불필요). 값·수정치는 게임 값 |
 
+## World Simulation 1 — 길은 계속 산다 (Master Goal #237)
+
+새 정본 없음. 세계의 수치(신호)와 서술만이다.
+
+| ID | 무엇 | 처리 |
+|---|---|---|
+| `evt_caravan` (상한 제거) / `guards_owed` / `FIRST_CARAVANS_WANT` | 길이 쓰이면 상단은 사흘마다 계속 오고, 세 번째 뒤의 상단마다 호위 한 명의 몫이 쌓인다. 왕국의 소식은 처음 세 상단의 것 그대로 | 주기·몫은 게임 값(Provisional, R-29). 왕국의 소식 사슬은 바뀌지 않는다 |
+| `txt_guild_clerk_too_hurt` / `txt_guild_clerk_sees_wound` / `txt_guild_clerk_no_leather` | 일이 있을 때 서기가 호위의 상태를 말한다 (묻는 일은 아무것도 바꾸지 않는다) | 서기의 말은 Provisional. 기준(hp 3 이하 등)은 게임 값 |
+
