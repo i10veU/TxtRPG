@@ -558,6 +558,19 @@ export const worldData = {
         { op: "if", when: { op: "signal", key: "well_word_age", eq: 2 }, then: [{ op: "flag", key: "well_truth_north", value: true }] }
       ]
     },
+    // V2-Core-85 (#207): the town takes only so much flour -- once its want is met, it comes back a caravan's
+    // cadence after it last came (two sacks); the mill has two sacks to spare a day. World counts, not a
+    // character's; amounts and cadences are gameplay values (W-05)
+    evt_town_flour_demand: {
+      trigger: { op: "and", of: [HAMLET_TRADES, { op: "signal", key: "town_flour_wanted", max: 0 }] },
+      cooldown: 4320,
+      effects: [{ op: "signal", key: "town_flour_wanted", add: 2 }]
+    },
+    evt_mill_flour_stock: {
+      trigger: { op: "and", of: [HAMLET_TRADES, { op: "signal", key: "mill_flour_stock", max: 0 }] },
+      cooldown: 1440,
+      effects: [{ op: "signal", key: "mill_flour_stock", add: 2 }]
+    },
     // V2-Core-76 (#189): the first time anyone reaches the castle town (narration, once for the world)
     evt_castle_town_first: {
       trigger: { op: "location", at: "loc_castle_town" },
@@ -1447,7 +1460,15 @@ export const worldData = {
         {
           id: "opt_town_merchant_ask",
           name: "강 남쪽 물건에 대해 묻는다",
-          effects: [say("txt_town_merchant_south_goods")]
+          effects: [
+            say("txt_town_merchant_south_goods"),
+            // V2-Core-85 (#207): whether the town wants flour now
+            {
+              op: "if",
+              when: HAMLET_TRADES,
+              then: [{ op: "if", when: { op: "signal", key: "town_flour_wanted", min: 1 }, then: [say("txt_town_merchant_flour_wanted")], else: [say("txt_town_merchant_flour_enough")] }]
+            }
+          ]
         },
         {
           id: "opt_town_merchant_sell_herb",
@@ -1466,8 +1487,8 @@ export const worldData = {
         {
           id: "opt_town_merchant_sell_flour",
           name: "밀가루 자루를 판다 (은화 4)",
-          requires: { op: "and", of: [HAMLET_TRADES, { op: "item", item: "item_flour_sack", min: 1 }] },
-          effects: [{ op: "item", item: "item_flour_sack", add: -1 }, { op: "money", add: 4 }, say("txt_town_merchant_buy_flour")]
+          requires: { op: "and", of: [HAMLET_TRADES, { op: "item", item: "item_flour_sack", min: 1 }, { op: "signal", key: "town_flour_wanted", min: 1 }] },
+          effects: [{ op: "item", item: "item_flour_sack", add: -1 }, { op: "money", add: 4 }, { op: "signal", key: "town_flour_wanted", add: -1 }, say("txt_town_merchant_buy_flour")]
         }
       ]
     },
@@ -1510,7 +1531,9 @@ export const worldData = {
               when: { op: "and", of: [VILLAGE_TRUSTED, { op: "not", of: { op: "relation", from: "npc_miller", to: "self", tag: "welcomed" } }] },
               then: [{ op: "relation", from: "npc_miller", add: 5, tag: "welcomed" }, say("txt_miller_welcome")]
             },
-            { op: "if", when: HAMLET_TRADES, then: [say("txt_miller_trade_running")] }
+            { op: "if", when: HAMLET_TRADES, then: [say("txt_miller_trade_running")] },
+            // V2-Core-85 (#207): the day's flour to spare already gone
+            { op: "if", when: { op: "and", of: [HAMLET_TRADES, { op: "signal", key: "mill_flour_stock", max: 0 }] }, then: [say("txt_miller_flour_gone")] }
           ]
         },
         {
@@ -1530,8 +1553,8 @@ export const worldData = {
         {
           id: "opt_miller_buy_flour",
           name: "밀가루 자루를 산다 (은화 2)",
-          requires: { op: "and", of: [HAMLET_TRADES, { op: "money", min: 2 }] },
-          effects: [{ op: "money", add: -2 }, { op: "item", item: "item_flour_sack", add: 1 }, say("txt_miller_sell_flour")]
+          requires: { op: "and", of: [HAMLET_TRADES, { op: "money", min: 2 }, { op: "signal", key: "mill_flour_stock", min: 1 }] },
+          effects: [{ op: "money", add: -2 }, { op: "item", item: "item_flour_sack", add: 1 }, { op: "signal", key: "mill_flour_stock", add: -1 }, say("txt_miller_sell_flour")]
         }
       ]
     },
@@ -2000,6 +2023,7 @@ export const worldData = {
     txt_miller_trade_running: "요즘은 변경 마을 장터로 수레가 오간다며 그는 흡족해한다.",
     txt_miller_buy_herb: "방앗간 주인은 정화초를 받아 들고 은화 두 닢을 건넨다. 이 근방에서는 귀한 풀이라고 한다.",
     txt_miller_sell_flour: "방앗간 주인은 밀가루 자루 하나를 내준다. 마을과 거래가 트인 뒤로 밀이 남는다며, 강 건너에선 더 쳐줄지도 모른다고 한다.",
+    txt_miller_flour_gone: "오늘 내놓을 밀가루는 벌써 다 나갔다고 한다. 내일이면 또 몇 자루 빻아 두겠다고.",
     txt_miller_flour: "그는 밀가루 한 자루를 내준다. 변경 마을 원로에게 전해 주면, 다시 거래를 트자는 뜻으로 알아들을 거라고 한다.",
     txt_deliver_flour: "원로는 밀가루 자루를 받아 들고 한참을 바라본다. 물레방아 마을과 다시 거래를 하자고, 곧 장터에 수레가 올 거라고 말한다.",
     txt_hamlet_carts: "장터에 물레방아 마을의 수레가 들어와 있다. 갓 구운 빵 냄새가 장터에 퍼진다.",
@@ -2037,6 +2061,8 @@ export const worldData = {
     txt_town_merchant_south_goods: "상인은 강 남쪽 약초는 이곳에서 보기 드물어 값을 잘 쳐 준다고 한다. 대신 철물은 북쪽에서 내려오니 성읍이 강 남쪽보다 싸다고 덧붙인다.",
     txt_town_merchant_buy_herb: "상인은 정화초를 이리저리 살피더니 은화 네 닢을 내준다.",
     txt_town_merchant_buy_flour: "상인은 자루를 열어 밀가루를 손끝으로 비벼 본다. 강 남쪽 밀은 곱게 빻였다며 은화 네 닢을 내준다.",
+    txt_town_merchant_flour_wanted: "밀가루도 가져오면 사겠다고 한다. 성읍 빵집들이 강 남쪽 밀을 찾는다고.",
+    txt_town_merchant_flour_enough: "밀가루는 지난번에 들어온 것으로 당분간 넉넉하다고 한다. 상단이 몇 번 오가고 나면 다시 찾을 거라고.",
     txt_town_merchant_sell_sword: "상인에게 은화 두 닢을 건네고 새로 벼린 철검을 받는다.",
     txt_guild_clerk_work: "서기는 장부를 넘기며 말한다. 강나루로 내려가는 상단이 호위를 구한다고, 길이 험하니 칼을 쓸 줄 알면 좋겠다고 한다.",
     txt_guild_clerk_no_work: "서기는 고개를 젓는다. 지금 길에 오를 상단은 이미 호위를 구했으니 다음 상단을 기다리라고 한다.",
