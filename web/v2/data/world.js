@@ -575,6 +575,12 @@ export const worldData = {
       cooldown: 1440,
       effects: [{ op: "signal", key: "mill_flour_stock", add: 2 }]
     },
+    // V2-Core-88 (#217): the first time anyone reaches the royal city (narration, once for the world)
+    evt_royal_city_first: {
+      trigger: { op: "location", at: "loc_royal_city" },
+      once: true,
+      effects: [say("txt_royal_city_first")]
+    },
     // V2-Core-76 (#189): the first time anyone reaches the castle town (narration, once for the world)
     evt_castle_town_first: {
       trigger: { op: "location", at: "loc_castle_town" },
@@ -693,13 +699,22 @@ export const worldData = {
       links: [
         { to: "loc_river_ford", minutes: 30 },
         // V2-Core-76 (#189): the wide road north to the lord's castle town (World Bible N-02, WB-0019)
-        { to: "loc_castle_town", minutes: 720 }
+        { to: "loc_castle_town", minutes: 720 },
+        // V2-Core-88 (#217): five days north along the wide road to the royal city (World Bible WB-0011/C-20) --
+        // for one who has read the way on the waystation board
+        { to: "loc_royal_city", minutes: 7200, requires: { op: "rumor", rumor: "rum_royal_city" } }
       ]
     },
     // V2-Core-76 (#189, Slice 5): the nearest urban sphere -- descriptive name only (World Bible WB-0013/G-05)
     loc_castle_town: {
       name: "영주의 성읍",
       links: [{ to: "loc_far_bank", minutes: 720 }]
+    },
+    // V2-Core-88 (#217, Slice 8): the seat of royal power and the realm's greatest market (WB-0011) -- descriptive
+    // name only; its name, dynasty, powers, size, history and inner structure are the owner's to decide (WB-0023)
+    loc_royal_city: {
+      name: "왕도",
+      links: [{ to: "loc_far_bank", minutes: 7200 }]
     }
   },
 
@@ -2058,6 +2073,7 @@ export const worldData = {
     txt_ferryman_cross_letter: "원로의 편지를 읽은 뱃사공은 뱃삯을 받지 않고 밧줄을 푼다. 변경 마을 원로의 부탁이라면 얼마든지라고 한다.",
     txt_elder_letter: "원로는 낡은 양피지에 몇 줄을 적고 인장을 눌러 건넨다. 강나루의 뱃사공은 이 편지를 알아볼 거라고 한다.",
     txt_far_bank_first: "강 건너 길목에 발을 딛는다. 처음 보는 땅, 북쪽으로 곧게 뻗은 넓은 길이 지평선 너머로 사라진다.",
+    txt_royal_city_first: "닷새를 걸은 끝에 넓은 길이 끝없는 지붕들 사이로 빨려 들어간다. 변경 마을 사람을 다 모아도 이 거리 하나를 채우지 못할 것 같다. 길을 묻는 사람마다 이곳이 왕권의 자리이고, 왕국에서 가장 큰 시장이 서는 곳이라고 말한다.",
     txt_board_royal_city: "길목의 게시판에는 이정표가 그려져 있다. 이 길을 따라 북쪽으로 닷새를 걸으면 왕도라고 한다.",
     txt_board_levy: "영주의 징집령이 나붙어 있다. 열여섯 살이 넘은 남자는 성으로 오라는 내용이다.",
     txt_board_bounty: "빛바랜 수배서 한 장이 눈에 띈다. 옆구리에 오래된 상처가 있는 도적 두목, 현상금 은화 쉰 닢.",
