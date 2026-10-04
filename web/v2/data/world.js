@@ -872,6 +872,22 @@ export const worldData = {
     // V2-Core-76 (#189): the lord's notice board -- the decree at its source; the frontier's news only once
     // caravans have carried it north, only as the legend it became, uncorrected, and its hero without a name
     // (World Bible N-06 information gradient, G-04 epithets; the tales are in-world belief, not truth)
+    // V2-Core-89 (#217): the realm's greatest market (WB-0011) -- observed, not traded: the centre's scale, and, in
+    // the fair's window, the fair the ferryman spoke of seen at its source (heard -> seen, D-14). No prices.
+    act_walk_royal_market: {
+      name: "왕도의 큰 시장을 둘러본다",
+      requires: { op: "location", at: "loc_royal_city" },
+      minutes: 60,
+      effects: [
+        say("txt_royal_market"),
+        {
+          op: "if",
+          when: FAIR_TIME,
+          then: [{ op: "rumor", rumor: "rum_realm_fair", observe: true, source: "obs_loc_royal_city", confidence: 90 }, say("txt_royal_market_fair")],
+          else: [{ op: "if", when: NEWS("fact_realm_fair"), then: [say("txt_royal_market_after_fair")] }]
+        }
+      ]
+    },
     act_read_castle_notices: {
       name: "성읍의 포고판을 읽는다",
       requires: { op: "location", at: "loc_castle_town" },
@@ -2073,6 +2089,9 @@ export const worldData = {
     txt_ferryman_cross_letter: "원로의 편지를 읽은 뱃사공은 뱃삯을 받지 않고 밧줄을 푼다. 변경 마을 원로의 부탁이라면 얼마든지라고 한다.",
     txt_elder_letter: "원로는 낡은 양피지에 몇 줄을 적고 인장을 눌러 건넨다. 강나루의 뱃사공은 이 편지를 알아볼 거라고 한다.",
     txt_far_bank_first: "강 건너 길목에 발을 딛는다. 처음 보는 땅, 북쪽으로 곧게 뻗은 넓은 길이 지평선 너머로 사라진다.",
+    txt_royal_market: "한 시간을 걸어도 시장의 끝이 나오지 않는다. 처음 보는 천과 그릇과 연장이 끝없이 늘어서 있고, 변경에서는 귀한 정화초도 여러 지방의 약초 더미 사이에 섞여 있다. 사방에서 값을 부르는 소리가 그치지 않는다.",
+    txt_royal_market_fair: "뱃사공이 말하던 큰 장이 바로 눈앞에 서 있다. 상단들이 줄지어 짐을 풀고, 사람의 물결이 길을 메운다. 들은 소식이 이제 본 것이 된다.",
+    txt_royal_market_after_fair: "큰 장은 끝났다. 장꾼들이 떠난 자리에 빈 수레 자국과 밟힌 짚만 남아 있다.",
     txt_royal_city_first: "닷새를 걸은 끝에 넓은 길이 끝없는 지붕들 사이로 빨려 들어간다. 변경 마을 사람을 다 모아도 이 거리 하나를 채우지 못할 것 같다. 길을 묻는 사람마다 이곳이 왕권의 자리이고, 왕국에서 가장 큰 시장이 서는 곳이라고 말한다.",
     txt_board_royal_city: "길목의 게시판에는 이정표가 그려져 있다. 이 길을 따라 북쪽으로 닷새를 걸으면 왕도라고 한다.",
     txt_board_levy: "영주의 징집령이 나붙어 있다. 열여섯 살이 넘은 남자는 성으로 오라는 내용이다.",
