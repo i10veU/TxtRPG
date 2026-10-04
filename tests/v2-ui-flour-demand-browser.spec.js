@@ -106,7 +106,7 @@ test.describe("V2 the town's demand (Slice 7: flour has its limits)", () => {
     // days later the town wants flour again
     await page.evaluate((list) => list.forEach((a) => window.__v2App.dispatch(a)), [DAY, DAY, DAY]);
     await act(page, "성읍의 상인과 대화");
-    await sellButton(page).click();
+    await option(page, /밀가루 자루를 판다/).click(); // by now the second caravan's fair may set the price (V2-Core-86)
     const end = await getState(page);
     expect(end.actors.player_1.inventory.item_flour_sack ?? 0).toBe(0);
     expect(end.signals.town_flour_wanted).toBe(1);

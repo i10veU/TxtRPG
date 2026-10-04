@@ -48,7 +48,10 @@ const offered = (state, choiceId, optionId) => {
   return option.requires === undefined || evaluateCondition(option.requires, { state, data: worldData, actorId: state.player.actorId, contextKind: "player" });
 };
 const canBuy = (s) => offered(s, "choice_miller_dialogue", "opt_miller_buy_flour");
-const canSell = (s) => offered(s, "choice_town_merchant_dialogue", "opt_town_merchant_sell_flour");
+// V2-Core-86: at the fair's price the same want is met by its own option
+const SELL_OPTIONS = ["opt_town_merchant_sell_flour", "opt_town_merchant_sell_flour_fair"];
+const canSell = (s) => SELL_OPTIONS.some((o) => offered(s, "choice_town_merchant_dialogue", o));
+const SELL = (s) => MERCHANT(SELL_OPTIONS.find((o) => offered(s, "choice_town_merchant_dialogue", o)));
 
 const atMill = (() => {
   const s = run(createInitialState({ worldSeed: "history-41", data: worldData }).state, TO_TRADE).state;
@@ -102,7 +105,7 @@ function testTown(threeSacks) {
   while (!canSell(s)) { s = run(s, [DAY]).state; days += 1; assert.ok(days <= 3, "back within three days"); }
   assert.strictEqual(s.signals.town_flour_wanted, 2);
   assert.ok(s.time.minute - town.time.minute < 4320 + 1440, "measured from when it last came");
-  const third = run(s, MERCHANT("opt_town_merchant_sell_flour")).state;
+  const third = run(s, SELL(s)).state;
   assert.strictEqual(me(third).inventory.item_flour_sack ?? 0, 0);
   assert.strictEqual(third.signals.town_flour_wanted, 1);
   // the merchant says nothing of flour before the settlements trade
@@ -128,7 +131,7 @@ function testWorldCounts(sold) {
 function testSaveAndDeterminism() {
   assert.ok(!/flour/.test(JSON.stringify(createInitialState({ worldSeed: "x", data: worldData }).state)), "a new game writes nothing of it");
   const path = [...MILLER("opt_miller_buy_flour"), ...MILLER("opt_miller_buy_flour"), DAY, ...MILLER("opt_miller_buy_flour"), ...TO_TOWN,
-    ...MERCHANT("opt_town_merchant_sell_flour"), ...MERCHANT("opt_town_merchant_sell_flour"), DAY, DAY, DAY, ...MERCHANT("opt_town_merchant_sell_flour")];
+    ...MERCHANT("opt_town_merchant_sell_flour"), ...MERCHANT("opt_town_merchant_sell_flour"), DAY, DAY, DAY, ...MERCHANT("opt_town_merchant_sell_flour_fair")];
   const end = run(atMill, path).state;
   assert.deepStrictEqual(validateState(end), []);
   const loaded = parseLoadedRecord(JSON.parse(JSON.stringify(buildSaveRecord("slot_flour_demand", atMill, { savedAt: 1 }))));
