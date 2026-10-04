@@ -25,9 +25,9 @@ main                    안정된 정식 기준
 | `00-governance/` | 정본 등급과 승격 절차, 결정 기록, 용어, 로드맵 |
 | `01-foundations/` | 마스터 방향, 설계 원칙, 명명 지침, 세계 구조(층위·시간·정보), 연속성 원칙, 작업용 가정(Draft) |
 | `02-world/` | 세계 개요, 우주관·신앙, 연대기 (대부분 미결) |
-| `03-geography/` | 지역·장소 항목 |
+| `03-geography/` | 지역·장소 항목 (남쪽 변경, 성읍과 그 둘레) |
 | `04-peoples-and-factions/` | 조직·세력, 인물 |
-| `05-world-systems/` | 세계 속의 경제·능력·정보 체계 (사회적 의미) |
+| `05-world-systems/` | 세계 속의 경제·능력·정보 체계 (사회적 의미), 문화 개요와 명명 도구 (Draft) |
 | `canon-review/` | 게임에 이미 구현된 설정의 목록과 항목별 검토 추천, 미결 질문에 대한 추천 (모두 `Draft`, 결정은 `00-governance/decision-log.md`) |
 | `templates/` | 새 항목을 쓸 때 쓰는 양식 |
 | `99-open-questions.md` | 소유자의 결정이 필요한 질문 |
