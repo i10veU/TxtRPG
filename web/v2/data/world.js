@@ -815,6 +815,12 @@ export const worldData = {
         }
       ]
     },
+    // V2-Core-77 (#189): the castle town's merchant (a dialogue NPC, no actor: D-92)
+    act_talk_town_merchant: {
+      name: "성읍의 상인과 대화",
+      requires: { op: "location", at: "loc_castle_town" },
+      effects: [{ op: "choice", choice: "choice_town_merchant_dialogue", sourceId: "act_talk_town_merchant" }]
+    },
     act_read_waystation_board: {
       name: "길목의 게시판을 읽는다",
       requires: { op: "location", at: "loc_far_bank" },
@@ -1333,6 +1339,29 @@ export const worldData = {
       ]
     },
     // V2-Core-73 (#180): the miller of the hamlet
+    // V2-Core-77 (#189): the castle town's market -- the same goods are worth differently here (World Bible
+    // W-04/W-05, Draft working assumptions; the prices are gameplay values, the merchant's reasons his claim)
+    choice_town_merchant_dialogue: {
+      options: [
+        {
+          id: "opt_town_merchant_ask",
+          name: "강 남쪽 물건에 대해 묻는다",
+          effects: [say("txt_town_merchant_south_goods")]
+        },
+        {
+          id: "opt_town_merchant_sell_herb",
+          name: "정화초를 판다 (은화 4)",
+          requires: { op: "item", item: "item_purifying_herb", min: 1 },
+          effects: [{ op: "item", item: "item_purifying_herb", add: -1 }, { op: "money", add: 4 }, say("txt_town_merchant_buy_herb")]
+        },
+        {
+          id: "opt_town_merchant_buy_sword",
+          name: "철검을 산다 (은화 2)",
+          requires: { op: "money", min: 2 },
+          effects: [{ op: "money", add: -2 }, { op: "item", item: "item_iron_sword", add: 1 }, say("txt_town_merchant_sell_sword")]
+        }
+      ]
+    },
     choice_miller_dialogue: {
       options: [
         {
@@ -1712,6 +1741,8 @@ export const worldData = {
     // V2-Core-73 (#180): dialogue only (no actor: D-92)
     npc_miller: { name: "방앗간 주인" },
     npc_ferryman: { name: "뱃사공" },
+    // V2-Core-77 (#189): dialogue only (no actor: D-92)
+    npc_town_merchant: { name: "성읍의 상인" },
     // V2-Core-47 (D-77): the leader is an actor -- the same record a player character is,
     // `kind:"npc"`, seeded by createInitialState under this ID (the ID his relation edges
     // already use). What reads it: the opposed difficulties of the confrontation and the fight
@@ -1847,6 +1878,9 @@ export const worldData = {
     txt_castle_no_frontier_news: "포고판 앞 사람들에게 남쪽 변경의 일을 물어도 고개를 젓는다. 강 남쪽 소식은 아직 이곳까지 올라오지 않았다.",
     txt_castle_bandits_tale: "포고판 앞에서 누군가 남쪽 변경 이야기를 한다. 폐허의 도적 떼가 모두 쓰러졌다고, 상단 사람들에게 들었다고 한다.",
     txt_castle_well_tale: "다른 이는 강 남쪽 어느 마을의 샘에 정령이 노했다가 제물을 받고 누그러졌다는 이야기를 늘어놓는다.",
-    txt_castle_epithet: "남쪽 변경에 도적을 몰아내고 샘을 살린 떠돌이가 있었다는 말도 돈다. 그 이름을 아는 사람은 아무도 없다."
+    txt_castle_epithet: "남쪽 변경에 도적을 몰아내고 샘을 살린 떠돌이가 있었다는 말도 돈다. 그 이름을 아는 사람은 아무도 없다.",
+    txt_town_merchant_south_goods: "상인은 강 남쪽 약초는 이곳에서 보기 드물어 값을 잘 쳐 준다고 한다. 대신 철물은 북쪽에서 내려오니 성읍이 강 남쪽보다 싸다고 덧붙인다.",
+    txt_town_merchant_buy_herb: "상인은 정화초를 이리저리 살피더니 은화 네 닢을 내준다.",
+    txt_town_merchant_sell_sword: "상인에게 은화 두 닢을 건네고 새로 벼린 철검을 받는다."
   }
 };
