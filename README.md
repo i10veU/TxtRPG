@@ -555,9 +555,9 @@ V2는 Node와 실제 Chromium 브라우저 양쪽에서 검증한다.
 
 최근 기준:
 
-- V2 Node: **55/55**
+- V2 Node: **56/56**
 - V1 regression: **41/41**
-- V2 browser: **90/90**
+- V2 browser: **91/91**
 
 각 RPG 기능도 관련 Node/browser/save-load/determinism 검증을 추가한다.
 
