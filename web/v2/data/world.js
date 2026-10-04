@@ -525,6 +525,24 @@ export const worldData = {
       ]
     },
     // V2-Core-74 (#180): the first time anyone sets foot on the far bank (narration, once for the world)
+    // V2-Core-80 (#198): a correction made in the village travels north with the road's traffic -- the
+    // first firing counts it out (1), the next one, a caravan's cadence later, brings it to the town (2)
+    evt_bandits_word_north: {
+      trigger: { op: "and", of: [{ op: "flag", key: "road_walked" }, { op: "flag", key: "bandits_tale_corrected" }, { op: "signal", key: "bandits_word_age", max: 1 }] },
+      cooldown: 4320,
+      effects: [
+        { op: "signal", key: "bandits_word_age", add: 1 },
+        { op: "if", when: { op: "signal", key: "bandits_word_age", eq: 2 }, then: [{ op: "flag", key: "bandits_truth_north", value: true }] }
+      ]
+    },
+    evt_well_word_north: {
+      trigger: { op: "and", of: [{ op: "flag", key: "road_walked" }, { op: "flag", key: "well_tale_corrected" }, { op: "signal", key: "well_word_age", max: 1 }] },
+      cooldown: 4320,
+      effects: [
+        { op: "signal", key: "well_word_age", add: 1 },
+        { op: "if", when: { op: "signal", key: "well_word_age", eq: 2 }, then: [{ op: "flag", key: "well_truth_north", value: true }] }
+      ]
+    },
     // V2-Core-76 (#189): the first time anyone reaches the castle town (narration, once for the world)
     evt_castle_town_first: {
       trigger: { op: "location", at: "loc_castle_town" },
@@ -818,8 +836,19 @@ export const worldData = {
           op: "if",
           when: CARAVANS_WENT_NORTH,
           then: [
-            { op: "if", when: { op: "signal", key: "bandits_tale_age", min: 3 }, then: [{ op: "rumor", rumor: "rum_bandits_legend", source: "src_castle_town_talk", confidence: 30 }, say("txt_castle_bandits_tale")] },
-            { op: "if", when: { op: "signal", key: "well_tale_age", min: 3 }, then: [{ op: "rumor", rumor: "rum_well_legend", source: "src_castle_town_talk", confidence: 30 }, say("txt_castle_well_tale")] },
+            // V2-Core-80 (#198): once the village's correction has travelled north, the town tells it instead
+            {
+              op: "if",
+              when: { op: "flag", key: "bandits_truth_north" },
+              then: [{ op: "rumor", rumor: "rum_bandits_fate", source: "src_castle_town_talk", confidence: 50 }, say("txt_castle_bandits_truth")],
+              else: [{ op: "if", when: { op: "signal", key: "bandits_tale_age", min: 3 }, then: [{ op: "rumor", rumor: "rum_bandits_legend", source: "src_castle_town_talk", confidence: 30 }, say("txt_castle_bandits_tale")] }]
+            },
+            {
+              op: "if",
+              when: { op: "flag", key: "well_truth_north" },
+              then: [{ op: "rumor", rumor: "rum_well_fate", source: "src_castle_town_talk", confidence: 50 }, say("txt_castle_well_truth")],
+              else: [{ op: "if", when: { op: "signal", key: "well_tale_age", min: 3 }, then: [{ op: "rumor", rumor: "rum_well_legend", source: "src_castle_town_talk", confidence: 30 }, say("txt_castle_well_tale")] }]
+            },
             { op: "if", when: { op: "flag", key: "village_honored" }, then: [say("txt_castle_epithet")] }
           ],
           else: [say("txt_castle_no_frontier_news")]
@@ -1922,6 +1951,8 @@ export const worldData = {
     txt_castle_bandits_tale: "포고판 앞에서 누군가 남쪽 변경 이야기를 한다. 폐허의 도적 떼가 모두 쓰러졌다고, 상단 사람들에게 들었다고 한다.",
     txt_castle_well_tale: "다른 이는 강 남쪽 어느 마을의 샘에 정령이 노했다가 제물을 받고 누그러졌다는 이야기를 늘어놓는다.",
     txt_castle_epithet: "남쪽 변경에 도적을 몰아내고 샘을 살린 떠돌이가 있었다는 말도 돈다. 그 이름을 아는 사람은 아무도 없다.",
+    txt_castle_bandits_truth: "포고판 앞에서 누군가 남쪽 변경 이야기를 고쳐 말한다. 폐허의 도적들이 다 쓰러진 게 아니라 흩어졌다고, 그 마을 원로가 그렇게 전하더라고 한다.",
+    txt_castle_well_truth: "다른 이는 강 남쪽 마을의 샘 이야기를 바로잡는다. 정령이 아니라 누군가 사체를 치우고 정화제를 부어 살렸다고 한다.",
     txt_town_merchant_south_goods: "상인은 강 남쪽 약초는 이곳에서 보기 드물어 값을 잘 쳐 준다고 한다. 대신 철물은 북쪽에서 내려오니 성읍이 강 남쪽보다 싸다고 덧붙인다.",
     txt_town_merchant_buy_herb: "상인은 정화초를 이리저리 살피더니 은화 네 닢을 내준다.",
     txt_town_merchant_sell_sword: "상인에게 은화 두 닢을 건네고 새로 벼린 철검을 받는다.",
