@@ -992,6 +992,20 @@ export const worldData = {
       requires: { op: "location", at: "loc_castle_town" },
       effects: [{ op: "choice", choice: "choice_guild_clerk_dialogue", sourceId: "act_talk_guild_clerk" }]
     },
+    // V2-Core-100 (#244): a bed in the castle town -- the village's rest for two silver and a night (the village stays
+    // free: it is home). A night does not close a road wound; only the salve does
+    act_lodge_castle_town: {
+      name: "성읍에서 묵는다",
+      requires: { op: "and", of: [{ op: "location", at: "loc_castle_town" }, { op: "money", min: 2 }] },
+      minutes: 480,
+      effects: [
+        { op: "money", add: -2 },
+        { op: "hp", add: 4 },
+        { op: "resource", resource: "stamina", add: 6 },
+        say("txt_lodge_castle_town"),
+        { op: "if", when: ROAD_WOUND, then: [say("txt_lodge_wound_stays")] }
+      ]
+    },
     act_read_waystation_board: {
       name: "길목의 게시판을 읽는다",
       requires: { op: "location", at: "loc_far_bank" },
@@ -2221,6 +2235,8 @@ export const worldData = {
     txt_guild_clerk_no_work: "서기는 고개를 젓는다. 지금 길에 오를 상단은 이미 호위를 구했으니 다음 상단을 기다리라고 한다.",
     txt_escort_great: "길에서 덤벼든 좀도둑들을 단숨에 쫓아낸다. 상단은 무사히 강 건너 길목에 닿고, 상단주는 품삯에 웃돈을 얹어 준다.",
     txt_escort_success: "길은 길었지만 상단은 무사히 강 건너 길목에 닿는다. 서기가 약속한 품삯을 받는다.",
-    txt_escort_fail: "길에서 덤벼든 좀도둑들과 엉켜 상처를 입는다. 상단은 간신히 강 건너 길목에 닿고, 품삯은 깎인다."
+    txt_escort_fail: "길에서 덤벼든 좀도둑들과 엉켜 상처를 입는다. 상단은 간신히 강 건너 길목에 닿고, 품삯은 깎인다.",
+    txt_lodge_castle_town: "은화 두 닢을 내고 성읍의 지붕 아래에서 하룻밤을 묵는다. 길에서 쌓인 피로가 풀린다.",
+    txt_lodge_wound_stays: "옆구리의 상처는 하룻밤으로 아물지 않는다. 약초 연고가 있어야 할 것 같다."
   }
 };
