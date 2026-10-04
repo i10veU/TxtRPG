@@ -1460,6 +1460,14 @@ export const worldData = {
           name: "철검을 산다 (은화 2)",
           requires: { op: "money", min: 2 },
           effects: [{ op: "money", add: -2 }, { op: "item", item: "item_iron_sword", add: 1 }, say("txt_town_merchant_sell_sword")]
+        },
+        // V2-Core-84 (#207): frontier flour sells in the town too (World Bible WB-0022 DC-06) -- the hamlet's
+        // trade flour only (an errand's sack for the elder exists only before the settlements trade)
+        {
+          id: "opt_town_merchant_sell_flour",
+          name: "밀가루 자루를 판다 (은화 4)",
+          requires: { op: "and", of: [HAMLET_TRADES, { op: "item", item: "item_flour_sack", min: 1 }] },
+          effects: [{ op: "item", item: "item_flour_sack", add: -1 }, { op: "money", add: 4 }, say("txt_town_merchant_buy_flour")]
         }
       ]
     },
@@ -1517,6 +1525,13 @@ export const worldData = {
           name: "원로에게 밀가루를 전해 주겠다고 한다",
           requires: { op: "and", of: [{ op: "not", of: HAMLET_TRADES }, { op: "not", of: { op: "item", item: "item_flour_sack", min: 1 } }] },
           effects: [{ op: "item", item: "item_flour_sack", add: 1 }, say("txt_miller_flour")]
+        },
+        // V2-Core-84 (#207): once the settlements trade, the mill has flour to spare for the road north
+        {
+          id: "opt_miller_buy_flour",
+          name: "밀가루 자루를 산다 (은화 2)",
+          requires: { op: "and", of: [HAMLET_TRADES, { op: "money", min: 2 }] },
+          effects: [{ op: "money", add: -2 }, { op: "item", item: "item_flour_sack", add: 1 }, say("txt_miller_sell_flour")]
         }
       ]
     },
@@ -1984,6 +1999,7 @@ export const worldData = {
     txt_miller_welcome: "변경 마을이 감사했다는 사람이 당신이냐며, 그는 밀가루 묻은 손으로 당신의 손을 잡는다.",
     txt_miller_trade_running: "요즘은 변경 마을 장터로 수레가 오간다며 그는 흡족해한다.",
     txt_miller_buy_herb: "방앗간 주인은 정화초를 받아 들고 은화 두 닢을 건넨다. 이 근방에서는 귀한 풀이라고 한다.",
+    txt_miller_sell_flour: "방앗간 주인은 밀가루 자루 하나를 내준다. 마을과 거래가 트인 뒤로 밀이 남는다며, 강 건너에선 더 쳐줄지도 모른다고 한다.",
     txt_miller_flour: "그는 밀가루 한 자루를 내준다. 변경 마을 원로에게 전해 주면, 다시 거래를 트자는 뜻으로 알아들을 거라고 한다.",
     txt_deliver_flour: "원로는 밀가루 자루를 받아 들고 한참을 바라본다. 물레방아 마을과 다시 거래를 하자고, 곧 장터에 수레가 올 거라고 말한다.",
     txt_hamlet_carts: "장터에 물레방아 마을의 수레가 들어와 있다. 갓 구운 빵 냄새가 장터에 퍼진다.",
@@ -2020,6 +2036,7 @@ export const worldData = {
     txt_town_told_spring: "샘에서 본 것을 들려준다. 정령이 아니라 사람이 사체를 치우고 정화제를 부었다고. 듣던 이들이 그 이야기를 서로에게 옮기기 시작한다.",
     txt_town_merchant_south_goods: "상인은 강 남쪽 약초는 이곳에서 보기 드물어 값을 잘 쳐 준다고 한다. 대신 철물은 북쪽에서 내려오니 성읍이 강 남쪽보다 싸다고 덧붙인다.",
     txt_town_merchant_buy_herb: "상인은 정화초를 이리저리 살피더니 은화 네 닢을 내준다.",
+    txt_town_merchant_buy_flour: "상인은 자루를 열어 밀가루를 손끝으로 비벼 본다. 강 남쪽 밀은 곱게 빻였다며 은화 네 닢을 내준다.",
     txt_town_merchant_sell_sword: "상인에게 은화 두 닢을 건네고 새로 벼린 철검을 받는다.",
     txt_guild_clerk_work: "서기는 장부를 넘기며 말한다. 강나루로 내려가는 상단이 호위를 구한다고, 길이 험하니 칼을 쓸 줄 알면 좋겠다고 한다.",
     txt_guild_clerk_no_work: "서기는 고개를 젓는다. 지금 길에 오를 상단은 이미 호위를 구했으니 다음 상단을 기다리라고 한다.",
