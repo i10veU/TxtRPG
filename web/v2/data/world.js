@@ -374,6 +374,8 @@ const BANDITS_GONE = { op: "case", case: "case_ruins_mystery", stage: "resolved"
 const LEADER_LIVES = { op: "alive", subject: "npc_bandit_leader" };
 // V2-Core-74 (#180): the realm's news the caravans have brought so far (the world's facts)
 const NEWS = (fact) => ({ op: "fact", fact, eq: "known" });
+// V2-Core-76 (#189): the frontier's news travels north only with the caravans (World Bible WB-0019)
+const CARAVANS_WENT_NORTH = { op: "signal", key: "caravan_visits", min: 1 };
 // V2-Core-73 (#180): the two settlements trade (a world edge between world entities, D-70)
 const HAMLET_TRADES = { op: "relation", from: "org_mill_hamlet", to: "org_village", tag: "trading" };
 // V2-Core-70 (#170): the village's standing towards this character (their own edge)
@@ -512,6 +514,12 @@ export const worldData = {
       ]
     },
     // V2-Core-74 (#180): the first time anyone sets foot on the far bank (narration, once for the world)
+    // V2-Core-76 (#189): the first time anyone reaches the castle town (narration, once for the world)
+    evt_castle_town_first: {
+      trigger: { op: "location", at: "loc_castle_town" },
+      once: true,
+      effects: [say("txt_castle_town_first")]
+    },
     evt_far_bank_first: {
       trigger: { op: "location", at: "loc_far_bank" },
       once: true,
@@ -621,7 +629,16 @@ export const worldData = {
     },
     loc_far_bank: {
       name: "강 건너 길목",
-      links: [{ to: "loc_river_ford", minutes: 30 }]
+      links: [
+        { to: "loc_river_ford", minutes: 30 },
+        // V2-Core-76 (#189): the wide road north to the lord's castle town (World Bible N-02, WB-0019)
+        { to: "loc_castle_town", minutes: 720 }
+      ]
+    },
+    // V2-Core-76 (#189, Slice 5): the nearest urban sphere -- descriptive name only (World Bible WB-0013/G-05)
+    loc_castle_town: {
+      name: "영주의 성읍",
+      links: [{ to: "loc_far_bank", minutes: 720 }]
     }
   },
 
@@ -776,6 +793,28 @@ export const worldData = {
       effects: [{ op: "choice", choice: "choice_ferryman_dialogue", sourceId: "act_talk_ferryman" }]
     },
     // V2-Core-74 (#180): the waystation board on the far bank -- the outside world, as notices
+    // V2-Core-76 (#189): the lord's notice board -- the decree at its source; the frontier's news only once
+    // caravans have carried it north, only as the legend it became, uncorrected, and its hero without a name
+    // (World Bible N-06 information gradient, G-04 epithets; the tales are in-world belief, not truth)
+    act_read_castle_notices: {
+      name: "성읍의 포고판을 읽는다",
+      requires: { op: "location", at: "loc_castle_town" },
+      minutes: 20,
+      effects: [
+        { op: "rumor", rumor: "rum_realm_levy", source: "obs_loc_castle_town", confidence: 80 },
+        say("txt_castle_levy_decree"),
+        {
+          op: "if",
+          when: CARAVANS_WENT_NORTH,
+          then: [
+            { op: "if", when: { op: "signal", key: "bandits_tale_age", min: 3 }, then: [{ op: "rumor", rumor: "rum_bandits_legend", source: "src_castle_town_talk", confidence: 30 }, say("txt_castle_bandits_tale")] },
+            { op: "if", when: { op: "signal", key: "well_tale_age", min: 3 }, then: [{ op: "rumor", rumor: "rum_well_legend", source: "src_castle_town_talk", confidence: 30 }, say("txt_castle_well_tale")] },
+            { op: "if", when: { op: "flag", key: "village_honored" }, then: [say("txt_castle_epithet")] }
+          ],
+          else: [say("txt_castle_no_frontier_news")]
+        }
+      ]
+    },
     act_read_waystation_board: {
       name: "길목의 게시판을 읽는다",
       requires: { op: "location", at: "loc_far_bank" },
@@ -1802,6 +1841,12 @@ export const worldData = {
     txt_board_levy: "영주의 징집령이 나붙어 있다. 열여섯 살이 넘은 남자는 성으로 오라는 내용이다.",
     txt_board_bounty: "빛바랜 수배서 한 장이 눈에 띈다. 옆구리에 오래된 상처가 있는 도적 두목, 현상금 은화 쉰 닢.",
     txt_board_road_safe: "남쪽 변경의 길이 다시 안전해졌다는 상단 조합의 공고가 붙어 있다.",
-    txt_board_village_name: "게시판 귀퉁이에 누군가 적어 놓았다. 남쪽 변경 마을에서 도적을 몰아내고 샘을 살린 이가 있다고."
+    txt_board_village_name: "게시판 귀퉁이에 누군가 적어 놓았다. 남쪽 변경 마을에서 도적을 몰아내고 샘을 살린 이가 있다고.",
+    txt_castle_town_first: "넓은 길이 끝나는 곳, 언덕 위에 돌로 쌓은 성이 보인다. 성 아래로 지붕들이 빼곡히 모여 있다. 영주의 성읍이다.",
+    txt_castle_levy_decree: "성문 옆 포고판에 영주의 징집령이 붙어 있다. 인장이 찍힌 글은 길고 자세하다. 이곳에서는 글로 붙은 것이 곧 소식이다.",
+    txt_castle_no_frontier_news: "포고판 앞 사람들에게 남쪽 변경의 일을 물어도 고개를 젓는다. 강 남쪽 소식은 아직 이곳까지 올라오지 않았다.",
+    txt_castle_bandits_tale: "포고판 앞에서 누군가 남쪽 변경 이야기를 한다. 폐허의 도적 떼가 모두 쓰러졌다고, 상단 사람들에게 들었다고 한다.",
+    txt_castle_well_tale: "다른 이는 강 남쪽 어느 마을의 샘에 정령이 노했다가 제물을 받고 누그러졌다는 이야기를 늘어놓는다.",
+    txt_castle_epithet: "남쪽 변경에 도적을 몰아내고 샘을 살린 떠돌이가 있었다는 말도 돈다. 그 이름을 아는 사람은 아무도 없다."
   }
 };
