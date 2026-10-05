@@ -1647,6 +1647,8 @@ export const worldData = {
             { op: "if", when: GUARD_WANTED, then: [say("txt_guild_clerk_work")], else: [say("txt_guild_clerk_no_work")] },
             // V2-Core-92 (#226): a guard the guild knows
             { op: "if", when: GUILD_KNOWS, then: [say("txt_guild_clerk_knows_you")] },
+            // V2-Core-106 (#258): and where a guard has fallen, the careful way
+            { op: "if", when: { op: "and", of: [GUARD_WANTED, { op: "signal", key: "guards_fallen", min: 1 }] }, then: [say("txt_guild_clerk_careful_offer")] },
             // V2-Core-105 (#258): a guard whose practice is full is offered the lead of the convoy
             { op: "if", when: { op: "and", of: [GUARD_WANTED, { op: "unlock", id: "unl_road_lead" }] }, then: [say("txt_guild_clerk_lead_offer")] },
             // V2-Core-102 (#251): what the guild remembers of the guards who did not come back -- told to any guard
@@ -1701,6 +1703,22 @@ export const worldData = {
               say("txt_lead_fail"),
               { op: "if", when: { op: "not", of: ROAD_WOUND }, then: [{ op: "trait", trait: "road_wound" }, say("txt_escort_wound")] }
             ])
+          })
+        },
+        // V2-Core-106 (#258): a choice only a world that remembers offers (`guards_fallen`, V2-Core-102). The careful
+        // way: an easier check and a failure that costs nothing (no hp, no wound), for a whole day on the road instead
+        // of half and a smaller purse. It is the world's memory, not the character's: anyone is offered it, a successor
+        // too, and a world where no known guard has fallen never offers it
+        {
+          id: "opt_guild_clerk_escort_careful",
+          name: "길을 조심스레 간다",
+          requires: { op: "and", of: [GUARD_WANTED, { op: "signal", key: "guards_fallen", min: 1 }, STAMINA_AT_LEAST(2)] },
+          check: { stat: "str", skill: "swordsmanship", tags: ["combat"], difficulty: "easy" },
+          minutes: 1440,
+          outcomes: payStamina(2, {
+            great: GUARD_PAID(4, [{ op: "proficiency", id: "combat", add: 10 }, say("txt_careful_great"), ...GUILD_REMEMBERS]),
+            success: GUARD_PAID(3, [{ op: "proficiency", id: "combat", add: 10 }, say("txt_careful_success"), ...GUILD_REMEMBERS]),
+            fail: GUARD_PAID(1, [{ op: "proficiency", id: "combat", add: 5 }, say("txt_careful_fail")])
           })
         }
       ]
@@ -2288,6 +2306,10 @@ export const worldData = {
     txt_escort_fail: "길에서 덤벼든 좀도둑들과 엉켜 상처를 입는다. 상단은 간신히 강 건너 길목에 닿고, 품삯은 깎인다.",
     txt_lodge_castle_town: "은화 두 닢을 내고 성읍의 지붕 아래에서 하룻밤을 묵는다. 길에서 쌓인 피로가 풀린다.",
     txt_small_talk_fallen_guard: "원로는 목소리를 낮춘다. 상단 사람들 사이에서 길에서 돌아오지 못한 호위 이야기가 돈다고, 그 길이 쉬운 길은 아니라고 한다.",
+    txt_guild_clerk_careful_offer: "서기가 목소리를 낮춘다. 얼마 전 호위 하나가 길에서 돌아오지 못했으니, 서두르지 말고 날을 넘겨 천천히 길을 가는 방법도 있다고, 품삯은 적어도 다칠 일은 덜하다고 한다.",
+    txt_careful_great: "하루를 꼬박 들여 길목마다 살피며 간다. 좀도둑들은 낌새를 채고 비켜 가고, 상단은 아무 일 없이 강 건너 길목에 닿는다. 서기는 적은 품삯에 웃돈을 조금 얹는다.",
+    txt_careful_success: "해가 지기 전에 멈추고 날이 밝으면 다시 걷는다. 느린 길이었지만 상단은 무사히 강 건너 길목에 닿는다.",
+    txt_careful_fail: "길을 살피다 덤벼들 틈을 보인다. 그러나 서두르지 않은 덕에 상단을 돌려세울 수 있었고, 다친 사람 없이 강 건너 길목에 닿는다. 품삯은 거의 없다.",
     txt_guild_clerk_lead_offer: "서기는 장부에서 눈을 들어 당신의 칼 솜씨를 새삼 헤아린다. 이만한 솜씨면 호위를 이끄는 자리도 맡을 만하다고, 품삯도 그만큼 다르다고 한다.",
     txt_lead_great: "길 위에서 호위들을 부려 좀도둑들을 단번에 몰아낸다. 상단은 흠 하나 없이 강 건너 길목에 닿고, 상단주는 두둑한 웃돈을 얹는다.",
     txt_lead_success: "호위들을 앞뒤로 세워 길을 지킨다. 상단은 무사히 강 건너 길목에 닿고, 서기가 이끈 몫까지 쳐서 품삯을 내준다.",

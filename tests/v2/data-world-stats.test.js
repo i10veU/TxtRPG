@@ -91,7 +91,8 @@ function testEveryCheckNamesADefinedStat() {
     act_read_milestone: ["int", null], // V2-Core-72: the worn letters
     act_search_crossroads: ["per", null],
     "choice_guild_clerk_dialogue.opt_guild_clerk_escort": ["str", null], // V2-Core-78: the caravan guard
-    "choice_guild_clerk_dialogue.opt_guild_clerk_escort_lead": ["str", null] // V2-Core-105: leading it
+    "choice_guild_clerk_dialogue.opt_guild_clerk_escort_lead": ["str", null], // V2-Core-105: leading it
+    "choice_guild_clerk_dialogue.opt_guild_clerk_escort_careful": ["str", null] // V2-Core-106: the careful way
   });
   for (const [where, [stat, opposed]] of Object.entries(mapping)) {
     assert.ok(STATS.includes(stat), where);
