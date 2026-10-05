@@ -555,7 +555,7 @@ V2는 Node와 실제 Chromium 브라우저 양쪽에서 검증한다.
 
 최근 기준:
 
-- V2 Node: **93/93**
+- V2 Node: **94/94**
 - V1 regression: **41/41**
 - V2 browser: **130/130**
 
