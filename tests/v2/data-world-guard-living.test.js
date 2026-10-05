@@ -6,8 +6,9 @@
 //      ways (escorts in; the jerkin and the nights out). At the last rank the practice is full: the road teaches no more;
 //   2. walking home to rest instead: the same caravans, the same days -- the caravans come every three days, and the walk
 //      fits inside the wait. The bed buys no caravan in a steady career; the walker keeps the nights' silver;
-//   3. what the bed is worth (V2-Core-109, the caravans do not wait): a spent guard with a convoy waiting -- who sleeps in
-//      town loses nothing; who walks home to rest loses the caravan that comes on the road once the convoy has waited two days;
+//   3. what the bed is worth (V2-Core-109/116, the caravans do not wait): a spent guard whose backlog is full (the cap's
+//      three shares, staged) with a convoy waiting -- who sleeps in town loses nothing; who walks home to rest loses the
+//      caravan that comes on the road once the convoy has waited two days. With one share owed the walk loses nothing;
 //   4. save/load and determinism.
 // Practice, ranks and silver are the character's; values are gameplay values. No Canon.
 //
@@ -129,9 +130,9 @@ function testWalkOrLodge() {
   assert.strictEqual(me(walker.state).money - me(lodger.state).money, 4, "two nights' silver kept");
 }
 
-// 3. what the bed is worth (V2-Core-109): the caravans do not wait. A guard spent with a convoy waiting: who sleeps in
-// town (8 hours) loses nothing; who walks home to rest (29 hours) loses the caravan that comes on the road, if the
-// convoy has already waited two days -- the cap holds one share
+// 3. what the bed is worth (V2-Core-109/116): the caravans do not wait. A guard spent with a convoy waiting and the
+// backlog full (the cap's three shares): who sleeps in town (8 hours) loses nothing; who walks home to rest (29 hours)
+// loses the caravan that comes on the road, if the convoy has already waited two days
 function testBedValue() {
   // four convoys taken: the first three are settled, the next one waits as a later caravan (owed)
   let s = career(scoutInTown, 4, "lodge").state;
@@ -143,7 +144,12 @@ function testBedValue() {
   growth(rested).resources.stamina.current = 6;
   assert.strictEqual(wanted(rested), true, "a convoy waits (the job asks for stamina: she has none)");
   assert.strictEqual(wanted(spent), false);
-  assert.strictEqual(spent.signals.guards_owed, 1);
+  assert.strictEqual(spent.signals.guards_owed, 1, "one share owed after four convoys");
+  // with one owed the walk loses nothing (the cap holds three); a full backlog is what the bed protects (staged: the
+  // backlog a long absence would have left)
+  const slack = play(play(spent, Array(48).fill(HOUR)).state, [M("loc_far_bank"), ...REST_TRIP]).state;
+  assert.strictEqual((slack.signals.caravans_unguarded ?? 0) - (spent.signals.caravans_unguarded ?? 0), 0, "one owed: the walk loses nothing");
+  spent.signals = { ...spent.signals, guards_owed: 3 };
   const outcome = (state, lagHours) => {
     const u = play(state, Array(lagHours).fill(HOUR)).state;
     const lodged = play(u, [LODGE]).state;

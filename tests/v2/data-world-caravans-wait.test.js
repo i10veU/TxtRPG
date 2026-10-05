@@ -1,16 +1,18 @@
-// V2-Core-108/109 (#265, World Simulation 2 -- the caravans do not wait): through the ordinary step() API and the real
-// pack. No engine change; additive content only (D-92):
-//   owed shares are capped at ONE (V2-Core-109 tightened the first step's three, on measurement: a steady career loses
-//   none under any cap from 1 to 3 -- staying in town or walking home to rest -- but only a cap of one makes a long
-//   absence cost anything): a caravan not guarded by the time the next arrives has left with another guard -- counted
-//   in the world's `caravans_unguarded` -- and the clerk says so. The first three caravans' rule (`FIRST_CARAVANS_WANT`)
-//   is untouched. A save already over the cap is brought down at its next caravan (by up to 12; one holding more comes
-//   down over the next ones). Provisional gameplay values (R-29).
-//   1. the world's timeline with nobody hiring: owed = min(visits - 3, 1), unguarded = max(0, visits - 4), every day;
-//   2. what a long absence costs: a traveller back after 24 days finds the three first-caravan jobs and the one share
-//      -- four escorts at once, not the nine caravans' worth -- and the clerk tells why;
+// V2-Core-108/109/116 (#265, #282, World Simulation 2/3 -- the caravans do not wait): through the ordinary step() API and
+// the real pack. No engine change here; content on the merged `catchUp` (D-107):
+//   owed shares are capped at THREE (nine days of caravans). Set at three in V2-Core-108, tightened to one in V2-Core-109
+//   on measurements made on a clock that counted a long step's caravans as one, and set back to three in V2-Core-116 on
+//   the honest clock (`catchUp`, D-107): a steady career loses none under any cap from 1 to 3, and the royal journey --
+//   which costs ONE job on the honest clock at three, as it cost one at cap one on the old clock -- is what a cap of
+//   three prices. A caravan not guarded by the time the cap is passed has left with another guard -- counted in the
+//   world's `caravans_unguarded` -- and the clerk says so. The first three caravans' rule (`FIRST_CARAVANS_WANT`) is
+//   untouched. A save already over the cap is brought down at its next caravan (by up to 12 per caravan; one holding
+//   more comes down over the next ones). Provisional gameplay values (R-29).
+//   1. the world's timeline with nobody hiring: owed = min(visits - 3, 3), unguarded = max(0, visits - 6), every day;
+//   2. what a long absence costs: a traveller back after 24 days finds the three first-caravan jobs and the three shares
+//      -- six escorts at once, not the nine caravans' worth -- and the clerk tells why;
 //   3. a steady career is untouched: a guard who takes every caravan loses none;
-//   4. a save over the cap (staged): 9 -> 1, 10 -> 1, 12 -> 1, and 20 -> 9 -> 1 over the next caravans;
+//   4. a save over the cap (staged): 9 -> 3, 10 -> 3, 12 -> 3, and 20 -> 9 -> 3 over the next caravans;
 //   5. save compatibility (the start is the same without it), save/load and determinism.
 // Staged where it must be (a strong, rested guard in 2/3; the owed counts in 4). The words are Provisional. No Canon.
 //
@@ -67,8 +69,8 @@ function testTimeline() {
   for (let day = 1; day <= 24; day += 1) {
     s = play(s, [DAY]).state;
     const v = sig(s, "caravan_visits");
-    assert.strictEqual(sig(s, "guards_owed"), Math.min(Math.max(0, v - 3), 1), `day ${day}: owed = min(visits - 3, 1)`);
-    assert.strictEqual(sig(s, "caravans_unguarded"), Math.max(0, v - 4), `day ${day}: the ones beyond the cap left`);
+    assert.strictEqual(sig(s, "guards_owed"), Math.min(Math.max(0, v - 3), 3), `day ${day}: owed = min(visits - 3, 3)`);
+    assert.strictEqual(sig(s, "caravans_unguarded"), Math.max(0, v - 6), `day ${day}: the ones beyond the cap left`);
     assert.strictEqual(sig(s, "guards_hired"), 0);
     seen.push(v);
   }
@@ -79,8 +81,8 @@ function testTimeline() {
 // 2. what a long absence costs
 function testLongAbsence(away) {
   assert.strictEqual(sig(away, "caravan_visits"), 9);
-  assert.strictEqual(sig(away, "guards_owed"), 1);
-  assert.strictEqual(sig(away, "caravans_unguarded"), 5);
+  assert.strictEqual(sig(away, "guards_owed"), 3);
+  assert.strictEqual(sig(away, "caravans_unguarded"), 3);
   let s = play(away, TO_TOWN).state;
   assert.ok(play(s, ASK).said.includes(LEFT), "the clerk tells why");
   let jobs = 0;
@@ -89,13 +91,13 @@ function testLongAbsence(away) {
     jobs += 1;
     s = play(s, [M("loc_castle_town")]).state;
   }
-  // the first three caravans' shortfall (3) and the one share the cap kept are four jobs at once; the five caravans
-  // that left while she was away are gone for good -- and one more while she was on the road (a caravan came, found
-  // the share taken, and the next one left)
-  assert.strictEqual(jobs, 4);
-  assert.strictEqual(sig(s, "caravan_visits"), 10);
+  // the first three caravans' shortfall (3) and the three shares the cap kept are six jobs at once, and one more
+  // caravan came while she worked: seven; the three caravans that left while she was away are gone for good -- and one
+  // more, which came while the cap's shares were all still held
+  assert.strictEqual(jobs, 7);
+  assert.strictEqual(sig(s, "caravan_visits"), 11);
   assert.strictEqual(sig(s, "guards_owed"), 0);
-  assert.strictEqual(sig(s, "caravans_unguarded"), 6, "five left while she was away, one while she was on the road");
+  assert.strictEqual(sig(s, "caravans_unguarded"), 4, "three left while she was away, one more while the cap's shares were still held");
   // lost shares and no convoy to guard: the clerk has no job to speak of
   assert.strictEqual(wanted(s), false);
   assert.ok(!play(s, ASK).said.includes(LEFT), "no work, so no word about the work that was lost");
@@ -112,7 +114,7 @@ function testSteady() {
     s = play(s, [M("loc_castle_town")]).state;
   }
   assert.strictEqual(sig(s, "caravans_unguarded"), 0, "a guard who takes every caravan loses none");
-  assert.ok(sig(s, "guards_owed") <= 1);
+  assert.ok(sig(s, "guards_owed") <= 3);
   for (let h = 0; h < 96 && !wanted(s); h += 1) s = play(s, [HOUR]).state;
   assert.ok(wanted(s), "a convoy wants a guard");
   assert.ok(!play(s, ASK).said.includes(LEFT), "and the clerk has nothing of the kind to say");
@@ -120,7 +122,7 @@ function testSteady() {
 
 // 4. a save over the cap
 function testOldSave(away) {
-  for (const [owed, after, lost] of [[9, 1, 9], [10, 1, 10], [12, 1, 12], [1, 1, 1], [0, 1, 0]]) {
+  for (const [owed, after, lost] of [[9, 3, 7], [10, 3, 8], [12, 3, 10], [3, 3, 1], [0, 1, 0]]) {
     const old = structuredClone(away);
     old.signals = { ...old.signals, guards_owed: owed, caravans_unguarded: 0 };
     let s = old;
@@ -139,7 +141,7 @@ function testOldSave(away) {
     while (sig(s, "caravan_visits") === visits) s = play(s, [DAY]).state;
     counts.push(sig(s, "guards_owed"));
   }
-  assert.deepStrictEqual(counts, [9, 1, 1], "up to 12 at each caravan, and no further than the cap");
+  assert.deepStrictEqual(counts, [9, 3, 3], "up to 12 at each caravan, and no further than the cap");
 }
 
 // 5. save compatibility, save/load, determinism

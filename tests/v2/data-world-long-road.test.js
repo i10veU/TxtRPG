@@ -109,15 +109,16 @@ function testLongCareer() {
   return s;
 }
 
-// 2. the world does not wait: nine days away, one caravan still owed a guard and the ones before it gone; taken in turn
+// 2. the world does not wait: nine days away, three caravans still owed a guard (the cap) and none gone yet; taken in turn
 function testOwed(career) {
   const away = play(career, [M("loc_river_ford"), M("loc_crossroads"), M("loc_village"), REST, DAY, DAY, DAY, DAY, DAY, DAY, DAY, DAY, DAY]).state;
   const owed = away.signals.guards_owed;
   const unguarded = Math.max(0, away.signals.caravan_visits - 3) - Math.max(0, away.signals.guards_hired - 3);
-  // V2-Core-109: only the latest caravan still waits; every earlier unguarded one has left
-  assert.strictEqual(owed, 1, "one caravan is still owed a guard");
-  assert.strictEqual(away.signals.caravans_unguarded, unguarded - 1, "and the others left with other guards");
-  assert.ok(away.signals.caravans_unguarded >= 2, "the caravans kept coming, and did not wait");
+  // V2-Core-109/116: the cap holds three shares; every earlier unguarded caravan beyond them has left
+  assert.strictEqual(owed, 3, "three caravans are still owed a guard");
+  assert.strictEqual(unguarded, 3, "and no more than three were unguarded: nine days away costs the cap's worth, none gone yet");
+  assert.strictEqual(away.signals.caravans_unguarded, undefined);
+  assert.strictEqual(away.signals.caravan_visits, 9, "the caravans kept coming");
   let s = play(away, [M("loc_crossroads"), M("loc_river_ford"), P("act_talk_ferryman"), C("opt_ferryman_cross_letter"), M("loc_castle_town")]).state;
   const before = s.signals.guards_hired;
   for (let i = 0; i < 3; i += 1) s = nextEscort(s).state;
@@ -132,9 +133,10 @@ function testSuccessor() {
   let s = play(walked, [M("loc_crossroads"), M("loc_village"), DAY, DAY, DAY, DAY, DAY, DAY, DAY, DAY, DAY, DAY, DAY, DAY]).state;
   assert.ok(s.signals.caravan_visits >= 5, "the road lived on without anyone on it");
   const owed = s.signals.guards_owed;
-  // nobody guarded: the latest later caravan is still owed, every one before it left (V2-Core-109)
-  assert.strictEqual(owed, 1, "the latest later caravan is still owed");
-  assert.strictEqual(s.signals.caravans_unguarded, s.signals.caravan_visits - 4, "and the others left without a guard");
+  // nobody guarded: the cap's three shares are still owed, every one before them left (V2-Core-109/116)
+  const visits = s.signals.caravan_visits;
+  assert.strictEqual(owed, Math.min(visits - 3, 3), "the later caravans are owed, up to the cap's three");
+  assert.strictEqual(s.signals.caravans_unguarded ?? 0, Math.max(0, visits - 6), "and those beyond them left without a guard");
   s = play(s, [M("loc_ruins")]).state;
   for (let i = 0; i < 6 && s.pending?.kind !== "newCharacter"; i += 1) s = play(s, [{ type: "wait", minutes: 30 }]).state;
   assert.deepStrictEqual(s.pending, { kind: "newCharacter" });
