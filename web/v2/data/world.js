@@ -585,7 +585,13 @@ export const worldData = {
     // not a person -- no name, no fate, nothing a successor inherits (D-71)
     evt_known_guard_fell: {
       trigger: { op: "and", of: [{ op: "not", of: { op: "alive", subject: "self" } }, GUILD_KNOWS] },
-      effects: [{ op: "signal", key: "guards_fallen", add: 1 }]
+      effects: [
+        { op: "signal", key: "guards_fallen", add: 1 },
+        // V2-Core-114 (#280, succession legacy): what a guard the guild knew leaves behind stays with the guild -- a
+        // world count per kind, found by the next life and paid for, never handed over (Canon K-14, WB-0005)
+        { op: "if", when: { op: "item", item: "item_steel_sword", min: 1 }, then: [{ op: "signal", key: "kit_steel", add: 1 }] },
+        { op: "if", when: { op: "item", item: "item_mail_shirt", min: 1 }, then: [{ op: "signal", key: "kit_mail", add: 1 }] }
+      ]
     },
     // V2-Core-103 (#251): the road's talk carries it south, late (World Bible N-06: news travels with the caravans) --
     // the first firing counts it out, the next one a caravan's cadence later brings it to the village, only once the
@@ -1706,6 +1712,8 @@ export const worldData = {
             { op: "if", when: DANGER_OPEN, then: [say("txt_guild_clerk_danger_offer")] },
             // V2-Core-102 (#251): what the guild remembers of the guards who did not come back -- told to any guard
             { op: "if", when: { op: "signal", key: "guards_fallen", min: 1 }, then: [say("txt_guild_clerk_fallen")] },
+            // V2-Core-114 (#280): and what the guild kept of what they carried
+            { op: "if", when: { op: "or", of: [{ op: "signal", key: "kit_steel", min: 1 }, { op: "signal", key: "kit_mail", min: 1 }] }, then: [say("txt_guild_clerk_kit_offer")] },
             // V2-Core-97 (#237): the clerk sizes up a guard before the road -- what the player can judge by; the risk
             // itself is unchanged (a failed escort costs 3 hp and may wound)
             {
@@ -1757,6 +1765,20 @@ export const worldData = {
               { op: "if", when: { op: "not", of: ROAD_WOUND }, then: [{ op: "trait", trait: "road_wound" }, say("txt_escort_wound")] }
             ])
           })
+        },
+        // V2-Core-114 (#280): the fallen's kit, held by the guild and let go at half the merchant's price to a guard who
+        // does not already own that kind -- the clerk's own, since the guild kept it
+        {
+          id: "opt_guild_clerk_fallen_steel",
+          name: "쓰러진 호위가 남긴 강철 검을 받는다 (은화 12)",
+          requires: { op: "and", of: [{ op: "signal", key: "kit_steel", min: 1 }, { op: "money", min: 12 }, { op: "not", of: { op: "item", item: "item_steel_sword", min: 1 } }] },
+          effects: [{ op: "signal", key: "kit_steel", add: -1 }, { op: "money", add: -12 }, { op: "item", item: "item_steel_sword", add: 1 }, say("txt_guild_clerk_kit_steel")]
+        },
+        {
+          id: "opt_guild_clerk_fallen_mail",
+          name: "쓰러진 호위가 남긴 사슬 갑옷을 받는다 (은화 24)",
+          requires: { op: "and", of: [{ op: "signal", key: "kit_mail", min: 1 }, { op: "money", min: 24 }, { op: "not", of: { op: "item", item: "item_mail_shirt", min: 1 } }] },
+          effects: [{ op: "signal", key: "kit_mail", add: -1 }, { op: "money", add: -24 }, { op: "item", item: "item_mail_shirt", add: 1 }, say("txt_guild_clerk_kit_mail")]
         },
         // V2-Core-112 (#275, RPG Depth 4 step 2): the hard convoy, above the lead job -- for a lead-holder in steel or mail.
         // A hard check (a +3 guard fails it as often as an ungeared one fails an ordinary escort), the lead's stamina, and
@@ -2402,6 +2424,9 @@ export const worldData = {
     txt_lead_great: "길 위에서 호위들을 부려 좀도둑들을 단번에 몰아낸다. 상단은 흠 하나 없이 강 건너 길목에 닿고, 상단주는 두둑한 웃돈을 얹는다.",
     txt_lead_success: "호위들을 앞뒤로 세워 길을 지킨다. 상단은 무사히 강 건너 길목에 닿고, 서기가 이끈 몫까지 쳐서 품삯을 내준다.",
     txt_lead_fail: "호위들을 이끌었으나 길에서 덤벼든 좀도둑들에게 밀린다. 상단은 간신히 닿지만 앞장선 몫만큼 상처를 입고, 품삯은 크게 깎인다.",
+    txt_guild_clerk_kit_offer: "서기는 뒤편 궤짝을 턱으로 가리킨다. 돌아오지 못한 호위가 지녔던 물건을 조합이 거두어 두었고, 이어 가는 이에게는 반값에 내준다고 한다.",
+    txt_guild_clerk_kit_steel: "서기는 궤짝에서 기름 먹인 강철 검을 꺼내 건넨다. 주인이 누구였는지는 말하지 않고, 은화 열두 닢을 받아 장부에 적는다.",
+    txt_guild_clerk_kit_mail: "서기는 궤짝에서 사슬 갑옷을 꺼내 건넨다. 주인이 누구였는지는 말하지 않고, 은화 스물네 닢을 받아 장부에 적는다.",
     txt_guild_clerk_fallen: "서기는 장부의 한 줄을 손가락으로 짚는다. 조합이 믿던 호위 하나가 길에서 돌아오지 못했다고, 이 일은 그만큼 위험하다고 한다.",
     txt_lodge_wound_stays: "옆구리의 상처는 하룻밤으로 아물지 않는다. 약초 연고가 있어야 할 것 같다."
   }
