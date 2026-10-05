@@ -59,6 +59,7 @@
 | D3-1 ✅ | RPG Depth 3 1단계: 마지막 단계가 일을 연다 (V2-Core-105, #258) | 새 정본 없음, #260 병합 |
 | D3-2 ✅ | RPG Depth 3 2단계: 기억이 선택에 닿는다 (V2-Core-106) | 새 정본 없음, #262 병합 |
 | D3-3 ✅ | RPG Depth 3 3단계: 통합 — 마지막 단계 너머 (V2-Core-107) | 새 정본 없음, #264 병합 — RPG Depth 3 (#258) 완료 |
+| W2-1 ✅ | World Simulation 2 1단계: 상단은 기다려 주지 않는다 (V2-Core-108, #265) | 위임 결정 WB-0025(게임 값), #267 |
 | A-1 ✅ | Artifact: World Observatory v1 (세계 지도 · 정보의 흐름 · 결과의 사슬 · 불일치) | 정본 아님. https://claude.ai/artifact/2qqDjLekcXTsPwCNy9Aif4 |
 
 ## 추상 로드맵 (WB-0023 — 고정 일정이 아니다)
