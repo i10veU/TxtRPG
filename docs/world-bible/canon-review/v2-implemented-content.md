@@ -219,3 +219,13 @@ ID는 저장 파일에 남으므로 게임 쪽에서 바꾸기 어렵다. **정�
 | `item_steel_sword` / `opt_town_merchant_buy_steel_sword` / `act_equip_steel_sword` | 성읍 상인이 강철 검(`hand`, 전투 +1, 은화 24)을 판다. 든 철검을 대신한다(철검의 대결 기술과 함께) | **게임 값**(Provisional, R-29). 상인의 말은 **Provisional** — 상인의 이름·내력·누가 만드는가는 말하지 않는다 |
 | `item_mail_shirt` / `opt_town_merchant_buy_mail_shirt` / `act_equip_mail_shirt` | 상인이 사슬 갑옷(`body`, 전투 +2, 은화 48)을 판다. 입은 가죽 조끼를 대신한다 | **게임 값**(Provisional, R-29). 서술은 **Provisional** |
 | `opt_guild_clerk_escort_danger` / `txt_guild_clerk_danger_offer` / `txt_danger_*` | 이끄는 이(`unl_road_lead`)가 강철이나 사슬 갑옷을 걸치면 서기가 어려운 상단을 권한다: 어려운 판정(14), 스태미나 3, 품삯 14/10/2, 신뢰는 이끄는 일처럼 두 배, 실패는 3 hp와 길의 상처 | **게임 값**(Provisional, R-29): 값은 측정(이끄는 일 대비 은화 +17%, 위험 +8%p)에서 정했다. 해금은 **캐릭터의 것**(후계자는 없다, D-71). 서술은 **Provisional** — 누가 상단을 노리는지·왜는 말하지 않는다 |
+
+## 계승의 유산 — 쓰러진 이가 남긴 것 (Master Goal #279)
+
+새 정본 없음. 정본 K-14·WB-0005는 그대로다 — 건네받는 것은 없고, 세계가 간직한 것을 찾아서 값을 치른다 (WB-0026).
+
+| ID | 무엇 | 처리 |
+|---|---|---|
+| `kit_steel` / `kit_mail` (`evt_known_guard_fell`) | 조합이 *아는* 호위(신뢰 10 이상)가 쓰러지면 그가 *가진* 강철 검·사슬 갑옷이 조합에 남는다. 세계의 수, 쓰러진 그 걸음에 센다. 조합이 몰랐던 호위·아무것도 없던 호위는 남기지 않는다 | **세계의 것**(후계자가 물려받는 것이 아니다). 기준(신뢰 10)은 게임 값 |
+| `opt_guild_clerk_fallen_steel` / `opt_guild_clerk_fallen_mail` / `txt_guild_clerk_kit_*` | 서기가 이어 가는 이에게 반값(은화 12, 24)에 내준다. 그 종류를 이미 가진 호위에게는 안 내주고, 가져가면 수가 하나 준다 | 반값은 **게임 값**(Provisional, R-29). 서기의 말은 **Provisional** — 주인이 누구였는지·어떻게 쓰러졌는지는 말하지 않는다 |
+
