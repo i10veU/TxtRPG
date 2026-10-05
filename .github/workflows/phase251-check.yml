@@ -101,7 +101,7 @@ jobs:
         shell: bash
         run: |
           set -e
-          nohup python3 -m http.server 4173 --directory web >/tmp/txtrpg-http.log 2>&1 &
+          nohup python3 tests/support/static-server.py 4173 web >/tmp/txtrpg-http.log 2>&1 &
           echo $! > /tmp/txtrpg-http.pid
 
       - name: Browser smoke regression
