@@ -455,6 +455,9 @@ const STRIKE_CHECK = (base) => ({ stat: "str", skill: "swordsmanship", tags: ["c
 // V2-Core-56 (D-85, Gate 4 = C): a technique's stamina cost -- the option requires it, and every
 // outcome of its exchange pays it first (an option with a check runs only its tier's outcome)
 const STAMINA_AT_LEAST = (n) => ({ op: "resource", resource: "stamina", min: n });
+// V2-Core-112 (#275): the hard convoy is open to a lead-holder wearing steel or mail
+const DANGER_OPEN = { op: "and", of: [GUARD_WANTED, { op: "unlock", id: "unl_road_lead" }, STAMINA_AT_LEAST(3),
+  { op: "or", of: [{ op: "item", item: "item_steel_sword", equipped: true }, { op: "item", item: "item_mail_shirt", equipped: true }] }] };
 const payStamina = (n, outcomes) =>
   Object.fromEntries(Object.entries(outcomes).map(([tier, effects]) => [tier, [{ op: "resource", resource: "stamina", add: -n }, ...effects]]));
 const STRIKE_OUTCOMES = {
@@ -1700,6 +1703,7 @@ export const worldData = {
             { op: "if", when: { op: "and", of: [GUARD_WANTED, { op: "signal", key: "guards_fallen", min: 1 }] }, then: [say("txt_guild_clerk_careful_offer")] },
             // V2-Core-105 (#258): a guard whose practice is full is offered the lead of the convoy
             { op: "if", when: { op: "and", of: [GUARD_WANTED, { op: "unlock", id: "unl_road_lead" }] }, then: [say("txt_guild_clerk_lead_offer")] },
+            { op: "if", when: DANGER_OPEN, then: [say("txt_guild_clerk_danger_offer")] },
             // V2-Core-102 (#251): what the guild remembers of the guards who did not come back -- told to any guard
             { op: "if", when: { op: "signal", key: "guards_fallen", min: 1 }, then: [say("txt_guild_clerk_fallen")] },
             // V2-Core-97 (#237): the clerk sizes up a guard before the road -- what the player can judge by; the risk
@@ -1750,6 +1754,25 @@ export const worldData = {
             fail: GUARD_PAID(2, [
               { op: "hp", add: -3 },
               say("txt_lead_fail"),
+              { op: "if", when: { op: "not", of: ROAD_WOUND }, then: [{ op: "trait", trait: "road_wound" }, say("txt_escort_wound")] }
+            ])
+          })
+        },
+        // V2-Core-112 (#275, RPG Depth 4 step 2): the hard convoy, above the lead job -- for a lead-holder in steel or mail.
+        // A hard check (a +3 guard fails it as often as an ungeared one fails an ordinary escort), the lead's stamina, and
+        // 14/10/2 against the lead's 8/6/2: measured +17% silver a job for about +8 points of partial-or-fail (#275)
+        {
+          id: "opt_guild_clerk_escort_danger",
+          name: "위험한 상단 호위를 이끈다",
+          requires: DANGER_OPEN,
+          check: { stat: "str", skill: "swordsmanship", tags: ["combat"], difficulty: "hard" },
+          minutes: 720,
+          outcomes: payStamina(3, {
+            great: GUARD_PAID(14, [say("txt_danger_great"), ...LEAD_REMEMBERS]),
+            success: GUARD_PAID(10, [say("txt_danger_success"), ...LEAD_REMEMBERS]),
+            fail: GUARD_PAID(2, [
+              { op: "hp", add: -3 },
+              say("txt_danger_fail"),
               { op: "if", when: { op: "not", of: ROAD_WOUND }, then: [{ op: "trait", trait: "road_wound" }, say("txt_escort_wound")] }
             ])
           })
@@ -2372,6 +2395,10 @@ export const worldData = {
     txt_careful_success: "해가 지기 전에 멈추고 날이 밝으면 다시 걷는다. 느린 길이었지만 상단은 무사히 강 건너 길목에 닿는다.",
     txt_careful_fail: "길을 살피다 덤벼들 틈을 보인다. 그러나 서두르지 않은 덕에 상단을 돌려세울 수 있었고, 다친 사람 없이 강 건너 길목에 닿는다. 품삯은 거의 없다.",
     txt_guild_clerk_lead_offer: "서기는 장부에서 눈을 들어 당신의 칼 솜씨를 새삼 헤아린다. 이만한 솜씨면 호위를 이끄는 자리도 맡을 만하다고, 품삯도 그만큼 다르다고 한다.",
+    txt_guild_clerk_danger_offer: "서기는 목소리를 낮춘다. 강철을 걸친 이만 부탁할 수 있는 상단이 있다고 한다 — 길이 험하고 상대가 독하지만 품삯은 두 배에 가깝다고.",
+    txt_danger_great: "험한 길목에서 호위들을 이끌어 독한 무리를 단번에 꺾는다. 상단은 짐 하나 잃지 않고 닿고, 상단주는 놀라 은화를 한 움큼 더 얹는다.",
+    txt_danger_success: "호위들을 촘촘히 세워 험한 길을 뚫는다. 상단은 무사히 닿고, 위험한 일의 품삯이 넉넉히 치러진다.",
+    txt_danger_fail: "독한 무리에게 호위가 밀린다. 상단은 간신히 닿지만 앞장선 몫만큼 크게 다치고, 품삯은 형편없이 깎인다.",
     txt_lead_great: "길 위에서 호위들을 부려 좀도둑들을 단번에 몰아낸다. 상단은 흠 하나 없이 강 건너 길목에 닿고, 상단주는 두둑한 웃돈을 얹는다.",
     txt_lead_success: "호위들을 앞뒤로 세워 길을 지킨다. 상단은 무사히 강 건너 길목에 닿고, 서기가 이끈 몫까지 쳐서 품삯을 내준다.",
     txt_lead_fail: "호위들을 이끌었으나 길에서 덤벼든 좀도둑들에게 밀린다. 상단은 간신히 닿지만 앞장선 몫만큼 상처를 입고, 품삯은 크게 깎인다.",

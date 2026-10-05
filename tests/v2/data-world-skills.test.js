@@ -87,7 +87,8 @@ function testChecksReadSkills() {
     act_search_crossroads: ["investigation", null],
     "choice_guild_clerk_dialogue.opt_guild_clerk_escort": ["swordsmanship", null], // V2-Core-78: the caravan guard
     "choice_guild_clerk_dialogue.opt_guild_clerk_escort_lead": ["swordsmanship", null], // V2-Core-105: leading it
-    "choice_guild_clerk_dialogue.opt_guild_clerk_escort_careful": ["swordsmanship", null] // V2-Core-106: the careful way
+    "choice_guild_clerk_dialogue.opt_guild_clerk_escort_careful": ["swordsmanship", null], // V2-Core-106: the careful way
+    "choice_guild_clerk_dialogue.opt_guild_clerk_escort_danger": ["swordsmanship", null] // V2-Core-112: the hard convoy
   });
 }
 
