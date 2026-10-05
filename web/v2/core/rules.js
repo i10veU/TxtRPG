@@ -2358,6 +2358,12 @@ export function validateData(data) {
       const event = data.events[eventId];
       if (!isPlainObject(event)) return;
       if (event.trigger !== undefined) walkCondition(event.trigger, "world", `events.${eventId}.trigger`, errors);
+      // V2-Core-115 (D-107): `catchUp` is a boolean, counts cooldown periods (so needs one), and `once` has none to count
+      if (event.catchUp !== undefined) {
+        if (typeof event.catchUp !== "boolean") errors.push(`events.${eventId}.catchUp must be a boolean`);
+        else if (event.catchUp === true && !(Number.isInteger(event.cooldown) && event.cooldown > 0)) errors.push(`events.${eventId}.catchUp needs a positive integer cooldown`);
+        else if (event.catchUp === true && event.once === true) errors.push(`events.${eventId}.catchUp cannot be combined with once`);
+      }
       walkResolvable(event, `events.${eventId}`, errors, data);
     });
   }

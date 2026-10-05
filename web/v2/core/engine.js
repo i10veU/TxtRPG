@@ -271,6 +271,9 @@ function pushDayStartedEvents(beforeMinute, workingState, events) {
 // trigger ids in this same pass can see it (ordinary sequential visibility,
 // §4.1) -- but the pass never restarts, which is the "1-step chain limit"
 // (a newly-true earlier-id trigger waits for the next step() call).
+// V2-Core-115 (D-107): the most firings a `catchUp` event makes in one step; what is left is caught up on the next steps
+const MAX_CATCH_UP_FIRINGS = 64;
+
 function runTriggerStage(workingState, events, data) {
   if (workingState.player === undefined) return; // no actor system bootstrapped (D-48-style)
   const definitions = data?.events;
@@ -289,13 +292,25 @@ function runTriggerStage(workingState, events, data) {
       const triggerCtx = { state: workingState, data, actorId: workingState.player.actorId, contextKind: "world" };
       if (!evaluateCondition(def.trigger, triggerCtx)) return;
 
-      resolveResolvable(def, workingState, events, { state: workingState, data, actorId: workingState.player.actorId });
+      // V2-Core-115 (D-107): an event that opts in with `catchUp` fires once for every whole cooldown period since its
+      // last firing (at least one -- the cooldown check above passed), not once however long the step; the cadence keeps
+      // its phase. The first firing and events without the field are as they always were (a `once` event never gets here
+      // a second time)
+      const catchUp = def.catchUp === true && Number.isInteger(def.cooldown) && def.cooldown > 0 && fired !== undefined;
+      const times = catchUp
+        ? Math.min(MAX_CATCH_UP_FIRINGS, Math.floor((workingState.time.minute - fired.lastMinute) / def.cooldown))
+        : 1;
+      for (let i = 0; i < times; i += 1) {
+        resolveResolvable(def, workingState, events, { state: workingState, data, actorId: workingState.player.actorId });
+        events.push({ minute: workingState.time.minute, type: "trigger.fired", visibility: "internal", data: { eventId } });
+      }
 
       if (!isPlainObject(workingState.fired)) workingState.fired = {};
       const previousCount = workingState.fired[eventId]?.count ?? 0;
-      workingState.fired[eventId] = { count: previousCount + 1, lastMinute: workingState.time.minute };
-
-      events.push({ minute: workingState.time.minute, type: "trigger.fired", visibility: "internal", data: { eventId } });
+      workingState.fired[eventId] = {
+        count: previousCount + times,
+        lastMinute: catchUp ? fired.lastMinute + times * def.cooldown : workingState.time.minute
+      };
     });
 }
 
