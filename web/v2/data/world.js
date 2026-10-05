@@ -403,6 +403,16 @@ const FIRST_CARAVANS_WANT = {
 };
 // V2-Core-96 (#237): caravans keep coming after the third; each later one is owed a guard (`guards_owed`)
 const GUARD_WANTED = { op: "or", of: [FIRST_CARAVANS_WANT, { op: "signal", key: "guards_owed", min: 1 }] };
+// V2-Core-108 (#265): the caravans do not wait. Owed shares are capped at 3 (about nine days of caravans): when a
+// new caravan would push the count over, the oldest one has left with another guard (counted in the world's
+// `caravans_unguarded`). Each `if` drops one, so a save already over the cap is brought down by up to 8 at its next
+// caravan (one holding more than 10 comes down over the next ones). The first three caravans' rule is untouched
+const OWED_CAP = 3;
+const CLAMP_OWED = Array.from({ length: 8 }, () => ({
+  op: "if",
+  when: { op: "signal", key: "guards_owed", min: OWED_CAP + 1 },
+  then: [{ op: "signal", key: "guards_owed", add: -1 }, { op: "signal", key: "caravans_unguarded", add: 1 }]
+}));
 const GUARD_PAID = (pay, extra) => [
   // the first three caravans' shortfall first, then the later caravans' (decided before the count moves)
   { op: "if", when: FIRST_CARAVANS_WANT, then: [], else: [{ op: "signal", key: "guards_owed", add: -1 }] },
@@ -561,7 +571,8 @@ export const worldData = {
         { op: "if", when: { op: "signal", key: "caravan_visits", eq: 1 }, then: [{ op: "fact", fact: "fact_realm_levy", set: "known" }] },
         { op: "if", when: { op: "signal", key: "caravan_visits", eq: 2 }, then: [{ op: "fact", fact: "fact_realm_fair", set: "known" }] },
         { op: "if", when: { op: "signal", key: "caravan_visits", eq: 3 }, then: [{ op: "fact", fact: "fact_realm_unrest", set: "known" }] },
-        { op: "if", when: { op: "signal", key: "caravan_visits", min: 4 }, then: [{ op: "signal", key: "guards_owed", add: 1 }] }
+        { op: "if", when: { op: "signal", key: "caravan_visits", min: 4 }, then: [{ op: "signal", key: "guards_owed", add: 1 }] },
+        ...CLAMP_OWED
       ]
     },
     // V2-Core-102 (#251): the guild remembers a guard it knew who did not come back. Fires in the very step that
@@ -1647,6 +1658,8 @@ export const worldData = {
             { op: "if", when: GUARD_WANTED, then: [say("txt_guild_clerk_work")], else: [say("txt_guild_clerk_no_work")] },
             // V2-Core-92 (#226): a guard the guild knows
             { op: "if", when: GUILD_KNOWS, then: [say("txt_guild_clerk_knows_you")] },
+            // V2-Core-108 (#265): the caravans that did not wait
+            { op: "if", when: { op: "and", of: [GUARD_WANTED, { op: "signal", key: "caravans_unguarded", min: 1 }] }, then: [say("txt_guild_clerk_left_without")] },
             // V2-Core-106 (#258): and where a guard has fallen, the careful way
             { op: "if", when: { op: "and", of: [GUARD_WANTED, { op: "signal", key: "guards_fallen", min: 1 }] }, then: [say("txt_guild_clerk_careful_offer")] },
             // V2-Core-105 (#258): a guard whose practice is full is offered the lead of the convoy
@@ -2306,6 +2319,7 @@ export const worldData = {
     txt_escort_fail: "길에서 덤벼든 좀도둑들과 엉켜 상처를 입는다. 상단은 간신히 강 건너 길목에 닿고, 품삯은 깎인다.",
     txt_lodge_castle_town: "은화 두 닢을 내고 성읍의 지붕 아래에서 하룻밤을 묵는다. 길에서 쌓인 피로가 풀린다.",
     txt_small_talk_fallen_guard: "원로는 목소리를 낮춘다. 상단 사람들 사이에서 길에서 돌아오지 못한 호위 이야기가 돈다고, 그 길이 쉬운 길은 아니라고 한다.",
+    txt_guild_clerk_left_without: "서기는 장부를 덮으며 말한다. 호위를 오래 못 구한 상단은 기다려 주지 않는다고, 다른 호위를 사서 떠난 상단이 벌써 여럿이라고 한다.",
     txt_guild_clerk_careful_offer: "서기가 목소리를 낮춘다. 얼마 전 호위 하나가 길에서 돌아오지 못했으니, 서두르지 말고 날을 넘겨 천천히 길을 가는 방법도 있다고, 품삯은 적어도 다칠 일은 덜하다고 한다.",
     txt_careful_great: "하루를 꼬박 들여 길목마다 살피며 간다. 좀도둑들은 낌새를 채고 비켜 가고, 상단은 아무 일 없이 강 건너 길목에 닿는다. 서기는 적은 품삯에 웃돈을 조금 얹는다.",
     txt_careful_success: "해가 지기 전에 멈추고 날이 밝으면 다시 걷는다. 느린 길이었지만 상단은 무사히 강 건너 길목에 닿는다.",

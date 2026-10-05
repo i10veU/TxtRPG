@@ -293,3 +293,5 @@ jobs:
         run: npx playwright test tests/v2-ui-escort-careful-browser.spec.js --reporter=line
       - name: V2 beyond last rank browser smoke
         run: npx playwright test tests/v2-ui-beyond-last-rank-browser.spec.js --reporter=line
+      - name: V2 caravans wait browser smoke
+        run: npx playwright test tests/v2-ui-caravans-wait-browser.spec.js --reporter=line
