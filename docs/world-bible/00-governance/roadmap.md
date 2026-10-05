@@ -62,7 +62,8 @@
 | W2-1 ✅ | World Simulation 2 1단계: 상단은 기다려 주지 않는다 (V2-Core-108, #265) | 위임 결정 WB-0025(게임 값), #267 |
 | W2-2 ✅ | World Simulation 2 2단계: 긴 부재의 값 — 상한을 측정해 3 → 1로 (V2-Core-109, #268) | 위임 결정 WB-0025 정정(게임 값), #269 |
 | W2-3 ✅ | World Simulation 2 3단계: 통합 — 길이 기다려 주지 않았던 한 세계의 두 삶 (V2-Core-110, #270) | 새 정본 없음, #271 병합 — World Simulation 2 (#265) 완료 |
-| D4-0 | RPG Depth 4 — 은화가 사는 것 (#272, 진행 예정) | 새 정본 없음(게임 값) |
+| D4-0 | RPG Depth 4 — 은화가 사는 것 (#272, 진행 중) | 새 정본 없음(게임 값) |
+| D4-1 ✅ | RPG Depth 4 1단계: 강철 (V2-Core-111, #273) | 새 정본 없음, #274 |
 | A-1 ✅ | Artifact: World Observatory v1 (세계 지도 · 정보의 흐름 · 결과의 사슬 · 불일치) | 정본 아님. https://claude.ai/artifact/2qqDjLekcXTsPwCNy9Aif4 |
 
 ## 추상 로드맵 (WB-0023 — 고정 일정이 아니다)
