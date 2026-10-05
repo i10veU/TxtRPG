@@ -418,6 +418,11 @@ const GUILD_REMEMBERS = [
   { op: "if", when: GUILD_KNOWS, then: [{ op: "money", add: 1 }, say("txt_escort_known_bonus")] },
   { op: "relation", from: "npc_guild_clerk", add: 5 }
 ];
+// V2-Core-105 (#258): leading the convoy earns the guild's regard twice as fast; the known guard's bonus is the same
+const LEAD_REMEMBERS = [
+  { op: "if", when: GUILD_KNOWS, then: [{ op: "money", add: 1 }, say("txt_escort_known_bonus")] },
+  { op: "relation", from: "npc_guild_clerk", add: 10 }
+];
 // V2-Core-93 (#226): the character carries a wound from the road (their growth, not inherited)
 const ROAD_WOUND = { op: "trait", trait: "road_wound" };
 // V2-Core-73 (#180): the two settlements trade (a world edge between world entities, D-70)
@@ -1642,6 +1647,8 @@ export const worldData = {
             { op: "if", when: GUARD_WANTED, then: [say("txt_guild_clerk_work")], else: [say("txt_guild_clerk_no_work")] },
             // V2-Core-92 (#226): a guard the guild knows
             { op: "if", when: GUILD_KNOWS, then: [say("txt_guild_clerk_knows_you")] },
+            // V2-Core-105 (#258): a guard whose practice is full is offered the lead of the convoy
+            { op: "if", when: { op: "and", of: [GUARD_WANTED, { op: "unlock", id: "unl_road_lead" }] }, then: [say("txt_guild_clerk_lead_offer")] },
             // V2-Core-102 (#251): what the guild remembers of the guards who did not come back -- told to any guard
             { op: "if", when: { op: "signal", key: "guards_fallen", min: 1 }, then: [say("txt_guild_clerk_fallen")] },
             // V2-Core-97 (#237): the clerk sizes up a guard before the road -- what the player can judge by; the risk
@@ -1673,6 +1680,25 @@ export const worldData = {
               { op: "proficiency", id: "combat", add: 5 },
               say("txt_escort_fail"),
               // V2-Core-93 (#226): and a wound that rest does not close
+              { op: "if", when: { op: "not", of: ROAD_WOUND }, then: [{ op: "trait", trait: "road_wound" }, say("txt_escort_wound")] }
+            ])
+          })
+        },
+        // V2-Core-105 (#258): the road's top job, for a guard whose practice is full (`unl_road_lead`): the same check
+        // and the same road, but the guard leads the convoy -- more stamina (3), more pay, and the guild's regard
+        // grows twice as fast. The fail costs what the ordinary escort's does
+        {
+          id: "opt_guild_clerk_escort_lead",
+          name: "상단 호위를 이끈다",
+          requires: { op: "and", of: [GUARD_WANTED, { op: "unlock", id: "unl_road_lead" }, STAMINA_AT_LEAST(3)] },
+          check: { stat: "str", skill: "swordsmanship", tags: ["combat"], difficulty: "normal" },
+          minutes: 720,
+          outcomes: payStamina(3, {
+            great: GUARD_PAID(8, [say("txt_lead_great"), ...LEAD_REMEMBERS]),
+            success: GUARD_PAID(6, [say("txt_lead_success"), ...LEAD_REMEMBERS]),
+            fail: GUARD_PAID(2, [
+              { op: "hp", add: -3 },
+              say("txt_lead_fail"),
               { op: "if", when: { op: "not", of: ROAD_WOUND }, then: [{ op: "trait", trait: "road_wound" }, say("txt_escort_wound")] }
             ])
           })
@@ -1949,7 +1975,9 @@ export const worldData = {
           ]
         },
         // V2-Core-50: grown by every exchange of a fight; V2-Core-52: it grows swordsmanship
-        { id: "combat", max: 100, thresholds: rankUps("swordsmanship") },
+        // V2-Core-105 (#258): the last of the practice opens the road's top job (the `unl_keen_eye` pattern: a
+        // threshold, an unlock, an option that asks for it). Thresholds fire only on crossing: a save already past 100 has none
+        { id: "combat", max: 100, thresholds: [...rankUps("swordsmanship"), { at: 100, effects: [{ op: "unlock", id: "unl_road_lead" }] }] },
         // V2-Core-65 (#160): grown by gathering herbs and the herbalist's lesson
         { id: "herbalism", max: 100, thresholds: rankUps("herbalism") }
       ],
@@ -1976,7 +2004,7 @@ export const worldData = {
         { minRank: 3, label: "Apprentice" },
         { minRank: 5, label: "Adept" }
       ],
-      unlocks: [{ id: "unl_keen_eye", kind: "action" }],
+      unlocks: [{ id: "unl_keen_eye", kind: "action" }, { id: "unl_road_lead", kind: "action" }],
       // V2-Core-56 (Gate 4 = C, D-85): resources belong to the growth system. Stamina pays for the
       // fight's techniques (the counter 3, the old wound 2); a character without the entry is full
       resources: [{ id: "stamina", max: 6 }]
@@ -2260,6 +2288,10 @@ export const worldData = {
     txt_escort_fail: "길에서 덤벼든 좀도둑들과 엉켜 상처를 입는다. 상단은 간신히 강 건너 길목에 닿고, 품삯은 깎인다.",
     txt_lodge_castle_town: "은화 두 닢을 내고 성읍의 지붕 아래에서 하룻밤을 묵는다. 길에서 쌓인 피로가 풀린다.",
     txt_small_talk_fallen_guard: "원로는 목소리를 낮춘다. 상단 사람들 사이에서 길에서 돌아오지 못한 호위 이야기가 돈다고, 그 길이 쉬운 길은 아니라고 한다.",
+    txt_guild_clerk_lead_offer: "서기는 장부에서 눈을 들어 당신의 칼 솜씨를 새삼 헤아린다. 이만한 솜씨면 호위를 이끄는 자리도 맡을 만하다고, 품삯도 그만큼 다르다고 한다.",
+    txt_lead_great: "길 위에서 호위들을 부려 좀도둑들을 단번에 몰아낸다. 상단은 흠 하나 없이 강 건너 길목에 닿고, 상단주는 두둑한 웃돈을 얹는다.",
+    txt_lead_success: "호위들을 앞뒤로 세워 길을 지킨다. 상단은 무사히 강 건너 길목에 닿고, 서기가 이끈 몫까지 쳐서 품삯을 내준다.",
+    txt_lead_fail: "호위들을 이끌었으나 길에서 덤벼든 좀도둑들에게 밀린다. 상단은 간신히 닿지만 앞장선 몫만큼 상처를 입고, 품삯은 크게 깎인다.",
     txt_guild_clerk_fallen: "서기는 장부의 한 줄을 손가락으로 짚는다. 조합이 믿던 호위 하나가 길에서 돌아오지 못했다고, 이 일은 그만큼 위험하다고 한다.",
     txt_lodge_wound_stays: "옆구리의 상처는 하룻밤으로 아물지 않는다. 약초 연고가 있어야 할 것 같다."
   }

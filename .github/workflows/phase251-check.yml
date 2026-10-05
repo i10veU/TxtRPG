@@ -287,3 +287,5 @@ jobs:
         run: npx playwright test tests/v2-ui-fallen-word-browser.spec.js --reporter=line
       - name: V2 guard remembered browser smoke
         run: npx playwright test tests/v2-ui-guard-remembered-browser.spec.js --reporter=line
+      - name: V2 road lead browser smoke
+        run: npx playwright test tests/v2-ui-road-lead-browser.spec.js --reporter=line
