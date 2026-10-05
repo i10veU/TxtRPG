@@ -566,6 +566,17 @@ export const worldData = {
       trigger: { op: "and", of: [{ op: "not", of: { op: "alive", subject: "self" } }, GUILD_KNOWS] },
       effects: [{ op: "signal", key: "guards_fallen", add: 1 }]
     },
+    // V2-Core-103 (#251): the road's talk carries it south, late (World Bible N-06: news travels with the caravans) --
+    // the first firing counts it out, the next one a caravan's cadence later brings it to the village, only once the
+    // road is in use; what the village hears is that a guard did not come back, nothing more
+    evt_fallen_word_south: {
+      trigger: { op: "and", of: [{ op: "flag", key: "road_walked" }, { op: "signal", key: "guards_fallen", min: 1 }, { op: "signal", key: "fallen_word_age", max: 1 }] },
+      cooldown: 4320,
+      effects: [
+        { op: "signal", key: "fallen_word_age", add: 1 },
+        { op: "if", when: { op: "signal", key: "fallen_word_age", eq: 2 }, then: [{ op: "flag", key: "guard_fall_word_south", value: true }] }
+      ]
+    },
     // V2-Core-74 (#180): the first time anyone sets foot on the far bank (narration, once for the world)
     // V2-Core-80 (#198): a correction made in the village travels north with the road's traffic -- the
     // first firing counts it out (1), the next one, a caravan's cadence later, brings it to the town (2)
@@ -1299,7 +1310,9 @@ export const worldData = {
           effects: [
             { op: "narrate", textId: "txt_small_talk" },
             // V2-Core-70: the village remembers whom it honoured -- told to anyone else, a successor too
-            { op: "if", when: { op: "and", of: [{ op: "flag", key: "village_honored" }, { op: "not", of: VILLAGE_TRUSTED }] }, then: [say("txt_small_talk_honored_memory")] }
+            { op: "if", when: { op: "and", of: [{ op: "flag", key: "village_honored" }, { op: "not", of: VILLAGE_TRUSTED }] }, then: [say("txt_small_talk_honored_memory")] },
+            // V2-Core-103 (#251): the village has heard, late, that a guard did not come back -- told to anyone, a successor too
+            { op: "if", when: { op: "flag", key: "guard_fall_word_south" }, then: [say("txt_small_talk_fallen_guard")] }
           ]
         },
         // V2-Core-70 (#170): the elder and the herbalist both trust this character, and both stories are
@@ -2246,6 +2259,7 @@ export const worldData = {
     txt_escort_success: "길은 길었지만 상단은 무사히 강 건너 길목에 닿는다. 서기가 약속한 품삯을 받는다.",
     txt_escort_fail: "길에서 덤벼든 좀도둑들과 엉켜 상처를 입는다. 상단은 간신히 강 건너 길목에 닿고, 품삯은 깎인다.",
     txt_lodge_castle_town: "은화 두 닢을 내고 성읍의 지붕 아래에서 하룻밤을 묵는다. 길에서 쌓인 피로가 풀린다.",
+    txt_small_talk_fallen_guard: "원로는 목소리를 낮춘다. 상단 사람들 사이에서 길에서 돌아오지 못한 호위 이야기가 돈다고, 그 길이 쉬운 길은 아니라고 한다.",
     txt_guild_clerk_fallen: "서기는 장부의 한 줄을 손가락으로 짚는다. 조합이 믿던 호위 하나가 길에서 돌아오지 못했다고, 이 일은 그만큼 위험하다고 한다.",
     txt_lodge_wound_stays: "옆구리의 상처는 하룻밤으로 아물지 않는다. 약초 연고가 있어야 할 것 같다."
   }
