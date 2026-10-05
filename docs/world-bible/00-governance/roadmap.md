@@ -64,7 +64,8 @@
 | W2-3 ✅ | World Simulation 2 3단계: 통합 — 길이 기다려 주지 않았던 한 세계의 두 삶 (V2-Core-110, #270) | 새 정본 없음, #271 병합 — World Simulation 2 (#265) 완료 |
 | D4-0 | RPG Depth 4 — 은화가 사는 것 (#272, 진행 중) | 새 정본 없음(게임 값) |
 | D4-1 ✅ | RPG Depth 4 1단계: 강철 (V2-Core-111, #273) | 새 정본 없음, #274 병합 |
-| D4-2 ✅ | RPG Depth 4 2단계: 위험한 호위 (V2-Core-112, #275) | 새 정본 없음, #276 |
+| D4-2 ✅ | RPG Depth 4 2단계: 위험한 호위 (V2-Core-112, #275) | 새 정본 없음, #276 병합 |
+| D4-3 ✅ | RPG Depth 4 3단계: 통합 — 장비를 갖춘 경력 (V2-Core-113, #277) | 새 정본 없음, #278 |
 | A-1 ✅ | Artifact: World Observatory v1 (세계 지도 · 정보의 흐름 · 결과의 사슬 · 불일치) | 정본 아님. https://claude.ai/artifact/2qqDjLekcXTsPwCNy9Aif4 |
 
 ## 추상 로드맵 (WB-0023 — 고정 일정이 아니다)
