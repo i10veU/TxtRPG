@@ -217,5 +217,4 @@ ID는 저장 파일에 남으므로 게임 쪽에서 바꾸기 어렵다. **정�
 | ID | 무엇 | 처리 |
 |---|---|---|
 | `item_steel_sword` / `opt_town_merchant_buy_steel_sword` / `act_equip_steel_sword` | 성읍 상인이 강철 검(`hand`, 전투 +1, 은화 24)을 판다. 든 철검을 대신한다(철검의 대결 기술과 함께) | **게임 값**(Provisional, R-29). 상인의 말은 **Provisional** — 상인의 이름·내력·누가 만드는가는 말하지 않는다 |
-| `item_mail_shirt` / `opt_town_merchant_buy_mail_shirt` / `act_equip_mail_shirt` | 상인이 사슬 갑옷(`body`, 전투 +2, 은화 48)을 판다. 입은 가죽 조끼를 대신한다 | **게임 값**(Provisional, R-29). 서술은 **Provisional** |
-
+| `item_mail_shirt` / `opt_town_merchant_buy_mail_shirt` / `act_equip_mail_shirt` | 상인이 사슬 갑옷(`body`, 전투 +2, 은화 48)을 판다. 입은 가죽 조끼를 대신한다 | **게임 값**(Provisional, R-29). 서술은 **Provisional** || `opt_guild_clerk_escort_danger` / `txt_guild_clerk_danger_offer` / `txt_danger_*` | 이끄는 이(`unl_road_lead`)가 강철이나 사슬 갑옷을 걸치면 서기가 어려운 상단을 권한다: 어려운 판정(14), 스태미나 3, 품삯 14/10/2, 신뢰는 이끄는 일처럼 두 배, 실패는 3 hp와 길의 상처 | **게임 값**(Provisional, R-29): 값은 측정(이끄는 일 대비 은화 +17%, 위험 +8%p)에서 정했다. 해금은 **캐릭터의 것**(후계자는 없다, D-71). 서술은 **Provisional** — 누가 상단을 노리는지·왜는 말하지 않는다 |
