@@ -62,7 +62,10 @@ function testCaravans() {
   assert.deepStrictEqual(news, ["known", "known", "known"]);
   const six = run(three, [...CARAVAN, ...CARAVAN, ...CARAVAN]).state;
   assert.strictEqual(six.signals.caravan_visits, 6, "every three days, for as long as the road lives");
-  assert.strictEqual(six.signals.guards_owed, 3, "each later caravan is owed a guard");
+  // V2-Core-109: the caravans do not wait -- of the three later caravans only the latest is still owed a guard; the
+  // two before it left with other guards (counted in the world's `caravans_unguarded`)
+  assert.strictEqual(six.signals.guards_owed, 1, "the latest later caravan is owed a guard");
+  assert.strictEqual(six.signals.caravans_unguarded, 2, "and the two before it have left");
   assert.deepStrictEqual(realmNews(six), news, "the realm's news stands");
   const twoDays = run(six, [DAY, DAY]).state;
   assert.strictEqual(twoDays.signals.caravan_visits, 6, "not before the cadence");
@@ -83,17 +86,18 @@ function testGuards() {
   assert.ok(wanted(ready(s)));
 }
 
-// 3. a caravan missed is still owed: hires never exceed caravans, the first three settled first
+// 3. a caravan missed is gone (V2-Core-109): hires never exceed caravans, the first three settled first, then the one still owed
 function testCatchUp() {
   const five = run(town, [...CARAVAN, ...CARAVAN, ...CARAVAN, ...CARAVAN]).state;
   assert.strictEqual(five.signals.caravan_visits, 5);
-  assert.strictEqual(five.signals.guards_owed, 2);
+  assert.strictEqual(five.signals.guards_owed, 1, "only the latest later caravan still waits");
+  assert.strictEqual(five.signals.caravans_unguarded, 1, "the one before it left");
   let s = five;
   const owed = [];
-  for (let i = 0; i < 5; i += 1) { assert.ok(wanted(ready(s))); s = escort(s); owed.push(s.signals.guards_owed); }
-  assert.deepStrictEqual(owed, [2, 2, 2, 1, 0], "the first three's shortfall first, then the later caravans'");
-  assert.strictEqual(s.signals.guards_hired, 5);
-  assert.ok(!wanted(ready(s)), "never more guards than caravans");
+  for (let i = 0; i < 4; i += 1) { assert.ok(wanted(ready(s))); s = escort(s); owed.push(s.signals.guards_owed); }
+  assert.deepStrictEqual(owed, [1, 1, 1, 0], "the first three's shortfall first, then the caravan still owed");
+  assert.strictEqual(s.signals.guards_hired, 4);
+  assert.ok(!wanted(ready(s)), "never more guards than caravans, and none for the one that left");
 }
 
 // 4. a save from before keeps its meaning

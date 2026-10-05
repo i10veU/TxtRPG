@@ -403,12 +403,14 @@ const FIRST_CARAVANS_WANT = {
 };
 // V2-Core-96 (#237): caravans keep coming after the third; each later one is owed a guard (`guards_owed`)
 const GUARD_WANTED = { op: "or", of: [FIRST_CARAVANS_WANT, { op: "signal", key: "guards_owed", min: 1 }] };
-// V2-Core-108 (#265): the caravans do not wait. Owed shares are capped at 3 (about nine days of caravans): when a
-// new caravan would push the count over, the oldest one has left with another guard (counted in the world's
-// `caravans_unguarded`). Each `if` drops one, so a save already over the cap is brought down by up to 8 at its next
-// caravan (one holding more than 10 comes down over the next ones). The first three caravans' rule is untouched
-const OWED_CAP = 3;
-const CLAMP_OWED = Array.from({ length: 8 }, () => ({
+// V2-Core-108/109 (#265): the caravans do not wait. Owed shares are capped at ONE: a caravan not guarded by the time
+// the next arrives has left with another guard (counted in the world's `caravans_unguarded`). Measured (V2-Core-109):
+// a steady career -- staying in town or walking home to rest -- loses none, a ten-day journey loses one, and a guard
+// who walks home while a convoy has waited two days loses it where one who sleeps in town does not. Each `if` drops
+// one, so a save already over the cap is brought down by up to 12 at its next caravan (one holding more comes down over
+// the next ones). The first three caravans' rule is untouched
+const OWED_CAP = 1;
+const CLAMP_OWED = Array.from({ length: 12 }, () => ({
   op: "if",
   when: { op: "signal", key: "guards_owed", min: OWED_CAP + 1 },
   then: [{ op: "signal", key: "guards_owed", add: -1 }, { op: "signal", key: "caravans_unguarded", add: 1 }]
