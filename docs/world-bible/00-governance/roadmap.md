@@ -56,6 +56,7 @@
 | M1-1 ✅ | World Memory 1 1단계: 조합이 기억한다 (V2-Core-102, #251) | 새 정본 없음, #253 병합. 같은 PR에서 CI 정적 서버가 `/favicon.ico`에 204를 준다(V1 스모크의 간헐적 실패 원인, #232) |
 | M1-2 ✅ | World Memory 1 2단계: 마을이 듣는다 (V2-Core-103) | 새 정본 없음, #255 병합 |
 | M1-3 ✅ | World Memory 1 3단계: 통합 — 세계가 기억하는 것 (V2-Core-104) | 새 정본 없음, #257 병합 — World Memory 1 (#251) 완료 |
+| D3-1 ✅ | RPG Depth 3 1단계: 마지막 단계가 일을 연다 (V2-Core-105, #258) | 새 정본 없음, #260 병합 |
 | A-1 ✅ | Artifact: World Observatory v1 (세계 지도 · 정보의 흐름 · 결과의 사슬 · 불일치) | 정본 아님. https://claude.ai/artifact/2qqDjLekcXTsPwCNy9Aif4 |
 
 ## 추상 로드맵 (WB-0023 — 고정 일정이 아니다)
