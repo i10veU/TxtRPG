@@ -449,6 +449,39 @@ const ESTATE_CLAIM_TIERS = Array.from({ length: ESTATE_SHARE_CAP }, () => (
 ));
 // V2-Core-93 (#226): the character carries a wound from the road (their growth, not inherited)
 const ROAD_WOUND = { op: "trait", trait: "road_wound" };
+// V2-Core-121 (#298, Death & Injury step 1, M1'): a hard road leaves a mild wound that a night's rest closes, and -- when a failed
+// escort leaves hp this low -- a DEEP wound: a further check penalty, a night heals half as much, the lead and danger jobs
+// are closed, and it closes with the herbalist's salve or when rest brings hp back to full. Provisional game values (R-29),
+// set on measurements (#297): hp <= 2, not 4 (normal play would meet ~2.8 deep wounds a career), not 3 (careful play's early deaths rise)
+const ROAD_WOUND_DEEP = { op: "trait", trait: "road_wound_deep" };
+const DEEP_WOUND_HP = 2;
+// what a failed escort leaves behind (after its hp is paid): a deep wound if hp is at or under the line, else the mild one
+const WOUND_ON_FAIL = [
+  {
+    op: "if",
+    when: { op: "and", of: [{ op: "lte", left: { hp: "current" }, right: DEEP_WOUND_HP }, { op: "not", of: ROAD_WOUND_DEEP }] },
+    then: [{ op: "trait", trait: "road_wound_deep" }, { op: "trait", trait: "road_wound" }, say("txt_escort_deep_wound")],
+    else: [{ op: "if", when: { op: "not", of: ROAD_WOUND }, then: [{ op: "trait", trait: "road_wound" }, say("txt_escort_wound")] }]
+  }
+];
+// what a night's rest does to the wounds (after its hp): a deep wound heals half as much and closes once hp is full again; the mild one
+// closes with the night unless a deep one is still open
+const REST_HEAL = [
+  { op: "if", when: ROAD_WOUND_DEEP, then: [{ op: "hp", add: 2 }], else: [{ op: "hp", add: 4 }] }
+];
+const REST_WOUNDS = [
+  {
+    op: "if",
+    when: ROAD_WOUND_DEEP,
+    then: [{
+      op: "if",
+      when: { op: "lt", left: { hp: "current" }, right: { hp: "max" } },
+      then: [say("txt_rest_deep_wound_stays")],
+      else: [{ op: "trait", trait: "road_wound_deep", remove: true }, { op: "trait", trait: "road_wound", remove: true }, say("txt_rest_deep_wound_closes")]
+    }],
+    else: [{ op: "if", when: ROAD_WOUND, then: [{ op: "trait", trait: "road_wound", remove: true }, say("txt_rest_wound_closes")] }]
+  }
+];
 // V2-Core-73 (#180): the two settlements trade (a world edge between world entities, D-70)
 const HAMLET_TRADES = { op: "relation", from: "org_mill_hamlet", to: "org_village", tag: "trading" };
 // V2-Core-70 (#170): the village's standing towards this character (their own edge)
@@ -468,7 +501,7 @@ const STRIKE_CHECK = (base) => ({ stat: "str", skill: "swordsmanship", tags: ["c
 // outcome of its exchange pays it first (an option with a check runs only its tier's outcome)
 const STAMINA_AT_LEAST = (n) => ({ op: "resource", resource: "stamina", min: n });
 // V2-Core-112 (#275): the hard convoy is open to a lead-holder wearing steel or mail
-const DANGER_OPEN = { op: "and", of: [GUARD_WANTED, { op: "unlock", id: "unl_road_lead" }, STAMINA_AT_LEAST(3),
+const DANGER_OPEN = { op: "and", of: [GUARD_WANTED, { op: "unlock", id: "unl_road_lead" }, { op: "not", of: ROAD_WOUND_DEEP }, STAMINA_AT_LEAST(3),
   { op: "or", of: [{ op: "item", item: "item_steel_sword", equipped: true }, { op: "item", item: "item_mail_shirt", equipped: true }] }] };
 const payStamina = (n, outcomes) =>
   Object.fromEntries(Object.entries(outcomes).map(([tier, effects]) => [tier, [{ op: "resource", resource: "stamina", add: -n }, ...effects]]));
@@ -1068,10 +1101,10 @@ export const worldData = {
       minutes: 480,
       effects: [
         { op: "money", add: -2 },
-        { op: "hp", add: 4 },
+        ...REST_HEAL,
         { op: "resource", resource: "stamina", add: 6 },
         say("txt_lodge_castle_town"),
-        { op: "if", when: ROAD_WOUND, then: [say("txt_lodge_wound_stays")] }
+        ...REST_WOUNDS
       ]
     },
     act_read_waystation_board: {
@@ -1149,9 +1182,13 @@ export const worldData = {
     // V2-Core-93 (#226): the herbalist's salve closes a road wound (rest restores hp, never the wound)
     act_treat_road_wound: {
       name: "길에서 얻은 상처에 연고를 바른다",
-      requires: { op: "and", of: [ROAD_WOUND, { op: "item", item: "item_herbal_salve", min: 1 }] },
+      requires: { op: "and", of: [{ op: "or", of: [ROAD_WOUND, ROAD_WOUND_DEEP] }, { op: "item", item: "item_herbal_salve", min: 1 }] },
       minutes: 30,
-      effects: [{ op: "item", item: "item_herbal_salve", add: -1 }, { op: "trait", trait: "road_wound", remove: true }, say("txt_treat_road_wound")]
+      effects: [
+        { op: "item", item: "item_herbal_salve", add: -1 },
+        { op: "if", when: ROAD_WOUND_DEEP, then: [{ op: "trait", trait: "road_wound_deep", remove: true }, say("txt_treat_deep_wound")], else: [say("txt_treat_road_wound")] },
+        { op: "trait", trait: "road_wound", remove: true }
+      ]
     },
     // V2-Core-58 (D-87): the sword is sold where the lantern is; wielding it is a choice of its own
     act_buy_iron_sword: {
@@ -1287,10 +1324,11 @@ export const worldData = {
       requires: { op: "location", at: "loc_village" },
       minutes: 60,
       effects: [
-        { op: "hp", add: 4 },
+        ...REST_HEAL,
         // V2-Core-56 (D-85): the rest refills stamina (the only way back; no regeneration over time)
         { op: "resource", resource: "stamina", add: 6 },
-        { op: "narrate", textId: "txt_rest_village" }
+        { op: "narrate", textId: "txt_rest_village" },
+        ...REST_WOUNDS
       ]
     },
     act_confront_leader: {
@@ -1731,7 +1769,7 @@ export const worldData = {
             // V2-Core-106 (#258): and where a guard has fallen, the careful way
             { op: "if", when: { op: "and", of: [GUARD_WANTED, { op: "signal", key: "guards_fallen", min: 1 }] }, then: [say("txt_guild_clerk_careful_offer")] },
             // V2-Core-105 (#258): a guard whose practice is full is offered the lead of the convoy
-            { op: "if", when: { op: "and", of: [GUARD_WANTED, { op: "unlock", id: "unl_road_lead" }] }, then: [say("txt_guild_clerk_lead_offer")] },
+            { op: "if", when: { op: "and", of: [GUARD_WANTED, { op: "unlock", id: "unl_road_lead" }, { op: "not", of: ROAD_WOUND_DEEP }] }, then: [say("txt_guild_clerk_lead_offer")] },
             { op: "if", when: DANGER_OPEN, then: [say("txt_guild_clerk_danger_offer")] },
             // V2-Core-102 (#251): what the guild remembers of the guards who did not come back -- told to any guard
             { op: "if", when: { op: "signal", key: "guards_fallen", min: 1 }, then: [say("txt_guild_clerk_fallen")] },
@@ -1746,7 +1784,8 @@ export const worldData = {
               when: GUARD_WANTED,
               then: [
                 { op: "if", when: { op: "lte", left: { hp: "current" }, right: 3 }, then: [say("txt_guild_clerk_too_hurt")] },
-                { op: "if", when: ROAD_WOUND, then: [say("txt_guild_clerk_sees_wound")] },
+                { op: "if", when: ROAD_WOUND_DEEP, then: [say("txt_guild_clerk_sees_deep_wound")], else: [{ op: "if", when: ROAD_WOUND, then: [say("txt_guild_clerk_sees_wound")] }] },
+                { op: "if", when: { op: "and", of: [ROAD_WOUND_DEEP, { op: "unlock", id: "unl_road_lead" }] }, then: [say("txt_guild_clerk_deep_closes_lead")] },
                 { op: "if", when: { op: "not", of: { op: "or", of: [{ op: "item", item: "item_leather_jerkin", equipped: true }, { op: "item", item: "item_mail_shirt", equipped: true }] } }, then: [say("txt_guild_clerk_no_leather")] }
               ]
             }
@@ -1768,7 +1807,7 @@ export const worldData = {
               { op: "proficiency", id: "combat", add: 5 },
               say("txt_escort_fail"),
               // V2-Core-93 (#226): and a wound that rest does not close
-              { op: "if", when: { op: "not", of: ROAD_WOUND }, then: [{ op: "trait", trait: "road_wound" }, say("txt_escort_wound")] }
+              ...WOUND_ON_FAIL
             ])
           })
         },
@@ -1778,7 +1817,7 @@ export const worldData = {
         {
           id: "opt_guild_clerk_escort_lead",
           name: "상단 호위를 이끈다",
-          requires: { op: "and", of: [GUARD_WANTED, { op: "unlock", id: "unl_road_lead" }, STAMINA_AT_LEAST(3)] },
+          requires: { op: "and", of: [GUARD_WANTED, { op: "unlock", id: "unl_road_lead" }, { op: "not", of: ROAD_WOUND_DEEP }, STAMINA_AT_LEAST(3)] },
           check: { stat: "str", skill: "swordsmanship", tags: ["combat"], difficulty: "normal" },
           minutes: 720,
           outcomes: payStamina(3, {
@@ -1787,7 +1826,7 @@ export const worldData = {
             fail: GUARD_PAID(2, [
               { op: "hp", add: -3 },
               say("txt_lead_fail"),
-              { op: "if", when: { op: "not", of: ROAD_WOUND }, then: [{ op: "trait", trait: "road_wound" }, say("txt_escort_wound")] }
+              ...WOUND_ON_FAIL
             ])
           })
         },
@@ -1828,7 +1867,7 @@ export const worldData = {
             fail: GUARD_PAID(2, [
               { op: "hp", add: -3 },
               say("txt_danger_fail"),
-              { op: "if", when: { op: "not", of: ROAD_WOUND }, then: [{ op: "trait", trait: "road_wound" }, say("txt_escort_wound")] }
+              ...WOUND_ON_FAIL
             ])
           })
         },
@@ -2138,7 +2177,9 @@ export const worldData = {
         { id: "night_vision" },
         { id: "investigation_talent", practice: { investigation: 2 } },
         // V2-Core-93 (#226): a wound a hard road leaves -- it weighs on every combat check until treated
-        { id: "road_wound", modifiers: [{ tags: ["combat"], value: -2 }] }
+        { id: "road_wound", modifiers: [{ tags: ["combat"], value: -2 }] },
+        // V2-Core-121 (#298): a deep wound weighs on every combat check as well (on top of the mild one it comes with)
+        { id: "road_wound_deep", modifiers: [{ tags: ["combat"], value: -1 }] }
       ],
       // V2-Core-53 (D-82): Mastery is a label over the skill rank, for display and classification
       // only -- read by the UI, never by the engine (no state, no modifier). English names, so they
@@ -2422,7 +2463,8 @@ export const worldData = {
     txt_town_merchant_buy_flour_fair: "상인은 자루를 반기며 은화 여섯 닢을 세어 준다. 큰 장이 끝나기 전에 더 가져오라고 한다.",
     txt_escort_known_bonus: "서기는 품삯에 은화 한 닢을 더 얹어 준다. 조합이 믿는 호위에게는 그만큼 더 쳐 준다고 한다.",
     txt_guild_clerk_knows_you: "서기는 장부를 넘기다 고개를 든다. 상단 사람들이 당신 이야기를 하더라고, 믿을 만한 호위라고 한다.",
-    txt_escort_wound: "옆구리에 받은 상처가 쉽게 아물지 않는다. 칼을 들 때마다 당긴다. 쉬는 것만으로는 낫지 않을 것 같다.",
+    txt_escort_wound: "옆구리에 상처를 입었다. 칼을 들 때마다 당기지만, 하룻밤 푹 쉬면 가라앉을 것 같다.",
+    txt_escort_deep_wound: "상처가 깊다. 숨이 찰 때마다 옆구리가 찢어지는 듯하다. 쉬어서 몸을 추스르거나 약초 연고를 바르지 않으면 이 몸으로는 길을 이끌 수 없을 것 같다.",
     txt_treat_road_wound: "약초 연고를 상처에 두텁게 바르고 천으로 감는다. 며칠 동안 당기던 것이 풀린다.",
     txt_town_merchant_sell_jerkin: "상인은 두꺼운 가죽 조끼를 내민다. 상단 호위들이 즐겨 입는 것이라며, 칼끝 하나쯤은 막아 준다고 한다.",
     txt_equip_leather_jerkin: "가죽 조끼를 입고 끈을 단단히 조인다. 몸이 조금 무거워지는 대신 든든하다.",
@@ -2434,7 +2476,9 @@ export const worldData = {
     txt_equip_mail_shirt: "사슬 갑옷을 머리부터 뒤집어쓰고 허리끈을 조인다. 철 소리가 나지만 몸이 든든하다.",
     txt_unequip_mail_shirt: "사슬 갑옷을 벗어 개어 둔다.",
     txt_guild_clerk_too_hurt: "서기는 당신을 위아래로 훑어본다. 그 몸으로 길에 나섰다가 일이 틀어지면 돌아오지 못할 수도 있다고, 먼저 쉬고 오라고 한다.",
-    txt_guild_clerk_sees_wound: "서기는 옆구리를 감싼 당신의 손을 본다. 상처를 안고 칼을 들면 둔해진다고, 약초 연고부터 바르라고 한다.",
+    txt_guild_clerk_sees_wound: "서기는 옆구리를 감싼 당신의 손을 본다. 상처를 안고 칼을 들면 둔해진다고, 하룻밤 쉬고 오라고 한다.",
+    txt_guild_clerk_sees_deep_wound: "서기는 당신이 걷는 모양만 보고도 고개를 젓는다. 저 상처는 하룻밤으로 낫지 않는다고, 약초 연고를 바르거나 오래 쉬어야 한다고 한다.",
+    txt_guild_clerk_deep_closes_lead: "그 몸으로는 상단을 이끄는 일을 맡길 수 없다고 한다. 평범한 호위라면 맡아도 좋지만, 몸이 나을 때까지 이끄는 일은 없다.",
     txt_guild_clerk_no_leather: "상단 호위들은 대개 가죽 조끼를 걸친다고 서기가 덧붙인다. 성읍 상인에게 가면 구할 수 있다고.",
     txt_town_merchant_sell_sword: "상인에게 은화 두 닢을 건네고 새로 벼린 철검을 받는다.",
     txt_guild_clerk_work: "서기는 장부를 넘기며 말한다. 강나루로 내려가는 상단이 호위를 구한다고, 길이 험하니 칼을 쓸 줄 알면 좋겠다고 한다.",
@@ -2463,6 +2507,9 @@ export const worldData = {
     txt_guild_clerk_kit_steel: "서기는 궤짝에서 기름 먹인 강철 검을 꺼내 건넨다. 주인이 누구였는지는 말하지 않고, 은화 열두 닢을 받아 장부에 적는다.",
     txt_guild_clerk_kit_mail: "서기는 궤짝에서 사슬 갑옷을 꺼내 건넨다. 주인이 누구였는지는 말하지 않고, 은화 스물네 닢을 받아 장부에 적는다.",
     txt_guild_clerk_fallen: "서기는 장부의 한 줄을 손가락으로 짚는다. 조합이 믿던 호위 하나가 길에서 돌아오지 못했다고, 이 일은 그만큼 위험하다고 한다.",
-    txt_lodge_wound_stays: "옆구리의 상처는 하룻밤으로 아물지 않는다. 약초 연고가 있어야 할 것 같다."
+    txt_rest_wound_closes: "하룻밤 쉬고 나니 옆구리의 상처가 가라앉았다.",
+    txt_rest_deep_wound_stays: "깊은 상처는 쉬어도 더디게 아문다. 약초 연고가 있으면 한결 빠를 것 같다.",
+    txt_rest_deep_wound_closes: "며칠을 쉰 끝에 깊은 상처가 마침내 아물었다.",
+    txt_treat_deep_wound: "깊은 상처에 약초 연고를 두텁게 바르고 천으로 단단히 감는다. 쑤시던 것이 가라앉는다."
   }
 };

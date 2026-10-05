@@ -121,9 +121,11 @@ function testUntaughtWounded() {
   assert.strictEqual(me(third.state).money - before, 1, "the failure's pay");
   assert.ok(traits(third.state).road_wound, "a road wound");
   assert.strictEqual(standing(third.state), 10, "a failure adds no standing");
-  // home: rest does not close it; the village that honoured her sells the salve for one silver
-  const home = play(third.state, [...HOME_FROM_BANK, REST, REST]);
-  assert.ok(traits(home.state).road_wound, "rest does not close it");
+  // home: a night's rest closes a mild wound (V2-Core-121, the owner's change; it used to stay until the salve) -- and the village
+  // that honoured her sells the salve for one silver to one who would rather not wait
+  assert.ok(!traits(play(third.state, [...HOME_FROM_BANK, REST]).state).road_wound, "rest closes a mild wound");
+  const home = play(third.state, HOME_FROM_BANK);
+  assert.ok(traits(home.state).road_wound, "not yet rested: still wounded");
   const treated = play(home.state, [M("loc_market"), P("act_talk_herbalist"), C("opt_herbalist_buy_salve_trusted"), P("act_treat_road_wound")]);
   assert.ok(treated.said.includes("txt_treat_road_wound"));
   assert.ok(!traits(treated.state).road_wound, "closed");

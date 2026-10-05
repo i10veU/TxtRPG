@@ -1,8 +1,9 @@
 // V2-Core-93 browser scenario (#226, RPG Depth 1, step 2 -- a hard road leaves a mark): the real entry point
 // (web/v2/index.html + ui/app.js) in real Chromium with real IndexedDB, against the real world data pack. The road to
 // the castle town is dispatched, then saved as a weak guard carrying a salve through the real storage adapter and
-// loaded with the app's button; the rest is real buttons: a failed escort that wounds, the way home and a rest that
-// does not close the wound, saved -> reloaded -> loaded, and the salve that does.
+// loaded with the app's button; the rest is real buttons: a failed escort that wounds, the way home (the wound is still
+// there -- a night's rest closes a mild wound since V2-Core-121, Death & Injury, the owner's change; it used to need the
+// salve), saved -> reloaded -> loaded, and the salve that closes it at once.
 const { test, expect } = require("@playwright/test");
 
 const ENTRY_URL = "http://127.0.0.1:4173/v2/index.html";
@@ -54,7 +55,7 @@ async function escort(page) {
 }
 
 test.describe("V2 a hard road leaves a mark (RPG Depth 1)", () => {
-  test("a failed escort wounds, rest does not close it, save/load, the salve does", async ({ page }) => {
+  test("a failed escort wounds, the way home leaves it, save/load, the salve closes it at once", async ({ page }) => {
     const { pageErrors, consoleErrors } = await gotoApp(page);
     await page.evaluate((seed) => window.__v2App.newGame(seed), SEED);
     await expect(page.locator("#game")).toBeVisible();
@@ -74,15 +75,13 @@ test.describe("V2 a hard road leaves a mark (RPG Depth 1)", () => {
     await expect(page.locator("#game")).toBeVisible();
 
     await escort(page);
-    await expect(page.locator("#log")).toContainText("쉬는 것만으로는 낫지 않을 것 같다.");
+    await expect(page.locator("#log")).toContainText("하룻밤 푹 쉬면 가라앉을 것 같다.");
     await move(page, "강 건너 길목");
     await move(page, "강나루");
     await move(page, "옛 갈림길");
     await move(page, "변경 마을");
-    await act(page, "마을에서 쉬기");
-    await act(page, "마을에서 쉬기");
-    const restedState = await getState(page);
-    expect(restedState.actors.player_1.growth.growth_wanderer.traits.road_wound).toBe(true);
+    const homeState = await getState(page);
+    expect(homeState.actors.player_1.growth.growth_wanderer.traits.road_wound).toBe(true); // not yet rested
 
     await saveReloadLoad(page, "slot_wounded", 2);
 

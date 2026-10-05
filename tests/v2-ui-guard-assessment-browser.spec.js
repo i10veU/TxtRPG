@@ -75,7 +75,7 @@ test.describe("V2 the guild sizes up a guard (World Simulation 1)", () => {
     await act(page, "상단 조합의 서기와 대화");
     await option(page, "일거리를 묻는다").click();
     await expect(page.locator("#log")).toContainText("먼저 쉬고 오라고 한다.");
-    await expect(page.locator("#log")).toContainText("약초 연고부터 바르라고 한다.");
+    await expect(page.locator("#log")).toContainText("하룻밤 쉬고 오라고 한다.");
     expect((await getState(page)).actors.player_1).toEqual(before.actors.player_1);
 
     expect(pageErrors).toEqual([]);
