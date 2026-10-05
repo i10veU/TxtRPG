@@ -1,16 +1,16 @@
-// V2-Core-109 (#265, World Simulation 2, step 2 -- what a long absence costs): through the ordinary step() API and the
-// real pack. No new rule; the cap on owed shares is now ONE (tightened on this step's measurements -- see D-104 and the
-// pins of data-world-caravans-wait). Measured, a guard who is up to date:
+// V2-Core-109/116 (#265/#282, what a long absence costs): through the ordinary step() API and the real pack. No new
+// rule; the cap on owed shares is THREE on the honest clock (D-104/D-107; one on the old clock -- see the pins of
+// data-world-caravans-wait). Measured, a guard who is up to date:
 //   1. a steady career loses nothing under the cap -- staying in town, or walking home to rest (the walk fits inside the
 //      wait: the next caravan is three days away);
-//   2. the royal journey (far bank -> five days -> the royal city's market -> five days back: 11 days) comes back to one
-//      caravan still owed and one that left -- and the clerk says so;
-//   3. against staying home for the same days (four convoys guarded, 28 silver) the journey brings one job on return
-//      (7 silver): the journey's price is the jobs, not a penalty;
+//   2. the royal journey (far bank -> five days -> the royal city's market -> five days back: 11 days): four caravans
+//      passed (the honest clock, D-107), three are still owed and one left -- and the clerk says so;
+//   3. against staying home for the same days (four convoys guarded, 28 silver) the journey brings three jobs on return
+//      (21 silver): the journey's price is one job, not a penalty;
 //   4. save/load on the road and determinism.
-// A long move is one step: events fire once per step, so a five-day walk counts one caravan, not 1.7 (the world does
-// not catch up on a long move -- an engine matter, noted in D-104, not changed here). The guard is staged strong and
-// rested (the escort's outcome is not what this is about). The words are Provisional. No Canon.
+// A long move is one step, and the caravans catch up on it (`catchUp`, D-107): a five-day walk counts the caravans that
+// passed. The guard is staged strong and rested (the escort's outcome is not what this is about). The words are
+// Provisional. No Canon.
 //
 // `.test.js`, not `.spec.js`: tests/v2/run.js runs every `*.js` directly under tests/v2/ and skips
 // `*.spec.js`. node:assert/strict only (§13.1).
@@ -76,8 +76,8 @@ function testJourney() {
   const back = play(start, JOURNEY);
   const days = (back.state.time.minute - start.time.minute) / 1440;
   assert.ok(days > 10.5 && days < 11.5, `eleven days away (${days})`);
-  assert.strictEqual(sig(back.state, "caravan_visits") - sig(start, "caravan_visits"), 2, "two caravans came (a long move is one step)");
-  assert.strictEqual(sig(back.state, "guards_owed"), 1, "one is still owed a guard");
+  assert.strictEqual(sig(back.state, "caravan_visits") - sig(start, "caravan_visits"), 4, "four caravans came: the clock is honest (D-107)");
+  assert.strictEqual(sig(back.state, "guards_owed"), 3, "three are still owed a guard (the cap)");
   assert.strictEqual(sig(back.state, "caravans_unguarded"), 1, "and one left with another guard");
   assert.ok(play(back.state, ASK).said.includes(LEFT), "the clerk tells why");
   return back.state;
@@ -93,13 +93,13 @@ function testPrice(back) {
   assert.strictEqual(jobs, 4, "four convoys guarded in the same days");
   assert.strictEqual(sig(stay, "caravans_unguarded"), 0);
   assert.strictEqual(me(stay).money - money0, 28, "28 silver");
-  // the journey: one job on return
+  // the journey: the three shares the cap kept are three jobs on return (the fourth caravan left): the journey's price is
+  // one job, 7 silver -- the jobs, not a penalty
   let s = back;
-  let n = 0;
   const m0 = me(s).money;
-  while (wanted(strong(s)) && n < 10) { s = play(play(strong(s), ESCORT).state, [M("loc_castle_town")]).state; n += 1; }
-  assert.strictEqual(n, 1, "one job waits on return");
-  assert.strictEqual(me(s).money - m0, 7);
+  for (let n = 0; n < 3; n += 1) s = play(play(strong(s), ESCORT).state, [M("loc_castle_town")]).state;
+  assert.strictEqual(me(s).money - m0, 21, "three jobs, 21 silver, against the four convoys' 28");
+  assert.strictEqual(sig(s, "guards_owed") <= 1, true, "the shares are taken (a caravan that came meanwhile may wait)");
 }
 
 // 4. save/load on the road, determinism

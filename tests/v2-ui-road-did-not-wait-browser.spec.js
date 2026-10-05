@@ -89,7 +89,7 @@ test.describe("V2 the road that did not wait (World Simulation 2, integrated)", 
     await move(page, "강 건너 길목");
     await move(page, "영주의 성읍");
     const back = await getState(page);
-    expect(back.signals.guards_owed).toBe(1);
+    expect(back.signals.guards_owed).toBe(3);
     expect(back.signals.caravans_unguarded).toBe(1);
     await act(page, "상단 조합의 서기와 대화");
     await expect(option(page, "길을 조심스레 간다")).toHaveCount(0);

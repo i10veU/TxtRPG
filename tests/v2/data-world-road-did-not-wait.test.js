@@ -1,14 +1,15 @@
 // V2-Core-110 (#265, World Simulation 2, step 3 -- integrated: the road that did not wait): one world, two lives, through
 // the ordinary step() API and the real pack. No new rule. The caravans do not wait (V2-Core-108/109); the guild remembers
 // its guards and a known guard's fall is counted (V2-Core-102); the memory reaches the next life as a choice (V2-Core-106):
-//   1. a guard the guild knows, up to date (four convoys guarded), goes on the royal journey (eleven days): one caravan
-//      left with another guard, one is still owed; the clerk tells him why -- knowing him does not change the world's count;
+//   1. a guard the guild knows, up to date (four convoys guarded), goes on the royal journey (eleven days; four caravans
+//      pass on the honest clock, D-107): one left with another guard, three are still owed; the clerk tells him why --
+//      knowing him does not change the world's count;
 //   2. back, he takes the owed convoy and falls (staged: the last hp, no strength, a bad roll); the guild knew him, so the
 //      world counts it, in the very step that killed him;
 //   3. the successor starts with nothing of his -- no standing, no wound, no practice -- and the world's numbers stay as the
 //      first life left them: what left, what fell. The walk to the town takes most of a day, and the shares the world kept
-//      are never above the cap; the clerk speaks of the convoy that left only when there is work to speak of (the next
-//      convoy), and then tells the successor both things (the convoy that left and the guard who did not come back);
+//      (up to the cap's three) outlive the guard who fell: the successor arrives to convoys that want a guard, and the
+//      clerk tells them both things (the convoy that left and the guard who did not come back);
 //   4. the careful way is offered to the successor (the world's memory) and not the lead (the character's unlock); taking
 //      it costs a day and no hp;
 //   5. save/load between the lives, and determinism.
@@ -96,7 +97,7 @@ function testJourney() {
   assert.strictEqual(sig(start, "guards_owed"), 0);
   assert.strictEqual(sig(start, "caravans_unguarded"), 0);
   const back = play(start, JOURNEY);
-  assert.strictEqual(sig(back.state, "guards_owed"), 1, "one convoy is still owed a guard");
+  assert.strictEqual(sig(back.state, "guards_owed"), 3, "three convoys are still owed a guard (the cap)");
   assert.strictEqual(sig(back.state, "caravans_unguarded"), 1, "one left with another guard");
   assert.ok(play(back.state, ASK).said.includes(LEFT), "the clerk tells the guard he knows");
   assert.ok(standing(back.state) >= 10, "the guild still knows him: the world's loss is not his standing");
@@ -135,13 +136,13 @@ function testSuccessor(fell) {
   assert.ok(days > 0.5 && days < 1, `the walk takes most of a day (${days})`);
   assert.ok(sig(walked.state, "caravan_visits") >= sig(lived, "caravan_visits"), "the road does not run backwards");
   assert.ok(sig(walked.state, "caravans_unguarded") >= sig(lived, "caravans_unguarded"), "what left stays gone");
-  assert.ok(sig(walked.state, "guards_owed") <= 1, "the shares kept never exceed the cap");
+  assert.ok(sig(walked.state, "guards_owed") <= 3, "the shares kept never exceed the cap");
   assert.strictEqual(me(walked.state).locationId, "loc_castle_town");
 
-  // the clerk speaks of lost convoys only when there is work to speak of (data-world-caravans-wait): she has none the
-  // moment the successor arrives -- the shares the world kept went with the first life -- and the next convoy brings it
-  assert.ok(!play(walked.state, ASK).said.includes(LEFT), "no convoy waiting, no word of the ones that left");
-  assert.strictEqual(offered(walked.state, "opt_guild_clerk_escort_careful"), false, "the careful way is for a convoy that wants a guard");
+  // the shares the cap kept outlive the guard who fell: the successor arrives to convoys that want a guard, and the clerk
+  // speaks of the one that left at once (she speaks of lost convoys only when there is work to speak of, as before)
+  assert.ok(offered(walked.state, "opt_guild_clerk_escort"), "convoys are waiting: the shares are the world's");
+  assert.strictEqual(offered(walked.state, "opt_guild_clerk_escort_careful"), offered(walked.state, "opt_guild_clerk_escort"), "the careful way is for a convoy that wants a guard");
   const ready = waitForConvoy(walked.state);
   const asked = play(ready, ASK);
   assert.ok(asked.said.includes(LEFT), "the clerk tells the successor a convoy left without a guard");

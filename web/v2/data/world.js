@@ -403,13 +403,16 @@ const FIRST_CARAVANS_WANT = {
 };
 // V2-Core-96 (#237): caravans keep coming after the third; each later one is owed a guard (`guards_owed`)
 const GUARD_WANTED = { op: "or", of: [FIRST_CARAVANS_WANT, { op: "signal", key: "guards_owed", min: 1 }] };
-// V2-Core-108/109 (#265): the caravans do not wait. Owed shares are capped at ONE: a caravan not guarded by the time
-// the next arrives has left with another guard (counted in the world's `caravans_unguarded`). Measured (V2-Core-109):
-// a steady career -- staying in town or walking home to rest -- loses none, a ten-day journey loses one, and a guard
-// who walks home while a convoy has waited two days loses it where one who sleeps in town does not. Each `if` drops
-// one, so a save already over the cap is brought down by up to 12 at its next caravan (one holding more comes down over
-// the next ones). The first three caravans' rule is untouched
-const OWED_CAP = 1;
+// V2-Core-108/109/116 (#265, #282): the caravans do not wait. Owed shares are capped at THREE (nine days of caravans): a
+// caravan not guarded by the time the cap is passed has left with another guard (counted in the world's
+// `caravans_unguarded`). Set at three, tightened to one on measurements made on a clock that counted a long step's
+// caravans as one, and set back to three on the honest clock (`catchUp`, D-107; measured, V2-Core-116): a steady
+// career -- staying in town or walking home to rest -- loses none under any cap, the royal journey (eleven days, four
+// caravans) loses ONE at three (three at one), and a guard whose backlog is full who walks home while a convoy has
+// waited two days loses the caravan where one who sleeps in town does not. Each `if` drops one, and every caravan's
+// firing clamps by itself, so a save already over the cap is brought down by up to 12 at each caravan (one holding
+// more comes down over the next ones). The first three caravans' rule is untouched
+const OWED_CAP = 3;
 const CLAMP_OWED = Array.from({ length: 12 }, () => ({
   op: "if",
   when: { op: "signal", key: "guards_owed", min: OWED_CAP + 1 },
@@ -542,6 +545,7 @@ export const worldData = {
         ]
       },
       cooldown: 1440,
+      catchUp: true,
       effects: [
         { op: "fact", fact: "fact_bandits_fate", set: "dispersed" },
         { op: "signal", key: "bandits_tale_age", add: 1 }
@@ -571,6 +575,7 @@ export const worldData = {
       // V2-Core-96 (#237): the caravans keep coming -- the realm's news is the first three's; each later caravan is owed a guard
       trigger: { op: "flag", key: "road_walked" },
       cooldown: 4320,
+      catchUp: true,
       effects: [
         { op: "signal", key: "caravan_visits", add: 1 },
         { op: "if", when: { op: "signal", key: "caravan_visits", eq: 1 }, then: [{ op: "fact", fact: "fact_realm_levy", set: "known" }] },
@@ -599,6 +604,7 @@ export const worldData = {
     evt_fallen_word_south: {
       trigger: { op: "and", of: [{ op: "flag", key: "road_walked" }, { op: "signal", key: "guards_fallen", min: 1 }, { op: "signal", key: "fallen_word_age", max: 1 }] },
       cooldown: 4320,
+      catchUp: true,
       effects: [
         { op: "signal", key: "fallen_word_age", add: 1 },
         { op: "if", when: { op: "signal", key: "fallen_word_age", eq: 2 }, then: [{ op: "flag", key: "guard_fall_word_south", value: true }] }
@@ -610,6 +616,7 @@ export const worldData = {
     evt_bandits_word_north: {
       trigger: { op: "and", of: [{ op: "flag", key: "road_walked" }, { op: "flag", key: "bandits_tale_corrected" }, { op: "signal", key: "bandits_word_age", max: 1 }] },
       cooldown: 4320,
+      catchUp: true,
       effects: [
         { op: "signal", key: "bandits_word_age", add: 1 },
         { op: "if", when: { op: "signal", key: "bandits_word_age", eq: 2 }, then: [{ op: "flag", key: "bandits_truth_north", value: true }] }
@@ -618,6 +625,7 @@ export const worldData = {
     evt_well_word_north: {
       trigger: { op: "and", of: [{ op: "flag", key: "road_walked" }, { op: "flag", key: "well_tale_corrected" }, { op: "signal", key: "well_word_age", max: 1 }] },
       cooldown: 4320,
+      catchUp: true,
       effects: [
         { op: "signal", key: "well_word_age", add: 1 },
         { op: "if", when: { op: "signal", key: "well_word_age", eq: 2 }, then: [{ op: "flag", key: "well_truth_north", value: true }] }
@@ -671,6 +679,7 @@ export const worldData = {
     evt_well_tale: {
       trigger: { op: "and", of: [WELL_RESOLVED, { op: "signal", key: "well_tale_age", max: 2 }] },
       cooldown: 1440,
+      catchUp: true,
       effects: [
         { op: "fact", fact: "fact_well_fate", set: "purified" },
         { op: "signal", key: "well_tale_age", add: 1 }

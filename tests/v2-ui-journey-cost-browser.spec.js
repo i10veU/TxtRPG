@@ -3,8 +3,8 @@
 // play. The road to the castle town is dispatched, then a guard who is up to date -- six convoys guarded, staged strong
 // and rested for each (data-world-journey-cost.test.js does the same) -- is saved through the real storage adapter and
 // loaded with the app's button. The rest is real buttons: the far bank, the waystation board, the five days to the royal
-// city, its market, the five days back, the town; the clerk, who says that a caravan did not wait, and the one job that
-// waits; saved -> reloaded -> loaded, the same end as a pure replay.
+// city, its market, the five days back, the town (four caravans passed on the honest clock, V2-Core-116: three are
+// still owed, one is gone); the clerk, who says that a caravan did not wait, and a job; saved -> reloaded -> loaded, the same end as a pure replay.
 const { test, expect } = require("@playwright/test");
 
 const ENTRY_URL = "http://127.0.0.1:4173/v2/index.html";
@@ -61,7 +61,7 @@ async function escort(page) {
 
 
 test.describe("V2 what a long absence costs (World Simulation 2)", () => {
-  test("six convoys guarded, the royal journey, one caravan owed and one gone, the clerk says so, one job -- save/load -- the same end as a pure replay", async ({ page }) => {
+  test("six convoys guarded, the royal journey, three caravans owed and one gone, the clerk says so, a job -- save/load -- the same end as a pure replay", async ({ page }) => {
     const { pageErrors, consoleErrors } = await gotoApp(page);
     await page.evaluate((seed) => window.__v2App.newGame(seed), SEED);
     await expect(page.locator("#game")).toBeVisible();
@@ -104,11 +104,11 @@ test.describe("V2 what a long absence costs (World Simulation 2)", () => {
     await move(page, "강 건너 길목");
     await move(page, "영주의 성읍");
     const back = await getState(page);
-    expect(back.signals.caravan_visits - start.signals.caravan_visits).toBe(2);
-    expect(back.signals.guards_owed).toBe(1);
+    expect(back.signals.caravan_visits - start.signals.caravan_visits).toBe(4);
+    expect(back.signals.guards_owed).toBe(3);
     expect(back.signals.caravans_unguarded).toBe(1);
 
-    // the clerk says so; one job waits
+    // the clerk says so; three jobs wait (the cap's shares), one caravan is gone
     await act(page, "상단 조합의 서기와 대화");
     await option(page, "일거리를 묻는다").click();
     await expect(page.locator("#log")).toContainText("호위를 오래 못 구한 상단은 기다려 주지 않는다고");
@@ -117,7 +117,7 @@ test.describe("V2 what a long absence costs (World Simulation 2)", () => {
     await expect(page.locator("#location")).toContainText("강 건너 길목");
     const end = await getState(page);
     expect(end.signals.guards_hired).toBe(7);
-    expect(end.signals.guards_owed).toBe(0);
+    expect(end.signals.guards_owed).toBe(2);
 
     await saveReloadLoad(page, "slot_journey", 2);
 
