@@ -160,7 +160,7 @@ ID는 저장 파일에 남으므로 게임 쪽에서 바꾸기 어렵다. **정�
 | ID | 무엇 | 처리 |
 |---|---|---|
 | `GUILD_KNOWS` / `GUILD_REMEMBERS` | 좋은 호위가 상단 조합 서기와의 평판(`npc_guild_clerk → self`)을 쌓고, 아는 호위는 은화 한 닢을 더 받음 | 평판은 플레이가 정하는 역사이자 캐릭터의 것(D-71). 서기의 말은 Provisional. 수치는 게임 값 |
-| `road_wound` / `act_treat_road_wound` | 실패한 호위가 남기는 상처(combat -2), 연고로만 닫힘 | 상처는 캐릭터의 것. 수치·치료는 게임 값 |
+| `road_wound` / `act_treat_road_wound` | 실패한 호위가 남기는 **경상**(combat -2) — 하룻밤 쉬면 낫고(V2-Core-121부터; 그전에는 연고로만 닫혔다), 연고는 곧바로 닫는다 | 상처는 캐릭터의 것. 수치·치료는 게임 값 |
 | `item_leather_jerkin` | 성읍에서 파는 가죽 조끼 (`body` 칸, combat +1) | Provisional 유지(정본화 불필요). 값·수정치는 게임 값 |
 
 ## World Simulation 1 — 길은 계속 산다 (Master Goal #237)
@@ -237,4 +237,13 @@ ID는 저장 파일에 남으므로 게임 쪽에서 바꾸기 어렵다. **정�
 |---|---|---|
 | `estate_held` (`evt_known_guard_fell`) | 조합이 아는 호위가 쓰러지는 걸음에, 지갑 2닢마다 1(상한 12)을 조합이 맡아 둔다 — 세계의 수 | **게임 값**(Provisional, R-29): 반(1/2)과 상한 12는 측정(#290)에서 정했다. 몰랐던 호위는 남기지 않는다 |
 | `opt_guild_clerk_estate` / `txt_guild_clerk_estate_offer` / `txt_guild_clerk_estate` | 서기가 맡아 둔 몫을 알려 주고, 이어 가는 이가 찾아가면 한 번에 최대 12를 내준다 | 서기의 말은 **Provisional** — 누구의 몫이었는지·어떻게 쓰러졌는지는 말하지 않는다. 후계자가 물려받는 것이 아니라 찾아서 받는다 |
+
+## Death & Injury — 경상과 중상 (Master Goal #297)
+
+새 정본 없음. 상처는 캐릭터의 것이다(D-71); 수치는 모두 게임 값이다 (WB-0028).
+
+| ID | 무엇 | 처리 |
+|---|---|---|
+| `road_wound_deep` / `txt_escort_deep_wound` / `txt_rest_deep_wound_stays` / `txt_rest_deep_wound_closes` / `txt_treat_deep_wound` | 실패한 호위가 hp를 2 이하로 남기면 **중상**: 판정 -1 추가, 숙소가 hp를 +2만 되돌리고, hp가 가득 차는 밤이나 연고로 닫힌다; 이끄는 일·위험한 호위는 닫힌다 | **게임 값**(Provisional, R-29): 선·수치는 측정(#297)에서 정했다. 서술은 Provisional — 누가·무엇이 입혔는지는 말하지 않는다 |
+| `txt_guild_clerk_sees_deep_wound` / `txt_guild_clerk_deep_closes_lead` / `txt_rest_wound_closes` | 서기가 중상을 알아보고 이끄는 일이 닫힌 이유를 말한다; 경상은 하룻밤에 가라앉는다 | 서기의 말은 **Provisional** |
 
