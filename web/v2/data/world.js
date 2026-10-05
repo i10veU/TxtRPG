@@ -559,6 +559,13 @@ export const worldData = {
         { op: "if", when: { op: "signal", key: "caravan_visits", min: 4 }, then: [{ op: "signal", key: "guards_owed", add: 1 }] }
       ]
     },
+    // V2-Core-102 (#251): the guild remembers a guard it knew who did not come back. Fires in the very step that
+    // kills the player (the trigger pass runs before the game asks for a new character); it counts a world number,
+    // not a person -- no name, no fate, nothing a successor inherits (D-71)
+    evt_known_guard_fell: {
+      trigger: { op: "and", of: [{ op: "not", of: { op: "alive", subject: "self" } }, GUILD_KNOWS] },
+      effects: [{ op: "signal", key: "guards_fallen", add: 1 }]
+    },
     // V2-Core-74 (#180): the first time anyone sets foot on the far bank (narration, once for the world)
     // V2-Core-80 (#198): a correction made in the village travels north with the road's traffic -- the
     // first firing counts it out (1), the next one, a caravan's cadence later, brings it to the town (2)
@@ -1622,6 +1629,8 @@ export const worldData = {
             { op: "if", when: GUARD_WANTED, then: [say("txt_guild_clerk_work")], else: [say("txt_guild_clerk_no_work")] },
             // V2-Core-92 (#226): a guard the guild knows
             { op: "if", when: GUILD_KNOWS, then: [say("txt_guild_clerk_knows_you")] },
+            // V2-Core-102 (#251): what the guild remembers of the guards who did not come back -- told to any guard
+            { op: "if", when: { op: "signal", key: "guards_fallen", min: 1 }, then: [say("txt_guild_clerk_fallen")] },
             // V2-Core-97 (#237): the clerk sizes up a guard before the road -- what the player can judge by; the risk
             // itself is unchanged (a failed escort costs 3 hp and may wound)
             {
@@ -2237,6 +2246,7 @@ export const worldData = {
     txt_escort_success: "길은 길었지만 상단은 무사히 강 건너 길목에 닿는다. 서기가 약속한 품삯을 받는다.",
     txt_escort_fail: "길에서 덤벼든 좀도둑들과 엉켜 상처를 입는다. 상단은 간신히 강 건너 길목에 닿고, 품삯은 깎인다.",
     txt_lodge_castle_town: "은화 두 닢을 내고 성읍의 지붕 아래에서 하룻밤을 묵는다. 길에서 쌓인 피로가 풀린다.",
+    txt_guild_clerk_fallen: "서기는 장부의 한 줄을 손가락으로 짚는다. 조합이 믿던 호위 하나가 길에서 돌아오지 못했다고, 이 일은 그만큼 위험하다고 한다.",
     txt_lodge_wound_stays: "옆구리의 상처는 하룻밤으로 아물지 않는다. 약초 연고가 있어야 할 것 같다."
   }
 };
