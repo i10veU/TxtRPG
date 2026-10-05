@@ -3,7 +3,7 @@
 // event fires at most once however many periods a long step spans, and `lastMinute` becomes *now*, losing the remainder
 // too. The new optional field `catchUp: true` (honoured only with an integer `cooldown`, and not with `once`):
 //   1. fires the event k = floor(elapsed / cooldown) times in the one step (sequentially: each firing sees the state
-//      the one before left), counts k, and emits one `trigger.fired` per firing;
+//      the one before left, and each after the first is made only while the trigger is still true there), counts k, and emits one `trigger.fired` per firing;
 //   2. keeps the cadence's phase: `lastMinute += k * cooldown`, not = now, so the remainder is not lost;
 //   3. is bounded: at most 64 firings in a step; what is left is caught up on the following steps;
 //   4. changes nothing without the field (an event with a cooldown fires once and lastMinute becomes now, as before),
@@ -83,6 +83,23 @@ function testSequential() {
   assert.strictEqual(sig(long.state, "late"), 2, "and the third and fourth saw ticks >= 3");
 }
 
+// an event that limits itself stops where a step-by-step wait would: each firing after the first re-checks the trigger
+function testSelfLimiting() {
+  const data = pack({ evt_tick: { trigger: { op: "signal", key: "ticks", max: 1 }, cooldown: 100, catchUp: true, effects: [TICK] } });
+  let s = createInitialState({ worldSeed: "cu-9", data }).state;
+  s = wait(s, data, 1).state; // ticks 0 -> 1 (the trigger held at 0)
+  const long = wait(s, data, 1000); // ten periods due; the trigger holds at 1, then is false at 2
+  assert.strictEqual(sig(long.state, "ticks"), 2, "one more firing, then the trigger is false: it stops");
+  assert.strictEqual(long.state.fired.evt_tick.count, 2);
+  assert.strictEqual(long.state.fired.evt_tick.lastMinute, 1 + 100, "and only what was fired moves the cadence");
+  // the step-by-step wait ends in the same place
+  let t = createInitialState({ worldSeed: "cu-9", data }).state;
+  t = wait(t, data, 1).state;
+  for (let i = 0; i < 10; i += 1) t = wait(t, data, 100).state;
+  assert.strictEqual(sig(t, "ticks"), 2);
+  assert.strictEqual(t.fired.evt_tick.count, 2);
+}
+
 // 3. the cap
 function testCap() {
   const data = pack({ evt_tick: { trigger: ALWAYS, cooldown: 1, catchUp: true, effects: [TICK] } });
@@ -160,6 +177,7 @@ function testSaveAndDeterminism({ data, long }) {
 
 const run = testCatchUp();
 testSequential();
+testSelfLimiting();
 testCap();
 testUnchanged();
 testValidation();

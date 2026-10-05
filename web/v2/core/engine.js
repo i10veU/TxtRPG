@@ -300,16 +300,21 @@ function runTriggerStage(workingState, events, data) {
       const times = catchUp
         ? Math.min(MAX_CATCH_UP_FIRINGS, Math.floor((workingState.time.minute - fired.lastMinute) / def.cooldown))
         : 1;
+      // each firing after the first is made only while the trigger is still true on the state the one before left, so
+      // an event that limits itself (a counter it raises past its own `max`) stops where a step-by-step wait would
+      let made = 0;
       for (let i = 0; i < times; i += 1) {
+        if (i > 0 && !evaluateCondition(def.trigger, triggerCtx)) break;
         resolveResolvable(def, workingState, events, { state: workingState, data, actorId: workingState.player.actorId });
         events.push({ minute: workingState.time.minute, type: "trigger.fired", visibility: "internal", data: { eventId } });
+        made += 1;
       }
 
       if (!isPlainObject(workingState.fired)) workingState.fired = {};
       const previousCount = workingState.fired[eventId]?.count ?? 0;
       workingState.fired[eventId] = {
-        count: previousCount + times,
-        lastMinute: catchUp ? fired.lastMinute + times * def.cooldown : workingState.time.minute
+        count: previousCount + made,
+        lastMinute: catchUp ? fired.lastMinute + made * def.cooldown : workingState.time.minute
       };
     });
 }
