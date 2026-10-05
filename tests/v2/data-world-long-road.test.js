@@ -97,8 +97,9 @@ function testLongCareer() {
     s = r.state;
     assert.strictEqual(s.signals.guards_hired, n);
     assert.ok(s.signals.guards_hired <= s.signals.caravan_visits, "never more guards than caravans");
-    // the first three all guarded: what is owed is exactly the later caravans still unguarded
+    // the first three all guarded: what is owed is exactly the later caravans still unguarded (a steady career loses none: V2-Core-109)
     assert.strictEqual(s.signals.guards_owed ?? 0, Math.max(0, s.signals.caravan_visits - 3) - Math.max(0, s.signals.guards_hired - 3));
+    assert.strictEqual(s.signals.caravans_unguarded, undefined, "none left without a guard");
   }
   assert.deepStrictEqual(["fact_realm_levy", "fact_realm_fair", "fact_realm_unrest"].map((f) => s.facts[f]?.value), ["known", "known", "known"], "the realm's news, as the first three caravans left it");
   assert.deepStrictEqual(tiers, ["success", "success", "success", "great", "success", "great"]);
@@ -108,12 +109,15 @@ function testLongCareer() {
   return s;
 }
 
-// 2. the world does not wait: nine days away, three caravans owed; taken one after another
+// 2. the world does not wait: nine days away, one caravan still owed a guard and the ones before it gone; taken in turn
 function testOwed(career) {
   const away = play(career, [M("loc_river_ford"), M("loc_crossroads"), M("loc_village"), REST, DAY, DAY, DAY, DAY, DAY, DAY, DAY, DAY, DAY]).state;
   const owed = away.signals.guards_owed;
-  assert.strictEqual(away.signals.caravan_visits - away.signals.guards_hired, owed, "every unguarded later caravan is owed");
-  assert.ok(owed >= 3, "the caravans kept coming");
+  const unguarded = Math.max(0, away.signals.caravan_visits - 3) - Math.max(0, away.signals.guards_hired - 3);
+  // V2-Core-109: only the latest caravan still waits; every earlier unguarded one has left
+  assert.strictEqual(owed, 1, "one caravan is still owed a guard");
+  assert.strictEqual(away.signals.caravans_unguarded, unguarded - 1, "and the others left with other guards");
+  assert.ok(away.signals.caravans_unguarded >= 2, "the caravans kept coming, and did not wait");
   let s = play(away, [M("loc_crossroads"), M("loc_river_ford"), P("act_talk_ferryman"), C("opt_ferryman_cross_letter"), M("loc_castle_town")]).state;
   const before = s.signals.guards_hired;
   for (let i = 0; i < 3; i += 1) s = nextEscort(s).state;
@@ -128,14 +132,16 @@ function testSuccessor() {
   let s = play(walked, [M("loc_crossroads"), M("loc_village"), DAY, DAY, DAY, DAY, DAY, DAY, DAY, DAY, DAY, DAY, DAY, DAY]).state;
   assert.ok(s.signals.caravan_visits >= 5, "the road lived on without anyone on it");
   const owed = s.signals.guards_owed;
-  assert.strictEqual(owed, s.signals.caravan_visits - 3, "nobody guarded: every later caravan is owed");
+  // nobody guarded: the latest later caravan is still owed, every one before it left (V2-Core-109)
+  assert.strictEqual(owed, 1, "the latest later caravan is still owed");
+  assert.strictEqual(s.signals.caravans_unguarded, s.signals.caravan_visits - 4, "and the others left without a guard");
   s = play(s, [M("loc_ruins")]).state;
   for (let i = 0; i < 6 && s.pending?.kind !== "newCharacter"; i += 1) s = play(s, [{ type: "wait", minutes: 30 }]).state;
   assert.deepStrictEqual(s.pending, { kind: "newCharacter" });
   const next = play(s, [{ type: "startCharacter", templateId: "start_wanderer" }]).state;
   assert.strictEqual(standing(next), undefined, "nothing personal");
   assert.strictEqual(next.signals.guards_owed, owed, "the world's count stays");
-  assert.ok(wanted({ ...next, actors: next.actors }), "the owed caravans still want guards");
+  assert.ok(wanted({ ...next, actors: next.actors }), "the caravan still owed wants a guard");
 }
 
 // 4. save/load in the middle, and determinism

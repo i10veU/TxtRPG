@@ -6,8 +6,8 @@
 //      ways (escorts in; the jerkin and the nights out). At the last rank the practice is full: the road teaches no more;
 //   2. walking home to rest instead: the same caravans, the same days -- the caravans come every three days, and the walk
 //      fits inside the wait. The bed buys no caravan in a steady career; the walker keeps the nights' silver;
-//   3. with a backlog -- nine days away, three shares paid back to back, the guard spent with one still owed -- the bed
-//      takes the next caravan in 20 hours, the walk in 41;
+//   3. what the bed is worth (V2-Core-109, the caravans do not wait): a spent guard with a convoy waiting -- who sleeps in
+//      town loses nothing; who walks home to rest loses the caravan that comes on the road once the convoy has waited two days;
 //   4. save/load and determinism.
 // Practice, ranks and silver are the character's; values are gameplay values. No Canon.
 //
@@ -66,6 +66,8 @@ const wanted = (s) => evaluateCondition(worldData.choices.choice_guild_clerk_dia
   { state: s, data: worldData, actorId: s.player.actorId, contextKind: "player" });
 const lastCheck = (r) => r.log.map((x) => x.events.find((e) => e.type === "check.resolved")).filter(Boolean).at(-1).data;
 const skillMod = (c) => c.modifiers.find((m) => m.source === "skill:swordsmanship")?.value ?? 0;
+const toTown = (s) => (me(s).locationId === "loc_far_bank" ? play(s, [M("loc_castle_town")]).state : s);
+const waitForConvoy = (s) => { let t = s; for (let h = 0; h < 96 && !wanted(t); h += 1) t = play(t, [HOUR]).state; assert.ok(wanted(t), "a convoy wants a guard"); return t; };
 const DAYS = (s, t0) => Math.floor((s.time.minute - t0) / 1440);
 
 // the policy: back to the town, the jerkin before the third, rest when spent (a night in the town, or the walk home),
@@ -127,27 +129,37 @@ function testWalkOrLodge() {
   assert.strictEqual(me(walker.state).money - me(lodger.state).money, 4, "two nights' silver kept");
 }
 
-// 3. a backlog: the bed takes the next caravan in 20 hours, the walk in 41
-function testBacklog() {
-  let s = play(scoutInTown, ESCORT).state;
-  for (let i = 0; i < 2; i += 1) {
-    s = play(s, [M("loc_castle_town")]).state;
-    while (!wanted(s)) s = play(s, [DAY]).state;
-    s = play(s, ESCORT).state;
-  }
-  s = play(s, [M("loc_river_ford"), M("loc_crossroads"), M("loc_village"), REST, ...Array(9).fill(DAY), REST,
-    M("loc_crossroads"), M("loc_river_ford"), P("act_talk_ferryman"), C("opt_ferryman_cross_letter"), M("loc_castle_town")]).state;
-  assert.strictEqual(s.signals.guards_owed, 3, "three shares waited for her");
-  for (let i = 0; i < 3; i += 1) s = play(s, [...ESCORT, M("loc_castle_town")]).state;
-  assert.strictEqual(stamina(s), 0, "three back to back spend her");
-  assert.strictEqual(s.signals.guards_owed, 1, "and a caravan came meanwhile");
-  assert.strictEqual(wanted(s), false, "too spent for it");
-  const lodged = play(s, [LODGE, ...ESCORT]).state;
-  const walked = play(s, [M("loc_far_bank"), ...REST_TRIP, ...ESCORT]).state;
-  assert.strictEqual(lodged.signals.guards_owed ?? 0, 0);
-  assert.strictEqual(walked.signals.guards_owed ?? 0, 0, "the share waits for the walker too");
-  assert.strictEqual((lodged.time.minute - s.time.minute) / 60, 20, "a night and the road");
-  assert.ok((walked.time.minute - s.time.minute) / 60 > 40, "the walk home and back, and the road");
+// 3. what the bed is worth (V2-Core-109): the caravans do not wait. A guard spent with a convoy waiting: who sleeps in
+// town (8 hours) loses nothing; who walks home to rest (29 hours) loses the caravan that comes on the road, if the
+// convoy has already waited two days -- the cap holds one share
+function testBedValue() {
+  // four convoys taken: the first three are settled, the next one waits as a later caravan (owed)
+  let s = career(scoutInTown, 4, "lodge").state;
+  s = play(toTown(s), [LODGE]).state;
+  s = waitForConvoy(s);
+  const spent = structuredClone(s);
+  growth(spent).resources.stamina.current = 0;
+  const rested = structuredClone(spent);
+  growth(rested).resources.stamina.current = 6;
+  assert.strictEqual(wanted(rested), true, "a convoy waits (the job asks for stamina: she has none)");
+  assert.strictEqual(wanted(spent), false);
+  assert.strictEqual(spent.signals.guards_owed, 1);
+  const outcome = (state, lagHours) => {
+    const u = play(state, Array(lagHours).fill(HOUR)).state;
+    const lodged = play(u, [LODGE]).state;
+    const walked = play(u, [M("loc_far_bank"), ...REST_TRIP]).state;
+    return { u, lodged, walked, lost: (x) => (x.signals.caravans_unguarded ?? 0) - (u.signals.caravans_unguarded ?? 0), hours: (x) => (x.time.minute - u.time.minute) / 60 };
+  };
+  const fresh = outcome(spent, 0);
+  assert.strictEqual(fresh.hours(fresh.lodged), 8);
+  assert.strictEqual(fresh.walked.time.minute - fresh.u.time.minute, 1750, "the walk home and back: 29 hours and ten minutes");
+  assert.deepStrictEqual([fresh.lost(fresh.lodged), fresh.lost(fresh.walked)], [0, 0], "a convoy just come: the walk loses nothing");
+  // two days on: the next caravan is due while she walks
+  const late = outcome(spent, 48);
+  assert.strictEqual(late.lost(late.lodged), 0, "the sleeper loses none");
+  assert.strictEqual(late.lost(late.walked), 1, "the walker loses a caravan on the road");
+  assert.strictEqual(wanted(late.lodged), true);
+  assert.strictEqual(wanted(late.walked), true, "there is still a job for both: the caravan that arrived");
 }
 
 // 4. save/load and determinism
@@ -165,6 +177,6 @@ function testSaveAndDeterminism() {
 
 testLiving();
 testWalkOrLodge();
-testBacklog();
+testBedValue();
 testSaveAndDeterminism();
 console.log("V2-Core-101 data-world-guard-living.test.js: all checks passed");

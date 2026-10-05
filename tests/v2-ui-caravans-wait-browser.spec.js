@@ -1,11 +1,11 @@
 // V2-Core-108 browser scenario (#265, World Simulation 2, step 1 -- the caravans do not wait): the real entry point
 // (web/v2/index.html + ui/app.js) in real Chromium with real IndexedDB, against the real world data pack, in natural
 // play. The road to the river ford is dispatched and 24 days pass there (a traveller away -- the royal road is ten);
-// the world's count is checked: nine caravans came, three shares wait, three left with other guards. The state is saved
+// the world's count is checked: nine caravans came, one share waits, five left with other guards. The state is saved
 // as a strong, rested guard through the real storage adapter and loaded with the app's button
 // (data-world-caravans-wait.test.js stages the same). The rest is real buttons: the crossing, the clerk -- who says that
 // caravans that were not guarded did not wait -- and three escorts: the first three caravans' shortfall is paid first,
-// the three shares the cap kept are still there; saved -> reloaded -> loaded, the same end as a pure replay.
+// the one share the cap kept is still there; saved -> reloaded -> loaded, the same end as a pure replay.
 const { test, expect } = require("@playwright/test");
 
 const ENTRY_URL = "http://127.0.0.1:4173/v2/index.html";
@@ -59,7 +59,7 @@ async function escort(page) {
 
 
 test.describe("V2 the caravans do not wait (World Simulation 2)", () => {
-  test("24 days away, three shares kept and three gone, the clerk says so, three escorts leave three waiting -- save/load -- the same end as a pure replay", async ({ page }) => {
+  test("24 days away, one share kept and five gone, the clerk says so, three escorts leave the one waiting -- save/load -- the same end as a pure replay", async ({ page }) => {
     const { pageErrors, consoleErrors } = await gotoApp(page);
     await page.evaluate((seed) => window.__v2App.newGame(seed), SEED);
     await expect(page.locator("#game")).toBeVisible();
@@ -67,8 +67,8 @@ test.describe("V2 the caravans do not wait (World Simulation 2)", () => {
     await page.evaluate((list) => list.forEach((a) => window.__v2App.dispatch(a)), [...TO_FORD, ...days]);
     const away = await getState(page);
     expect(away.signals.caravan_visits).toBe(9);
-    expect(away.signals.guards_owed).toBe(3);
-    expect(away.signals.caravans_unguarded).toBe(3);
+    expect(away.signals.guards_owed).toBe(1);
+    expect(away.signals.caravans_unguarded).toBe(5);
     expect(away.signals.guards_hired).toBeUndefined();
 
     await page.evaluate(async () => {
@@ -99,8 +99,8 @@ test.describe("V2 the caravans do not wait (World Simulation 2)", () => {
     await escort(page);
     const end = await getState(page);
     expect(end.signals.guards_hired).toBe(3);
-    expect(end.signals.guards_owed).toBe(3);
-    expect(end.signals.caravans_unguarded).toBe(4);
+    expect(end.signals.guards_owed).toBe(1);
+    expect(end.signals.caravans_unguarded).toBe(6);
     expect(end.signals.caravan_visits).toBe(10);
 
     await saveReloadLoad(page, "slot_wait", 2);
