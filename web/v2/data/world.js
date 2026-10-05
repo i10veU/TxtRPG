@@ -438,6 +438,15 @@ const LEAD_REMEMBERS = [
   { op: "if", when: GUILD_KNOWS, then: [{ op: "money", add: 1 }, say("txt_escort_known_bonus")] },
   { op: "relation", from: "npc_guild_clerk", add: 10 }
 ];
+// V2-Core-118 (#291): the guild's held share of a fallen guard's purse (WB-0027). `if`s are unrolled (the pack has no
+// arithmetic Effect): the share recorded is min(floor(wallet / 2), 12); a claim moves up to 12 of what is held to the claimant
+const ESTATE_SHARE_CAP = 12;
+const ESTATE_HELD_TIERS = Array.from({ length: ESTATE_SHARE_CAP }, (_, i) => (
+  { op: "if", when: { op: "money", min: 2 * (i + 1) }, then: [{ op: "signal", key: "estate_held", add: 1 }] }
+));
+const ESTATE_CLAIM_TIERS = Array.from({ length: ESTATE_SHARE_CAP }, () => (
+  { op: "if", when: { op: "signal", key: "estate_held", min: 1 }, then: [{ op: "money", add: 1 }, { op: "signal", key: "estate_held", add: -1 }] }
+));
 // V2-Core-93 (#226): the character carries a wound from the road (their growth, not inherited)
 const ROAD_WOUND = { op: "trait", trait: "road_wound" };
 // V2-Core-73 (#180): the two settlements trade (a world edge between world entities, D-70)
@@ -595,7 +604,12 @@ export const worldData = {
         // V2-Core-114 (#280, succession legacy): what a guard the guild knew leaves behind stays with the guild -- a
         // world count per kind, found by the next life and paid for, never handed over (Canon K-14, WB-0005)
         { op: "if", when: { op: "item", item: "item_steel_sword", min: 1 }, then: [{ op: "signal", key: "kit_steel", add: 1 }] },
-        { op: "if", when: { op: "item", item: "item_mail_shirt", min: 1 }, then: [{ op: "signal", key: "kit_mail", add: 1 }] }
+        { op: "if", when: { op: "item", item: "item_mail_shirt", min: 1 }, then: [{ op: "signal", key: "kit_mail", add: 1 }] },
+        // V2-Core-118 (#291, succession legacy 2, K-14 as amended by WB-0027): and the guild holds a share of the purse --
+        // one silver for each two the guard carried, twelve at most, counted in the dying step (so a world that never saw
+        // the fall holds nothing). Silver is moved from a dead wallet, never made: ESTATE_SHARE_CAP is a Provisional game
+        // value (R-29), set against the price of the life (rank five again: ~45 days, ~40 silver)
+        ...ESTATE_HELD_TIERS
       ]
     },
     // V2-Core-103 (#251): the road's talk carries it south, late (World Bible N-06: news travels with the caravans) --
@@ -1723,6 +1737,8 @@ export const worldData = {
             { op: "if", when: { op: "signal", key: "guards_fallen", min: 1 }, then: [say("txt_guild_clerk_fallen")] },
             // V2-Core-114 (#280): and what the guild kept of what they carried
             { op: "if", when: { op: "or", of: [{ op: "signal", key: "kit_steel", min: 1 }, { op: "signal", key: "kit_mail", min: 1 }] }, then: [say("txt_guild_clerk_kit_offer")] },
+            // V2-Core-118 (#291): and what the guild kept of what they carried in silver
+            { op: "if", when: { op: "signal", key: "estate_held", min: 1 }, then: [say("txt_guild_clerk_estate_offer")] },
             // V2-Core-97 (#237): the clerk sizes up a guard before the road -- what the player can judge by; the risk
             // itself is unchanged (a failed escort costs 3 hp and may wound)
             {
@@ -1788,6 +1804,14 @@ export const worldData = {
           name: "쓰러진 호위가 남긴 사슬 갑옷을 받는다 (은화 24)",
           requires: { op: "and", of: [{ op: "signal", key: "kit_mail", min: 1 }, { op: "money", min: 24 }, { op: "not", of: { op: "item", item: "item_mail_shirt", min: 1 } }] },
           effects: [{ op: "signal", key: "kit_mail", add: -1 }, { op: "money", add: -24 }, { op: "item", item: "item_mail_shirt", add: 1 }, say("txt_guild_clerk_kit_mail")]
+        },
+        // V2-Core-118 (#291, WB-0027): the share the guild holds of a fallen guard's purse, found and claimed -- the clerk's
+        // own, free, up to twelve a claim (what is left is claimed with the next ask); never handed over by itself
+        {
+          id: "opt_guild_clerk_estate",
+          name: "조합이 맡아 둔 몫을 찾아간다",
+          requires: { op: "signal", key: "estate_held", min: 1 },
+          effects: [...ESTATE_CLAIM_TIERS, say("txt_guild_clerk_estate")]
         },
         // V2-Core-112 (#275, RPG Depth 4 step 2): the hard convoy, above the lead job -- for a lead-holder in steel or mail.
         // A hard check (a +3 guard fails it as often as an ungeared one fails an ordinary escort), the lead's stamina, and
@@ -2433,6 +2457,8 @@ export const worldData = {
     txt_lead_great: "길 위에서 호위들을 부려 좀도둑들을 단번에 몰아낸다. 상단은 흠 하나 없이 강 건너 길목에 닿고, 상단주는 두둑한 웃돈을 얹는다.",
     txt_lead_success: "호위들을 앞뒤로 세워 길을 지킨다. 상단은 무사히 강 건너 길목에 닿고, 서기가 이끈 몫까지 쳐서 품삯을 내준다.",
     txt_lead_fail: "호위들을 이끌었으나 길에서 덤벼든 좀도둑들에게 밀린다. 상단은 간신히 닿지만 앞장선 몫만큼 상처를 입고, 품삯은 크게 깎인다.",
+    txt_guild_clerk_estate_offer: "서기는 장부 한쪽을 손가락으로 짚는다. 돌아오지 못한 호위가 지녔던 은화 일부를 조합이 맡아 두었고, 이어 가는 이가 찾아오면 내준다고 한다.",
+    txt_guild_clerk_estate: "서기는 맡아 둔 은화를 세어 건넨다. 누구의 몫이었는지는 말하지 않고, 장부의 한 줄을 지운다.",
     txt_guild_clerk_kit_offer: "서기는 뒤편 궤짝을 턱으로 가리킨다. 돌아오지 못한 호위가 지녔던 물건을 조합이 거두어 두었고, 이어 가는 이에게는 반값에 내준다고 한다.",
     txt_guild_clerk_kit_steel: "서기는 궤짝에서 기름 먹인 강철 검을 꺼내 건넨다. 주인이 누구였는지는 말하지 않고, 은화 열두 닢을 받아 장부에 적는다.",
     txt_guild_clerk_kit_mail: "서기는 궤짝에서 사슬 갑옷을 꺼내 건넨다. 주인이 누구였는지는 말하지 않고, 은화 스물네 닢을 받아 장부에 적는다.",
