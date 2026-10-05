@@ -301,3 +301,5 @@ jobs:
         run: npx playwright test tests/v2-ui-road-did-not-wait-browser.spec.js --reporter=line
       - name: V2 steel road browser smoke
         run: npx playwright test tests/v2-ui-steel-road-browser.spec.js --reporter=line
+      - name: V2 danger road browser smoke
+        run: npx playwright test tests/v2-ui-danger-road-browser.spec.js --reporter=line
