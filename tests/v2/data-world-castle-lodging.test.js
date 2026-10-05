@@ -92,14 +92,15 @@ function testBed() {
   assert.strictEqual(stamina(home), 6);
 }
 
-// 2. a road wound stays, and the night says so; the salve is still the herbalist's
-function testWoundStays() {
+// 2. a mild road wound closes with the night, and the night says so (V2-Core-121, Death & Injury: it used to stay until the salve --
+// the owner's change); the salve is still the herbalist's. A deep wound is data-world-deep-wound.test.js's
+function testWoundCloses() {
   const hurt = structuredClone(spent);
   growth(hurt).traits = { ...(growth(hurt).traits ?? {}), road_wound: true };
   const night = play(hurt, [LODGE]);
-  assert.deepStrictEqual(night.said, ["txt_lodge_castle_town", "txt_lodge_wound_stays"]);
-  assert.strictEqual(growth(night.state).traits.road_wound, true, "a night does not close it");
-  assert.strictEqual(rejected(night.state, P("act_treat_road_wound")), "requirements_not_met", "no salve in the town");
+  assert.deepStrictEqual(night.said, ["txt_lodge_castle_town", "txt_rest_wound_closes"]);
+  assert.strictEqual(growth(night.state).traits.road_wound, undefined, "a night closes a mild wound");
+  assert.strictEqual(rejected(night.state, P("act_treat_road_wound")), "requirements_not_met", "no salve in the town, and nothing left to treat");
 }
 
 // 3. natural play: rest in the town, take the next caravan from there
@@ -147,7 +148,7 @@ function testSaveAndDeterminism() {
 }
 
 testBed();
-testWoundStays();
+testWoundCloses();
 testScoutStays();
 testSaveAndDeterminism();
 console.log("V2-Core-100 data-world-castle-lodging.test.js: all checks passed");

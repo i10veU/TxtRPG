@@ -1,10 +1,10 @@
 // V2-Core-93 (#226, RPG Depth 1, step 2 -- a hard road leaves a mark): through the ordinary step() API and the real
 // pack. No engine change; additive content only (D-92/D-99):
-//   a failed escort leaves a lasting wound (`road_wound`, a trait of the character's growth system) that weighs on
-//   every combat check (-2) until it is treated. Resting restores hp and stamina, never the wound. The herbalist's
-//   salve closes it (`act_treat_road_wound`: needs the wound and a salve; the salve is used up). A second failure
-//   while wounded adds nothing more. The wound is the character's: a successor starts whole. The modifier and the
-//   treatment are gameplay values.
+//   a failed escort leaves a wound (`road_wound`, a trait of the character's growth system) that weighs on
+//   every combat check (-2). Since V2-Core-121 (Death & Injury, the owner's change) it is the MILD wound: a night's rest closes
+//   it (it used to stay until the salve); the herbalist's salve closes it at once (`act_treat_road_wound`: needs the wound and a
+//   salve; the salve is used up). A second failure while wounded adds nothing more. The wound is the character's: a successor
+//   starts whole. The modifier and the treatment are gameplay values. The deep wound is data-world-deep-wound.test.js's.
 //
 // `.test.js`, not `.spec.js`: tests/v2/run.js runs every `*.js` directly under tests/v2/ and skips
 // `*.spec.js`. node:assert/strict only (§13.1).
@@ -71,7 +71,7 @@ function testWound() {
   return failed.state;
 }
 
-// 2. it weighs on combat checks; rest does not close it; a second failure adds nothing
+// 2. it weighs on combat checks; a night's rest closes it; a second failure adds nothing
 function testWeighs(hurt) {
   const next = run(withStr(hurt, 14), [M("loc_castle_town"), DAY, DAY, DAY]).state;
   const e = escort(next);
@@ -80,10 +80,12 @@ function testWeighs(hurt) {
   delete growth(healthy).traits.road_wound;
   const h = escort(healthy);
   assert.strictEqual(check(h.result).total - check(e.result).total, 2, "two points on the same roll");
-  // rest restores hp and stamina, not the wound
-  const home = run(hurt, [...HOME, P("act_rest_village"), P("act_rest_village"), P("act_rest_village")]).state;
-  assert.strictEqual(me(home).hp.current, me(home).hp.max);
-  assert.ok(wounded(home), "rest does not close it");
+  // rest restores hp and stamina, and closes the mild wound (V2-Core-121); not yet rested, it stays
+  const rested = run(hurt, [...HOME, P("act_rest_village"), P("act_rest_village"), P("act_rest_village")]).state;
+  assert.strictEqual(me(rested).hp.current, me(rested).hp.max);
+  assert.ok(!wounded(rested), "rest closes a mild wound");
+  const home = run(hurt, HOME).state;
+  assert.ok(wounded(home), "not yet rested: still wounded");
   // failing again while wounded adds nothing more
   const again = escort(withStr(run(hurt, [M("loc_castle_town"), DAY, DAY, DAY]).state, 1));
   assert.strictEqual(check(again.result).tier, "fail");
@@ -118,7 +120,7 @@ function testSuccessor(hurt) {
 
 // 5. save compatibility and determinism
 function testSaveAndDeterminism(hurt) {
-  const path = [...HOME, P("act_rest_village"), TREAT];
+  const path = [...HOME, TREAT, P("act_rest_village")];
   const start = withSalve(hurt);
   const end = run(start, path).state;
   assert.deepStrictEqual(validateState(end), []);

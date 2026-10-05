@@ -41,7 +41,8 @@ function testData() {
   assert.deepStrictEqual(SYSTEM.traits, [
     { id: "night_vision" },
     { id: "investigation_talent", practice: { investigation: 2 } },
-    { id: "road_wound", modifiers: [{ tags: ["combat"], value: -2 }] } // V2-Core-93: a wound, never a starting trait
+    { id: "road_wound", modifiers: [{ tags: ["combat"], value: -2 }] }, // V2-Core-93: a wound, never a starting trait
+    { id: "road_wound_deep", modifiers: [{ tags: ["combat"], value: -1 }] } // V2-Core-121: the deep wound, likewise
   ]);
   assert.deepStrictEqual(worldData.characterTemplates.start_scout.growth.growth_wanderer.traits, { night_vision: true, investigation_talent: true });
   assert.strictEqual(worldData.characterTemplates.start_wanderer.growth.growth_wanderer.traits, undefined, "the wanderer is unchanged");
