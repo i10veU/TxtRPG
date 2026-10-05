@@ -103,9 +103,15 @@ jobs:
           set -e
           nohup python3 tests/support/static-server.py 4173 web >/tmp/txtrpg-http.log 2>&1 &
           echo $! > /tmp/txtrpg-http.pid
+          # wait until it answers: the first browser step must not race the server's start
+          for i in $(seq 1 50); do
+            curl -fsS -o /dev/null http://127.0.0.1:4173/ && break
+            sleep 0.2
+          done
+          curl -fsS -o /dev/null http://127.0.0.1:4173/
 
       - name: Browser smoke regression
-        run: npx playwright test tests/phase255-browser.spec.js --reporter=line
+        run: npx playwright test tests/phase255-browser.spec.js --retries=2 --reporter=line,github
 
       - name: V2 storage browser smoke
         run: npx playwright test tests/v2-storage-browser.spec.js --reporter=line
@@ -279,3 +285,5 @@ jobs:
         run: npx playwright test tests/v2-ui-guard-fallen-browser.spec.js --reporter=line
       - name: V2 fallen word browser smoke
         run: npx playwright test tests/v2-ui-fallen-word-browser.spec.js --reporter=line
+      - name: V2 guard remembered browser smoke
+        run: npx playwright test tests/v2-ui-guard-remembered-browser.spec.js --reporter=line
