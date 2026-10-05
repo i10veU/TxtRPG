@@ -1158,6 +1158,27 @@ export const worldData = {
       requires: { op: "item", item: "item_leather_jerkin", equipped: true },
       effects: [{ op: "unequip", item: "item_leather_jerkin" }, say("txt_unequip_leather_jerkin")]
     },
+    // V2-Core-111 (#273): wearing and wielding are choices of their own, as with the jerkin and the iron sword
+    act_equip_steel_sword: {
+      name: "강철 검을 든다",
+      requires: { op: "and", of: [{ op: "item", item: "item_steel_sword", min: 1 }, { op: "not", of: { op: "item", item: "item_steel_sword", equipped: true } }] },
+      effects: [{ op: "equip", item: "item_steel_sword" }, say("txt_equip_steel_sword")]
+    },
+    act_unequip_steel_sword: {
+      name: "강철 검을 내려놓는다",
+      requires: { op: "item", item: "item_steel_sword", equipped: true },
+      effects: [{ op: "unequip", item: "item_steel_sword" }, say("txt_unequip_steel_sword")]
+    },
+    act_equip_mail_shirt: {
+      name: "사슬 갑옷을 입는다",
+      requires: { op: "and", of: [{ op: "item", item: "item_mail_shirt", min: 1 }, { op: "not", of: { op: "item", item: "item_mail_shirt", equipped: true } }] },
+      effects: [{ op: "equip", item: "item_mail_shirt" }, say("txt_equip_mail_shirt")]
+    },
+    act_unequip_mail_shirt: {
+      name: "사슬 갑옷을 벗는다",
+      requires: { op: "item", item: "item_mail_shirt", equipped: true },
+      effects: [{ op: "unequip", item: "item_mail_shirt" }, say("txt_unequip_mail_shirt")]
+    },
     act_talk_elder: {
       name: "원로와 대화",
       requires: { op: "location", at: "loc_village" },
@@ -1631,6 +1652,19 @@ export const worldData = {
           requires: { op: "and", of: [{ op: "money", min: 3 }, { op: "not", of: { op: "item", item: "item_leather_jerkin", min: 1 } }] },
           effects: [{ op: "money", add: -3 }, { op: "item", item: "item_leather_jerkin", add: 1 }, say("txt_town_merchant_sell_jerkin")]
         },
+        // V2-Core-111 (#273): what silver buys -- steel and mail, one of each is enough
+        {
+          id: "opt_town_merchant_buy_steel_sword",
+          name: "강철 검을 산다 (은화 24)",
+          requires: { op: "and", of: [{ op: "money", min: 24 }, { op: "not", of: { op: "item", item: "item_steel_sword", min: 1 } }] },
+          effects: [{ op: "money", add: -24 }, { op: "item", item: "item_steel_sword", add: 1 }, say("txt_town_merchant_sell_steel_sword")]
+        },
+        {
+          id: "opt_town_merchant_buy_mail_shirt",
+          name: "사슬 갑옷을 산다 (은화 48)",
+          requires: { op: "and", of: [{ op: "money", min: 48 }, { op: "not", of: { op: "item", item: "item_mail_shirt", min: 1 } }] },
+          effects: [{ op: "money", add: -48 }, { op: "item", item: "item_mail_shirt", add: 1 }, say("txt_town_merchant_sell_mail_shirt")]
+        },
         // V2-Core-84 (#207): frontier flour sells in the town too (World Bible WB-0022 DC-06) -- the hamlet's
         // trade flour only (an errand's sack for the elder exists only before the settlements trade)
         {
@@ -1676,7 +1710,7 @@ export const worldData = {
               then: [
                 { op: "if", when: { op: "lte", left: { hp: "current" }, right: 3 }, then: [say("txt_guild_clerk_too_hurt")] },
                 { op: "if", when: ROAD_WOUND, then: [say("txt_guild_clerk_sees_wound")] },
-                { op: "if", when: { op: "not", of: { op: "item", item: "item_leather_jerkin", equipped: true } }, then: [say("txt_guild_clerk_no_leather")] }
+                { op: "if", when: { op: "not", of: { op: "or", of: [{ op: "item", item: "item_leather_jerkin", equipped: true }, { op: "item", item: "item_mail_shirt", equipped: true }] } }, then: [say("txt_guild_clerk_no_leather")] }
               ]
             }
           ]
@@ -2053,6 +2087,11 @@ export const worldData = {
     item_iron_sword: { name: "철검", slot: "hand" },
     // V2-Core-94 (#226): gear for the road -- worn, it steadies every combat check (counts only while equipped)
     item_leather_jerkin: { name: "가죽 조끼", slot: "body", modifiers: [{ tags: ["combat"], value: 1 }] },
+    // V2-Core-111 (#273, RPG Depth 4): what silver buys -- steel in the hand slot (replaces the iron sword, and so its
+    // fight technique) and mail in the body slot (replaces the jerkin). Each +1 is about 8 points less partial-or-fail
+    // for an honest guard (measured, #272): prices are gameplay values (R-29)
+    item_steel_sword: { name: "강철 검", slot: "hand", modifiers: [{ tags: ["combat"], value: 1 }] },
+    item_mail_shirt: { name: "사슬 갑옷", slot: "body", modifiers: [{ tags: ["combat"], value: 2 }] },
     // V2-Core-65 (#160): what the spring's remedy is made of, and the remedy
     item_purifying_herb: { name: "정화초" },
     item_spring_remedy: { name: "샘 정화제" },
@@ -2310,6 +2349,12 @@ export const worldData = {
     txt_town_merchant_sell_jerkin: "상인은 두꺼운 가죽 조끼를 내민다. 상단 호위들이 즐겨 입는 것이라며, 칼끝 하나쯤은 막아 준다고 한다.",
     txt_equip_leather_jerkin: "가죽 조끼를 입고 끈을 단단히 조인다. 몸이 조금 무거워지는 대신 든든하다.",
     txt_unequip_leather_jerkin: "가죽 조끼를 벗어 둔다.",
+    txt_town_merchant_sell_steel_sword: "상인은 기름 먹인 천을 풀어 강철 검을 내민다. 철검보다 한참 믿음직하다며, 값은 은화 스물네 닢이라고 한다.",
+    txt_town_merchant_sell_mail_shirt: "상인은 궤에서 쇠고리를 촘촘히 엮은 사슬 갑옷을 꺼낸다. 가죽 조끼와는 비교도 안 된다며, 은화 마흔여덟 닢을 부른다.",
+    txt_equip_steel_sword: "강철 검을 뽑아 손에 쥔다. 철검보다 묵직하고 날이 곧다.",
+    txt_unequip_steel_sword: "강철 검을 칼집에 넣고 허리에 찬다.",
+    txt_equip_mail_shirt: "사슬 갑옷을 머리부터 뒤집어쓰고 허리끈을 조인다. 철 소리가 나지만 몸이 든든하다.",
+    txt_unequip_mail_shirt: "사슬 갑옷을 벗어 개어 둔다.",
     txt_guild_clerk_too_hurt: "서기는 당신을 위아래로 훑어본다. 그 몸으로 길에 나섰다가 일이 틀어지면 돌아오지 못할 수도 있다고, 먼저 쉬고 오라고 한다.",
     txt_guild_clerk_sees_wound: "서기는 옆구리를 감싼 당신의 손을 본다. 상처를 안고 칼을 들면 둔해진다고, 약초 연고부터 바르라고 한다.",
     txt_guild_clerk_no_leather: "상단 호위들은 대개 가죽 조끼를 걸친다고 서기가 덧붙인다. 성읍 상인에게 가면 구할 수 있다고.",
