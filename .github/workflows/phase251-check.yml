@@ -297,3 +297,5 @@ jobs:
         run: npx playwright test tests/v2-ui-caravans-wait-browser.spec.js --reporter=line
       - name: V2 journey cost browser smoke
         run: npx playwright test tests/v2-ui-journey-cost-browser.spec.js --reporter=line
+      - name: V2 road did not wait browser smoke
+        run: npx playwright test tests/v2-ui-road-did-not-wait-browser.spec.js --reporter=line
