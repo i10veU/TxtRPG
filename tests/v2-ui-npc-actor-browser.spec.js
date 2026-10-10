@@ -40,7 +40,7 @@ async function reload(page) {
 // the margins of the checks the log shows, newest first (renderLog lists the latest entry on top)
 async function margins(page) {
   const text = await page.locator("#log").innerText();
-  return [...text.matchAll(/판정: \w+ \(margin (-?\d+)\)/g)].map((m) => Number(m[1]));
+  return [...text.matchAll(/판정: [^(]+ \(([+-]?\d+)\)/g)].map((m) => Number(m[1]));
 }
 // click the confrontation and return its check's margin (waits for its own log line)
 async function confront(page) {

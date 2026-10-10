@@ -29,6 +29,23 @@ let busy = false;
 const logEntries = [];
 const MAX_LOG_ENTRIES = 200;
 
+// V2-Core-126 (#309, Road News step 1b): no internal id on screen. The pack's ids are shown by the words its `texts` give them
+// (`lbl_*`); the engine's own ids (a check's tier, a rejection's code) by the UI's words here
+const word = (key, fallback) => worldData.texts?.[key] ?? fallback;
+const TIER_WORDS = { great: "대성공", success: "성공", partial: "어중간함", fail: "실패" };
+const REJECT_WORDS = {
+  requirements_not_met: "지금은 할 수 없다.",
+  unknown_action: "그런 행동은 없다.",
+  unknown_location: "그곳으로는 갈 수 없다.",
+  unknown_option: "그런 선택지는 없다.",
+  pending_choice: "먼저 앞의 선택을 해야 한다.",
+  no_pending_choice: "고를 선택지가 없다.",
+  pending_new_character: "먼저 새 캐릭터를 정해야 한다.",
+  actor_dead: "쓰러진 몸으로는 할 수 없다.",
+  invalid_action: "할 수 없는 행동이다."
+};
+const templateName = (templateId) => word(`lbl_tmpl_${templateId}`, templateId);
+
 const el = {
   root: document.getElementById("app"),
   menu: document.getElementById("menu"),
@@ -40,6 +57,7 @@ const el = {
   choice: document.getElementById("choice"),
   choiceOptions: document.getElementById("choiceOptions"),
   log: document.getElementById("log"),
+  knowledge: document.getElementById("knowledge"),
   slotList: document.getElementById("slotList"),
   saveSlotInput: document.getElementById("saveSlotInput"),
   saveBtn: document.getElementById("saveBtn"),
@@ -72,9 +90,9 @@ function describeEvent(e) {
     case "time.advanced":
       return `${e.data.minutes}분이 지났다.`;
     case "check.resolved":
-      return `판정: ${e.data.tier} (margin ${e.data.margin})`;
+      return `판정: ${TIER_WORDS[e.data.tier] ?? "?"} (${e.data.margin >= 0 ? "+" : ""}${e.data.margin})`;
     case "action.rejected":
-      return `할 수 없다. (${e.data.code})`;
+      return REJECT_WORDS[e.data.code] ?? "할 수 없다.";
     case "choice.offered":
       return "새로운 선택을 해야 한다.";
     case "actor.died":
@@ -163,7 +181,7 @@ function renderNewCharacter(pending) {
     .sort()
     .forEach((templateId) => {
       el.choiceOptions.appendChild(
-        makeButton(`새 캐릭터로 시작 (${templateId})`, () => dispatch({ type: "startCharacter", templateId }))
+        makeButton(`새 캐릭터로 시작 (${templateName(templateId)})`, () => dispatch({ type: "startCharacter", templateId }))
       );
     });
   return true;
@@ -200,38 +218,43 @@ function renderStatus(actor) {
   const growth = actor.growth?.[worldData.world.growthSystemId] ?? {};
   const stats = Object.keys(growth.stats ?? {})
     .sort()
-    .map((k) => `${k} ${growth.stats[k]}`)
+    .map((k) => `${word(`lbl_stat_${k}`, k)} ${growth.stats[k]}`)
     .join(", ");
   const proficiency = Object.keys(growth.proficiency ?? {})
     .sort()
-    .map((k) => `${k} ${growth.proficiency[k]}`)
+    .map((k) => `${word(`lbl_prof_${k}`, k)} ${growth.proficiency[k]}`)
     .join(", ");
   // V2-Core-53 (D-82): a skill's mastery tier is a label over its rank, from the world's data
   const tiers = worldData.growthSystems?.[worldData.world.growthSystemId]?.masteryTiers ?? [];
-  const tierOf = (rank) => tiers.filter((t) => rank >= t.minRank).at(-1)?.label;
+  const tierOf = (rank) => {
+    const label = tiers.filter((t) => rank >= t.minRank).at(-1)?.label;
+    return label && word(`lbl_tier_${label.toLowerCase()}`, label);
+  };
   const skills = Object.keys(growth.skills ?? {})
     .sort()
     .map((k) => {
       const tier = tierOf(growth.skills[k]);
-      return tier ? `${k} ${growth.skills[k]} (${tier})` : `${k} ${growth.skills[k]}`;
+      const name = word(`lbl_skill_${k}`, k);
+      return tier ? `${name} ${growth.skills[k]} (${tier})` : `${name} ${growth.skills[k]}`;
     })
     .join(", ");
   const traits = Object.keys(growth.traits ?? {})
     .filter((k) => growth.traits[k] === true)
     .sort()
+    .map((k) => word(`lbl_trait_${k}`, k))
     .join(", ");
-  const unlocks = Object.keys(growth.unlocks ?? {}).sort().join(", ");
+  const unlocks = Object.keys(growth.unlocks ?? {}).sort().map((k) => word(`lbl_unlock_${k}`, k)).join(", ");
   // V2-Core-56 (D-85): every resource the world's growth system defines, as the engine reads it
   // (an entry the save does not have is full)
   const resources = (worldData.growthSystems?.[worldData.world.growthSystemId]?.resources ?? [])
     .map((def) => [def.id, actorResource(actor, worldData, def.id)])
     .filter(([, r]) => r !== undefined)
-    .map(([id, r]) => `${id} ${r.current}/${r.max}`)
+    .map(([id, r]) => `${word(`lbl_res_${id}`, id)} ${r.current}/${r.max}`)
     .join(", ");
   // V2-Core-58 (D-87): what is wielded (slot -> item), apart from what is owned
   const loadout = Object.keys(actor.loadout ?? {})
     .sort()
-    .map((slot) => `${slot} ${worldData.items?.[actor.loadout[slot]]?.name ?? actor.loadout[slot]}`)
+    .map((slot) => `${word(`lbl_slot_${slot}`, slot)} ${worldData.items?.[actor.loadout[slot]]?.name ?? actor.loadout[slot]}`)
     .join(", ");
   const inventory = Object.keys(actor.inventory ?? {})
     .sort()
@@ -255,6 +278,52 @@ function renderStatus(actor) {
     const p = document.createElement("p");
     p.textContent = line;
     el.status.appendChild(p);
+  });
+}
+
+// V2-Core-126 (#309, Road News step 1b): what the character knows -- a short list, not a journal. For each word: what it says,
+// where it came from, how sure, how old, whether newer word of the same thing has replaced it, and whether the choice in front of
+// the player bears on it (a choice names the facts it bears on: `relevantFacts`). Read from view(); nothing hidden is shown
+function sourceName(source) {
+  const own = worldData.texts?.[`lbl_src_${source}`];
+  if (own) return own;
+  const npc = worldData.npcs?.[source]?.name;
+  if (npc) return `${npc}에게 들음`;
+  if (source.startsWith("obs_loc_") && worldData.locations?.[source.slice(4)]) return `직접 봄 (${locationName(source.slice(4))})`;
+  return "어디서 들었는지 모름";
+}
+function certainty(confidence) {
+  if (confidence >= 90) return "직접 확인함";
+  if (confidence >= 70) return "믿을 만함";
+  if (confidence >= 50) return "그럴듯함";
+  return "뜬소문";
+}
+function renderKnowledge(knowledge, pending) {
+  if (!el.knowledge) return;
+  clearChildren(el.knowledge);
+  const today = Math.floor(state.time.minute / DAY_MINUTES);
+  const bearsOn = pending?.kind === "choice" ? worldData.choices?.[pending.choiceId]?.relevantFacts ?? [] : [];
+  const entries = Object.values(knowledge ?? {}).filter((k) => k && typeof k.rumorId === "string");
+  const rows = entries.map((k) => ({
+    k,
+    relevant: bearsOn.includes(k.factId),
+    stale: entries.some((o) => o !== k && o.factId === k.factId && o.lastSeenDay > k.lastSeenDay)
+  }));
+  rows.sort((a, b) => Number(b.relevant) - Number(a.relevant) || b.k.lastSeenDay - a.k.lastSeenDay || a.k.rumorId.localeCompare(b.k.rumorId));
+  rows.forEach(({ k, relevant, stale }) => {
+    const age = today - k.lastSeenDay;
+    const parts = [
+      word(`lbl_rumor_${k.rumorId}`, "알 수 없는 이야기"),
+      (k.sources ?? [k.source]).map(sourceName).join(", "),
+      certainty(k.confidence),
+      age <= 0 ? "오늘" : `${age}일 전`
+    ];
+    if (stale) parts.push("더 새 소식이 있음");
+    const li = document.createElement("li");
+    li.textContent = (relevant ? "[지금 선택과 관련] " : "") + parts.join(" · ");
+    if (relevant) li.dataset.relevant = "true";
+    if (stale) li.dataset.stale = "true";
+    el.knowledge.appendChild(li);
   });
 }
 
@@ -300,6 +369,7 @@ function render() {
   }
 
   el.waitBtn.disabled = pendingActive;
+  renderKnowledge(playerView.knowledge, playerView.pending);
   renderLog();
 }
 
@@ -333,7 +403,7 @@ function renderBackgroundChoice() {
     .forEach((templateId) => {
       const option = document.createElement("option");
       option.value = templateId;
-      option.textContent = templateId;
+      option.textContent = templateName(templateId);
       option.selected = templateId === worldData.world.startTemplateId;
       el.backgroundSelect.appendChild(option);
     });

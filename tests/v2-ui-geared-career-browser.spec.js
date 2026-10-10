@@ -139,13 +139,13 @@ test.describe("V2 a geared career (RPG Depth 4, integrated)", () => {
 
     await act(page, "상단 조합의 서기와 대화");
     await option(page, "위험한 상단 호위를 이끈다").click();
-    await expect(option(page, "새 캐릭터로 시작 (start_wanderer)")).toBeVisible();
+    await expect(option(page, "새 캐릭터로 시작 (떠돌이)")).toBeVisible();
     const fell = await getState(page);
     expect(fell.pending).toEqual({ kind: "newCharacter" });
     expect(fell.signals.guards_fallen).toBe(1);
 
     // the successor: bare; the same steel at the same price, out of reach; the careful way, not the hard one
-    await option(page, "새 캐릭터로 시작 (start_wanderer)").click();
+    await option(page, "새 캐릭터로 시작 (떠돌이)").click();
     await page.evaluate((list) => list.forEach((a) => window.__v2App.dispatch(a)), SUCCESSOR_WALK);
     const hours = await waitForConvoy(page);
     const next = await getState(page);

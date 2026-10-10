@@ -48,21 +48,21 @@ test.describe("V2 herbalism (Slice 2: the remedy)", () => {
     await option(page, "약초 고르는 법을 배운다").click();
     await expect(page.locator("#log")).toContainText("정화초를 가려내는 법을 차근차근 일러 준다.");
     await expect(status(page)).toContainText("소지금 6");
-    await expect(status(page)).toContainText("herbalism 1 (Novice)");
+    await expect(status(page)).toContainText("약초학 1 (초심)");
     await act(page, "약초꾼과 대화");
     await expect(option(page, "약초 고르는 법을 배운다")).toHaveCount(0);
     await option(page, "약초 이야기만 나눈다").click();
 
     await page.evaluate((actions) => actions.forEach((a) => window.__v2App.dispatch(a)), [M("loc_village"), M("loc_forest_spring"), P("act_search_spring")]);
-    await expect(status(page)).toContainText("자원: stamina 6/6");
+    await expect(status(page)).toContainText("자원: 기력 6/6");
 
     // two gatherings: two herbs, 4 stamina
     await gather(page);
     await expect(page.locator("#log")).toContainText("정화초 한 묶음을 가려 거둔다.");
-    await expect(status(page)).toContainText("자원: stamina 4/6");
+    await expect(status(page)).toContainText("자원: 기력 4/6");
     await gather(page);
     await expect(status(page)).toContainText("정화초 x2");
-    await expect(status(page)).toContainText("자원: stamina 2/6");
+    await expect(status(page)).toContainText("자원: 기력 2/6");
 
     // save -> reload -> load between gatherings
     await page.locator("#saveSlotInput").fill("slot_herbs");
@@ -78,9 +78,9 @@ test.describe("V2 herbalism (Slice 2: the remedy)", () => {
     // the third fails (practice only); no stamina for a fourth
     await gather(page);
     await expect(page.locator("#log")).toContainText("정화초는 찾지 못했다.");
-    await expect(status(page)).toContainText("자원: stamina 0/6");
+    await expect(status(page)).toContainText("자원: 기력 0/6");
     await expect(page.locator("#actions button", { hasText: "정화초 채집" })).toHaveCount(0); // a closed action is not listed
-    await expect(status(page)).toContainText("herbalism 2 (Novice)");
+    await expect(status(page)).toContainText("약초학 2 (초심)");
 
     // the remedy: two herbs at her stall
     await move(page, "변경 마을");

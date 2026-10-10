@@ -88,13 +88,13 @@ test.describe("V2 the fallen's kit (succession legacy)", () => {
     // the escort ends them; the guild keeps the steel and the mail
     await act(page, "상단 조합의 서기와 대화");
     await option(page, "상단 호위를 맡는다").click();
-    await expect(option(page, "새 캐릭터로 시작 (start_wanderer)")).toBeVisible();
+    await expect(option(page, "새 캐릭터로 시작 (떠돌이)")).toBeVisible();
     const fell = await getState(page);
     expect(fell.signals.kit_steel).toBe(1);
     expect(fell.signals.kit_mail).toBe(1);
 
     // the successor starts bare; the kit is there, but eleven silver buys neither
-    await option(page, "새 캐릭터로 시작 (start_wanderer)").click();
+    await option(page, "새 캐릭터로 시작 (떠돌이)").click();
     await page.evaluate((list) => list.forEach((a) => window.__v2App.dispatch(a)), SUCCESSOR_WALK);
     const next = await getState(page);
     expect(next.player.actorId).toBe("player_2");

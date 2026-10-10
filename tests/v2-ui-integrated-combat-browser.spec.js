@@ -54,30 +54,30 @@ test.describe("V2 integrated combat (every capability in one fight)", () => {
     await page.locator("#backgroundSelect").selectOption("start_scout");
     await page.evaluate((seed) => window.__v2App.newGame(seed, document.querySelector("#backgroundSelect").value), SEED);
     await expect(page.locator("#game")).toBeVisible();
-    await expect(status(page)).toContainText("특성: investigation_talent, night_vision");
+    await expect(status(page)).toContainText("특성: 조사의 재능, 밤눈");
 
     // talent -> practice -> skill / unlock
     for (let i = 0; i < 3; i += 1) await act(page, "마을 살피기");
-    await expect(status(page)).toContainText("숙련도: investigation 51");
-    await expect(status(page)).toContainText("해금: unl_keen_eye");
+    await expect(status(page)).toContainText("숙련도: 조사 51");
+    await expect(status(page)).toContainText("해금: 예리한 눈");
 
     // equipment
     await page.locator("#moves button", { hasText: "시장" }).click();
     await act(page, "철검 구입");
     await act(page, "철검을 든다");
-    await expect(status(page)).toContainText("장비: hand 철검");
+    await expect(status(page)).toContainText("장비: 손 철검");
 
     await page.evaluate((actions) => actions.forEach((a) => window.__v2App.dispatch(a)), TO_FIGHT_AFTER_THE_SWORD);
-    await expect(status(page)).toContainText("기술: investigation 4 (Apprentice)");
+    await expect(status(page)).toContainText("기술: 조사 4 (수련)");
     for (const label of [STRIKE, WEAK, CUT, COUNTER, "물러서서 달아난다"]) await expect(choiceButton(page, label)).toHaveCount(1);
-    await expect(status(page)).toContainText("자원: stamina 6/6");
+    await expect(status(page)).toContainText("자원: 기력 6/6");
 
     // the counter (3), then the old wound (2) -- which fails: the leader's heavy blow
     await exchange(page, COUNTER);
-    await expect(status(page)).toContainText("자원: stamina 3/6");
+    await expect(status(page)).toContainText("자원: 기력 3/6");
     await exchange(page, WEAK);
     await expect(page.locator("#log")).toContainText("두목이 온 힘을 실어 칼을 내려친다.");
-    await expect(status(page)).toContainText("자원: stamina 1/6");
+    await expect(status(page)).toContainText("자원: 기력 1/6");
     expect((await getState(page)).actors.npc_bandit_leader.growth.growth_wanderer.resources.stamina.current).toBe(3);
     // 1 stamina: only the free techniques
     await expect(choiceButton(page, COUNTER)).toHaveCount(0);
@@ -102,7 +102,7 @@ test.describe("V2 integrated combat (every capability in one fight)", () => {
     await exchange(page, CUT);
     await expect(page.locator("#choice")).toBeHidden();
     await expect(page.locator("#log")).toContainText("도적 두목이 쓰러진다.");
-    await expect(status(page)).toContainText("기술: investigation 4 (Apprentice), swordsmanship 1 (Novice)");
+    await expect(status(page)).toContainText("기술: 조사 4 (수련), 검술 1 (초심)");
     const end = await getState(page);
     expect(end.actors.npc_bandit_leader.alive).toBe(false);
     expect(end.cases.case_ruins_mystery.stage).toBe("resolved");

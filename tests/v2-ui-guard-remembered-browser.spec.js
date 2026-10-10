@@ -91,7 +91,7 @@ test.describe("V2 what the world remembers (World Memory 1 integrated)", () => {
     await page.evaluate((list) => list.forEach((a) => window.__v2App.dispatch(a)), [DAY, DAY, DAY]);
     await act(page, "상단 조합의 서기와 대화");
     await option(page, "상단 호위를 맡는다").click();
-    await option(page, "새 캐릭터로 시작 (start_wanderer)").click();
+    await option(page, "새 캐릭터로 시작 (떠돌이)").click();
     const lived = await getState(page);
     expect(lived.signals.guards_fallen).toBe(1);
     expect(lived.actors.player_2.locationId).toBe("loc_village");

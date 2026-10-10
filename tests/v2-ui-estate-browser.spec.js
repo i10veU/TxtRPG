@@ -89,13 +89,13 @@ test.describe("V2 the guild holds a fallen guard's share (succession legacy 2)",
     // the escort ends them; the guild holds a share of the purse, bounded
     await act(page, "상단 조합의 서기와 대화");
     await option(page, "상단 호위를 맡는다").click();
-    await expect(option(page, "새 캐릭터로 시작 (start_wanderer)")).toBeVisible();
+    await expect(option(page, "새 캐릭터로 시작 (떠돌이)")).toBeVisible();
     const fell = await getState(page);
     expect(fell.signals.estate_held).toBe(12);
     expect(fell.signals.guards_fallen).toBe(1);
 
     // the successor starts as before: nothing handed over
-    await option(page, "새 캐릭터로 시작 (start_wanderer)").click();
+    await option(page, "새 캐릭터로 시작 (떠돌이)").click();
     await page.evaluate((list) => list.forEach((a) => window.__v2App.dispatch(a)), SUCCESSOR_WALK);
     const next = await getState(page);
     expect(next.player.actorId).toBe("player_2");
@@ -144,11 +144,11 @@ test.describe("V2 the guild holds a fallen guard's share (succession legacy 2)",
     await stageDoomed(page, { money: 100, score: 5, slot: "slot_unknown" });
     await act(page, "상단 조합의 서기와 대화");
     await option(page, "상단 호위를 맡는다").click();
-    await expect(option(page, "새 캐릭터로 시작 (start_wanderer)")).toBeVisible();
+    await expect(option(page, "새 캐릭터로 시작 (떠돌이)")).toBeVisible();
     const fell = await getState(page);
     expect(fell.signals.estate_held ?? 0).toBe(0);
     expect(fell.signals.guards_fallen ?? 0).toBe(0);
-    await option(page, "새 캐릭터로 시작 (start_wanderer)").click();
+    await option(page, "새 캐릭터로 시작 (떠돌이)").click();
     await page.evaluate((list) => list.forEach((a) => window.__v2App.dispatch(a)), SUCCESSOR_WALK);
     await act(page, "상단 조합의 서기와 대화");
     await expect(option(page, "조합이 맡아 둔 몫을 찾아간다")).toHaveCount(0);

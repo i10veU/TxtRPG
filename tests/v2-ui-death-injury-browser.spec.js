@@ -36,7 +36,7 @@ const OFFER_FELL = "호위 하나가 길에서 돌아오지 못했으니";
 const OFFER_ESTATE = "은화 일부를 조합이 맡아 두었고";
 const OFFER_KIT = "반값에 내준다고 한다";
 const CAREFUL_FAIL = "다친 사람 없이 강 건너 길목에 닿는다";
-const NEW_LIFE = "새 캐릭터로 시작 (start_wanderer)";
+const NEW_LIFE = "새 캐릭터로 시작 (떠돌이)";
 
 async function gotoApp(page) {
   const pageErrors = [];

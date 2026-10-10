@@ -102,7 +102,7 @@ test.describe("V2 a guard's living (RPG Depth 2 integrated)", () => {
     const six = await getState(page);
     expect(six.signals.guards_hired).toBe(6);
     expect(stamina(six)).toBe(0);
-    await expect(skillsLine(page)).toContainText("swordsmanship 4");
+    await expect(skillsLine(page)).toContainText("검술 4");
 
     // spent: a night in the town, then the seventh caravan
     await act(page, "성읍에서 묵는다");
@@ -124,7 +124,7 @@ test.describe("V2 a guard's living (RPG Depth 2 integrated)", () => {
     await escort(page);
     const end = await getState(page);
     expect(end.signals.guards_hired).toBe(8);
-    await expect(skillsLine(page)).toContainText("swordsmanship 5");
+    await expect(skillsLine(page)).toContainText("검술 5");
     expect(end.actors.player_1.growth.growth_wanderer.proficiency.combat).toBe(100);
     expect(end.actors.player_1.money - start.actors.player_1.money).toBe(42 - 3 - 2 * 2);
 

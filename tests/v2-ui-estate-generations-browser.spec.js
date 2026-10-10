@@ -77,13 +77,13 @@ async function stageDoomed(page, { actor, money, score, slot }) {
   await loadSlot(page, slot);
 }
 const startNext = async (page) => {
-  await option(page, "새 캐릭터로 시작 (start_wanderer)").click();
+  await option(page, "새 캐릭터로 시작 (떠돌이)").click();
   await page.evaluate((list) => list.forEach((a) => window.__v2App.dispatch(a)), SUCCESSOR_WALK);
 };
 const fall = async (page) => {
   await act(page, "상단 조합의 서기와 대화");
   await option(page, "상단 호위를 맡는다").click();
-  await expect(option(page, "새 캐릭터로 시작 (start_wanderer)")).toBeVisible();
+  await expect(option(page, "새 캐릭터로 시작 (떠돌이)")).toBeVisible();
 };
 const claim = async (page) => {
   await act(page, "상단 조합의 서기와 대화");

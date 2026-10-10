@@ -105,7 +105,7 @@ test.describe("V2 the last rank opens the lead job (RPG Depth 3)", () => {
     const taken = await careerInPage(page, 7);
     const seven = await getState(page);
     expect(seven.actors.player_1.growth.growth_wanderer.proficiency.combat).toBe(90);
-    await expect(statusLine(page, "해금:")).not.toContainText("unl_road_lead");
+    await expect(statusLine(page, "해금:")).not.toContainText("상단을 이끌 자격");
 
     // the eighth escort, with real buttons: the practice is full
     if (stamina(seven) < 2) await act(page, "성읍에서 묵는다");
@@ -113,8 +113,8 @@ test.describe("V2 the last rank opens the lead job (RPG Depth 3)", () => {
     await escort(page);
     const eight = await getState(page);
     expect(eight.actors.player_1.growth.growth_wanderer.proficiency.combat).toBe(100);
-    await expect(statusLine(page, "해금:")).toContainText("unl_road_lead");
-    await expect(skillsLine(page)).toContainText("swordsmanship 5");
+    await expect(statusLine(page, "해금:")).toContainText("상단을 이끌 자격");
+    await expect(skillsLine(page)).toContainText("검술 5");
 
     // a night (3 stamina needed), the clerk's offer, the lead job
     await act(page, "성읍에서 묵는다");
