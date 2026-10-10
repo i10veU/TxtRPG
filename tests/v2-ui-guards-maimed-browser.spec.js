@@ -200,13 +200,13 @@ test.describe("V2 the world remembers the maimed (Death & Injury, step 3)", () =
     await stageGuard(page, { hp: 1, score: 10, slot: "slot_fall", outcome: "fall" });
     await clerk(page);
     await option(page, "상단 호위를 맡는다").click();
-    await expect(option(page, "새 캐릭터로 시작 (start_wanderer)")).toBeVisible();
+    await expect(option(page, "새 캐릭터로 시작 (떠돌이)")).toBeVisible();
     const fell = await getState(page);
     expect(fell.signals.guards_fallen).toBe(1);
     expect(fell.signals.guards_maimed).toBe(1); // the fall is a fall; the earlier maiming stays remembered, not added to
 
     // life 2: a new game's first character, apart from nothing of life 1's wound
-    await option(page, "새 캐릭터로 시작 (start_wanderer)").click();
+    await option(page, "새 캐릭터로 시작 (떠돌이)").click();
     const born = await getState(page);
     expect(born.player.actorId).toBe("player_2");
     expect(traitsOf(born).road_wound).toBeUndefined();

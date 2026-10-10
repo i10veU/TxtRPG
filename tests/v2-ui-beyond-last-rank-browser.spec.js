@@ -114,7 +114,7 @@ test.describe("V2 beyond the last rank (RPG Depth 3 integrated)", () => {
     if (stamina(seven) < 2) await act(page, "성읍에서 묵는다");
     const wait8 = await waitForCaravan(page);
     await escort(page);
-    await expect(statusLine(page, "해금:")).toContainText("unl_road_lead");
+    await expect(statusLine(page, "해금:")).toContainText("상단을 이끌 자격");
     await act(page, "성읍에서 묵는다");
     const wait9 = await waitForCaravan(page);
     await act(page, "상단 조합의 서기와 대화");
@@ -166,7 +166,7 @@ test.describe("V2 beyond the last rank (RPG Depth 3 integrated)", () => {
     expect(waitFall).toBe(hours);
     await act(page, "상단 조합의 서기와 대화");
     await option(page, "상단 호위를 맡는다").click();
-    await option(page, "새 캐릭터로 시작 (start_wanderer)").click();
+    await option(page, "새 캐릭터로 시작 (떠돌이)").click();
     expect((await getState(page)).signals.guards_fallen).toBe(1);
 
     // the successor in the town: the careful way is offered, the lead is not

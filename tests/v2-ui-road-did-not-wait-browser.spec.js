@@ -122,13 +122,13 @@ test.describe("V2 the road that did not wait (World Simulation 2, integrated)", 
     // the escort ends him; the guild knew him, so the world counts it
     await act(page, "상단 조합의 서기와 대화");
     await option(page, "상단 호위를 맡는다").click();
-    await expect(option(page, "새 캐릭터로 시작 (start_wanderer)")).toBeVisible();
+    await expect(option(page, "새 캐릭터로 시작 (떠돌이)")).toBeVisible();
     const fell = await getState(page);
     expect(fell.pending).toEqual({ kind: "newCharacter" });
     expect(fell.signals.guards_fallen).toBe(1);
 
     // the successor: the walk to the town, then the next convoy
-    await option(page, "새 캐릭터로 시작 (start_wanderer)").click();
+    await option(page, "새 캐릭터로 시작 (떠돌이)").click();
     await page.evaluate((list) => list.forEach((a) => window.__v2App.dispatch(a)), SUCCESSOR_WALK);
     const hours = await page.evaluate(async ({ HOUR }) => {
       const { evaluateCondition } = await import("/v2/core/rules.js");

@@ -108,7 +108,7 @@ test.describe("V2 UI lifecycle (time / location / event / death / succession)", 
 
     // the previously-unexecuted newCharacter UI branch
     await expect(page.locator("#choice")).toBeVisible();
-    const startButton = page.locator("#choiceOptions button", { hasText: "새 캐릭터로 시작 (start_wanderer)" });
+    const startButton = page.locator("#choiceOptions button", { hasText: "새 캐릭터로 시작 (떠돌이)" });
     await expect(startButton).toHaveCount(1);
     await expect(page.locator("#actions")).toBeEmpty();
     await expect(page.locator("#moves")).toBeEmpty();
@@ -184,7 +184,7 @@ test.describe("V2 UI lifecycle (time / location / event / death / succession)", 
     expect(await page.evaluate(() => window.__v2App.getState())).toEqual(deadState);
     await expect(page.locator("#actions")).toBeEmpty();
 
-    await page.locator("#choiceOptions button", { hasText: "새 캐릭터로 시작 (start_wanderer)" }).click();
+    await page.locator("#choiceOptions button", { hasText: "새 캐릭터로 시작 (떠돌이)" }).click();
     await expect(page.locator("#choice")).toBeHidden();
     await expect(page.locator("#status")).toContainText("소지금 11");
     const aliveState = await page.evaluate(() => window.__v2App.getState());

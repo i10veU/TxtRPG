@@ -38,13 +38,13 @@ test.describe("V2 talent (the scout's investigation talent grows practice faster
   test("the scout practises 17 per observation, reaches the keen eye on the third, and keeps it through save/load", async ({ page }) => {
     const { pageErrors, consoleErrors } = await gotoApp(page);
     await newGameAs(page, "start_scout");
-    await expect(status(page)).toContainText("특성: investigation_talent, night_vision");
+    await expect(status(page)).toContainText("특성: 조사의 재능, 밤눈");
 
     await observe(page);
-    await expect(status(page)).toContainText("숙련도: investigation 17");
+    await expect(status(page)).toContainText("숙련도: 조사 17");
     await observe(page);
-    await expect(status(page)).toContainText("숙련도: investigation 34");
-    await expect(status(page)).toContainText("기술: investigation 1 (Novice)");
+    await expect(status(page)).toContainText("숙련도: 조사 34");
+    await expect(status(page)).toContainText("기술: 조사 1 (초심)");
 
     await page.locator("#saveSlotInput").fill("slot_talent");
     await page.locator("#saveBtn").click();
@@ -54,8 +54,8 @@ test.describe("V2 talent (the scout's investigation talent grows practice faster
     expect(await getState(page)).toEqual(saved);
 
     await observe(page);
-    await expect(status(page)).toContainText("숙련도: investigation 51");
-    await expect(status(page)).toContainText("해금: unl_keen_eye");
+    await expect(status(page)).toContainText("숙련도: 조사 51");
+    await expect(status(page)).toContainText("해금: 예리한 눈");
 
     // a scout saved before the talent: no talent, the plain 15
     await page.evaluate(async () => {
@@ -68,10 +68,10 @@ test.describe("V2 talent (the scout's investigation talent grows practice faster
       await storage.save("slot_old_scout", copy, {});
     });
     await reloadAndLoad(page, "slot_old_scout");
-    await expect(status(page)).toContainText("특성: night_vision");
-    await expect(status(page)).not.toContainText("investigation_talent");
+    await expect(status(page)).toContainText("특성: 밤눈");
+    await expect(status(page)).not.toContainText("조사의 재능");
     await observe(page);
-    await expect(status(page)).toContainText("숙련도: investigation 15");
+    await expect(status(page)).toContainText("숙련도: 조사 15");
 
     expect(pageErrors).toEqual([]);
     expect(consoleErrors).toEqual([]);
@@ -83,7 +83,7 @@ test.describe("V2 talent (the scout's investigation talent grows practice faster
     await expect(page.locator("#game")).toBeVisible();
     await expect(status(page)).not.toContainText("특성:");
     for (let i = 0; i < 3; i += 1) await observe(page);
-    await expect(status(page)).toContainText("숙련도: investigation 45");
+    await expect(status(page)).toContainText("숙련도: 조사 45");
     await expect(status(page)).not.toContainText("해금:");
 
     expect(pageErrors).toEqual([]);

@@ -25,7 +25,7 @@ const move = (page, label) => page.locator("#moves button", { hasText: label }).
 // the margins of the checks the log shows, newest first (renderLog lists the latest entry on top)
 async function margins(page) {
   const text = await page.locator("#log").innerText();
-  return [...text.matchAll(/판정: \w+ \(margin (-?\d+)\)/g)].map((m) => Number(m[1]));
+  return [...text.matchAll(/판정: [^(]+ \(([+-]?\d+)\)/g)].map((m) => Number(m[1]));
 }
 
 // a new game on the seed; optionally observe the village twice; then the rumor, a lantern, the
@@ -36,7 +36,7 @@ async function investigate(page, { observe }) {
   if (observe) {
     await act(page, "마을 살피기");
     await act(page, "마을 살피기");
-    await expect(page.locator("#status")).toContainText("investigation 30");
+    await expect(page.locator("#status")).toContainText("조사 30");
   }
   await act(page, "원로와 대화");
   await page.locator("#choiceOptions button", { hasText: "폐허에 대해 묻기" }).click();

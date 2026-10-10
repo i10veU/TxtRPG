@@ -39,7 +39,7 @@ async function reload(page) {
 // the margins of the checks the log shows, newest first (renderLog lists the latest entry on top)
 async function margins(page) {
   const text = await page.locator("#log").innerText();
-  return [...text.matchAll(/판정: \w+ \(margin (-?\d+)\)/g)].map((m) => Number(m[1]));
+  return [...text.matchAll(/판정: [^(]+ \(([+-]?\d+)\)/g)].map((m) => Number(m[1]));
 }
 async function strike(page) {
   const before = (await margins(page)).length;
@@ -63,7 +63,7 @@ test.describe("V2 stats (STR / DEX / CON / INT / WIS / PER)", () => {
       await window.__v2App.newGame(seed);
       actions.forEach((action) => window.__v2App.dispatch(action));
     }, { seed: SEED, actions: READY });
-    await expect(page.locator("#status")).toContainText("능력치: con 8, dex 8, int 8, per 8, str 8, wis 8");
+    await expect(page.locator("#status")).toContainText("능력치: 체력 8, 민첩 8, 지능 8, 감각 8, 힘 8, 지혜 8");
     expect((await getState(page)).dataRef).toEqual({ id: "frontier_village_pack", version: "0.3.0" });
 
     // the fight begins; saved; a second save whose leader is stronger (STR 16 -> +3 difficulty)

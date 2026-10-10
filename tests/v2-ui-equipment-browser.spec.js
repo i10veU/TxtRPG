@@ -54,7 +54,7 @@ test.describe("V2 equipment (owned is not wielded; the sword in hand opens a tec
 
     // equip with the real button
     await act(page, "철검을 든다");
-    await expect(status(page)).toContainText("장비: hand 철검");
+    await expect(status(page)).toContainText("장비: 손 철검");
     await expect(status(page)).toContainText("소지품: 철검 x1, 낡은 등불 x1"); // still one, still owned
     await expect(actionButton(page, "철검을 든다")).toHaveCount(0);
     await expect(actionButton(page, "철검을 내려놓는다")).toHaveCount(1);
@@ -70,7 +70,7 @@ test.describe("V2 equipment (owned is not wielded; the sword in hand opens a tec
     await page.locator("#slotList li", { hasText: "slot_sword" }).getByRole("button", { name: "불러오기" }).click();
     await expect(page.locator("#game")).toBeVisible();
     expect(await getState(page)).toEqual(saved);
-    await expect(status(page)).toContainText("장비: hand 철검");
+    await expect(status(page)).toContainText("장비: 손 철검");
 
     // the fight offers the technique; use it
     await dispatchAll(page, ON_TO_FIGHT);
@@ -108,8 +108,8 @@ test.describe("V2 equipment (owned is not wielded; the sword in hand opens a tec
     await page.locator("#moves button", { hasText: "시장" }).click();
     await act(page, "철검 구입");
     await act(page, "철검을 든다");
-    await expect(status(page)).toContainText("장비: hand 철검");
-    await expect(status(page)).toContainText("특성: investigation_talent, night_vision");
+    await expect(status(page)).toContainText("장비: 손 철검");
+    await expect(status(page)).toContainText("특성: 조사의 재능, 밤눈");
     await expect(status(page)).toContainText("소지금 0");
 
     expect(pageErrors).toEqual([]);

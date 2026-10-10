@@ -6,8 +6,8 @@
 const { test, expect } = require("@playwright/test");
 
 const ENTRY_URL = "http://127.0.0.1:4173/v2/index.html";
-const WANDERER = "새 캐릭터로 시작 (start_wanderer)";
-const SCOUT = "새 캐릭터로 시작 (start_scout)";
+const WANDERER = "새 캐릭터로 시작 (떠돌이)";
+const SCOUT = "새 캐릭터로 시작 (정찰자)";
 
 async function gotoApp(page) {
   const pageErrors = [];
@@ -43,7 +43,7 @@ test.describe("V2 starting background (the scout and night vision)", () => {
     await expect(choiceButton(page, SCOUT)).toHaveCount(1);
     await choiceButton(page, SCOUT).click();
     await expect(page.locator("#choice")).toBeHidden();
-    await expect(page.locator("#status")).toContainText("특성: investigation_talent, night_vision");
+    await expect(page.locator("#status")).toContainText("특성: 조사의 재능, 밤눈");
     await expect(page.locator("#status")).toContainText("소지금 6");
     await expect(page.locator("#status")).not.toContainText("낡은 등불");
 

@@ -123,7 +123,7 @@ test.describe("V2 continuity (Slice 3: consequences carried forward)", () => {
     expect([world.flags.spring_bandits_told, world.flags.well_tale_corrected, world.flags.village_honored]).toEqual([true, true, true]);
 
     // the successor, by the button; the village tells them the world they arrive in
-    await page.locator("#choiceOptions button", { hasText: "새 캐릭터로 시작 (start_wanderer)" }).click();
+    await page.locator("#choiceOptions button", { hasText: "새 캐릭터로 시작 (떠돌이)" }).click();
     await page.locator("#actions button", { hasText: "원로와 대화" }).click();
     await page.locator("#choiceOptions button", { hasText: "안부만 묻기" }).click();
     await expect(page.locator("#log")).toContainText("마을이 이름을 걸고 감사했던 방랑자 이야기를 꺼낸다.");

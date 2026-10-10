@@ -57,23 +57,23 @@ test.describe("V2 resources (stamina pays for the techniques)", () => {
     const { pageErrors, consoleErrors } = await gotoApp(page);
     await page.evaluate((seed) => window.__v2App.newGame(seed), SEED);
     await expect(page.locator("#game")).toBeVisible();
-    await expect(status(page)).toContainText("자원: stamina 6/6");
+    await expect(status(page)).toContainText("자원: 기력 6/6");
 
     await page.evaluate((actions) => actions.forEach((a) => window.__v2App.dispatch(a)), TO_FIGHT);
     await expect(choiceButton(page, COUNTER)).toHaveCount(1);
     await expect(choiceButton(page, WEAK)).toHaveCount(1);
     await choiceButton(page, COUNTER).click();
     await expect(page.locator("#log")).toContainText("판정:");
-    await expect(status(page)).toContainText("자원: stamina 3/6");
+    await expect(status(page)).toContainText("자원: 기력 3/6");
 
     // the fight goes on (on this seed the leader stands after the first counter); fleeing is free
     await choiceButton(page, "물러서서 달아난다").click();
     await expect(page.locator("#location")).toContainText("변경 마을");
-    await expect(status(page)).toContainText("자원: stamina 3/6");
+    await expect(status(page)).toContainText("자원: 기력 3/6");
     await page.locator("#waitBtn").click();
-    await expect(status(page)).toContainText("자원: stamina 3/6"); // no regeneration over time
+    await expect(status(page)).toContainText("자원: 기력 3/6"); // no regeneration over time
     await page.locator("#actions button", { hasText: "마을에서 쉬기" }).click();
-    await expect(status(page)).toContainText("자원: stamina 6/6");
+    await expect(status(page)).toContainText("자원: 기력 6/6");
     expect((await getState(page)).actors.player_1.growth.growth_wanderer.resources.stamina).toEqual({ current: 6, max: 6 });
 
     // back in the fight, from a save with 1 stamina: the costly techniques are not offered
@@ -82,7 +82,7 @@ test.describe("V2 resources (stamina pays for the techniques)", () => {
     await plant(page, "slot_tired", "s.actors.player_1.growth.growth_wanderer.resources.stamina.current = 1;");
     await plant(page, "slot_old", "delete s.actors.player_1.growth.growth_wanderer.resources;");
     await reloadAndLoad(page, "slot_tired");
-    await expect(status(page)).toContainText("자원: stamina 1/6");
+    await expect(status(page)).toContainText("자원: 기력 1/6");
     await expect(choiceButton(page, STRIKE)).toHaveCount(1);
     await expect(choiceButton(page, COUNTER)).toHaveCount(0);
     await expect(choiceButton(page, WEAK)).toHaveCount(0);
@@ -91,7 +91,7 @@ test.describe("V2 resources (stamina pays for the techniques)", () => {
     await reloadAndLoad(page, "slot_old");
     const old = await getState(page);
     expect(old.actors.player_1.growth.growth_wanderer.resources).toBeUndefined(); // not migrated, not repaired
-    await expect(status(page)).toContainText("자원: stamina 6/6");
+    await expect(status(page)).toContainText("자원: 기력 6/6");
     await expect(choiceButton(page, COUNTER)).toHaveCount(1);
     await expect(choiceButton(page, WEAK)).toHaveCount(1);
 

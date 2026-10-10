@@ -92,7 +92,7 @@ test.describe("V2 the memory reaches a choice (RPG Depth 3)", () => {
     await page.evaluate((list) => list.forEach((a) => window.__v2App.dispatch(a)), [DAY, DAY, DAY]);
     await act(page, "상단 조합의 서기와 대화");
     await option(page, "상단 호위를 맡는다").click();
-    await option(page, "새 캐릭터로 시작 (start_wanderer)").click();
+    await option(page, "새 캐릭터로 시작 (떠돌이)").click();
     expect((await getState(page)).signals.guards_fallen).toBe(1);
 
     // to the town and a convoy to guard

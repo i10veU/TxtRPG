@@ -76,12 +76,12 @@ test.describe("V2 the road teaches (RPG Depth 2)", () => {
     });
     await loadSlot(page, "slot_before_fix");
     const start = await getState(page);
-    await expect(skillsLine(page)).toContainText("swordsmanship 1");
+    await expect(skillsLine(page)).toContainText("검술 1");
 
     await escort(page);
     await page.evaluate((list) => list.forEach((a) => window.__v2App.dispatch(a)), [DAY, DAY, DAY]);
     await escort(page);
-    await expect(skillsLine(page)).toContainText("swordsmanship 2");
+    await expect(skillsLine(page)).toContainText("검술 2");
     const g = (await getState(page)).actors.player_1.growth.growth_wanderer;
     expect(g.proficiency.combat).toBe(40);
     expect(g.proficiency.swordsmanship).toBe(20);
@@ -92,7 +92,7 @@ test.describe("V2 the road teaches (RPG Depth 2)", () => {
     const saved = await getState(page);
     await loadSlot(page, "slot_taught");
     expect(await getState(page)).toEqual(saved);
-    await expect(skillsLine(page)).toContainText("swordsmanship 2");
+    await expect(skillsLine(page)).toContainText("검술 2");
 
     // the same end as a pure replay of the same input from the loaded start
     const replayed = await page.evaluate(async ({ start, actions }) => {

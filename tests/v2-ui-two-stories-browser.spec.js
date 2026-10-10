@@ -86,9 +86,9 @@ test.describe("V2 two stories (Slice 2: integrated playthrough)", () => {
     // the first character's way, up to the fall at the spring
     await page.evaluate((list) => list.forEach((a) => window.__v2App.dispatch(a)), actions.slice(0, restart));
     await expect(page.locator("#log")).toContainText("쓰러졌다...");
-    await expect(page.locator("#choiceOptions button", { hasText: "새 캐릭터로 시작 (start_wanderer)" })).toHaveCount(1);
+    await expect(page.locator("#choiceOptions button", { hasText: "새 캐릭터로 시작 (떠돌이)" })).toHaveCount(1);
     // the successor, by the button
-    await page.locator("#choiceOptions button", { hasText: "새 캐릭터로 시작 (start_wanderer)" }).click();
+    await page.locator("#choiceOptions button", { hasText: "새 캐릭터로 시작 (떠돌이)" }).click();
     await expect(page.locator("#log")).toContainText("새 방랑자의 손에 들어온다.");
     const successor = await getState(page);
     expect(successor.player.actorId).toBe("player_2");

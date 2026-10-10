@@ -99,9 +99,9 @@ test.describe("V2 an honest clock (World Simulation 3, integrated)", () => {
     // the escort ends them (a real button); the successor starts and walks to the town
     await act(page, "상단 조합의 서기와 대화");
     await option(page, "상단 호위를 맡는다").click();
-    await expect(option(page, "새 캐릭터로 시작 (start_wanderer)")).toBeVisible();
+    await expect(option(page, "새 캐릭터로 시작 (떠돌이)")).toBeVisible();
     expect((await getState(page)).signals.guards_fallen).toBe(1);
-    await option(page, "새 캐릭터로 시작 (start_wanderer)").click();
+    await option(page, "새 캐릭터로 시작 (떠돌이)").click();
     await page.evaluate((list) => list.forEach((a) => window.__v2App.dispatch(a)), SUCCESSOR_WALK);
     const inTown = await getState(page);
     expect(inTown.actors.player_2.locationId).toBe("loc_castle_town");

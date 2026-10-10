@@ -25,13 +25,13 @@ test.describe("V2 new game background (the first character chooses too)", () => 
   test("the menu's scout: night vision from the first step, kept through save -> reload -> load", async ({ page }) => {
     const { pageErrors, consoleErrors } = await gotoApp(page);
     const select = page.locator("#backgroundSelect");
-    await expect(select.locator("option")).toHaveText(["start_scout", "start_wanderer"]);
+    await expect(select.locator("option")).toHaveText(["정찰자", "떠돌이"]);
     await expect(select).toHaveValue("start_wanderer");
 
     await select.selectOption("start_scout");
     await page.locator("#newGameBtn").click();
     await expect(page.locator("#game")).toBeVisible();
-    await expect(page.locator("#status")).toContainText("특성: investigation_talent, night_vision");
+    await expect(page.locator("#status")).toContainText("특성: 조사의 재능, 밤눈");
     await expect(page.locator("#status")).toContainText("소지금 3");
     const started = await getState(page);
     expect(started.player).toEqual({ actorId: "player_1", characterCount: 1 });
@@ -52,7 +52,7 @@ test.describe("V2 new game background (the first character chooses too)", () => 
     await page.locator("#slotList li", { hasText: "slot_scout" }).getByRole("button", { name: "불러오기" }).click();
     await expect(page.locator("#game")).toBeVisible();
     expect(await getState(page)).toEqual(saved);
-    await expect(page.locator("#status")).toContainText("특성: investigation_talent, night_vision");
+    await expect(page.locator("#status")).toContainText("특성: 조사의 재능, 밤눈");
 
     expect(pageErrors).toEqual([]);
     expect(consoleErrors).toEqual([]);
