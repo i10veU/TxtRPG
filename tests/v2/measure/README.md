@@ -23,6 +23,16 @@
 TRUST_RULE=50,20 node tests/v2/measure/road-news-careers.mjs 0 10 8 120 blindD_r4,infoAvoid_r4 > /tmp/rn/t50x20_0.json
 ```
 
+## 첫 지역의 완성도 기준선 (MG-039.1, #323)
+
+- `content-graph.mjs`: 실제 팩의 정적 상호작용 그래프를 판정 기준에 따라 잰다. 행동·대화 선택지·사건이 읽고 쓰는 상태 채널, 장소와 NPC별 기준 L1 ~ L4·N1 ~ N4, 팩 전체 G1 ~ G3가 대상이다. `--table`로 표를 낸다.
+- `road-news-careers.mjs`의 `lateKinds`·`lateIds`: 60일 뒤 한 경력이 쓰는 행동·선택지(G4).
+- 기준과 결과는 `docs/v2/first-region-baseline.md`에 있다.
+
+```sh
+node tests/v2/measure/content-graph.mjs --table
+```
+
 ## 재현
 
 ```sh

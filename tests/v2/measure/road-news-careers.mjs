@@ -39,7 +39,14 @@ const NEW = { type: "startCharacter", templateId: "start_wanderer" };
 const truth = (s) => s.signals?.road_trouble ?? 0; // measurement only, never read by a policy
 // the road's condition after each of its turns, by turn count -- kept for the lagged-ledger counterfactual only
 let HIST = null;
-const run = (s, l) => l.reduce((x, a) => { const y = step(x, a, d).state; if (HIST) HIST[y.fired?.evt_road_north?.count ?? 0] = truth(y); return y; }, s);
+// MG-039.1 (#323): the kinds of actions and choices a career performs after day 60 (G4 of docs/v2/first-region-baseline.md)
+let LATE = null;
+const run = (s, l) => l.reduce((x, a) => {
+  if (LATE && (x.time.minute - LATE.t0) / 1440 >= 60 && (a.type === "perform" || a.type === "choose")) LATE.ids.add(a.actionId ?? a.optionId);
+  const y = step(x, a, d).state;
+  if (HIST) HIST[y.fired?.evt_road_north?.count ?? 0] = truth(y);
+  return y;
+}, s);
 const me = (s) => s.actors[s.player.actorId], g = (s) => me(s).growth.growth_wanderer, stam = (s) => g(s).resources.stamina.current, hp = (s) => me(s).hp.current;
 const ok = (s, id) => evaluateCondition(d.choices.choice_guild_clerk_dialogue.options.find((o) => o.id === id).requires, { state: s, data: d, actorId: s.player.actorId, contextKind: "player" });
 const okH = (s, id) => evaluateCondition(d.choices.choice_herbalist_dialogue.options.find((x) => x.id === id).requires, { state: s, data: d, actorId: s.player.actorId, contextKind: "player" });
@@ -89,6 +96,7 @@ function career(pol, seed, k) {
   if (LEADER_DEAD) s.actors.npc_bandit_leader.alive = false; // a staged world: the leader dead (stated in the report)
   s.rng.cursor += k * 11;
   const t0 = s.time.minute;
+  LATE = { t0, ids: new Set() };
   const m = { convoys: 0, deaths: 0, known: 0, deepNew: 0, lives: 1, gearDay: null, dz: [0, 0, 0], offered: [0, 0, 0], decisions: 0, beliefKnown: 0, exact: 0, wrongSafe: 0, wrongDanger: 0, ageSum: 0, asks: 0, asksUnknown: 0, dangerUnknown: 0, eligible: 0, gateBlocked: 0, trustLost: 0, lost0: s.signals?.caravans_unguarded ?? 0 };
   let lastAsk = -99;
   for (let guard = 0; (s.time.minute - t0) / 1440 < DAYS && guard < 6000; guard++) {
@@ -148,6 +156,9 @@ function career(pol, seed, k) {
     if (s.pending?.kind === "newCharacter") { m.deaths++; if ((s.signals?.guards_fallen ?? 0) > fallen0) m.known++; }
     if (!s.pending && me(s).locationId !== "loc_castle_town") s = run(s, [M("loc_castle_town")]);
   }
+  m.lateKinds = LATE.ids.size;
+  m.lateIds = [...LATE.ids].sort();
+  LATE = null;
   m.lost = (s.signals?.caravans_unguarded ?? 0) - m.lost0;
   m.wallet = me(s).money;
   m.wealth = me(s).money + 24 * (me(s).inventory?.item_steel_sword ?? 0) + 48 * (me(s).inventory?.item_mail_shirt ?? 0);
