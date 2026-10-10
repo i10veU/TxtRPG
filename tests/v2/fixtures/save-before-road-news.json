@@ -1,0 +1,248 @@
+{
+ "slot": "slot_before_road_news",
+ "schemaVersion": 1,
+ "worldId": "frontier_village_c10852f5",
+ "dataRef": {
+  "id": "frontier_village_pack",
+  "version": "0.3.0"
+ },
+ "savedAt": 1,
+ "state": {
+  "schemaVersion": 1,
+  "worldSeed": "history-41",
+  "rng": {
+   "seed": 3238548213,
+   "cursor": 6
+  },
+  "time": {
+   "minute": 2555
+  },
+  "dataRef": {
+   "id": "frontier_village_pack",
+   "version": "0.3.0"
+  },
+  "worldId": "frontier_village_c10852f5",
+  "player": {
+   "actorId": "player_1",
+   "characterCount": 1
+  },
+  "pending": null,
+  "actors": {
+   "player_1": {
+    "id": "player_1",
+    "kind": "player",
+    "alive": true,
+    "locationId": "loc_castle_town",
+    "hp": {
+     "current": 3,
+     "max": 10
+    },
+    "money": 1,
+    "inventory": {
+     "item_lantern": 1,
+     "item_relic": 1
+    },
+    "growth": {
+     "growth_wanderer": {
+      "stats": {
+       "str": 8,
+       "dex": 8,
+       "con": 8,
+       "int": 8,
+       "wis": 8,
+       "per": 8
+      },
+      "resources": {
+       "stamina": {
+        "current": 4,
+        "max": 6
+       }
+      },
+      "proficiency": {
+       "investigation": 60,
+       "combat": 5
+      },
+      "skills": {
+       "investigation": 3
+      },
+      "unlocks": {
+       "unl_keen_eye": true
+      },
+      "traits": {
+       "road_wound": true
+      }
+     }
+    },
+    "tags": []
+   },
+   "npc_bandit_leader": {
+    "id": "npc_bandit_leader",
+    "kind": "npc",
+    "alive": true,
+    "locationId": "loc_ruins",
+    "hp": {
+     "current": 10,
+     "max": 10
+    },
+    "money": 0,
+    "inventory": {},
+    "growth": {
+     "growth_wanderer": {
+      "stats": {
+       "str": 10,
+       "dex": 10,
+       "con": 10,
+       "int": 10,
+       "wis": 10,
+       "per": 10
+      },
+      "resources": {
+       "stamina": {
+        "current": 6,
+        "max": 6
+       }
+      }
+     }
+    },
+    "tags": []
+   }
+  },
+  "facts": {
+   "fact_ruins_secret": {
+    "value": "bandit_hideout",
+    "since": 75
+   },
+   "fact_bandits_fate": {
+    "value": "dispersed",
+    "since": 270
+   },
+   "fact_realm_levy": {
+    "value": "known",
+    "since": 365
+   }
+  },
+  "relations": {
+   "npc_elder:player_1": {
+    "score": 20,
+    "mode": "cooperation",
+    "lastDay": 0,
+    "cooperationCount": 1,
+    "conflictCount": 0,
+    "tags": [
+     "confidant"
+    ]
+   },
+   "npc_bandit_leader:org_bandits": {
+    "score": 0,
+    "mode": "neutral",
+    "lastDay": 0,
+    "cooperationCount": 0,
+    "conflictCount": 0,
+    "tags": []
+   },
+   "npc_bandit_leader:player_1": {
+    "score": -20,
+    "mode": "neutral",
+    "lastDay": 0,
+    "cooperationCount": 0,
+    "conflictCount": 0,
+    "tags": []
+   },
+   "org_bandits:player_1": {
+    "score": -10,
+    "mode": "neutral",
+    "lastDay": 0,
+    "cooperationCount": 0,
+    "conflictCount": 0,
+    "tags": [
+     "cowed"
+    ]
+   }
+  },
+  "knowledge": {
+   "player_1": {
+    "rum_ruins_secret": {
+     "rumorId": "rum_ruins_secret",
+     "factId": "fact_ruins_secret",
+     "claim": "bandit_hideout",
+     "source": "npc_elder",
+     "sources": [
+      "npc_elder",
+      "obs_loc_ruins"
+     ],
+     "confidence": 60,
+     "confirmations": 2,
+     "firstSeenDay": 0,
+     "lastSeenDay": 0
+    },
+    "rum_road_hamlet": {
+     "rumorId": "rum_road_hamlet",
+     "factId": "fact_road_hamlet",
+     "claim": "east",
+     "source": "npc_elder",
+     "sources": [
+      "npc_elder"
+     ],
+     "confidence": 60,
+     "confirmations": 1,
+     "firstSeenDay": 0,
+     "lastSeenDay": 0
+    },
+    "rum_road_ford": {
+     "rumorId": "rum_road_ford",
+     "factId": "fact_road_ford",
+     "claim": "north",
+     "source": "npc_elder",
+     "sources": [
+      "npc_elder"
+     ],
+     "confidence": 60,
+     "confirmations": 1,
+     "firstSeenDay": 0,
+     "lastSeenDay": 0
+    }
+   }
+  },
+  "fired": {
+   "evt_ruins_hazard": {
+    "count": 2,
+    "lastMinute": 135
+   },
+   "evt_bandits_tale": {
+    "count": 2,
+    "lastMinute": 1710
+   },
+   "evt_crossroads_first": {
+    "count": 1,
+    "lastMinute": 315
+   },
+   "evt_caravan": {
+    "count": 1,
+    "lastMinute": 365
+   },
+   "evt_far_bank_first": {
+    "count": 1,
+    "lastMinute": 395
+   },
+   "evt_castle_town_first": {
+    "count": 1,
+    "lastMinute": 1115
+   }
+  },
+  "flags": {
+   "ruins_secret_confirmed": true,
+   "road_walked": true
+  },
+  "cases": {
+   "case_ruins_mystery": {
+    "stage": "resolved",
+    "since": 240
+   }
+  },
+  "signals": {
+   "bandits_tale_age": 2,
+   "caravan_visits": 1,
+   "guards_hired": 1
+  }
+ }
+}

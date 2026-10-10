@@ -323,3 +323,5 @@ jobs:
         run: npx playwright test tests/v2-ui-road-news-browser.spec.js --reporter=line
       - name: V2 knowledge browser smoke
         run: npx playwright test tests/v2-ui-knowledge-browser.spec.js --reporter=line
+      - name: V2 road news integrated browser smoke
+        run: npx playwright test tests/v2-ui-road-news-integrated-browser.spec.js --reporter=line
