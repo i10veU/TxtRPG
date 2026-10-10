@@ -139,7 +139,11 @@ function testLeaderInTheLand(atCrossroads) {
 
 // 5. save compatibility and determinism
 function testSaveAndDeterminism(atCrossroads) {
-  assert.ok(!/road_|leader_trail|bandit_toll|crossroads/.test(JSON.stringify(createInitialState({ worldSeed: "x", data: worldData }).state)), "a new game writes nothing of it");
+  // (V2-Core-125: but the road's course, drawn at creation for every world and read only once the road is walked)
+  const fresh = createInitialState({ worldSeed: "x", data: worldData }).state;
+  assert.ok(Number.isInteger(fresh.facts.fact_road_course.value));
+  delete fresh.facts.fact_road_course;
+  assert.ok(!/road_|leader_trail|bandit_toll|crossroads/.test(JSON.stringify(fresh)), "a new game writes nothing of it");
   const path = [P("act_read_milestone"), P("act_search_crossroads")];
   const end = run(atCrossroads, path).state;
   assert.deepStrictEqual(validateState(end), []);

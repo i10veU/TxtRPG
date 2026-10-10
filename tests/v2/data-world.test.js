@@ -166,7 +166,7 @@ function testCanonicalPlaythrough() {
     firstSeenDay: 0,
     lastSeenDay: 0
   });
-  assert.deepStrictEqual(chooseAsk.stateAfter.facts, { fact_ruins_secret: { value: "unknown", since: 0 } }, "asking the elder sets no fact (the seeded starting value stays, D-76)");
+  assert.deepStrictEqual(chooseAsk.stateAfter.facts, { fact_ruins_secret: { value: "unknown", since: 0 }, fact_road_course: { value: 9, since: 0 } }, "asking the elder sets no fact (the seeded starting values stay, D-76; the road's course since V2-Core-125)");
   const confirmed = finalState.knowledge.player_1.rum_ruins_secret;
   assert.deepStrictEqual(confirmed, { ...afterAsk, sources: ["npc_elder", "obs_loc_ruins"], confirmations: 2 });
   assert.ok(investigate.events.some((e) => e.type === "rumor.updated" && e.data.rumor === "rum_ruins_secret" && e.data.delta === 0));
@@ -469,7 +469,8 @@ function testInformationFlow() {
   assert.strictEqual(small.state.relations, undefined);
   assert.strictEqual(small.state.knowledge, undefined, "small talk teaches nothing");
   // learning a rumor never sets the fact it is about (the fact stays hidden)
-  assert.deepStrictEqual(asked.state.facts, { fact_ruins_secret: { value: "unknown", since: 0 } }); // only the starting value seeded at creation (D-76)
+  assert.deepStrictEqual(asked.state.facts, fresh.facts); // only the starting values seeded at creation (D-76)
+  assert.deepStrictEqual(Object.keys(fresh.facts), ["fact_road_course", "fact_ruins_secret"], "the ruins' secret, and since V2-Core-125 the road's course");
 
   // without the rumor the investigation is unavailable at the ruins -- with the
   // lantern in hand -- and hidden (no showWhenLocked), with no reason (D-06/D-15)
@@ -519,7 +520,8 @@ function testInformationFlow() {
   assert.strictEqual(success.state.flags.ruins_secret_confirmed, true);
 
   assert.deepStrictEqual(rumorEntry(failure.state), rumorEntry(before), "a failed investigation leaves the rumor as it was");
-  assert.deepStrictEqual(failure.state.facts, { fact_ruins_secret: { value: "unknown", since: 0 } }, "a failed investigation sets no fact (the seeded starting value stays, D-76)");
+  assert.deepStrictEqual(failure.state.facts, before.facts, "a failed investigation sets no fact (the seeded starting values stay, D-76)");
+  assert.strictEqual(before.facts.fact_ruins_secret.value, "unknown");
   assert.strictEqual(failure.state.flags?.ruins_secret_confirmed, undefined);
   assert.ok(!failure.events.some((e) => e.type.startsWith("rumor.")));
   // ...and the investigation can simply be retried

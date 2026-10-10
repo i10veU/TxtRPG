@@ -6,7 +6,9 @@
 //   1. who is offered it: the lead's unlock, a convoy wanting a guard, 3 stamina and steel or mail worn -- each one
 //      alone missing closes it (the jerkin and the iron sword do not open it; the clerk says so only when it is open);
 //   2. what it asks and pays: a hard check (14), three stamina, 14 / 10 / 2 silver, the guild's regard doubles on a
-//      success as the lead's does, and a failure costs 3 hp and a road wound as the lead's does;
+//      success as the lead's does, and a failure a road wound as the lead's does -- and hp: 3 until V2-Core-125 (#307, Road
+//      News), since then what the road's condition asks (2 / 4 / 7, quiet / uneasy / dangerous; data-world-road-news), and a
+//      success on a dangerous road pays 3 more;
 //   3. it is harder than the lead and pays more: on the same roll it is never a better tier than the lead's, and on
 //      a rested guard it pays more on a success than the lead does;
 //   4. it is the character's (a successor has none), and nothing about the lead or the ordinary escort changed;
@@ -107,7 +109,8 @@ function testPays() {
   assert.strictEqual(c.difficulty, 14, "a hard check");
   assert.strictEqual(growth(geared).resources.stamina.current - growth(r.state).resources.stamina.current, 3, "three stamina");
   assert.strictEqual(r.state.time.minute - geared.time.minute, 720, "half a day");
-  // pay by tier, found across rng cursors
+  // pay by tier, found across rng cursors (V2-Core-125: on the road as it is in this world at that hour)
+  const trouble = geared.signals?.road_trouble ?? 0;
   const pay = {};
   const regard = {};
   for (let k = 0; k < 200 && Object.keys(pay).length < 3; k += 1) {
@@ -118,13 +121,13 @@ function testPays() {
     pay[tier] ??= me(out.state).money - me(t).money;
     regard[tier] ??= standing(out.state) - standing(t);
     if (tier === "fail") {
-      assert.strictEqual(me(t).hp.current - me(out.state).hp.current, 3, "a failure costs 3 hp");
+      assert.strictEqual(me(t).hp.current - me(out.state).hp.current, [2, 4, 7][trouble], "a failure costs what the road asks");
       assert.strictEqual(growth(out.state).traits?.road_wound, true, "and a road wound");
     } else {
       assert.strictEqual(me(out.state).hp.current, me(t).hp.current, "a success costs no hp");
     }
   }
-  assert.deepStrictEqual(pay, { great: 14, success: 10, fail: 2 });
+  assert.deepStrictEqual(pay, trouble === 2 ? { great: 17, success: 13, fail: 2 } : { great: 14, success: 10, fail: 2 });
   assert.strictEqual(regard.great, 10, "the guild's regard doubles, as the lead's does");
   assert.strictEqual(regard.success, 10);
   assert.strictEqual(regard.fail, 0);

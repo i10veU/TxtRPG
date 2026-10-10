@@ -319,3 +319,5 @@ jobs:
         run: npx playwright test tests/v2-ui-guards-maimed-browser.spec.js --reporter=line
       - name: V2 death injury browser smoke
         run: npx playwright test tests/v2-ui-death-injury-browser.spec.js --reporter=line
+      - name: V2 road news browser smoke
+        run: npx playwright test tests/v2-ui-road-news-browser.spec.js --reporter=line
