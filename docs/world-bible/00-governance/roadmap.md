@@ -79,7 +79,7 @@
 | DI-0 | Death & Injury — 삶과 죽음 사이의 의미 있는 중간 (#297, 진행 중) | 소유자의 결정(WB-0028). 정본 변경 없음(게임 값) |
 | DI-1 ✅ | Death & Injury 1단계: 경상은 숙소에서 낫는다, 중상(hp 2 이하) (V2-Core-121, #298) | 게임 값(Provisional): 선 2, 판정 −1, 숙소 +2, 가득 차면 해제 |
 | DI-2 ✅ | Death & Injury 2단계: 실제 구현을 재고 위험 눈금을 못박는다 (V2-Core-122, #300) | 값은 측정으로 다시 확인; 진행 속도 +13일의 보정은 소유자의 몫 |
-| DI-3 | Death & Injury 3단계: `guards_maimed` World Memory (V2-Core-123) | 세계의 기억(후계자에게 복사하지 않음) |
+| DI-3 ✅ | Death & Injury 3단계: `guards_maimed` World Memory (V2-Core-123, #302) | 세계의 기억(후계자에게 복사하지 않음): 조합이 아는 호위가 중상을 안고 돌아오면 세계의 수가 오르고, 서기가 말하며, 조심스레 가는 길이 열린다 |
 | DI-4 | Death & Injury 4단계: 통합·브라우저·다세대·종료 평가 (V2-Core-124) | |
 | A-1 ✅ | Artifact: World Observatory v1 (세계 지도 · 정보의 흐름 · 결과의 사슬 · 불일치) | 정본 아님. https://claude.ai/artifact/2qqDjLekcXTsPwCNy9Aif4 |
 

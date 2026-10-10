@@ -198,7 +198,7 @@ ID는 저장 파일에 남으므로 게임 쪽에서 바꾸기 어렵다. **정�
 | ID | 무엇 | 처리 |
 |---|---|---|
 | `unl_road_lead` / `opt_guild_clerk_escort_lead` | 검술 숙련이 가득 차면(`combat` 100) 서기가 호위를 이끄는 일을 권한다: 같은 판정·길, 스태미나 3, 품삯 8/6/2, 길드의 신뢰가 두 배로 쌓인다 | 해금과 신뢰는 **캐릭터의 것**(후계자는 없다, D-71). 값·비율은 게임 값. 서기의 말은 **Provisional** |
-| `opt_guild_clerk_escort_careful` | 쓰러진 호위가 있는 세계(`guards_fallen` ≥ 1)에서 서기가 「길을 조심스레 간다」를 권한다: 더 쉬운 판정, 아무것도 잃지 않는 실패, 하루 꼬박, 적은 품삯 | **세계의 기억이지 캐릭터의 것이 아니다**: 평판이 없어도, 후계자에게도 권해진다(D-71의 구분 — 세계의 수는 세계의 것, 해금은 캐릭터의 것). 값·시간은 게임 값. 서술은 **Provisional** |
+| `opt_guild_clerk_escort_careful` | 쓰러진 호위가 있는 세계(`guards_fallen` ≥ 1; Death & Injury 3단계부터는 불구가 된 호위도, `guards_maimed` ≥ 1)에서 서기가 「길을 조심스레 간다」를 권한다: 더 쉬운 판정, 아무것도 잃지 않는 실패, 하루 꼬박, 적은 품삯 | **세계의 기억이지 캐릭터의 것이 아니다**: 평판이 없어도, 후계자에게도 권해진다(D-71의 구분 — 세계의 수는 세계의 것, 해금은 캐릭터의 것). 값·시간은 게임 값. 서술은 **Provisional** |
 
 ## World Simulation 2 — 상단은 기다려 주지 않는다 (Master Goal #265)
 
@@ -246,4 +246,6 @@ ID는 저장 파일에 남으므로 게임 쪽에서 바꾸기 어렵다. **정�
 |---|---|---|
 | `road_wound_deep` / `txt_escort_deep_wound` / `txt_rest_deep_wound_stays` / `txt_rest_deep_wound_closes` / `txt_treat_deep_wound` | 실패한 호위가 hp를 2 이하로 남기면 **중상**: 판정 -1 추가, 숙소가 hp를 +2만 되돌리고, hp가 가득 차는 밤이나 연고로 닫힌다; 이끄는 일·위험한 호위는 닫힌다 | **게임 값**(Provisional, R-29): 선·수치는 측정(#297)에서 정했다. 서술은 Provisional — 누가·무엇이 입혔는지는 말하지 않는다 |
 | `txt_guild_clerk_sees_deep_wound` / `txt_guild_clerk_deep_closes_lead` / `txt_rest_wound_closes` | 서기가 중상을 알아보고 이끄는 일이 닫힌 이유를 말한다; 경상은 하룻밤에 가라앉는다 | 서기의 말은 **Provisional** |
+| `guards_maimed` (`WOUND_ON_FAIL`) | 조합이 *아는* 살아 있는 호위가 중상을 안고 돌아오면 세계의 수가 오른다(상처 하나에 하나). 모르는 호위·경상·같은 일격에 쓰러진 호위(`guards_fallen`)는 세지 않는다 | 수는 **세계의 것**(소유자 승인): 후계자에게 복사하지 않고 신뢰·기술·소지품도 잇지 않는다(D-71). 소급 없음 — 옛 저장에는 수가 없다. 기준·세는 법은 게임 값 |
+| `txt_guild_clerk_maimed` / `txt_guild_clerk_careful_offer_maimed` | 서기가 어느 호위에게든 "믿던 호위 하나가 깊은 상처를 입고 돌아왔다"고 말한다; 불구만 기억하는 세계에서는 「길을 조심스레 간다」를 그 말로 권한다 | 서술은 **Provisional** — 누구인지·어떻게는 말하지 않는다. 후계자도 서기에게서 *알게* 된다 |
 
