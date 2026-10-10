@@ -37,20 +37,21 @@ export GUDOKPIN_API_KEY='csk_여기에_실제_키'
 # 선택: 현재 카탈로그에 있는 다른 Claude 모델 ID
 export GUDOKPIN_CLAUDE_MODEL='claude-sonnet-5'
 
-./scripts/claude-gudokpin.sh
+bash scripts/claude-gudokpin.sh
 ```
 
-스크립트는 키가 `csk_`로 시작하는지 확인하고, 공개 모델 카탈로그에서 선택한 모델의 존재를 검증한 뒤 Claude Code를 실행한다. 실제 키 값은 출력하지 않는다.
+셸에 키를 직접 입력하면 셸 기록에 남을 수 있다. 가능한 경우 키를 안전하게 관리하는 로컬 비밀 저장소나 셸 외부에서 설정한 환경 변수를 사용한다. 스크립트는 키가 `csk_`로 시작하는지 확인하고, 공개 모델 카탈로그에서 선택한 모델의 존재를 검증한 뒤 Claude Code를 실행한다. 실제 키 값은 출력하지 않는다.
 
 ## 3. Windows PowerShell
 
-새 PowerShell 세션에서 저장소 루트로 이동한 뒤:
+Windows의 **환경 변수 설정 화면**에서 사용자 변수 `GUDOKPIN_API_KEY`에 구독핀 `csk_` 키를 등록한다. 키를 PowerShell 명령문에 직접 넣지 않는다. 설정 후 새 PowerShell 세션을 연다.
 
 ```powershell
-$env:GUDOKPIN_API_KEY = 'csk_여기에_실제_키'
 $env:ANTHROPIC_BASE_URL = 'https://api.gudokpin.com'
-$env:ANTHROPIC_AUTH_TOKEN = $env:GUDOKPIN_API_KEY
+$env:ANTHROPIC_AUTH_TOKEN = [Environment]::GetEnvironmentVariable('GUDOKPIN_API_KEY', 'User')
 $env:ANTHROPIC_MODEL = 'claude-sonnet-5'
+if (-not $env:ANTHROPIC_AUTH_TOKEN) { throw 'GUDOKPIN_API_KEY 사용자 환경 변수가 없습니다.' }
+if (-not $env:ANTHROPIC_AUTH_TOKEN.StartsWith('csk_')) { throw '구독핀 csk_ 키만 사용할 수 있습니다.' }
 claude
 ```
 
@@ -60,7 +61,7 @@ claude
 (Invoke-RestMethod 'https://api.gudokpin.com/v1/models').data.id
 ```
 
-모델 ID가 응답에 포함된 경우에만 사용한다. PowerShell에 키를 직접 입력하는 대신, 이미 안전하게 설정된 사용자 환경 변수 `GUDOKPIN_API_KEY`를 사용할 수도 있다.
+모델 ID가 응답에 포함된 경우에만 사용한다.
 
 ## 4. 연결 확인 및 문제 해결
 
