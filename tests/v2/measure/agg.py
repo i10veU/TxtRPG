@@ -34,7 +34,7 @@ print(f"== {tag}: {len(rows)} careers, {len(pols)} policies")
 print(f"{'policy':16s} {'n':>4s} {'deaths':>6s} {'known':>6s} {'deep':>5s} {'wealth':>7s} {'gearDay':>7s} {'geared':>6s} {'lost':>5s} {'take q/u/d %':>16s} {'exact%':>6s} {'safer%':>6s} {'warier%':>7s} {'age':>4s} {'unkn%':>5s}")
 for p, s in S.items():
     take = "/".join("—" if x != x else f"{100*x:.0f}" for x in s["take"])
-    pct = lambda x: "—" if x != x else f"{100*x:.0f}"
+    pct = lambda x: "—" if x != x else f"{100*x:.1f}"
     print(f"{p:16s} {s['n']:4d} {s['deaths']:6.2f} {s['known']:6.2f} {s['deep']:5.2f} {s['wealth']:7.1f} {s['gear'] if s['gear'] is None else round(s['gear'],1)!s:>7s} {100*s['geared']:5.0f}% {s['lost']:5.2f} {take:>16s} {pct(s['exact']):>6s} {pct(s['safer']):>6s} {pct(s['warier']):>7s} {'—' if s['age']!=s['age'] else round(s['age'],1)!s:>4s} {pct(s['unknownDanger']):>5s}")
 
 # frontiers along the rest-hp dial: (deaths, wealth) per family
@@ -71,6 +71,7 @@ def boot(a, b, key, n=2000):
 print("\npaired (same rest hp), A - B, 95% bootstrap over worlds:")
 for r in (2, 4, 6, 8):
     for a, b in (("infoAvoid", "blindD"), ("infoWhole", "blindD"), ("infoAvoid", "blindN"), ("staleAvoid", "infoAvoid"), ("eyesAvoid", "infoAvoid"), ("coarseAvoid", "infoAvoid"),
+                 ("staleAvoid", "blindD"), ("eyesAvoid", "blindD"), ("coarseAvoid", "blindD"),
                  ("lagAvoid", "infoAvoid"), ("lagAvoid", "blindD"), ("lagAvoid", "blindN"), ("lagWhole", "infoWhole"), ("lagWhole", "blindD")):
         A, B = f"{a}_r{r}", f"{b}_r{r}"
         if A in by and B in by:
