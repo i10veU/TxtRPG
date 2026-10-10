@@ -13,6 +13,13 @@
 //   H2-B same silver, fewer deaths: the informed guard ends with at least the blind-always guard's silver and dies less often
 //       (measured: -0.21 deaths a career, -31-36%; at 180 days -0.31, -40-45%);
 //   H3  what it acts on is what it was told: when it asks before the road, its latest word is the road as it is.
+// V2-Core-130 (#318, MG-046.1 step 1) -- a specification change, not a relaxation: a guard who comes back from a failed
+// danger job loses 30 of the guild's trust, and under 10 the clerk gives the yard's talk instead of the ledger. So the
+// informed guard's word is split by whether the guild knows it when it asks, and each half is pinned strictly:
+//   H1  on a quiet road it takes the job; on an uneasy road it takes it exactly when the guild knows it (the yard's
+//       "unsettled" makes an unknown guard stay off); on a dangerous road never;
+//   H3  a known guard's word is the ledger's, exactly the road; an unknown guard hears the yard's word that day, exactly
+//       the road's coarse condition (quiet / unsettled). The sample must contain both.
 // Measurement scripts and the full numbers: D-110 step 2 (docs/v2/architecture/CORE_CONTRACTS.md).
 //
 // `.test.js`, not `.spec.js`: tests/v2/run.js runs every `*.js` directly under tests/v2/ and skips
@@ -42,6 +49,7 @@ const herbOpen = (s, id) => can(s, d.choices.choice_herbalist_dialogue.options.f
 const clerk = (id) => [P("act_talk_guild_clerk"), C(id)];
 const buy = (id) => [P("act_talk_town_merchant"), C(id)];
 const day = (s) => Math.floor(s.time.minute / 1440);
+const standing = (s) => s.relations?.[`npc_guild_clerk:${s.player.actorId}`]?.score ?? 0;
 const LEVEL = { quiet: 0, uneasy: 1, dangerous: 2, unsettled: 1.5 };
 // what the character believes of the road: its latest word (ties: the surer one) -- from its own knowledge only
 function belief(s) {
@@ -63,7 +71,7 @@ function career(policy, seed, dice) {
   let s = run(createInitialState({ worldSeed: seed, data: d }).state, TO_TOWN);
   s.rng.cursor += dice * 11;
   const t0 = s.time.minute;
-  const m = { deaths: 0, offered: [0, 0, 0], taken: [0, 0, 0], told: 0, toldTrue: 0 };
+  const m = { deaths: 0, offered: [0, 0, 0], taken: [0, 0, 0], told: 0, toldTrue: 0, yard: 0, yardTrue: 0, unknownOffered: [0, 0, 0] };
   for (let guard = 0; (s.time.minute - t0) / 1440 < DAYS && guard < 6000; guard += 1) {
     if (s.pending?.kind === "newCharacter") { s = run(s, [NEW_LIFE, ...WALK]); continue; }
     if (open(s, "opt_guild_clerk_estate")) s = run(s, clerk("opt_guild_clerk_estate"));
@@ -82,10 +90,18 @@ function career(policy, seed, dice) {
       m.offered[road] += 1;
       if (policy === "blind-always") danger = true;
       else if (policy !== "blind-never") {
+        const known = standing(s) >= 10; // as the clerk sees the guard when it asks (asking changes nothing)
         s = run(s, clerk("opt_guild_clerk_ask"));
         const word = belief(s);
-        m.told += 1;
-        if (word === road) m.toldTrue += 1;
+        if (known) {
+          m.told += 1;
+          if (word === road) m.toldTrue += 1;
+        } else {
+          m.yard += 1;
+          m.unknownOffered[road] += 1;
+          const yardWord = Object.values(s.knowledge[s.player.actorId]).find((k) => k.source === "src_guild_hall_talk" && k.factId === "fact_road_north" && k.lastSeenDay === day(s));
+          if (yardWord?.claim === (road === 0 ? "quiet" : "unsettled")) m.yardTrue += 1;
+        }
         const whole = hp(s) >= me(s).hp.max && !g(s).traits?.road_wound;
         danger = !(word !== null && word >= 1.5) || (policy === "informed-whole" && whole);
       }
@@ -100,7 +116,7 @@ function career(policy, seed, dice) {
   return m;
 }
 function sample(policy) {
-  const t = { careers: 0, deaths: 0, silver: 0, offered: [0, 0, 0], taken: [0, 0, 0], told: 0, toldTrue: 0 };
+  const t = { careers: 0, deaths: 0, silver: 0, offered: [0, 0, 0], taken: [0, 0, 0], told: 0, toldTrue: 0, yard: 0, yardTrue: 0, unknownOffered: [0, 0, 0] };
   for (const seed of SEEDS) for (let k = 0; k < DICE; k += 1) {
     const m = career(policy, seed, k);
     t.careers += 1;
@@ -108,7 +124,9 @@ function sample(policy) {
     t.silver += m.silver;
     t.told += m.told;
     t.toldTrue += m.toldTrue;
-    for (let i = 0; i < 3; i += 1) { t.offered[i] += m.offered[i]; t.taken[i] += m.taken[i]; }
+    t.yard += m.yard;
+    t.yardTrue += m.yardTrue;
+    for (let i = 0; i < 3; i += 1) { t.offered[i] += m.offered[i]; t.taken[i] += m.taken[i]; t.unknownOffered[i] += m.unknownOffered[i]; }
   }
   t.silver /= t.careers;
   return t;
@@ -125,7 +143,8 @@ assert.ok(always.offered.every((n) => n > 0), "every road condition comes up in 
 assert.deepStrictEqual(always.taken, always.offered, "the blind guard takes the danger job on every road");
 assert.deepStrictEqual(never.taken, [0, 0, 0]);
 assert.strictEqual(informed.taken[2], 0, "the informed guard never takes it on a dangerous road");
-assert.deepStrictEqual(informed.taken.slice(0, 2), informed.offered.slice(0, 2), "and takes it on a quiet or uneasy one");
+assert.strictEqual(informed.taken[0], informed.offered[0], "and takes it on a quiet one");
+assert.strictEqual(informed.taken[1], informed.offered[1] - informed.unknownOffered[1], "and on an uneasy one exactly when the guild knows it");
 assert.ok(whole.taken[2] > 0 && whole.taken[2] < whole.offered[2], "the informed-whole guard takes a dangerous road only when unhurt");
 
 // H2-A: the same risk as never taking it, more silver
@@ -139,6 +158,8 @@ assert.ok(whole.silver > always.silver && whole.deaths < always.deaths, `informe
 
 // H3: asked before the road, the word it acts on is the road as it is
 assert.ok(informed.told > 0);
-assert.strictEqual(informed.toldTrue, informed.told, "the ledger's word, asked on the day, is the road's condition");
+assert.strictEqual(informed.toldTrue, informed.told, "the ledger's word, asked on the day by a known guard, is the road's condition");
+assert.ok(informed.yard > 0, "the sample has guards the guild no longer knows (trust lost on a failed danger job)");
+assert.strictEqual(informed.yardTrue, informed.yard, "an unknown guard hears the yard's word that day: the road's coarse condition");
 
 console.log(`V2-Core-127 data-world-road-news-measure.test.js: all checks passed (always ${show(always)}; never ${show(never)}; informed ${show(informed)}; informed-whole ${show(whole)})`);

@@ -495,6 +495,18 @@ const ROAD_SEEN = {
   when: { op: "alive", subject: "self" },
   then: [ROAD_NEWS("obs_road_north", 90), byRoad([say("txt_road_seen_quiet")], [say("txt_road_seen_uneasy")], [say("txt_road_seen_dangerous")])]
 };
+// V2-Core-130 (#318, MG-046.1 step 1): a guard who comes back from a failed danger job has lost the guild's trust (30) --
+// measured in step 0 (no trust gate: a gate made blind play safer and shrank what the news is worth). Only a guard who
+// lives: one the road kills on the guild's job dies known, as they were, so the guild remembers them (World Memory) and the
+// world's own record of the death (the dead actor) is untouched either way. Placed after the wound, which is remembered as
+// the guild knew the guard then. Under 10 the guard is no longer one the guild knows: the ledger's word and the +1 close
+// by the existing rule (GUILD_KNOWS) until good escorts earn them back. Provisional game value (R-29)
+const DANGER_FAIL_TRUST_LOSS = 30;
+const DANGER_FAIL_TRUST = {
+  op: "if",
+  when: { op: "alive", subject: "self" },
+  then: [{ op: "relation", from: "npc_guild_clerk", add: -DANGER_FAIL_TRUST_LOSS }, say("txt_danger_fail_trust")]
+};
 // the danger job, done on a dangerous road, is paid for it (+3)
 const DANGER_ROAD_BONUS = { op: "if", when: ROAD(2), then: [{ op: "money", add: 3 }, say("txt_danger_road_bonus")] };
 const ROAD_HURT = (quiet, uneasy, dangerous) => byRoad([{ op: "hp", add: -quiet }], [{ op: "hp", add: -uneasy }], [{ op: "hp", add: -dangerous }]);
@@ -1961,7 +1973,8 @@ export const worldData = {
             fail: GUARD_PAID(2, [
               ROAD_HURT(2, 4, 7),
               say("txt_danger_fail"),
-              ...WOUND_ON_FAIL
+              ...WOUND_ON_FAIL,
+              DANGER_FAIL_TRUST
             ])
           })
         },
@@ -2603,6 +2616,7 @@ export const worldData = {
     txt_guild_clerk_danger_offer: "서기는 목소리를 낮춘다. 강철을 걸친 이만 부탁할 수 있는 상단이 있다고 한다 — 길이 험하고 상대가 독하지만 품삯은 두 배에 가깝다고.",
     txt_danger_great: "험한 길목에서 호위들을 이끌어 독한 무리를 단번에 꺾는다. 상단은 짐 하나 잃지 않고 닿고, 상단주는 놀라 은화를 한 움큼 더 얹는다.",
     txt_danger_success: "호위들을 촘촘히 세워 험한 길을 뚫는다. 상단은 무사히 닿고, 위험한 일의 품삯이 넉넉히 치러진다.",
+    txt_danger_fail_trust: "서기는 장부에 이번 일을 적으며 고개를 젓는다. 위험한 상단을 맡겼다가 놓친 호위를, 조합은 쉽게 다시 믿지 않는다.",
     txt_danger_fail: "독한 무리에게 호위가 밀린다. 상단은 간신히 닿지만 앞장선 몫만큼 크게 다치고, 품삯은 형편없이 깎인다.",
     // V2-Core-125 (#307, Road News step 1a): the road's condition -- what the ledger says, what the yard says, what a guard saw.
     // Provisional wording (R-29); nothing says who is on the road or why

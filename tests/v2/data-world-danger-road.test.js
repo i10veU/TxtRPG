@@ -130,7 +130,9 @@ function testPays() {
   assert.deepStrictEqual(pay, trouble === 2 ? { great: 17, success: 13, fail: 2 } : { great: 14, success: 10, fail: 2 });
   assert.strictEqual(regard.great, 10, "the guild's regard doubles, as the lead's does");
   assert.strictEqual(regard.success, 10);
-  assert.strictEqual(regard.fail, 0);
+  // V2-Core-130 (#318, MG-046.1 step 1) -- a specification change: a guard who comes back from a failed danger job has lost
+  // 30 of the guild's trust (data-world-trust-loss pins the rule; it was 0 before)
+  assert.strictEqual(regard.fail, -30);
 }
 
 // 3. harder than the lead, and it pays more
