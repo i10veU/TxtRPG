@@ -460,7 +460,15 @@ const WOUND_ON_FAIL = [
   {
     op: "if",
     when: { op: "and", of: [{ op: "lte", left: { hp: "current" }, right: DEEP_WOUND_HP }, { op: "not", of: ROAD_WOUND_DEEP }] },
-    then: [{ op: "trait", trait: "road_wound_deep" }, { op: "trait", trait: "road_wound" }, say("txt_escort_deep_wound")],
+    then: [
+      { op: "trait", trait: "road_wound_deep" },
+      { op: "trait", trait: "road_wound" },
+      say("txt_escort_deep_wound"),
+      // V2-Core-123 (#302, Death & Injury step 3): and the guild remembers a guard it knew who came back with one -- a world
+      // number, not a person (a guard who did not survive the blow is counted as fallen, not maimed); nothing a successor
+      // inherits (D-71)
+      { op: "if", when: { op: "and", of: [GUILD_KNOWS, { op: "alive", subject: "self" }] }, then: [{ op: "signal", key: "guards_maimed", add: 1 }] }
+    ],
     else: [{ op: "if", when: { op: "not", of: ROAD_WOUND }, then: [{ op: "trait", trait: "road_wound" }, say("txt_escort_wound")] }]
   }
 ];
@@ -1768,11 +1776,15 @@ export const worldData = {
             { op: "if", when: { op: "and", of: [GUARD_WANTED, { op: "signal", key: "caravans_unguarded", min: 1 }] }, then: [say("txt_guild_clerk_left_without")] },
             // V2-Core-106 (#258): and where a guard has fallen, the careful way
             { op: "if", when: { op: "and", of: [GUARD_WANTED, { op: "signal", key: "guards_fallen", min: 1 }] }, then: [say("txt_guild_clerk_careful_offer")] },
+            // V2-Core-123 (#302): and where a guard came back maimed but none has fallen, the same way, said otherwise
+            { op: "if", when: { op: "and", of: [GUARD_WANTED, { op: "signal", key: "guards_maimed", min: 1 }, { op: "not", of: { op: "signal", key: "guards_fallen", min: 1 } }] }, then: [say("txt_guild_clerk_careful_offer_maimed")] },
             // V2-Core-105 (#258): a guard whose practice is full is offered the lead of the convoy
             { op: "if", when: { op: "and", of: [GUARD_WANTED, { op: "unlock", id: "unl_road_lead" }, { op: "not", of: ROAD_WOUND_DEEP }] }, then: [say("txt_guild_clerk_lead_offer")] },
             { op: "if", when: DANGER_OPEN, then: [say("txt_guild_clerk_danger_offer")] },
             // V2-Core-102 (#251): what the guild remembers of the guards who did not come back -- told to any guard
             { op: "if", when: { op: "signal", key: "guards_fallen", min: 1 }, then: [say("txt_guild_clerk_fallen")] },
+            // V2-Core-123 (#302): and of the guards who came back with a wound that would not close -- told to any guard
+            { op: "if", when: { op: "signal", key: "guards_maimed", min: 1 }, then: [say("txt_guild_clerk_maimed")] },
             // V2-Core-114 (#280): and what the guild kept of what they carried
             { op: "if", when: { op: "or", of: [{ op: "signal", key: "kit_steel", min: 1 }, { op: "signal", key: "kit_mail", min: 1 }] }, then: [say("txt_guild_clerk_kit_offer")] },
             // V2-Core-118 (#291): and what the guild kept of what they carried in silver
@@ -1871,14 +1883,15 @@ export const worldData = {
             ])
           })
         },
-        // V2-Core-106 (#258): a choice only a world that remembers offers (`guards_fallen`, V2-Core-102). The careful
-        // way: an easier check and a failure that costs nothing (no hp, no wound), for a whole day on the road instead
-        // of half and a smaller purse. It is the world's memory, not the character's: anyone is offered it, a successor
-        // too, and a world where no known guard has fallen never offers it
+        // V2-Core-106 (#258): a choice only a world that remembers offers (`guards_fallen`, V2-Core-102; since V2-Core-123 also
+        // `guards_maimed`: a guard came back with a wound that would not close). The careful way: an easier check and a
+        // failure that costs nothing (no hp, no wound), for a whole day on the road instead of half and a smaller purse. It is
+        // the world's memory, not the character's: anyone is offered it, a successor too, and a world where no known guard has
+        // fallen or been maimed never offers it
         {
           id: "opt_guild_clerk_escort_careful",
           name: "길을 조심스레 간다",
-          requires: { op: "and", of: [GUARD_WANTED, { op: "signal", key: "guards_fallen", min: 1 }, STAMINA_AT_LEAST(2)] },
+          requires: { op: "and", of: [GUARD_WANTED, { op: "or", of: [{ op: "signal", key: "guards_fallen", min: 1 }, { op: "signal", key: "guards_maimed", min: 1 }] }, STAMINA_AT_LEAST(2)] },
           check: { stat: "str", skill: "swordsmanship", tags: ["combat"], difficulty: "easy" },
           minutes: 1440,
           outcomes: payStamina(2, {
@@ -2506,6 +2519,8 @@ export const worldData = {
     txt_guild_clerk_kit_offer: "서기는 뒤편 궤짝을 턱으로 가리킨다. 돌아오지 못한 호위가 지녔던 물건을 조합이 거두어 두었고, 이어 가는 이에게는 반값에 내준다고 한다.",
     txt_guild_clerk_kit_steel: "서기는 궤짝에서 기름 먹인 강철 검을 꺼내 건넨다. 주인이 누구였는지는 말하지 않고, 은화 열두 닢을 받아 장부에 적는다.",
     txt_guild_clerk_kit_mail: "서기는 궤짝에서 사슬 갑옷을 꺼내 건넨다. 주인이 누구였는지는 말하지 않고, 은화 스물네 닢을 받아 장부에 적는다.",
+    txt_guild_clerk_careful_offer_maimed: "서기가 목소리를 낮춘다. 얼마 전 호위 하나가 깊은 상처를 안고 길에서 돌아왔으니, 서두르지 말고 날을 넘겨 천천히 길을 가는 방법도 있다고, 품삯은 적어도 다칠 일은 덜하다고 한다.",
+    txt_guild_clerk_maimed: "서기는 장부의 다른 줄을 손가락으로 짚는다. 조합이 믿던 호위 하나가 길에서 깊은 상처를 입고 돌아왔다고, 그런 상처는 하룻밤으로 낫지 않으니 몸부터 챙기라고 한다.",
     txt_guild_clerk_fallen: "서기는 장부의 한 줄을 손가락으로 짚는다. 조합이 믿던 호위 하나가 길에서 돌아오지 못했다고, 이 일은 그만큼 위험하다고 한다.",
     txt_rest_wound_closes: "하룻밤 쉬고 나니 옆구리의 상처가 가라앉았다.",
     txt_rest_deep_wound_stays: "깊은 상처는 쉬어도 더디게 아문다. 약초 연고가 있으면 한결 빠를 것 같다.",
