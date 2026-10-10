@@ -17,6 +17,17 @@ const { createInitialState, step } = await import(at("core/engine.js"));
 const { evaluateCondition } = await import(at("core/rules.js"));
 const { worldData: d } = await import(at("data/world.js"));
 
+// MG-046.1 step 0 (#318): TRUST_RULE="<T>,<X>" measures a candidate trust rule on an in-memory copy of the pack, not in the
+// game: the danger job also needs the guild's standing >= T, and a failed danger job costs X standing. Unset: the pack as it is
+const TRUST_RULE = process.env.TRUST_RULE ? process.env.TRUST_RULE.split(",").map(Number) : null;
+const DANGER_OPT = d.choices.choice_guild_clerk_dialogue.options.find((o) => o.id === "opt_guild_clerk_escort_danger");
+const DANGER_AS_IS = structuredClone(DANGER_OPT.requires); // the pack's own condition, to count what the trust gate alone closes
+if (TRUST_RULE) {
+  const [T, X] = TRUST_RULE;
+  // the condition object is shared with the clerk's offer line, so both see the gate
+  if (T > 10) DANGER_OPT.requires.of.push({ op: "relation", from: "npc_guild_clerk", to: "self", min: T });
+  if (X > 0) DANGER_OPT.outcomes.fail.push({ op: "relation", from: "npc_guild_clerk", add: -X });
+}
 const SEEDS = JSON.parse(readFileSync(new URL("./seeds.json", import.meta.url), "utf8")).slice(+process.argv[2], +process.argv[3]);
 const DICE = +process.argv[4], DAYS = +process.argv[5], POLS = process.argv[6].split(","), LEADER_DEAD = process.argv[7] === "dead";
 const P = (a) => ({ type: "perform", actionId: a }), M = (to) => ({ type: "move", to }), C = (o) => ({ type: "choose", optionId: o }), E = (o) => [P("act_talk_elder"), C(o)];
@@ -78,7 +89,7 @@ function career(pol, seed, k) {
   if (LEADER_DEAD) s.actors.npc_bandit_leader.alive = false; // a staged world: the leader dead (stated in the report)
   s.rng.cursor += k * 11;
   const t0 = s.time.minute;
-  const m = { convoys: 0, deaths: 0, known: 0, deepNew: 0, lives: 1, gearDay: null, dz: [0, 0, 0], offered: [0, 0, 0], decisions: 0, beliefKnown: 0, exact: 0, wrongSafe: 0, wrongDanger: 0, ageSum: 0, asks: 0, asksUnknown: 0, dangerUnknown: 0, lost0: s.signals?.caravans_unguarded ?? 0 };
+  const m = { convoys: 0, deaths: 0, known: 0, deepNew: 0, lives: 1, gearDay: null, dz: [0, 0, 0], offered: [0, 0, 0], decisions: 0, beliefKnown: 0, exact: 0, wrongSafe: 0, wrongDanger: 0, ageSum: 0, asks: 0, asksUnknown: 0, dangerUnknown: 0, eligible: 0, gateBlocked: 0, trustLost: 0, lost0: s.signals?.caravans_unguarded ?? 0 };
   let lastAsk = -99;
   for (let guard = 0; (s.time.minute - t0) / 1440 < DAYS && guard < 6000; guard++) {
     if (s.pending?.kind === "newCharacter") { s = run(s, [NEW, ...WALK]); m.lives++; lastAsk = -99; mind.told = []; mind.seen = []; continue; }
@@ -104,6 +115,8 @@ function career(pol, seed, k) {
       }
     }
     const dangerOpen = ok(s, "opt_guild_clerk_escort_danger");
+    // the trust gate: the pack's own condition holds, the candidate rule's gate closes it
+    if (evaluateCondition(DANGER_AS_IS, { state: s, data: d, actorId: s.player.actorId, contextKind: "player" })) { m.eligible++; if (!dangerOpen) m.gateBlocked++; }
     let takeDanger = false;
     if (dangerOpen) {
       const b = Pc.dz === "always" || Pc.dz === "never" ? null : Pc.lag ? lagBelief(s, mind) : belief(s, Pc.coarse);
@@ -124,7 +137,9 @@ function career(pol, seed, k) {
     const pick = takeDanger ? "opt_guild_clerk_escort_danger" : ok(s, "opt_guild_clerk_escort_lead") ? "opt_guild_clerk_escort_lead" : "opt_guild_clerk_escort";
     if (!ok(s, pick)) { s = run(s, [{ type: "wait", minutes: 480 }]); continue; }
     const wasDeep = deep(s), fallen0 = s.signals?.guards_fallen ?? 0;
+    const standing0 = standing(s);
     s = run(s, talk(pick)); m.convoys++;
+    if (!s.pending && standing(s) < standing0) m.trustLost += standing0 - standing(s);
     if (!s.pending) { // what the ride showed: the word the game itself wrote, read from the guard's knowledge
       const saw = Object.values(s.knowledge?.[s.player.actorId] ?? {}).find((w) => w.factId === "fact_road_north" && w.source === "obs_road_north" && w.lastSeenDay === day(s));
       if (saw) mind.seen.push({ day: day(s), conf: 90, level: CLAIM[saw.claim] });
@@ -139,5 +154,5 @@ function career(pol, seed, k) {
   return m;
 }
 const out = [];
-for (const pol of POLS) for (const seed of SEEDS) for (let k = 0; k < DICE; k++) out.push({ pol, seed, k, ...career(pol, seed, k) });
+for (const pol of POLS) for (const seed of SEEDS) for (let k = 0; k < DICE; k++) out.push({ pol, seed, k, rule: process.env.TRUST_RULE ?? "", ...career(pol, seed, k) });
 console.log(JSON.stringify(out));

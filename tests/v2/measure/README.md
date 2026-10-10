@@ -11,6 +11,18 @@
 | `seeds.json` | 세계 seed 40개(`inj-*`, Death & Injury 측정과 같은 표본) |
 | `agg.py` | 행을 모아 정책별 표, 휴식 선을 따라 간 경계, 같은 휴식 선끼리의 차이를 낸다(세계 단위 부트스트랩 95%, 2000회, 난수 7) |
 
+## Trust Leverage 0단계 (MG-046.1, #318)
+
+`TRUST_RULE="<T>,<X>"`를 주면 측정기가 팩의 **메모리 사본**에 후보 규칙을 덧댄다. 게임 파일은 바뀌지 않는다.
+- 위험한 호위는 신뢰 T 이상에서만 열린다(T ≤ 10이면 관문 없음).
+- 위험한 호위에 실패하면 신뢰를 X 잃는다.
+- 행에는 `rule`, `eligible`, `gateBlocked`, `trustLost`가 더해진다.
+- 설계와 판정 기준은 `docs/v2/trust-leverage-step0-design.md`에 있다.
+
+```sh
+TRUST_RULE=50,20 node tests/v2/measure/road-news-careers.mjs 0 10 8 120 blindD_r4,infoAvoid_r4 > /tmp/rn/t50x20_0.json
+```
+
 ## 재현
 
 ```sh
