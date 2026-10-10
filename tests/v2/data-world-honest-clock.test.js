@@ -62,7 +62,7 @@ const firstMinute = town.fired.evt_caravan.lastMinute;
 function testWhich() {
   assert.deepStrictEqual(validateData(worldData), []);
   const on = Object.keys(worldData.events).filter((id) => worldData.events[id].catchUp === true).sort();
-  assert.deepStrictEqual(on, ["evt_bandits_tale", "evt_bandits_word_north", "evt_caravan", "evt_fallen_word_south", "evt_well_tale", "evt_well_word_north"]);
+  assert.deepStrictEqual(on, ["evt_bandits_tale", "evt_bandits_word_north", "evt_caravan", "evt_fallen_word_south", "evt_road_north", "evt_well_tale", "evt_well_word_north"]); // V2-Core-125: the road's condition, at the caravans' cadence
   for (const id of on) assert.ok(Number.isInteger(worldData.events[id].cooldown), `${id} has a cooldown to count`);
   for (const id of ["evt_town_flour_demand", "evt_mill_flour_stock", "evt_spring_miasma", "evt_ruins_hazard"]) {
     assert.strictEqual(worldData.events[id].catchUp, undefined, `${id} does not catch up`);

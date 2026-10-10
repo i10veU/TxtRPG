@@ -62,7 +62,7 @@ function testAssessment() {
   // no work, no assessment
   const guarded = variant(town, (c) => { c.signals.guards_hired = 1; });
   const t = texts(run(guarded, ASK).log[1]);
-  assert.deepStrictEqual(t, ["txt_guild_clerk_no_work"]);
+  assert.deepStrictEqual(t, ["txt_guild_clerk_no_work", "txt_guild_yard_road_quiet", "txt_guild_clerk_road_for_known"], "no assessment (V2-Core-125: the road's news is not an assessment)");
 }
 
 // 2. asking changes nothing: the same escort, the same outcome

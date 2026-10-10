@@ -148,7 +148,9 @@ function testValidator() {
 function testRealPack() {
   assert.deepStrictEqual(validateData(worldData), []);
   const { state } = start(worldData, "frontier-canonical-4");
-  assert.deepStrictEqual(state.facts, { fact_ruins_secret: { value: "unknown", since: 0 } });
+  // V2-Core-125 (#307): and the world's place on the road's course, picked from its own stream like any `pickFrom`
+  const course = nextUint32({ seed: deriveSeed("frontier-canonical-4", "fact:fact_road_course"), cursor: 0 }).value % 40;
+  assert.deepStrictEqual(state.facts, { fact_ruins_secret: { value: "unknown", since: 0 }, fact_road_course: { value: course, since: 0 } });
 
   const oldSave = structuredClone(state);
   delete oldSave.facts;
@@ -157,6 +159,7 @@ function testRealPack() {
   const withoutSeeded = (s) => {
     const copy = structuredClone(s);
     if (copy.facts?.fact_ruins_secret?.value === "unknown") delete copy.facts.fact_ruins_secret;
+    delete copy.facts?.fact_road_course; // read only once the road is walked (V2-Core-125)
     if (copy.facts && Object.keys(copy.facts).length === 0) delete copy.facts;
     return copy;
   };

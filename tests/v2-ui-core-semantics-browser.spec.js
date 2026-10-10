@@ -70,11 +70,11 @@ test.describe("V2 core semantics investigation (completeWhen / relation rule whe
     await page.evaluate((s) => window.__v2App.newGame(s), SEED);
     await expect(page.locator("#game")).toBeVisible();
     const fresh = await getState(page);
-    expect(fresh.facts).toEqual({ fact_ruins_secret: { value: "unknown", since: 0 } });
+    expect(fresh.facts).toEqual({ fact_ruins_secret: { value: "unknown", since: 0 }, fact_road_course: { value: 28, since: 0 } }); // V2-Core-125: and the road's course, picked
     expect(fresh.cases).toBeUndefined();
     expect(fresh.relations ?? {}).toEqual({});
     const pack = await page.evaluate(async () => (await import("/v2/data/world.js")).worldData);
-    expect(pack.facts).toEqual({ fact_ruins_secret: { initial: "unknown" }, fact_bandits_fate: {}, fact_leader_wound: {}, fact_well_source: {}, fact_spring_cause: {}, fact_spring_fouler: {}, fact_well_fate: {}, fact_road_hamlet: {}, fact_road_ford: {}, fact_road_royal: {}, fact_leader_trail: {}, fact_bandit_toll: {}, fact_realm_levy: {}, fact_realm_fair: {}, fact_realm_unrest: {}, fact_leader_crossed: {}, fact_leader_bounty: {}, fact_royal_city: {} }); // V2-Core-45, V2-Core-55, V2-Core-64 (the well's two), V2-Core-68, V2-Core-69, V2-Core-72 (the crossroads' five) and V2-Core-74 (the river's six): no `initial`
+    expect(pack.facts).toEqual({ fact_ruins_secret: { initial: "unknown" }, fact_bandits_fate: {}, fact_leader_wound: {}, fact_well_source: {}, fact_spring_cause: {}, fact_spring_fouler: {}, fact_well_fate: {}, fact_road_hamlet: {}, fact_road_ford: {}, fact_road_royal: {}, fact_leader_trail: {}, fact_bandit_toll: {}, fact_realm_levy: {}, fact_realm_fair: {}, fact_realm_unrest: {}, fact_leader_crossed: {}, fact_leader_bounty: {}, fact_royal_city: {}, fact_road_north: {}, fact_road_course: { initial: { pickFrom: Array.from({ length: 40 }, (_, i) => i) } } }); // V2-Core-45, V2-Core-55, V2-Core-64 (the well's two), V2-Core-68, V2-Core-69, V2-Core-72 (the crossroads' five), V2-Core-74 (the river's six) and V2-Core-125 (the road's condition): no `initial`; V2-Core-125 the road's course: a `pickFrom`
     expect(pack.cases).toBeUndefined();
     expect(pack.rules.relation).toBeUndefined();
     expect(JSON.stringify(pack)).not.toContain("completeWhen");

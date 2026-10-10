@@ -424,6 +424,8 @@ const GUARD_PAID = (pay, extra) => [
   { op: "signal", key: "guards_hired", add: 1 },
   { op: "money", add: pay },
   ...extra,
+  // V2-Core-125 (#307): what the road was like
+  ROAD_SEEN,
   { op: "move", to: "loc_far_bank" }
 ];
 // V2-Core-92 (#226): the guild knows a guard -- the clerk's standing with this character (their own edge, D-71:
@@ -438,6 +440,64 @@ const LEAD_REMEMBERS = [
   { op: "if", when: GUILD_KNOWS, then: [{ op: "money", add: 1 }, say("txt_escort_known_bonus")] },
   { op: "relation", from: "npc_guild_clerk", add: 10 }
 ];
+// V2-Core-125 (#307, Road News step 1a): the road to the ford has a condition -- a world number `road_trouble`, 0 quiet /
+// 1 uneasy / 2 dangerous, and the fact `fact_road_north` that names it. Each caravan cycle it moves at most one step: it
+// eases, holds or worsens as a 2d10 world roll would against 10 once the bandit leader is dead (64% / 21% / 15%) and against
+// 12 while he lives (45% / 27% / 28%). The rolls are drawn once, not at play time: two courses of forty cycles in exactly
+// those proportions, in an order whose long-run shares of quiet / uneasy / dangerous are the roll's own (within a point: 78 / 18
+// / 4 and 50 / 31 / 19 %), fixed here; each world starts its course at its own place (`fact_road_course`, seeded
+// at creation from its own stream, D-76). A roll at play time would draw the world's dice and move every later roll in the
+// world (tried, #307: the escorts of eight pinned scenarios and their browser twins, and the Death & Injury samples). A save
+// from before has no course fact and starts at the first place. Nothing says who or why. Only the danger job feels it: what a failed one costs (2 / 4 / 7) and,
+// on a dangerous road, what it pays (+3). The ordinary escort, the lead and the careful way cost what they did -- measured
+// (#307): a +1 on the ordinary and lead jobs' dangerous road cut what the careful way saves a guard who rides it only when
+// hurt from 55% to 39% of the known guards' deaths (Death & Injury, #297), where the danger job alone leaves it as it was
+// and the news worth as much. Provisional game values (R-29), set on the Step 0 measurements (#306)
+const ROAD = (n) => ({ op: "signal", key: "road_trouble", eq: n });
+const byRoad = (quiet, uneasy, dangerous) => ({ op: "if", when: ROAD(2), then: dangerous, else: [{ op: "if", when: ROAD(1), then: uneasy, else: quiet }] });
+const ROAD_FACT = byRoad(
+  [{ op: "fact", fact: "fact_road_north", set: "quiet" }],
+  [{ op: "fact", fact: "fact_road_north", set: "uneasy" }],
+  [{ op: "fact", fact: "fact_road_north", set: "dangerous" }]
+);
+const ROAD_EASES = [{ op: "if", when: { op: "signal", key: "road_trouble", min: 1 }, then: [{ op: "signal", key: "road_trouble", add: -1 }] }];
+const ROAD_WORSENS = [{ op: "if", when: { op: "signal", key: "road_trouble", max: 1 }, then: [{ op: "signal", key: "road_trouble", add: 1 }] }];
+const ROAD_CYCLE = 40;
+const ROAD_COURSE_FREE = "PEPEEEEEEEFFEEFFEEPEEEFEEEEPEPEPEEPEEPEF"; // 26 E / 8 P / 6 F: 78 / 18 / 5 % quiet / uneasy / dangerous over the cycle
+const ROAD_COURSE_WATCHED = "FFPPFFEPPEEEEEFPPEPEEEFEEPFEFEEPEPFEFFPE"; // 18 E / 11 P / 11 F: 50 / 30 / 20 %
+const ROAD_PHASE = (k) => ({ op: "signal", key: "road_phase", eq: k });
+const roadMoves = (course) => [...course].flatMap((move, k) => (move === "P" ? [] : [{ op: "if", when: ROAD_PHASE(k), then: move === "E" ? ROAD_EASES : ROAD_WORSENS }]));
+const ROAD_TURN = [
+  // the first turn finds the world's place on the course (a save from before: the first place)
+  {
+    op: "if",
+    when: { op: "signal", key: "road_started", max: 0 },
+    then: [
+      ...Array.from({ length: ROAD_CYCLE - 1 }, (_, i) => ({ op: "if", when: { op: "fact", fact: "fact_road_course", min: i + 1 }, then: [{ op: "signal", key: "road_phase", add: 1 }] })),
+      { op: "signal", key: "road_started", add: 1 }
+    ]
+  },
+  { op: "if", when: LEADER_LIVES, then: roadMoves(ROAD_COURSE_WATCHED), else: roadMoves(ROAD_COURSE_FREE) },
+  ROAD_FACT,
+  { op: "signal", key: "road_phase", add: 1 },
+  { op: "if", when: { op: "signal", key: "road_phase", min: ROAD_CYCLE }, then: [{ op: "signal", key: "road_phase", add: -ROAD_CYCLE }] }
+];
+// the road's condition as a character hears or sees it: one rumour per condition (a different claim under one rumour id
+// would be ignored at equal confidence, D-14), from the given source
+const ROAD_NEWS = (source, confidence) => byRoad(
+  [{ op: "rumor", rumor: "rum_road_quiet", source, confidence }],
+  [{ op: "rumor", rumor: "rum_road_uneasy", source, confidence }],
+  [{ op: "rumor", rumor: "rum_road_dangerous", source, confidence }]
+);
+// a guard who rides the road sees it (after the escort's own outcome; a guard the road killed sees nothing)
+const ROAD_SEEN = {
+  op: "if",
+  when: { op: "alive", subject: "self" },
+  then: [ROAD_NEWS("obs_road_north", 90), byRoad([say("txt_road_seen_quiet")], [say("txt_road_seen_uneasy")], [say("txt_road_seen_dangerous")])]
+};
+// the danger job, done on a dangerous road, is paid for it (+3)
+const DANGER_ROAD_BONUS = { op: "if", when: ROAD(2), then: [{ op: "money", add: 3 }, say("txt_danger_road_bonus")] };
+const ROAD_HURT = (quiet, uneasy, dangerous) => byRoad([{ op: "hp", add: -quiet }], [{ op: "hp", add: -uneasy }], [{ op: "hp", add: -dangerous }]);
 // V2-Core-118 (#291): the guild's held share of a fallen guard's purse (WB-0027). `if`s are unrolled (the pack has no
 // arithmetic Effect): the share recorded is min(floor(wallet / 2), 12); a claim moves up to 12 of what is held to the claimant
 const ESTATE_SHARE_CAP = 12;
@@ -635,6 +695,9 @@ export const worldData = {
         ...CLAMP_OWED
       ]
     },
+    // V2-Core-125 (#307, Road News step 1a): the road's condition moves with the caravans' cadence -- one turn per cycle,
+    // a worse course while the leader lives. A save from before starts quiet and turns at its next step (a first firing)
+    evt_road_north: { trigger: { op: "flag", key: "road_walked" }, cooldown: 4320, catchUp: true, effects: ROAD_TURN },
     // V2-Core-102 (#251): the guild remembers a guard it knew who did not come back. Fires in the very step that
     // kills the player (the trigger pass runs before the game asks for a new character); it counts a world number,
     // not a person -- no name, no fate, nothing a successor inherits (D-71)
@@ -1789,8 +1852,24 @@ export const worldData = {
             { op: "if", when: { op: "or", of: [{ op: "signal", key: "kit_steel", min: 1 }, { op: "signal", key: "kit_mail", min: 1 }] }, then: [say("txt_guild_clerk_kit_offer")] },
             // V2-Core-118 (#291): and what the guild kept of what they carried in silver
             { op: "if", when: { op: "signal", key: "estate_held", min: 1 }, then: [say("txt_guild_clerk_estate_offer")] },
+            // V2-Core-125 (#307, Road News step 1a): the road's condition -- the exact word from the guild's ledger for a guard
+            // the guild knows (10), the yard's talk (quiet or unsettled, nothing finer) for anyone else
+            {
+              op: "if",
+              when: GUILD_KNOWS,
+              then: [ROAD_NEWS("npc_guild_clerk", 80), byRoad([say("txt_guild_clerk_road_quiet")], [say("txt_guild_clerk_road_uneasy")], [say("txt_guild_clerk_road_dangerous")])],
+              else: [
+                {
+                  op: "if",
+                  when: { op: "signal", key: "road_trouble", min: 1 },
+                  then: [{ op: "rumor", rumor: "rum_road_talk_unsettled", source: "src_guild_hall_talk", confidence: 40 }, say("txt_guild_yard_road_unsettled")],
+                  else: [{ op: "rumor", rumor: "rum_road_talk_quiet", source: "src_guild_hall_talk", confidence: 40 }, say("txt_guild_yard_road_quiet")]
+                },
+                say("txt_guild_clerk_road_for_known")
+              ]
+            },
             // V2-Core-97 (#237): the clerk sizes up a guard before the road -- what the player can judge by; the risk
-            // itself is unchanged (a failed escort costs 3 hp and may wound)
+            // itself is unchanged (a failed escort costs 3 hp and may wound; the danger job, since V2-Core-125, what the road does)
             {
               op: "if",
               when: GUARD_WANTED,
@@ -1874,10 +1953,11 @@ export const worldData = {
           check: { stat: "str", skill: "swordsmanship", tags: ["combat"], difficulty: "hard" },
           minutes: 720,
           outcomes: payStamina(3, {
-            great: GUARD_PAID(14, [say("txt_danger_great"), ...LEAD_REMEMBERS]),
-            success: GUARD_PAID(10, [say("txt_danger_success"), ...LEAD_REMEMBERS]),
+            great: GUARD_PAID(14, [say("txt_danger_great"), DANGER_ROAD_BONUS, ...LEAD_REMEMBERS]),
+            success: GUARD_PAID(10, [say("txt_danger_success"), DANGER_ROAD_BONUS, ...LEAD_REMEMBERS]),
+            // V2-Core-125 (#307): the hard convoy takes the road's condition hardest (2 / 4 / 7)
             fail: GUARD_PAID(2, [
-              { op: "hp", add: -3 },
+              ROAD_HURT(2, 4, 7),
               say("txt_danger_fail"),
               ...WOUND_ON_FAIL
             ])
@@ -2264,7 +2344,11 @@ export const worldData = {
     fact_realm_unrest: {},
     fact_leader_crossed: {},
     fact_leader_bounty: {},
-    fact_royal_city: {}
+    fact_royal_city: {},
+    // V2-Core-125 (#307): the road to the ford -- quiet / uneasy / dangerous, set at each turn (a save from before has none) --
+    // and the world's place on the road's course, drawn at creation from its own stream (a save from before has none: the first)
+    fact_road_north: {},
+    fact_road_course: { initial: { pickFrom: Array.from({ length: ROAD_CYCLE }, (_, i) => i) } }
   },
 
   rumors: {
@@ -2294,7 +2378,14 @@ export const worldData = {
     rum_realm_unrest: { factId: "fact_realm_unrest", claim: "known" },
     rum_leader_crossed: { factId: "fact_leader_crossed", claim: "far_bank" },
     rum_leader_bounty: { factId: "fact_leader_bounty", claim: "posted" },
-    rum_royal_city: { factId: "fact_royal_city", claim: "five_days_north" }
+    rum_royal_city: { factId: "fact_royal_city", claim: "five_days_north" },
+    // V2-Core-125 (#307): the road's condition, one rumour per condition (the clerk's ledger, or a guard's own eyes) --
+    // and the yard's talk, which tells only quiet from unsettled
+    rum_road_quiet: { factId: "fact_road_north", claim: "quiet" },
+    rum_road_uneasy: { factId: "fact_road_north", claim: "uneasy" },
+    rum_road_dangerous: { factId: "fact_road_north", claim: "dangerous" },
+    rum_road_talk_quiet: { factId: "fact_road_north", claim: "quiet" },
+    rum_road_talk_unsettled: { factId: "fact_road_north", claim: "unsettled" }
   },
 
   // Relation-edge/rumor-source IDs (§7.1/§8.3). An entry without `actor` is
@@ -2511,6 +2602,18 @@ export const worldData = {
     txt_danger_great: "험한 길목에서 호위들을 이끌어 독한 무리를 단번에 꺾는다. 상단은 짐 하나 잃지 않고 닿고, 상단주는 놀라 은화를 한 움큼 더 얹는다.",
     txt_danger_success: "호위들을 촘촘히 세워 험한 길을 뚫는다. 상단은 무사히 닿고, 위험한 일의 품삯이 넉넉히 치러진다.",
     txt_danger_fail: "독한 무리에게 호위가 밀린다. 상단은 간신히 닿지만 앞장선 몫만큼 크게 다치고, 품삯은 형편없이 깎인다.",
+    // V2-Core-125 (#307, Road News step 1a): the road's condition -- what the ledger says, what the yard says, what a guard saw.
+    // Provisional wording (R-29); nothing says who is on the road or why
+    txt_guild_clerk_road_quiet: "서기가 장부의 마지막 줄을 짚는다. 지난 상단들이 남긴 말로는 요즘 강나루 길이 조용하다고 한다. 장부에 적힌 것일 뿐, 다음 길까지 그렇다는 약속은 아니라고 덧붙인다.",
+    txt_guild_clerk_road_uneasy: "서기가 장부의 마지막 줄을 짚는다. 지난 상단들이 남긴 말로는 요즘 강나루 길이 어수선하다고 한다. 장부에 적힌 것일 뿐, 다음 길까지 그렇다는 약속은 아니라고 덧붙인다.",
+    txt_guild_clerk_road_dangerous: "서기가 장부의 마지막 줄을 짚는다. 지난 상단들이 남긴 말로는 요즘 강나루 길이 험하다고 한다. 장부에 적힌 것일 뿐, 다음 길까지 그렇다는 약속은 아니라고 덧붙인다.",
+    txt_guild_yard_road_quiet: "마당의 짐꾼들 사이에서는 요즘 강나루 길이 그럭저럭 괜찮다는 이야기가 오간다. 누가 직접 보고 한 말인지는 알 수 없다.",
+    txt_guild_yard_road_unsettled: "마당의 짐꾼들 사이에서는 요즘 강나루 길이 심상치 않다는 수군거림이 돈다. 얼마나 나쁜지, 누가 직접 보고 한 말인지는 알 수 없다.",
+    txt_guild_clerk_road_for_known: "길 사정을 더 물으니 서기는 고개를 젓는다. 장부에 적힌 길 사정은 조합이 아는 호위에게만 일러 준다고 한다.",
+    txt_road_seen_quiet: "오가는 내내 길섶은 조용했다. 적어도 이번 길에서는.",
+    txt_road_seen_uneasy: "길 곳곳에 누군가 머물다 간 흔적이 있었다. 이번 길은 어수선했다.",
+    txt_road_seen_dangerous: "길목마다 부서진 짐과 핏자국이 보였다. 이번 길은 험했다.",
+    txt_danger_road_bonus: "길이 험했던 만큼 조합이 웃돈으로 은화 세 닢을 얹어 준다.",
     txt_lead_great: "길 위에서 호위들을 부려 좀도둑들을 단번에 몰아낸다. 상단은 흠 하나 없이 강 건너 길목에 닿고, 상단주는 두둑한 웃돈을 얹는다.",
     txt_lead_success: "호위들을 앞뒤로 세워 길을 지킨다. 상단은 무사히 강 건너 길목에 닿고, 서기가 이끈 몫까지 쳐서 품삯을 내준다.",
     txt_lead_fail: "호위들을 이끌었으나 길에서 덤벼든 좀도둑들에게 밀린다. 상단은 간신히 닿지만 앞장선 몫만큼 상처를 입고, 품삯은 크게 깎인다.",

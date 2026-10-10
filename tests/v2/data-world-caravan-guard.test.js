@@ -68,7 +68,7 @@ function testClerk() {
   assert.deepStrictEqual(texts(run(town, CLERK("opt_guild_clerk_ask")).log[1])[0], "txt_guild_clerk_work"); // V2-Core-97: then the clerk's assessment
   const noCaravan = structuredClone(town);
   delete noCaravan.signals.caravan_visits;
-  assert.deepStrictEqual(texts(run(noCaravan, CLERK("opt_guild_clerk_ask")).log[1]), ["txt_guild_clerk_no_work"]);
+  assert.deepStrictEqual(texts(run(noCaravan, CLERK("opt_guild_clerk_ask")).log[1]), ["txt_guild_clerk_no_work", "txt_guild_yard_road_quiet", "txt_guild_clerk_road_for_known"]); // V2-Core-125: and the yard's talk of the road
   assert.strictEqual(offered(noCaravan, "opt_guild_clerk_escort"), false, "no caravan, no guard wanted");
   const tired = structuredClone(town);
   me(tired).growth.growth_wanderer.resources.stamina.current = 1;
@@ -108,7 +108,7 @@ function testOnePerCaravan() {
   const guarded = run(withStr(town, 20), CLERK("opt_guild_clerk_escort")).state;
   const back = run(guarded, [M("loc_castle_town")]).state;
   assert.strictEqual(offered(back, "opt_guild_clerk_escort"), false, "this caravan has its guard");
-  assert.deepStrictEqual(texts(run(back, CLERK("opt_guild_clerk_ask")).log[1]), ["txt_guild_clerk_no_work"]);
+  assert.deepStrictEqual(texts(run(back, CLERK("opt_guild_clerk_ask")).log[1]), ["txt_guild_clerk_no_work", "txt_guild_yard_road_quiet", "txt_guild_clerk_road_for_known"]);
   const later = run(back, [DAY, DAY, DAY]).state;
   assert.strictEqual(later.signals.caravan_visits, 2, "the next caravan");
   assert.strictEqual(offered(later, "opt_guild_clerk_escort"), true, "wants a guard again");
