@@ -324,10 +324,15 @@ function renderKnowledge(knowledge, pending) {
       told
     ];
     if (stale) parts.push("더 새 소식이 있음");
+    // V2-Core-135 (D-114): a word about a changing condition, as old as the pack says it holds, may no longer be true
+    const validDays = worldData.rumors?.[k.rumorId]?.validDays;
+    const expired = !stale && Number.isInteger(validDays) && today - when(k) >= validDays;
+    if (expired) parts.push("지금은 달라졌을 수 있음");
     const li = document.createElement("li");
     li.textContent = (relevant ? "[지금 선택과 관련] " : "") + parts.join(" · ");
     if (relevant) li.dataset.relevant = "true";
     if (stale) li.dataset.stale = "true";
+    if (expired) li.dataset.expired = "true";
     el.knowledge.appendChild(li);
   });
 }
