@@ -98,7 +98,7 @@ function testTown(threeSacks) {
   assert.ok(texts(run(town, MERCHANT("opt_town_merchant_ask")).log[1]).includes("txt_town_merchant_flour_wanted"));
   assert.strictEqual(run(town, [DAY, DAY, DAY, DAY, DAY, DAY, DAY]).state.signals.town_flour_wanted, 2, "an unmet want does not pile up");
   const sold = run(town, [...MERCHANT("opt_town_merchant_sell_flour"), ...MERCHANT("opt_town_merchant_sell_flour")]);
-  assert.strictEqual(me(sold.state).money, me(town).money + 8);
+  assert.strictEqual(me(sold.state).money, me(town).money + 12); // V2-Core-133 (#331): two sacks at 6
   assert.strictEqual(sold.state.signals.town_flour_wanted, 0);
   assert.strictEqual(canSell(sold.state), false, "the town has enough");
   const asked = texts(run(sold.state, MERCHANT("opt_town_merchant_ask")).log[1]);

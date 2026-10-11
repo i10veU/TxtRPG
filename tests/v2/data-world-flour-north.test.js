@@ -81,7 +81,7 @@ function testTown(carrying) {
   assert.ok(gain("choice_town_merchant_dialogue", "opt_town_merchant_sell_flour") > -gain("choice_miller_dialogue", "opt_miller_buy_flour"), "worth more in the town");
   const sold = run(town, MERCHANT("opt_town_merchant_sell_flour"));
   assert.deepStrictEqual(texts(sold.log[1]), ["txt_town_merchant_buy_flour"]);
-  assert.strictEqual(me(sold.state).money, me(town).money + 4);
+  assert.strictEqual(me(sold.state).money, me(town).money + 6); // V2-Core-133 (#331): the plain price is 6
   assert.strictEqual(me(sold.state).inventory.item_flour_sack ?? 0, 0);
   assert.deepStrictEqual(sold.state.facts, town.facts);
   assert.strictEqual(offered(sold.state, "choice_town_merchant_dialogue", "opt_town_merchant_sell_flour"), false, "nothing left to sell");
@@ -102,7 +102,7 @@ function testSaveAndDeterminism(town) {
   rich.actors.player_1.money = 10;
   const end = run(rich, path).state;
   assert.strictEqual(me(end).inventory.item_flour_sack, 1);
-  assert.strictEqual(me(end).money, 10 - 4 + 4);
+  assert.strictEqual(me(end).money, 10 - 4 + 6);
   assert.deepStrictEqual(validateState(end), []);
   const loaded = parseLoadedRecord(JSON.parse(JSON.stringify(buildSaveRecord("slot_flour", rich, { savedAt: 1 }))));
   assert.deepStrictEqual(loaded, rich);

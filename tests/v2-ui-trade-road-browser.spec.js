@@ -85,7 +85,7 @@ test.describe("V2 the road of trade (Slice 7 integrated: flour north, the want, 
     await move(page, "영주의 성읍");
     for (let i = 0; i < 2; i += 1) {
       await act(page, "성읍의 상인과 대화");
-      await option(page, "밀가루 자루를 판다 (은화 4)").click();
+      await option(page, "밀가루 자루를 판다 (은화 6)").click();
     }
     // back for more; the fair's news at the ford
     await move(page, "강 건너 길목");
@@ -119,10 +119,10 @@ test.describe("V2 the road of trade (Slice 7 integrated: flour north, the want, 
     await option(page, "강 남쪽 물건에 대해 묻는다").click();
     await expect(page.locator("#log")).toContainText("왕도의 큰 장으로 상단들이 곡식을 실어 올라가는 통에");
     await act(page, "성읍의 상인과 대화");
-    await option(page, "밀가루 자루를 판다 (은화 6)").click();
+    await option(page, "밀가루 자루를 판다 (은화 8)").click();
 
     const end = await getState(page);
-    expect(end.actors.player_1.money).toBe(20 - 6 + 8 + 6);
+    expect(end.actors.player_1.money).toBe(20 - 6 + 12 + 8); // V2-Core-133 (#331): 6 plain, 8 at the fair
     expect(end.actors.player_1.inventory.item_flour_sack ?? 0).toBe(0);
     expect(end).toEqual(await replayInPage(page, start, BY_HAND));
 

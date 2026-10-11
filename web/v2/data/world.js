@@ -1951,16 +1951,18 @@ export const worldData = {
         // trade flour only (an errand's sack for the elder exists only before the settlements trade)
         {
           id: "opt_town_merchant_sell_flour",
-          name: "밀가루 자루를 판다 (은화 4)",
+          name: "밀가루 자루를 판다 (은화 6)",
           requires: { op: "and", of: [HAMLET_TRADES, { op: "item", item: "item_flour_sack", min: 1 }, { op: "signal", key: "town_flour_wanted", min: 1 }, { op: "not", of: FAIR_TIME }] },
-          effects: [{ op: "money", add: 4 }, ...FLOUR_SOLD, say("txt_town_merchant_buy_flour")]
+          // V2-Core-133 (#331): 6 (was 4) -- a sack carried north pays for the fare (3) and leaves a silver (mill 2)
+          effects: [{ op: "money", add: 6 }, ...FLOUR_SOLD, say("txt_town_merchant_buy_flour")]
         },
         // V2-Core-86 (#207): the fair's price -- the same want, the same sack, more silver
         {
           id: "opt_town_merchant_sell_flour_fair",
-          name: "밀가루 자루를 판다 (은화 6)",
+          name: "밀가루 자루를 판다 (은화 8)",
           requires: { op: "and", of: [HAMLET_TRADES, { op: "item", item: "item_flour_sack", min: 1 }, { op: "signal", key: "town_flour_wanted", min: 1 }, FAIR_TIME] },
-          effects: [{ op: "money", add: 6 }, ...FLOUR_SOLD, say("txt_town_merchant_buy_flour_fair")]
+          // V2-Core-133 (#331): 8 (was 6) -- the fair's +2 over the plain price kept
+          effects: [{ op: "money", add: 8 }, ...FLOUR_SOLD, say("txt_town_merchant_buy_flour_fair")]
         },
         // V2-Core-132 (#328, D-113): the carrier's note -- a supplier the merchant knows (10) is given a note for the next
         // carriage (one crossing on his account); the sack it brings is bought even if the town's want has been met by then
@@ -2725,11 +2727,11 @@ export const worldData = {
     txt_town_told_spring: "샘에서 본 것을 들려준다. 정령이 아니라 사람이 사체를 치우고 정화제를 부었다고. 듣던 이들이 그 이야기를 서로에게 옮기기 시작한다.",
     txt_town_merchant_south_goods: "상인은 강 남쪽 약초는 이곳에서 보기 드물어 값을 잘 쳐 준다고 한다. 대신 철물은 북쪽에서 내려오니 성읍이 강 남쪽보다 싸다고 덧붙인다.",
     txt_town_merchant_buy_herb: "상인은 정화초를 이리저리 살피더니 은화 네 닢을 내준다.",
-    txt_town_merchant_buy_flour: "상인은 자루를 열어 밀가루를 손끝으로 비벼 본다. 강 남쪽 밀은 곱게 빻였다며 은화 네 닢을 내준다.",
+    txt_town_merchant_buy_flour: "상인은 자루를 열어 밀가루를 손끝으로 비벼 본다. 강 남쪽 밀은 곱게 빻였다며 은화 여섯 닢을 내준다.",
     txt_town_merchant_flour_wanted: "밀가루도 가져오면 사겠다고 한다. 성읍 빵집들이 강 남쪽 밀을 찾는다고.",
     txt_town_merchant_flour_enough: "밀가루는 지난번에 들어온 것으로 당분간 넉넉하다고 한다. 상단이 몇 번 오가고 나면 다시 찾을 거라고.",
     txt_town_merchant_flour_fair: "요즘은 밀가루 값이 올랐다고 한다. 왕도의 큰 장으로 상단들이 곡식을 실어 올라가는 통에 성읍에는 밀이 귀하다고.",
-    txt_town_merchant_buy_flour_fair: "상인은 자루를 반기며 은화 여섯 닢을 세어 준다. 큰 장이 끝나기 전에 더 가져오라고 한다.",
+    txt_town_merchant_buy_flour_fair: "상인은 자루를 반기며 은화 여덟 닢을 세어 준다. 큰 장이 끝나기 전에 더 가져오라고 한다.",
     txt_escort_known_bonus: "서기는 품삯에 은화 한 닢을 더 얹어 준다. 조합이 믿는 호위에게는 그만큼 더 쳐 준다고 한다.",
     txt_guild_clerk_knows_you: "서기는 장부를 넘기다 고개를 든다. 상단 사람들이 당신 이야기를 하더라고, 믿을 만한 호위라고 한다.",
     txt_escort_wound: "옆구리에 상처를 입었다. 칼을 들 때마다 당기지만, 하룻밤 푹 쉬면 가라앉을 것 같다.",
