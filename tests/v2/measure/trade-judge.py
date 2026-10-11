@@ -17,7 +17,8 @@ def by_seed(rows, pol, key):
     out = {}
     for r in rows:
         if r["pol"] == pol:
-            out.setdefault(r["seed"], []).append(key(r) if callable(key) else r[key])
+            # the unit is the world and its start (appendix C.5): trade has no dice, so worlds alone do not vary
+            out.setdefault(f'{r["seed"]}:{r["k"]}', []).append(key(r) if callable(key) else r[key])
     return out
 
 def mean(a):

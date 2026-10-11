@@ -578,6 +578,8 @@ const TOWN_FLOUR_FACT = { op: "if", when: TOWN_WANTS, then: [{ op: "fact", fact:
 const HAS_NOTE = { op: "item", item: "item_merchant_note", min: 1 };
 const NOTES_DOUBTED = { op: "signal", key: "ferry_note_doubt", min: 1 };
 const NOTE_MISUSED = { op: "relation", from: "npc_ferryman", to: "self", tag: "note_misused" };
+// and the ferryman does not forget it: that carrier's notes are refused for good (their own edge, D-71: not a successor's)
+const NOTES_REFUSED = { op: "relation", from: "npc_ferryman", to: "self", tag: "note_refused" };
 const MERCHANT_KNOWS = { op: "relation", from: "npc_town_merchant", to: "self", min: 10 };
 // the merchant's own word about his want, today
 const MERCHANT_FLOUR_WORD = {
@@ -586,13 +588,15 @@ const MERCHANT_FLOUR_WORD = {
   then: [{ op: "rumor", rumor: "rum_town_flour_wanted", source: "npc_town_merchant", confidence: 80, about: "now" }],
   else: [{ op: "rumor", rumor: "rum_town_flour_enough", source: "npc_town_merchant", confidence: 80, about: "now" }]
 };
-// a flour sale: the want falls, the fact follows, the merchant knows a supplier (+5); a held note is handed back
+// flour carried on the merchant's note (the note is the ferryman's once shown; the merchant remembers the carriage)
+const CARRYING = { op: "relation", from: "npc_town_merchant", to: "self", tag: "carrying" };
+// a flour sale: the want falls, the fact follows, the merchant knows a supplier (+5); a carriage on his note is done
 const FLOUR_SOLD = [
   { op: "item", item: "item_flour_sack", add: -1 },
   { op: "if", when: TOWN_WANTS, then: [{ op: "signal", key: "town_flour_wanted", add: -1 }] },
   TOWN_FLOUR_FACT,
   { op: "relation", from: "npc_town_merchant", add: 5 },
-  { op: "if", when: HAS_NOTE, then: [{ op: "item", item: "item_merchant_note", add: -1 }, say("txt_town_merchant_note_back")] }
+  { op: "if", when: CARRYING, then: [{ op: "relation", from: "npc_town_merchant", untag: "carrying" }, say("txt_town_merchant_note_back")] }
 ];
 // what a caravan does at the ford (only once the settlements trade): the town's word to the ferryman (`town_word_south`
 // 1 wanted / 2 enough), then the frontier's flour north, the carrier's account settled, a misused note answered for
@@ -628,7 +632,8 @@ const CARAVAN_AT_THE_FORD = {
       then: [
         { op: "relation", from: "npc_ferryman", untag: "note_misused" },
         { op: "relation", from: "npc_town_merchant", add: -15 },
-        { op: "if", when: HAS_NOTE, then: [{ op: "item", item: "item_merchant_note", add: -1 }] }
+        { op: "if", when: HAS_NOTE, then: [{ op: "item", item: "item_merchant_note", add: -1 }] },
+        { op: "if", when: CARRYING, then: [{ op: "relation", from: "npc_town_merchant", untag: "carrying" }] }
       ]
     }
   ]
@@ -1855,9 +1860,11 @@ export const worldData = {
         {
           id: "opt_ferryman_cross_note",
           name: "상인의 짐표를 보이고 밀가루를 싣는다",
-          requires: { op: "and", of: [HAS_NOTE, { op: "item", item: "item_flour_sack", min: 1 }, { op: "not", of: NOTES_DOUBTED }, { op: "not", of: NOTE_MISUSED }] },
+          requires: { op: "and", of: [HAS_NOTE, { op: "item", item: "item_flour_sack", min: 1 }, { op: "not", of: NOTES_DOUBTED }, { op: "not", of: NOTES_REFUSED }] },
           minutes: 30,
           effects: [
+            { op: "item", item: "item_merchant_note", add: -1 },
+            { op: "relation", from: "npc_town_merchant", tag: "carrying" },
             { op: "signal", key: "merchant_ferry_account", add: 3 },
             { op: "relation", from: "npc_ferryman", add: 2 },
             { op: "move", to: "loc_far_bank" },
@@ -1868,12 +1875,14 @@ export const worldData = {
         {
           id: "opt_ferryman_cross_note_empty",
           name: "짐 없이 상인의 짐표를 내민다",
-          requires: { op: "and", of: [HAS_NOTE, { op: "not", of: { op: "item", item: "item_flour_sack", min: 1 } }, { op: "not", of: NOTES_DOUBTED }, { op: "not", of: NOTE_MISUSED }] },
+          requires: { op: "and", of: [HAS_NOTE, { op: "not", of: { op: "item", item: "item_flour_sack", min: 1 } }, { op: "not", of: NOTES_DOUBTED }, { op: "not", of: NOTES_REFUSED }] },
           minutes: 30,
           effects: [
+            { op: "item", item: "item_merchant_note", add: -1 },
             { op: "signal", key: "merchant_ferry_account", add: 3 },
             { op: "signal", key: "ferry_note_doubt", add: 1 },
             { op: "relation", from: "npc_ferryman", add: -10, tag: "note_misused" },
+            { op: "relation", from: "npc_ferryman", tag: "note_refused" },
             { op: "move", to: "loc_far_bank" },
             say("txt_ferryman_note_misused")
           ]
@@ -1953,18 +1962,18 @@ export const worldData = {
           requires: { op: "and", of: [HAMLET_TRADES, { op: "item", item: "item_flour_sack", min: 1 }, { op: "signal", key: "town_flour_wanted", min: 1 }, FAIR_TIME] },
           effects: [{ op: "money", add: 6 }, ...FLOUR_SOLD, say("txt_town_merchant_buy_flour_fair")]
         },
-        // V2-Core-132 (#328, D-113): the carrier's note -- a supplier the merchant knows (10) is asked for flour while the
-        // town wants it, and the sack the note promises is bought even if the want has been met by the time it comes
+        // V2-Core-132 (#328, D-113): the carrier's note -- a supplier the merchant knows (10) is given a note for the next
+        // carriage (one crossing on his account); the sack it brings is bought even if the town's want has been met by then
         {
           id: "opt_town_merchant_order",
           name: "밀가루를 대 주기로 하고 짐표를 받는다",
-          requires: { op: "and", of: [HAMLET_TRADES, MERCHANT_KNOWS, TOWN_WANTS, { op: "not", of: HAS_NOTE }] },
+          requires: { op: "and", of: [HAMLET_TRADES, MERCHANT_KNOWS, { op: "not", of: HAS_NOTE }, { op: "not", of: CARRYING }] },
           effects: [{ op: "item", item: "item_merchant_note", add: 1 }, say("txt_town_merchant_order")]
         },
         {
           id: "opt_town_merchant_sell_flour_note",
           name: "짐표대로 밀가루를 넘긴다 (은화 4)",
-          requires: { op: "and", of: [HAMLET_TRADES, HAS_NOTE, { op: "item", item: "item_flour_sack", min: 1 }, { op: "not", of: TOWN_WANTS }] },
+          requires: { op: "and", of: [HAMLET_TRADES, CARRYING, { op: "item", item: "item_flour_sack", min: 1 }, { op: "not", of: TOWN_WANTS }] },
           effects: [{ op: "money", add: 4 }, ...FLOUR_SOLD, say("txt_town_merchant_buy_flour_note")]
         }
       ]
@@ -2830,9 +2839,9 @@ export const worldData = {
     txt_ferryman_doubts_notes: "\"상인 짐표는 당분간 안 받소. 다음 상단 편에 그 양반 대답을 들어 봐야겠소.\"",
     txt_ferryman_cross_note: "뱃사공이 짐표를 보고 장부에 적는다. \"상인 앞으로 달아 두지. 셈은 상단이 치러 줄 거요.\"",
     txt_ferryman_note_misused: "뱃사공이 빈손과 짐표를 번갈아 본다. 말없이 장부에 적고 배를 민다. 상인에게도 이 이야기는 갈 것이다.",
-    txt_town_merchant_order: "상인이 짐표 한 장을 써 준다. \"밀가루를 가져오시오. 이걸 보이면 뱃삯은 내 앞으로 달아 줄 거요. 한 자루는 그때 사정이 어떻든 사겠소.\"",
-    txt_town_merchant_buy_flour_note: "상인이 짐표를 거둬 들이고 밀가루 값을 치른다. \"지금은 넉넉하지만, 약속은 약속이니.\"",
-    txt_town_merchant_note_back: "상인이 짐표를 거둬 들인다.",
+    txt_town_merchant_order: "상인이 짐표 한 장을 써 준다. \"다음에도 밀가루를 가져오시오. 이걸 보이면 뱃삯은 내 앞으로 달아 줄 거요. 그 짐의 한 자루는 그때 사정이 어떻든 사겠소.\"",
+    txt_town_merchant_buy_flour_note: "상인이 장부를 보고 밀가루 값을 치른다. \"지금은 넉넉하지만, 약속은 약속이니.\"",
+    txt_town_merchant_note_back: "상인이 짐표로 실어 온 짐을 장부에서 지운다.",
     lbl_rumor_rum_road_uneasy: "강나루 길이 어수선하다",
     lbl_rumor_rum_road_dangerous: "강나루 길이 험하다",
     lbl_rumor_rum_road_talk_quiet: "강나루 길이 그럭저럭 괜찮다",

@@ -3,12 +3,15 @@
 // a player does: by asking the ferryman or the merchant (real steps) and reading the character's own knowledge (`aboutDay`,
 // D-112, where it is known); they never read the world's signals. The measurement reads the world only to score decisions.
 //
-// Usage: node trade-careers.mjs <seedFrom> <seedTo> <days> <policy,...>
+// Usage: node trade-careers.mjs <seedFrom> <seedTo> <days> <policy,...> [starts]
 //   policies: blind (always carries two sacks, pays the fare, sells what the town takes), ferryInfo (asks the ferryman and the
 //   merchant, and holds back while the newest word says the town has enough), noteHonest (ferryInfo, and carries for the
 //   merchant on his note when he offers one)
 //   PACK_ROOT=<dir> measures the pack under <dir>/web/v2 (the pack before the change: blind only -- it has no word to ask for);
 //   SEEDS_FILE=<file in this folder> another set of worlds
+//   [starts]: K trading starts per world, the k-th START_STEP minutes (default 60) after the trade opens -- trade has no dice
+//   and the act-one path takes every world to the same minute, so the sample is the start against the caravans' cadence
+//   (appendix C.5); rows carry k
 // Each world: the act-one path to the opened trade (data-world-flour-north's, without the elder's letter -- a letter makes
 // every crossing free), then a trader's purse of twenty silver (staged, the same for every policy).
 import { readFileSync } from "node:fs";
@@ -20,7 +23,7 @@ const { createInitialState, step } = await import(at("core/engine.js"));
 const { evaluateCondition } = await import(at("core/rules.js"));
 const { worldData: d } = await import(at("data/world.js"));
 const SEEDS = JSON.parse(readFileSync(new URL(`./${process.env.SEEDS_FILE ?? "seeds.json"}`, import.meta.url), "utf8")).slice(+process.argv[2], +process.argv[3]);
-const DAYS = +process.argv[4], POLS = process.argv[5].split(",");
+const DAYS = +process.argv[4], POLS = process.argv[5].split(","), STARTS = +(process.argv[6] ?? 1), START_STEP = +(process.env.START_STEP ?? 60);
 
 const P = (a) => ({ type: "perform", actionId: a }), M = (to) => ({ type: "move", to }), C = (o) => ({ type: "choose", optionId: o }), E = (o) => [P("act_talk_elder"), C(o)];
 const MILLER = (o) => [P("act_talk_miller"), C(o)];
@@ -49,10 +52,11 @@ function belief(s) {
 // a policy holds back while its newest word, under a caravan's cadence old (3 days), says the town has enough
 const holdsBack = (s) => { const b = belief(s); return b !== null && b.claim === "enough" && b.age < 3; };
 
-function career(pol, seed) {
+function career(pol, seed, k) {
   const Pc = POLICIES[pol];
   if (!Pc) throw new Error(`unknown policy ${pol}`);
   let s = run(createInitialState({ worldSeed: seed, data: d }).state, TO_TRADE);
+  for (let left = k * START_STEP; left > 0; left -= 1440) s = run(s, [{ type: "wait", minutes: Math.min(1440, left) }]);
   s.actors[s.player.actorId].money = 20;
   const t0 = s.time.minute;
   const m = { trips: 0, bought: 0, sold: 0, fares: 0, noteCrossings: 0, notesTaken: 0, waits: 0, asks: 0, beliefs: 0, beliefRight: 0, arrivedUnsold: 0, heldBack: 0, wantAtArrival: 0 };
@@ -100,5 +104,5 @@ function career(pol, seed) {
 }
 
 const out = [];
-for (const pol of POLS) for (const seed of SEEDS) out.push({ pol, seed, k: 0, ...career(pol, seed) });
+for (const pol of POLS) for (const seed of SEEDS) for (let k = 0; k < STARTS; k++) out.push({ pol, seed, k, ...career(pol, seed, k) });
 console.log(JSON.stringify(out));

@@ -4,10 +4,10 @@
 //      without the player
 //   2. the ferryman passes the word on: the player learns what the town wanted *then*, heard today
 //   3. the word can be old: the world moves on, what the ferryman knows does not until the next caravan
-//   4. the carrier's note (X3-A): a supplier the merchant knows is asked for flour; the flour crosses on his account and
-//      one sack is bought even when the want is met; the note is handed back with the sale
-//   5. a note shown with nothing to carry: the ferryman sees it, doubts the merchant's notes until the next caravan, which
-//      brings the merchant's answer -- his note back and less regard for the carrier
+//   4. the carrier's note (X3-A): a supplier the merchant knows is given a note for the next carriage; the flour crosses on
+//      his account and the carriage's sack is bought even when the want is met; then the next note
+//   5. a note shown with nothing to carry: the ferryman sees it, doubts every note until the next caravan brings the
+//      merchant's answer (less regard for the carrier), and refuses that carrier's notes for good
 //   6. a real save from before (fixtures/save-before-ford-and-town.json, written by the pack at 000b535): it loads, and
 //      the next caravan starts the word
 //   7. save/load and determinism
@@ -124,7 +124,7 @@ function testTheWordGetsOld(atFordToldState) {
 function testTheNote(sold) {
   let s = run(sold, MERCHANT("opt_town_merchant_sell_flour")).state;
   assert.equal(rel(s, "npc_town_merchant"), 10, "two sacks: a supplier he knows");
-  s.signals.town_flour_wanted = Math.max(s.signals.town_flour_wanted, 1); // staged: the town wants (the note is asked for then)
+  // a standing order: given to a supplier he knows whatever the town wants today -- one note, one carriage
   assert.ok(atMerchant(s, "opt_town_merchant_order"));
   const noted = run(s, MERCHANT("opt_town_merchant_order"));
   assert.ok(texts(noted.log[1]).includes("txt_town_merchant_order"));
@@ -136,13 +136,15 @@ function testTheNote(sold) {
   const money = me(s).money;
   assert.ok(atFord(s, "opt_ferryman_cross_note"));
   assert.ok(!atFord(s, "opt_ferryman_cross_note_empty"), "with flour, only the honest way");
-  const crossed = run(s, FERRY("opt_ferryman_cross_note"));
-  s = crossed.state;
+  s = run(s, FERRY("opt_ferryman_cross_note")).state;
   assert.equal(me(s).money, money, "no fare");
+  assert.equal(me(s).inventory.item_merchant_note ?? 0, 0, "the note stays with the ferryman's book");
   assert.equal(s.signals.merchant_ferry_account, 3, "written down to the merchant");
   assert.equal(rel(s, "npc_ferryman"), 2);
+  assert.ok(s.relations[`npc_town_merchant:${s.player.actorId}`].tags.includes("carrying"));
+  assert.ok(!atMerchant(s, "opt_town_merchant_order"), "no new note while a carriage is under way");
   s = run(s, [M("loc_castle_town")]).state;
-  // the note's sack is bought even when the town has enough
+  // the carriage's sack is bought even when the town has enough; while it wants, it sells the ordinary way
   const full = structuredClone(s);
   full.signals.town_flour_wanted = 0;
   assert.ok(atMerchant(full, "opt_town_merchant_sell_flour_note"));
@@ -152,21 +154,22 @@ function testTheNote(sold) {
   assert.ok(!atMerchant(wanting, "opt_town_merchant_sell_flour_note"), "while the town wants, the sack sells the ordinary way");
   const kept = run(full, MERCHANT("opt_town_merchant_sell_flour_note"));
   assert.equal(me(kept.state).money, me(full).money + 4);
-  assert.equal(me(kept.state).inventory.item_merchant_note ?? 0, 0, "the note handed back");
   assert.ok(texts(kept.log[1]).includes("txt_town_merchant_note_back"));
+  assert.equal(kept.state.relations[`npc_town_merchant:${kept.state.player.actorId}`].tags?.includes("carrying") ?? false, false, "the carriage done");
   assert.equal(rel(kept.state, "npc_town_merchant"), 15);
-  // and the next caravan settles the account
+  assert.ok(atMerchant(kept.state, "opt_town_merchant_order"), "and the next note");
+  // the next caravan settles the account
   let t = kept.state;
   const cv = t.signals.caravan_visits;
   while (t.signals.caravan_visits === cv) t = run(t, [DAY]).state;
   assert.equal(t.signals.merchant_ferry_account ?? 0, 0, "the caravan brings the merchant's payment");
-  return s;
+  return kept.state;
 }
 
 // 5. the note shown with nothing to carry
 function testTheMisusedNote(inTown) {
-  let s = structuredClone(inTown);
-  delete s.actors.player_1.inventory.item_flour_sack; // staged: the flour sold, the note still held
+  let s = run(inTown, MERCHANT("opt_town_merchant_order")).state;
+  delete s.actors.player_1.inventory.item_flour_sack; // staged: nothing to carry, the note in hand
   s = run(s, [M("loc_far_bank"), M("loc_river_ford")]).state;
   assert.equal(me(s).inventory.item_merchant_note, 1);
   assert.ok(atFord(s, "opt_ferryman_cross_note_empty") && !atFord(s, "opt_ferryman_cross_note"));
@@ -175,22 +178,25 @@ function testTheMisusedNote(inTown) {
   s = misused.state;
   assert.ok(texts(misused.log[1]).includes("txt_ferryman_note_misused"));
   assert.equal(me(s).money, before.money, "it works once");
+  assert.equal(me(s).inventory.item_merchant_note ?? 0, 0);
   assert.equal(rel(s, "npc_ferryman"), before.ferry - 10);
   assert.equal(s.signals.ferry_note_doubt, 1);
-  // back at the ford: the notes are refused, and he says so
+  // back at the ford: every note is doubted until the merchant has answered, and he says so
   s = run(s, [M("loc_river_ford")]).state;
-  s.actors.player_1.inventory.item_flour_sack = 1; // staged: even with flour now
-  assert.ok(!atFord(s, "opt_ferryman_cross_note") && !atFord(s, "opt_ferryman_cross_note_empty"));
-  assert.ok(atFord(s, "opt_ferryman_cross"), "the fare is still taken");
-  // the next caravan: the merchant answers -- his note back, less regard; the account settled, the doubt lifted
+  const told = run(s, FERRY("opt_ferryman_news"));
+  assert.ok(texts(told.log[1]).includes("txt_ferryman_doubts_notes"));
+  // the next caravan: the merchant answers -- less regard; the account settled, the doubt lifted
   const cv = s.signals.caravan_visits;
   while (s.signals.caravan_visits === cv) s = run(s, [DAY]).state;
-  assert.equal(me(s).inventory.item_merchant_note ?? 0, 0, "the note taken back");
   assert.equal(rel(s, "npc_town_merchant"), before.merchant - 15);
   assert.equal(s.signals.ferry_note_doubt ?? 0, 0);
-  assert.equal(s.relations[`npc_ferryman:${s.player.actorId}`].tags?.includes("note_misused") ?? false, false);
-  // and the merchant does not ask this carrier again until regard is earned back (10)
-  assert.ok(rel(s, "npc_town_merchant") < 10);
+  assert.equal(s.relations[`npc_ferryman:${s.player.actorId}`].tags.includes("note_misused"), false);
+  // but the ferryman does not forget this carrier: a note from the merchant and flour to carry, still refused
+  const again = structuredClone(s);
+  again.actors.player_1.inventory.item_merchant_note = 1;
+  again.actors.player_1.inventory.item_flour_sack = 1;
+  assert.ok(!atFord(again, "opt_ferryman_cross_note") && !atFord(again, "opt_ferryman_cross_note_empty"));
+  assert.ok(atFord(again, "opt_ferryman_cross"), "the fare is still taken");
   assert.deepEqual(validateState(s), []);
 }
 
