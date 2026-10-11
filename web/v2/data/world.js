@@ -598,19 +598,13 @@ const FLOUR_SOLD = [
   { op: "relation", from: "npc_town_merchant", add: 5 },
   { op: "if", when: CARRYING, then: [{ op: "relation", from: "npc_town_merchant", untag: "carrying" }, say("txt_town_merchant_note_back")] }
 ];
-// what a caravan does at the ford (only once the settlements trade): the town's word to the ferryman (`town_word_south`
-// 1 wanted / 2 enough), then the frontier's flour north, the carrier's account settled, a misused note answered for
+// what a caravan does at the ford (only once the settlements trade): the frontier's flour north, then the town's word to the
+// ferryman as the caravan leaves it (`town_word_south` 1 wanted / 2 enough), the carrier's account settled, a misused note
+// answered for
 const CARAVAN_AT_THE_FORD = {
   op: "if",
   when: HAMLET_TRADES,
   then: [
-    { op: "signal", key: "town_word_south", add: -9 },
-    {
-      op: "if",
-      when: TOWN_WANTS,
-      then: [{ op: "rumor", rumor: "rum_town_flour_wanted", subject: "npc_ferryman", source: "npc_town_merchant", confidence: 70, about: "now" }, { op: "signal", key: "town_word_south", add: 1 }],
-      else: [{ op: "rumor", rumor: "rum_town_flour_enough", subject: "npc_ferryman", source: "npc_town_merchant", confidence: 70, about: "now" }, { op: "signal", key: "town_word_south", add: 2 }]
-    },
     { op: "signal", key: "caravan_took_flour", add: -9 },
     {
       op: "if",
@@ -624,6 +618,9 @@ const CARAVAN_AT_THE_FORD = {
         { op: "signal", key: "caravan_took_flour", add: 1 }
       ]
     },
+    // V2-Core-134 (#333): the town's word is passed on once the step's own changes are done (`evt_town_word_south`)
+    { op: "signal", key: "town_word_due", add: -9 },
+    { op: "signal", key: "town_word_due", add: 1 },
     { op: "signal", key: "merchant_ferry_account", add: -99 },
     { op: "signal", key: "ferry_note_doubt", add: -9 },
     {
@@ -844,6 +841,21 @@ export const worldData = {
       trigger: { op: "and", of: [HAMLET_TRADES, { op: "signal", key: "town_flour_wanted", max: 0 }] },
       cooldown: 4320,
       effects: [{ op: "signal", key: "town_flour_wanted", add: 2 }, TOWN_FLOUR_FACT]
+    },
+    // V2-Core-134 (#333): the town's want as the caravan leaves it, to the ferryman -- after the caravan's own sack and after
+    // the want's return (`evt_town_flour_demand`, earlier in the id-ascending pass), so the word is the want the step ends with
+    evt_town_word_south: {
+      trigger: { op: "and", of: [HAMLET_TRADES, { op: "signal", key: "town_word_due", min: 1 }] },
+      effects: [
+        { op: "signal", key: "town_word_south", add: -9 },
+        {
+          op: "if",
+          when: TOWN_WANTS,
+          then: [{ op: "rumor", rumor: "rum_town_flour_wanted", subject: "npc_ferryman", source: "npc_town_merchant", confidence: 70, about: "now" }, { op: "signal", key: "town_word_south", add: 1 }],
+          else: [{ op: "rumor", rumor: "rum_town_flour_enough", subject: "npc_ferryman", source: "npc_town_merchant", confidence: 70, about: "now" }, { op: "signal", key: "town_word_south", add: 2 }]
+        },
+        { op: "signal", key: "town_word_due", add: -9 }
+      ]
     },
     evt_mill_flour_stock: {
       trigger: { op: "and", of: [HAMLET_TRADES, { op: "signal", key: "mill_flour_stock", max: 0 }] },
