@@ -39,7 +39,7 @@ const POLICIES = {
   askAfter: { info: true, askAfter: true }, // asks the merchant after selling, so its newest word is the want it left
   consensus: { info: true, consensus: true }, // holds back only when the ferryman's and the merchant's newest words agree
   sourceTrack: { info: true, track: true }, // trusts the ferryman's "enough" only while his words have matched the merchant's
-  abstain: { info: true, abstain: true } // holds back also when it has no word under a cadence old
+  abstain: { info: true, abstain: true } // at the ford, holds back also when it has no word under a cadence old
 };
 
 const run = (s, l) => l.reduce((x, a) => step(x, a, d).state, s);
@@ -65,7 +65,7 @@ function belief(s, only) {
 // a policy holds back while its newest word, under a caravan's cadence old (3 days), says the town has enough
 const holdsBack = (s) => { const b = belief(s); return b !== null && b.claim === "enough" && b.age < 3; };
 // #335: the research policies' reading of the same words (the ferryInfo/noteHonest rule above is untouched)
-function holdsBackBy(s, Pc, track) {
+function holdsBackBy(s, Pc, track, atFord) {
   if (Pc.ignoreAge) { const b = belief(s); return b !== null && b.claim === "enough"; }
   if (Pc.consensus) {
     const f = belief(s, "npc_ferryman"), mm = belief(s, "npc_town_merchant");
@@ -76,7 +76,8 @@ function holdsBackBy(s, Pc, track) {
     if (!(b !== null && b.claim === "enough" && b.age < 3)) return false;
     return b.src !== "ferryman" || track.n < 3 || track.right / track.n >= 0.5;
   }
-  if (Pc.abstain) { const b = belief(s); return b === null || b.age >= 3 || b.claim === "enough"; }
+  // abstain: at the ford (where a word can be had) it also holds back on no word or one a cadence old; at the mill it reads as ferryInfo
+  if (Pc.abstain && atFord) { const b = belief(s); return b === null || b.age >= 3 || b.claim === "enough"; }
   return holdsBack(s);
 }
 
@@ -91,7 +92,7 @@ function career(pol, seed, k) {
   // #335 B3 diagnostics (appendix G; B3 itself is beliefs/beliefRight above, unchanged): at each crossing, the belief's age, whether
   // it was still under a cadence old, who said it, whether it was heard before the trader's own last sale, and what each teller's
   // newest word said against the want
-  const dg = { ageSum: 0, valid: 0, stale: 0, beforeOwnSale: 0, src: { merchant: [0, 0], ferryman: [0, 0] }, ferryNewest: [0, 0], merchantNewest: [0, 0] };
+  const dg = { ageSum: 0, valid: 0, stale: 0, beforeOwnSale: 0, src: { merchant: [0, 0], ferryman: [0, 0] }, ferryNewest: [0, 0], merchantNewest: [0, 0], byAge: [[0, 0], [0, 0], [0, 0], [0, 0]] };
   const track = { n: 0, right: 0 };
   let lastSaleDay = -1, ferryWordAtFord = null;
   const sell = () => {
@@ -111,7 +112,7 @@ function career(pol, seed, k) {
     // at the ford: the ferryman's word (a real step), and the same rule again
     if (Pc.info) {
       s = run(s, [P("act_talk_ferryman"), C("opt_ferryman_news")]); m.asks++;
-      if (holdsBackBy(s, Pc, track) && !has(s, "item_merchant_note")) { s = run(s, [M("loc_crossroads"), M("loc_mill_hamlet"), DAY]); m.waits++; m.heldBack++; continue; }
+      if (holdsBackBy(s, Pc, track, true) && !has(s, "item_merchant_note")) { s = run(s, [M("loc_crossroads"), M("loc_mill_hamlet"), DAY]); m.waits++; m.heldBack++; continue; }
     }
     const b = belief(s);
     const truth = (s.signals?.town_flour_wanted ?? 0) >= 1 ? "wanted" : "enough";
@@ -120,6 +121,7 @@ function career(pol, seed, k) {
       dg.ageSum += b.age; if (b.age < 3) dg.valid++; else dg.stale++;
       if (b.src === "merchant" && b.aboutDay <= lastSaleDay) dg.beforeOwnSale++;
       dg.src[b.src][0]++; if (b.claim === truth) dg.src[b.src][1]++;
+      const a = dg.byAge[Math.min(b.age, 3)]; a[0]++; if (b.claim === truth) a[1]++; // ages 0, 1, 2, 3+
     }
     for (const [who, slot] of [["npc_ferryman", "ferryNewest"], ["npc_town_merchant", "merchantNewest"]]) {
       const w = belief(s, who);
