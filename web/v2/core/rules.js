@@ -1362,6 +1362,15 @@ function applyRumorEffect(effect, workingState, events, ctx) {
   if (effect.from !== undefined && effect.observe === true) {
     throw new TypeError("rumor Effect cannot combine `from` and `observe` -- they select different modes");
   }
+  // V2-Core-131 (D-112): `about: "now"` says the word describes the world as it is today -- the day of the event the
+  // knowledge is about (`aboutDay`), kept apart from the days it was heard (first/lastSeenDay). Without it the event's day
+  // is unknown and nothing is recorded (never invented). The copy form carries the copied entry's own aboutDay on
+  if (effect.about !== undefined && effect.about !== "now") {
+    throw new TypeError('rumor Effect\'s `about`, when present, must be "now"');
+  }
+  if (effect.from !== undefined && effect.about !== undefined) {
+    throw new TypeError("rumor Effect cannot combine `from` and `about` -- a copied word keeps the day it is about");
+  }
 
   const subjectId = resolveSubjectId(effect.subject, ctx);
   if (subjectId === undefined) return; // D-29: skip
@@ -1370,6 +1379,7 @@ function applyRumorEffect(effect, workingState, events, ctx) {
   let incomingClaim;
   let incomingConfidence;
   let incomingSource;
+  let incomingAbout;
 
   if (effect.from !== undefined) {
     // copy mode
@@ -1381,6 +1391,7 @@ function applyRumorEffect(effect, workingState, events, ctx) {
     incomingClaim = copied.claim;
     incomingConfidence = clampConfidence(copied.confidence - (ctx.data?.rules?.rumor?.relayLoss ?? 0));
     incomingSource = fromId;
+    incomingAbout = copied.aboutDay;
   } else {
     // learn (source) or observe mode -- both need the data.rumors definition
     const definition = ctx.data?.rumors?.[effect.rumor];
@@ -1412,6 +1423,8 @@ function applyRumorEffect(effect, workingState, events, ctx) {
   const existing = knowledgeMap[effect.rumor];
   const day = Math.floor(workingState.time.minute / 1440);
   const visibility = isPlayerActor(subjectId, workingState) ? "player" : "internal";
+  if (effect.about === "now") incomingAbout = day;
+  const about = Number.isInteger(incomingAbout) ? { aboutDay: incomingAbout } : {};
 
   if (!existing) {
     knowledgeMap[effect.rumor] = {
@@ -1423,7 +1436,8 @@ function applyRumorEffect(effect, workingState, events, ctx) {
       confidence: incomingConfidence,
       confirmations: 1,
       firstSeenDay: day,
-      lastSeenDay: day
+      lastSeenDay: day,
+      ...about
     };
     events.push({
       minute: workingState.time.minute,
@@ -1452,7 +1466,8 @@ function applyRumorEffect(effect, workingState, events, ctx) {
       confidence: incomingConfidence,
       confirmations: 1,
       firstSeenDay: day,
-      lastSeenDay: day
+      lastSeenDay: day,
+      ...about
     };
     events.push({
       minute: workingState.time.minute,
@@ -1486,11 +1501,13 @@ function applyRumorEffect(effect, workingState, events, ctx) {
   }
 
   const dayChanged = existing.lastSeenDay !== day;
-  if (confidenceDelta === 0 && !dayChanged && sources === existing.sources && confirmations === existing.confirmations) {
+  // D-112: the same word about a later day moves the event's day on; an older one never moves it back
+  const newerAbout = Number.isInteger(about.aboutDay) && !(Number.isInteger(existing.aboutDay) && existing.aboutDay >= about.aboutDay);
+  if (confidenceDelta === 0 && !dayChanged && !newerAbout && sources === existing.sources && confirmations === existing.confirmations) {
     return; // D-30: nothing actually changed -> no-op
   }
 
-  knowledgeMap[effect.rumor] = { ...existing, confidence: afterConfidence, sources, confirmations, lastSeenDay: day };
+  knowledgeMap[effect.rumor] = { ...existing, confidence: afterConfidence, sources, confirmations, lastSeenDay: day, ...(newerAbout ? about : {}) };
 
   events.push({
     minute: workingState.time.minute,

@@ -28,20 +28,32 @@ if (TRUST_RULE) {
   if (T > 10) DANGER_OPT.requires.of.push({ op: "relation", from: "npc_guild_clerk", to: "self", min: T });
   if (X > 0) DANGER_OPT.outcomes.fail.push({ op: "relation", from: "npc_guild_clerk", add: -X });
 }
-const SEEDS = JSON.parse(readFileSync(new URL("./seeds.json", import.meta.url), "utf8")).slice(+process.argv[2], +process.argv[3]);
+// MG-045/046 step 1 (#328): CANDIDATE=<module,...> patches an in-memory copy of the pack and may add policy families and hooks
+// (candidates/ in this folder); SEEDS_FILE=<file in this folder> measures another set of worlds (the hold-out sample)
+const CAND = [];
+for (const c of (process.env.CANDIDATE ?? "").split(",").filter(Boolean)) CAND.push(await import(new URL(`./candidates/${c}.mjs`, import.meta.url).href));
+for (const c of CAND) c.patch(d);
+const SEEDS = JSON.parse(readFileSync(new URL(`./${process.env.SEEDS_FILE ?? "seeds.json"}`, import.meta.url), "utf8")).slice(+process.argv[2], +process.argv[3]);
 const DICE = +process.argv[4], DAYS = +process.argv[5], POLS = process.argv[6].split(","), LEADER_DEAD = process.argv[7] === "dead";
+const FERRY = { type: "ferry" }; // the crossing, taken the way `crossing` says
 const P = (a) => ({ type: "perform", actionId: a }), M = (to) => ({ type: "move", to }), C = (o) => ({ type: "choose", optionId: o }), E = (o) => [P("act_talk_elder"), C(o)];
-const TO_TOWN = [P("act_observe_village"), P("act_observe_village"), ...E("opt_ask_ruins"), M("loc_market"), P("act_buy_lantern"), M("loc_village"), M("loc_ruins"), P("act_investigate_ruins"), M("loc_village"), P("act_rest_village"), ...E("opt_report_findings"), P("act_confront_leader"), ...E("opt_bandits_disperse"), ...E("opt_ask_region"), M("loc_crossroads"), M("loc_river_ford"), P("act_talk_ferryman"), C("opt_ferryman_cross"), M("loc_castle_town")];
-const WALK = [P("act_observe_village"), ...E("opt_ask_region"), M("loc_crossroads"), M("loc_river_ford"), P("act_talk_ferryman"), C("opt_ferryman_cross"), M("loc_castle_town")];
+const TO_TOWN = [P("act_observe_village"), P("act_observe_village"), ...E("opt_ask_ruins"), M("loc_market"), P("act_buy_lantern"), M("loc_village"), M("loc_ruins"), P("act_investigate_ruins"), M("loc_village"), P("act_rest_village"), ...E("opt_report_findings"), P("act_confront_leader"), ...E("opt_bandits_disperse"), ...E("opt_ask_region"), M("loc_crossroads"), M("loc_river_ford"), P("act_talk_ferryman"), FERRY, M("loc_castle_town")];
+const WALK = [P("act_observe_village"), ...E("opt_ask_region"), M("loc_crossroads"), M("loc_river_ford"), P("act_talk_ferryman"), FERRY, M("loc_castle_town")];
 const BACK = [M("loc_far_bank"), M("loc_river_ford"), M("loc_crossroads"), M("loc_village"), M("loc_market")];
-const HOME = [M("loc_village"), M("loc_crossroads"), M("loc_river_ford"), P("act_talk_ferryman"), C("opt_ferryman_cross"), M("loc_castle_town")];
+const HOME = [M("loc_village"), M("loc_crossroads"), M("loc_river_ford"), P("act_talk_ferryman"), FERRY, M("loc_castle_town")];
 const NEW = { type: "startCharacter", templateId: "start_wanderer" };
+// a candidate may change how the ferry is taken (the pack as it is: the fare)
+let M_CUR = null; // the career being measured: a candidate counts what it reached here
+const bump = (k) => { if (M_CUR) M_CUR[k] = (M_CUR[k] ?? 0) + 1; };
+const crossing = (s) => { for (const c of CAND) { const o = c.crossOption?.(s, { d, evaluateCondition, bump }); if (o) return o; } return "opt_ferryman_cross"; };
+const rel = (s, npc) => s.relations?.[npc + ":" + s.player.actorId]?.score ?? 0;
 const truth = (s) => s.signals?.road_trouble ?? 0; // measurement only, never read by a policy
 // the road's condition after each of its turns, by turn count -- kept for the lagged-ledger counterfactual only
 let HIST = null;
 // MG-039.1 (#323): the kinds of actions and choices a career performs after day 60 (G4 of docs/v2/first-region-baseline.md)
 let LATE = null;
-const run = (s, l) => l.reduce((x, a) => {
+const run = (s, l) => l.reduce((x, a0) => {
+  const a = a0 === FERRY ? C(crossing(x)) : a0;
   if (LATE && (x.time.minute - LATE.t0) / 1440 >= 60 && (a.type === "perform" || a.type === "choose")) LATE.ids.add(a.actionId ?? a.optionId);
   const y = step(x, a, d).state;
   if (HIST) HIST[y.fired?.evt_road_north?.count ?? 0] = truth(y);
@@ -76,6 +88,7 @@ const BASE = {
   // step 4: the ledger one turn late (counterfactual)
   lagAvoid: { dz: "avoid", ask: 1, lag: 1 }, lagWhole: { dz: "whole", ask: 1, lag: 1 }
 };
+for (const c of CAND) Object.assign(BASE, c.families ?? {});
 const POL = {};
 for (const [k, v] of Object.entries(BASE)) for (const r of [2, 4, 6, 8]) POL[`${k}_r${r}`] = { ...v, r };
 function trip(s) {
@@ -97,7 +110,9 @@ function career(pol, seed, k) {
   s.rng.cursor += k * 11;
   const t0 = s.time.minute;
   LATE = { t0, ids: new Set() };
+  M_CUR = null;
   const m = { convoys: 0, deaths: 0, known: 0, deepNew: 0, lives: 1, gearDay: null, dz: [0, 0, 0], offered: [0, 0, 0], decisions: 0, beliefKnown: 0, exact: 0, wrongSafe: 0, wrongDanger: 0, ageSum: 0, asks: 0, asksUnknown: 0, dangerUnknown: 0, eligible: 0, gateBlocked: 0, trustLost: 0, lost0: s.signals?.caravans_unguarded ?? 0 };
+  M_CUR = m;
   let lastAsk = -99;
   for (let guard = 0; (s.time.minute - t0) / 1440 < DAYS && guard < 6000; guard++) {
     if (s.pending?.kind === "newCharacter") { s = run(s, [NEW, ...WALK]); m.lives++; lastAsk = -99; mind.told = []; mind.seen = []; continue; }
@@ -122,6 +137,8 @@ function career(pol, seed, k) {
         mind.told.push({ day: day(s), conf: 80, level: HIST[turns - Pc.lag] ?? HIST[turns] ?? truth(s) });
       }
     }
+    // a candidate's other source (MG-045/046 step 1): asked the way the policy family says
+    for (const c of CAND) if (c.news) s = c.news(s, Pc, { run, P, C, d, evaluateCondition, standing, rel, day, bump, truth });
     const dangerOpen = ok(s, "opt_guild_clerk_escort_danger");
     // the trust gate: the pack's own condition holds, the candidate rule's gate closes it
     if (evaluateCondition(DANGER_AS_IS, { state: s, data: d, actorId: s.player.actorId, contextKind: "player" })) { m.eligible++; if (!dangerOpen) m.gateBlocked++; }
@@ -156,6 +173,9 @@ function career(pol, seed, k) {
     if (s.pending?.kind === "newCharacter") { m.deaths++; if ((s.signals?.guards_fallen ?? 0) > fallen0) m.known++; }
     if (!s.pending && me(s).locationId !== "loc_castle_town") s = run(s, [M("loc_castle_town")]);
   }
+  M_CUR = null;
+  m.relFerry = rel(s, "npc_ferryman");
+  m.relMerchant = rel(s, "npc_town_merchant");
   m.lateKinds = LATE.ids.size;
   m.lateIds = [...LATE.ids].sort();
   LATE = null;

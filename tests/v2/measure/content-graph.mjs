@@ -5,6 +5,8 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 
 const ROOT = process.env.PACK_ROOT ?? fileURLToPath(new URL("../../..", import.meta.url));
 const { worldData: d } = await import(pathToFileURL(`${ROOT}/web/v2/data/world.js`).href);
+// MG-045/046 step 1 (#328): CANDIDATE=<module,...> patches an in-memory copy of the pack (candidates/README in this folder)
+for (const c of (process.env.CANDIDATE ?? "").split(",").filter(Boolean)) (await import(pathToFileURL(fileURLToPath(new URL(`./candidates/${c}.mjs`, import.meta.url))).href)).patch(d);
 
 // which system each op belongs to (section 2); presentation ops (narrate, choice) belong to none
 const SYSTEM = {
@@ -133,7 +135,14 @@ const npcs = Object.keys(d.npcs).map((npc) => {
   const N2 = all.filter(({ n }) => n.op === "relation" && (n.from === npc || n.to === npc)).length;
   const N3 = own.filter((e) => e.reads.some((n) => CHANNEL_OPS.has(n.op))).length;
   const N4 = elements.filter((e) => e.kind === "event").filter((e) => e.writes.some((n) => (n.op === "relation" && (n.from === npc || n.to === npc)) || (n.subject === npc) || (n.op === "rumor" && n.source === npc))).length;
-  return { npc, N1_knowledge: N1, N2_relation_moves: N2, N3_reacts_to_world: N3, N4_moves_without_player: N4, pass: N1 >= 1 && N2 >= 1 && N3 >= 1 };
+  // MG-045/046 step 0 (#328) A1, B2 -- reported beside N1 ~ N4, not part of the MG-039.1 pass: where the NPC's regard is read
+  // (a condition anywhere), and the facts only this NPC tells (no other NPC's rumor and no sighting names them)
+  const RR = elements.filter((e) => e.reads.some((n) => n.op === "relation" && n.from === npc && n.to !== undefined && !n.tag)).length;
+  const told = (src) => new Set(all.filter(({ n }) => n.op === "rumor" && n.source === src).map(({ n }) => d.rumors[n.rumor]?.factId).filter(Boolean));
+  const mine = told(npc);
+  const others = new Set(all.filter(({ n }) => n.op === "rumor" && n.source !== npc).map(({ n }) => d.rumors[n.rumor]?.factId));
+  const U = [...mine].filter((f) => !others.has(f));
+  return { npc, N1_knowledge: N1, N2_relation_moves: N2, N3_reacts_to_world: N3, N4_moves_without_player: N4, pass: N1 >= 1 && N2 >= 1 && N3 >= 1, A1_regard_read: RR, B2_sole_facts: U.length, B2_list: U.sort(), facts: [...mine].sort() };
 });
 
 const multi = elements.filter((e) => e.systems.length >= 2).length;
@@ -161,8 +170,8 @@ if (process.argv.includes("--table")) {
   console.log(`G3 channels written in one place and read in another: ${crossPlace.length}`);
   console.log("locations: L1 do / L2 learn / L3 trace / L4 cost  (supplementary L3k: traces through knowledge)");
   for (const l of locations) console.log(`   ${l.loc.padEnd(18)} ${String(l.L1_things_to_do).padStart(3)} ${String(l.L2_things_to_learn).padStart(3)} ${String(l.L3_traces_elsewhere).padStart(3)} ${String(l.L4_risks_or_costs).padStart(3)}  ${l.pass ? "pass" : "FAIL"}   L3k ${l.L3k_knowledge_traces}`);
-  console.log("npcs: N1 knows / N2 relation / N3 reacts / N4 acts alone");
-  for (const n of npcs) console.log(`   ${n.npc.padEnd(18)} ${String(n.N1_knowledge).padStart(3)} ${String(n.N2_relation_moves).padStart(3)} ${String(n.N3_reacts_to_world).padStart(3)} ${String(n.N4_moves_without_player).padStart(3)}  ${n.pass ? "pass" : "FAIL"}`);
+  console.log("npcs: N1 knows / N2 relation / N3 reacts / N4 acts alone  (#328: A1 regard read / B2 facts only this NPC tells)");
+  for (const n of npcs) console.log(`   ${n.npc.padEnd(18)} ${String(n.N1_knowledge).padStart(3)} ${String(n.N2_relation_moves).padStart(3)} ${String(n.N3_reacts_to_world).padStart(3)} ${String(n.N4_moves_without_player).padStart(3)}  ${n.pass ? "pass" : "FAIL"}   A1 ${n.A1_regard_read} B2 ${n.B2_sole_facts}`);
   console.log(`single-system elements (${report.singleSystem.length}):`);
   for (const s of report.singleSystem) console.log(`   ${s.kind} ${s.id} [${s.systems.join(",")}] @${s.loc ?? "-"}`);
 } else {

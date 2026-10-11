@@ -82,7 +82,11 @@ function testMill() {
   assert.strictEqual(nextDay.signals.mill_flour_stock, 2, "a day on, two more");
   assert.ok(canBuy(nextDay));
   const later = run(nextDay, [DAY, DAY]).state;
-  assert.strictEqual(later.signals.mill_flour_stock, 2, "unsold flour does not pile up");
+  // V2-Core-132 (#328, D-113): a caravan on its way north takes a sack while the town wants flour, so the stock can be
+  // lower than the day's two -- never higher
+  const taken = later.facts.fact_caravan_flour ? 1 : 0;
+  assert.ok(later.signals.mill_flour_stock <= 2, "unsold flour does not pile up");
+  assert.strictEqual(later.signals.mill_flour_stock + taken, 2, "what the mill has is the day's two, less what a caravan took");
   return run(nextDay, MILLER("opt_miller_buy_flour")).state; // three sacks in hand
 }
 
