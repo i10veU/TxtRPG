@@ -53,6 +53,21 @@ CANDIDATE=m1-merchant-last-caravan node tests/v2/measure/content-graph.mjs --tab
 python3 tests/v2/measure/people-judge.py /tmp/pf
 ```
 
+## 나루와 성읍의 사람들 2단계 — 교역 측정기 (MG-045·046, #328)
+
+- `trade-careers.mjs`: 방앗간 → 나루 → 성읍의 밀가루 교역 경력을 돈다. 경력마다 JSON 한 행을 낸다.
+  - 정책: `blind`, `ferryInfo`, `noteHonest`(파일 머리말 참고).
+  - 인자: `<seed 시작> <seed 끝> <일수> <정책,...>`. `PACK_ROOT=`, `SEEDS_FILE=`은 위와 같다.
+  - 교역에는 주사위가 없어 세계당 한 경력이다.
+- `trade-judge.py <dir> [prefix]`: `<prefix>new_*.json`(새 팩)과 `<prefix>old_*.json`(이전 팩, `blind`만)을 설계 문서 부록 C.4의 기준으로 판정한다.
+
+```sh
+OUT=/tmp/tr && mkdir -p $OUT/old && git archive 000b535 web/v2 | tar -x -C $OUT/old
+for c in 0 10 20 30; do node tests/v2/measure/trade-careers.mjs $c $((c+10)) 60 blind,ferryInfo,noteHonest > $OUT/new_$c.json & done; wait
+for c in 0 10 20 30; do PACK_ROOT=$OUT/old node tests/v2/measure/trade-careers.mjs $c $((c+10)) 60 blind > $OUT/old_$c.json & done; wait
+python3 tests/v2/measure/trade-judge.py $OUT
+```
+
 ## 재현
 
 ```sh

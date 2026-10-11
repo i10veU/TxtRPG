@@ -93,10 +93,16 @@ function testTheFair(town) {
   assert.deepStrictEqual(texts(sold.log[1]), ["txt_town_merchant_buy_flour_fair"]);
   assert.strictEqual(me(sold.state).money, me(there).money + 6);
   assert.strictEqual(me(sold.state).inventory.item_flour_sack, 1);
-  assert.strictEqual(sold.state.signals.town_flour_wanted, there.signals.town_flour_wanted - 1, "the same want");
-  assert.deepStrictEqual(sold.state.facts, facts, "the merchant's reason is his claim");
-  // the fair's price meets the same want (step 2's rate: two sacks at most per caravan's cadence)
-  assert.strictEqual(there.signals.town_flour_wanted, 2);
+  // the same want: the fair's sale meets the town's want exactly as the plain price would (step 2's rate: two sacks at
+  // most per caravan's cadence). V2-Core-132 (#328, D-113): the second caravan took a sack of the mill's flour north, so
+  // the town wants one, and a want met comes back when its cadence allows -- the plain sale, on the same state, ends alike
+  const plain = visits(there, 3);
+  const soldPlain = run(plain, MERCHANT(PLAIN)).state;
+  assert.strictEqual(sold.state.signals.town_flour_wanted, soldPlain.signals.town_flour_wanted, "the same want");
+  assert.strictEqual(there.signals.town_flour_wanted, 2 - (there.facts.fact_caravan_flour ? 1 : 0), "two, less the caravan's sack");
+  // the merchant's reason is his claim: no fact of the realm moves (the town's want is a fact since V2-Core-132)
+  const realm = (f) => Object.fromEntries(Object.entries(f).filter(([k]) => k !== "fact_town_flour"));
+  assert.deepStrictEqual(realm(sold.state.facts), realm(facts), "the merchant's reason is his claim");
   assert.ok(town);
 }
 

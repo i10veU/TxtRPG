@@ -304,19 +304,24 @@ function renderKnowledge(knowledge, pending) {
   const today = Math.floor(state.time.minute / DAY_MINUTES);
   const bearsOn = pending?.kind === "choice" ? worldData.choices?.[pending.choiceId]?.relevantFacts ?? [] : [];
   const entries = Object.values(knowledge ?? {}).filter((k) => k && typeof k.rumorId === "string");
+  // V2-Core-131 (D-112): a word is as new as the day it is about, when that is known; else the day it was heard
+  const when = (k) => (Number.isInteger(k.aboutDay) ? k.aboutDay : k.lastSeenDay);
   const rows = entries.map((k) => ({
     k,
     relevant: bearsOn.includes(k.factId),
-    stale: entries.some((o) => o !== k && o.factId === k.factId && o.lastSeenDay > k.lastSeenDay)
+    stale: entries.some((o) => o !== k && o.factId === k.factId && when(o) > when(k))
   }));
-  rows.sort((a, b) => Number(b.relevant) - Number(a.relevant) || b.k.lastSeenDay - a.k.lastSeenDay || a.k.rumorId.localeCompare(b.k.rumorId));
+  rows.sort((a, b) => Number(b.relevant) - Number(a.relevant) || when(b.k) - when(a.k) || a.k.rumorId.localeCompare(b.k.rumorId));
+  const ago = (days) => (days <= 0 ? "오늘" : `${days}일 전`);
   rows.forEach(({ k, relevant, stale }) => {
     const age = today - k.lastSeenDay;
+    // heard later than the day it is about: both days, the event's first
+    const told = Number.isInteger(k.aboutDay) && k.aboutDay < k.lastSeenDay ? `${ago(today - k.aboutDay)}의 일 (${ago(age)} 들음)` : ago(age);
     const parts = [
       word(`lbl_rumor_${k.rumorId}`, "알 수 없는 이야기"),
       (k.sources ?? [k.source]).map(sourceName).join(", "),
       certainty(k.confidence),
-      age <= 0 ? "오늘" : `${age}일 전`
+      told
     ];
     if (stale) parts.push("더 새 소식이 있음");
     const li = document.createElement("li");
