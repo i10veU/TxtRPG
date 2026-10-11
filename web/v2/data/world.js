@@ -615,6 +615,8 @@ const CARAVAN_AT_THE_FORD = {
         TOWN_FLOUR_FACT,
         { op: "fact", fact: "fact_caravan_flour", set: "north" },
         { op: "rumor", rumor: "rum_caravan_took_flour", subject: "npc_ferryman", source: "obs_loc_river_ford", confidence: 90, about: "now" },
+        // V2-Core-135 (D-114): the miller sold it -- his own reading, a guess (50): "the town must want it"
+        { op: "rumor", rumor: "rum_town_flour_caravan_bought", subject: "npc_miller", source: "obs_loc_mill_hamlet", confidence: 50, about: "now" },
         { op: "signal", key: "caravan_took_flour", add: 1 }
       ]
     },
@@ -2170,6 +2172,12 @@ export const worldData = {
               then: [{ op: "relation", from: "npc_miller", add: 5, tag: "welcomed" }, say("txt_miller_welcome")]
             },
             { op: "if", when: HAMLET_TRADES, then: [say("txt_miller_trade_running")] },
+            // V2-Core-135 (D-114): what he made of the caravan's last purchase -- told as the day it happened (a seller's guess)
+            {
+              op: "if",
+              when: { op: "rumor", subject: "npc_miller", rumor: "rum_town_flour_caravan_bought" },
+              then: [{ op: "rumor", rumor: "rum_town_flour_caravan_bought", from: "npc_miller" }, say("txt_miller_caravan_bought")]
+            },
             // V2-Core-85 (#207): the day's flour to spare already gone
             { op: "if", when: { op: "and", of: [HAMLET_TRADES, { op: "signal", key: "mill_flour_stock", max: 0 }] }, then: [say("txt_miller_flour_gone")] }
           ]
@@ -2556,15 +2564,20 @@ export const worldData = {
     rum_royal_city: { factId: "fact_royal_city", claim: "five_days_north" },
     // V2-Core-125 (#307): the road's condition, one rumour per condition (the clerk's ledger, or a guard's own eyes) --
     // and the yard's talk, which tells only quiet from unsettled
-    rum_road_quiet: { factId: "fact_road_north", claim: "quiet" },
-    rum_road_uneasy: { factId: "fact_road_north", claim: "uneasy" },
-    rum_road_dangerous: { factId: "fact_road_north", claim: "dangerous" },
-    rum_road_talk_quiet: { factId: "fact_road_north", claim: "quiet" },
-    rum_road_talk_unsettled: { factId: "fact_road_north", claim: "unsettled" },
+    // V2-Core-135 (#335, D-114): `validDays` -- the road turns once a caravan's cadence (3 days), so a word of it may no longer hold
+    rum_road_quiet: { factId: "fact_road_north", claim: "quiet", validDays: 3 },
+    rum_road_uneasy: { factId: "fact_road_north", claim: "uneasy", validDays: 3 },
+    rum_road_dangerous: { factId: "fact_road_north", claim: "dangerous", validDays: 3 },
+    rum_road_talk_quiet: { factId: "fact_road_north", claim: "quiet", validDays: 3 },
+    rum_road_talk_unsettled: { factId: "fact_road_north", claim: "unsettled", validDays: 3 },
     // V2-Core-132 (#328): the town's want for frontier flour, and the caravan that took some north
-    rum_town_flour_wanted: { factId: "fact_town_flour", claim: "wanted" },
-    rum_town_flour_enough: { factId: "fact_town_flour", claim: "enough" },
-    rum_caravan_took_flour: { factId: "fact_caravan_flour", claim: "north" }
+    // (the town's want moves with every sale and caravan; a word of it holds a caravan's cadence at most -- D-114)
+    rum_town_flour_wanted: { factId: "fact_town_flour", claim: "wanted", validDays: 3 },
+    rum_town_flour_enough: { factId: "fact_town_flour", claim: "enough", validDays: 3 },
+    rum_caravan_took_flour: { factId: "fact_caravan_flour", claim: "north" },
+    // V2-Core-135 (#335, D-114): the miller's reading of the caravan's purchase -- the town wanted flour *before* the sack
+    // went north; whether it still does after, he cannot see (the ferryman, who hears the caravan's step out, can)
+    rum_town_flour_caravan_bought: { factId: "fact_town_flour", claim: "wanted", validDays: 3 }
   },
 
   // Relation-edge/rumor-source IDs (§7.1/§8.3). An entry without `actor` is
@@ -2690,6 +2703,7 @@ export const worldData = {
     txt_search_crossroads_fail: "갈림길에는 오래된 바퀴 자국과 짐승 발자국뿐이다.",
     txt_miller_news: "방앗간 주인은 물레방아 소리 너머로 목소리를 높인다. 길이 막혀 있던 몇 해 동안 밀을 내다 팔 곳이 없었다고 한다.",
     txt_miller_news_scarred_man: "그는 목소리를 낮춘다. 며칠 전 옆구리를 감싼 사내가 강나루에서 배를 찾더라는 소문이 있다고, 그 뒤로 사람들이 밤길을 꺼린다고 한다.",
+    txt_miller_caravan_bought: "\"지난번 상단이 우리 밀가루를 한 자루 사 갔네. 성읍에서 찾으니 사 갔겠지. 한 자루 더 지고 가 보게.\" 그는 상단이 강을 건넌 뒤의 일은 모른다.",
     txt_miller_news_leader_fell: "그는 폐허의 두목이 쓰러졌다는 이야기를 이곳에서도 들었다고 한다. 이제 짐수레가 다시 길에 나설 수 있겠다며 웃는다.",
     txt_miller_welcome: "변경 마을이 감사했다는 사람이 당신이냐며, 그는 밀가루 묻은 손으로 당신의 손을 잡는다.",
     txt_miller_trade_running: "요즘은 변경 마을 장터로 수레가 오간다며 그는 흡족해한다.",
@@ -2847,6 +2861,7 @@ export const worldData = {
     lbl_rumor_rum_town_flour_wanted: "성읍 상인이 밀가루를 찾는다",
     lbl_rumor_rum_town_flour_enough: "성읍에 밀가루가 넉넉하다",
     lbl_rumor_rum_caravan_took_flour: "상단이 변경의 밀가루를 싣고 북으로 갔다",
+    lbl_rumor_rum_town_flour_caravan_bought: "상단이 방앗간 밀가루를 사 갔으니 성읍이 찾는 모양이다",
     txt_ferryman_town_wants: "\"지난번 상단이 그러는데, 성읍 상인이 강 남쪽 밀가루를 찾는다더군.\"",
     txt_ferryman_town_enough: "\"지난번 상단 말로는 성읍엔 밀가루가 넉넉하다더군. 지금도 그런지는 나도 모르오.\"",
     txt_ferryman_caravan_took: "\"그 상단이 돌아가는 길에 방앗간 밀가루를 한 자루 싣고 건넜소.\"",

@@ -2479,6 +2479,16 @@ export function validateData(data) {
       Object.keys(data[collection]).forEach((id) => checkDataIdFormat(errors, id, `${collection} key`));
     }
   });
+  // V2-Core-135 (D-114): a rumour's `validDays` -- how many days a word of it holds before the world may have moved on --
+  // is optional authored data, a positive integer; the engine keeps no state for it (the view reads it against aboutDay)
+  if (isPlainObject(data.rumors)) {
+    Object.keys(data.rumors).forEach((rumorId) => {
+      const rumor = data.rumors[rumorId];
+      if (isPlainObject(rumor) && rumor.validDays !== undefined && !(Number.isInteger(rumor.validDays) && rumor.validDays > 0)) {
+        errors.push(`rumors.${rumorId}.validDays must be a positive integer when present (D-114)`);
+      }
+    });
+  }
   // V2-Core-58 (D-87): an equipment item's slot is a world-named ID
   if (isPlainObject(data.items)) {
     Object.keys(data.items).forEach((itemId) => {
