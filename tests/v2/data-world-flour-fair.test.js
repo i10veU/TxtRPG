@@ -1,7 +1,7 @@
 // V2-Core-86 (#207, Fantasy World Vertical Slice 7, step 3 -- the fair's news): through the ordinary step()
 // API and the real pack. No engine change; additive content only (D-92/D-97):
 //   while the royal fair is the realm's latest news -- the second caravan brings it, the third brings the
-//   border's unrest -- flour fetches more in the castle town (6 silver instead of 4; the same want, the same
+//   border's unrest -- flour fetches more in the castle town (6 silver instead of 4 -- since V2-Core-133, #331, 8 instead of 6; the same want, the same
 //   sack). The merchant says why. The player can learn it before going north the way anyone learns the
 //   realm's news: from the ferryman. Information -> judgment -> profit. The window is a world count
 //   (`caravan_visits`, as the guard's work reads it -- a fact Condition may not gate a player's option, D-06);
@@ -91,7 +91,7 @@ function testTheFair(town) {
   const facts = there.facts;
   const sold = run(there, MERCHANT(FAIR));
   assert.deepStrictEqual(texts(sold.log[1]), ["txt_town_merchant_buy_flour_fair"]);
-  assert.strictEqual(me(sold.state).money, me(there).money + 6);
+  assert.strictEqual(me(sold.state).money, me(there).money + 8); // V2-Core-133 (#331): the fair's price is 8
   assert.strictEqual(me(sold.state).inventory.item_flour_sack, 1);
   // the same want: the fair's sale meets the town's want exactly as the plain price would (step 2's rate: two sacks at
   // most per caravan's cadence). V2-Core-132 (#328, D-113): the second caravan took a sack of the mill's flour north, so
@@ -131,7 +131,7 @@ function testSaveAndDeterminism() {
   const ford = run(loaded, TO_FORD).state;
   const path = [DAY, DAY, DAY, ...ACROSS, ...MERCHANT("opt_town_merchant_ask"), ...MERCHANT(FAIR), ...MERCHANT(FAIR)];
   const end = run(ford, path).state;
-  assert.strictEqual(me(end).money, 20 - 4 + 12);
+  assert.strictEqual(me(end).money, 20 - 4 + 16);
   assert.deepStrictEqual(validateState(end), []);
   const restored = parseLoadedRecord(JSON.parse(JSON.stringify(buildSaveRecord("slot_flour_fair", ford, { savedAt: 1 }))));
   assert.deepStrictEqual(restored, ford);

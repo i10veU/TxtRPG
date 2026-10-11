@@ -65,11 +65,11 @@ test.describe("V2 flour north (Slice 7: the frontier's flour sells in the town)"
     await option(page, "원로의 통행 편지를 보이고 강을 건넌다").click();
     await move(page, "영주의 성읍");
     await act(page, "성읍의 상인과 대화");
-    await option(page, "밀가루 자루를 판다 (은화 4)").click();
-    await expect(page.locator("#log")).toContainText("강 남쪽 밀은 곱게 빻였다며 은화 네 닢을 내준다.");
+    await option(page, "밀가루 자루를 판다 (은화 6)").click();
+    await expect(page.locator("#log")).toContainText("강 남쪽 밀은 곱게 빻였다며 은화 여섯 닢을 내준다.");
     const end = await getState(page);
     expect(end.actors.player_1.inventory.item_flour_sack ?? 0).toBe(0);
-    expect(end.actors.player_1.money).toBe(before.actors.player_1.money + 2);
+    expect(end.actors.player_1.money).toBe(before.actors.player_1.money + 4); // V2-Core-133 (#331): sold at 6
 
     expect(pageErrors).toEqual([]);
     expect(consoleErrors).toEqual([]);

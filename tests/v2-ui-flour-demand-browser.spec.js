@@ -37,7 +37,7 @@ const getState = (page) => page.evaluate(() => window.__v2App.getState());
 
 const DAY = { type: "wait", minutes: 1440 };
 const buyButton = (page) => option(page, "밀가루 자루를 산다 (은화 2)");
-const sellButton = (page) => option(page, "밀가루 자루를 판다 (은화 4)");
+const sellButton = (page) => option(page, "밀가루 자루를 판다 (은화 6)");
 const closeChoice = async (page, label) => { await option(page, label).click(); };
 
 test.describe("V2 the town's demand (Slice 7: flour has its limits)", () => {

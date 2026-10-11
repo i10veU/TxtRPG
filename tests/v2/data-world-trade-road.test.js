@@ -90,7 +90,7 @@ function testTrader() {
   const askedLevy = play(first, MERCHANT("opt_town_merchant_ask")).said;
   assert.ok(askedLevy.includes("txt_town_merchant_flour_wanted") && !askedLevy.includes("txt_town_merchant_flour_fair"));
   const levy = sellAll(first);
-  assert.deepStrictEqual(levy.paid, [4, 4], "the plain price, two sacks");
+  assert.deepStrictEqual(levy.paid, [6, 6], "the plain price, two sacks (V2-Core-133, #331: 6)");
   assert.strictEqual(me(levy.state).inventory.item_flour_sack, 1, "the third sack has no buyer yet");
   // back to the mill for more; at the ford the ferryman tells of the fair
   let s = play(levy.state, BACK_TO_MILL).state;
@@ -106,7 +106,7 @@ function testTrader() {
   const askedFair = play(town, MERCHANT("opt_town_merchant_ask")).said;
   assert.ok(askedFair.includes("txt_town_merchant_flour_fair") && askedFair.includes("txt_town_merchant_flour_wanted"));
   const fair = sellAll(town);
-  assert.deepStrictEqual(fair.paid, [6, 6], "two sacks at the fair's price");
+  assert.deepStrictEqual(fair.paid, [8, 8], "two sacks at the fair's price (V2-Core-133: 8)");
   assert.strictEqual(me(fair.state).inventory.item_flour_sack, 1, "the town's want, not the trader's sacks, sets the limit");
   // the unrest: the plain price again
   let later = play(fair.state, BACK_TO_MILL).state;
@@ -115,7 +115,7 @@ function testTrader() {
   later = play(later, ACROSS).state;
   while (sellable(later).length === 0) later = play(later, [DAY]).state;
   const unrest = sellAll(later);
-  assert.deepStrictEqual(unrest.paid.slice(0, 1), [4], "the fair is past");
+  assert.deepStrictEqual(unrest.paid.slice(0, 1), [6], "the fair is past");
   assert.deepStrictEqual(frontierFacts(unrest.state), FACTS, "trade changes no fact of the frontier");
   return unrest.state;
 }
