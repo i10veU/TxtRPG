@@ -233,6 +233,31 @@ function testSaveAndDeterminism() {
   assert.deepEqual(run(midLoaded, path.slice(7)).state, end, "saved with the ferryman's own knowledge, the same end");
 }
 
+// V2-Core-134 (#333): the ferryman's word is the want the step ends with -- after the caravan's own sack and after the want's
+// return. A town wanting one sack, its want last come back just now (staged), a mill with flour: the caravan meets that want,
+// nothing comes back yet, and what the ferryman passes on is "enough", dated that day
+function testTheWordAfterTheSack() {
+  let s = run(start, TO_FORD).state;
+  s.signals.town_flour_wanted = 1; // staged: the town wants one sack
+  // staged: and its want came back an hour before the next caravan (so nothing comes back in the caravan's step)
+  s.fired.evt_town_flour_demand.lastMinute = s.fired.evt_caravan.lastMinute + 4320 - 60;
+  const cv = s.signals.caravan_visits ?? 0;
+  while ((s.signals.caravan_visits ?? 0) === cv) s = run(s, [DAY]).state;
+  assert.equal(s.signals.town_flour_wanted, 0, "the caravan met it");
+  assert.equal(s.signals.town_word_south, 2, "and the ferryman knows the town has enough");
+  assert.equal(s.knowledge.npc_ferryman.rum_town_flour_enough.aboutDay, day(s));
+  assert.equal(s.knowledge.npc_ferryman.rum_town_flour_wanted, undefined, "not the want the caravan set out to meet");
+  const told = run(s, FERRY("opt_ferryman_news"));
+  assert.ok(texts(told.log[1]).includes("txt_ferryman_town_enough") && texts(told.log[1]).includes("txt_ferryman_caravan_took"));
+  // and when the want comes back in the same step, the word is the want that came back
+  let t = run(start, TO_FORD).state;
+  t.signals.town_flour_wanted = 1;
+  const cv2 = t.signals.caravan_visits ?? 0;
+  while ((t.signals.caravan_visits ?? 0) === cv2) t = run(t, [DAY]).state;
+  assert.equal(t.signals.town_word_south, t.signals.town_flour_wanted >= 1 ? 1 : 2, "the word is the want the step ends with");
+}
+
+testTheWordAfterTheSack();
 const toldAtFord = testTheWordAndTheCaravan();
 const sold = testTheWordGetsOld(toldAtFord);
 const inTown = testTheNote(sold);
