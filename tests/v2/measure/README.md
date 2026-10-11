@@ -33,6 +33,26 @@ TRUST_RULE=50,20 node tests/v2/measure/road-news-careers.mjs 0 10 8 120 blindD_r
 node tests/v2/measure/content-graph.mjs --table
 ```
 
+## 나루와 성읍의 사람들 1단계 (MG-045·046, #328)
+
+- `CANDIDATE=<모듈,...>`: `candidates/`의 후보를 팩의 **메모리 사본**에 덧댄다. 게임 파일은 바뀌지 않는다. `road-news-careers.mjs`와 `content-graph.mjs` 둘 다 받는다.
+  - 후보 모듈은 `patch(d)`를 내보낸다. 필요하면 정책 계열 `families`, 소식 훅 `news`, 건너는 방식 `crossOption`을 더한다.
+  - `m1-merchant-last-caravan`: 상인이 지난 상단 때의 길을 말한다.
+  - `f1-ferryman-known-guard`: 뱃사공이 아는 호위를 삯 없이 건넨다.
+  - `x1-word-of-the-market`: 상인의 밀가루 수요가 뱃사공을 거쳐 남으로 간다. 정적 그래프만 잰다.
+- `SEEDS_FILE=<이 폴더의 파일>`: 다른 세계 묶음을 잰다. `seeds-holdout.json`은 확인 표본이다(고른 기준은 설계 문서 부록 A.4).
+- 행에 `relFerry`, `relMerchant`(끝 호감)가 더해진다. 후보가 센 값(`mercAsks`, `mercExact`, `mercClosed`, `ferryFree`)도 더해진다.
+- 후보가 없으면 기존 정책의 출력은 새 두 열을 빼고 바이트 단위로 같다. 40세계 중 10세계 × 8주사위 × 4정책, 320행으로 확인했다.
+- `content-graph.mjs`의 NPC 표에 A1(그 NPC의 호감을 읽는 곳)과 B2(그 NPC만 말하는 사실)가 더해진다. 기존 열은 그대로다.
+- `people-judge.py`: 설계 문서 부록 A의 기준으로 판정한다.
+- 설계와 기준은 `docs/v2/people-of-ford-and-town-step0-design.md`에 있다.
+
+```sh
+CANDIDATE=m1-merchant-last-caravan node tests/v2/measure/road-news-careers.mjs 0 10 8 120 mercAvoid_r6,infoAvoid_r6 > /tmp/pf/m1_0.json
+CANDIDATE=m1-merchant-last-caravan node tests/v2/measure/content-graph.mjs --table
+python3 tests/v2/measure/people-judge.py /tmp/pf
+```
+
 ## 재현
 
 ```sh
