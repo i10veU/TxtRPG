@@ -58,6 +58,8 @@ const el = {
   choiceOptions: document.getElementById("choiceOptions"),
   log: document.getElementById("log"),
   knowledge: document.getElementById("knowledge"),
+  storySection: document.getElementById("storySection"),
+  story: document.getElementById("story"),
   slotList: document.getElementById("slotList"),
   saveSlotInput: document.getElementById("saveSlotInput"),
   saveBtn: document.getElementById("saveBtn"),
@@ -298,6 +300,35 @@ function certainty(confidence) {
   if (confidence >= 50) return "그럴듯함";
   return "뜬소문";
 }
+// V2-Core-138 (D-116): the main thread as this character knows it -- the words whose rumour belongs to a chapter
+// (`story.chapter` in the pack), oldest first within a chapter. A character's own knowledge only: a successor who has
+// not heard it has no story yet (D-71). The section is hidden while it is empty.
+function renderStory(knowledge) {
+  if (!el.story) return;
+  clearChildren(el.story);
+  const when = (k) => (Number.isInteger(k.aboutDay) ? k.aboutDay : k.lastSeenDay);
+  const chapterOf = (k) => worldData.rumors?.[k.rumorId]?.story?.chapter;
+  const entries = Object.values(knowledge ?? {})
+    .filter((k) => k && typeof k.rumorId === "string" && Number.isInteger(chapterOf(k)))
+    .sort((a, b) => chapterOf(a) - chapterOf(b) || when(a) - when(b) || a.rumorId.localeCompare(b.rumorId));
+  let shown;
+  entries.forEach((k) => {
+    const chapter = chapterOf(k);
+    if (chapter !== shown) {
+      const head = document.createElement("li");
+      head.className = "story-chapter";
+      head.textContent = word(`lbl_story_chapter_${chapter}`, `${chapter}장`);
+      el.story.appendChild(head);
+      shown = chapter;
+    }
+    const li = document.createElement("li");
+    li.dataset.chapter = String(chapter);
+    li.textContent = word(`lbl_rumor_${k.rumorId}`, "알 수 없는 이야기");
+    el.story.appendChild(li);
+  });
+  if (el.storySection) el.storySection.hidden = entries.length === 0;
+}
+
 function renderKnowledge(knowledge, pending) {
   if (!el.knowledge) return;
   clearChildren(el.knowledge);
@@ -379,6 +410,7 @@ function render() {
   }
 
   el.waitBtn.disabled = pendingActive;
+  renderStory(playerView.knowledge);
   renderKnowledge(playerView.knowledge, playerView.pending);
   renderLog();
 }

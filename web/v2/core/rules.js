@@ -2487,6 +2487,10 @@ export function validateData(data) {
       if (isPlainObject(rumor) && rumor.validDays !== undefined && !(Number.isInteger(rumor.validDays) && rumor.validDays > 0)) {
         errors.push(`rumors.${rumorId}.validDays must be a positive integer when present (D-114)`);
       }
+      // V2-Core-138 (D-116): `story` -- the main thread's chapter a word belongs to (the view's story panel); data only
+      if (isPlainObject(rumor) && rumor.story !== undefined && !(isPlainObject(rumor.story) && Number.isInteger(rumor.story.chapter) && rumor.story.chapter > 0)) {
+        errors.push(`rumors.${rumorId}.story must be { chapter: positive integer } when present (D-116)`);
+      }
     });
   }
   // V2-Core-58 (D-87): an equipment item's slot is a world-named ID
