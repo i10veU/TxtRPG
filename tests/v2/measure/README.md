@@ -119,3 +119,14 @@ python3 tests/v2/measure/agg.py base $OUT
 차이(세계 단위 95%):
 - `infoAvoid − blindD`: 사망 −0.21 [−0.27, −0.16](r4), −0.21 [−0.26, −0.16](r6).
 - `infoAvoid − blindN`: 은화 +50.8 [+46.6, +55.4](r4), +56.8 [+52.9, +61.0](r6).
+
+## 고정 캠페인 한 줄 실행 (`campaign.sh`, 2026-10-12)
+
+자주 돌리는 캠페인을 한 명령으로 묶었다. 표본, 정책, 판정기는 각 설계 문서가 측정 전에 정한 그대로다. 병렬 정도는 `MEASURE_JOBS`(기본 4)로 정한다.
+
+```sh
+tests/v2/measure/campaign.sh escort-parity <base-commit> /tmp/c1   # 호위 10세계 x 8주사위 x 10정책, 120일: 800/800 동일한가
+tests/v2/measure/campaign.sh trade /tmp/c2                         # 교역 부록 C.5 표본(inj-9, hold-3) + trade-judge(B3) + trade-diag
+tests/v2/measure/campaign.sh trade-parity <base-commit> /tmp/c3    # 교역 216경력 동일성(진단 열 제외)
+```
+

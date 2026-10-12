@@ -99,11 +99,15 @@ test.describe("V2 road news, integrated (Road News, step 3)", () => {
     await expect(log(page)).toContainText("요즘 강나루 길이 조용하다고");
     await expect(word(page, "강나루 길이 조용하다")).toHaveText(`강나루 길이 조용하다 · ${LEDGER} · 오늘`);
 
-    // the road moves on; the word only grows older (nothing on screen says the road has changed)
+    // the road moves on; the word only grows older (nothing on screen says the road has changed) -- V2-Core-135 (D-114): once
+    // it is a caravan's cadence old (the road's `validDays`, 3), it reads that it may no longer hold, and only then
     await waitUntil(page, { changedFrom: first, unit: 1440 });
     const moved = await getState(page);
     expect(moved.facts.fact_road_north.value).not.toBe(first);
-    await expect(word(page, "강나루 길이 조용하다")).toHaveText(new RegExp(`^강나루 길이 조용하다 · ${LEDGER} · \\d+일 전$`));
+    const older = await word(page, "강나루 길이 조용하다").textContent();
+    const aged = new RegExp(`^강나루 길이 조용하다 · ${LEDGER} · (\\d+)일 전( · 지금은 달라졌을 수 있음)?$`).exec(older);
+    expect(aged, older).not.toBeNull();
+    expect(Boolean(aged[2]), `${aged[1]} days old`).toBe(Number(aged[1]) >= 3);
     await expect(word(page, "강나루 길이 조용하다")).not.toHaveAttribute("data-stale", "true");
 
     // asked again: the road as it is now is today's word; the old one is marked as replaced
