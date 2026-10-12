@@ -2288,3 +2288,4 @@ state.knowledge["player_1"]["rum_a"] = {
   - 작업 130 = V2-Core-133 (#331, D-113): 밀가루 값 — 성읍 6, 장날 8(소유자 결정, 최소 변경 대안 비교는 부록 E.1). 가격을 단언하던 Node 4·브라우저 4 테스트를 새 값으로. 재측정은 부록 E.3.
   - 작업 131 = V2-Core-134 (#333, D-113): 뱃사공의 말은 상단의 걸음이 끝난 뒤의 수요다. 상단은 `town_word_due`만 남기고, 새 사건 `evt_town_word_south`(id 순 마지막)가 수요가 돌아온 뒤 말을 넘긴다. 결과는 부록 F.1이다: 정보 C2 +16.6, B3 58.7%.
   - 작업 132 = V2-Core-135 (#335, D-114): 말이 유효한 기간(`validDays`, 화면의 "지금은 달라졌을 수 있음")과 방앗간 주인의 해석(같은 날에 대한 갈라지는 말). `tests/v2/data-world-miller-reading.test.js`는 변이 4개를 모두 잡는다. 브라우저 테스트는 `v2-ui-miller-reading-browser.spec.js`다. 측정 도구와 B3 진단은 부록 G다: B3는 기준 그대로 실패(58.7%)했고, H1(자기 판매)이 지지됐다.
+  - 작업 133 = V2-Core-136 (개발 가속, 계약 변경 없음): `tests/v2/run.js` 병렬(60 → 20초, 같은 PASS/FAIL), V2 브라우저 spec을 `tests/v2-browser.config.js`로 CI 한 단계에서(V1 단계 그대로), `tests/support/verify.sh`, `tests/v2/measure/campaign.sh`. 운영 규칙은 `docs/v2/DEVELOPMENT_ACCELERATION.md`.

@@ -272,8 +272,12 @@ V1의 `world.continuity` 구현은 재사용하지 않는다 (2절 참고).
 - V1 런타임 경계는 보호한다: V1 런타임 파일, V1 테스트, V1 CI의 기존 V1 단계는 수정하거나 삭제하지
   않는다 (2절).
 - 기존 CI workflow(`.github/workflows/phase251-check.yml`)에 **V2 테스트 단계를 추가하는 것은 허용**한다
-  (`node tests/v2/run.js` 단계와 V2 브라우저 spec마다 단계 하나 -- 이미 그렇게 운영되어 온 관행을 문서에
-  맞춘 것). V2 단계를 추가할 때 기존 V1 단계는 바꾸지 않는다 (2026-10-03 사용자 결정, #160).
+  (2026-10-03 사용자 결정, #160). V2 단계를 추가하거나 바꿀 때 기존 V1 단계는 바꾸지 않는다.
+  - V2 Node: `node tests/v2/run.js` 한 단계. 파일들을 병렬로 실행한다(`V2_JOBS`, 기본 CPU 수 최대 4).
+  - V2 브라우저(2026-10-12 개정, `docs/v2/DEVELOPMENT_ACCELERATION.md`): `tests/v2-*browser.spec.js` 전체를
+    `tests/v2-browser.config.js`로 **한 단계**에서 실행한다. 새 spec은 이 이름 규칙만 지키면 자동으로 포함되고,
+    workflow를 고치지 않는다. 이전에는 spec마다 단계 하나였다.
+  - 로컬에서는 `tests/support/verify.sh`(quick·browser·full)가 CI와 같은 범위를 한 명령으로 돌린다.
 - 최소한 다음 검증 영역을 준비한다: deterministic seed, Condition, Effect, check(), step(), state
   immutability, 성장, 관계, 사건, 저장/복원. 영역별 합격 기준은 `docs/v2/architecture/CORE_CONTRACTS.md`
   13절을 따른다.
