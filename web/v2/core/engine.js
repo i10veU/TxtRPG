@@ -146,13 +146,34 @@ function worldGenerationSeed(state) {
 // event; only next to a player actor (D-48). An NPC without `actor` stays a
 // plain relation/rumor endpoint.
 function seedNpcActors(state, data) {
+  npcActorDefinitions(data).forEach(([npcId, actor]) => {
+    state.actors[npcId] = buildActorFromTemplate(npcId, { ...actor, kind: "npc" });
+  });
+}
+
+// [npcId, actor definition] for every data.npcs entry with an `actor`, in id order (no RNG is involved)
+function npcActorDefinitions(data) {
   const npcs = isPlainObject(data?.npcs) ? data.npcs : {};
-  Object.keys(npcs)
+  return Object.keys(npcs)
     .sort()
-    .forEach((npcId) => {
-      const actor = isPlainObject(npcs[npcId]) ? npcs[npcId].actor : undefined;
-      if (isPlainObject(actor)) state.actors[npcId] = buildActorFromTemplate(npcId, { ...actor, kind: "npc" });
-    });
+    .filter((npcId) => isPlainObject(npcs[npcId]) && isPlainObject(npcs[npcId].actor))
+    .map((npcId) => [npcId, npcs[npcId].actor]);
+}
+
+// V2-Core-137 (D-115, World Bible WB-0030 Q6): additive actor migration. An NPC actor the data pack defines but a
+// state lacks -- a save written before that actor was added -- is seeded exactly as createInitialState would have
+// seeded it (same definition, no RNG, so the result does not depend on when it is adopted). An actor the state
+// already has is never touched, dead or alive, and nothing else changes; a state without an actor map (no
+// character yet) is returned as is. Pure: never mutates `state`; returns the same object when nothing is added.
+export function adoptNewActors(state, data) {
+  if (!isPlainObject(state) || !isPlainObject(state.actors)) return { state, added: [] };
+  const missing = npcActorDefinitions(data).filter(([npcId]) => !Object.hasOwn(state.actors, npcId));
+  if (missing.length === 0) return { state, added: [] };
+  const next = structuredClone(state);
+  missing.forEach(([npcId, actor]) => {
+    next.actors[npcId] = buildActorFromTemplate(npcId, { ...actor, kind: "npc" });
+  });
+  return { state: next, added: missing.map(([npcId]) => npcId) };
 }
 
 // §8.1/§2.7/D-76: every `data.facts[id].initial` is seeded once, at creation,
