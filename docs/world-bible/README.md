@@ -22,7 +22,7 @@ main                    안정된 정식 기준
 
 | 경로 | 내용 |
 |---|---|
-| `00-governance/` | 정본 등급과 승격 절차, 결정 기록, 용어, 로드맵, 최상위 목표와 Master Goal 계층(`master-goals.md`) |
+| `00-governance/` | 정본 등급과 승격 절차, 결정 기록, 용어, 게임 완결까지의 로드맵(`roadmap.md`, 이전 기록 `roadmap-history.md`), 소유자에게 묻는 결정 묶음(`decision-packet-1.md`), 최상위 목표와 Master Goal 계층(`master-goals.md`) |
 | `01-foundations/` | 마스터 방향, 설계 원칙, 명명 지침, 세계 구조(층위·시간·정보), 연속성 원칙, 작업용 가정(Draft) |
 | `02-world/` | 세계 개요, 우주관·신앙, 연대기 (대부분 미결) |
 | `03-geography/` | 지역·장소 항목 (남쪽 변경, 성읍과 그 둘레) |
