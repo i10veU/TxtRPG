@@ -16,7 +16,7 @@
 // respects that as-is: a locked (showWhenLocked) action renders disabled
 // with no explanation, by design, not by omission.
 
-import { createInitialState, step, view, validateState, checkDataCompatibility } from "../core/engine.js";
+import { createInitialState, step, view, validateState, checkDataCompatibility, adoptNewActors } from "../core/engine.js";
 import { actorResource, evaluateCondition } from "../core/rules.js";
 import * as storage from "../storage/idb.js";
 import { worldData } from "../data/world.js";
@@ -458,7 +458,8 @@ async function loadGame(slot) {
       showError(`이 저장은 현재 데이터와 호환되지 않아 불러오지 않았다: ${incompatible.join("; ")}`);
       return;
     }
-    state = loaded;
+    // D-115 (WB-0030 Q6): an actor this pack defines but the save predates is seeded as a new game would have it
+    state = adoptNewActors(loaded, worldData).state;
     currentSlot = slot;
     logEntries.length = 0;
     pushLog(`"${slot}"에서 불러왔다.`);
