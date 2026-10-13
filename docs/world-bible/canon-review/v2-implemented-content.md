@@ -283,4 +283,9 @@ ID는 저장 파일에 남으므로 게임 쪽에서 바꾸기 어렵다. **정�
 | `rum_band_led_by_scarred` / `rum_band_led_by_remnant` | 이끄는 자를 아는 길이 사람마다 다르다. 뱃사공은 전에 건넨 옆구리 감싼 사내를 알아본다(살아 있으면). 조합은 아는 호위에게만 말한다. 게시판의 덧적음은 쓰러진 두목 밑의 자들이라고 한다 | Provisional. C-14(옆구리 상처의 버릇)와 맞다. 남쪽 말씨, 북쪽 숲길은 서술이다 |
 | `opt_elder_band_word` / `fact_elder_request` · `frontier_warned` · `fact_frontier_warned` | 원로가 누가 이끄는지 알아봐 달라고 한다. 들으면 마을 사람들에게 밤길과 샘가를 지키게 한다(세계의 깃발, 원로 +5 한 번). 후계자는 그 세계를 만난다 | Provisional. N-05(변경은 스스로 지킨다)와 C-09(원로 중심)와 맞다 |
 | 소문의 `story.chapter` / "이야기" 패널 | 1장: 도적단과 샘의 결말(사실과 전설), 2장: 강 건너의 그림자. 캐릭터 자신의 앎만 보인다 | 세계 설정이 아니라 앎의 표현 |
+| `evt_unrest_band_grows` / `band_strength` · `fact_band_size` (V2-Core-139, D-117) | 무리가 상단 주기마다 한 걸음씩 6까지 자란다. 조합이 호위를 붙잡으면 주기 하나걸러 자란다 | 속도와 상한은 **게임 값**(R-29) |
+| `loc_band_camp` "북쪽 숲 너머" / `act_watch_band_camp` / `rum_band_size` · `rum_band_crossing_soon` | 숲에 숨어 무리를 지켜본다. 성공하면 그날의 크기를 보고, 거의 다 모였으면 곧 건너올 셈임을 안다. 실패하면 들켜 다친다. 국경 쪽 말씨의 낯선 자들이 섞여 있다 | **Canon DC-09**(WB-0032, 장소). 낯선 자들은 MC-01의 범위다. 서술은 Provisional |
+| `opt_guild_clerk_warn` / `guild_keeps_guards` | 조합이 아는 호위가 이끄는 자를 알리면 조합이 품삯을 올려 호위를 붙잡는다(DC-08의 거울) | Provisional |
+| `opt_elder_give_*` / `frontier_defense` | 은화 10(세 번까지), 손에 들지 않은 철검, 연고 둘로 마을이 대비한다 | Provisional. N-05(변경은 스스로 지킨다)와 맞다 |
+| `rum_lord_offer` / `opt_elder_lord_accept` · `opt_elder_lord_refuse` / `lord_pact` | 무리가 커지면 성읍 포고판에 영주의 제안이 붙는다(보호 대가로 사람과 세). 원로가 받아들이거나(영주의 순찰, 대비 +2) 거절한다(변경이 스스로 선다). 한 번만이다 | **Canon MC-02**. 문구와 대비 +2는 Provisional |
 
