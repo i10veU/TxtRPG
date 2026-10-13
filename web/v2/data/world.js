@@ -383,6 +383,21 @@ const BAND_GATHERING = { op: "signal", key: "band_gathering", min: 1 };
 const KNOWS_BAND_SCARRED = { op: "rumor", rumor: "rum_band_led_by_scarred" };
 const KNOWS_BAND_LEADER = { op: "or", of: [KNOWS_BAND_SCARRED, { op: "rumor", rumor: "rum_band_led_by_remnant" }] };
 const FRONTIER_WARNED = { op: "flag", key: "frontier_warned" };
+// V2-Core-139 (roadmap M5, chapter 3 "변경을 지키는 일", docs/v2/main-story-design.md §2): the band grows one step a
+// caravan's cadence (`band_strength` 1..6, half as fast once the guild keeps its guards); four ways to answer it --
+// tell the guild who leads them, watch the band where it gathers, help the village prepare (`frontier_defense`), and
+// take or refuse the lord's offer (MC-02, `lord_pact` 1 taken / 2 refused). Nothing south of the river is attacked
+// yet (chapter 4, M6); no caravan, road, ledger or trade value changes.
+const BAND_AT = (n) => ({ op: "signal", key: "band_strength", min: n });
+const GUILD_KEEPS_GUARDS = { op: "flag", key: "guild_keeps_guards" };
+const LORD_UNDECIDED = { op: "signal", key: "lord_pact", max: 0 };
+const DEFENSE_UP = [{ op: "signal", key: "frontier_defense", add: 1 }];
+const BAND_SIZE_FACT = {
+  op: "if",
+  when: BAND_AT(5),
+  then: [{ op: "fact", fact: "fact_band_size", set: "host" }],
+  else: [{ op: "if", when: BAND_AT(3), then: [{ op: "fact", fact: "fact_band_size", set: "many" }], else: [{ op: "fact", fact: "fact_band_size", set: "few" }] }]
+};
 // V2-Core-74 (#180): the realm's news the caravans have brought so far (the world's facts)
 const NEWS = (fact) => ({ op: "fact", fact, eq: "known" });
 // V2-Core-76 (#189): the frontier's news travels north only with the caravans (World Bible WB-0019)
@@ -958,6 +973,26 @@ export const worldData = {
         { op: "fact", fact: "fact_band_gathers", set: "gathering" },
         { op: "if", when: LEADER_LIVES, then: [{ op: "fact", fact: "fact_band_leader", set: "scarred_chief" }], else: [{ op: "fact", fact: "fact_band_leader", set: "chief_right_hand" }] }
       ]
+    },
+    // V2-Core-139 (M5): the band grows a step every caravan's cadence, to six; once the guild keeps its guards, every
+    // other cadence (`band_growth_skip` alternates). Its id sorts after the gathering, so the first step is the
+    // gathering's own (strength 1)
+    evt_unrest_band_grows: {
+      trigger: { op: "and", of: [BAND_GATHERING, { op: "not", of: BAND_AT(6) }] },
+      cooldown: 4320,
+      catchUp: true,
+      effects: [
+        {
+          op: "if",
+          when: { op: "and", of: [GUILD_KEEPS_GUARDS, { op: "signal", key: "band_growth_skip", min: 1 }] },
+          then: [{ op: "signal", key: "band_growth_skip", add: -9 }],
+          else: [
+            { op: "signal", key: "band_strength", add: 1 },
+            { op: "if", when: GUILD_KEEPS_GUARDS, then: [{ op: "signal", key: "band_growth_skip", add: 1 }] }
+          ]
+        },
+        BAND_SIZE_FACT
+      ]
     }
   },
 
@@ -1014,7 +1049,9 @@ export const worldData = {
         { to: "loc_castle_town", minutes: 720 },
         // V2-Core-88 (#217): five days north along the wide road to the royal city (World Bible WB-0011/C-20) --
         // for one who has read the way on the waystation board
-        { to: "loc_royal_city", minutes: 7200, requires: { op: "rumor", rumor: "rum_royal_city" } }
+        { to: "loc_royal_city", minutes: 7200, requires: { op: "rumor", rumor: "rum_royal_city" } },
+        // V2-Core-139 (M5): up the north woods' path, where the band gathers -- for one who has heard of it
+        { to: "loc_band_camp", minutes: 240, requires: { op: "rumor", rumor: "rum_band_camp_way" } }
       ]
     },
     // V2-Core-76 (#189, Slice 5): the nearest urban sphere -- descriptive name only (World Bible WB-0013/G-05)
@@ -1027,6 +1064,11 @@ export const worldData = {
     loc_royal_city: {
       name: "왕도",
       links: [{ to: "loc_far_bank", minutes: 7200 }]
+    },
+    // V2-Core-139 (M5): the woods beyond the waystation where the band across the river gathers (no name)
+    loc_band_camp: {
+      name: "북쪽 숲 너머",
+      links: [{ to: "loc_far_bank", minutes: 240 }]
     }
   },
 
@@ -1222,6 +1264,13 @@ export const worldData = {
       requires: { op: "location", at: "loc_castle_town" },
       minutes: 20,
       effects: [
+        // V2-Core-139 (M5, MC-02): once the band across the river is many, the lord offers the frontier protection --
+        // for its men and its tax; until the frontier answers
+        {
+          op: "if",
+          when: { op: "and", of: [BAND_AT(3), LORD_UNDECIDED] },
+          then: [{ op: "fact", fact: "fact_lord_offer", set: "posted" }, { op: "rumor", rumor: "rum_lord_offer", observe: true, source: "obs_loc_castle_town", confidence: 90, about: "now" }, say("txt_castle_lord_offer")]
+        },
         { op: "rumor", rumor: "rum_realm_levy", source: "obs_loc_castle_town", confidence: 80 },
         say("txt_castle_levy_decree"),
         {
@@ -1301,6 +1350,22 @@ export const worldData = {
         say("txt_lodge_castle_town"),
         ...REST_WOUNDS
       ]
+    },
+    // V2-Core-139 (M5): watching the band from the trees -- how many they are now; near the end, that they mean to cross
+    act_watch_band_camp: {
+      name: "숲에 숨어 무리를 지켜본다",
+      requires: { op: "and", of: [{ op: "location", at: "loc_band_camp" }, BAND_GATHERING] },
+      check: { stat: "per", skill: "investigation", tags: ["investigation"], difficulty: "normal" },
+      minutes: 60,
+      outcomes: {
+        success: [
+          { op: "proficiency", id: "investigation", add: 10 },
+          { op: "rumor", rumor: "rum_band_size", observe: true, source: "obs_loc_band_camp", confidence: 90, about: "now" },
+          { op: "if", when: BAND_AT(5), then: [say("txt_band_camp_host")], else: [{ op: "if", when: BAND_AT(3), then: [say("txt_band_camp_many")], else: [say("txt_band_camp_few")] }] },
+          { op: "if", when: BAND_AT(5), then: [{ op: "fact", fact: "fact_band_crossing", set: "soon" }, { op: "rumor", rumor: "rum_band_crossing_soon", observe: true, source: "obs_loc_band_camp", confidence: 80, about: "now" }, say("txt_band_camp_crossing")] }
+        ],
+        fail: [{ op: "proficiency", id: "investigation", add: 5 }, { op: "hp", add: -3 }, say("txt_band_camp_spotted")]
+      }
     },
     act_read_waystation_board: {
       name: "길목의 게시판을 읽는다",
@@ -1662,6 +1727,52 @@ export const worldData = {
             }
           ]
         },
+        // V2-Core-139 (M5): the village prepares -- silver (three times at most), an iron sword, two salves (once each)
+        {
+          id: "opt_elder_give_silver",
+          name: "마을의 대비에 은화 10을 보탠다",
+          requires: { op: "and", of: [FRONTIER_WARNED, { op: "money", min: 10 }, { op: "signal", key: "frontier_silver", max: 2 }] },
+          effects: [{ op: "money", add: -10 }, { op: "signal", key: "frontier_silver", add: 1 }, ...DEFENSE_UP, { op: "fact", fact: "fact_frontier_prepared", set: "helped" }, { op: "rumor", rumor: "rum_frontier_prepared", source: "npc_elder", confidence: 90 }, say("txt_elder_given_silver")]
+        },
+        {
+          id: "opt_elder_give_sword",
+          name: "철검을 마을에 내놓는다",
+          requires: { op: "and", of: [FRONTIER_WARNED, { op: "item", item: "item_iron_sword", min: 1 }, { op: "not", of: { op: "item", item: "item_iron_sword", equipped: true } }, { op: "not", of: { op: "flag", key: "frontier_got_sword" } }] },
+          effects: [{ op: "item", item: "item_iron_sword", add: -1 }, { op: "flag", key: "frontier_got_sword", value: true }, ...DEFENSE_UP, { op: "fact", fact: "fact_frontier_prepared", set: "helped" }, { op: "rumor", rumor: "rum_frontier_prepared", source: "npc_elder", confidence: 90 }, say("txt_elder_given_sword")]
+        },
+        {
+          id: "opt_elder_give_salve",
+          name: "약초 연고 둘을 내놓는다",
+          requires: { op: "and", of: [FRONTIER_WARNED, { op: "item", item: "item_herbal_salve", min: 2 }, { op: "not", of: { op: "flag", key: "frontier_got_salve" } }] },
+          effects: [{ op: "item", item: "item_herbal_salve", add: -2 }, { op: "flag", key: "frontier_got_salve", value: true }, ...DEFENSE_UP, { op: "fact", fact: "fact_frontier_prepared", set: "helped" }, { op: "rumor", rumor: "rum_frontier_prepared", source: "npc_elder", confidence: 90 }, say("txt_elder_given_salve")]
+        },
+        // V2-Core-139 (M5, MC-02): the lord's offer, brought to the elder -- he asks this character's counsel, and the
+        // frontier answers once, for the world
+        {
+          id: "opt_elder_lord_accept",
+          name: "영주의 보호를 받아들이자고 한다",
+          requires: { op: "and", of: [{ op: "rumor", rumor: "rum_lord_offer" }, LORD_UNDECIDED] },
+          effects: [
+            { op: "signal", key: "lord_pact", add: 1 },
+            { op: "fact", fact: "fact_lord_pact", set: "accepted" },
+            ...DEFENSE_UP,
+            ...DEFENSE_UP,
+            { op: "rumor", rumor: "rum_lord_pact_accepted", source: "npc_elder", confidence: 90 },
+            say("txt_elder_lord_accepted")
+          ]
+        },
+        {
+          id: "opt_elder_lord_refuse",
+          name: "변경이 스스로 지키자고 한다",
+          requires: { op: "and", of: [{ op: "rumor", rumor: "rum_lord_offer" }, LORD_UNDECIDED] },
+          effects: [
+            { op: "signal", key: "lord_pact", add: 2 },
+            { op: "fact", fact: "fact_lord_pact", set: "refused" },
+            { op: "relation", from: "npc_elder", add: 5 },
+            { op: "rumor", rumor: "rum_lord_pact_refused", source: "npc_elder", confidence: 90 },
+            say("txt_elder_lord_refused")
+          ]
+        },
         {
           id: "opt_village_honor",
           name: "마을의 이름으로 감사를 받는다",
@@ -1927,6 +2038,9 @@ export const worldData = {
           effects: [
             say("txt_ferryman_band"),
             { op: "rumor", rumor: "rum_band_recruits", source: "npc_ferryman", confidence: 70, about: "now" },
+            // V2-Core-139 (M5): the north woods' path they took
+            { op: "fact", fact: "fact_band_camp", set: "north_woods" },
+            { op: "rumor", rumor: "rum_band_camp_way", source: "npc_ferryman", confidence: 70 },
             {
               op: "if",
               when: LEADER_LIVES,
@@ -2155,6 +2269,19 @@ export const worldData = {
               ],
               else: [say("txt_guild_clerk_band_closed")]
             }
+          ]
+        },
+        // V2-Core-139 (M5): a guard the guild knows tells who leads them -- the guild raises its wage and keeps its guards
+        {
+          id: "opt_guild_clerk_warn",
+          name: "무리를 이끄는 자를 알린다",
+          requires: { op: "and", of: [BAND_GATHERING, KNOWS_BAND_LEADER, GUILD_KNOWS, { op: "not", of: GUILD_KEEPS_GUARDS }] },
+          effects: [
+            { op: "flag", key: "guild_keeps_guards", value: true },
+            { op: "fact", fact: "fact_guild_keeps_guards", set: "kept" },
+            { op: "relation", from: "npc_guild_clerk", add: 5 },
+            { op: "rumor", rumor: "rum_guild_keeps_guards", source: "npc_guild_clerk", confidence: 90 },
+            say("txt_guild_clerk_warned")
           ]
         },
         {
@@ -2632,6 +2759,14 @@ export const worldData = {
     fact_band_leader: {},
     fact_elder_request: {},
     fact_frontier_warned: {},
+    // V2-Core-139 (M5): the band's size, the way to it, its crossing; the guild's answer; the lord's offer and the frontier's
+    fact_band_size: {},
+    fact_frontier_prepared: {},
+    fact_band_camp: {},
+    fact_band_crossing: {},
+    fact_guild_keeps_guards: {},
+    fact_lord_offer: {},
+    fact_lord_pact: {},
     fact_royal_city: {},
     // V2-Core-125 (#307): the road to the ford -- quiet / uneasy / dangerous, set at each turn (a save from before has none) --
     // and the world's place on the road's course, drawn at creation from its own stream (a save from before has none: the first)
@@ -2691,7 +2826,16 @@ export const worldData = {
     rum_band_recruits: { factId: "fact_band_gathers", claim: "gathering", story: { chapter: 2 } },
     rum_band_led_by_scarred: { factId: "fact_band_leader", claim: "scarred_chief", story: { chapter: 2 } },
     rum_band_led_by_remnant: { factId: "fact_band_leader", claim: "chief_right_hand", story: { chapter: 2 } },
-    rum_frontier_warned: { factId: "fact_frontier_warned", claim: "warned", story: { chapter: 2 } }
+    rum_frontier_warned: { factId: "fact_frontier_warned", claim: "warned", story: { chapter: 2 } },
+    // V2-Core-139 (M5): chapter 3, keeping the frontier
+    rum_band_camp_way: { factId: "fact_band_camp", claim: "north_woods", story: { chapter: 3 } },
+    rum_band_size: { factId: "fact_band_size", claim: "observed", validDays: 3, story: { chapter: 3 } },
+    rum_band_crossing_soon: { factId: "fact_band_crossing", claim: "soon", validDays: 3, story: { chapter: 3 } },
+    rum_guild_keeps_guards: { factId: "fact_guild_keeps_guards", claim: "kept", story: { chapter: 3 } },
+    rum_frontier_prepared: { factId: "fact_frontier_prepared", claim: "helped", story: { chapter: 3 } },
+    rum_lord_offer: { factId: "fact_lord_offer", claim: "posted", validDays: 6, story: { chapter: 3 } },
+    rum_lord_pact_accepted: { factId: "fact_lord_pact", claim: "accepted", story: { chapter: 3 } },
+    rum_lord_pact_refused: { factId: "fact_lord_pact", claim: "refused", story: { chapter: 3 } }
   },
 
   // Relation-edge/rumor-source IDs (§7.1/§8.3). An entry without `actor` is
@@ -2752,6 +2896,18 @@ export const worldData = {
     txt_ferryman_band_scarred: "\"그중 우두머리는 배에 앉을 때마다 옆구리를 감싸더군. 전에 한 번 건넨 사내요.\"",
     txt_ferryman_band_unknown: "\"누가 이끄는지는 모르오. 뱃삯은 꼬박꼬박 냈소.\"",
     txt_board_band: "게시판 구석에 쪽지가 붙어 있다. '칼 쓸 줄 아는 자. 품삯 후함. 길목에서 묻게.'",
+    txt_band_camp_few: "나무 사이로 모닥불 두엇과 천막 몇이 보인다. 아직은 한 상단의 호위보다 많지 않다.",
+    txt_band_camp_many: "모닥불이 늘었다. 칼을 가는 소리가 숲 가장자리까지 들린다. 마을 하나를 겁줄 만한 수다.",
+    txt_band_camp_host: "숲이 사람으로 찼다. 국경 쪽 말씨를 쓰는 낯선 자들도 섞였다. 천막을 걷는 이들이 있다.",
+    txt_band_camp_crossing: "누군가 강 쪽을 가리키며 날짜를 센다. 오래 기다리지 않을 셈이다.",
+    txt_band_camp_spotted: "마른 가지가 부러진다. 망보던 자가 돌을 던지고 소리친다. 숲을 빠져나오는 길에 몸 여기저기가 긁히고 찢긴다.",
+    txt_castle_lord_offer: "포고판에 새 글이 붙었다. 강 남쪽 변경에도 영주의 순찰을 보내 지켜 주겠다고 한다. 대신 그 땅에서도 사람을 내고 세를 바치라고.",
+    txt_guild_clerk_warned: "서기가 장부에 무언가를 적는다. \"그자가 이끈다면 이야기가 다르지. 조합이 품삯을 올려 호위들을 붙잡아 두겠소.\"",
+    txt_elder_given_silver: "원로가 은화를 받아 마을 젊은이들에게 창과 등불을 사게 하겠다고 한다.",
+    txt_elder_given_sword: "원로가 철검을 받아 든다. \"이걸 쥘 손은 마을에도 있네.\"",
+    txt_elder_given_salve: "원로가 연고를 약초꾼에게 맡기겠다고 한다. 다친 이를 돌볼 준비가 하나 늘었다.",
+    txt_elder_lord_accepted: "원로가 오래 생각하다 고개를 끄덕인다. \"영주의 깃발 아래 서는 것이 오늘 마을을 지킨다면.\" 영주의 순찰이 강을 건너올 것이다. 대신 마을의 젊은이 몇이 성읍으로 간다.",
+    txt_elder_lord_refused: "원로가 당신의 손을 잡는다. \"변경은 늘 스스로 서 왔네. 이번에도 그러지.\" 영주의 순찰은 오지 않는다.",
     txt_board_band_remnant: "쪽지 아래에 누군가 덧적었다. '폐허 두목 밑에 있던 놈들이 또 모인다.'",
     txt_investigate_success: "등불 아래 드러난 흔적은 도적들의 은신처를 가리키고 있었다.",
     txt_investigate_fail: "폐허는 어둡고 흔적은 모호하다. 확실한 것을 찾지 못했다.",
@@ -2973,6 +3129,15 @@ export const worldData = {
     lbl_rumor_rum_frontier_warned: "원로가 변경에 대비를 일렀다. 이제 그들이 언제 강을 건너오는지 지켜볼 때다",
     lbl_story_chapter_1: "1장 변경의 일",
     lbl_story_chapter_2: "2장 강 건너의 그림자",
+    lbl_story_chapter_3: "3장 변경을 지키는 일",
+    lbl_rumor_rum_band_camp_way: "무리는 강 건너 길목에서 북쪽 숲길로 들어갔다",
+    lbl_rumor_rum_band_size: "숲 너머에 모인 무리를 직접 보았다",
+    lbl_rumor_rum_band_crossing_soon: "무리가 곧 강을 건너올 셈이다",
+    lbl_rumor_rum_guild_keeps_guards: "조합이 품삯을 올려 호위들을 붙잡아 두기로 했다",
+    lbl_rumor_rum_frontier_prepared: "마을의 대비를 도왔다",
+    lbl_rumor_rum_lord_offer: "영주가 변경에 보호를 내주는 대신 사람과 세를 바라는 포고를 붙였다",
+    lbl_rumor_rum_lord_pact_accepted: "변경은 영주의 보호를 받아들였다",
+    lbl_rumor_rum_lord_pact_refused: "변경은 스스로 지키기로 했다",
     lbl_rumor_rum_bandits_legend: "도적 떼가 모두 베어졌다",
     lbl_rumor_rum_leader_old_wound: "두목의 옆구리에 오래된 상처가 있다",
     lbl_rumor_rum_well_source: "우물 물은 숲의 샘에서 온다",
@@ -3016,6 +3181,7 @@ export const worldData = {
     lbl_src_src_village_legend: "마을에 도는 이야기",
     lbl_src_obs_village_well: "직접 봄 (마을 우물)",
     lbl_src_obs_road_north: "직접 봄 (강나루 길)",
+    lbl_src_obs_loc_band_camp: "직접 봄 (북쪽 숲 너머)",
     txt_lead_great: "길 위에서 호위들을 부려 좀도둑들을 단번에 몰아낸다. 상단은 흠 하나 없이 강 건너 길목에 닿고, 상단주는 두둑한 웃돈을 얹는다.",
     txt_lead_success: "호위들을 앞뒤로 세워 길을 지킨다. 상단은 무사히 강 건너 길목에 닿고, 서기가 이끈 몫까지 쳐서 품삯을 내준다.",
     txt_lead_fail: "호위들을 이끌었으나 길에서 덤벼든 좀도둑들에게 밀린다. 상단은 간신히 닿지만 앞장선 몫만큼 상처를 입고, 품삯은 크게 깎인다.",

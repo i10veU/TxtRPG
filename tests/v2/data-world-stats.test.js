@@ -90,6 +90,7 @@ function testEveryCheckNamesADefinedStat() {
     act_gather_herbs: ["wis", null], // V2-Core-65: knowing the herbs
     act_read_milestone: ["int", null], // V2-Core-72: the worn letters
     act_search_crossroads: ["per", null],
+    act_watch_band_camp: ["per", null], // V2-Core-139: watching the band
     "choice_guild_clerk_dialogue.opt_guild_clerk_escort": ["str", null], // V2-Core-78: the caravan guard
     "choice_guild_clerk_dialogue.opt_guild_clerk_escort_lead": ["str", null], // V2-Core-105: leading it
     "choice_guild_clerk_dialogue.opt_guild_clerk_escort_careful": ["str", null], // V2-Core-106: the careful way

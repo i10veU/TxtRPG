@@ -85,6 +85,7 @@ function testChecksReadSkills() {
     act_gather_herbs: ["herbalism", null], // V2-Core-65
     act_read_milestone: ["investigation", null], // V2-Core-72
     act_search_crossroads: ["investigation", null],
+    act_watch_band_camp: ["investigation", null], // V2-Core-139: watching the band
     "choice_guild_clerk_dialogue.opt_guild_clerk_escort": ["swordsmanship", null], // V2-Core-78: the caravan guard
     "choice_guild_clerk_dialogue.opt_guild_clerk_escort_lead": ["swordsmanship", null], // V2-Core-105: leading it
     "choice_guild_clerk_dialogue.opt_guild_clerk_escort_careful": ["swordsmanship", null], // V2-Core-106: the careful way
