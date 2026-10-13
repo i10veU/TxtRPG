@@ -292,4 +292,10 @@ ID는 저장 파일에 남으므로 게임 쪽에서 바꾸기 어렵다. **정�
 | `evt_unrest_raid_day` · `evt_unrest_raid_strikes` / `frontier_fate` · `fact_ending` | 무리가 갈림길에 사흘 머문 뒤 마을을 친다. 대비가 무리의 절반 이상이면 버틴다(영주의 제안을 받았으면 그 깃발 아래). 모자라면 무너진다 | **Canon DC-10**(마을로 내려옴). 사흘과 버팀의 규칙은 Provisional. 결말은 플레이가 정하는 역사(WB-0015 3층) |
 | `act_face_band` / `choice_final_chief` · `choice_final_right_hand` / `npc_band_lieutenant` | 갈림길의 마지막 싸움. 살아 있는 두목, 아니면 두목의 오른팔. 오래된 상처를 아는 이는 그곳을 노린다. 대비한 마을은 함께 에워싼다. 이기면 무리가 흩어지고 마을이 그 이름을 부른다(`defender`) | **Canon MC-03·MC-04·C-14**. 오른팔(이름 없음)과 싸움 값은 Provisional |
 | `opt_elder_band_crossed` · `opt_elder_aftermath` / 이야기 4·5장 | 원로가 언제 치는지와 마을이 버틸지를, 그 뒤에는 그날의 일과 세계가 기억하는 것(마을의 이름, 조합의 장부, 처음의 경고)을 들려준다. 후계자도 듣는다 | Provisional. 앎의 표현 |
+| `opt_ferryman_watch` / `ferryman_watches` (V2-Core-141, D-119) | 은화 5를 받은 뱃사공이 무리가 건너오면 밤배로 마을에 알린다. 습격이 하루 늦다 | Provisional. C-12(강나루의 뱃사공)와 맞다 |
+| `act_post_frontier_notice` | 원로의 경고를 받은 이가 강 건너 길목 게시판에 변경을 지킬 일손을 구한다(은화 15, 대비 +1) | Provisional. N-05(변경은 스스로 지킨다)와 맞다 |
+| `act_petition_crown` / `crown_writ` · `crown_refused` | 왕궁 서기에게 변경의 사정을 아뢴다. 들으면 변경이 스스로 민병을 세워도 좋다는 글이 상단 편에 내려온다. 듣지 않으면 다시는 듣지 않는다 | Provisional(왕궁의 제도 세부는 WB-0023 보류 범위 밖의 서술로만). N-05·N-06과 맞다: 왕도의 글에는 여전히 변경이 없다 |
+| `act_burn_band_stores` | 숲 너머 무리의 식량에 불을 놓는다. 성공하면 무리가 하나 줄고, 들키면 몰매를 맞는다. 한 번 | Provisional. DC-09(숲 너머)의 장소 위 |
+| 첫 도착 셋 / `frontier_seen_*` · `fact_frontier_seen_*` | 성읍 성문지기, 길목의 사내들, 왕도의 성문이 변경에서 온 나그네를 기록한다. 왕도의 소식은 성읍 상인들이 전한다 | 서술. N-06(정보의 기울기)과 맞다 |
+| 작은 연결(폐허의 수군거림, 약초꾼의 정화초, 방앗간 주인의 밀가루 손님, 화살 이야기에 눈을 피하는 두목) | 기존 사실 위의 반응 | 서술 |
 
