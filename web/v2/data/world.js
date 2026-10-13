@@ -398,6 +398,26 @@ const BAND_SIZE_FACT = {
   then: [{ op: "fact", fact: "fact_band_size", set: "host" }],
   else: [{ op: "if", when: BAND_AT(3), then: [{ op: "fact", fact: "fact_band_size", set: "many" }], else: [{ op: "fact", fact: "fact_band_size", set: "few" }] }]
 };
+// V2-Core-140 (roadmap M6, chapters 4 "강을 건너오는 불길" and 5 "마지막 싸움과 그 뒤", main-story-design.md §3): the band
+// crosses once it is six strong, or once six cadences have passed since it gathered (`band_cycles` counts the gathering's
+// own step and each one after) -- smaller, then, if the guild kept its guards. It holds the crossroads three days
+// (`raid_days`), then strikes the village: the frontier holds if its preparedness is at least half the band, rounded up
+// (under the lord's banner if the frontier took his offer); otherwise it falls. Before that, one who stands before the
+// band at the crossroads fights whoever leads it -- the scarred chief if he lives, else his right hand (an actor, D-115)
+// -- and, winning, breaks the band; the village calls that name (`org_village` -> self, tag `defender`). The fate is the
+// world's (`frontier_fate` 1 name / 2 held / 3 lord's banner / 4 fallen, `fact_ending`); the elder tells it to whoever
+// asks, a successor too. North of the river, the caravans, the road, the ledger and the trade are untouched.
+const BAND_CROSSED = { op: "flag", key: "band_crossed" };
+const BAND_BROKEN = { op: "flag", key: "band_broken" };
+const FATE = (n) => ({ op: "signal", key: "frontier_fate", eq: n });
+const FATE_DECIDED = { op: "signal", key: "frontier_fate", min: 1 };
+const BAND_IN_THE_LAND = { op: "and", of: [BAND_CROSSED, { op: "not", of: BAND_BROKEN }, { op: "not", of: FATE_DECIDED }] };
+const DEFENSE_AT = (n) => ({ op: "signal", key: "frontier_defense", min: n });
+// preparedness at least half the band, rounded up: 5-6 -> 3, else 2 (a band crosses at least four strong: the gathering's
+// step and six cadences grow even a slowed band to four)
+const FRONTIER_HOLDS = { op: "or", of: [DEFENSE_AT(3), { op: "and", of: [{ op: "not", of: BAND_AT(5) }, DEFENSE_AT(2)] }] };
+const ENDING = (n, claim) => [{ op: "signal", key: "frontier_fate", add: n }, { op: "fact", fact: "fact_ending", set: claim }];
+const VILLAGE_DEFENDER = { op: "relation", from: "org_village", to: "self", tag: "defender" };
 // V2-Core-74 (#180): the realm's news the caravans have brought so far (the world's facts)
 const NEWS = (fact) => ({ op: "fact", fact, eq: "known" });
 // V2-Core-76 (#189): the frontier's news travels north only with the caravans (World Bible WB-0019)
@@ -690,6 +710,98 @@ const STRIKE_OUTCOMES = {
   partial: fightExchange([hitLeader(-2), hitSelf(-2), say("txt_fight_trade")]),
   fail: fightExchange([leaderHits(3), say("txt_fight_struck")])
 };
+// V2-Core-140 (M6): the last fight, at the crossroads -- the first fight's exchanges (the same checks, damage and
+// techniques) against whoever leads the band; one choice for each (`choice_final_chief`, `choice_final_right_hand`).
+// The scarred chief's old wound is open to one who knows of it -- the elder's word or how he guards his left side
+// (C-14); a village that prepared (preparedness 2) surrounds him with the defender. The leader down, the band breaks
+const BAND_BREAKS = [
+  { op: "flag", key: "band_broken", value: true },
+  ...ENDING(1, "name_remembered"),
+  { op: "relation", from: "org_village", add: 20, tag: "defender" },
+  { op: "rumor", rumor: "rum_ending_name", source: "obs_loc_crossroads", confidence: 100 },
+  say("txt_final_victory")
+];
+function finalChoice(key, foe) {
+  const choice = `choice_final_${key}`;
+  const hitFoe = (add) => ({ op: "hp", subject: foe, add });
+  const foeHits = (damage) => ({
+    op: "if",
+    when: { op: "resource", subject: foe, resource: "stamina", min: 3 },
+    then: [{ op: "resource", subject: foe, resource: "stamina", add: -3 }, say("txt_final_heavy_blow"), hitSelf(-(damage + 1))],
+    else: [hitSelf(-damage)]
+  });
+  const exchange = (effects) => [
+    { op: "proficiency", id: "combat", add: 5 },
+    ...effects,
+    {
+      op: "if",
+      when: { op: "not", of: { op: "alive", subject: foe } },
+      then: BAND_BREAKS,
+      else: [
+        {
+          op: "if",
+          when: { op: "alive" },
+          then: [
+            { op: "if", when: { op: "lte", left: { hp: "current", subject: foe }, right: 4 }, then: [say("txt_final_foe_reels")] },
+            { op: "choice", choice, sourceId: "act_face_band" }
+          ]
+        }
+      ]
+    }
+  ];
+  const check = (base, stat = "str") => ({ stat, skill: "swordsmanship", tags: ["combat"], difficulty: { base, opposed: { subject: foe, stat } } });
+  const strike = {
+    great: exchange([hitFoe(-7), say("txt_final_strike_great")]),
+    success: exchange([hitFoe(-5), say("txt_final_strike_hit")]),
+    partial: exchange([hitFoe(-2), hitSelf(-2), say("txt_fight_trade")]),
+    fail: exchange([foeHits(3), say("txt_final_struck")])
+  };
+  const options = [{ id: `opt_final_${key}_strike`, name: "정면으로 맞붙는다", check: check(11), minutes: 5, outcomes: strike }];
+  if (key === "chief") {
+    options.push({
+      id: `opt_final_${key}_weak_spot`,
+      name: "왼쪽 옆구리의 오래된 상처를 노린다",
+      requires: { op: "and", of: [{ op: "or", of: [{ op: "rumor", rumor: "rum_leader_old_wound" }, KNOWS_BAND_SCARRED] }, STAMINA_AT_LEAST(2)] },
+      check: check(9),
+      minutes: 5,
+      outcomes: payStamina(2, strike)
+    });
+  }
+  options.push(
+    {
+      id: `opt_final_${key}_with_village`,
+      name: "마을 사람들과 함께 에워싼다",
+      requires: DEFENSE_AT(2),
+      check: check(9),
+      minutes: 5,
+      outcomes: strike
+    },
+    {
+      id: `opt_final_${key}_sword_cut`,
+      name: "손에 든 검으로 베어 든다",
+      requires: { op: "or", of: [{ op: "item", item: "item_iron_sword", equipped: true }, { op: "item", item: "item_steel_sword", equipped: true }] },
+      check: check(10),
+      minutes: 5,
+      outcomes: strike
+    },
+    {
+      id: `opt_final_${key}_counter`,
+      name: "그의 공격을 읽고 받아친다",
+      requires: { op: "and", of: [{ op: "unlock", id: "unl_keen_eye" }, STAMINA_AT_LEAST(3)] },
+      check: check(12, "dex"),
+      minutes: 5,
+      outcomes: payStamina(3, {
+        great: exchange([hitFoe(-10), say("txt_fight_counter_great")]),
+        success: exchange([hitFoe(-7), say("txt_fight_counter_hit")]),
+        partial: exchange([hitSelf(-1), say("txt_fight_counter_graze")]),
+        fail: exchange([foeHits(4), say("txt_final_counter_miss")])
+      })
+    },
+    // breaking off: back to the village; the band still holds the crossroads and its days still run
+    { id: `opt_final_${key}_flee`, name: "물러서서 마을로 달아난다", minutes: 45, effects: [{ op: "move", to: "loc_village" }, say("txt_final_flee")] }
+  );
+  return { [choice]: { options } };
+}
 
 export const worldData = {
   formatVersion: 1,
@@ -978,10 +1090,12 @@ export const worldData = {
     // other cadence (`band_growth_skip` alternates). Its id sorts after the gathering, so the first step is the
     // gathering's own (strength 1)
     evt_unrest_band_grows: {
-      trigger: { op: "and", of: [BAND_GATHERING, { op: "not", of: BAND_AT(6) }] },
+      trigger: { op: "and", of: [BAND_GATHERING, { op: "not", of: BAND_AT(6) }, { op: "not", of: BAND_CROSSED }] },
       cooldown: 4320,
       catchUp: true,
       effects: [
+        // V2-Core-140 (M6): the cadences since the gathering, its own step the first
+        { op: "signal", key: "band_cycles", add: 1 },
         {
           op: "if",
           when: { op: "and", of: [GUILD_KEEPS_GUARDS, { op: "signal", key: "band_growth_skip", min: 1 }] },
@@ -992,6 +1106,38 @@ export const worldData = {
           ]
         },
         BAND_SIZE_FACT
+      ]
+    },
+    // V2-Core-140 (M6): the band crosses -- six strong, or the gathering and six cadences on. Its id sorts before the
+    // gathering's and the growth's, so it reads the band as the step before left it
+    evt_unrest_band_crosses: {
+      trigger: { op: "and", of: [BAND_GATHERING, { op: "or", of: [BAND_AT(6), { op: "signal", key: "band_cycles", min: 7 }] }] },
+      once: true,
+      effects: [
+        { op: "flag", key: "band_crossed", value: true },
+        { op: "fact", fact: "fact_band_crossed", set: "crossed" },
+        { op: "fact", fact: "fact_raid", set: "coming" }
+      ]
+    },
+    // the days the band holds the crossroads: the crossing's own step the first (its id sorts after the crossing's)
+    evt_unrest_raid_day: {
+      trigger: BAND_IN_THE_LAND,
+      cooldown: 1440,
+      catchUp: true,
+      effects: [{ op: "signal", key: "raid_days", add: 1 }]
+    },
+    // three days on, the band strikes the village; the frontier's fate (sorts after the day's count)
+    evt_unrest_raid_strikes: {
+      trigger: { op: "and", of: [BAND_IN_THE_LAND, { op: "signal", key: "raid_days", min: 4 }] },
+      once: true,
+      effects: [
+        { op: "fact", fact: "fact_raid", set: "struck" },
+        {
+          op: "if",
+          when: FRONTIER_HOLDS,
+          then: [{ op: "if", when: { op: "signal", key: "lord_pact", eq: 1 }, then: ENDING(3, "lord_banner"), else: ENDING(2, "frontier_held") }],
+          else: ENDING(4, "frontier_fell")
+        }
       ]
     }
   },
@@ -1658,6 +1804,20 @@ export const worldData = {
         ]
       },
       effects: [say("txt_fight_start"), { op: "choice", choice: "choice_fight_leader", sourceId: "act_fight_leader" }]
+    },
+    // V2-Core-140 (M6): the band holds the crossroads -- seen there; standing before it is the last fight
+    act_face_band: {
+      name: "갈림길을 막은 무리 앞에 선다",
+      requires: { op: "and", of: [{ op: "location", at: "loc_crossroads" }, BAND_IN_THE_LAND] },
+      effects: [
+        { op: "rumor", rumor: "rum_band_crossed", observe: true, source: "obs_loc_crossroads", confidence: 90, about: "now" },
+        {
+          op: "if",
+          when: LEADER_LIVES,
+          then: [say("txt_face_band_chief"), { op: "choice", choice: "choice_final_chief", sourceId: "act_face_band" }],
+          else: [say("txt_face_band_right_hand"), { op: "choice", choice: "choice_final_right_hand", sourceId: "act_face_band" }]
+        }
+      ]
     }
   },
 
@@ -1771,6 +1931,49 @@ export const worldData = {
             { op: "relation", from: "npc_elder", add: 5 },
             { op: "rumor", rumor: "rum_lord_pact_refused", source: "npc_elder", confidence: 90 },
             say("txt_elder_lord_refused")
+          ]
+        },
+        // V2-Core-140 (M6): the band across -- the elder tells when it will strike and how the village stands
+        {
+          id: "opt_elder_band_crossed",
+          name: "건너온 무리에 대해 묻는다",
+          requires: BAND_IN_THE_LAND,
+          effects: [
+            { op: "rumor", rumor: "rum_band_crossed", source: "npc_elder", confidence: 90, about: "now" },
+            { op: "rumor", rumor: "rum_raid_coming", source: "npc_elder", confidence: 80, about: "now" },
+            say("txt_elder_band_crossed"),
+            { op: "if", when: FRONTIER_HOLDS, then: [say("txt_elder_raid_ready")], else: [say("txt_elder_raid_thin")] }
+          ]
+        },
+        // V2-Core-140 (M6): after -- what became of the frontier, and what the world remembers (Q3)
+        {
+          id: "opt_elder_aftermath",
+          name: "그날의 일을 듣는다",
+          requires: FATE_DECIDED,
+          effects: [
+            {
+              op: "if",
+              when: FATE(1),
+              then: [{ op: "rumor", rumor: "rum_ending_name", source: "npc_elder", confidence: 90 }, say("txt_elder_after_name")],
+              else: [
+                {
+                  op: "if",
+                  when: FATE(2),
+                  then: [{ op: "rumor", rumor: "rum_ending_held", source: "npc_elder", confidence: 90 }, say("txt_elder_after_held")],
+                  else: [
+                    {
+                      op: "if",
+                      when: FATE(3),
+                      then: [{ op: "rumor", rumor: "rum_ending_lord", source: "npc_elder", confidence: 90 }, say("txt_elder_after_lord")],
+                      else: [{ op: "rumor", rumor: "rum_ending_fell", source: "npc_elder", confidence: 90 }, say("txt_elder_after_fell")]
+                    }
+                  ]
+                }
+              ]
+            },
+            { op: "if", when: VILLAGE_DEFENDER, then: [say("txt_elder_after_defender")] },
+            { op: "if", when: GUILD_KEEPS_GUARDS, then: [say("txt_elder_after_guild")] },
+            { op: "if", when: FRONTIER_WARNED, then: [say("txt_elder_after_warned")] }
           ]
         },
         {
@@ -2630,7 +2833,9 @@ export const worldData = {
           ]
         }
       ]
-    }
+    },
+    ...finalChoice("chief", "npc_bandit_leader"),
+    ...finalChoice("right_hand", "npc_band_lieutenant")
   },
 
   growthSystems: {
@@ -2767,6 +2972,10 @@ export const worldData = {
     fact_guild_keeps_guards: {},
     fact_lord_offer: {},
     fact_lord_pact: {},
+    // V2-Core-140 (M6)
+    fact_band_crossed: {},
+    fact_raid: {},
+    fact_ending: {},
     fact_royal_city: {},
     // V2-Core-125 (#307): the road to the ford -- quiet / uneasy / dangerous, set at each turn (a save from before has none) --
     // and the world's place on the road's course, drawn at creation from its own stream (a save from before has none: the first)
@@ -2835,7 +3044,14 @@ export const worldData = {
     rum_frontier_prepared: { factId: "fact_frontier_prepared", claim: "helped", story: { chapter: 3 } },
     rum_lord_offer: { factId: "fact_lord_offer", claim: "posted", validDays: 6, story: { chapter: 3 } },
     rum_lord_pact_accepted: { factId: "fact_lord_pact", claim: "accepted", story: { chapter: 3 } },
-    rum_lord_pact_refused: { factId: "fact_lord_pact", claim: "refused", story: { chapter: 3 } }
+    rum_lord_pact_refused: { factId: "fact_lord_pact", claim: "refused", story: { chapter: 3 } },
+    // V2-Core-140 (M6): chapters 4 and 5
+    rum_band_crossed: { factId: "fact_band_crossed", claim: "crossed", story: { chapter: 4 } },
+    rum_raid_coming: { factId: "fact_raid", claim: "coming", validDays: 3, story: { chapter: 4 } },
+    rum_ending_name: { factId: "fact_ending", claim: "name_remembered", story: { chapter: 5 } },
+    rum_ending_held: { factId: "fact_ending", claim: "frontier_held", story: { chapter: 5 } },
+    rum_ending_lord: { factId: "fact_ending", claim: "lord_banner", story: { chapter: 5 } },
+    rum_ending_fell: { factId: "fact_ending", claim: "frontier_fell", story: { chapter: 5 } }
   },
 
   // Relation-edge/rumor-source IDs (§7.1/§8.3). An entry without `actor` is
@@ -2865,6 +3081,16 @@ export const worldData = {
         hp: { max: 10 },
         // V2-Core-59 (D-88): the growth system's stamina, declared -- he pays for his heavy blow with it
         growth: { growth_wanderer: { stats: { str: 10, dex: 10, con: 10, int: 10, wis: 10, per: 10 }, resources: { stamina: { current: 6, max: 6 } } } }
+      }
+    },
+    // V2-Core-140 (M6, WB-0033): the chief's right hand, who leads the band if the chief is dead (MC-04) -- an actor so
+    // the last fight is opposed against him; a save from before is given him on load (D-115)
+    npc_band_lieutenant: {
+      name: "두목의 오른팔",
+      actor: {
+        locationId: "loc_band_camp",
+        hp: { max: 12 },
+        growth: { growth_wanderer: { stats: { str: 11, dex: 11, con: 11, int: 10, wis: 10, per: 10 }, resources: { stamina: { current: 6, max: 6 } } } }
       }
     }
   },
@@ -2935,6 +3161,26 @@ export const worldData = {
     txt_fight_leader_reels: "두목이 비틀거린다. 그의 숨이 거칠다.",
     txt_fight_victory: "도적 두목이 쓰러진다. 두목을 잃은 도적들이 당신 앞에서 물러선다.",
     txt_fight_flee: "당신은 칼을 거두고 폐허를 빠져나와 마을로 달아난다. 두목은 쫓아오지 않지만, 당신을 기억할 것이다.",
+    txt_face_band_chief: "갈림길의 이정표 아래에 무리가 진을 쳤다. 그 앞에 왼쪽 옆구리를 감싼 사내가 서 있다. 폐허에서 놓친 두목이다. 그가 당신을 알아보고 칼을 뽑는다.",
+    txt_face_band_right_hand: "갈림길의 이정표 아래에 무리가 진을 쳤다. 그 앞에 폐허의 두목 밑에 있던 사내가 서 있다. 이제 그가 무리를 이끈다. 그가 칼을 뽑는다.",
+    txt_final_strike_great: "당신의 일격이 그를 크게 베어 낸다. 뒤에 선 무리가 웅성거린다.",
+    txt_final_strike_hit: "당신의 공격이 그에게 닿는다.",
+    txt_final_struck: "그의 칼이 당신을 벤다.",
+    txt_final_heavy_blow: "그가 온 힘을 실어 칼을 내려친다.",
+    txt_final_counter_miss: "공격을 잘못 읽었다. 그의 칼이 당신을 깊이 벤다.",
+    txt_final_foe_reels: "그가 비틀거린다. 뒤에 선 무리가 한 걸음 물러선다.",
+    txt_final_victory: "무리를 이끌던 자가 쓰러진다. 이끄는 이를 잃은 무리가 하나둘 칼을 버리고 강 쪽으로 흩어진다. 마을 쪽에서 누군가 당신의 이름을 부른다.",
+    txt_final_flee: "당신은 칼을 거두고 갈림길을 빠져나와 마을로 달아난다. 무리는 쫓아오지 않는다. 아직은.",
+    txt_elder_band_crossed: "원로가 지팡이를 짚고 일어선다. \"무리가 강을 건너 갈림길에 진을 쳤네. 사흘이면 마을로 내려올 걸세.\"",
+    txt_elder_raid_ready: "원로가 마을 쪽을 돌아본다. \"창과 등불은 갖추었네. 저 수라면 버틸 수 있을 걸세.\"",
+    txt_elder_raid_thin: "원로가 고개를 젓는다. \"저 수를 막기에는 마을이 가진 것이 모자라네. 무리를 이끄는 자를 꺾지 못한다면.\"",
+    txt_elder_after_name: "원로가 웃는다. \"그날 갈림길에서 그자가 쓰러지자 무리는 흩어졌네. 마을은 칼 한 번 들지 않았지. 아이들이 벌써 그 이야기를 노래로 부르네.\"",
+    txt_elder_after_held: "원로가 불탄 울타리를 가리킨다. \"그들이 밤에 내려왔지만 마을이 버텼네. 우리 손으로 지켰지. 변경은 누구의 깃발도 없이 섰네.\"",
+    txt_elder_after_lord: "원로가 마을 어귀의 깃발을 올려다본다. \"영주의 순찰이 와서 무리를 쫓아냈네. 마을은 남았지. 이제 저 깃발 아래에서 세금을 내야 하네.\"",
+    txt_elder_after_fell: "원로의 목소리가 낮다. \"그날 밤 마을이 무너졌네. 곳간이 비고 집 몇 채가 탔지. 그래도 사람들은 남았고, 다시 지을 걸세. 세상은 계속되니.\"",
+    txt_elder_after_defender: "원로가 덧붙인다. \"마을 사람들은 그날 앞장선 이의 이름을 부르네. 우물가에서도, 방앗간에서도.\"",
+    txt_elder_after_guild: "\"상단 조합도 그 일을 장부에 적었다더군. 품삯을 올려 호위를 붙잡아 둔 덕에 무리가 더디게 컸다고.\"",
+    txt_elder_after_warned: "\"자네가 처음 강 건너 소식을 가져왔을 때 마을에 일러둔 것이 헛되지 않았네.\"",
     txt_hideout_abandoned: "은신처는 텅 비어 있다. 서둘러 짐을 챙겨 떠난 흔적뿐, 싸움의 자국은 없다. 도적단은 쓰러진 것이 아니라 흩어졌다.",
     txt_bandits_disperse: "원로는 도적단 잔당에게 사람을 보내 해산을 권한다. 두목은 더 이상 도적단의 일원이 아니다.",
     txt_market_reopens: "도적단이 흩어졌다는 소식에 상인들이 안도하며 은화 몇 닢을 사례한다.",
@@ -3130,6 +3376,8 @@ export const worldData = {
     lbl_story_chapter_1: "1장 변경의 일",
     lbl_story_chapter_2: "2장 강 건너의 그림자",
     lbl_story_chapter_3: "3장 변경을 지키는 일",
+    lbl_story_chapter_4: "4장 강을 건너오는 불길",
+    lbl_story_chapter_5: "5장 마지막 싸움과 그 뒤",
     lbl_rumor_rum_band_camp_way: "무리는 강 건너 길목에서 북쪽 숲길로 들어갔다",
     lbl_rumor_rum_band_size: "숲 너머에 모인 무리를 직접 보았다",
     lbl_rumor_rum_band_crossing_soon: "무리가 곧 강을 건너올 셈이다",
@@ -3138,6 +3386,12 @@ export const worldData = {
     lbl_rumor_rum_lord_offer: "영주가 변경에 보호를 내주는 대신 사람과 세를 바라는 포고를 붙였다",
     lbl_rumor_rum_lord_pact_accepted: "변경은 영주의 보호를 받아들였다",
     lbl_rumor_rum_lord_pact_refused: "변경은 스스로 지키기로 했다",
+    lbl_rumor_rum_band_crossed: "무리가 강을 건너 갈림길에 진을 쳤다",
+    lbl_rumor_rum_raid_coming: "무리가 사흘 안에 마을로 내려온다",
+    lbl_rumor_rum_ending_name: "갈림길에서 무리를 이끌던 자가 쓰러지고 무리가 흩어졌다",
+    lbl_rumor_rum_ending_held: "변경은 스스로 무리를 막아 냈다",
+    lbl_rumor_rum_ending_lord: "변경은 영주의 깃발 아래 무리를 막아 냈다",
+    lbl_rumor_rum_ending_fell: "무리가 내려온 밤 마을이 무너졌다",
     lbl_rumor_rum_bandits_legend: "도적 떼가 모두 베어졌다",
     lbl_rumor_rum_leader_old_wound: "두목의 옆구리에 오래된 상처가 있다",
     lbl_rumor_rum_well_source: "우물 물은 숲의 샘에서 온다",
@@ -3182,6 +3436,7 @@ export const worldData = {
     lbl_src_obs_village_well: "직접 봄 (마을 우물)",
     lbl_src_obs_road_north: "직접 봄 (강나루 길)",
     lbl_src_obs_loc_band_camp: "직접 봄 (북쪽 숲 너머)",
+    lbl_src_obs_loc_crossroads: "직접 봄 (갈림길)",
     txt_lead_great: "길 위에서 호위들을 부려 좀도둑들을 단번에 몰아낸다. 상단은 흠 하나 없이 강 건너 길목에 닿고, 상단주는 두둑한 웃돈을 얹는다.",
     txt_lead_success: "호위들을 앞뒤로 세워 길을 지킨다. 상단은 무사히 강 건너 길목에 닿고, 서기가 이끈 몫까지 쳐서 품삯을 내준다.",
     txt_lead_fail: "호위들을 이끌었으나 길에서 덤벼든 좀도둑들에게 밀린다. 상단은 간신히 닿지만 앞장선 몫만큼 상처를 입고, 품삯은 크게 깎인다.",
