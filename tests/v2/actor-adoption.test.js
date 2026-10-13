@@ -78,11 +78,15 @@ assert.deepEqual(run(loaded, 3, LATER), run(adopted, 3, LATER), "the same input,
 const playedLonger = adoptNewActors(run(old, 7, BASE), LATER).state;
 assert.deepEqual(playedLonger.actors.npc_new, adopted.actors.npc_new);
 
-// 6. the real pack: every actor it defines is already in its old-save fixture
+// 6. the real pack: its old-save fixture predates the chief's right hand (V2-Core-140) -- adopted as a new game seeds him,
+// and nothing else in the save changes
 const fixture = JSON.parse(readFileSync(new URL("./fixtures/save-before-ford-and-town.json", import.meta.url), "utf8"));
 const realOld = parseLoadedRecord(fixture);
 const real = adoptNewActors(realOld, worldData);
-assert.deepEqual(real.added, []);
-assert.equal(real.state, realOld);
+assert.deepEqual(real.added, ["npc_band_lieutenant"]);
+assert.deepEqual(real.state.actors.npc_band_lieutenant, createInitialState({ worldSeed: "any", data: worldData }).state.actors.npc_band_lieutenant);
+const { npc_band_lieutenant: _lieutenant, ...realActors } = real.state.actors;
+assert.deepEqual({ ...real.state, actors: realActors }, realOld);
+assert.deepEqual(adoptNewActors(real.state, worldData).added, [], "once");
 
 console.log("V2-Core-137 actor-adoption.test.js: all checks passed");
