@@ -288,4 +288,8 @@ ID는 저장 파일에 남으므로 게임 쪽에서 바꾸기 어렵다. **정�
 | `opt_guild_clerk_warn` / `guild_keeps_guards` | 조합이 아는 호위가 이끄는 자를 알리면 조합이 품삯을 올려 호위를 붙잡는다(DC-08의 거울) | Provisional |
 | `opt_elder_give_*` / `frontier_defense` | 은화 10(세 번까지), 손에 들지 않은 철검, 연고 둘로 마을이 대비한다 | Provisional. N-05(변경은 스스로 지킨다)와 맞다 |
 | `rum_lord_offer` / `opt_elder_lord_accept` · `opt_elder_lord_refuse` / `lord_pact` | 무리가 커지면 성읍 포고판에 영주의 제안이 붙는다(보호 대가로 사람과 세). 원로가 받아들이거나(영주의 순찰, 대비 +2) 거절한다(변경이 스스로 선다). 한 번만이다 | **Canon MC-02**. 문구와 대비 +2는 Provisional |
+| `evt_unrest_band_crosses` / `band_crossed` · `fact_band_crossed` (V2-Core-140, D-118) | 무리가 6이 되거나 모인 지 여섯 주기가 지나면 강을 건넌다(조합이 호위를 붙잡았으면 더 작게) | **Canon DC-10**(WB-0033, 갈림길). 조건과 크기는 **게임 값**(R-29) |
+| `evt_unrest_raid_day` · `evt_unrest_raid_strikes` / `frontier_fate` · `fact_ending` | 무리가 갈림길에 사흘 머문 뒤 마을을 친다. 대비가 무리의 절반 이상이면 버틴다(영주의 제안을 받았으면 그 깃발 아래). 모자라면 무너진다 | **Canon DC-10**(마을로 내려옴). 사흘과 버팀의 규칙은 Provisional. 결말은 플레이가 정하는 역사(WB-0015 3층) |
+| `act_face_band` / `choice_final_chief` · `choice_final_right_hand` / `npc_band_lieutenant` | 갈림길의 마지막 싸움. 살아 있는 두목, 아니면 두목의 오른팔. 오래된 상처를 아는 이는 그곳을 노린다. 대비한 마을은 함께 에워싼다. 이기면 무리가 흩어지고 마을이 그 이름을 부른다(`defender`) | **Canon MC-03·MC-04·C-14**. 오른팔(이름 없음)과 싸움 값은 Provisional |
+| `opt_elder_band_crossed` · `opt_elder_aftermath` / 이야기 4·5장 | 원로가 언제 치는지와 마을이 버틸지를, 그 뒤에는 그날의 일과 세계가 기억하는 것(마을의 이름, 조합의 장부, 처음의 경고)을 들려준다. 후계자도 듣는다 | Provisional. 앎의 표현 |
 
