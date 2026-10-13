@@ -354,6 +354,8 @@ const LIGHT_OR_NIGHT_VISION = {
 };
 // V2-Core-64 (#160): the way to the forest spring is known only from the well or the herbalist
 const KNOWS_WELL_SOURCE = { op: "rumor", rumor: "rum_well_source" };
+// V2-Core-141 (M2): the spring's herbs picked, a world count the herbalist hears of at the market
+const HERBS_PICKED = { op: "signal", key: "spring_herbs_picked", add: 1 };
 // V2-Core-66 (#160): the well's case, closed by purifying the spring (world state, D-70)
 const WELL_RESOLVED = { op: "case", case: "case_fouled_well", stage: "resolved" };
 // V2-Core-68 (#170): handling the carcass records whose arrows killed it (the world's truth); a
@@ -418,6 +420,13 @@ const DEFENSE_AT = (n) => ({ op: "signal", key: "frontier_defense", min: n });
 const FRONTIER_HOLDS = { op: "or", of: [DEFENSE_AT(3), { op: "and", of: [{ op: "not", of: BAND_AT(5) }, DEFENSE_AT(2)] }] };
 const ENDING = (n, claim) => [{ op: "signal", key: "frontier_fate", add: n }, { op: "fact", fact: "fact_ending", set: claim }];
 const VILLAGE_DEFENDER = { op: "relation", from: "org_village", to: "self", tag: "defender" };
+// V2-Core-141 (roadmap M2, the first region completed): the region's other places take a hand against the band while it
+// is still across the river -- the ferryman watches the river (the band strikes a day later), a call for hands on the
+// waystation board and a royal writ for a frontier militia (preparedness +1 each, the writ when the band crosses), and
+// the band's stores burnt at its camp (the band one smaller). Each is once for the world
+const BAND_ACROSS = { op: "and", of: [BAND_GATHERING, { op: "not", of: BAND_CROSSED }] };
+const FERRYMAN_WATCHES = { op: "flag", key: "ferryman_watches" };
+const CROWN_WRIT = { op: "flag", key: "crown_writ" };
 // V2-Core-74 (#180): the realm's news the caravans have brought so far (the world's facts)
 const NEWS = (fact) => ({ op: "fact", fact, eq: "known" });
 // V2-Core-76 (#189): the frontier's news travels north only with the caravans (World Bible WB-0019)
@@ -711,7 +720,8 @@ const STRIKE_OUTCOMES = {
   fail: fightExchange([leaderHits(3), say("txt_fight_struck")])
 };
 // V2-Core-140 (M6): the last fight, at the crossroads -- the first fight's exchanges (the same checks, damage and
-// techniques) against whoever leads the band; one choice for each (`choice_final_chief`, `choice_final_right_hand`).
+// techniques) against whoever leads the band; one choice (`choice_final_battle`), its options for the chief while he
+// lives and for his right hand once he is dead (V2-Core-141: one choice, opened by the action itself).
 // The scarred chief's old wound is open to one who knows of it -- the elder's word or how he guards his left side
 // (C-14); a village that prepared (preparedness 2) surrounds him with the defender. The leader down, the band breaks
 const BAND_BREAKS = [
@@ -721,8 +731,10 @@ const BAND_BREAKS = [
   { op: "rumor", rumor: "rum_ending_name", source: "obs_loc_crossroads", confidence: 100 },
   say("txt_final_victory")
 ];
-function finalChoice(key, foe) {
-  const choice = `choice_final_${key}`;
+const FINAL_CHOICE = "choice_final_battle";
+function finalOptions(key, foe, leads) {
+  const choice = FINAL_CHOICE;
+  const leading = (requires) => (requires === undefined ? leads : { op: "and", of: [leads, requires] });
   const hitFoe = (add) => ({ op: "hp", subject: foe, add });
   const foeHits = (damage) => ({
     op: "if",
@@ -756,12 +768,12 @@ function finalChoice(key, foe) {
     partial: exchange([hitFoe(-2), hitSelf(-2), say("txt_fight_trade")]),
     fail: exchange([foeHits(3), say("txt_final_struck")])
   };
-  const options = [{ id: `opt_final_${key}_strike`, name: "정면으로 맞붙는다", check: check(11), minutes: 5, outcomes: strike }];
+  const options = [{ id: `opt_final_${key}_strike`, name: "정면으로 맞붙는다", requires: leading(), check: check(11), minutes: 5, outcomes: strike }];
   if (key === "chief") {
     options.push({
       id: `opt_final_${key}_weak_spot`,
       name: "왼쪽 옆구리의 오래된 상처를 노린다",
-      requires: { op: "and", of: [{ op: "or", of: [{ op: "rumor", rumor: "rum_leader_old_wound" }, KNOWS_BAND_SCARRED] }, STAMINA_AT_LEAST(2)] },
+      requires: leading({ op: "and", of: [{ op: "or", of: [{ op: "rumor", rumor: "rum_leader_old_wound" }, KNOWS_BAND_SCARRED] }, STAMINA_AT_LEAST(2)] }),
       check: check(9),
       minutes: 5,
       outcomes: payStamina(2, strike)
@@ -771,7 +783,7 @@ function finalChoice(key, foe) {
     {
       id: `opt_final_${key}_with_village`,
       name: "마을 사람들과 함께 에워싼다",
-      requires: DEFENSE_AT(2),
+      requires: leading(DEFENSE_AT(2)),
       check: check(9),
       minutes: 5,
       outcomes: strike
@@ -779,7 +791,7 @@ function finalChoice(key, foe) {
     {
       id: `opt_final_${key}_sword_cut`,
       name: "손에 든 검으로 베어 든다",
-      requires: { op: "or", of: [{ op: "item", item: "item_iron_sword", equipped: true }, { op: "item", item: "item_steel_sword", equipped: true }] },
+      requires: leading({ op: "or", of: [{ op: "item", item: "item_iron_sword", equipped: true }, { op: "item", item: "item_steel_sword", equipped: true }] }),
       check: check(10),
       minutes: 5,
       outcomes: strike
@@ -787,7 +799,7 @@ function finalChoice(key, foe) {
     {
       id: `opt_final_${key}_counter`,
       name: "그의 공격을 읽고 받아친다",
-      requires: { op: "and", of: [{ op: "unlock", id: "unl_keen_eye" }, STAMINA_AT_LEAST(3)] },
+      requires: leading({ op: "and", of: [{ op: "unlock", id: "unl_keen_eye" }, STAMINA_AT_LEAST(3)] }),
       check: check(12, "dex"),
       minutes: 5,
       outcomes: payStamina(3, {
@@ -798,9 +810,15 @@ function finalChoice(key, foe) {
       })
     },
     // breaking off: back to the village; the band still holds the crossroads and its days still run
-    { id: `opt_final_${key}_flee`, name: "물러서서 마을로 달아난다", minutes: 45, effects: [{ op: "move", to: "loc_village" }, say("txt_final_flee")] }
+    {
+      id: `opt_final_${key}_flee`,
+      name: "물러서서 마을로 달아난다",
+      requires: leading(),
+      minutes: 45,
+      effects: [{ op: "relation", from: foe, add: -10 }, { op: "move", to: "loc_village" }, say("txt_final_flee")]
+    }
   );
-  return { [choice]: { options } };
+  return options;
 }
 
 export const worldData = {
@@ -1006,24 +1024,28 @@ export const worldData = {
     evt_royal_city_first: {
       trigger: { op: "location", at: "loc_royal_city" },
       once: true,
-      effects: [say("txt_royal_city_first")]
+      // V2-Core-141 (M2): the first traveller from the frontier in years is noticed here -- the world's record of it
+      effects: [say("txt_royal_city_first"), { op: "flag", key: "frontier_seen_royal", value: true }, { op: "fact", fact: "fact_frontier_seen_royal", set: "noticed" }]
     },
     // V2-Core-76 (#189): the first time anyone reaches the castle town (narration, once for the world)
     evt_castle_town_first: {
       trigger: { op: "location", at: "loc_castle_town" },
       once: true,
-      effects: [say("txt_castle_town_first")]
+      // V2-Core-141 (M2): the first traveller from the frontier in years is noticed here -- the world's record of it
+      effects: [say("txt_castle_town_first"), { op: "flag", key: "frontier_seen_town", value: true }, { op: "fact", fact: "fact_frontier_seen_town", set: "noticed" }]
     },
     evt_far_bank_first: {
       trigger: { op: "location", at: "loc_far_bank" },
       once: true,
-      effects: [say("txt_far_bank_first")]
+      // V2-Core-141 (M2): the first traveller from the frontier in years is noticed here -- the world's record of it
+      effects: [say("txt_far_bank_first"), { op: "flag", key: "frontier_seen_far_bank", value: true }, { op: "fact", fact: "fact_frontier_seen_far_bank", set: "noticed" }]
     },
     // V2-Core-73 (#180): the hamlet's carts reach the market (narration, once for the world)
     evt_hamlet_carts: {
       trigger: { op: "and", of: [{ op: "location", at: "loc_market" }, HAMLET_TRADES] },
       once: true,
-      effects: [say("txt_hamlet_carts")]
+      // V2-Core-141 (M2): the carts come in by the east road -- the way to the hamlet, seen at the market
+      effects: [say("txt_hamlet_carts"), { op: "rumor", rumor: "rum_road_hamlet", source: "obs_loc_market", confidence: 70 }]
     },
     // V2-Core-72 (#180): the first time anyone walks the reopened road (narration, once for the world)
     evt_crossroads_first: {
@@ -1116,7 +1138,9 @@ export const worldData = {
       effects: [
         { op: "flag", key: "band_crossed", value: true },
         { op: "fact", fact: "fact_band_crossed", set: "crossed" },
-        { op: "fact", fact: "fact_raid", set: "coming" }
+        { op: "fact", fact: "fact_raid", set: "coming" },
+        // V2-Core-141: the royal writ -- the frontier raises its militia as the band comes
+        { op: "if", when: CROWN_WRIT, then: DEFENSE_UP }
       ]
     },
     // the days the band holds the crossroads: the crossing's own step the first (its id sorts after the crossing's)
@@ -1128,7 +1152,10 @@ export const worldData = {
     },
     // three days on, the band strikes the village; the frontier's fate (sorts after the day's count)
     evt_unrest_raid_strikes: {
-      trigger: { op: "and", of: [BAND_IN_THE_LAND, { op: "signal", key: "raid_days", min: 4 }] },
+      trigger: {
+        op: "and",
+        of: [BAND_IN_THE_LAND, { op: "signal", key: "raid_days", min: 4 }, { op: "or", of: [{ op: "not", of: FERRYMAN_WATCHES }, { op: "signal", key: "raid_days", min: 5 }] }]
+      },
       once: true,
       effects: [
         { op: "fact", fact: "fact_raid", set: "struck" },
@@ -1224,7 +1251,13 @@ export const worldData = {
       requires: { op: "location", at: "loc_village" },
       effects: [
         { op: "proficiency", id: "investigation", add: 15 },
-        { op: "narrate", textId: "txt_observe_village" }
+        { op: "narrate", textId: "txt_observe_village" },
+        // V2-Core-141 (M2): what was found in the ruins is the village's talk until the case is closed
+        {
+          op: "if",
+          when: { op: "and", of: [{ op: "flag", key: "ruins_secret_confirmed" }, { op: "not", of: { op: "case", case: "case_ruins_mystery", stage: "resolved" } }] },
+          then: [say("txt_village_whispers_ruins")]
+        }
       ]
     },
     // V2-Core-64 (#160): the well -- PER (what one notices) with the investigation skill. A success
@@ -1308,8 +1341,8 @@ export const worldData = {
       check: { stat: "wis", skill: "herbalism", tags: ["herbalism"], difficulty: "normal" },
       minutes: 30,
       outcomes: payStamina(2, {
-        great: [{ op: "item", item: "item_purifying_herb", add: 2 }, { op: "proficiency", id: "herbalism", add: 10 }, say("txt_gather_herbs_great")],
-        success: [{ op: "item", item: "item_purifying_herb", add: 1 }, { op: "proficiency", id: "herbalism", add: 10 }, say("txt_gather_herbs_success")],
+        great: [{ op: "item", item: "item_purifying_herb", add: 2 }, { op: "proficiency", id: "herbalism", add: 10 }, HERBS_PICKED, say("txt_gather_herbs_great")],
+        success: [{ op: "item", item: "item_purifying_herb", add: 1 }, { op: "proficiency", id: "herbalism", add: 10 }, HERBS_PICKED, say("txt_gather_herbs_success")],
         fail: [{ op: "proficiency", id: "herbalism", add: 5 }, say("txt_gather_herbs_fail")]
       })
     },
@@ -1439,7 +1472,11 @@ export const worldData = {
             { op: "if", when: { op: "flag", key: "village_honored" }, then: [say("txt_castle_epithet")] }
           ],
           else: [say("txt_castle_no_frontier_news")]
-        }
+        },
+        // V2-Core-141 (M2): the first arrivals, remembered -- the frontier road walked again, noted at this gate; and word
+        // back from the royal city that a frontier traveller passed its gate (the records there name no frontier, N-06)
+        { op: "if", when: { op: "flag", key: "frontier_seen_town" }, then: [{ op: "rumor", rumor: "rum_frontier_seen_town", source: "obs_loc_castle_town", confidence: 80 }, say("txt_castle_frontier_seen")] },
+        { op: "if", when: { op: "flag", key: "frontier_seen_royal" }, then: [{ op: "rumor", rumor: "rum_frontier_seen_royal", source: "src_castle_town_talk", confidence: 60 }, say("txt_castle_royal_seen")] }
       ]
     },
     // V2-Core-81 (#198): the carrier -- one who heard the legend and saw the truth (their legend corrected,
@@ -1535,6 +1572,8 @@ export const worldData = {
         },
         // the village's name, if it honoured someone
         { op: "if", when: { op: "flag", key: "village_honored" }, then: [say("txt_board_village_name")] },
+        // V2-Core-141 (M2): the waystation's talk of a southerner
+        { op: "if", when: { op: "flag", key: "frontier_seen_far_bank" }, then: [{ op: "rumor", rumor: "rum_frontier_seen_far_bank", source: "obs_loc_far_bank", confidence: 80 }, say("txt_board_southerner")] },
         // V2-Core-138 (M4): a band gathering across the river posts for hands; scrawled under it, whose men they are
         {
           op: "if",
@@ -1770,6 +1809,8 @@ export const worldData = {
           { op: "case", case: "case_ruins_mystery", stage: "resolved" },
           { op: "relation", from: "npc_bandit_leader", to: "self", add: -10 },
           { op: "narrate", textId: "txt_confront_success" },
+          // V2-Core-141 (M2): told of the arrows in the spring, he looks away
+          { op: "if", when: ARROWS_TOLD, then: [say("txt_confront_arrows")] },
           // V2-Core-31: only a player who reported to the elder has the village behind them
           {
             op: "if",
@@ -1811,13 +1852,72 @@ export const worldData = {
       requires: { op: "and", of: [{ op: "location", at: "loc_crossroads" }, BAND_IN_THE_LAND] },
       effects: [
         { op: "rumor", rumor: "rum_band_crossed", observe: true, source: "obs_loc_crossroads", confidence: 90, about: "now" },
+        // V2-Core-141 (M2): the one who leads them speaks -- the chief of the crossing (his old wound stays something one must
+        // have been told: seeing him is not knowing it, as in the first fight), his right hand of himself
         {
           op: "if",
           when: LEADER_LIVES,
-          then: [say("txt_face_band_chief"), { op: "choice", choice: "choice_final_chief", sourceId: "act_face_band" }],
-          else: [say("txt_face_band_right_hand"), { op: "choice", choice: "choice_final_right_hand", sourceId: "act_face_band" }]
-        }
+          then: [say("txt_face_band_chief"), { op: "rumor", rumor: "rum_band_crossed", source: "npc_bandit_leader", confidence: 100, about: "now" }],
+          else: [say("txt_face_band_right_hand"), { op: "rumor", rumor: "rum_band_led_by_remnant", source: "npc_band_lieutenant", confidence: 100 }]
+        },
+        { op: "choice", choice: FINAL_CHOICE, sourceId: "act_face_band" }
       ]
+    },
+    // V2-Core-141 (M2): a call for hands on the waystation board, paid by one the elder has warned
+    act_post_frontier_notice: {
+      name: "길목 게시판에 변경을 지킬 일손을 구하는 글을 붙인다 (은화 15)",
+      requires: {
+        op: "and",
+        of: [{ op: "location", at: "loc_far_bank" }, BAND_ACROSS, FRONTIER_WARNED, { op: "not", of: { op: "flag", key: "frontier_notice_posted" } }, { op: "money", min: 15 }]
+      },
+      minutes: 60,
+      effects: [
+        { op: "money", add: -15 },
+        { op: "flag", key: "frontier_notice_posted", value: true },
+        ...DEFENSE_UP,
+        { op: "fact", fact: "fact_frontier_prepared", set: "helped" },
+        { op: "rumor", rumor: "rum_frontier_prepared", source: "obs_loc_far_bank", confidence: 90 },
+        say("txt_post_frontier_notice")
+      ]
+    },
+    // V2-Core-141 (M2): the frontier's plight told at the royal court by one who knows who leads the band -- a writ for a
+    // frontier militia, or the clerk's door closed to the frontier for good
+    act_petition_crown: {
+      name: "왕궁 서기에게 변경의 사정을 아뢴다",
+      requires: {
+        op: "and",
+        of: [{ op: "location", at: "loc_royal_city" }, BAND_ACROSS, KNOWS_BAND_LEADER, { op: "not", of: CROWN_WRIT }, { op: "not", of: { op: "flag", key: "crown_refused" } }]
+      },
+      check: { stat: "wis", tags: ["social"], difficulty: "normal" },
+      minutes: 120,
+      outcomes: {
+        success: [
+          { op: "flag", key: "crown_writ", value: true },
+          { op: "fact", fact: "fact_crown_writ", set: "granted" },
+          { op: "rumor", rumor: "rum_crown_writ", source: "obs_loc_royal_city", confidence: 90 },
+          say("txt_crown_writ")
+        ],
+        fail: [{ op: "flag", key: "crown_refused", value: true }, say("txt_crown_refused")]
+      }
+    },
+    // V2-Core-141 (M2): the band's stores, burnt where it gathers -- the band one smaller; caught, the burner is beaten.
+    // Once either way: the band guards its stores after
+    act_burn_band_stores: {
+      name: "무리의 식량 더미에 불을 놓는다",
+      requires: { op: "and", of: [{ op: "location", at: "loc_band_camp" }, BAND_ACROSS, BAND_AT(2), { op: "not", of: { op: "flag", key: "band_stores_burnt" } }] },
+      check: { stat: "dex", tags: ["stealth"], difficulty: "hard" },
+      minutes: 120,
+      outcomes: {
+        success: [
+          { op: "flag", key: "band_stores_burnt", value: true },
+          { op: "signal", key: "band_strength", add: -1 },
+          BAND_SIZE_FACT,
+          { op: "fact", fact: "fact_band_stores", set: "burnt" },
+          { op: "rumor", rumor: "rum_band_stores_burnt", source: "obs_loc_band_camp", confidence: 100 },
+          say("txt_band_stores_burnt")
+        ],
+        fail: [{ op: "flag", key: "band_stores_burnt", value: true }, { op: "hp", add: -5 }, say("txt_band_stores_caught")]
+      }
     }
   },
 
@@ -1942,6 +2042,8 @@ export const worldData = {
             { op: "rumor", rumor: "rum_band_crossed", source: "npc_elder", confidence: 90, about: "now" },
             { op: "rumor", rumor: "rum_raid_coming", source: "npc_elder", confidence: 80, about: "now" },
             say("txt_elder_band_crossed"),
+            { op: "if", when: FERRYMAN_WATCHES, then: [say("txt_elder_ferryman_word")] },
+            { op: "if", when: CROWN_WRIT, then: [say("txt_elder_crown_writ")] },
             { op: "if", when: FRONTIER_HOLDS, then: [say("txt_elder_raid_ready")], else: [say("txt_elder_raid_thin")] }
           ]
         },
@@ -2234,6 +2336,19 @@ export const worldData = {
           ]
         },
         // V2-Core-138 (M4): what the river saw -- armed men crossing at night; the leader, if he is the man he ferried before
+        {
+          id: "opt_ferryman_watch",
+          name: "무리가 건너오면 마을에 알려 달라고 부탁한다 (은화 5)",
+          requires: { op: "and", of: [BAND_ACROSS, { op: "rumor", rumor: "rum_band_recruits" }, { op: "not", of: FERRYMAN_WATCHES }, { op: "money", min: 5 }] },
+          effects: [
+            { op: "money", add: -5 },
+            { op: "flag", key: "ferryman_watches", value: true },
+            { op: "relation", from: "npc_ferryman", add: 3 },
+            { op: "fact", fact: "fact_ferryman_watch", set: "watching" },
+            { op: "rumor", rumor: "rum_ferryman_watches", source: "npc_ferryman", confidence: 90 },
+            say("txt_ferryman_watch")
+          ]
+        },
         {
           id: "opt_ferryman_band",
           name: "강 건너 무리에 대해 묻는다",
@@ -2604,6 +2719,8 @@ export const worldData = {
               then: [{ op: "relation", from: "npc_miller", add: 5, tag: "welcomed" }, say("txt_miller_welcome")]
             },
             { op: "if", when: HAMLET_TRADES, then: [say("txt_miller_trade_running")] },
+            // V2-Core-141 (M2): the band across the river buys flour -- the miller hears who pays
+            { op: "if", when: BAND_GATHERING, then: [{ op: "rumor", rumor: "rum_band_recruits", source: "npc_miller", confidence: 60, about: "now" }, say("txt_miller_band")] },
             // V2-Core-135 (D-114): what he made of the caravan's last purchase -- told as the day it happened (a seller's guess)
             {
               op: "if",
@@ -2618,7 +2735,7 @@ export const worldData = {
           id: "opt_miller_sell_herb",
           name: "정화초를 판다 (은화 2)",
           requires: { op: "item", item: "item_purifying_herb", min: 1 },
-          effects: [{ op: "item", item: "item_purifying_herb", add: -1 }, { op: "money", add: 2 }, say("txt_miller_buy_herb")]
+          effects: [{ op: "item", item: "item_purifying_herb", add: -1 }, { op: "money", add: 2 }, { op: "relation", from: "npc_miller", add: 1 }, say("txt_miller_buy_herb")]
         },
         // while the settlements do not trade: a sack of flour for the elder (one in hand at a time)
         {
@@ -2674,7 +2791,19 @@ export const worldData = {
             { op: "if", when: ARROWS_TOLD, then: [say("txt_herbalist_bandit_rumor")] }
           ]
         },
-        { id: "opt_herbalist_small_talk", name: "약초 이야기만 나눈다", effects: [say("txt_herbalist_small_talk")] },
+        {
+          id: "opt_herbalist_small_talk",
+          name: "약초 이야기만 나눈다",
+          effects: [
+            say("txt_herbalist_small_talk"),
+            // V2-Core-141 (M2): the herbs that come from the spring again -- once, to one who talks with her (her `herb_friend` tag)
+            {
+              op: "if",
+              when: { op: "and", of: [{ op: "signal", key: "spring_herbs_picked", min: 3 }, { op: "not", of: { op: "relation", from: "npc_herbalist", to: "self", tag: "herb_friend" } }] },
+              then: [{ op: "relation", from: "npc_herbalist", add: 3, tag: "herb_friend" }, say("txt_herbalist_herbs_back")]
+            }
+          ]
+        },
         // V2-Core-65 (#160): once, for 2 silver, to a character she has talked with (her `taught` tag
         // closes it); +20 herbalism practice -- the first rank
         {
@@ -2700,6 +2829,8 @@ export const worldData = {
           id: "opt_herbalist_brew",
           name: "정화초로 정화제를 달여 달라고 한다",
           requires: { op: "item", item: "item_purifying_herb", min: 2 },
+          // V2-Core-141 (M2): the brewing takes its time
+          minutes: 30,
           effects: [
             { op: "item", item: "item_purifying_herb", add: -2 },
             { op: "item", item: "item_spring_remedy", add: 1 },
@@ -2718,7 +2849,8 @@ export const worldData = {
               { op: "not", of: { op: "relation", from: "npc_herbalist", to: "self", tag: "thanked" } }
             ]
           },
-          effects: [{ op: "relation", from: "npc_herbalist", add: 10, tag: "thanked" }, say("txt_herbalist_thanks")]
+          // V2-Core-141 (M2): she has heard from the village that the well runs clear -- the spring's fate, confirmed
+          effects: [{ op: "relation", from: "npc_herbalist", add: 10, tag: "thanked" }, { op: "rumor", rumor: "rum_well_fate", source: "npc_herbalist", confidence: 90 }, say("txt_herbalist_thanks")]
         },
         // V2-Core-69 (#170): a character who heard the legend and saw the truth at the spring (their
         // legend corrected to "purified") tells her, once for the world; +5 on their own edge
@@ -2834,8 +2966,7 @@ export const worldData = {
         }
       ]
     },
-    ...finalChoice("chief", "npc_bandit_leader"),
-    ...finalChoice("right_hand", "npc_band_lieutenant")
+    [FINAL_CHOICE]: { options: [...finalOptions("chief", "npc_bandit_leader", LEADER_LIVES), ...finalOptions("right_hand", "npc_band_lieutenant", LEADER_DOWN)] }
   },
 
   growthSystems: {
@@ -2976,6 +3107,13 @@ export const worldData = {
     fact_band_crossed: {},
     fact_raid: {},
     fact_ending: {},
+    // V2-Core-141 (M2)
+    fact_ferryman_watch: {},
+    fact_crown_writ: {},
+    fact_band_stores: {},
+    fact_frontier_seen_royal: {},
+    fact_frontier_seen_town: {},
+    fact_frontier_seen_far_bank: {},
     fact_royal_city: {},
     // V2-Core-125 (#307): the road to the ford -- quiet / uneasy / dangerous, set at each turn (a save from before has none) --
     // and the world's place on the road's course, drawn at creation from its own stream (a save from before has none: the first)
@@ -3051,7 +3189,14 @@ export const worldData = {
     rum_ending_name: { factId: "fact_ending", claim: "name_remembered", story: { chapter: 5 } },
     rum_ending_held: { factId: "fact_ending", claim: "frontier_held", story: { chapter: 5 } },
     rum_ending_lord: { factId: "fact_ending", claim: "lord_banner", story: { chapter: 5 } },
-    rum_ending_fell: { factId: "fact_ending", claim: "frontier_fell", story: { chapter: 5 } }
+    rum_ending_fell: { factId: "fact_ending", claim: "frontier_fell", story: { chapter: 5 } },
+    // V2-Core-141 (M2)
+    rum_ferryman_watches: { factId: "fact_ferryman_watch", claim: "watching", story: { chapter: 3 } },
+    rum_crown_writ: { factId: "fact_crown_writ", claim: "granted", story: { chapter: 3 } },
+    rum_band_stores_burnt: { factId: "fact_band_stores", claim: "burnt", story: { chapter: 3 } },
+    rum_frontier_seen_royal: { factId: "fact_frontier_seen_royal", claim: "noticed" },
+    rum_frontier_seen_town: { factId: "fact_frontier_seen_town", claim: "noticed" },
+    rum_frontier_seen_far_bank: { factId: "fact_frontier_seen_far_bank", claim: "noticed" }
   },
 
   // Relation-edge/rumor-source IDs (§7.1/§8.3). An entry without `actor` is
@@ -3161,6 +3306,21 @@ export const worldData = {
     txt_fight_leader_reels: "두목이 비틀거린다. 그의 숨이 거칠다.",
     txt_fight_victory: "도적 두목이 쓰러진다. 두목을 잃은 도적들이 당신 앞에서 물러선다.",
     txt_fight_flee: "당신은 칼을 거두고 폐허를 빠져나와 마을로 달아난다. 두목은 쫓아오지 않지만, 당신을 기억할 것이다.",
+    txt_village_whispers_ruins: "우물가의 사람들이 폐허 쪽을 흘끔거리며 수군거린다. 누가 그 안에서 도적들의 물건을 찾아냈다는 말이 벌써 돌았다.",
+    txt_herbalist_herbs_back: "약초꾼이 바구니를 들어 보인다. \"샘가에서 다시 정화초가 올라오더군요. 누가 부지런히 캐 오는 덕에 시장에도 돌기 시작했어요.\" 약초꾼이 고마운 눈으로 당신을 본다.",
+    txt_ferryman_watch: "뱃사공이 은화를 받아 넣는다. \"강 건너 길목에서 칼 찬 무리가 배를 찾으면, 내가 먼저 건너와 마을에 알리지. 하루는 벌 거요.\"",
+    txt_elder_ferryman_word: "\"뱃사공이 밤배로 건너와 알려 주었네. 덕분에 하루를 벌었어.\"",
+    txt_elder_crown_writ: "\"왕궁의 글이 왔네. 변경이 스스로 사람을 모아 지켜도 된다는 글이야. 젊은이들이 창을 들었네.\"",
+    txt_miller_band: "방앗간 주인이 고개를 갸웃한다. \"요즘 강 건너에서 밀가루를 자루째 사 가는 이들이 있소. 값을 깎지도 않고. 사람을 먹일 데가 많은 모양이오.\"",
+    txt_confront_arrows: "샘가에서 찾은 화살 이야기를 꺼내자 두목이 눈을 피한다.",
+    txt_post_frontier_notice: "은화 열다섯 닢을 건네고 게시판 한가운데에 글을 붙인다. 변경 마을이 창을 들 손을 구한다고. 길목의 사내 몇이 글을 읽고 남쪽을 바라본다.",
+    txt_crown_writ: "왕궁 서기가 오래 듣고 나서 붓을 든다. 변경이 스스로 민병을 세워도 좋다는 짧은 글에 인장이 찍힌다. 글은 다음 상단 편에 남쪽으로 내려간다.",
+    txt_crown_refused: "왕궁 서기는 변경이라는 말에 붓을 내려놓는다. 그런 곳의 일은 영주가 맡는다고, 다시 오지 말라고 한다.",
+    txt_band_stores_burnt: "밤이 깊어 망보는 자가 조는 틈에 식량 더미에 불씨를 던진다. 숲 너머로 불길이 솟고, 무리가 고함치며 물을 나른다. 며칠 굶을 이들 가운데 몇은 떠날 것이다.",
+    txt_band_stores_caught: "불씨를 던지기도 전에 망보던 자에게 들킨다. 몰매를 맞고 간신히 숲을 빠져나온다. 무리는 이제 식량 더미를 밤새 지킨다.",
+    txt_castle_royal_seen: "포고판 앞의 상인들이 왕도에서 들은 말을 옮긴다. 남쪽 끝 변경에서 온 이가 왕도의 성문을 지났다더라고.",
+    txt_castle_frontier_seen: "포고판 옆 성문지기가 말한다. 변경 쪽 길로 사람이 올라온 것이 몇 해 만이라고.",
+    txt_board_southerner: "게시판 앞의 사내들이 남쪽 변경에서 강을 건너온 나그네 이야기를 한다. 그 길이 다시 열렸느냐고 묻는다.",
     txt_face_band_chief: "갈림길의 이정표 아래에 무리가 진을 쳤다. 그 앞에 왼쪽 옆구리를 감싼 사내가 서 있다. 폐허에서 놓친 두목이다. 그가 당신을 알아보고 칼을 뽑는다.",
     txt_face_band_right_hand: "갈림길의 이정표 아래에 무리가 진을 쳤다. 그 앞에 폐허의 두목 밑에 있던 사내가 서 있다. 이제 그가 무리를 이끈다. 그가 칼을 뽑는다.",
     txt_final_strike_great: "당신의 일격이 그를 크게 베어 낸다. 뒤에 선 무리가 웅성거린다.",
@@ -3392,6 +3552,12 @@ export const worldData = {
     lbl_rumor_rum_ending_held: "변경은 스스로 무리를 막아 냈다",
     lbl_rumor_rum_ending_lord: "변경은 영주의 깃발 아래 무리를 막아 냈다",
     lbl_rumor_rum_ending_fell: "무리가 내려온 밤 마을이 무너졌다",
+    lbl_rumor_rum_ferryman_watches: "뱃사공이 무리가 건너오면 마을에 알려 주기로 했다",
+    lbl_rumor_rum_crown_writ: "왕궁이 변경에 민병을 세울 글을 내렸다",
+    lbl_rumor_rum_band_stores_burnt: "숲 너머 무리의 식량 더미가 불탔다",
+    lbl_rumor_rum_frontier_seen_royal: "변경에서 온 이가 왕도의 성문을 지났다고 한다",
+    lbl_rumor_rum_frontier_seen_town: "성읍 사람들이 변경 쪽 길로 사람이 올라왔다고 한다",
+    lbl_rumor_rum_frontier_seen_far_bank: "길목 사람들이 남쪽 변경에서 온 나그네를 이야기한다",
     lbl_rumor_rum_bandits_legend: "도적 떼가 모두 베어졌다",
     lbl_rumor_rum_leader_old_wound: "두목의 옆구리에 오래된 상처가 있다",
     lbl_rumor_rum_well_source: "우물 물은 숲의 샘에서 온다",

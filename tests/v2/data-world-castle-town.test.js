@@ -82,7 +82,8 @@ function testFrontierNews(town) {
   const before = structuredClone(town);
   delete before.signals.caravan_visits;
   const quiet = run(before, [P("act_read_castle_notices")]);
-  assert.deepStrictEqual(texts(quiet.log[0]), ["txt_castle_levy_decree", "txt_castle_no_frontier_news"]);
+  // V2-Core-141: the frontier road walked again, noted at the gate (this traveller's own arrival)
+  assert.deepStrictEqual(texts(quiet.log[0]), ["txt_castle_levy_decree", "txt_castle_no_frontier_news", "txt_castle_frontier_seen"]);
 
   const heard = structuredClone(town);
   heard.signals.caravan_visits = 1;
@@ -94,7 +95,7 @@ function testFrontierNews(town) {
   heard.facts.fact_well_fate = { value: "purified" };
   const factsBefore = structuredClone(heard.facts);
   const told = run(heard, [P("act_read_castle_notices")]);
-  assert.deepStrictEqual(texts(told.log[0]), ["txt_castle_levy_decree", "txt_castle_bandits_tale", "txt_castle_well_tale", "txt_castle_epithet"]);
+  assert.deepStrictEqual(texts(told.log[0]), ["txt_castle_levy_decree", "txt_castle_bandits_tale", "txt_castle_well_tale", "txt_castle_epithet", "txt_castle_frontier_seen"]);
   for (const r of ["rum_bandits_legend", "rum_well_legend"]) {
     // ... but the correction has not travelled: the town has the legend
     assert.ok(kn(told.state, r).sources.includes("src_castle_town_talk"), r);
@@ -115,7 +116,7 @@ function testFrontierNews(town) {
   young.signals.bandits_tale_age = 2;
   young.signals.well_tale_age = 2;
   delete young.flags.village_honored;
-  assert.deepStrictEqual(texts(run(young, [P("act_read_castle_notices")]).log[0]), ["txt_castle_levy_decree"]);
+  assert.deepStrictEqual(texts(run(young, [P("act_read_castle_notices")]).log[0]), ["txt_castle_levy_decree", "txt_castle_frontier_seen"]);
 }
 
 // 4. the natural road: the caravan that came when the road was walked carries the news north

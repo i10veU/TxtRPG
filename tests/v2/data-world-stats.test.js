@@ -84,15 +84,15 @@ function testEveryCheckNamesADefinedStat() {
     "choice_fight_leader.opt_fight_counter": ["dex", "dex"],
     "choice_fight_leader.opt_fight_weak_spot": ["str", "str"], // V2-Core-55: the strike at an easier mark
     // V2-Core-140: the last fight, opposed by the chief's or his right hand's own stats
-    "choice_final_chief.opt_final_chief_strike": ["str", "str"],
-    "choice_final_chief.opt_final_chief_weak_spot": ["str", "str"],
-    "choice_final_chief.opt_final_chief_with_village": ["str", "str"],
-    "choice_final_chief.opt_final_chief_sword_cut": ["str", "str"],
-    "choice_final_chief.opt_final_chief_counter": ["dex", "dex"],
-    "choice_final_right_hand.opt_final_right_hand_strike": ["str", "str"],
-    "choice_final_right_hand.opt_final_right_hand_with_village": ["str", "str"],
-    "choice_final_right_hand.opt_final_right_hand_sword_cut": ["str", "str"],
-    "choice_final_right_hand.opt_final_right_hand_counter": ["dex", "dex"],
+    "choice_final_battle.opt_final_chief_strike": ["str", "str"],
+    "choice_final_battle.opt_final_chief_weak_spot": ["str", "str"],
+    "choice_final_battle.opt_final_chief_with_village": ["str", "str"],
+    "choice_final_battle.opt_final_chief_sword_cut": ["str", "str"],
+    "choice_final_battle.opt_final_chief_counter": ["dex", "dex"],
+    "choice_final_battle.opt_final_right_hand_strike": ["str", "str"],
+    "choice_final_battle.opt_final_right_hand_with_village": ["str", "str"],
+    "choice_final_battle.opt_final_right_hand_sword_cut": ["str", "str"],
+    "choice_final_battle.opt_final_right_hand_counter": ["dex", "dex"],
     // V2-Core-64 (#160): the fouled well -- the first checks to read PER and CON
     act_inspect_well: ["per", null],
     act_search_spring: ["per", null],
@@ -101,6 +101,8 @@ function testEveryCheckNamesADefinedStat() {
     act_read_milestone: ["int", null], // V2-Core-72: the worn letters
     act_search_crossroads: ["per", null],
     act_watch_band_camp: ["per", null], // V2-Core-139: watching the band
+    act_petition_crown: ["wis", null], // V2-Core-141: the frontier's plight told at court
+    act_burn_band_stores: ["dex", null], // V2-Core-141: the band's stores
     "choice_guild_clerk_dialogue.opt_guild_clerk_escort": ["str", null], // V2-Core-78: the caravan guard
     "choice_guild_clerk_dialogue.opt_guild_clerk_escort_lead": ["str", null], // V2-Core-105: leading it
     "choice_guild_clerk_dialogue.opt_guild_clerk_escort_careful": ["str", null], // V2-Core-106: the careful way

@@ -152,7 +152,8 @@ function testCrossing() {
 function testBoard(farBank) {
   assert.strictEqual(rejected(atFord, P("act_read_waystation_board")), "requirements_not_met", "on the far bank");
   const read = run(farBank, [P("act_read_waystation_board")]);
-  assert.deepStrictEqual(texts(read.log[0]), ["txt_board_royal_city", "txt_board_levy", "txt_board_bounty"]);
+  // V2-Core-141: and the waystation's talk of a southerner (this traveller's own arrival)
+  assert.deepStrictEqual(texts(read.log[0]), ["txt_board_royal_city", "txt_board_levy", "txt_board_bounty", "txt_board_southerner"]);
   assert.strictEqual(read.state.facts.fact_royal_city.value, "five_days_north");
   for (const r of ["rum_royal_city", "rum_realm_levy", "rum_leader_bounty"]) assert.deepStrictEqual(read.state.knowledge.player_1[r].sources, ["obs_loc_far_bank"], r);
   assert.strictEqual(read.state.facts.fact_leader_bounty.value, "posted");
@@ -166,7 +167,7 @@ function testBoard(farBank) {
   fellFord.actors.player_1.money = 3; // the scout spent hers on the sword
   const fellBank = run(fellFord, FERRY("opt_ferryman_cross")).state;
   const safe = run(fellBank, [P("act_read_waystation_board")]);
-  assert.deepStrictEqual(texts(safe.log[0]), ["txt_board_royal_city", "txt_board_levy", "txt_board_road_safe"]);
+  assert.deepStrictEqual(texts(safe.log[0]), ["txt_board_royal_city", "txt_board_levy", "txt_board_road_safe", "txt_board_southerner"]);
   assert.strictEqual(safe.state.facts?.fact_leader_bounty, undefined);
   // no caravan news yet: no levy notice
   const early = structuredClone(farBank);

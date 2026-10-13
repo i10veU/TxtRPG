@@ -187,17 +187,17 @@ function testTheLastFightTheChief() {
   const faced = run(chiefAtCrossroads, [P("act_face_band")]);
   assert.ok(said(faced).includes("txt_face_band_chief"));
   assert.equal(mine(faced.state).rum_band_crossed?.claim, "crossed", "seen at the crossroads");
-  assert.ok(offered(faced.state, "choice_final_chief", "opt_final_chief_strike"));
+  assert.ok(offered(faced.state, "choice_final_battle", "opt_final_chief_strike"));
   // the old wound: one who knows how he guards his side (the ferryman's word, chapter 2) or the elder's (act one)
-  assert.ok(!offered(faced.state, "choice_final_chief", "opt_final_chief_weak_spot"), "this one knows neither");
+  assert.ok(!offered(faced.state, "choice_final_battle", "opt_final_chief_weak_spot"), "this one knows neither");
   const knows = structuredClone(faced.state);
   knows.knowledge[knows.player.actorId].rum_band_led_by_scarred = { factId: "fact_band_leader", claim: "scarred_chief", sources: ["npc_ferryman"], confidence: 60 };
-  assert.ok(offered(knows, "choice_final_chief", "opt_final_chief_weak_spot"));
+  assert.ok(offered(knows, "choice_final_battle", "opt_final_chief_weak_spot"));
   const aimed = run(knows, [C("opt_final_chief_weak_spot")]).log[0].events.find((e) => e.type === "check.resolved").data.difficulty;
   assert.equal(aimed, 9, "the old wound: an easier mark");
   // the village surrounds him only with one it has prepared
-  assert.ok(!offered(withSignals(faced.state, { frontier_defense: 1 }), "choice_final_chief", "opt_final_chief_with_village"));
-  assert.ok(offered(withSignals(faced.state, { frontier_defense: 2 }), "choice_final_chief", "opt_final_chief_with_village"));
+  assert.ok(!offered(withSignals(faced.state, { frontier_defense: 1 }), "choice_final_battle", "opt_final_chief_with_village"));
+  assert.ok(offered(withSignals(faced.state, { frontier_defense: 2 }), "choice_final_battle", "opt_final_chief_with_village"));
   const difficulty = (s, option) => run(s, [C(option)]).log[0].events.find((e) => e.type === "check.resolved").data.difficulty;
   assert.equal(difficulty(faced.state, "opt_final_chief_strike"), 11, "against his STR 10");
   assert.equal(difficulty(withSignals(faced.state, { frontier_defense: 2 }), "opt_final_chief_with_village"), 9, "an easier mark");
@@ -239,7 +239,12 @@ function testTheLastFightTheRightHand() {
   const at = run(until(fell, crossed), TO_CROSSROADS).state;
   const faced = run(at, [P("act_face_band")]);
   assert.ok(said(faced).includes("txt_face_band_right_hand"));
-  assert.ok(worldData.choices.choice_final_right_hand.options.every((o) => !o.id.endsWith("_weak_spot")), "no old wound to aim at");
+  assert.ok(!worldData.choices.choice_final_battle.options.some((o) => o.id.startsWith("opt_final_right_hand") && o.id.endsWith("_weak_spot")), "no old wound to aim at");
+  assert.ok(!offered(faced.state, "choice_final_battle", "opt_final_chief_strike"), "only the one who leads them");
+  assert.ok(offered(faced.state, "choice_final_battle", "opt_final_right_hand_strike"));
+  assert.equal(mine(faced.state).rum_band_led_by_remnant?.sources.includes("npc_band_lieutenant"), true, "he names himself");
+  const fled = run(faced.state, [C("opt_final_right_hand_flee")]).state;
+  assert.equal(fled.relations?.[`npc_band_lieutenant:${fled.player.actorId}`]?.score, -10, "he remembers");
   // his own STR opposes the strike
   const strike = rollTo(faced.state, [C("opt_final_right_hand_strike")], "great", "rh-a");
   const check = strike.log[0].events.find((e) => e.type === "check.resolved").data;
