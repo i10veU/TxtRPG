@@ -63,7 +63,8 @@ const standing = (s) => s.relations?.[`npc_guild_clerk:${s.player.actorId}`]?.sc
 const WORD = "txt_small_talk_fallen_guard";
 const SMALL_TALK = [P("act_talk_elder"), C("opt_small_talk")];
 // the frontier's facts (the realm's news advances with the caravans, as it always did)
-const facts = (s) => Object.fromEntries(Object.entries(s.facts ?? {}).filter(([k]) => !k.startsWith("fact_realm_")).map(([k, v]) => [k, v?.value]));
+// the realm's news and (V2-Core-138) the band it stirs across the river come with the caravans' clock, not with a tale
+const facts = (s) => Object.fromEntries(Object.entries(s.facts ?? {}).filter(([k]) => !k.startsWith("fact_realm_") && !k.startsWith("fact_band_")).map(([k, v]) => [k, v?.value]));
 
 const scoutInTown = play(createInitialState({ worldSeed: "integrated-36", data: worldData, templateId: "start_scout" }).state, [...SCOUT_HONOURED, ...SCOUT_TO_TOWN]).state;
 // two good escorts: the guild knows her (standing 10); one: standing 5

@@ -372,6 +372,17 @@ const WELL_LEGEND_TIME = { op: "and", of: [{ op: "signal", key: "well_tale_age",
 // V2-Core-72 (#180): the road out -- the bandits who held it are gone; the leader's fate in the land
 const BANDITS_GONE = { op: "case", case: "case_ruins_mystery", stage: "resolved" };
 const LEADER_LIVES = { op: "alive", subject: "npc_bandit_leader" };
+// V2-Core-138 (roadmap M4, World Bible WB-0030 MC-03/MC-04, WB-0031): the main thread's second chapter, "across the
+// river". Once act one is over and the realm's unrest has come south with the caravans, someone gathers a band across
+// the river: the scarred chief if he lives (MC-03), else one of his old band (MC-04). The world records it
+// (`band_gathering`, `fact_band_gathers`, `fact_band_leader`); what a character knows of it comes from people, each
+// knowing a different part -- the guild's ledger (the leader only to a guard it knows), the ferryman's eyes, the
+// waystation board -- and the elder asks who leads them. Told who, the elder warns the frontier (`frontier_warned`,
+// the world's: a successor finds it done). No new place, no actor, no value of the road or the trade changes.
+const BAND_GATHERING = { op: "signal", key: "band_gathering", min: 1 };
+const KNOWS_BAND_SCARRED = { op: "rumor", rumor: "rum_band_led_by_scarred" };
+const KNOWS_BAND_LEADER = { op: "or", of: [KNOWS_BAND_SCARRED, { op: "rumor", rumor: "rum_band_led_by_remnant" }] };
+const FRONTIER_WARNED = { op: "flag", key: "frontier_warned" };
 // V2-Core-74 (#180): the realm's news the caravans have brought so far (the world's facts)
 const NEWS = (fact) => ({ op: "fact", fact, eq: "known" });
 // V2-Core-76 (#189): the frontier's news travels north only with the caravans (World Bible WB-0019)
@@ -936,6 +947,17 @@ export const worldData = {
         { op: "hp", add: -4 },
         { op: "narrate", textId: "txt_ruins_hazard" }
       ]
+    },
+    // V2-Core-138 (M4): act one over, the realm's unrest heard (the third caravan) -- across the river a band gathers. Its id
+    // sorts after evt_caravan, so it fires in the very step the third caravan brings the unrest (D-51 order)
+    evt_unrest_band_gathers: {
+      trigger: { op: "and", of: [BANDITS_GONE, { op: "signal", key: "caravan_visits", min: 3 }] },
+      once: true,
+      effects: [
+        { op: "signal", key: "band_gathering", add: 1 },
+        { op: "fact", fact: "fact_band_gathers", set: "gathering" },
+        { op: "if", when: LEADER_LIVES, then: [{ op: "fact", fact: "fact_band_leader", set: "scarred_chief" }], else: [{ op: "fact", fact: "fact_band_leader", set: "chief_right_hand" }] }
+      ]
     }
   },
 
@@ -1302,6 +1324,16 @@ export const worldData = {
         },
         // the village's name, if it honoured someone
         { op: "if", when: { op: "flag", key: "village_honored" }, then: [say("txt_board_village_name")] },
+        // V2-Core-138 (M4): a band gathering across the river posts for hands; scrawled under it, whose men they are
+        {
+          op: "if",
+          when: BAND_GATHERING,
+          then: [
+            say("txt_board_band"),
+            { op: "rumor", rumor: "rum_band_recruits", source: "obs_loc_far_bank", confidence: 80, about: "now" },
+            { op: "if", when: LEADER_LIVES, then: [], else: [say("txt_board_band_remnant"), { op: "rumor", rumor: "rum_band_led_by_remnant", source: "obs_loc_far_bank", confidence: 50 }] }
+          ]
+        },
         { op: "proficiency", id: "investigation", add: 5 }
       ]
     },
@@ -1599,6 +1631,37 @@ export const worldData = {
         },
         // V2-Core-70 (#170): the elder and the herbalist both trust this character, and both stories are
         // over -- the village's thanks, once (their own edge); the world remembers that someone was honoured
+        // V2-Core-138 (M4): the elder asks who gathers the band; told, he warns the frontier (once, for the world)
+        {
+          id: "opt_elder_band_word",
+          name: "강 건너 소문을 나눈다",
+          requires: BAND_GATHERING,
+          effects: [
+            {
+              op: "if",
+              when: FRONTIER_WARNED,
+              then: [say("txt_elder_band_warned"), { op: "rumor", rumor: "rum_frontier_warned", source: "npc_elder", confidence: 90 }],
+              else: [
+                {
+                  op: "if",
+                  when: KNOWS_BAND_LEADER,
+                  then: [
+                    { op: "if", when: KNOWS_BAND_SCARRED, then: [say("txt_elder_band_scarred")], else: [say("txt_elder_band_remnant")] },
+                    { op: "flag", key: "frontier_warned", value: true },
+                    { op: "fact", fact: "fact_frontier_warned", set: "warned" },
+                    { op: "relation", from: "npc_elder", add: 5 },
+                    { op: "rumor", rumor: "rum_frontier_warned", source: "npc_elder", confidence: 90 }
+                  ],
+                  else: [
+                    say("txt_elder_band_ask"),
+                    { op: "fact", fact: "fact_elder_request", set: "who_leads" },
+                    { op: "rumor", rumor: "rum_elder_asks_band", source: "npc_elder", confidence: 90 }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
         {
           id: "opt_village_honor",
           name: "마을의 이름으로 감사를 받는다",
@@ -1856,6 +1919,22 @@ export const worldData = {
             }
           ]
         },
+        // V2-Core-138 (M4): what the river saw -- armed men crossing at night; the leader, if he is the man he ferried before
+        {
+          id: "opt_ferryman_band",
+          name: "강 건너 무리에 대해 묻는다",
+          requires: BAND_GATHERING,
+          effects: [
+            say("txt_ferryman_band"),
+            { op: "rumor", rumor: "rum_band_recruits", source: "npc_ferryman", confidence: 70, about: "now" },
+            {
+              op: "if",
+              when: LEADER_LIVES,
+              then: [say("txt_ferryman_band_scarred"), { op: "rumor", rumor: "rum_band_led_by_scarred", source: "npc_ferryman", confidence: 60 }],
+              else: [say("txt_ferryman_band_unknown")]
+            }
+          ]
+        },
         {
           id: "opt_ferryman_cross",
           name: "강을 건넌다 (뱃삯 은화 3)",
@@ -2052,6 +2131,29 @@ export const worldData = {
                 { op: "if", when: { op: "and", of: [ROAD_WOUND_DEEP, { op: "unlock", id: "unl_road_lead" }] }, then: [say("txt_guild_clerk_deep_closes_lead")] },
                 { op: "if", when: { op: "not", of: { op: "or", of: [{ op: "item", item: "item_leather_jerkin", equipped: true }, { op: "item", item: "item_mail_shirt", equipped: true }] } }, then: [say("txt_guild_clerk_no_leather")] }
               ]
+            }
+          ]
+        },
+        // V2-Core-138 (M4): the ledger -- guards lost to a better wage across the river; who leads, only to a guard it knows
+        {
+          id: "opt_guild_clerk_band",
+          name: "강 건너 무리에 대해 묻는다",
+          requires: BAND_GATHERING,
+          effects: [
+            say("txt_guild_clerk_band"),
+            { op: "rumor", rumor: "rum_band_recruits", source: "npc_guild_clerk", confidence: 80, about: "now" },
+            {
+              op: "if",
+              when: GUILD_KNOWS,
+              then: [
+                {
+                  op: "if",
+                  when: LEADER_LIVES,
+                  then: [say("txt_guild_clerk_band_scarred"), { op: "rumor", rumor: "rum_band_led_by_scarred", source: "npc_guild_clerk", confidence: 70 }],
+                  else: [say("txt_guild_clerk_band_remnant"), { op: "rumor", rumor: "rum_band_led_by_remnant", source: "npc_guild_clerk", confidence: 70 }]
+                }
+              ],
+              else: [say("txt_guild_clerk_band_closed")]
             }
           ]
         },
@@ -2525,6 +2627,11 @@ export const worldData = {
     fact_realm_unrest: {},
     fact_leader_crossed: {},
     fact_leader_bounty: {},
+    // V2-Core-138 (M4): the band across the river, who leads it, the elder's request, the frontier warned
+    fact_band_gathers: {},
+    fact_band_leader: {},
+    fact_elder_request: {},
+    fact_frontier_warned: {},
     fact_royal_city: {},
     // V2-Core-125 (#307): the road to the ford -- quiet / uneasy / dangerous, set at each turn (a save from before has none) --
     // and the world's place on the road's course, drawn at creation from its own stream (a save from before has none: the first)
@@ -2537,8 +2644,9 @@ export const worldData = {
   rumors: {
     rum_ruins_secret: { factId: "fact_ruins_secret", claim: "bandit_hideout" },
     // V2-Core-45: the same history told two ways -- the elder's news, and the legend it becomes
-    rum_bandits_fate: { factId: "fact_bandits_fate", claim: "dispersed" },
-    rum_bandits_legend: { factId: "fact_bandits_fate", claim: "slain" },
+    // V2-Core-138 (M4, D-116): `story` -- the main thread's chapter a word belongs to, shown in the story panel
+    rum_bandits_fate: { factId: "fact_bandits_fate", claim: "dispersed", story: { chapter: 1 } },
+    rum_bandits_legend: { factId: "fact_bandits_fate", claim: "slain", story: { chapter: 1 } },
     // V2-Core-55 (D-84): what the elder tells a character he trusts
     rum_leader_old_wound: { factId: "fact_leader_wound", claim: "old_wound" },
     // V2-Core-64 (#160): the fouled well
@@ -2547,8 +2655,8 @@ export const worldData = {
     // V2-Core-68 (#170): the arrows, read by a character who knows the hideout
     rum_spring_bandits: { factId: "fact_spring_fouler", claim: "bandits" },
     // V2-Core-69 (#170): the same history told two ways -- the herbalist's news, and the market's legend
-    rum_well_fate: { factId: "fact_well_fate", claim: "purified" },
-    rum_well_legend: { factId: "fact_well_fate", claim: "spirit_appeased" },
+    rum_well_fate: { factId: "fact_well_fate", claim: "purified", story: { chapter: 1 } },
+    rum_well_legend: { factId: "fact_well_fate", claim: "spirit_appeased", story: { chapter: 1 } },
     // V2-Core-72 (#180): the region, as a character knows it
     rum_road_hamlet: { factId: "fact_road_hamlet", claim: "east" },
     rum_road_ford: { factId: "fact_road_ford", claim: "north" },
@@ -2577,7 +2685,13 @@ export const worldData = {
     rum_caravan_took_flour: { factId: "fact_caravan_flour", claim: "north" },
     // V2-Core-135 (#335, D-114): the miller's reading of the caravan's purchase -- the town wanted flour *before* the sack
     // went north; whether it still does after, he cannot see (the ferryman, who hears the caravan's step out, can)
-    rum_town_flour_caravan_bought: { factId: "fact_town_flour", claim: "wanted", validDays: 3 }
+    rum_town_flour_caravan_bought: { factId: "fact_town_flour", claim: "wanted", validDays: 3 },
+    // V2-Core-138 (M4): chapter 2, across the river -- the elder's request, the band, who leads it, the frontier warned
+    rum_elder_asks_band: { factId: "fact_elder_request", claim: "who_leads", story: { chapter: 2 } },
+    rum_band_recruits: { factId: "fact_band_gathers", claim: "gathering", story: { chapter: 2 } },
+    rum_band_led_by_scarred: { factId: "fact_band_leader", claim: "scarred_chief", story: { chapter: 2 } },
+    rum_band_led_by_remnant: { factId: "fact_band_leader", claim: "chief_right_hand", story: { chapter: 2 } },
+    rum_frontier_warned: { factId: "fact_frontier_warned", claim: "warned", story: { chapter: 2 } }
   },
 
   // Relation-edge/rumor-source IDs (§7.1/§8.3). An entry without `actor` is
@@ -2626,6 +2740,19 @@ export const worldData = {
     txt_unequip_iron_sword: "철검을 칼집에 넣고 허리에 찬다.",
     txt_ask_ruins: "원로는 목소리를 낮추며 마을 외곽의 폐허에 대해 이야기한다.",
     txt_small_talk: "원로와 짧은 안부를 나눈다.",
+    txt_elder_band_ask: "원로가 이마를 짚는다. \"강 건너에서 사람을 모은다는 말이 상단 편에 왔네. 품삯을 후하게 준다더군. 누가 모으는지 알아봐 주게. 그걸 알아야 마을이 무엇을 대비할지 정하지.\"",
+    txt_elder_band_scarred: "옆구리를 감싸는 사내 이야기를 듣자 원로의 얼굴이 굳는다. \"그 버릇을 아는 이는 많지 않네. 그가 돌아올 셈이로군.\" 원로는 마을 사람들에게 밤길과 샘가를 지키게 하겠다고 한다.",
+    txt_elder_band_remnant: "폐허의 두목 밑에 있던 자가 사람을 모은다는 말에 원로가 길게 숨을 쉰다. \"머리를 잃은 뱀이 새 머리를 얻었군.\" 원로는 마을 사람들에게 밤길과 샘가를 지키게 하겠다고 한다.",
+    txt_elder_band_warned: "원로가 고개를 끄덕인다. \"마을에는 일러두었네. 이제는 그들이 언제 강을 건너오는지 지켜봐야 하네. 나루와 성읍의 말을 모아 주게.\"",
+    txt_guild_clerk_band: "서기가 장부를 넘긴다. 지난 상단 둘이 호위를 하나씩 잃었다고 한다. 강 건너에서 품삯을 두 배로 준다는 말에 넘어갔다고.",
+    txt_guild_clerk_band_scarred: "서기가 목소리를 낮춘다. 조합이 아는 호위니 말해 준다고 한다. 사람을 모으는 자가 왼쪽 옆구리를 감싸는 버릇이 있다더라고.",
+    txt_guild_clerk_band_remnant: "서기가 목소리를 낮춘다. 조합이 아는 호위니 말해 준다고 한다. 사람을 모으는 자는 남쪽 폐허의 도적 두목 밑에 있던 자라고, 넘어갔다가 돌아온 호위가 그랬다고.",
+    txt_guild_clerk_band_closed: "더 묻자 서기는 장부를 덮는다. 조합이 모르는 이에게 할 이야기는 아니라고 한다.",
+    txt_ferryman_band: "\"요즘 밤에 무장한 사내들을 몇 번 건넸소. 남쪽 말씨였지. 북쪽 숲길로 가더군.\"",
+    txt_ferryman_band_scarred: "\"그중 우두머리는 배에 앉을 때마다 옆구리를 감싸더군. 전에 한 번 건넨 사내요.\"",
+    txt_ferryman_band_unknown: "\"누가 이끄는지는 모르오. 뱃삯은 꼬박꼬박 냈소.\"",
+    txt_board_band: "게시판 구석에 쪽지가 붙어 있다. '칼 쓸 줄 아는 자. 품삯 후함. 길목에서 묻게.'",
+    txt_board_band_remnant: "쪽지 아래에 누군가 덧적었다. '폐허 두목 밑에 있던 놈들이 또 모인다.'",
     txt_investigate_success: "등불 아래 드러난 흔적은 도적들의 은신처를 가리키고 있었다.",
     txt_investigate_fail: "폐허는 어둡고 흔적은 모호하다. 확실한 것을 찾지 못했다.",
     txt_confront_success: "당신은 도적 두목과 마주하고 진실을 밝혀낸다.",
@@ -2839,6 +2966,13 @@ export const worldData = {
     lbl_tmpl_start_scout: "정찰자",
     lbl_rumor_rum_ruins_secret: "폐허는 도적들의 은신처다",
     lbl_rumor_rum_bandits_fate: "도적단은 흩어졌다",
+    lbl_rumor_rum_elder_asks_band: "원로의 부탁: 강 건너에서 사람을 모으는 자가 누구인지 알아봐 달라",
+    lbl_rumor_rum_band_recruits: "강 건너에서 누군가 품삯을 후하게 주고 사람을 모은다",
+    lbl_rumor_rum_band_led_by_scarred: "강 건너 무리를 이끄는 자는 왼쪽 옆구리를 감싸는 사내다",
+    lbl_rumor_rum_band_led_by_remnant: "강 건너 무리를 이끄는 자는 폐허 두목 밑에 있던 자다",
+    lbl_rumor_rum_frontier_warned: "원로가 변경에 대비를 일렀다. 이제 그들이 언제 강을 건너오는지 지켜볼 때다",
+    lbl_story_chapter_1: "1장 변경의 일",
+    lbl_story_chapter_2: "2장 강 건너의 그림자",
     lbl_rumor_rum_bandits_legend: "도적 떼가 모두 베어졌다",
     lbl_rumor_rum_leader_old_wound: "두목의 옆구리에 오래된 상처가 있다",
     lbl_rumor_rum_well_source: "우물 물은 숲의 샘에서 온다",
