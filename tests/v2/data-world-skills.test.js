@@ -78,15 +78,15 @@ function testChecksReadSkills() {
     "choice_fight_leader.opt_fight_counter": ["swordsmanship", null],
     "choice_fight_leader.opt_fight_weak_spot": ["swordsmanship", null], // V2-Core-55
     // V2-Core-140: the last fight, against the chief or his right hand -- the first fight's exchanges
-    "choice_final_chief.opt_final_chief_strike": ["swordsmanship", null],
-    "choice_final_chief.opt_final_chief_weak_spot": ["swordsmanship", null],
-    "choice_final_chief.opt_final_chief_with_village": ["swordsmanship", null],
-    "choice_final_chief.opt_final_chief_sword_cut": ["swordsmanship", null],
-    "choice_final_chief.opt_final_chief_counter": ["swordsmanship", null],
-    "choice_final_right_hand.opt_final_right_hand_strike": ["swordsmanship", null],
-    "choice_final_right_hand.opt_final_right_hand_with_village": ["swordsmanship", null],
-    "choice_final_right_hand.opt_final_right_hand_sword_cut": ["swordsmanship", null],
-    "choice_final_right_hand.opt_final_right_hand_counter": ["swordsmanship", null],
+    "choice_final_battle.opt_final_chief_strike": ["swordsmanship", null],
+    "choice_final_battle.opt_final_chief_weak_spot": ["swordsmanship", null],
+    "choice_final_battle.opt_final_chief_with_village": ["swordsmanship", null],
+    "choice_final_battle.opt_final_chief_sword_cut": ["swordsmanship", null],
+    "choice_final_battle.opt_final_chief_counter": ["swordsmanship", null],
+    "choice_final_battle.opt_final_right_hand_strike": ["swordsmanship", null],
+    "choice_final_battle.opt_final_right_hand_with_village": ["swordsmanship", null],
+    "choice_final_battle.opt_final_right_hand_sword_cut": ["swordsmanship", null],
+    "choice_final_battle.opt_final_right_hand_counter": ["swordsmanship", null],
     // V2-Core-64 (#160): the well and the spring are searched with the investigation skill; the
     // miasma is endured with CON alone
     act_inspect_well: ["investigation", null],
@@ -96,6 +96,8 @@ function testChecksReadSkills() {
     act_read_milestone: ["investigation", null], // V2-Core-72
     act_search_crossroads: ["investigation", null],
     act_watch_band_camp: ["investigation", null], // V2-Core-139: watching the band
+    act_petition_crown: [null, null], // V2-Core-141: the frontier's plight told at court
+    act_burn_band_stores: [null, null], // V2-Core-141: the band's stores
     "choice_guild_clerk_dialogue.opt_guild_clerk_escort": ["swordsmanship", null], // V2-Core-78: the caravan guard
     "choice_guild_clerk_dialogue.opt_guild_clerk_escort_lead": ["swordsmanship", null], // V2-Core-105: leading it
     "choice_guild_clerk_dialogue.opt_guild_clerk_escort_careful": ["swordsmanship", null], // V2-Core-106: the careful way
