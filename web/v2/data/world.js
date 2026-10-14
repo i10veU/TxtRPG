@@ -427,6 +427,14 @@ const VILLAGE_DEFENDER = { op: "relation", from: "org_village", to: "self", tag:
 const BAND_ACROSS = { op: "and", of: [BAND_GATHERING, { op: "not", of: BAND_CROSSED }] };
 const FERRYMAN_WATCHES = { op: "flag", key: "ferryman_watches" };
 const CROWN_WRIT = { op: "flag", key: "crown_writ" };
+// V2-Core-142 (roadmap M7, the strongest one's curve; World Bible WB-0030 Q3: the 1.0 apex is legend and recognition): the
+// frontier's fate travels north with the next caravan cadence (as the bandits' and the well's word); the castle town then
+// tells it, and the royal records post the defender of the frontier -- the one who broke the band. That character, reading
+// it there, is known to the realm (`unl_realm_renown`: the apex -- the elder, the guild, the town and the royal city all
+// call the name). Strength opens a late challenge: the band's remnants regroup in the woods each week; a seasoned sword
+// (swordsmanship 2) can hunt them down for the waystation's bounty
+const FATE_NORTH = { op: "flag", key: "fate_word_north" };
+const RENOWNED = { op: "unlock", id: "unl_realm_renown" };
 // V2-Core-74 (#180): the realm's news the caravans have brought so far (the world's facts)
 const NEWS = (fact) => ({ op: "fact", fact, eq: "known" });
 // V2-Core-76 (#189): the frontier's news travels north only with the caravans (World Bible WB-0019)
@@ -1151,6 +1159,23 @@ export const worldData = {
       effects: [{ op: "signal", key: "raid_days", add: 1 }]
     },
     // three days on, the band strikes the village; the frontier's fate (sorts after the day's count)
+    // V2-Core-142 (M7): the frontier's fate goes north -- a caravan cadence after it is decided (its own step the first)
+    evt_unrest_word_north: {
+      trigger: { op: "and", of: [FATE_DECIDED, { op: "flag", key: "road_walked" }, { op: "signal", key: "fate_word_age", max: 1 }] },
+      cooldown: 4320,
+      catchUp: true,
+      effects: [
+        { op: "signal", key: "fate_word_age", add: 1 },
+        { op: "if", when: { op: "signal", key: "fate_word_age", eq: 2 }, then: [{ op: "flag", key: "fate_word_north", value: true }] }
+      ]
+    },
+    // V2-Core-142 (M7): the remnants regroup -- a day at a time, from the hunt's week
+    evt_unrest_remnants_regroup: {
+      trigger: { op: "signal", key: "remnants_quiet", min: 1 },
+      cooldown: 1440,
+      catchUp: true,
+      effects: [{ op: "signal", key: "remnants_quiet", add: -1 }]
+    },
     evt_unrest_raid_strikes: {
       trigger: {
         op: "and",
@@ -1435,7 +1460,17 @@ export const worldData = {
           when: NEWS("fact_realm_unrest"),
           then: [{ op: "rumor", rumor: "rum_realm_unrest", source: "src_royal_records", confidence: 50 }, say("txt_royal_records_unrest")]
         },
-        say("txt_royal_records_no_frontier")
+        // V2-Core-142 (M7): once the defender's deed has come north, the realm's written word names the frontier at last
+        {
+          op: "if",
+          when: { op: "and", of: [FATE_NORTH, FATE(1)] },
+          then: [
+            say("txt_royal_records_defender"),
+            { op: "rumor", rumor: "rum_ending_name", source: "src_royal_records", confidence: 90 },
+            { op: "if", when: { op: "and", of: [VILLAGE_DEFENDER, { op: "not", of: RENOWNED }] }, then: [{ op: "unlock", id: "unl_realm_renown" }, say("txt_royal_records_you")] }
+          ],
+          else: [say("txt_royal_records_no_frontier")]
+        }
       ]
     },
     act_read_castle_notices: {
@@ -1476,7 +1511,35 @@ export const worldData = {
         // V2-Core-141 (M2): the first arrivals, remembered -- the frontier road walked again, noted at this gate; and word
         // back from the royal city that a frontier traveller passed its gate (the records there name no frontier, N-06)
         { op: "if", when: { op: "flag", key: "frontier_seen_town" }, then: [{ op: "rumor", rumor: "rum_frontier_seen_town", source: "obs_loc_castle_town", confidence: 80 }, say("txt_castle_frontier_seen")] },
-        { op: "if", when: { op: "flag", key: "frontier_seen_royal" }, then: [{ op: "rumor", rumor: "rum_frontier_seen_royal", source: "src_castle_town_talk", confidence: 60 }, say("txt_castle_royal_seen")] }
+        { op: "if", when: { op: "flag", key: "frontier_seen_royal" }, then: [{ op: "rumor", rumor: "rum_frontier_seen_royal", source: "src_castle_town_talk", confidence: 60 }, say("txt_castle_royal_seen")] },
+        // V2-Core-142 (M7): the frontier's fate, as the town tells it once the caravans brought it
+        {
+          op: "if",
+          when: FATE_NORTH,
+          then: [
+            {
+              op: "if",
+              when: FATE(1),
+              then: [{ op: "rumor", rumor: "rum_ending_name", source: "src_castle_town_talk", confidence: 60 }, say("txt_castle_fate_name")],
+              else: [
+                {
+                  op: "if",
+                  when: FATE(3),
+                  then: [{ op: "rumor", rumor: "rum_ending_lord", source: "src_castle_town_talk", confidence: 60 }, say("txt_castle_fate_lord")],
+                  else: [
+                    {
+                      op: "if",
+                      when: FATE(2),
+                      then: [{ op: "rumor", rumor: "rum_ending_held", source: "src_castle_town_talk", confidence: 60 }, say("txt_castle_fate_held")],
+                      else: [{ op: "rumor", rumor: "rum_ending_fell", source: "src_castle_town_talk", confidence: 60 }, say("txt_castle_fate_fell")]
+                    }
+                  ]
+                }
+              ]
+            },
+            { op: "if", when: RENOWNED, then: [say("txt_castle_known_you")] }
+          ]
+        }
       ]
     },
     // V2-Core-81 (#198): the carrier -- one who heard the legend and saw the truth (their legend corrected,
@@ -1862,6 +1925,28 @@ export const worldData = {
         },
         { op: "choice", choice: FINAL_CHOICE, sourceId: "act_face_band" }
       ]
+    },
+    // V2-Core-142 (M7): the band's remnants in the woods -- for a seasoned sword, once the frontier's fate is decided; won,
+    // the waystation's bounty and a quiet week; lost, a beating
+    act_hunt_band_remnants: {
+      name: "숲 너머에 남은 무리를 뒤쫓는다",
+      requires: {
+        op: "and",
+        of: [{ op: "location", at: "loc_band_camp" }, FATE_DECIDED, { op: "skill", skill: "swordsmanship", min: 2 }, { op: "signal", key: "remnants_quiet", max: 0 }]
+      },
+      check: { stat: "str", skill: "swordsmanship", tags: ["combat"], difficulty: "hard" },
+      minutes: 240,
+      outcomes: {
+        success: [
+          { op: "proficiency", id: "combat", add: 5 },
+          // a week: the countdown takes its first day on this very step
+          { op: "signal", key: "remnants_quiet", add: 8 },
+          { op: "money", add: 12 },
+          { op: "relation", from: "org_village", add: 2 },
+          say("txt_remnants_hunted")
+        ],
+        fail: [{ op: "proficiency", id: "combat", add: 5 }, { op: "hp", add: -6 }, say("txt_remnants_ambush")]
+      }
     },
     // V2-Core-141 (M2): a call for hands on the waystation board, paid by one the elder has warned
     act_post_frontier_notice: {
@@ -2519,6 +2604,12 @@ export const worldData = {
             { op: "if", when: GUARD_WANTED, then: [say("txt_guild_clerk_work")], else: [say("txt_guild_clerk_no_work")] },
             // V2-Core-92 (#226): a guard the guild knows
             { op: "if", when: GUILD_KNOWS, then: [say("txt_guild_clerk_knows_you")] },
+            // V2-Core-142 (M7): the realm's name -- the guild greets it once (its `renowned` tag)
+            {
+              op: "if",
+              when: { op: "and", of: [RENOWNED, { op: "not", of: { op: "relation", from: "npc_guild_clerk", to: "self", tag: "renowned" } }] },
+              then: [{ op: "relation", from: "npc_guild_clerk", add: 10, tag: "renowned" }, say("txt_guild_clerk_renowned")]
+            },
             // V2-Core-108 (#265): the caravans that did not wait
             { op: "if", when: { op: "and", of: [GUARD_WANTED, { op: "signal", key: "caravans_unguarded", min: 1 }] }, then: [say("txt_guild_clerk_left_without")] },
             // V2-Core-106 (#258): and where a guard has fallen, the careful way
@@ -3028,7 +3119,8 @@ export const worldData = {
         { minRank: 3, label: "Apprentice" },
         { minRank: 5, label: "Adept" }
       ],
-      unlocks: [{ id: "unl_keen_eye", kind: "action" }, { id: "unl_road_lead", kind: "action" }],
+      // V2-Core-142 (M7): the realm's name -- the apex (a title: it opens nothing, the world answers it)
+      unlocks: [{ id: "unl_keen_eye", kind: "action" }, { id: "unl_road_lead", kind: "action" }, { id: "unl_realm_renown", kind: "title" }],
       // V2-Core-56 (Gate 4 = C, D-85): resources belong to the growth system. Stamina pays for the
       // fight's techniques (the counter 3, the old wound 2); a character without the entry is full
       resources: [{ id: "stamina", max: 6 }]
@@ -3321,6 +3413,16 @@ export const worldData = {
     txt_castle_royal_seen: "포고판 앞의 상인들이 왕도에서 들은 말을 옮긴다. 남쪽 끝 변경에서 온 이가 왕도의 성문을 지났다더라고.",
     txt_castle_frontier_seen: "포고판 옆 성문지기가 말한다. 변경 쪽 길로 사람이 올라온 것이 몇 해 만이라고.",
     txt_board_southerner: "게시판 앞의 사내들이 남쪽 변경에서 강을 건너온 나그네 이야기를 한다. 그 길이 다시 열렸느냐고 묻는다.",
+    txt_royal_records_defender: "새로 내걸린 글 한 장이 사람들을 모은다. 남쪽 끝 변경에서 갈림길을 막은 무리의 우두머리를 한 사람이 쓰러뜨렸고, 무리는 흩어졌다고 한다. 글은 그를 남쪽 변경의 수호자라 부른다.",
+    txt_royal_records_you: "글 앞에 선 사람들 가운데 누군가 당신을 알아보고 손가락으로 가리킨다. 웅성거림이 퍼진다. 왕도가 그 이름을 안다.",
+    txt_castle_fate_name: "포고판 앞에서 상단 사람들이 남쪽 소식을 전한다. 변경의 갈림길에서 한 사람이 무리의 우두머리를 베었다고. 사람들은 그를 갈림길의 수호자라 부른다.",
+    txt_castle_fate_held: "상단 사람들이 남쪽 소식을 전한다. 강을 건너온 무리를 변경 마을이 스스로 막아 냈다고.",
+    txt_castle_fate_lord: "포고판에 영주의 글이 붙었다. 영주의 순찰이 남쪽 변경을 무리에게서 지켜 냈다고, 변경은 이제 영주의 깃발 아래 있다고.",
+    txt_castle_fate_fell: "상단 사람들이 남쪽 소식을 전하며 고개를 젓는다. 강을 건너온 무리가 변경 마을을 쳤다고, 곳간이 비고 집 몇 채가 탔다고.",
+    txt_castle_known_you: "포고판 앞의 사람들이 당신을 돌아본다. 누군가 \"수호자다\" 하고 속삭인다.",
+    txt_guild_clerk_renowned: "서기가 장부에서 고개를 들고 한참 당신을 본다. \"남쪽 변경의 수호자를 조합 장부에 올린 적이 있다는 게 자랑이 되겠소.\" 서기가 장부에 무언가를 덧적는다.",
+    txt_remnants_hunted: "숲 너머 오래된 모닥불 자리에서 다시 모인 무리의 남은 자들을 찾아낸다. 칼이 몇 번 오가고 그들은 흩어진다. 길목의 상인들이 걸어 둔 사례금 열두 닢을 받는다. 한 주는 숲이 조용할 것이다.",
+    txt_remnants_ambush: "남은 자들을 쫓다가 오히려 덫에 걸린다. 사방에서 날아든 몽둥이와 칼끝에 크게 다쳐 간신히 빠져나온다.",
     txt_face_band_chief: "갈림길의 이정표 아래에 무리가 진을 쳤다. 그 앞에 왼쪽 옆구리를 감싼 사내가 서 있다. 폐허에서 놓친 두목이다. 그가 당신을 알아보고 칼을 뽑는다.",
     txt_face_band_right_hand: "갈림길의 이정표 아래에 무리가 진을 쳤다. 그 앞에 폐허의 두목 밑에 있던 사내가 서 있다. 이제 그가 무리를 이끈다. 그가 칼을 뽑는다.",
     txt_final_strike_great: "당신의 일격이 그를 크게 베어 낸다. 뒤에 선 무리가 웅성거린다.",
@@ -3521,6 +3623,7 @@ export const worldData = {
     lbl_trait_road_wound_deep: "깊은 상처",
     lbl_unlock_unl_keen_eye: "예리한 눈",
     lbl_unlock_unl_road_lead: "상단을 이끌 자격",
+    lbl_unlock_unl_realm_renown: "왕국이 아는 이름 (남쪽 변경의 수호자)",
     lbl_res_stamina: "기력",
     lbl_slot_hand: "손",
     lbl_slot_body: "몸",

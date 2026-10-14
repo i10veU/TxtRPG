@@ -130,3 +130,32 @@ tests/v2/measure/campaign.sh trade /tmp/c2                         # 교역 부�
 tests/v2/measure/campaign.sh trade-parity <base-commit> /tmp/c3    # 교역 216경력 동일성(진단 열 제외)
 ```
 
+
+## 메인 줄기 완주 측정 (로드맵 M7·M8, `story-careers.mjs`, 2026-10-14)
+
+`story-careers.mjs`는 한 판을 메인 줄기를 따라 처음부터 끝까지 둔다.
+- 1막: 호위 경력과 같다.
+- 그 뒤: 성읍의 호위 일로 돈을 벌고, 사람과 장소를 찾아가 메인 줄기의 선택을 한다.
+
+정책은 캐릭터가 볼 수 있는 것만 읽고 판단한다. 갈림길의 무리, 자기 지갑과 상처 같은 것들이다. 세계의 값은 채점에만 쓴다.
+
+| 정책 | 하는 일 |
+|---|---|
+| `idle` | 호위 일만 |
+| `prepare` | 마을에 은화 둘, 뱃사공의 감시, 일손 구하기 |
+| `lord` | 은화 하나, 영주의 제안 수락 |
+| `fight` | 뱃사공의 감시, 그리고 마지막 싸움 |
+| `hero` | 지역의 모든 손, 마지막 싸움, 왕국의 이름, 잔당 사냥 |
+
+```
+node tests/v2/measure/story-careers.mjs 0 10 4 120 idle,prepare,lord,fight,hero [dead] > rows.json   # dead: 두목이 죽은 세계(연출)
+python3 tests/v2/measure/story-judge.py rows*.json                                                 # 정책·두목 생사별 단계 도달일, 사망, 결말, 정점, G4
+```
+
+열 설명:
+- 단계 도달일: 이끄는 자격(`unl_road_lead`), 모임, 건넘, 수호자(`defender`), 왕국의 이름(`unl_realm_renown`)
+- 결말
+- 사망(일자 포함)
+- 강 남쪽에서 뱃삯이 없어 묶인 날(`stuckSouthDays`)
+- 정책이 끝내지 못한 대화(`stalled`, 0이어야 한다)
+- 늦은 경력의 폭(`lateKinds`)

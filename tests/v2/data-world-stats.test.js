@@ -103,6 +103,7 @@ function testEveryCheckNamesADefinedStat() {
     act_watch_band_camp: ["per", null], // V2-Core-139: watching the band
     act_petition_crown: ["wis", null], // V2-Core-141: the frontier's plight told at court
     act_burn_band_stores: ["dex", null], // V2-Core-141: the band's stores
+    act_hunt_band_remnants: ["str", null], // V2-Core-142: the remnants
     "choice_guild_clerk_dialogue.opt_guild_clerk_escort": ["str", null], // V2-Core-78: the caravan guard
     "choice_guild_clerk_dialogue.opt_guild_clerk_escort_lead": ["str", null], // V2-Core-105: leading it
     "choice_guild_clerk_dialogue.opt_guild_clerk_escort_careful": ["str", null], // V2-Core-106: the careful way
