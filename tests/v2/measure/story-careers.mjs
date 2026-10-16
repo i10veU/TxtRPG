@@ -21,6 +21,8 @@ const at = (p) => pathToFileURL(`${ROOT}/web/v2/${p}`).href;
 const { createInitialState, step } = await import(at("core/engine.js"));
 const { evaluateCondition } = await import(at("core/rules.js"));
 const { worldData: d } = await import(at("data/world.js"));
+// M8 (docs/v2/m8-balance-preregistration.md): CANDIDATE=<module,...> patches an in-memory copy of the pack (candidates/)
+for (const c of (process.env.CANDIDATE ?? "").split(",").filter(Boolean)) (await import(new URL(`./candidates/${c}.mjs`, import.meta.url).href)).patch(d);
 
 const DIRECT = process.argv[1] && pathToFileURL(process.argv[1]).href === import.meta.url;
 const SEEDS = DIRECT ? JSON.parse(readFileSync(new URL(`./${process.env.SEEDS_FILE ?? "seeds.json"}`, import.meta.url), "utf8")).slice(+process.argv[2], +process.argv[3]) : [];
