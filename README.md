@@ -3,28 +3,11 @@
 대규모 텍스트 RPG 프로젝트.  
 **V2는 순수 게임 Core 위에 실제 RPG 시스템을 구축하고, 이를 세계관·정보·다회차 구조와 연결하는 방향으로 개발한다.**
 
-## 현재 개발 단계
+## 현재 개발 단계 (2026-10-16)
 
-현재 기준 브랜치: `feature/v2-core`
+`main`은 기존 안정 기준(V1 및 초기 V2 이력)을 담고 있고, V1 회귀 기준은 `v1-final`이다. 최신 V2 개발은 `feature/v2-core`, World Bible 기록은 `docs/world-bible`에서 진행한다. V2의 M0~M6은 개발 브랜치에 구현되었다. M7의 왕국이 아는 이름과 잔당 사냥은 [게임 PR #347](https://github.com/i10veU/TxtRPG/pull/347), 대기시간·저장 UI 경합 보정은 [Issue #349](https://github.com/i10veU/TxtRPG/issues/349)와 [PR #350](https://github.com/i10veU/TxtRPG/pull/350)에 기록한다. World Bible 기록은 [PR #348](https://github.com/i10veU/TxtRPG/pull/348)에 있다.
 
-```
-V2 Core
-  ↓
-실제 세계 데이터팩
-  ↓
-정보·관계·세력·시간·사건 수직 슬라이스
-  ↓
-다회차/후계자/세계 연속성 검증
-  ↓
-RPG 시스템 구축  ← 현재 단계
-  ↓
-RPG 시스템 + 세계 수직 슬라이스
-  ↓
-대규모 세계관·콘텐츠 확장
-```
-
-현재 목표는 단순히 세계관 콘텐츠를 늘리는 것이 아니다.  
-**실제 RPG 플레이를 성립시키는 Character / Stats / Skill / Trait / Talent / Mastery / Technique / Loadout / Resource / Action / Combat / Item / Growth / Exploration 등의 시스템을 Core 위에 구축하고 실제 세계와 연결하는 것**이다.
+M8의 완주·균형·장기 저장·출시 검증은 남아 있다. 현재 구현과 측정의 한계, 브랜치별 위치는 [2026-10-16 개발 현황](docs/v2/development-status-2026-10-16.md)에 적었다.
 
 ---
 
