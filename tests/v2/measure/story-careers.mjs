@@ -32,7 +32,10 @@ const POLICY = {
   prepare: { silver: 2, watch: true, notice: true },
   lord: { silver: 1, lord: "accept" },
   fight: { watch: true, fight: true },
-  hero: { silver: 2, watch: true, notice: true, lord: "refuse", burn: true, crown: true, fight: true, renown: true, remnants: true }
+  hero: { silver: 2, watch: true, notice: true, lord: "refuse", burn: true, crown: true, fight: true, renown: true, remnants: true },
+  // M8 step 1b (docs/v2/m8-balance-preregistration.md §7): the same, coming back south with silver while the band is across
+  prepare2: { silver: 2, watch: true, notice: true, revisit: true },
+  lord2: { silver: 1, lord: "accept", revisit: true }
 };
 
 const P = (a) => ({ type: "perform", actionId: a }), M = (to) => ({ type: "move", to }), C = (o) => ({ type: "choose", optionId: o });
@@ -188,7 +191,11 @@ function career(name, seed, k) {
     const plan = 10 * (pol.silver ?? 0) + (pol.watch ? 5 : 0) + (pol.notice ? 15 : 0) + 8 + 6;
     const ready = me(s).money >= plan || day(s, t0) - m.dayGather >= 10;
     const wantSouth = (gathered && !crossed && mem.trips === 0 && Object.keys(pol).length > 0 && ready) || (pol.lord && knows(s, "rum_lord_offer") && (s.signals?.lord_pact ?? 0) === 0 && mem.trips < 2 && !crossed);
-    if (wantSouth) { s = southTrip(s, pol, mem); mem.trips++; continue; }
+    if (wantSouth) { s = southTrip(s, pol, mem); mem.trips++; mem.lastTrip = day(s, t0); continue; }
+    // step 1b: back south with silver, six days on, while the band is still across
+    if (pol.revisit && gathered && !crossed && mem.trips > 0 && day(s, t0) - mem.lastTrip >= 6 && me(s).money >= 10 + 14) {
+      s = southTrip(s, { silver: 3, lord: pol.lord }, mem); mem.trips++; mem.lastTrip = day(s, t0); continue;
+    }
     // the band across: the fighter goes to meet it (a successor too, while it is in the land)
     if (pol.fight && crossed && !decided && !s.flags?.band_broken && !mem.fought) { s = toTown(lastFight(run(s, [M("loc_far_bank"), M("loc_river_ford"), M("loc_crossroads")]))); mem.fought = true; continue; }
     // the realm's name: the defender walks to the royal city once the word has gone north
