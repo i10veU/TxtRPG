@@ -85,4 +85,53 @@ test.describe("V2 the strongest one (M7): the realm's name", () => {
     expect(pageErrors).toEqual([]);
     expect(consoleErrors).toEqual([]);
   });
+
+  test("a second successful hunt starts a full week after the old quiet ends", async ({ page }) => {
+    test.setTimeout(120000);
+    const { pageErrors, consoleErrors } = await gotoApp(page);
+    await page.evaluate(() => window.__v2App.newGame("history-hunt-ui"));
+    await dispatch(page, TO_DISPERSAL);
+    await page.evaluate(async () => {
+      const idb = await import("/v2/storage/idb.js");
+      const { createInitialState, step } = await import("/v2/core/engine.js");
+      const { worldData } = await import("/v2/data/world.js");
+      const s = structuredClone(window.__v2App.getState());
+      const pid = s.player.actorId;
+      s.actors[pid].locationId = "loc_band_camp";
+      const growth = s.actors[pid].growth.growth_wanderer;
+      growth.skills = { ...growth.skills, swordsmanship: 2 };
+      s.signals = { ...s.signals, frontier_fate: 1 };
+      s.signals.remnants_quiet = 0;
+      s.flags.band_broken = true;
+      s.fired.evt_unrest_remnants_regroup = { count: 7, lastMinute: s.time.minute };
+      let found = false;
+      for (let i = 0; i < 300; i += 1) {
+        s.rng = createInitialState({ worldSeed: `hunt-ui-${i}`, data: worldData }).state.rng;
+        const trial = step(s, { type: "perform", actionId: "act_hunt_band_remnants" }, worldData);
+        const tier = trial.events.find((e) => e.type === "check.resolved")?.data.tier;
+        if (tier === "success" || tier === "great") { found = true; break; }
+      }
+      if (!found) throw new Error("no successful hunt seed");
+      await idb.save("slot_hunt_restart", s, { savedAt: 1 });
+    });
+    await loadSlot(page, "slot_hunt_restart");
+    await act(page, "숲 너머에 남은 무리를 뒤쫓는다");
+    const hunted = await getState(page);
+    expect(hunted.signals.remnants_quiet).toBe(7);
+    expect(hunted.fired.evt_unrest_remnants_regroup).toEqual({ count: 8, lastMinute: hunted.time.minute });
+    await expect(page.locator("#actions")).not.toContainText("숲 너머에 남은 무리를 뒤쫓는다");
+
+    await page.locator("#saveSlotInput").fill("slot_hunt_week");
+    await page.locator("#saveBtn").click();
+    await expect(page.locator("#log")).toContainText("slot_hunt_week");
+    await loadSlot(page, "slot_hunt_week");
+    expect(await getState(page)).toEqual(hunted);
+    await dispatch(page, Array(6).fill({ type: "wait", minutes: 1440 }));
+    expect((await getState(page)).signals.remnants_quiet).toBe(1);
+    await dispatch(page, [{ type: "wait", minutes: 1440 }]);
+    expect((await getState(page)).signals.remnants_quiet).toBe(0);
+    await expect(page.locator("#actions")).toContainText("숲 너머에 남은 무리를 뒤쫓는다");
+    expect(pageErrors).toEqual([]);
+    expect(consoleErrors).toEqual([]);
+  });
 });

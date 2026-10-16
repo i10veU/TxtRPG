@@ -1325,6 +1325,7 @@ state.knowledge["player_1"]["rum_a"] = {
     "once": true,           // 생략하면 false: 매번 재평가·재발동 가능
     "cooldown": 1440,       // 생략하면 쿨다운 없음: 마지막 발동 후 최소 경과 분
     "catchUp": true,        // (D-107) 생략하면 false. cooldown이 있을 때만 의미가 있다: 지난 주기마다 한 번씩 발동
+    "restartWhen": Condition, // 생략 가능: 새 주기가 시작될 때 옛 발동 시각을 버린다
     "effects": [Effect, ...], "outcomes": {...}, "check": CheckSpec, "minutes": 30 } // 나머지는 Resolvable 그대로
   ```
 
@@ -1338,6 +1339,7 @@ state.knowledge["player_1"]["rum_a"] = {
     `validateData`는 boolean이 아니거나, 양의 정수 `cooldown`이 없거나, `once`와 같이 쓴 `catchUp`을 거부한다. 스스로 한도를 두는 사건(예: `signal max`)은 발동마다
     다시 판정하므로 한 걸음씩 기다렸을 때 멈추는 곳에서 멈춘다(멈춘 만큼은 `lastMinute`가 움직이지 않는다). 한계: 조건이 *긴 step 중간에* 바깥 요인으로만
     바뀌는 경우는 알 수 없다 — 사건 자신의 효과가 만든 변화만 다시 판정에 보인다. 상태의 모양은 그대로다 — `fired[id]`는 같은 `{count, lastMinute}`다.
+  - **선택형 `restartWhen`**: world 문맥의 Condition이 참이면 그 사건에 한해 옛 cooldown을 건너뛰고, 보통 `trigger`가 참일 때 정확히 한 번 발동한다. 이 발동은 catchUp을 하지 않고 `lastMinute = 현재 minute`으로 새 주기를 시작하며 `count`는 누적한다. `once` 판정은 먼저 적용한다. Condition이 거짓이거나 필드가 없으면 기존 위상과 따라잡기 규칙 그대로다. 검증기는 양의 정수 cooldown을 요구하고 once와의 결합을 거부한다. 저장 상태의 모양은 바뀌지 않는다. 이는 `evt_unrest_remnants_regroup`의 사냥 성공마다 7일의 조용함을 새로 세기 위한 가산적 사건 옵션이며, 다른 사건의 시계는 바꾸지 않는다. 이미 옛 규칙 아래 너무 일찍 끝난 과거 사냥의 경과는 소급 복원할 수 없다.
   - `data.events`를 id 오름차순으로 한 번만 순회하며(§2.5), 트리거된 이벤트의 Effect는 같은 작업
     사본에 바로 적용되어 **그 다음 순번의 트리거 판정에 즉시 보인다** — 새 트리거 조건이 이번 순회
     "이전" 순번에서 이미 참이 되었어도 이번 순회에서는 재평가하지 않는다(한 바퀴만 돈다는 뜻 자체가

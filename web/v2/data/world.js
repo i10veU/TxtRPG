@@ -1172,6 +1172,7 @@ export const worldData = {
     // V2-Core-142 (M7): the remnants regroup -- a day at a time, from the hunt's week
     evt_unrest_remnants_regroup: {
       trigger: { op: "signal", key: "remnants_quiet", min: 1 },
+      restartWhen: { op: "signal", key: "remnants_quiet", eq: 8 },
       cooldown: 1440,
       catchUp: true,
       effects: [{ op: "signal", key: "remnants_quiet", add: -1 }]
