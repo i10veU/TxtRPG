@@ -176,11 +176,11 @@ function testRestartWhen() {
   const data = pack({ evt_tick: event });
   assert.deepStrictEqual(validateData(data), []);
   let s = createInitialState({ worldSeed: "restart", data }).state;
-  s.signals.quiet = 8;
+  s.signals = { quiet: 8 };
   let r = wait(s, data, 1);
   assert.strictEqual(sig(r.state, "quiet"), 7, "first cycle consumes its first tick");
   assert.deepStrictEqual(r.state.fired.evt_tick, { count: 1, lastMinute: 1 });
-  // The old cycle expired only 20 minutes ago; a new one must bypass its cooldown.
+  // The previous firing was only 20 minutes ago; a new cycle must bypass its cooldown.
   s = structuredClone(r.state);
   s.signals.quiet = 8;
   r = wait(s, data, 20);
