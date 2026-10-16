@@ -90,7 +90,6 @@ test.describe("V2 the strongest one (M7): the realm's name", () => {
     test.setTimeout(120000);
     const { pageErrors, consoleErrors } = await gotoApp(page);
     await page.evaluate(() => window.__v2App.newGame("history-hunt-ui"));
-    await dispatch(page, TO_DISPERSAL);
     await page.evaluate(async () => {
       const idb = await import("/v2/storage/idb.js");
       const { createInitialState, step } = await import("/v2/core/engine.js");
