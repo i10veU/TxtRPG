@@ -22,8 +22,9 @@ const { createInitialState, step } = await import(at("core/engine.js"));
 const { evaluateCondition } = await import(at("core/rules.js"));
 const { worldData: d } = await import(at("data/world.js"));
 
-const SEEDS = JSON.parse(readFileSync(new URL(`./${process.env.SEEDS_FILE ?? "seeds.json"}`, import.meta.url), "utf8")).slice(+process.argv[2], +process.argv[3]);
-const DICE = +process.argv[4], DAYS = +process.argv[5], POLS = process.argv[6].split(","), LEADER_DEAD = process.argv[7] === "dead";
+const DIRECT = process.argv[1] && pathToFileURL(process.argv[1]).href === import.meta.url;
+const SEEDS = DIRECT ? JSON.parse(readFileSync(new URL(`./${process.env.SEEDS_FILE ?? "seeds.json"}`, import.meta.url), "utf8")).slice(+process.argv[2], +process.argv[3]) : [];
+const DICE = +process.argv[4], DAYS = +process.argv[5], POLS = DIRECT ? process.argv[6].split(",") : [], LEADER_DEAD = process.argv[7] === "dead";
 const POLICY = {
   idle: {},
   prepare: { silver: 2, watch: true, notice: true },
@@ -46,7 +47,7 @@ const day = (s, t0) => (s.time.minute - t0) / 1440;
 const knows = (s, r) => Boolean(s.knowledge?.[s.player.actorId]?.[r]);
 const dead = (s) => s.pending?.kind === "newCharacter";
 let LATE = null;
-let STUCK = new Set(); // the days a career spent unable to pay its way back north
+let STUCK = new Set(); // the days a career spent without an available passage back north
 // one step at a time; a rejected step is skipped (a policy's plan meeting the world as it is)
 function run(s, list) {
   for (const a of list) {
@@ -67,22 +68,29 @@ const clerk = (s, id) => talk(s, "act_talk_guild_clerk", "choice_guild_clerk_dia
 const merchant = (s, id) => talk(s, "act_talk_town_merchant", "choice_town_merchant_dialogue", id);
 // walking: a move to where one already is is no step at all
 const go = (s, ...locs) => { for (const l of locs) if (!dead(s) && me(s).locationId !== l) s = run(s, [M(l)]); return s; };
-// back to the town from anywhere in the region
+// back to the town from anywhere in the region, using passage the character can actually claim
 function toTown(s) {
   const here = me(s).locationId;
   if (here === "loc_castle_town" || dead(s)) return s;
   if (["loc_far_bank", "loc_band_camp", "loc_royal_city"].includes(here)) return go(s, "loc_far_bank", "loc_castle_town");
   if (["loc_market", "loc_ruins", "loc_forest_spring"].includes(here)) s = go(s, "loc_village");
   s = go(s, "loc_crossroads", "loc_river_ford");
-  if (me(s).money < 3) return s; // short of the fare: stuck south of the river (counted by the career)
-  return run(s, [P("act_talk_ferryman"), FERRY, M("loc_castle_town")]);
+  const hasLetter = (state) => (me(state).inventory?.item_passage_letter ?? 0) > 0;
+  // A trusted character who knows the ford can ask the elder; a successor without that trust cannot.
+  if (!hasLetter(s) && me(s).money < 3 && offer(s, "choice_elder_dialogue", "opt_elder_letter")) {
+    s = go(s, "loc_crossroads", "loc_village");
+    s = elder(s, "opt_elder_letter");
+    s = go(s, "loc_crossroads", "loc_river_ford");
+  }
+  const crossing = hasLetter(s) ? "opt_ferryman_cross_letter" : me(s).money >= 3 ? "opt_ferryman_cross" : null;
+  return crossing ? go(ferryman(s, crossing), "loc_castle_town") : s;
 }
 const restVillage = (s) => { for (let i = 0; i < 6 && !dead(s) && hp(s) < me(s).hp.max; i++) s = run(s, [P("act_rest_village")]); return s; };
 
 // the guard's work: one convoy (or a lodging night when spent), as the escort careers' blind no-danger guard
 function guardWork(s) {
   s = toTown(s);
-  if (me(s).locationId !== "loc_castle_town") { STUCK.add(Math.floor(s.time.minute / 1440)); return run(s, [{ type: "wait", minutes: 480 }]); } // short of the fare
+  if (me(s).locationId !== "loc_castle_town") { STUCK.add(Math.floor(s.time.minute / 1440)); return run(s, [{ type: "wait", minutes: 480 }]); } // no available passage
   s = clerk(s, "opt_guild_clerk_estate");
   if ((me(s).inventory?.item_steel_sword ?? 0) < 1 && me(s).money >= 30) s = merchant(s, "opt_town_merchant_buy_steel_sword");
   if ((me(s).inventory?.item_mail_shirt ?? 0) < 1 && me(s).money >= 54) s = merchant(s, "opt_town_merchant_buy_mail_shirt");
@@ -207,4 +215,5 @@ function career(name, seed, k) {
 }
 const out = [];
 for (const pol of POLS) for (const seed of SEEDS) for (let k = 0; k < DICE; k++) out.push({ pol, seed, k, dead: LEADER_DEAD, ...career(pol, seed, k) });
-console.log(JSON.stringify(out));
+if (DIRECT) console.log(JSON.stringify(out));
+export { toTown, run, TO_TOWN };

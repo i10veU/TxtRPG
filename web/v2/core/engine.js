@@ -308,16 +308,18 @@ function runTriggerStage(workingState, events, data) {
 
       const fired = workingState.fired?.[eventId];
       if (def.once === true && fired && fired.count > 0) return;
-      if (Number.isInteger(def.cooldown) && fired && workingState.time.minute - fired.lastMinute < def.cooldown) return;
 
       const triggerCtx = { state: workingState, data, actorId: workingState.player.actorId, contextKind: "world" };
+      // A newly started cycle can discard the old cadence even when its previous firing is less than one cooldown ago.
+      const restart = def.restartWhen !== undefined && evaluateCondition(def.restartWhen, triggerCtx);
+      if (Number.isInteger(def.cooldown) && fired && !restart && workingState.time.minute - fired.lastMinute < def.cooldown) return;
       if (!evaluateCondition(def.trigger, triggerCtx)) return;
 
       // V2-Core-115 (D-107): an event that opts in with `catchUp` fires once for every whole cooldown period since its
       // last firing (at least one -- the cooldown check above passed), not once however long the step; the cadence keeps
       // its phase. The first firing and events without the field are as they always were (a `once` event never gets here
       // a second time)
-      const catchUp = def.catchUp === true && Number.isInteger(def.cooldown) && def.cooldown > 0 && fired !== undefined;
+      const catchUp = !restart && def.catchUp === true && Number.isInteger(def.cooldown) && def.cooldown > 0 && fired !== undefined;
       const times = catchUp
         ? Math.min(MAX_CATCH_UP_FIRINGS, Math.floor((workingState.time.minute - fired.lastMinute) / def.cooldown))
         : 1;
