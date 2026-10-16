@@ -102,8 +102,8 @@ test.describe("V2 the strongest one (M7): the realm's name", () => {
       growth.skills = { ...growth.skills, swordsmanship: 2 };
       s.signals = { ...s.signals, frontier_fate: 1 };
       s.signals.remnants_quiet = 0;
-      s.flags.band_broken = true;
-      s.fired.evt_unrest_remnants_regroup = { count: 7, lastMinute: s.time.minute };
+      s.flags = { ...s.flags, band_broken: true };
+      s.fired = { ...s.fired, evt_unrest_remnants_regroup: { count: 7, lastMinute: s.time.minute } };
       let found = false;
       for (let i = 0; i < 300; i += 1) {
         s.rng = createInitialState({ worldSeed: `hunt-ui-${i}`, data: worldData }).state.rng;
