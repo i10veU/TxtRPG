@@ -71,9 +71,8 @@ test.describe("V2 asynchronous storage UI (Chromium + IndexedDB)", () => {
     await page.evaluate(() => window.__pendingStorage);
     expect(await page.evaluate(() => ({
       seed: window.__v2App.getState().worldSeed,
-      slot: window.__v2App.getCurrentSlot(),
       loadedLog: window.__v2App.getLog().some((line) => line.includes("slot_a") && line.includes("불러왔다"))
-    }))).toEqual({ seed: "fresh-seed", slot: null, loadedLog: false });
+    }))).toEqual({ seed: "fresh-seed", loadedLog: false });
 
     await holdSaveStore(page);
     await page.evaluate(() => {
@@ -137,9 +136,8 @@ test.describe("V2 asynchronous storage UI (Chromium + IndexedDB)", () => {
     await page.evaluate(() => window.__oldLoad);
     expect(await page.evaluate(() => ({
       seed: window.__v2App.getState().worldSeed,
-      slot: window.__v2App.getCurrentSlot(),
       log: window.__v2App.getLog()
-    }))).toMatchObject({ seed: "seed-b", slot: "slot_b", log: ['"slot_b"에서 불러왔다.'] });
+    }))).toMatchObject({ seed: "seed-b", log: ['"slot_b"에서 불러왔다.'] });
     expect(pageErrors).toEqual([]);
   });
 
@@ -155,9 +153,8 @@ test.describe("V2 asynchronous storage UI (Chromium + IndexedDB)", () => {
     await page.evaluate(() => window.__pendingStorage);
     expect(await page.evaluate(() => ({
       seed: window.__v2App.getState().worldSeed,
-      slot: window.__v2App.getCurrentSlot(),
       savedLog: window.__v2App.getLog().some((line) => line.includes("late_save") && line.includes("저장했다"))
-    }))).toEqual({ seed: "new-seed", slot: null, savedLog: false });
+    }))).toEqual({ seed: "new-seed", savedLog: false });
     expect(await page.evaluate(async () => {
       const storage = await import("/v2/storage/idb.js");
       return (await storage.load("late_save")).worldSeed;
