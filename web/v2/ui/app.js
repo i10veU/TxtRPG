@@ -26,6 +26,9 @@ const DAY_MINUTES = 1440;
 let state = null;
 let currentSlot = null;
 let busy = false;
+// Every session choice invalidates completions from earlier load/save requests.
+let intentVersion = 0;
+let slotListVersion = 0;
 const logEntries = [];
 const MAX_LOG_ENTRIES = 200;
 
@@ -416,14 +419,19 @@ function render() {
 }
 
 async function refreshSlotList() {
-  clearChildren(el.slotList);
+  const request = ++slotListVersion;
+  const intent = intentVersion;
   let slots;
   try {
     slots = await storage.list();
   } catch (err) {
-    showError(`저장 목록을 불러오지 못했다: ${err.message}`);
+    if (request === slotListVersion && intent === intentVersion) {
+      showError(`저장 목록을 불러오지 못했다: ${err.message}`);
+    }
     return;
   }
+  if (request !== slotListVersion || intent !== intentVersion) return;
+  clearChildren(el.slotList);
   slots.forEach((meta) => {
     const li = document.createElement("li");
     const label = document.createElement("span");
@@ -454,6 +462,7 @@ function renderBackgroundChoice() {
 function newGame(seed, templateId = el.backgroundSelect?.value || undefined) {
   const worldSeed = seed || (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()));
   const result = createInitialState({ worldSeed, data: worldData, templateId });
+  ++intentVersion;
   state = result.state;
   currentSlot = null;
   logEntries.length = 0;
@@ -464,20 +473,24 @@ function newGame(seed, templateId = el.backgroundSelect?.value || undefined) {
 
 async function saveGame(slot) {
   if (!state) return;
+  const request = ++intentVersion;
   try {
     await storage.save(slot, state, {});
+    if (request !== intentVersion) return;
     currentSlot = slot;
     pushLog(`"${slot}"에 저장했다.`);
-    await refreshSlotList();
     render();
+    await refreshSlotList();
   } catch (err) {
-    showError(`저장 실패: ${err.message}`);
+    if (request === intentVersion) showError(`저장 실패: ${err.message}`);
   }
 }
 
 async function loadGame(slot) {
+  const request = ++intentVersion;
   try {
     const loaded = await storage.load(slot);
+    if (request !== intentVersion) return;
     const errors = validateState(loaded);
     if (errors.length > 0) {
       showError(`불러온 state가 유효하지 않다: ${errors.join("; ")}`);
@@ -498,13 +511,15 @@ async function loadGame(slot) {
     showError("");
     render();
   } catch (err) {
-    showError(`불러오기 실패: ${err.message}`);
+    if (request === intentVersion) showError(`불러오기 실패: ${err.message}`);
   }
 }
 
 function backToMenu() {
+  ++intentVersion;
   state = null;
   currentSlot = null;
+  showError("");
   render();
   refreshSlotList();
 }

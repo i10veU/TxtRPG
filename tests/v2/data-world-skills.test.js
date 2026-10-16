@@ -98,6 +98,7 @@ function testChecksReadSkills() {
     act_watch_band_camp: ["investigation", null], // V2-Core-139: watching the band
     act_petition_crown: [null, null], // V2-Core-141: the frontier's plight told at court
     act_burn_band_stores: [null, null], // V2-Core-141: the band's stores
+    act_hunt_band_remnants: ["swordsmanship", null], // V2-Core-142: the remnants, for a seasoned sword
     "choice_guild_clerk_dialogue.opt_guild_clerk_escort": ["swordsmanship", null], // V2-Core-78: the caravan guard
     "choice_guild_clerk_dialogue.opt_guild_clerk_escort_lead": ["swordsmanship", null], // V2-Core-105: leading it
     "choice_guild_clerk_dialogue.opt_guild_clerk_escort_careful": ["swordsmanship", null], // V2-Core-106: the careful way

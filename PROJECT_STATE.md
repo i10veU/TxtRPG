@@ -6,6 +6,10 @@
 
 Build a large-scale offline-first text RPG in the browser where the player discovers goals inside a living simulated world.
 
+## Active V2 development (2026-10-16)
+
+V2 work lives on `feature/v2-core`; `main` contains the established V1 and early V2 history, while `v1-final` is the V1 regression baseline. World Bible changes live on `docs/world-bible`. The first region, five-chapter main story, four ending states, and succession are implemented through M6. M7's realm renown and remnant hunt are recorded in PR #347; the related World Bible record is PR #348. Issue #349 and PR #350 record the hunt cooldown and asynchronous save UI fixes. M8 playthrough, balance, long-save, and release evidence remains pending. See `docs/v2/development-status-2026-10-16.md` for measured results and limits.
+
 ## Runtime
 
 - Primary: Microsoft Edge / Chromium
