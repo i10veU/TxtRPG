@@ -164,6 +164,70 @@ function testValidation() {
   assert.strictEqual(bad({ trigger: ALWAYS, cooldown: 100, effects: [TICK] }).length, 0, "absent is fine");
 }
 
+// A resettable cycle consumes only its new firing, even if an old catch-up cadence has debt.
+function testRestartWhen() {
+  const event = {
+    trigger: { op: "signal", key: "quiet", min: 1 },
+    restartWhen: { op: "signal", key: "quiet", eq: 8 },
+    cooldown: 100,
+    catchUp: true,
+    effects: [{ op: "signal", key: "quiet", add: -1 }]
+  };
+  const data = pack({ evt_tick: event });
+  assert.deepStrictEqual(validateData(data), []);
+  let s = createInitialState({ worldSeed: "restart", data }).state;
+  s.signals.quiet = 8;
+  let r = wait(s, data, 1);
+  assert.strictEqual(sig(r.state, "quiet"), 7, "first cycle consumes its first tick");
+  assert.deepStrictEqual(r.state.fired.evt_tick, { count: 1, lastMinute: 1 });
+  // The old cycle expired only 20 minutes ago; a new one must bypass its cooldown.
+  s = structuredClone(r.state);
+  s.signals.quiet = 8;
+  r = wait(s, data, 20);
+  assert.strictEqual(sig(r.state, "quiet"), 7);
+  assert.deepStrictEqual(r.state.fired.evt_tick, { count: 2, lastMinute: 21 });
+  assert.strictEqual(fired(r), 1, "restart never catches up on the same step");
+  assert.strictEqual(sig(wait(r.state, data, 99).state, "quiet"), 7);
+  const next = wait(r.state, data, 100);
+  assert.strictEqual(sig(next.state, "quiet"), 6);
+  assert.deepStrictEqual(next.state.fired.evt_tick, { count: 3, lastMinute: 121 });
+
+  // A long dormant interval must not spend the new cycle's seven ticks at once.
+  s = structuredClone(next.state);
+  s.time.minute += 3000;
+  s.signals.quiet = 8;
+  r = wait(s, data, 1);
+  assert.strictEqual(sig(r.state, "quiet"), 7);
+  assert.deepStrictEqual(r.state.fired.evt_tick, { count: 4, lastMinute: s.time.minute + 1 });
+
+  // A restart condition by itself never fires an event whose normal trigger is false.
+  const gated = pack({ evt_tick: { ...event, trigger: { op: "flag", key: "go" } } });
+  s = structuredClone(r.state);
+  s.signals.quiet = 8;
+  const no = wait(s, gated, 1);
+  assert.deepStrictEqual(no.state.fired.evt_tick, s.fired.evt_tick);
+  assert.strictEqual(sig(no.state, "quiet"), 8);
+  assert.strictEqual(fired(no), 0);
+
+  // The normal catch-up cadence resumes as soon as the restart condition is false.
+  s = structuredClone(r.state);
+  s.signals.quiet = 7;
+  const cadence = wait(s, data, 350);
+  assert.strictEqual(sig(cadence.state, "quiet"), 4);
+  assert.deepStrictEqual(cadence.state.fired.evt_tick, { count: 7, lastMinute: r.state.fired.evt_tick.lastMinute + 300 });
+
+  const loaded = parseLoadedRecord(JSON.parse(JSON.stringify(buildSaveRecord("slot_restart", r.state, { savedAt: 1 }))));
+  assert.deepStrictEqual(loaded, r.state);
+  assert.deepStrictEqual(wait(loaded, data, 100).state, wait(r.state, data, 100).state);
+
+  const errors = (e) => validateData(pack({ evt_tick: e })).filter((x) => /restartWhen/.test(x));
+  assert.ok(errors({ ...event, restartWhen: { op: "unknown" } }).length > 0, "restart condition is validated");
+  assert.ok(errors({ ...event, cooldown: undefined }).some((x) => /cooldown/.test(x)));
+  assert.ok(errors({ ...event, cooldown: 0 }).some((x) => /cooldown/.test(x)));
+  assert.ok(errors({ ...event, once: true }).some((x) => /once/.test(x)));
+  assert.deepStrictEqual(validateData(pack({ evt_tick: { ...event, catchUp: undefined } })), [], "restart works without catchUp");
+}
+
 // 6. determinism and save/load
 function testSaveAndDeterminism({ data, long }) {
   assert.deepStrictEqual(validateState(long), []);
@@ -181,5 +245,6 @@ testSelfLimiting();
 testCap();
 testUnchanged();
 testValidation();
+testRestartWhen();
 testSaveAndDeterminism(run);
 console.log("V2-Core-115 trigger-catch-up.test.js: all checks passed");

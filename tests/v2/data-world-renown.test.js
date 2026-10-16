@@ -143,7 +143,43 @@ function testTheRemnants() {
   assert.ok(!available(hunted.state, "act_hunt_band_remnants"), "a quiet week");
   const six = run(hunted.state, [DAY, DAY, DAY, DAY, DAY, DAY]).state;
   assert.ok(!available(six, "act_hunt_band_remnants"), "six days on, still quiet");
-  assert.ok(available(run(six, [DAY]).state, "act_hunt_band_remnants"), "a week on, regrouped");
+  const expired = run(six, [DAY]).state;
+  assert.ok(available(expired, "act_hunt_band_remnants"), "a week on, regrouped");
+  assert.equal(sig(expired, "remnants_quiet"), 0);
+  const firstClock = expired.fired.evt_unrest_remnants_regroup;
+  const again = rollTo(expired, [P("act_hunt_band_remnants")], "success", "hunt-again");
+  assert.equal(again.state.time.minute - expired.time.minute, 240);
+  assert.equal(sig(again.state, "remnants_quiet"), 7, "a second hunt starts a full new week inside the old cooldown");
+  assert.deepEqual(again.state.fired.evt_unrest_remnants_regroup, { count: firstClock.count + 1, lastMinute: again.state.time.minute });
+  assert.ok(!available(again.state, "act_hunt_band_remnants"));
+
+  // Both a long step and a day at a time must reach the same quiet/cadence at the exact boundary.
+  const longPack = structuredClone(worldData);
+  longPack.actions.act_test_long_wait = { minutes: 10079, effects: [] };
+  const almost = step(again.state, P("act_test_long_wait"), longPack);
+  assert.ok(!almost.events.some((e) => e.type === "action.rejected"));
+  assert.equal(sig(almost.state, "remnants_quiet"), 1);
+  assert.ok(!available(almost.state, "act_hunt_band_remnants"), "10079 minutes since the second success");
+  const boundary = run(almost.state, [{ type: "wait", minutes: 1 }]).state;
+  assert.equal(sig(boundary, "remnants_quiet"), 0);
+  assert.ok(available(boundary, "act_hunt_band_remnants"), "10080 minutes since the second success");
+  const short = run(again.state, Array(7).fill(DAY)).state;
+  assert.equal(sig(short, "remnants_quiet"), sig(boundary, "remnants_quiet"));
+  assert.deepEqual(short.fired.evt_unrest_remnants_regroup, boundary.fired.evt_unrest_remnants_regroup);
+
+  // The same restart must discard a much older cadence without catching up all dormant days.
+  const dormant = run(hunted.state, Array(30).fill(DAY)).state;
+  assert.equal(sig(dormant, "remnants_quiet"), 0);
+  const late = rollTo(dormant, [P("act_hunt_band_remnants")], "success", "hunt-late");
+  assert.equal(sig(late.state, "remnants_quiet"), 7);
+  assert.deepEqual(late.state.fired.evt_unrest_remnants_regroup, {
+    count: dormant.fired.evt_unrest_remnants_regroup.count + 1,
+    lastMinute: late.state.time.minute
+  });
+  const loaded = parseLoadedRecord(JSON.parse(JSON.stringify(buildSaveRecord("slot_hunt", late.state, { savedAt: 1 }))));
+  assert.deepEqual(loaded, late.state);
+  assert.equal(sig(run(loaded, Array(6).fill(DAY)).state, "remnants_quiet"), 1);
+  assert.equal(sig(run(loaded, Array(7).fill(DAY)).state, "remnants_quiet"), 0);
   const ambush = rollTo(woods, [P("act_hunt_band_remnants")], "fail", "hunt-no");
   assert.ok(said(ambush).includes("txt_remnants_ambush"));
   assert.equal(me(ambush.state).hp.current, Math.max(0, me(woods).hp.current - 6));
