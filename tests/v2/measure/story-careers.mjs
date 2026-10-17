@@ -47,7 +47,12 @@ const POLICY = {
   // M8 step 1c (§8): the guild told who leads the band (a guard it knows, in the town); south as soon as one gift is affordable;
   // back every 3 days while the band is across, gifts at the price the elder asks; no new gear bought while the band is across
   prepare3: { silver: 3, watch: true, notice: true, guild: true, eager: true, revisit: 3, costAware: true, villageFirst: true },
-  lord3: { silver: 1, lord: "accept", guild: true, eager: true, revisit: 3, costAware: true, villageFirst: true }
+  lord3: { silver: 1, lord: "accept", guild: true, eager: true, revisit: 3, costAware: true, villageFirst: true },
+  // M8 step 2: the fight on what the character knows -- the band's camp watched every six days once its way is known, a
+  // vigil at the crossroads once the band is said to be about to cross, the fight when it stands there; never the world's
+  // own word that it crossed. hero2 is also careful: the band's stores are fired only with HP to spare
+  fight2: { watch: true, fight: true, informed: true, scout: 6 },
+  hero2: { silver: 2, watch: true, notice: true, lord: "refuse", burn: true, crown: true, fight: true, renown: true, remnants: true, informed: true, scout: 6, careful: true }
 };
 
 const P = (a) => ({ type: "perform", actionId: a }), M = (to) => ({ type: "move", to }), C = (o) => ({ type: "choose", optionId: o });
@@ -106,6 +111,13 @@ function toTown(s) {
 }
 // one press of the day button (WAIT_DAY=1)
 const dayWait = (s) => { CLICKS += 1; return waitDay(s, d).state; };
+// to the crossroads from anywhere in the region (south is free; the ferry is only for going north)
+function toCrossroads(s) {
+  const here = me(s).locationId;
+  if (["loc_castle_town", "loc_far_bank", "loc_band_camp", "loc_royal_city"].includes(here)) return go(s, "loc_far_bank", "loc_river_ford", "loc_crossroads");
+  if (["loc_market", "loc_ruins", "loc_forest_spring"].includes(here)) s = go(s, "loc_village");
+  return go(s, "loc_crossroads");
+}
 const restVillage = (s) => { for (let i = 0; i < 6 && !dead(s) && hp(s) < me(s).hp.max; i++) s = run(s, [P("act_rest_village")]); return s; };
 
 // the guard's work: one convoy (or a lodging night when spent), as the escort careers' blind no-danger guard
@@ -132,7 +144,8 @@ function southTrip(s, pol, mem) {
   s = go(s, "loc_far_bank");
   s = run(s, [P("act_read_waystation_board")]);
   if (pol.notice && can(s, "act_post_frontier_notice") && me(s).money >= 15 + reserve) s = run(s, [P("act_post_frontier_notice")]);
-  if (pol.burn && !mem.burnt && knows(s, "rum_band_camp_way") && s.flags?.band_crossed !== true) {
+  // careful: the stores are fired only with HP to spare (a failed attempt costs 5)
+  if (pol.burn && !mem.burnt && knows(s, "rum_band_camp_way") && s.flags?.band_crossed !== true && (!pol.careful || hp(s) > 5)) {
     s = go(s, "loc_band_camp");
     if (can(s, "act_burn_band_stores")) { s = run(s, [P("act_burn_band_stores")]); mem.burnt = true; }
     if (!dead(s)) s = go(s, "loc_far_bank");
@@ -226,8 +239,36 @@ function career(name, seed, k) {
       const again = pol.costAware ? { silver: 3, lord: pol.lord, notice: pol.notice, costAware: true } : { silver: 3, lord: pol.lord };
       s = southTrip(s, again, mem); mem.trips++; mem.lastTrip = day(s, t0); continue;
     }
+    // step 2: the informed fighter -- a look at the band every `scout` days until it is said to be about to cross, then a
+    // vigil at the crossroads until it stands there (hourly, or a day at a time with the day button)
+    if (pol.informed && !decided && !s.flags?.band_broken && !mem.fought) {
+      // the vigil keeps the fare home (or the elder's letter): a successor has no letter of right
+      if (knows(s, "rum_band_crossing_soon") && (me(s).money >= 3 || (me(s).inventory?.item_passage_letter ?? 0) > 0 || me(s).locationId !== "loc_castle_town")) {
+        s = toCrossroads(s);
+        if (can(s, "act_face_band")) { m.fightRaidDay = s.signals?.raid_days ?? null; s = toTown(lastFight(s)); mem.fought = true; continue; }
+        if (!dead(s)) s = WAIT_DAY ? dayWait(s) : run(s, [{ type: "wait", minutes: 60 }]);
+        continue;
+      }
+      // the way to the band's camp is the ferryman's word -- asked again by one who never heard it (a successor), with the
+      // fare back north in hand
+      if (mem.trips > 0 && !knows(s, "rum_band_camp_way") && me(s).money >= 3 + 8 && day(s, t0) - (mem.lastScout ?? -Infinity) >= pol.scout) {
+        mem.lastScout = day(s, t0);
+        s = toTown(ferryman(go(s, "loc_far_bank", "loc_river_ford"), "opt_ferryman_band"));
+        continue;
+      }
+      // a look at the band, unhurt (a watch that fails is spotted and hurts): a night's lodging first when hurt
+      const due = knows(s, "rum_band_camp_way") && day(s, t0) - (mem.lastScout ?? -Infinity) >= pol.scout;
+      if (due && hp(s) < me(s).hp.max && me(s).locationId === "loc_castle_town" && can(s, "act_lodge_castle_town")) { s = run(s, [P("act_lodge_castle_town")]); continue; }
+      if (due && hp(s) >= me(s).hp.max) {
+        mem.lastScout = day(s, t0);
+        s = go(s, "loc_far_bank", "loc_band_camp");
+        if (can(s, "act_watch_band_camp")) s = run(s, [P("act_watch_band_camp")]);
+        if (!dead(s)) s = toTown(s);
+        continue;
+      }
+    }
     // the band across: the fighter goes to meet it (a successor too, while it is in the land)
-    if (pol.fight && crossed && !decided && !s.flags?.band_broken && !mem.fought) { m.fightRaidDay = s.signals?.raid_days ?? null; s = toTown(lastFight(run(s, [M("loc_far_bank"), M("loc_river_ford"), M("loc_crossroads")]))); mem.fought = true; continue; }
+    if (pol.fight && !pol.informed && crossed && !decided && !s.flags?.band_broken && !mem.fought) { m.fightRaidDay = s.signals?.raid_days ?? null; s = toTown(lastFight(run(s, [M("loc_far_bank"), M("loc_river_ford"), M("loc_crossroads")]))); mem.fought = true; continue; }
     // the realm's name: the defender walks to the royal city once the word has gone north
     if (pol.renown && s.flags?.fate_word_north && evaluateCondition({ op: "relation", from: "org_village", to: "self", tag: "defender" }, ctx(s)) && !g(s).unlocks?.unl_realm_renown && !mem.royal) {
       mem.royal = true; s = run(s, [M("loc_far_bank"), P("act_read_waystation_board"), M("loc_royal_city"), P("act_read_royal_records"), M("loc_far_bank"), M("loc_castle_town"), P("act_talk_guild_clerk"), C("opt_guild_clerk_ask")]); continue;
