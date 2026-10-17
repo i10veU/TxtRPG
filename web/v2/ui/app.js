@@ -20,6 +20,7 @@ import { createInitialState, step, view, validateState, checkDataCompatibility, 
 import { actorResource, evaluateCondition } from "../core/rules.js";
 import * as storage from "../storage/idb.js";
 import { worldData } from "../data/world.js";
+import { waitDay } from "./wait.js";
 
 const DAY_MINUTES = 1440;
 
@@ -69,6 +70,7 @@ const el = {
   newGameBtn: document.getElementById("newGameBtn"),
   backgroundSelect: document.getElementById("backgroundSelect"),
   waitBtn: document.getElementById("waitBtn"),
+  waitDayBtn: document.getElementById("waitDayBtn"),
   backToMenuBtn: document.getElementById("backToMenuBtn"),
   error: document.getElementById("error")
 };
@@ -158,6 +160,33 @@ function dispatch(action) {
     busy = false;
     render();
   }
+}
+
+// V2-Core-144 (D-122, #361): a day of the wait button's half hours in one click (ui/wait.js), one line for the time
+// instead of a line per half hour; the world's own lines as they came
+function waitADay() {
+  if (!state || busy) return;
+  busy = true;
+  showError("");
+  try {
+    const result = waitDay(state, worldData);
+    state = result.state;
+    applyEvents(result.events.filter((e) => e.type !== "time.advanced"));
+    if (result.stop === null) pushLog("하루가 지났다.");
+    else if (result.minutes > 0) pushLog(`${formatDuration(result.minutes)}을 기다리다 멈췄다.`);
+  } catch (err) {
+    showError(`처리 중 오류: ${err.message}`);
+  } finally {
+    busy = false;
+    render();
+  }
+}
+
+function formatDuration(minutes) {
+  const h = Math.floor(minutes / 60);
+  const m = minutes % 60;
+  if (h === 0) return `${m}분`;
+  return m === 0 ? `${h}시간` : `${h}시간 ${m}분`;
 }
 
 function renderChoice(pending) {
@@ -413,6 +442,7 @@ function render() {
   }
 
   el.waitBtn.disabled = pendingActive;
+  el.waitDayBtn.disabled = pendingActive;
   renderStory(playerView.knowledge);
   renderKnowledge(playerView.knowledge, playerView.pending);
   renderLog();
@@ -526,6 +556,7 @@ function backToMenu() {
 
 el.newGameBtn?.addEventListener("click", () => newGame());
 el.waitBtn?.addEventListener("click", () => dispatch({ type: "wait", minutes: 30 }));
+el.waitDayBtn?.addEventListener("click", waitADay);
 el.backToMenuBtn?.addEventListener("click", backToMenu);
 el.saveBtn?.addEventListener("click", () => {
   const slot = (el.saveSlotInput?.value || "").trim();
