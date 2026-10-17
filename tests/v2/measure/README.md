@@ -146,10 +146,19 @@ tests/v2/measure/campaign.sh trade-parity <base-commit> /tmp/c3    # 교역 216�
 | `lord` | 은화 하나, 영주의 제안 수락 |
 | `fight` | 뱃사공의 감시, 그리고 마지막 싸움 |
 | `hero` | 지역의 모든 손, 마지막 싸움, 왕국의 이름, 잔당 사냥 |
+| `prepare2`·`lord2` | M8 1b단계: 같은 일에 더해, 무리가 강 건너에 있는 동안 6일마다 은화를 들고 다시 남쪽에 간다 |
+| `prepare3`·`lord3` | M8 1c단계: 조합에 이끄는 자를 알리고, 선물 하나 값이 모이면 바로, 3일마다 다시 간다. 그동안 장비를 사지 않는다 |
 
 ```
 node tests/v2/measure/story-careers.mjs 0 10 4 120 idle,prepare,lord,fight,hero [dead] > rows.json   # dead: 두목이 죽은 세계(연출)
 python3 tests/v2/measure/story-judge.py rows*.json                                                 # 정책·두목 생사별 단계 도달일, 사망, 결말, 정점, G4
+```
+
+M8 균형 단계(`docs/v2/m8-balance-preregistration.md`)는 같은 도구에 `CANDIDATE=<후보,...>`(팩의 메모리 사본)와 `SEEDS_FILE=seeds-holdout.json`(보유 표본)을 준다. 판정은 `m8-judge.py`가 사전 등록한 T1 ~ T6으로 한다(`T1_POLICY`·`T2_POLICY`로 판정할 정책을 고른다).
+
+```
+CANDIDATE=m8c9-band-every-9-days node tests/v2/measure/story-careers.mjs 0 10 4 120 idle,prepare3,lord3,fight,hero > a.json
+T1_POLICY=prepare3 T2_POLICY=lord3 python3 tests/v2/measure/m8-judge.py a.json d.json
 ```
 
 열 설명:
