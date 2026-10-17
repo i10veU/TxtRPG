@@ -23,6 +23,8 @@ const { evaluateCondition } = await import(at("core/rules.js"));
 const { worldData: d } = await import(at("data/world.js"));
 // M8 (docs/v2/m8-balance-preregistration.md): CANDIDATE=<module,...> patches an in-memory copy of the pack (candidates/)
 for (const c of (process.env.CANDIDATE ?? "").split(",").filter(Boolean)) (await import(new URL(`./candidates/${c}.mjs`, import.meta.url).href)).patch(d);
+// the price the elder asks for the village's silver, as the option shows it (step 1c's cost-aware policies)
+const SILVER_COST = -d.choices.choice_elder_dialogue.options.find((o) => o.id === "opt_elder_give_silver").effects.find((e) => e.op === "money").add;
 
 const DIRECT = process.argv[1] && pathToFileURL(process.argv[1]).href === import.meta.url;
 const SEEDS = DIRECT ? JSON.parse(readFileSync(new URL(`./${process.env.SEEDS_FILE ?? "seeds.json"}`, import.meta.url), "utf8")).slice(+process.argv[2], +process.argv[3]) : [];
@@ -35,7 +37,11 @@ const POLICY = {
   hero: { silver: 2, watch: true, notice: true, lord: "refuse", burn: true, crown: true, fight: true, renown: true, remnants: true },
   // M8 step 1b (docs/v2/m8-balance-preregistration.md §7): the same, coming back south with silver while the band is across
   prepare2: { silver: 2, watch: true, notice: true, revisit: true },
-  lord2: { silver: 1, lord: "accept", revisit: true }
+  lord2: { silver: 1, lord: "accept", revisit: true },
+  // M8 step 1c (§8): the guild told who leads the band (a guard it knows, in the town); south as soon as one gift is affordable;
+  // back every 3 days while the band is across, gifts at the price the elder asks; no new gear bought while the band is across
+  prepare3: { silver: 3, watch: true, notice: true, guild: true, eager: true, revisit: 3, costAware: true, villageFirst: true },
+  lord3: { silver: 1, lord: "accept", guild: true, eager: true, revisit: 3, costAware: true, villageFirst: true }
 };
 
 const P = (a) => ({ type: "perform", actionId: a }), M = (to) => ({ type: "move", to }), C = (o) => ({ type: "choose", optionId: o });
@@ -93,12 +99,12 @@ function toTown(s) {
 const restVillage = (s) => { for (let i = 0; i < 6 && !dead(s) && hp(s) < me(s).hp.max; i++) s = run(s, [P("act_rest_village")]); return s; };
 
 // the guard's work: one convoy (or a lodging night when spent), as the escort careers' blind no-danger guard
-function guardWork(s) {
+function guardWork(s, saveForVillage = false) {
   s = toTown(s);
   if (me(s).locationId !== "loc_castle_town") { STUCK.add(Math.floor(s.time.minute / 1440)); return run(s, [{ type: "wait", minutes: 480 }]); } // no available passage
   s = clerk(s, "opt_guild_clerk_estate");
-  if ((me(s).inventory?.item_steel_sword ?? 0) < 1 && me(s).money >= 30) s = merchant(s, "opt_town_merchant_buy_steel_sword");
-  if ((me(s).inventory?.item_mail_shirt ?? 0) < 1 && me(s).money >= 54) s = merchant(s, "opt_town_merchant_buy_mail_shirt");
+  if (!saveForVillage && (me(s).inventory?.item_steel_sword ?? 0) < 1 && me(s).money >= 30) s = merchant(s, "opt_town_merchant_buy_steel_sword");
+  if (!saveForVillage && (me(s).inventory?.item_mail_shirt ?? 0) < 1 && me(s).money >= 54) s = merchant(s, "opt_town_merchant_buy_mail_shirt");
   for (const id of ["act_equip_steel_sword", "act_equip_mail_shirt"]) if (can(s, id)) s = run(s, [P(id)]);
   for (let h = 0; h < 96 && !offer(s, "choice_guild_clerk_dialogue", "opt_guild_clerk_escort"); h++) s = run(s, [{ type: "wait", minutes: 60 }]);
   const lead = offer(s, "choice_guild_clerk_dialogue", "opt_guild_clerk_escort_lead");
@@ -132,7 +138,8 @@ function southTrip(s, pol, mem) {
   s = go(s, "loc_crossroads", "loc_village");
   s = elder(s, "opt_elder_band_word"); // asked, or told who leads them
   s = elder(s, "opt_elder_band_word");
-  for (let i = 0; i < (pol.silver ?? 0); i++) if (me(s).money >= 10 + reserve) s = elder(s, "opt_elder_give_silver");
+  const silverCost = pol.costAware ? SILVER_COST : 10;
+  for (let i = 0; i < (pol.silver ?? 0); i++) if (me(s).money >= silverCost + reserve) s = elder(s, "opt_elder_give_silver");
   if (pol.lord === "accept") s = elder(s, "opt_elder_lord_accept");
   if (pol.lord === "refuse") s = elder(s, "opt_elder_lord_refuse");
   return toTown(s);
@@ -188,13 +195,22 @@ function career(name, seed, k) {
     if (gathered && !decided && (pol.lord || pol.renown) && mem.notices !== Math.floor(day(s, t0) / 6)) { mem.notices = Math.floor(day(s, t0) / 6); s = run(s, [P("act_read_castle_notices")]); }
     // journeys south: once after the band gathers, once more when the lord's offer is known (if the policy answers it)
     // the first, once the purse covers the plan (or ten days after the band was first talked of, whatever it holds)
-    const plan = 10 * (pol.silver ?? 0) + (pol.watch ? 5 : 0) + (pol.notice ? 15 : 0) + 8 + 6;
+    // step 1c: the guild told who leads the band -- asked of the clerk in the town, once a day until it is told
+    if (pol.guild && gathered && !crossed && !knows(s, "rum_guild_keeps_guards") && me(s).locationId === "loc_castle_town" && mem.guildDay !== Math.floor(day(s, t0))) {
+      mem.guildDay = Math.floor(day(s, t0));
+      s = clerk(s, "opt_guild_clerk_band");
+      s = clerk(s, "opt_guild_clerk_warn");
+    }
+    const silverCost = pol.costAware ? SILVER_COST : 10;
+    const plan = pol.eager ? silverCost + 8 + 6 : 10 * (pol.silver ?? 0) + (pol.watch ? 5 : 0) + (pol.notice ? 15 : 0) + 8 + 6;
     const ready = me(s).money >= plan || day(s, t0) - m.dayGather >= 10;
     const wantSouth = (gathered && !crossed && mem.trips === 0 && Object.keys(pol).length > 0 && ready) || (pol.lord && knows(s, "rum_lord_offer") && (s.signals?.lord_pact ?? 0) === 0 && mem.trips < 2 && !crossed);
     if (wantSouth) { s = southTrip(s, pol, mem); mem.trips++; mem.lastTrip = day(s, t0); continue; }
     // step 1b: back south with silver, six days on, while the band is still across
-    if (pol.revisit && gathered && !crossed && mem.trips > 0 && day(s, t0) - mem.lastTrip >= 6 && me(s).money >= 10 + 14) {
-      s = southTrip(s, { silver: 3, lord: pol.lord }, mem); mem.trips++; mem.lastTrip = day(s, t0); continue;
+    const every = pol.revisit === true ? 6 : pol.revisit;
+    if (pol.revisit && gathered && !crossed && mem.trips > 0 && day(s, t0) - mem.lastTrip >= every && me(s).money >= silverCost + 14) {
+      const again = pol.costAware ? { silver: 3, lord: pol.lord, notice: pol.notice, costAware: true } : { silver: 3, lord: pol.lord };
+      s = southTrip(s, again, mem); mem.trips++; mem.lastTrip = day(s, t0); continue;
     }
     // the band across: the fighter goes to meet it (a successor too, while it is in the land)
     if (pol.fight && crossed && !decided && !s.flags?.band_broken && !mem.fought) { s = toTown(lastFight(run(s, [M("loc_far_bank"), M("loc_river_ford"), M("loc_crossroads")]))); mem.fought = true; continue; }
@@ -209,7 +225,7 @@ function career(name, seed, k) {
       if (!dead(s)) s = run(s, [M("loc_far_bank"), M("loc_castle_town")]);
       continue;
     }
-    s = guardWork(s);
+    s = guardWork(s, Boolean(pol.villageFirst) && gathered && !crossed);
   }
   m.fate = s.signals?.frontier_fate ?? 0;
   m.bandAtCross = m.dayCross === null ? null : s.signals?.band_strength ?? null;
