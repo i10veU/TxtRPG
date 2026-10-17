@@ -2595,7 +2595,8 @@ export const worldData = {
         {
           id: "opt_town_merchant_sell_flour",
           name: "밀가루 자루를 판다 (은화 6)",
-          requires: { op: "and", of: [HAMLET_TRADES, { op: "item", item: "item_flour_sack", min: 1 }, { op: "signal", key: "town_flour_wanted", min: 1 }, { op: "not", of: FAIR_TIME }] },
+          // V2-Core-148 (D-126): not while a carriage on his note is under way -- its sack goes at the note's price first
+          requires: { op: "and", of: [HAMLET_TRADES, { op: "item", item: "item_flour_sack", min: 1 }, { op: "signal", key: "town_flour_wanted", min: 1 }, { op: "not", of: FAIR_TIME }, { op: "not", of: CARRYING }] },
           // V2-Core-133 (#331): 6 (was 4) -- a sack carried north pays for the fare (3) and leaves a silver (mill 2)
           effects: [{ op: "money", add: 6 }, ...FLOUR_SOLD, say("txt_town_merchant_buy_flour")]
         },
@@ -2603,12 +2604,15 @@ export const worldData = {
         {
           id: "opt_town_merchant_sell_flour_fair",
           name: "밀가루 자루를 판다 (은화 8)",
-          requires: { op: "and", of: [HAMLET_TRADES, { op: "item", item: "item_flour_sack", min: 1 }, { op: "signal", key: "town_flour_wanted", min: 1 }, FAIR_TIME] },
+          requires: { op: "and", of: [HAMLET_TRADES, { op: "item", item: "item_flour_sack", min: 1 }, { op: "signal", key: "town_flour_wanted", min: 1 }, FAIR_TIME, { op: "not", of: CARRYING }] },
           // V2-Core-133 (#331): 8 (was 6) -- the fair's +2 over the plain price kept
           effects: [{ op: "money", add: 8 }, ...FLOUR_SOLD, say("txt_town_merchant_buy_flour_fair")]
         },
         // V2-Core-132 (#328, D-113): the carrier's note -- a supplier the merchant knows (10) is given a note for the next
-        // carriage (one crossing on his account); the sack it brings is bought even if the town's want has been met by then
+        // carriage (one crossing on his account); the sack it brings is bought even if the town's want has been met by then.
+        // V2-Core-148 (D-126, M8 step 3 K1, WB-0030 Q9 E1): and at the note's price (4) even while the town wants -- the note
+        // is the steady way (no fare, a sure buyer), the market's price the free trader's; the carrier's second sack sells
+        // as any other once the note's is sold
         {
           id: "opt_town_merchant_order",
           name: "밀가루를 대 주기로 하고 짐표를 받는다",
@@ -2618,8 +2622,12 @@ export const worldData = {
         {
           id: "opt_town_merchant_sell_flour_note",
           name: "짐표대로 밀가루를 넘긴다 (은화 4)",
-          requires: { op: "and", of: [HAMLET_TRADES, CARRYING, { op: "item", item: "item_flour_sack", min: 1 }, { op: "not", of: TOWN_WANTS }] },
-          effects: [{ op: "money", add: 4 }, ...FLOUR_SOLD, say("txt_town_merchant_buy_flour_note")]
+          requires: { op: "and", of: [HAMLET_TRADES, CARRYING, { op: "item", item: "item_flour_sack", min: 1 }] },
+          effects: [
+            { op: "money", add: 4 },
+            { op: "if", when: TOWN_WANTS, then: [say("txt_town_merchant_buy_flour_note_wanted")], else: [say("txt_town_merchant_buy_flour_note")] },
+            ...FLOUR_SOLD
+          ]
         }
       ]
     },
@@ -3815,8 +3823,9 @@ export const worldData = {
     txt_ferryman_doubts_notes: "\"상인 짐표는 당분간 안 받소. 다음 상단 편에 그 양반 대답을 들어 봐야겠소.\"",
     txt_ferryman_cross_note: "뱃사공이 짐표를 보고 장부에 적는다. \"상인 앞으로 달아 두지. 셈은 상단이 치러 줄 거요.\"",
     txt_ferryman_note_misused: "뱃사공이 빈손과 짐표를 번갈아 본다. 말없이 장부에 적고 배를 민다. 상인에게도 이 이야기는 갈 것이다.",
-    txt_town_merchant_order: "상인이 짐표 한 장을 써 준다. \"다음에도 밀가루를 가져오시오. 이걸 보이면 뱃삯은 내 앞으로 달아 줄 거요. 그 짐의 한 자루는 그때 사정이 어떻든 사겠소.\"",
+    txt_town_merchant_order: "상인이 짐표 한 장을 써 준다. \"다음에도 밀가루를 가져오시오. 이걸 보이면 뱃삯은 내 앞으로 달아 줄 거요. 그 짐의 한 자루는 그때 사정이 어떻든 은화 넷에 사겠소.\"",
     txt_town_merchant_buy_flour_note: "상인이 장부를 보고 밀가루 값을 치른다. \"지금은 넉넉하지만, 약속은 약속이니.\"",
+    txt_town_merchant_buy_flour_note_wanted: "상인이 장부를 보고 짐표에 적은 값을 치른다. \"마침 찾던 참이오. 그래도 값은 짐표대로 넷이오.\"",
     txt_town_merchant_note_back: "상인이 짐표로 실어 온 짐을 장부에서 지운다.",
     lbl_rumor_rum_road_uneasy: "강나루 길이 어수선하다",
     lbl_rumor_rum_road_dangerous: "강나루 길이 험하다",
