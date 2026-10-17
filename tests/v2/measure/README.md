@@ -148,6 +148,7 @@ tests/v2/measure/campaign.sh trade-parity <base-commit> /tmp/c3    # 교역 216�
 | `hero` | 지역의 모든 손, 마지막 싸움, 왕국의 이름, 잔당 사냥 |
 | `prepare2`·`lord2` | M8 1b단계: 같은 일에 더해, 무리가 강 건너에 있는 동안 6일마다 은화를 들고 다시 남쪽에 간다 |
 | `prepare3`·`lord3` | M8 1c단계: 조합에 이끄는 자를 알리고, 선물 하나 값이 모이면 바로, 3일마다 다시 간다. 그동안 장비를 사지 않는다 |
+| `fight2`·`hero2` | M8 2단계: 세계의 건넘 깃발을 읽지 않는다. HP가 가득할 때 6일마다 무리를 지켜보고, 곧 건넌다는 말을 들으면 갈림길에서 기다렸다가 싸운다. 후계자는 길을 다시 묻는다. hero2는 HP가 5를 넘을 때만 식량에 불을 놓는다 |
 
 ```
 node tests/v2/measure/story-careers.mjs 0 10 4 120 idle,prepare,lord,fight,hero [dead] > rows.json   # dead: 두목이 죽은 세계(연출)
@@ -160,6 +161,8 @@ M8 균형 단계(`docs/v2/m8-balance-preregistration.md`)는 같은 도구에 `C
 CANDIDATE=m8c9-band-every-9-days node tests/v2/measure/story-careers.mjs 0 10 4 120 idle,prepare3,lord3,fight,hero > a.json
 T1_POLICY=prepare3 T2_POLICY=lord3 python3 tests/v2/measure/m8-judge.py a.json d.json
 ```
+
+2단계(§10)는 `T4_POLICY=fight2 T5_POLICY=hero2 T8=1`을 더한다. T8은 fight2가 나선 결전 가운데 이름으로 끝난 비율이다(`fightRaidDay`가 있는 행).
 
 열 설명:
 - 단계 도달일: 이끄는 자격(`unl_road_lead`), 모임, 건넘, 수호자(`defender`), 왕국의 이름(`unl_realm_renown`)
