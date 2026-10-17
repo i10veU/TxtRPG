@@ -28,6 +28,9 @@ const { worldData: d } = await import(at("data/world.js"));
 for (const c of (process.env.CANDIDATE ?? "").split(",").filter(Boolean)) (await import(new URL(`./candidates/${c}.mjs`, import.meta.url).href)).patch(d);
 // the price the elder asks for the village's silver, as the option shows it (step 1c's cost-aware policies)
 const SILVER_COST = -d.choices.choice_elder_dialogue.options.find((o) => o.id === "opt_elder_give_silver").effects.find((e) => e.op === "money").add;
+// M8 step 3 (Q9, §14): the gear's price as the merchant's options show it -- a guard buys it with six silver to spare
+const PRICE = (id) => -d.choices.choice_town_merchant_dialogue.options.find((o) => o.id === id).effects.find((e) => e.op === "money").add;
+const STEEL_PRICE = PRICE("opt_town_merchant_buy_steel_sword"), MAIL_PRICE = PRICE("opt_town_merchant_buy_mail_shirt");
 // V2-Core-144 (M8, D-122): the day button, for the clicks to the ending
 const WAIT_DAY = process.env.WAIT_DAY === "1";
 const { waitDay } = WAIT_DAY ? await import(at("ui/wait.js")) : {};
@@ -125,8 +128,8 @@ function guardWork(s, saveForVillage = false) {
   s = toTown(s);
   if (me(s).locationId !== "loc_castle_town") { STUCK.add(Math.floor(s.time.minute / 1440)); return run(s, [{ type: "wait", minutes: 480 }]); } // no available passage
   s = clerk(s, "opt_guild_clerk_estate");
-  if (!saveForVillage && (me(s).inventory?.item_steel_sword ?? 0) < 1 && me(s).money >= 30) s = merchant(s, "opt_town_merchant_buy_steel_sword");
-  if (!saveForVillage && (me(s).inventory?.item_mail_shirt ?? 0) < 1 && me(s).money >= 54) s = merchant(s, "opt_town_merchant_buy_mail_shirt");
+  if (!saveForVillage && (me(s).inventory?.item_steel_sword ?? 0) < 1 && me(s).money >= STEEL_PRICE + 6) s = merchant(s, "opt_town_merchant_buy_steel_sword");
+  if (!saveForVillage && (me(s).inventory?.item_mail_shirt ?? 0) < 1 && me(s).money >= MAIL_PRICE + 6) s = merchant(s, "opt_town_merchant_buy_mail_shirt");
   for (const id of ["act_equip_steel_sword", "act_equip_mail_shirt"]) if (can(s, id)) s = run(s, [P(id)]);
   // with the day button, no hour-by-hour wait for the next convoy: a day at a time below, the policy deciding again
   // after each day, as a player would
