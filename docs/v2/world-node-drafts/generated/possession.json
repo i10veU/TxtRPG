@@ -1,0 +1,3089 @@
+{
+  "schema": "world-node-drafts/v1",
+  "status": "Draft",
+  "runtime": false,
+  "scope": {
+    "id": "motif_possession",
+    "label": "빙의",
+    "kind": "genre-or-structure proposal; not a world definition"
+  },
+  "canonImpact": "none; no Draft item is accepted game setting",
+  "sourceRefs": [
+    "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+    "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+    "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft"
+  ],
+  "fronts": [
+    {
+      "id": "draft_possession_01",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A body acts under a new occupant while its former contracts remain",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A body acts under a new occupant while its former contracts remain",
+      "authoredIntervention": "Pause disputed contracts until consent can be established",
+      "initialReport": "Creditors claim a familiar face proves agreement",
+      "verificationCandidate": "Handwriting and witness timing show competing agency",
+      "alternativeInterventions": "Suspend disputed contracts until agency is tested",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied",
+        "Agency and consent unresolved",
+        "A familiar body does not transfer obligations automatically"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L51",
+        "docs/v2/world-node-drafts/companion-a.txt#L42"
+      ],
+      "semanticSignature": "a body acts under a new occupant while its former contracts remain pause disputed contracts until consent can be established consent records creditors claim a familiar face proves agreement handwriting and witness timing show competing agency",
+      "nodeIds": [
+        "draft_possession_01_entity",
+        "draft_possession_01_location",
+        "draft_possession_01_resource",
+        "draft_possession_01_pressure",
+        "draft_possession_01_response",
+        "draft_possession_01_report",
+        "draft_possession_01_evidence",
+        "draft_possession_01_counterparty",
+        "draft_possession_01_belief_holder",
+        "draft_possession_01_evidence_site",
+        "draft_possession_01_alternative",
+        "draft_possession_01_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Creditors wait for payment and the occupant loses credit",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_possession_01_counterparty",
+        "evidenceSiteId": "draft_possession_01_evidence_site",
+        "alternativeEventId": "draft_possession_01_alternative",
+        "additionalBeliefId": "draft_possession_01_additional_belief",
+        "beliefHolderId": "draft_possession_01_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L42"
+      }
+    },
+    {
+      "id": "draft_possession_02",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A patient wakes knowing skills but not recent promises",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A patient wakes knowing skills but not recent promises",
+      "authoredIntervention": "Check obligations without forcing a false memory",
+      "initialReport": "Family says the patient is pretending",
+      "verificationCandidate": "Dated journals show the memory gap predates recovery",
+      "alternativeInterventions": "Review each promise with an independent witness",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied",
+        "Agency and consent unresolved",
+        "A familiar body does not transfer obligations automatically"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L52",
+        "docs/v2/world-node-drafts/companion-a.txt#L43"
+      ],
+      "semanticSignature": "a patient wakes knowing skills but not recent promises check obligations without forcing a false memory memory journals family says the patient is pretending dated journals show the memory gap predates recovery",
+      "nodeIds": [
+        "draft_possession_02_entity",
+        "draft_possession_02_location",
+        "draft_possession_02_resource",
+        "draft_possession_02_pressure",
+        "draft_possession_02_response",
+        "draft_possession_02_report",
+        "draft_possession_02_evidence",
+        "draft_possession_02_counterparty",
+        "draft_possession_02_belief_holder",
+        "draft_possession_02_evidence_site",
+        "draft_possession_02_alternative",
+        "draft_possession_02_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Care slows and private memories are disclosed",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_possession_02_counterparty",
+        "evidenceSiteId": "draft_possession_02_evidence_site",
+        "alternativeEventId": "draft_possession_02_alternative",
+        "additionalBeliefId": "draft_possession_02_additional_belief",
+        "beliefHolderId": "draft_possession_02_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L43"
+      }
+    },
+    {
+      "id": "draft_possession_03",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A performer switches manner mid-show and reveals a secret",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A performer switches manner mid-show and reveals a secret",
+      "authoredIntervention": "Protect the speaker while tracing who heard the secret",
+      "initialReport": "The troupe calls it a staged improvisation",
+      "verificationCandidate": "Audience notes record a detail absent from the script",
+      "alternativeInterventions": "Pause the show and question audience witnesses separately",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied",
+        "Agency and consent unresolved",
+        "A familiar body does not transfer obligations automatically"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L53",
+        "docs/v2/world-node-drafts/companion-a.txt#L44"
+      ],
+      "semanticSignature": "a performer switches manner mid show and reveals a secret protect the speaker while tracing who heard the secret role scripts the troupe calls it a staged improvisation audience notes record a detail absent from the script",
+      "nodeIds": [
+        "draft_possession_03_entity",
+        "draft_possession_03_location",
+        "draft_possession_03_resource",
+        "draft_possession_03_pressure",
+        "draft_possession_03_response",
+        "draft_possession_03_report",
+        "draft_possession_03_evidence",
+        "draft_possession_03_counterparty",
+        "draft_possession_03_belief_holder",
+        "draft_possession_03_evidence_site",
+        "draft_possession_03_alternative",
+        "draft_possession_03_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "The troupe forfeits a night's takings",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_possession_03_counterparty",
+        "evidenceSiteId": "draft_possession_03_evidence_site",
+        "alternativeEventId": "draft_possession_03_alternative",
+        "additionalBeliefId": "draft_possession_03_additional_belief",
+        "beliefHolderId": "draft_possession_03_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L44"
+      }
+    },
+    {
+      "id": "draft_possession_04",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A returning heir recognizes a property map but not its tenants",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A returning heir recognizes a property map but not its tenants",
+      "authoredIntervention": "Delay transfer and invite tenant testimony",
+      "initialReport": "An agent says possession of the seal settles title",
+      "verificationCandidate": "Tenancy records conflict with the new claimant's orders",
+      "alternativeInterventions": "Freeze evictions until map and rent records align",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied",
+        "Agency and consent unresolved",
+        "A familiar body does not transfer obligations automatically"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L54",
+        "docs/v2/world-node-drafts/companion-a.txt#L45"
+      ],
+      "semanticSignature": "a returning heir recognizes a property map but not its tenants delay transfer and invite tenant testimony seal rings an agent says possession of the seal settles title tenancy records conflict with the new claimant s orders",
+      "nodeIds": [
+        "draft_possession_04_entity",
+        "draft_possession_04_location",
+        "draft_possession_04_resource",
+        "draft_possession_04_pressure",
+        "draft_possession_04_response",
+        "draft_possession_04_report",
+        "draft_possession_04_evidence",
+        "draft_possession_04_counterparty",
+        "draft_possession_04_belief_holder",
+        "draft_possession_04_evidence_site",
+        "draft_possession_04_alternative",
+        "draft_possession_04_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Estate income stalls and tenants remain in disputed homes",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_possession_04_counterparty",
+        "evidenceSiteId": "draft_possession_04_evidence_site",
+        "alternativeEventId": "draft_possession_04_alternative",
+        "additionalBeliefId": "draft_possession_04_additional_belief",
+        "beliefHolderId": "draft_possession_04_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L45"
+      }
+    },
+    {
+      "id": "draft_possession_05",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "Two voices in one person make incompatible promises",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "Two voices in one person make incompatible promises",
+      "authoredIntervention": "Record each promise's time and consent separately",
+      "initialReport": "Onlookers treat both voices as one oath",
+      "verificationCandidate": "The slips distinguish the promises by witness and hour",
+      "alternativeInterventions": "Record each voice and its witnesses as separate pledges",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied",
+        "Agency and consent unresolved",
+        "A familiar body does not transfer obligations automatically"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L55",
+        "docs/v2/world-node-drafts/companion-a.txt#L46"
+      ],
+      "semanticSignature": "two voices in one person make incompatible promises record each promise s time and consent separately votive slips onlookers treat both voices as one oath the slips distinguish the promises by witness and hour",
+      "nodeIds": [
+        "draft_possession_05_entity",
+        "draft_possession_05_location",
+        "draft_possession_05_resource",
+        "draft_possession_05_pressure",
+        "draft_possession_05_response",
+        "draft_possession_05_report",
+        "draft_possession_05_evidence",
+        "draft_possession_05_counterparty",
+        "draft_possession_05_belief_holder",
+        "draft_possession_05_evidence_site",
+        "draft_possession_05_alternative",
+        "draft_possession_05_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Dispute remains open and mediators spend another day",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_possession_05_counterparty",
+        "evidenceSiteId": "draft_possession_05_evidence_site",
+        "alternativeEventId": "draft_possession_05_alternative",
+        "additionalBeliefId": "draft_possession_05_additional_belief",
+        "beliefHolderId": "draft_possession_05_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L46"
+      }
+    }
+  ],
+  "nodes": [
+    {
+      "id": "draft_possession_01_entity",
+      "kind": "Entity",
+      "label": "shared-body advocate",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_01",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L51"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L51"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep consent records usable at identity hearing room",
+        "stakes": "A body acts under a new occupant while its former contracts remain",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_possession_01_edge_01",
+        "draft_possession_01_edge_04",
+        "draft_possession_01_edge_07"
+      ]
+    },
+    {
+      "id": "draft_possession_01_location",
+      "kind": "Location",
+      "label": "identity hearing room",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_01",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L51"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L51"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_possession_01_resource",
+        "conflict": "A body acts under a new occupant while its former contracts remain",
+        "risk": "A body acts under a new occupant while its former contracts remain"
+      },
+      "relations": [
+        "draft_possession_01_edge_01",
+        "draft_possession_01_edge_02",
+        "draft_possession_01_edge_03",
+        "draft_possession_01_edge_06"
+      ]
+    },
+    {
+      "id": "draft_possession_01_resource",
+      "kind": "Resource",
+      "label": "consent records",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_01",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L51"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L51"
+      ],
+      "proposal": {
+        "sourceId": "draft_possession_01_location",
+        "scarcity": "A body acts under a new occupant while its former contracts remain",
+        "proposedUse": "Pause disputed contracts until consent can be established",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_possession_01_edge_02",
+        "draft_possession_01_edge_05",
+        "draft_possession_01_edge_08"
+      ]
+    },
+    {
+      "id": "draft_possession_01_pressure",
+      "kind": "Event",
+      "label": "A body acts under a new occupant while its former contracts remain",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_01",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L51"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L51"
+      ],
+      "proposal": {
+        "trigger": "A body acts under a new occupant while its former contracts remain",
+        "proposedEffect": "Changes access to consent records",
+        "effectTargetId": "draft_possession_01_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_possession_01_edge_03",
+        "draft_possession_01_edge_04",
+        "draft_possession_01_edge_05",
+        "draft_possession_01_edge_09",
+        "draft_possession_01_edge_10",
+        "draft_possession_01_companion_edge_01",
+        "draft_possession_01_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_possession_01_response",
+      "kind": "Event",
+      "label": "Pause disputed contracts until consent can be established",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_01",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L51"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L51"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Pause disputed contracts until consent can be established",
+        "proposedEffect": "Pause disputed contracts until consent can be established",
+        "effectTargetId": "draft_possession_01_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_possession_01_edge_06",
+        "draft_possession_01_edge_07",
+        "draft_possession_01_edge_08",
+        "draft_possession_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_possession_01_report",
+      "kind": "Knowledge",
+      "label": "Creditors claim a familiar face proves agreement",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_01",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L51"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L51"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Creditors claim a familiar face proves agreement",
+        "aboutId": "draft_possession_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_possession_01_edge_09"
+      ]
+    },
+    {
+      "id": "draft_possession_01_evidence",
+      "kind": "Knowledge",
+      "label": "Handwriting and witness timing show competing agency",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L51"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L51"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Handwriting and witness timing show competing agency",
+        "aboutId": "draft_possession_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_possession_01_edge_10",
+        "draft_possession_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_possession_02_entity",
+      "kind": "Entity",
+      "label": "ward nurses",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_02",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L52"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L52"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep memory journals usable at recovery ward",
+        "stakes": "A patient wakes knowing skills but not recent promises",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_possession_02_edge_01",
+        "draft_possession_02_edge_04",
+        "draft_possession_02_edge_07"
+      ]
+    },
+    {
+      "id": "draft_possession_02_location",
+      "kind": "Location",
+      "label": "recovery ward",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_02",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L52"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L52"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_possession_02_resource",
+        "conflict": "A patient wakes knowing skills but not recent promises",
+        "risk": "A patient wakes knowing skills but not recent promises"
+      },
+      "relations": [
+        "draft_possession_02_edge_01",
+        "draft_possession_02_edge_02",
+        "draft_possession_02_edge_03",
+        "draft_possession_02_edge_06"
+      ]
+    },
+    {
+      "id": "draft_possession_02_resource",
+      "kind": "Resource",
+      "label": "memory journals",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_02",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L52"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L52"
+      ],
+      "proposal": {
+        "sourceId": "draft_possession_02_location",
+        "scarcity": "A patient wakes knowing skills but not recent promises",
+        "proposedUse": "Check obligations without forcing a false memory",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_possession_02_edge_02",
+        "draft_possession_02_edge_05",
+        "draft_possession_02_edge_08"
+      ]
+    },
+    {
+      "id": "draft_possession_02_pressure",
+      "kind": "Event",
+      "label": "A patient wakes knowing skills but not recent promises",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_02",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L52"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L52"
+      ],
+      "proposal": {
+        "trigger": "A patient wakes knowing skills but not recent promises",
+        "proposedEffect": "Changes access to memory journals",
+        "effectTargetId": "draft_possession_02_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_possession_02_edge_03",
+        "draft_possession_02_edge_04",
+        "draft_possession_02_edge_05",
+        "draft_possession_02_edge_09",
+        "draft_possession_02_edge_10",
+        "draft_possession_02_companion_edge_01",
+        "draft_possession_02_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_possession_02_response",
+      "kind": "Event",
+      "label": "Check obligations without forcing a false memory",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_02",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L52"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L52"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Check obligations without forcing a false memory",
+        "proposedEffect": "Check obligations without forcing a false memory",
+        "effectTargetId": "draft_possession_02_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_possession_02_edge_06",
+        "draft_possession_02_edge_07",
+        "draft_possession_02_edge_08",
+        "draft_possession_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_possession_02_report",
+      "kind": "Knowledge",
+      "label": "Family says the patient is pretending",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_02",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L52"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L52"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Family says the patient is pretending",
+        "aboutId": "draft_possession_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_possession_02_edge_09"
+      ]
+    },
+    {
+      "id": "draft_possession_02_evidence",
+      "kind": "Knowledge",
+      "label": "Dated journals show the memory gap predates recovery",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L52"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L52"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Dated journals show the memory gap predates recovery",
+        "aboutId": "draft_possession_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_possession_02_edge_10",
+        "draft_possession_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_possession_03_entity",
+      "kind": "Entity",
+      "label": "stage troupe council",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_03",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L53"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L53"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep role scripts usable at backstage mirror hall",
+        "stakes": "A performer switches manner mid-show and reveals a secret",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_possession_03_edge_01",
+        "draft_possession_03_edge_04",
+        "draft_possession_03_edge_07"
+      ]
+    },
+    {
+      "id": "draft_possession_03_location",
+      "kind": "Location",
+      "label": "backstage mirror hall",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_03",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L53"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L53"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_possession_03_resource",
+        "conflict": "A performer switches manner mid-show and reveals a secret",
+        "risk": "A performer switches manner mid-show and reveals a secret"
+      },
+      "relations": [
+        "draft_possession_03_edge_01",
+        "draft_possession_03_edge_02",
+        "draft_possession_03_edge_03",
+        "draft_possession_03_edge_06"
+      ]
+    },
+    {
+      "id": "draft_possession_03_resource",
+      "kind": "Resource",
+      "label": "role scripts",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_03",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L53"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L53"
+      ],
+      "proposal": {
+        "sourceId": "draft_possession_03_location",
+        "scarcity": "A performer switches manner mid-show and reveals a secret",
+        "proposedUse": "Protect the speaker while tracing who heard the secret",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_possession_03_edge_02",
+        "draft_possession_03_edge_05",
+        "draft_possession_03_edge_08"
+      ]
+    },
+    {
+      "id": "draft_possession_03_pressure",
+      "kind": "Event",
+      "label": "A performer switches manner mid-show and reveals a secret",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_03",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L53"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L53"
+      ],
+      "proposal": {
+        "trigger": "A performer switches manner mid-show and reveals a secret",
+        "proposedEffect": "Changes access to role scripts",
+        "effectTargetId": "draft_possession_03_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_possession_03_edge_03",
+        "draft_possession_03_edge_04",
+        "draft_possession_03_edge_05",
+        "draft_possession_03_edge_09",
+        "draft_possession_03_edge_10",
+        "draft_possession_03_companion_edge_01",
+        "draft_possession_03_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_possession_03_response",
+      "kind": "Event",
+      "label": "Protect the speaker while tracing who heard the secret",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_03",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L53"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L53"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Protect the speaker while tracing who heard the secret",
+        "proposedEffect": "Protect the speaker while tracing who heard the secret",
+        "effectTargetId": "draft_possession_03_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_possession_03_edge_06",
+        "draft_possession_03_edge_07",
+        "draft_possession_03_edge_08",
+        "draft_possession_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_possession_03_report",
+      "kind": "Knowledge",
+      "label": "The troupe calls it a staged improvisation",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_03",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L53"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L53"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The troupe calls it a staged improvisation",
+        "aboutId": "draft_possession_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_possession_03_edge_09"
+      ]
+    },
+    {
+      "id": "draft_possession_03_evidence",
+      "kind": "Knowledge",
+      "label": "Audience notes record a detail absent from the script",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L53"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L53"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Audience notes record a detail absent from the script",
+        "aboutId": "draft_possession_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_possession_03_edge_10",
+        "draft_possession_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_possession_04_entity",
+      "kind": "Entity",
+      "label": "estate stewards",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_04",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L54"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L54"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep seal rings usable at inheritance office",
+        "stakes": "A returning heir recognizes a property map but not its tenants",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_possession_04_edge_01",
+        "draft_possession_04_edge_04",
+        "draft_possession_04_edge_07"
+      ]
+    },
+    {
+      "id": "draft_possession_04_location",
+      "kind": "Location",
+      "label": "inheritance office",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_04",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L54"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L54"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_possession_04_resource",
+        "conflict": "A returning heir recognizes a property map but not its tenants",
+        "risk": "A returning heir recognizes a property map but not its tenants"
+      },
+      "relations": [
+        "draft_possession_04_edge_01",
+        "draft_possession_04_edge_02",
+        "draft_possession_04_edge_03",
+        "draft_possession_04_edge_06"
+      ]
+    },
+    {
+      "id": "draft_possession_04_resource",
+      "kind": "Resource",
+      "label": "seal rings",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_04",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L54"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L54"
+      ],
+      "proposal": {
+        "sourceId": "draft_possession_04_location",
+        "scarcity": "A returning heir recognizes a property map but not its tenants",
+        "proposedUse": "Delay transfer and invite tenant testimony",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_possession_04_edge_02",
+        "draft_possession_04_edge_05",
+        "draft_possession_04_edge_08"
+      ]
+    },
+    {
+      "id": "draft_possession_04_pressure",
+      "kind": "Event",
+      "label": "A returning heir recognizes a property map but not its tenants",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_04",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L54"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L54"
+      ],
+      "proposal": {
+        "trigger": "A returning heir recognizes a property map but not its tenants",
+        "proposedEffect": "Changes access to seal rings",
+        "effectTargetId": "draft_possession_04_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_possession_04_edge_03",
+        "draft_possession_04_edge_04",
+        "draft_possession_04_edge_05",
+        "draft_possession_04_edge_09",
+        "draft_possession_04_edge_10",
+        "draft_possession_04_companion_edge_01",
+        "draft_possession_04_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_possession_04_response",
+      "kind": "Event",
+      "label": "Delay transfer and invite tenant testimony",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_04",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L54"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L54"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Delay transfer and invite tenant testimony",
+        "proposedEffect": "Delay transfer and invite tenant testimony",
+        "effectTargetId": "draft_possession_04_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_possession_04_edge_06",
+        "draft_possession_04_edge_07",
+        "draft_possession_04_edge_08",
+        "draft_possession_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_possession_04_report",
+      "kind": "Knowledge",
+      "label": "An agent says possession of the seal settles title",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_04",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L54"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L54"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "An agent says possession of the seal settles title",
+        "aboutId": "draft_possession_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_possession_04_edge_09"
+      ]
+    },
+    {
+      "id": "draft_possession_04_evidence",
+      "kind": "Knowledge",
+      "label": "Tenancy records conflict with the new claimant's orders",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L54"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L54"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Tenancy records conflict with the new claimant's orders",
+        "aboutId": "draft_possession_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_possession_04_edge_10",
+        "draft_possession_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_possession_05_entity",
+      "kind": "Entity",
+      "label": "temple mediators",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_05",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L55"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L55"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep votive slips usable at quiet shrine court",
+        "stakes": "Two voices in one person make incompatible promises",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_possession_05_edge_01",
+        "draft_possession_05_edge_04",
+        "draft_possession_05_edge_07"
+      ]
+    },
+    {
+      "id": "draft_possession_05_location",
+      "kind": "Location",
+      "label": "quiet shrine court",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_05",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L55"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L55"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_possession_05_resource",
+        "conflict": "Two voices in one person make incompatible promises",
+        "risk": "Two voices in one person make incompatible promises"
+      },
+      "relations": [
+        "draft_possession_05_edge_01",
+        "draft_possession_05_edge_02",
+        "draft_possession_05_edge_03",
+        "draft_possession_05_edge_06"
+      ]
+    },
+    {
+      "id": "draft_possession_05_resource",
+      "kind": "Resource",
+      "label": "votive slips",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_05",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L55"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L55"
+      ],
+      "proposal": {
+        "sourceId": "draft_possession_05_location",
+        "scarcity": "Two voices in one person make incompatible promises",
+        "proposedUse": "Record each promise's time and consent separately",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_possession_05_edge_02",
+        "draft_possession_05_edge_05",
+        "draft_possession_05_edge_08"
+      ]
+    },
+    {
+      "id": "draft_possession_05_pressure",
+      "kind": "Event",
+      "label": "Two voices in one person make incompatible promises",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_05",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L55"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L55"
+      ],
+      "proposal": {
+        "trigger": "Two voices in one person make incompatible promises",
+        "proposedEffect": "Changes access to votive slips",
+        "effectTargetId": "draft_possession_05_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_possession_05_edge_03",
+        "draft_possession_05_edge_04",
+        "draft_possession_05_edge_05",
+        "draft_possession_05_edge_09",
+        "draft_possession_05_edge_10",
+        "draft_possession_05_companion_edge_01",
+        "draft_possession_05_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_possession_05_response",
+      "kind": "Event",
+      "label": "Record each promise's time and consent separately",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_05",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L55"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L55"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Record each promise's time and consent separately",
+        "proposedEffect": "Record each promise's time and consent separately",
+        "effectTargetId": "draft_possession_05_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_possession_05_edge_06",
+        "draft_possession_05_edge_07",
+        "draft_possession_05_edge_08",
+        "draft_possession_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_possession_05_report",
+      "kind": "Knowledge",
+      "label": "Onlookers treat both voices as one oath",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_05",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L55"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L55"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Onlookers treat both voices as one oath",
+        "aboutId": "draft_possession_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_possession_05_edge_09"
+      ]
+    },
+    {
+      "id": "draft_possession_05_evidence",
+      "kind": "Knowledge",
+      "label": "The slips distinguish the promises by witness and hour",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L55"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L55"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "The slips distinguish the promises by witness and hour",
+        "aboutId": "draft_possession_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_possession_05_edge_10",
+        "draft_possession_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_possession_01_counterparty",
+      "kind": "Entity",
+      "label": "contract creditor",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_01",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L42"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L42"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Enforce old signatures against a new occupant of the body",
+        "stakes": "A body acts under a new occupant while its former contracts remain",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_possession_01_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_possession_01_belief_holder",
+      "kind": "Entity",
+      "label": "credit office",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_01",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L42"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L42"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: A recognizable face proves consent to every old contract",
+        "stakes": "A body acts under a new occupant while its former contracts remain",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_possession_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_possession_01_evidence_site",
+      "kind": "Location",
+      "label": "witness handwriting archive",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L42"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L42"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A body acts under a new occupant while its former contracts remain",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_possession_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_possession_01_alternative",
+      "kind": "Event",
+      "label": "Suspend disputed contracts until agency is tested",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_01",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L42"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L42"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Suspend disputed contracts until agency is tested",
+        "costAndConsequence": "Creditors wait for payment and the occupant loses credit",
+        "alternativeToId": "draft_possession_01_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_possession_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_possession_01_additional_belief",
+      "kind": "Knowledge",
+      "label": "A recognizable face proves consent to every old contract",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_01",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L42"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L42"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A recognizable face proves consent to every old contract",
+        "aboutId": "draft_possession_01_pressure",
+        "holderId": "draft_possession_01_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_possession_01_companion_edge_02",
+        "draft_possession_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_possession_02_counterparty",
+      "kind": "Entity",
+      "label": "family care advocate",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_02",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L43"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L43"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Restore promises the patient cannot recall",
+        "stakes": "A patient wakes knowing skills but not recent promises",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_possession_02_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_possession_02_belief_holder",
+      "kind": "Entity",
+      "label": "patient's siblings",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_02",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L43"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L43"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Lost promises prove deliberate deceit",
+        "stakes": "A patient wakes knowing skills but not recent promises",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_possession_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_possession_02_evidence_site",
+      "kind": "Location",
+      "label": "dated bedside journal cabinet",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L43"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L43"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A patient wakes knowing skills but not recent promises",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_possession_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_possession_02_alternative",
+      "kind": "Event",
+      "label": "Review each promise with an independent witness",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_02",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L43"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L43"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Review each promise with an independent witness",
+        "costAndConsequence": "Care slows and private memories are disclosed",
+        "alternativeToId": "draft_possession_02_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_possession_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_possession_02_additional_belief",
+      "kind": "Knowledge",
+      "label": "Lost promises prove deliberate deceit",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_02",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L43"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L43"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Lost promises prove deliberate deceit",
+        "aboutId": "draft_possession_02_pressure",
+        "holderId": "draft_possession_02_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_possession_02_companion_edge_02",
+        "draft_possession_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_possession_03_counterparty",
+      "kind": "Entity",
+      "label": "theatre secret buyer",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_03",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L44"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L44"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Buy the revealed secret while calling it scripted",
+        "stakes": "A performer switches manner mid-show and reveals a secret",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_possession_03_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_possession_03_belief_holder",
+      "kind": "Entity",
+      "label": "theatre patrons",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_03",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L44"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L44"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Anything spoken on stage belongs to the script",
+        "stakes": "A performer switches manner mid-show and reveals a secret",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_possession_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_possession_03_evidence_site",
+      "kind": "Location",
+      "label": "backstage cue ledger",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L44"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L44"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A performer switches manner mid-show and reveals a secret",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_possession_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_possession_03_alternative",
+      "kind": "Event",
+      "label": "Pause the show and question audience witnesses separately",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_03",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L44"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L44"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Pause the show and question audience witnesses separately",
+        "costAndConsequence": "The troupe forfeits a night's takings",
+        "alternativeToId": "draft_possession_03_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_possession_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_possession_03_additional_belief",
+      "kind": "Knowledge",
+      "label": "Anything spoken on stage belongs to the script",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_03",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L44"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L44"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Anything spoken on stage belongs to the script",
+        "aboutId": "draft_possession_03_pressure",
+        "holderId": "draft_possession_03_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_possession_03_companion_edge_02",
+        "draft_possession_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_possession_04_counterparty",
+      "kind": "Entity",
+      "label": "estate title agent",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_04",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L45"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L45"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Use the heir's seal to displace existing tenants",
+        "stakes": "A returning heir recognizes a property map but not its tenants",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_possession_04_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_possession_04_belief_holder",
+      "kind": "Entity",
+      "label": "estate investors",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_04",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L45"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L45"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Holding the seal settles every tenant's claim",
+        "stakes": "A returning heir recognizes a property map but not its tenants",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_possession_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_possession_04_evidence_site",
+      "kind": "Location",
+      "label": "tenant rent archive",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L45"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L45"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A returning heir recognizes a property map but not its tenants",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_possession_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_possession_04_alternative",
+      "kind": "Event",
+      "label": "Freeze evictions until map and rent records align",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_04",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L45"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L45"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Freeze evictions until map and rent records align",
+        "costAndConsequence": "Estate income stalls and tenants remain in disputed homes",
+        "alternativeToId": "draft_possession_04_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_possession_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_possession_04_additional_belief",
+      "kind": "Knowledge",
+      "label": "Holding the seal settles every tenant's claim",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_04",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L45"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L45"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Holding the seal settles every tenant's claim",
+        "aboutId": "draft_possession_04_pressure",
+        "holderId": "draft_possession_04_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_possession_04_companion_edge_02",
+        "draft_possession_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_possession_05_counterparty",
+      "kind": "Entity",
+      "label": "oath registry priest",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_05",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L46"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L46"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Bind both voices as one promise to simplify judgment",
+        "stakes": "Two voices in one person make incompatible promises",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_possession_05_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_possession_05_belief_holder",
+      "kind": "Entity",
+      "label": "temple audience",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_05",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L46"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L46"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: One body can utter only one binding oath",
+        "stakes": "Two voices in one person make incompatible promises",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_possession_05_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_possession_05_evidence_site",
+      "kind": "Location",
+      "label": "hour-marked oath table",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L46"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L46"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "Two voices in one person make incompatible promises",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_possession_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_possession_05_alternative",
+      "kind": "Event",
+      "label": "Record each voice and its witnesses as separate pledges",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_05",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L46"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L46"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Record each voice and its witnesses as separate pledges",
+        "costAndConsequence": "Dispute remains open and mediators spend another day",
+        "alternativeToId": "draft_possession_05_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_possession_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_possession_05_additional_belief",
+      "kind": "Knowledge",
+      "label": "One body can utter only one binding oath",
+      "scopeId": "motif_possession",
+      "motifId": "possession",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_possession_05",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L46"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L46"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "One body can utter only one binding oath",
+        "aboutId": "draft_possession_05_pressure",
+        "holderId": "draft_possession_05_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_possession_05_companion_edge_02",
+        "draft_possession_05_companion_edge_03"
+      ]
+    }
+  ],
+  "structuralEdges": [
+    {
+      "id": "draft_possession_01_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_possession_01_entity",
+      "toId": "draft_possession_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_01:entity>location"
+    },
+    {
+      "id": "draft_possession_01_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_possession_01_location",
+      "toId": "draft_possession_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_01:location>resource"
+    },
+    {
+      "id": "draft_possession_01_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_possession_01_pressure",
+      "toId": "draft_possession_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_01:pressure>location"
+    },
+    {
+      "id": "draft_possession_01_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_possession_01_pressure",
+      "toId": "draft_possession_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_01:pressure>entity"
+    },
+    {
+      "id": "draft_possession_01_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_possession_01_pressure",
+      "toId": "draft_possession_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_01:pressure>resource"
+    },
+    {
+      "id": "draft_possession_01_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_possession_01_response",
+      "toId": "draft_possession_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_01:response>location"
+    },
+    {
+      "id": "draft_possession_01_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_possession_01_response",
+      "toId": "draft_possession_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_01:response>entity"
+    },
+    {
+      "id": "draft_possession_01_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_possession_01_response",
+      "toId": "draft_possession_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_01:response>resource"
+    },
+    {
+      "id": "draft_possession_01_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_possession_01_report",
+      "toId": "draft_possession_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_01:report>pressure"
+    },
+    {
+      "id": "draft_possession_01_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_possession_01_evidence",
+      "toId": "draft_possession_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_01:evidence>pressure"
+    },
+    {
+      "id": "draft_possession_02_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_possession_02_entity",
+      "toId": "draft_possession_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_02:entity>location"
+    },
+    {
+      "id": "draft_possession_02_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_possession_02_location",
+      "toId": "draft_possession_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_02:location>resource"
+    },
+    {
+      "id": "draft_possession_02_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_possession_02_pressure",
+      "toId": "draft_possession_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_02:pressure>location"
+    },
+    {
+      "id": "draft_possession_02_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_possession_02_pressure",
+      "toId": "draft_possession_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_02:pressure>entity"
+    },
+    {
+      "id": "draft_possession_02_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_possession_02_pressure",
+      "toId": "draft_possession_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_02:pressure>resource"
+    },
+    {
+      "id": "draft_possession_02_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_possession_02_response",
+      "toId": "draft_possession_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_02:response>location"
+    },
+    {
+      "id": "draft_possession_02_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_possession_02_response",
+      "toId": "draft_possession_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_02:response>entity"
+    },
+    {
+      "id": "draft_possession_02_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_possession_02_response",
+      "toId": "draft_possession_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_02:response>resource"
+    },
+    {
+      "id": "draft_possession_02_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_possession_02_report",
+      "toId": "draft_possession_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_02:report>pressure"
+    },
+    {
+      "id": "draft_possession_02_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_possession_02_evidence",
+      "toId": "draft_possession_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_02:evidence>pressure"
+    },
+    {
+      "id": "draft_possession_03_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_possession_03_entity",
+      "toId": "draft_possession_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_03:entity>location"
+    },
+    {
+      "id": "draft_possession_03_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_possession_03_location",
+      "toId": "draft_possession_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_03:location>resource"
+    },
+    {
+      "id": "draft_possession_03_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_possession_03_pressure",
+      "toId": "draft_possession_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_03:pressure>location"
+    },
+    {
+      "id": "draft_possession_03_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_possession_03_pressure",
+      "toId": "draft_possession_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_03:pressure>entity"
+    },
+    {
+      "id": "draft_possession_03_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_possession_03_pressure",
+      "toId": "draft_possession_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_03:pressure>resource"
+    },
+    {
+      "id": "draft_possession_03_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_possession_03_response",
+      "toId": "draft_possession_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_03:response>location"
+    },
+    {
+      "id": "draft_possession_03_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_possession_03_response",
+      "toId": "draft_possession_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_03:response>entity"
+    },
+    {
+      "id": "draft_possession_03_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_possession_03_response",
+      "toId": "draft_possession_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_03:response>resource"
+    },
+    {
+      "id": "draft_possession_03_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_possession_03_report",
+      "toId": "draft_possession_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_03:report>pressure"
+    },
+    {
+      "id": "draft_possession_03_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_possession_03_evidence",
+      "toId": "draft_possession_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_03:evidence>pressure"
+    },
+    {
+      "id": "draft_possession_04_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_possession_04_entity",
+      "toId": "draft_possession_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_04:entity>location"
+    },
+    {
+      "id": "draft_possession_04_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_possession_04_location",
+      "toId": "draft_possession_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_04:location>resource"
+    },
+    {
+      "id": "draft_possession_04_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_possession_04_pressure",
+      "toId": "draft_possession_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_04:pressure>location"
+    },
+    {
+      "id": "draft_possession_04_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_possession_04_pressure",
+      "toId": "draft_possession_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_04:pressure>entity"
+    },
+    {
+      "id": "draft_possession_04_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_possession_04_pressure",
+      "toId": "draft_possession_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_04:pressure>resource"
+    },
+    {
+      "id": "draft_possession_04_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_possession_04_response",
+      "toId": "draft_possession_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_04:response>location"
+    },
+    {
+      "id": "draft_possession_04_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_possession_04_response",
+      "toId": "draft_possession_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_04:response>entity"
+    },
+    {
+      "id": "draft_possession_04_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_possession_04_response",
+      "toId": "draft_possession_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_04:response>resource"
+    },
+    {
+      "id": "draft_possession_04_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_possession_04_report",
+      "toId": "draft_possession_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_04:report>pressure"
+    },
+    {
+      "id": "draft_possession_04_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_possession_04_evidence",
+      "toId": "draft_possession_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_04:evidence>pressure"
+    },
+    {
+      "id": "draft_possession_05_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_possession_05_entity",
+      "toId": "draft_possession_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_05:entity>location"
+    },
+    {
+      "id": "draft_possession_05_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_possession_05_location",
+      "toId": "draft_possession_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_05:location>resource"
+    },
+    {
+      "id": "draft_possession_05_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_possession_05_pressure",
+      "toId": "draft_possession_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_05:pressure>location"
+    },
+    {
+      "id": "draft_possession_05_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_possession_05_pressure",
+      "toId": "draft_possession_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_05:pressure>entity"
+    },
+    {
+      "id": "draft_possession_05_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_possession_05_pressure",
+      "toId": "draft_possession_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_05:pressure>resource"
+    },
+    {
+      "id": "draft_possession_05_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_possession_05_response",
+      "toId": "draft_possession_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_05:response>location"
+    },
+    {
+      "id": "draft_possession_05_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_possession_05_response",
+      "toId": "draft_possession_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_05:response>entity"
+    },
+    {
+      "id": "draft_possession_05_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_possession_05_response",
+      "toId": "draft_possession_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_05:response>resource"
+    },
+    {
+      "id": "draft_possession_05_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_possession_05_report",
+      "toId": "draft_possession_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_05:report>pressure"
+    },
+    {
+      "id": "draft_possession_05_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_possession_05_evidence",
+      "toId": "draft_possession_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_possession_05:evidence>pressure"
+    },
+    {
+      "id": "draft_possession_01_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_possession_01_pressure",
+      "toId": "draft_possession_01_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L42"
+    },
+    {
+      "id": "draft_possession_01_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_possession_01_additional_belief",
+      "toId": "draft_possession_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L42"
+    },
+    {
+      "id": "draft_possession_01_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_possession_01_additional_belief",
+      "toId": "draft_possession_01_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L42"
+    },
+    {
+      "id": "draft_possession_01_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_possession_01_evidence_site",
+      "toId": "draft_possession_01_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L42"
+    },
+    {
+      "id": "draft_possession_01_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_possession_01_alternative",
+      "toId": "draft_possession_01_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L42"
+    },
+    {
+      "id": "draft_possession_02_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_possession_02_pressure",
+      "toId": "draft_possession_02_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L43"
+    },
+    {
+      "id": "draft_possession_02_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_possession_02_additional_belief",
+      "toId": "draft_possession_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L43"
+    },
+    {
+      "id": "draft_possession_02_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_possession_02_additional_belief",
+      "toId": "draft_possession_02_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L43"
+    },
+    {
+      "id": "draft_possession_02_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_possession_02_evidence_site",
+      "toId": "draft_possession_02_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L43"
+    },
+    {
+      "id": "draft_possession_02_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_possession_02_alternative",
+      "toId": "draft_possession_02_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L43"
+    },
+    {
+      "id": "draft_possession_03_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_possession_03_pressure",
+      "toId": "draft_possession_03_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L44"
+    },
+    {
+      "id": "draft_possession_03_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_possession_03_additional_belief",
+      "toId": "draft_possession_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L44"
+    },
+    {
+      "id": "draft_possession_03_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_possession_03_additional_belief",
+      "toId": "draft_possession_03_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L44"
+    },
+    {
+      "id": "draft_possession_03_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_possession_03_evidence_site",
+      "toId": "draft_possession_03_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L44"
+    },
+    {
+      "id": "draft_possession_03_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_possession_03_alternative",
+      "toId": "draft_possession_03_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L44"
+    },
+    {
+      "id": "draft_possession_04_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_possession_04_pressure",
+      "toId": "draft_possession_04_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L45"
+    },
+    {
+      "id": "draft_possession_04_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_possession_04_additional_belief",
+      "toId": "draft_possession_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L45"
+    },
+    {
+      "id": "draft_possession_04_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_possession_04_additional_belief",
+      "toId": "draft_possession_04_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L45"
+    },
+    {
+      "id": "draft_possession_04_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_possession_04_evidence_site",
+      "toId": "draft_possession_04_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L45"
+    },
+    {
+      "id": "draft_possession_04_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_possession_04_alternative",
+      "toId": "draft_possession_04_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L45"
+    },
+    {
+      "id": "draft_possession_05_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_possession_05_pressure",
+      "toId": "draft_possession_05_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L46"
+    },
+    {
+      "id": "draft_possession_05_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_possession_05_additional_belief",
+      "toId": "draft_possession_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L46"
+    },
+    {
+      "id": "draft_possession_05_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_possession_05_additional_belief",
+      "toId": "draft_possession_05_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L46"
+    },
+    {
+      "id": "draft_possession_05_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_possession_05_evidence_site",
+      "toId": "draft_possession_05_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L46"
+    },
+    {
+      "id": "draft_possession_05_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_possession_05_alternative",
+      "toId": "draft_possession_05_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L46"
+    }
+  ],
+  "proposedCausalLinks": [
+    {
+      "id": "draft_possession_01_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_possession_01_pressure",
+      "toId": "draft_possession_01_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_possession_01_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_possession_01_evidence",
+      "toId": "draft_possession_01_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_possession_02_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_possession_02_pressure",
+      "toId": "draft_possession_02_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_possession_02_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_possession_02_evidence",
+      "toId": "draft_possession_02_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_possession_03_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_possession_03_pressure",
+      "toId": "draft_possession_03_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_possession_03_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_possession_03_evidence",
+      "toId": "draft_possession_03_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_possession_04_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_possession_04_pressure",
+      "toId": "draft_possession_04_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_possession_04_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_possession_04_evidence",
+      "toId": "draft_possession_04_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_possession_05_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_possession_05_pressure",
+      "toId": "draft_possession_05_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_possession_05_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_possession_05_evidence",
+      "toId": "draft_possession_05_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    }
+  ]
+}

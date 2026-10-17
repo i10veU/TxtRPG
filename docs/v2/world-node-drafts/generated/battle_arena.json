@@ -1,0 +1,3079 @@
+{
+  "schema": "world-node-drafts/v1",
+  "status": "Draft",
+  "runtime": false,
+  "scope": {
+    "id": "motif_battle_arena",
+    "label": "배틀 아레나",
+    "kind": "genre-or-structure proposal; not a world definition"
+  },
+  "canonImpact": "none; no Draft item is accepted game setting",
+  "sourceRefs": [
+    "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+    "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+    "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft"
+  ],
+  "fronts": [
+    {
+      "id": "draft_battle_arena_01",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A promoter schedules another bout before wounds heal",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A promoter schedules another bout before wounds heal",
+      "authoredIntervention": "Require a medical clearance before entry",
+      "initialReport": "The promoter says the fighter asked to return",
+      "verificationCandidate": "Treatment notes show movement remains unsafe",
+      "alternativeInterventions": "Move the bout and publish a medical rest interval",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L57",
+        "docs/v2/world-node-drafts/companion-b.txt#L47"
+      ],
+      "semanticSignature": "a promoter schedules another bout before wounds heal require a medical clearance before entry splint kits the promoter says the fighter asked to return treatment notes show movement remains unsafe",
+      "nodeIds": [
+        "draft_battle_arena_01_entity",
+        "draft_battle_arena_01_location",
+        "draft_battle_arena_01_resource",
+        "draft_battle_arena_01_pressure",
+        "draft_battle_arena_01_response",
+        "draft_battle_arena_01_report",
+        "draft_battle_arena_01_evidence",
+        "draft_battle_arena_01_counterparty",
+        "draft_battle_arena_01_belief_holder",
+        "draft_battle_arena_01_evidence_site",
+        "draft_battle_arena_01_alternative",
+        "draft_battle_arena_01_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Ticket refunds reduce revenue and fighters wait",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_battle_arena_01_counterparty",
+        "evidenceSiteId": "draft_battle_arena_01_evidence_site",
+        "alternativeEventId": "draft_battle_arena_01_alternative",
+        "additionalBeliefId": "draft_battle_arena_01_additional_belief",
+        "beliefHolderId": "draft_battle_arena_01_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L47"
+      }
+    },
+    {
+      "id": "draft_battle_arena_02",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A late rule change favors one team after bets close",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A late rule change favors one team after bets close",
+      "authoredIntervention": "Freeze the announced rules and refund affected bets",
+      "initialReport": "Officials claim the rule was posted earlier",
+      "verificationCandidate": "Time-stamped slates show it appeared late",
+      "alternativeInterventions": "Void the affected bets and replay under posted rules",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L58",
+        "docs/v2/world-node-drafts/companion-b.txt#L48"
+      ],
+      "semanticSignature": "a late rule change favors one team after bets close freeze the announced rules and refund affected bets rule slates officials claim the rule was posted earlier time stamped slates show it appeared late",
+      "nodeIds": [
+        "draft_battle_arena_02_entity",
+        "draft_battle_arena_02_location",
+        "draft_battle_arena_02_resource",
+        "draft_battle_arena_02_pressure",
+        "draft_battle_arena_02_response",
+        "draft_battle_arena_02_report",
+        "draft_battle_arena_02_evidence",
+        "draft_battle_arena_02_counterparty",
+        "draft_battle_arena_02_belief_holder",
+        "draft_battle_arena_02_evidence_site",
+        "draft_battle_arena_02_alternative",
+        "draft_battle_arena_02_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Spectators wait and officials repay stakes",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_battle_arena_02_counterparty",
+        "evidenceSiteId": "draft_battle_arena_02_evidence_site",
+        "alternativeEventId": "draft_battle_arena_02_alternative",
+        "additionalBeliefId": "draft_battle_arena_02_additional_belief",
+        "beliefHolderId": "draft_battle_arena_02_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L48"
+      }
+    },
+    {
+      "id": "draft_battle_arena_03",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A borrowed shield has hidden loose rivets",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A borrowed shield has hidden loose rivets",
+      "authoredIntervention": "Replace it and record the chain of custody",
+      "initialReport": "A supplier blames impact damage",
+      "verificationCandidate": "Inspection marks show the rivets were loose before the bout",
+      "alternativeInterventions": "Replace the shield and reinspect loaned gear",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L59",
+        "docs/v2/world-node-drafts/companion-b.txt#L49"
+      ],
+      "semanticSignature": "a borrowed shield has hidden loose rivets replace it and record the chain of custody shield rivets a supplier blames impact damage inspection marks show the rivets were loose before the bout",
+      "nodeIds": [
+        "draft_battle_arena_03_entity",
+        "draft_battle_arena_03_location",
+        "draft_battle_arena_03_resource",
+        "draft_battle_arena_03_pressure",
+        "draft_battle_arena_03_response",
+        "draft_battle_arena_03_report",
+        "draft_battle_arena_03_evidence",
+        "draft_battle_arena_03_counterparty",
+        "draft_battle_arena_03_belief_holder",
+        "draft_battle_arena_03_evidence_site",
+        "draft_battle_arena_03_alternative",
+        "draft_battle_arena_03_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "The match pauses and supplier pays for inspection",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_battle_arena_03_counterparty",
+        "evidenceSiteId": "draft_battle_arena_03_evidence_site",
+        "alternativeEventId": "draft_battle_arena_03_alternative",
+        "additionalBeliefId": "draft_battle_arena_03_additional_belief",
+        "beliefHolderId": "draft_battle_arena_03_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L49"
+      }
+    },
+    {
+      "id": "draft_battle_arena_04",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A blocked exit traps spectators during a fire drill",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A blocked exit traps spectators during a fire drill",
+      "authoredIntervention": "Clear the route and cap entry until inspected",
+      "initialReport": "The manager calls the barrier temporary",
+      "verificationCandidate": "Ticket counts exceed the safe exit capacity",
+      "alternativeInterventions": "Open a second supervised exit and cap attendance",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L60",
+        "docs/v2/world-node-drafts/companion-b.txt#L50"
+      ],
+      "semanticSignature": "a blocked exit traps spectators during a fire drill clear the route and cap entry until inspected barrier ropes the manager calls the barrier temporary ticket counts exceed the safe exit capacity",
+      "nodeIds": [
+        "draft_battle_arena_04_entity",
+        "draft_battle_arena_04_location",
+        "draft_battle_arena_04_resource",
+        "draft_battle_arena_04_pressure",
+        "draft_battle_arena_04_response",
+        "draft_battle_arena_04_report",
+        "draft_battle_arena_04_evidence",
+        "draft_battle_arena_04_counterparty",
+        "draft_battle_arena_04_belief_holder",
+        "draft_battle_arena_04_evidence_site",
+        "draft_battle_arena_04_alternative",
+        "draft_battle_arena_04_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Fewer tickets sell and marshals need staff",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_battle_arena_04_counterparty",
+        "evidenceSiteId": "draft_battle_arena_04_evidence_site",
+        "alternativeEventId": "draft_battle_arena_04_alternative",
+        "additionalBeliefId": "draft_battle_arena_04_additional_belief",
+        "beliefHolderId": "draft_battle_arena_04_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L50"
+      }
+    },
+    {
+      "id": "draft_battle_arena_05",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A sponsor withholds training space from unbranded fighters",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A sponsor withholds training space from unbranded fighters",
+      "authoredIntervention": "Reserve common hours under a public schedule",
+      "initialReport": "The sponsor claims the court is private",
+      "verificationCandidate": "Old maintenance dues were paid by all fighters",
+      "alternativeInterventions": "Publish shared court hours from prior dues",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L61",
+        "docs/v2/world-node-drafts/companion-b.txt#L51"
+      ],
+      "semanticSignature": "a sponsor withholds training space from unbranded fighters reserve common hours under a public schedule practice pads the sponsor claims the court is private old maintenance dues were paid by all fighters",
+      "nodeIds": [
+        "draft_battle_arena_05_entity",
+        "draft_battle_arena_05_location",
+        "draft_battle_arena_05_resource",
+        "draft_battle_arena_05_pressure",
+        "draft_battle_arena_05_response",
+        "draft_battle_arena_05_report",
+        "draft_battle_arena_05_evidence",
+        "draft_battle_arena_05_counterparty",
+        "draft_battle_arena_05_belief_holder",
+        "draft_battle_arena_05_evidence_site",
+        "draft_battle_arena_05_alternative",
+        "draft_battle_arena_05_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Sponsored fighters lose exclusive time",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_battle_arena_05_counterparty",
+        "evidenceSiteId": "draft_battle_arena_05_evidence_site",
+        "alternativeEventId": "draft_battle_arena_05_alternative",
+        "additionalBeliefId": "draft_battle_arena_05_additional_belief",
+        "beliefHolderId": "draft_battle_arena_05_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L51"
+      }
+    }
+  ],
+  "nodes": [
+    {
+      "id": "draft_battle_arena_01_entity",
+      "kind": "Entity",
+      "label": "healers' bench",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_01",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L57"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L57"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep splint kits usable at arena infirmary",
+        "stakes": "A promoter schedules another bout before wounds heal",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_battle_arena_01_edge_01",
+        "draft_battle_arena_01_edge_04",
+        "draft_battle_arena_01_edge_07"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_01_location",
+      "kind": "Location",
+      "label": "arena infirmary",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_01",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L57"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L57"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_battle_arena_01_resource",
+        "conflict": "A promoter schedules another bout before wounds heal",
+        "risk": "A promoter schedules another bout before wounds heal"
+      },
+      "relations": [
+        "draft_battle_arena_01_edge_01",
+        "draft_battle_arena_01_edge_02",
+        "draft_battle_arena_01_edge_03",
+        "draft_battle_arena_01_edge_06"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_01_resource",
+      "kind": "Resource",
+      "label": "splint kits",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_01",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L57"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L57"
+      ],
+      "proposal": {
+        "sourceId": "draft_battle_arena_01_location",
+        "scarcity": "A promoter schedules another bout before wounds heal",
+        "proposedUse": "Require a medical clearance before entry",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_battle_arena_01_edge_02",
+        "draft_battle_arena_01_edge_05",
+        "draft_battle_arena_01_edge_08"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_01_pressure",
+      "kind": "Event",
+      "label": "A promoter schedules another bout before wounds heal",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_01",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L57"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L57"
+      ],
+      "proposal": {
+        "trigger": "A promoter schedules another bout before wounds heal",
+        "proposedEffect": "Changes access to splint kits",
+        "effectTargetId": "draft_battle_arena_01_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_battle_arena_01_edge_03",
+        "draft_battle_arena_01_edge_04",
+        "draft_battle_arena_01_edge_05",
+        "draft_battle_arena_01_edge_09",
+        "draft_battle_arena_01_edge_10",
+        "draft_battle_arena_01_companion_edge_01",
+        "draft_battle_arena_01_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_01_response",
+      "kind": "Event",
+      "label": "Require a medical clearance before entry",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_01",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L57"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L57"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Require a medical clearance before entry",
+        "proposedEffect": "Require a medical clearance before entry",
+        "effectTargetId": "draft_battle_arena_01_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_battle_arena_01_edge_06",
+        "draft_battle_arena_01_edge_07",
+        "draft_battle_arena_01_edge_08",
+        "draft_battle_arena_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_01_report",
+      "kind": "Knowledge",
+      "label": "The promoter says the fighter asked to return",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_01",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L57"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L57"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The promoter says the fighter asked to return",
+        "aboutId": "draft_battle_arena_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_battle_arena_01_edge_09"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_01_evidence",
+      "kind": "Knowledge",
+      "label": "Treatment notes show movement remains unsafe",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L57"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L57"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Treatment notes show movement remains unsafe",
+        "aboutId": "draft_battle_arena_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_battle_arena_01_edge_10",
+        "draft_battle_arena_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_02_entity",
+      "kind": "Entity",
+      "label": "rules stewards",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_02",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L58"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L58"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep rule slates usable at weigh-in gallery",
+        "stakes": "A late rule change favors one team after bets close",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_battle_arena_02_edge_01",
+        "draft_battle_arena_02_edge_04",
+        "draft_battle_arena_02_edge_07"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_02_location",
+      "kind": "Location",
+      "label": "weigh-in gallery",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_02",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L58"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L58"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_battle_arena_02_resource",
+        "conflict": "A late rule change favors one team after bets close",
+        "risk": "A late rule change favors one team after bets close"
+      },
+      "relations": [
+        "draft_battle_arena_02_edge_01",
+        "draft_battle_arena_02_edge_02",
+        "draft_battle_arena_02_edge_03",
+        "draft_battle_arena_02_edge_06"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_02_resource",
+      "kind": "Resource",
+      "label": "rule slates",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_02",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L58"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L58"
+      ],
+      "proposal": {
+        "sourceId": "draft_battle_arena_02_location",
+        "scarcity": "A late rule change favors one team after bets close",
+        "proposedUse": "Freeze the announced rules and refund affected bets",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_battle_arena_02_edge_02",
+        "draft_battle_arena_02_edge_05",
+        "draft_battle_arena_02_edge_08"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_02_pressure",
+      "kind": "Event",
+      "label": "A late rule change favors one team after bets close",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_02",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L58"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L58"
+      ],
+      "proposal": {
+        "trigger": "A late rule change favors one team after bets close",
+        "proposedEffect": "Changes access to rule slates",
+        "effectTargetId": "draft_battle_arena_02_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_battle_arena_02_edge_03",
+        "draft_battle_arena_02_edge_04",
+        "draft_battle_arena_02_edge_05",
+        "draft_battle_arena_02_edge_09",
+        "draft_battle_arena_02_edge_10",
+        "draft_battle_arena_02_companion_edge_01",
+        "draft_battle_arena_02_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_02_response",
+      "kind": "Event",
+      "label": "Freeze the announced rules and refund affected bets",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_02",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L58"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L58"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Freeze the announced rules and refund affected bets",
+        "proposedEffect": "Freeze the announced rules and refund affected bets",
+        "effectTargetId": "draft_battle_arena_02_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_battle_arena_02_edge_06",
+        "draft_battle_arena_02_edge_07",
+        "draft_battle_arena_02_edge_08",
+        "draft_battle_arena_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_02_report",
+      "kind": "Knowledge",
+      "label": "Officials claim the rule was posted earlier",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_02",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L58"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L58"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Officials claim the rule was posted earlier",
+        "aboutId": "draft_battle_arena_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_battle_arena_02_edge_09"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_02_evidence",
+      "kind": "Knowledge",
+      "label": "Time-stamped slates show it appeared late",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L58"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L58"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Time-stamped slates show it appeared late",
+        "aboutId": "draft_battle_arena_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_battle_arena_02_edge_10",
+        "draft_battle_arena_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_03_entity",
+      "kind": "Entity",
+      "label": "equipment inspectors",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_03",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L59"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L59"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep shield rivets usable at gear tunnel",
+        "stakes": "A borrowed shield has hidden loose rivets",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_battle_arena_03_edge_01",
+        "draft_battle_arena_03_edge_04",
+        "draft_battle_arena_03_edge_07"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_03_location",
+      "kind": "Location",
+      "label": "gear tunnel",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_03",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L59"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L59"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_battle_arena_03_resource",
+        "conflict": "A borrowed shield has hidden loose rivets",
+        "risk": "A borrowed shield has hidden loose rivets"
+      },
+      "relations": [
+        "draft_battle_arena_03_edge_01",
+        "draft_battle_arena_03_edge_02",
+        "draft_battle_arena_03_edge_03",
+        "draft_battle_arena_03_edge_06"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_03_resource",
+      "kind": "Resource",
+      "label": "shield rivets",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_03",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L59"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L59"
+      ],
+      "proposal": {
+        "sourceId": "draft_battle_arena_03_location",
+        "scarcity": "A borrowed shield has hidden loose rivets",
+        "proposedUse": "Replace it and record the chain of custody",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_battle_arena_03_edge_02",
+        "draft_battle_arena_03_edge_05",
+        "draft_battle_arena_03_edge_08"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_03_pressure",
+      "kind": "Event",
+      "label": "A borrowed shield has hidden loose rivets",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_03",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L59"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L59"
+      ],
+      "proposal": {
+        "trigger": "A borrowed shield has hidden loose rivets",
+        "proposedEffect": "Changes access to shield rivets",
+        "effectTargetId": "draft_battle_arena_03_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_battle_arena_03_edge_03",
+        "draft_battle_arena_03_edge_04",
+        "draft_battle_arena_03_edge_05",
+        "draft_battle_arena_03_edge_09",
+        "draft_battle_arena_03_edge_10",
+        "draft_battle_arena_03_companion_edge_01",
+        "draft_battle_arena_03_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_03_response",
+      "kind": "Event",
+      "label": "Replace it and record the chain of custody",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_03",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L59"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L59"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Replace it and record the chain of custody",
+        "proposedEffect": "Replace it and record the chain of custody",
+        "effectTargetId": "draft_battle_arena_03_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_battle_arena_03_edge_06",
+        "draft_battle_arena_03_edge_07",
+        "draft_battle_arena_03_edge_08",
+        "draft_battle_arena_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_03_report",
+      "kind": "Knowledge",
+      "label": "A supplier blames impact damage",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_03",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L59"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L59"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A supplier blames impact damage",
+        "aboutId": "draft_battle_arena_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_battle_arena_03_edge_09"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_03_evidence",
+      "kind": "Knowledge",
+      "label": "Inspection marks show the rivets were loose before the bout",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L59"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L59"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Inspection marks show the rivets were loose before the bout",
+        "aboutId": "draft_battle_arena_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_battle_arena_03_edge_10",
+        "draft_battle_arena_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_04_entity",
+      "kind": "Entity",
+      "label": "crowd marshals",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_04",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L60"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L60"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep barrier ropes usable at east exit",
+        "stakes": "A blocked exit traps spectators during a fire drill",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_battle_arena_04_edge_01",
+        "draft_battle_arena_04_edge_04",
+        "draft_battle_arena_04_edge_07"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_04_location",
+      "kind": "Location",
+      "label": "east exit",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_04",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L60"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L60"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_battle_arena_04_resource",
+        "conflict": "A blocked exit traps spectators during a fire drill",
+        "risk": "A blocked exit traps spectators during a fire drill"
+      },
+      "relations": [
+        "draft_battle_arena_04_edge_01",
+        "draft_battle_arena_04_edge_02",
+        "draft_battle_arena_04_edge_03",
+        "draft_battle_arena_04_edge_06"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_04_resource",
+      "kind": "Resource",
+      "label": "barrier ropes",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_04",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L60"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L60"
+      ],
+      "proposal": {
+        "sourceId": "draft_battle_arena_04_location",
+        "scarcity": "A blocked exit traps spectators during a fire drill",
+        "proposedUse": "Clear the route and cap entry until inspected",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_battle_arena_04_edge_02",
+        "draft_battle_arena_04_edge_05",
+        "draft_battle_arena_04_edge_08"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_04_pressure",
+      "kind": "Event",
+      "label": "A blocked exit traps spectators during a fire drill",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_04",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L60"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L60"
+      ],
+      "proposal": {
+        "trigger": "A blocked exit traps spectators during a fire drill",
+        "proposedEffect": "Changes access to barrier ropes",
+        "effectTargetId": "draft_battle_arena_04_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_battle_arena_04_edge_03",
+        "draft_battle_arena_04_edge_04",
+        "draft_battle_arena_04_edge_05",
+        "draft_battle_arena_04_edge_09",
+        "draft_battle_arena_04_edge_10",
+        "draft_battle_arena_04_companion_edge_01",
+        "draft_battle_arena_04_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_04_response",
+      "kind": "Event",
+      "label": "Clear the route and cap entry until inspected",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_04",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L60"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L60"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Clear the route and cap entry until inspected",
+        "proposedEffect": "Clear the route and cap entry until inspected",
+        "effectTargetId": "draft_battle_arena_04_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_battle_arena_04_edge_06",
+        "draft_battle_arena_04_edge_07",
+        "draft_battle_arena_04_edge_08",
+        "draft_battle_arena_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_04_report",
+      "kind": "Knowledge",
+      "label": "The manager calls the barrier temporary",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_04",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L60"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L60"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The manager calls the barrier temporary",
+        "aboutId": "draft_battle_arena_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_battle_arena_04_edge_09"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_04_evidence",
+      "kind": "Knowledge",
+      "label": "Ticket counts exceed the safe exit capacity",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L60"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L60"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Ticket counts exceed the safe exit capacity",
+        "aboutId": "draft_battle_arena_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_battle_arena_04_edge_10",
+        "draft_battle_arena_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_05_entity",
+      "kind": "Entity",
+      "label": "fighters' council",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_05",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L61"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L61"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep practice pads usable at training court",
+        "stakes": "A sponsor withholds training space from unbranded fighters",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_battle_arena_05_edge_01",
+        "draft_battle_arena_05_edge_04",
+        "draft_battle_arena_05_edge_07"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_05_location",
+      "kind": "Location",
+      "label": "training court",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_05",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L61"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L61"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_battle_arena_05_resource",
+        "conflict": "A sponsor withholds training space from unbranded fighters",
+        "risk": "A sponsor withholds training space from unbranded fighters"
+      },
+      "relations": [
+        "draft_battle_arena_05_edge_01",
+        "draft_battle_arena_05_edge_02",
+        "draft_battle_arena_05_edge_03",
+        "draft_battle_arena_05_edge_06"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_05_resource",
+      "kind": "Resource",
+      "label": "practice pads",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_05",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L61"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L61"
+      ],
+      "proposal": {
+        "sourceId": "draft_battle_arena_05_location",
+        "scarcity": "A sponsor withholds training space from unbranded fighters",
+        "proposedUse": "Reserve common hours under a public schedule",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_battle_arena_05_edge_02",
+        "draft_battle_arena_05_edge_05",
+        "draft_battle_arena_05_edge_08"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_05_pressure",
+      "kind": "Event",
+      "label": "A sponsor withholds training space from unbranded fighters",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_05",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L61"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L61"
+      ],
+      "proposal": {
+        "trigger": "A sponsor withholds training space from unbranded fighters",
+        "proposedEffect": "Changes access to practice pads",
+        "effectTargetId": "draft_battle_arena_05_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_battle_arena_05_edge_03",
+        "draft_battle_arena_05_edge_04",
+        "draft_battle_arena_05_edge_05",
+        "draft_battle_arena_05_edge_09",
+        "draft_battle_arena_05_edge_10",
+        "draft_battle_arena_05_companion_edge_01",
+        "draft_battle_arena_05_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_05_response",
+      "kind": "Event",
+      "label": "Reserve common hours under a public schedule",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_05",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L61"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L61"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Reserve common hours under a public schedule",
+        "proposedEffect": "Reserve common hours under a public schedule",
+        "effectTargetId": "draft_battle_arena_05_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_battle_arena_05_edge_06",
+        "draft_battle_arena_05_edge_07",
+        "draft_battle_arena_05_edge_08",
+        "draft_battle_arena_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_05_report",
+      "kind": "Knowledge",
+      "label": "The sponsor claims the court is private",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_05",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L61"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L61"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The sponsor claims the court is private",
+        "aboutId": "draft_battle_arena_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_battle_arena_05_edge_09"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_05_evidence",
+      "kind": "Knowledge",
+      "label": "Old maintenance dues were paid by all fighters",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L61"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L61"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Old maintenance dues were paid by all fighters",
+        "aboutId": "draft_battle_arena_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_battle_arena_05_edge_10",
+        "draft_battle_arena_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_01_counterparty",
+      "kind": "Entity",
+      "label": "bout promoter",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_01",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L47"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L47"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Fill a paying card before a wounded fighter heals",
+        "stakes": "A promoter schedules another bout before wounds heal",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_battle_arena_01_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_01_belief_holder",
+      "kind": "Entity",
+      "label": "crowd organizers",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_01",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L47"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L47"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: The fighter requested a safe early return",
+        "stakes": "A promoter schedules another bout before wounds heal",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_battle_arena_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_01_evidence_site",
+      "kind": "Location",
+      "label": "healer movement test mat",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L47"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L47"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A promoter schedules another bout before wounds heal",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_battle_arena_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_01_alternative",
+      "kind": "Event",
+      "label": "Move the bout and publish a medical rest interval",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_01",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L47"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L47"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Move the bout and publish a medical rest interval",
+        "costAndConsequence": "Ticket refunds reduce revenue and fighters wait",
+        "alternativeToId": "draft_battle_arena_01_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_battle_arena_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_01_additional_belief",
+      "kind": "Knowledge",
+      "label": "The fighter requested a safe early return",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_01",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L47"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L47"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The fighter requested a safe early return",
+        "aboutId": "draft_battle_arena_01_pressure",
+        "holderId": "draft_battle_arena_01_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_battle_arena_01_companion_edge_02",
+        "draft_battle_arena_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_02_counterparty",
+      "kind": "Entity",
+      "label": "late-rule clerk",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_02",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L48"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L48"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Favor a backed team after bets close",
+        "stakes": "A late rule change favors one team after bets close",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_battle_arena_02_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_02_belief_holder",
+      "kind": "Entity",
+      "label": "wager houses",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_02",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L48"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L48"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: The rule was visible before bets closed",
+        "stakes": "A late rule change favors one team after bets close",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_battle_arena_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_02_evidence_site",
+      "kind": "Location",
+      "label": "slate timestamp archive",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L48"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L48"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A late rule change favors one team after bets close",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_battle_arena_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_02_alternative",
+      "kind": "Event",
+      "label": "Void the affected bets and replay under posted rules",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_02",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L48"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L48"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Void the affected bets and replay under posted rules",
+        "costAndConsequence": "Spectators wait and officials repay stakes",
+        "alternativeToId": "draft_battle_arena_02_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_battle_arena_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_02_additional_belief",
+      "kind": "Knowledge",
+      "label": "The rule was visible before bets closed",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_02",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L48"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L48"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The rule was visible before bets closed",
+        "aboutId": "draft_battle_arena_02_pressure",
+        "holderId": "draft_battle_arena_02_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_battle_arena_02_companion_edge_02",
+        "draft_battle_arena_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_03_counterparty",
+      "kind": "Entity",
+      "label": "shield supplier",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_03",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L49"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L49"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Avoid replacement costs by blaming the bout",
+        "stakes": "A borrowed shield has hidden loose rivets",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_battle_arena_03_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_03_belief_holder",
+      "kind": "Entity",
+      "label": "arena coaches",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_03",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L49"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L49"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: The impact loosened every rivet",
+        "stakes": "A borrowed shield has hidden loose rivets",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_battle_arena_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_03_evidence_site",
+      "kind": "Location",
+      "label": "pre-bout rivet inspection bench",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L49"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L49"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A borrowed shield has hidden loose rivets",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_battle_arena_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_03_alternative",
+      "kind": "Event",
+      "label": "Replace the shield and reinspect loaned gear",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_03",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L49"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L49"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Replace the shield and reinspect loaned gear",
+        "costAndConsequence": "The match pauses and supplier pays for inspection",
+        "alternativeToId": "draft_battle_arena_03_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_battle_arena_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_03_additional_belief",
+      "kind": "Knowledge",
+      "label": "The impact loosened every rivet",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_03",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L49"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L49"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The impact loosened every rivet",
+        "aboutId": "draft_battle_arena_03_pressure",
+        "holderId": "draft_battle_arena_03_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_battle_arena_03_companion_edge_02",
+        "draft_battle_arena_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_04_counterparty",
+      "kind": "Entity",
+      "label": "exit barrier manager",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_04",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L50"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L50"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Keep ticket queues inside a narrow gate",
+        "stakes": "A blocked exit traps spectators during a fire drill",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_battle_arena_04_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_04_belief_holder",
+      "kind": "Entity",
+      "label": "promoters",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_04",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L50"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L50"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: A temporary barrier cannot trap a crowd",
+        "stakes": "A blocked exit traps spectators during a fire drill",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_battle_arena_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_04_evidence_site",
+      "kind": "Location",
+      "label": "fire-drill exit count station",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L50"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L50"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A blocked exit traps spectators during a fire drill",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_battle_arena_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_04_alternative",
+      "kind": "Event",
+      "label": "Open a second supervised exit and cap attendance",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_04",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L50"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L50"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Open a second supervised exit and cap attendance",
+        "costAndConsequence": "Fewer tickets sell and marshals need staff",
+        "alternativeToId": "draft_battle_arena_04_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_battle_arena_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_04_additional_belief",
+      "kind": "Knowledge",
+      "label": "A temporary barrier cannot trap a crowd",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_04",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L50"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L50"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A temporary barrier cannot trap a crowd",
+        "aboutId": "draft_battle_arena_04_pressure",
+        "holderId": "draft_battle_arena_04_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_battle_arena_04_companion_edge_02",
+        "draft_battle_arena_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_05_counterparty",
+      "kind": "Entity",
+      "label": "court sponsor",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_05",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L51"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L51"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Reserve common practice pads for branded fighters",
+        "stakes": "A sponsor withholds training space from unbranded fighters",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_battle_arena_05_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_05_belief_holder",
+      "kind": "Entity",
+      "label": "new fighters",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_05",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L51"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L51"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Only the sponsor maintained the court",
+        "stakes": "A sponsor withholds training space from unbranded fighters",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_battle_arena_05_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_05_evidence_site",
+      "kind": "Location",
+      "label": "maintenance dues ledger",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L51"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L51"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A sponsor withholds training space from unbranded fighters",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_battle_arena_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_05_alternative",
+      "kind": "Event",
+      "label": "Publish shared court hours from prior dues",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_05",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L51"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L51"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Publish shared court hours from prior dues",
+        "costAndConsequence": "Sponsored fighters lose exclusive time",
+        "alternativeToId": "draft_battle_arena_05_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_battle_arena_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_battle_arena_05_additional_belief",
+      "kind": "Knowledge",
+      "label": "Only the sponsor maintained the court",
+      "scopeId": "motif_battle_arena",
+      "motifId": "battle_arena",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_battle_arena_05",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L51"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L51"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Only the sponsor maintained the court",
+        "aboutId": "draft_battle_arena_05_pressure",
+        "holderId": "draft_battle_arena_05_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_battle_arena_05_companion_edge_02",
+        "draft_battle_arena_05_companion_edge_03"
+      ]
+    }
+  ],
+  "structuralEdges": [
+    {
+      "id": "draft_battle_arena_01_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_battle_arena_01_entity",
+      "toId": "draft_battle_arena_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_01:entity>location"
+    },
+    {
+      "id": "draft_battle_arena_01_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_battle_arena_01_location",
+      "toId": "draft_battle_arena_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_01:location>resource"
+    },
+    {
+      "id": "draft_battle_arena_01_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_battle_arena_01_pressure",
+      "toId": "draft_battle_arena_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_01:pressure>location"
+    },
+    {
+      "id": "draft_battle_arena_01_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_battle_arena_01_pressure",
+      "toId": "draft_battle_arena_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_01:pressure>entity"
+    },
+    {
+      "id": "draft_battle_arena_01_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_battle_arena_01_pressure",
+      "toId": "draft_battle_arena_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_01:pressure>resource"
+    },
+    {
+      "id": "draft_battle_arena_01_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_battle_arena_01_response",
+      "toId": "draft_battle_arena_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_01:response>location"
+    },
+    {
+      "id": "draft_battle_arena_01_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_battle_arena_01_response",
+      "toId": "draft_battle_arena_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_01:response>entity"
+    },
+    {
+      "id": "draft_battle_arena_01_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_battle_arena_01_response",
+      "toId": "draft_battle_arena_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_01:response>resource"
+    },
+    {
+      "id": "draft_battle_arena_01_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_battle_arena_01_report",
+      "toId": "draft_battle_arena_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_01:report>pressure"
+    },
+    {
+      "id": "draft_battle_arena_01_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_battle_arena_01_evidence",
+      "toId": "draft_battle_arena_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_01:evidence>pressure"
+    },
+    {
+      "id": "draft_battle_arena_02_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_battle_arena_02_entity",
+      "toId": "draft_battle_arena_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_02:entity>location"
+    },
+    {
+      "id": "draft_battle_arena_02_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_battle_arena_02_location",
+      "toId": "draft_battle_arena_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_02:location>resource"
+    },
+    {
+      "id": "draft_battle_arena_02_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_battle_arena_02_pressure",
+      "toId": "draft_battle_arena_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_02:pressure>location"
+    },
+    {
+      "id": "draft_battle_arena_02_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_battle_arena_02_pressure",
+      "toId": "draft_battle_arena_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_02:pressure>entity"
+    },
+    {
+      "id": "draft_battle_arena_02_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_battle_arena_02_pressure",
+      "toId": "draft_battle_arena_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_02:pressure>resource"
+    },
+    {
+      "id": "draft_battle_arena_02_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_battle_arena_02_response",
+      "toId": "draft_battle_arena_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_02:response>location"
+    },
+    {
+      "id": "draft_battle_arena_02_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_battle_arena_02_response",
+      "toId": "draft_battle_arena_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_02:response>entity"
+    },
+    {
+      "id": "draft_battle_arena_02_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_battle_arena_02_response",
+      "toId": "draft_battle_arena_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_02:response>resource"
+    },
+    {
+      "id": "draft_battle_arena_02_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_battle_arena_02_report",
+      "toId": "draft_battle_arena_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_02:report>pressure"
+    },
+    {
+      "id": "draft_battle_arena_02_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_battle_arena_02_evidence",
+      "toId": "draft_battle_arena_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_02:evidence>pressure"
+    },
+    {
+      "id": "draft_battle_arena_03_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_battle_arena_03_entity",
+      "toId": "draft_battle_arena_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_03:entity>location"
+    },
+    {
+      "id": "draft_battle_arena_03_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_battle_arena_03_location",
+      "toId": "draft_battle_arena_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_03:location>resource"
+    },
+    {
+      "id": "draft_battle_arena_03_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_battle_arena_03_pressure",
+      "toId": "draft_battle_arena_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_03:pressure>location"
+    },
+    {
+      "id": "draft_battle_arena_03_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_battle_arena_03_pressure",
+      "toId": "draft_battle_arena_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_03:pressure>entity"
+    },
+    {
+      "id": "draft_battle_arena_03_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_battle_arena_03_pressure",
+      "toId": "draft_battle_arena_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_03:pressure>resource"
+    },
+    {
+      "id": "draft_battle_arena_03_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_battle_arena_03_response",
+      "toId": "draft_battle_arena_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_03:response>location"
+    },
+    {
+      "id": "draft_battle_arena_03_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_battle_arena_03_response",
+      "toId": "draft_battle_arena_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_03:response>entity"
+    },
+    {
+      "id": "draft_battle_arena_03_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_battle_arena_03_response",
+      "toId": "draft_battle_arena_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_03:response>resource"
+    },
+    {
+      "id": "draft_battle_arena_03_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_battle_arena_03_report",
+      "toId": "draft_battle_arena_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_03:report>pressure"
+    },
+    {
+      "id": "draft_battle_arena_03_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_battle_arena_03_evidence",
+      "toId": "draft_battle_arena_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_03:evidence>pressure"
+    },
+    {
+      "id": "draft_battle_arena_04_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_battle_arena_04_entity",
+      "toId": "draft_battle_arena_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_04:entity>location"
+    },
+    {
+      "id": "draft_battle_arena_04_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_battle_arena_04_location",
+      "toId": "draft_battle_arena_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_04:location>resource"
+    },
+    {
+      "id": "draft_battle_arena_04_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_battle_arena_04_pressure",
+      "toId": "draft_battle_arena_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_04:pressure>location"
+    },
+    {
+      "id": "draft_battle_arena_04_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_battle_arena_04_pressure",
+      "toId": "draft_battle_arena_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_04:pressure>entity"
+    },
+    {
+      "id": "draft_battle_arena_04_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_battle_arena_04_pressure",
+      "toId": "draft_battle_arena_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_04:pressure>resource"
+    },
+    {
+      "id": "draft_battle_arena_04_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_battle_arena_04_response",
+      "toId": "draft_battle_arena_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_04:response>location"
+    },
+    {
+      "id": "draft_battle_arena_04_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_battle_arena_04_response",
+      "toId": "draft_battle_arena_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_04:response>entity"
+    },
+    {
+      "id": "draft_battle_arena_04_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_battle_arena_04_response",
+      "toId": "draft_battle_arena_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_04:response>resource"
+    },
+    {
+      "id": "draft_battle_arena_04_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_battle_arena_04_report",
+      "toId": "draft_battle_arena_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_04:report>pressure"
+    },
+    {
+      "id": "draft_battle_arena_04_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_battle_arena_04_evidence",
+      "toId": "draft_battle_arena_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_04:evidence>pressure"
+    },
+    {
+      "id": "draft_battle_arena_05_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_battle_arena_05_entity",
+      "toId": "draft_battle_arena_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_05:entity>location"
+    },
+    {
+      "id": "draft_battle_arena_05_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_battle_arena_05_location",
+      "toId": "draft_battle_arena_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_05:location>resource"
+    },
+    {
+      "id": "draft_battle_arena_05_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_battle_arena_05_pressure",
+      "toId": "draft_battle_arena_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_05:pressure>location"
+    },
+    {
+      "id": "draft_battle_arena_05_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_battle_arena_05_pressure",
+      "toId": "draft_battle_arena_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_05:pressure>entity"
+    },
+    {
+      "id": "draft_battle_arena_05_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_battle_arena_05_pressure",
+      "toId": "draft_battle_arena_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_05:pressure>resource"
+    },
+    {
+      "id": "draft_battle_arena_05_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_battle_arena_05_response",
+      "toId": "draft_battle_arena_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_05:response>location"
+    },
+    {
+      "id": "draft_battle_arena_05_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_battle_arena_05_response",
+      "toId": "draft_battle_arena_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_05:response>entity"
+    },
+    {
+      "id": "draft_battle_arena_05_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_battle_arena_05_response",
+      "toId": "draft_battle_arena_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_05:response>resource"
+    },
+    {
+      "id": "draft_battle_arena_05_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_battle_arena_05_report",
+      "toId": "draft_battle_arena_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_05:report>pressure"
+    },
+    {
+      "id": "draft_battle_arena_05_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_battle_arena_05_evidence",
+      "toId": "draft_battle_arena_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_battle_arena_05:evidence>pressure"
+    },
+    {
+      "id": "draft_battle_arena_01_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_battle_arena_01_pressure",
+      "toId": "draft_battle_arena_01_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L47"
+    },
+    {
+      "id": "draft_battle_arena_01_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_battle_arena_01_additional_belief",
+      "toId": "draft_battle_arena_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L47"
+    },
+    {
+      "id": "draft_battle_arena_01_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_battle_arena_01_additional_belief",
+      "toId": "draft_battle_arena_01_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L47"
+    },
+    {
+      "id": "draft_battle_arena_01_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_battle_arena_01_evidence_site",
+      "toId": "draft_battle_arena_01_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L47"
+    },
+    {
+      "id": "draft_battle_arena_01_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_battle_arena_01_alternative",
+      "toId": "draft_battle_arena_01_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L47"
+    },
+    {
+      "id": "draft_battle_arena_02_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_battle_arena_02_pressure",
+      "toId": "draft_battle_arena_02_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L48"
+    },
+    {
+      "id": "draft_battle_arena_02_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_battle_arena_02_additional_belief",
+      "toId": "draft_battle_arena_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L48"
+    },
+    {
+      "id": "draft_battle_arena_02_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_battle_arena_02_additional_belief",
+      "toId": "draft_battle_arena_02_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L48"
+    },
+    {
+      "id": "draft_battle_arena_02_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_battle_arena_02_evidence_site",
+      "toId": "draft_battle_arena_02_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L48"
+    },
+    {
+      "id": "draft_battle_arena_02_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_battle_arena_02_alternative",
+      "toId": "draft_battle_arena_02_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L48"
+    },
+    {
+      "id": "draft_battle_arena_03_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_battle_arena_03_pressure",
+      "toId": "draft_battle_arena_03_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L49"
+    },
+    {
+      "id": "draft_battle_arena_03_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_battle_arena_03_additional_belief",
+      "toId": "draft_battle_arena_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L49"
+    },
+    {
+      "id": "draft_battle_arena_03_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_battle_arena_03_additional_belief",
+      "toId": "draft_battle_arena_03_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L49"
+    },
+    {
+      "id": "draft_battle_arena_03_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_battle_arena_03_evidence_site",
+      "toId": "draft_battle_arena_03_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L49"
+    },
+    {
+      "id": "draft_battle_arena_03_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_battle_arena_03_alternative",
+      "toId": "draft_battle_arena_03_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L49"
+    },
+    {
+      "id": "draft_battle_arena_04_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_battle_arena_04_pressure",
+      "toId": "draft_battle_arena_04_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L50"
+    },
+    {
+      "id": "draft_battle_arena_04_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_battle_arena_04_additional_belief",
+      "toId": "draft_battle_arena_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L50"
+    },
+    {
+      "id": "draft_battle_arena_04_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_battle_arena_04_additional_belief",
+      "toId": "draft_battle_arena_04_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L50"
+    },
+    {
+      "id": "draft_battle_arena_04_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_battle_arena_04_evidence_site",
+      "toId": "draft_battle_arena_04_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L50"
+    },
+    {
+      "id": "draft_battle_arena_04_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_battle_arena_04_alternative",
+      "toId": "draft_battle_arena_04_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L50"
+    },
+    {
+      "id": "draft_battle_arena_05_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_battle_arena_05_pressure",
+      "toId": "draft_battle_arena_05_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L51"
+    },
+    {
+      "id": "draft_battle_arena_05_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_battle_arena_05_additional_belief",
+      "toId": "draft_battle_arena_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L51"
+    },
+    {
+      "id": "draft_battle_arena_05_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_battle_arena_05_additional_belief",
+      "toId": "draft_battle_arena_05_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L51"
+    },
+    {
+      "id": "draft_battle_arena_05_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_battle_arena_05_evidence_site",
+      "toId": "draft_battle_arena_05_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L51"
+    },
+    {
+      "id": "draft_battle_arena_05_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_battle_arena_05_alternative",
+      "toId": "draft_battle_arena_05_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L51"
+    }
+  ],
+  "proposedCausalLinks": [
+    {
+      "id": "draft_battle_arena_01_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_battle_arena_01_pressure",
+      "toId": "draft_battle_arena_01_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_battle_arena_01_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_battle_arena_01_evidence",
+      "toId": "draft_battle_arena_01_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_battle_arena_02_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_battle_arena_02_pressure",
+      "toId": "draft_battle_arena_02_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_battle_arena_02_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_battle_arena_02_evidence",
+      "toId": "draft_battle_arena_02_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_battle_arena_03_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_battle_arena_03_pressure",
+      "toId": "draft_battle_arena_03_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_battle_arena_03_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_battle_arena_03_evidence",
+      "toId": "draft_battle_arena_03_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_battle_arena_04_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_battle_arena_04_pressure",
+      "toId": "draft_battle_arena_04_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_battle_arena_04_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_battle_arena_04_evidence",
+      "toId": "draft_battle_arena_04_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_battle_arena_05_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_battle_arena_05_pressure",
+      "toId": "draft_battle_arena_05_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_battle_arena_05_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_battle_arena_05_evidence",
+      "toId": "draft_battle_arena_05_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    }
+  ]
+}

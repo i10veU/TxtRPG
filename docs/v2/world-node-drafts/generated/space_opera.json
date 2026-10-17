@@ -1,0 +1,3079 @@
+{
+  "schema": "world-node-drafts/v1",
+  "status": "Draft",
+  "runtime": false,
+  "scope": {
+    "id": "motif_space_opera",
+    "label": "스페이스 오페라",
+    "kind": "genre-or-structure proposal; not a world definition"
+  },
+  "canonImpact": "none; no Draft item is accepted game setting",
+  "sourceRefs": [
+    "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+    "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+    "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft"
+  ],
+  "fronts": [
+    {
+      "id": "draft_space_opera_01",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A patrol redeployment exposes grain ships to raiders",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A patrol redeployment exposes grain ships to raiders",
+      "authoredIntervention": "Pool fuel for a rotating civilian escort",
+      "initialReport": "The fleet announces the lane is secure",
+      "verificationCandidate": "Merchant distress times cluster after redeployment",
+      "alternativeInterventions": "Hire merchant escorts for the grain run",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L3",
+        "docs/v2/world-node-drafts/companion-b.txt#L2"
+      ],
+      "semanticSignature": "a patrol redeployment exposes grain ships to raiders pool fuel for a rotating civilian escort escort fuel the fleet announces the lane is secure merchant distress times cluster after redeployment",
+      "nodeIds": [
+        "draft_space_opera_01_entity",
+        "draft_space_opera_01_location",
+        "draft_space_opera_01_resource",
+        "draft_space_opera_01_pressure",
+        "draft_space_opera_01_response",
+        "draft_space_opera_01_report",
+        "draft_space_opera_01_evidence",
+        "draft_space_opera_01_counterparty",
+        "draft_space_opera_01_belief_holder",
+        "draft_space_opera_01_evidence_site",
+        "draft_space_opera_01_alternative",
+        "draft_space_opera_01_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Traders raise freight rates and defense stays thin",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_space_opera_01_counterparty",
+        "evidenceSiteId": "draft_space_opera_01_evidence_site",
+        "alternativeEventId": "draft_space_opera_01_alternative",
+        "additionalBeliefId": "draft_space_opera_01_additional_belief",
+        "beliefHolderId": "draft_space_opera_01_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L2"
+      }
+    },
+    {
+      "id": "draft_space_opera_02",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A treaty term means tribute in one language and aid in another",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A treaty term means tribute in one language and aid in another",
+      "authoredIntervention": "Suspend enforcement and reconcile both originals",
+      "initialReport": "Each envoy claims the other signed tribute",
+      "verificationCandidate": "Parallel originals use different terms",
+      "alternativeInterventions": "Convene both delegations around an annotated third text",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L4",
+        "docs/v2/world-node-drafts/companion-b.txt#L3"
+      ],
+      "semanticSignature": "a treaty term means tribute in one language and aid in another suspend enforcement and reconcile both originals translation matrices each envoy claims the other signed tribute parallel originals use different terms",
+      "nodeIds": [
+        "draft_space_opera_02_entity",
+        "draft_space_opera_02_location",
+        "draft_space_opera_02_resource",
+        "draft_space_opera_02_pressure",
+        "draft_space_opera_02_response",
+        "draft_space_opera_02_report",
+        "draft_space_opera_02_evidence",
+        "draft_space_opera_02_counterparty",
+        "draft_space_opera_02_belief_holder",
+        "draft_space_opera_02_evidence_site",
+        "draft_space_opera_02_alternative",
+        "draft_space_opera_02_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Enforcement pauses and both sides risk losing face",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_space_opera_02_counterparty",
+        "evidenceSiteId": "draft_space_opera_02_evidence_site",
+        "alternativeEventId": "draft_space_opera_02_alternative",
+        "additionalBeliefId": "draft_space_opera_02_additional_belief",
+        "beliefHolderId": "draft_space_opera_02_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L3"
+      }
+    },
+    {
+      "id": "draft_space_opera_03",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "An elevator monopoly delays emergency oxygen",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "An elevator monopoly delays emergency oxygen",
+      "authoredIntervention": "Open a supervised rescue lift and audit fees",
+      "initialReport": "The operator blames storms for every delay",
+      "verificationCandidate": "Dock manifests show empty lifts departed",
+      "alternativeInterventions": "Reserve one lift cycle for canisters under public observation",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L5",
+        "docs/v2/world-node-drafts/companion-b.txt#L4"
+      ],
+      "semanticSignature": "an elevator monopoly delays emergency oxygen open a supervised rescue lift and audit fees oxygen canisters the operator blames storms for every delay dock manifests show empty lifts departed",
+      "nodeIds": [
+        "draft_space_opera_03_entity",
+        "draft_space_opera_03_location",
+        "draft_space_opera_03_resource",
+        "draft_space_opera_03_pressure",
+        "draft_space_opera_03_response",
+        "draft_space_opera_03_report",
+        "draft_space_opera_03_evidence",
+        "draft_space_opera_03_counterparty",
+        "draft_space_opera_03_belief_holder",
+        "draft_space_opera_03_evidence_site",
+        "draft_space_opera_03_alternative",
+        "draft_space_opera_03_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Ore shipments slip and miners pay storage costs",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_space_opera_03_counterparty",
+        "evidenceSiteId": "draft_space_opera_03_evidence_site",
+        "alternativeEventId": "draft_space_opera_03_alternative",
+        "additionalBeliefId": "draft_space_opera_03_additional_belief",
+        "beliefHolderId": "draft_space_opera_03_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L4"
+      }
+    },
+    {
+      "id": "draft_space_opera_04",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A damaged memorial record names the wrong war victim",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A damaged memorial record names the wrong war victim",
+      "authoredIntervention": "Recover independent logs before public correction",
+      "initialReport": "Families hear the old record as settled truth",
+      "verificationCandidate": "Two intact cores identify the convoy instead",
+      "alternativeInterventions": "Issue a provisional correction with linked core excerpts",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L6",
+        "docs/v2/world-node-drafts/companion-b.txt#L5"
+      ],
+      "semanticSignature": "a damaged memorial record names the wrong war victim recover independent logs before public correction memory cores families hear the old record as settled truth two intact cores identify the convoy instead",
+      "nodeIds": [
+        "draft_space_opera_04_entity",
+        "draft_space_opera_04_location",
+        "draft_space_opera_04_resource",
+        "draft_space_opera_04_pressure",
+        "draft_space_opera_04_response",
+        "draft_space_opera_04_report",
+        "draft_space_opera_04_evidence",
+        "draft_space_opera_04_counterparty",
+        "draft_space_opera_04_belief_holder",
+        "draft_space_opera_04_evidence_site",
+        "draft_space_opera_04_alternative",
+        "draft_space_opera_04_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Families reopen a painful inquiry and the archive loses certainty",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_space_opera_04_counterparty",
+        "evidenceSiteId": "draft_space_opera_04_evidence_site",
+        "alternativeEventId": "draft_space_opera_04_alternative",
+        "additionalBeliefId": "draft_space_opera_04_additional_belief",
+        "beliefHolderId": "draft_space_opera_04_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L5"
+      }
+    },
+    {
+      "id": "draft_space_opera_05",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A changed exclusion zone closes the shelter's supply route",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A changed exclusion zone closes the shelter's supply route",
+      "authoredIntervention": "Negotiate a safe corridor using updated hazard maps",
+      "initialReport": "The capital says ships can use the old corridor",
+      "verificationCandidate": "Beacon losses mark the corridor unsafe",
+      "alternativeInterventions": "Pilot a mapped relief route around the revised boundary",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L7",
+        "docs/v2/world-node-drafts/companion-b.txt#L6"
+      ],
+      "semanticSignature": "a changed exclusion zone closes the shelter s supply route negotiate a safe corridor using updated hazard maps survey maps the capital says ships can use the old corridor beacon losses mark the corridor unsafe",
+      "nodeIds": [
+        "draft_space_opera_05_entity",
+        "draft_space_opera_05_location",
+        "draft_space_opera_05_resource",
+        "draft_space_opera_05_pressure",
+        "draft_space_opera_05_response",
+        "draft_space_opera_05_report",
+        "draft_space_opera_05_evidence",
+        "draft_space_opera_05_counterparty",
+        "draft_space_opera_05_belief_holder",
+        "draft_space_opera_05_evidence_site",
+        "draft_space_opera_05_alternative",
+        "draft_space_opera_05_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Shelter deliveries arrive late and scouts face unknown hazards",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_space_opera_05_counterparty",
+        "evidenceSiteId": "draft_space_opera_05_evidence_site",
+        "alternativeEventId": "draft_space_opera_05_alternative",
+        "additionalBeliefId": "draft_space_opera_05_additional_belief",
+        "beliefHolderId": "draft_space_opera_05_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L6"
+      }
+    }
+  ],
+  "nodes": [
+    {
+      "id": "draft_space_opera_01_entity",
+      "kind": "Entity",
+      "label": "border convoy council",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_01",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L3"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L3"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep escort fuel usable at nebula shipping lane",
+        "stakes": "A patrol redeployment exposes grain ships to raiders",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_space_opera_01_edge_01",
+        "draft_space_opera_01_edge_04",
+        "draft_space_opera_01_edge_07"
+      ]
+    },
+    {
+      "id": "draft_space_opera_01_location",
+      "kind": "Location",
+      "label": "nebula shipping lane",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_01",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L3"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L3"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_space_opera_01_resource",
+        "conflict": "A patrol redeployment exposes grain ships to raiders",
+        "risk": "A patrol redeployment exposes grain ships to raiders"
+      },
+      "relations": [
+        "draft_space_opera_01_edge_01",
+        "draft_space_opera_01_edge_02",
+        "draft_space_opera_01_edge_03",
+        "draft_space_opera_01_edge_06"
+      ]
+    },
+    {
+      "id": "draft_space_opera_01_resource",
+      "kind": "Resource",
+      "label": "escort fuel",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_01",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L3"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L3"
+      ],
+      "proposal": {
+        "sourceId": "draft_space_opera_01_location",
+        "scarcity": "A patrol redeployment exposes grain ships to raiders",
+        "proposedUse": "Pool fuel for a rotating civilian escort",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_space_opera_01_edge_02",
+        "draft_space_opera_01_edge_05",
+        "draft_space_opera_01_edge_08"
+      ]
+    },
+    {
+      "id": "draft_space_opera_01_pressure",
+      "kind": "Event",
+      "label": "A patrol redeployment exposes grain ships to raiders",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_01",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L3"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L3"
+      ],
+      "proposal": {
+        "trigger": "A patrol redeployment exposes grain ships to raiders",
+        "proposedEffect": "Changes access to escort fuel",
+        "effectTargetId": "draft_space_opera_01_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_space_opera_01_edge_03",
+        "draft_space_opera_01_edge_04",
+        "draft_space_opera_01_edge_05",
+        "draft_space_opera_01_edge_09",
+        "draft_space_opera_01_edge_10",
+        "draft_space_opera_01_companion_edge_01",
+        "draft_space_opera_01_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_space_opera_01_response",
+      "kind": "Event",
+      "label": "Pool fuel for a rotating civilian escort",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_01",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L3"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L3"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Pool fuel for a rotating civilian escort",
+        "proposedEffect": "Pool fuel for a rotating civilian escort",
+        "effectTargetId": "draft_space_opera_01_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_space_opera_01_edge_06",
+        "draft_space_opera_01_edge_07",
+        "draft_space_opera_01_edge_08",
+        "draft_space_opera_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_space_opera_01_report",
+      "kind": "Knowledge",
+      "label": "The fleet announces the lane is secure",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_01",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L3"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L3"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The fleet announces the lane is secure",
+        "aboutId": "draft_space_opera_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_space_opera_01_edge_09"
+      ]
+    },
+    {
+      "id": "draft_space_opera_01_evidence",
+      "kind": "Knowledge",
+      "label": "Merchant distress times cluster after redeployment",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L3"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L3"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Merchant distress times cluster after redeployment",
+        "aboutId": "draft_space_opera_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_space_opera_01_edge_10",
+        "draft_space_opera_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_space_opera_02_entity",
+      "kind": "Entity",
+      "label": "system envoy corps",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_02",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L4"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L4"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep translation matrices usable at treaty dock",
+        "stakes": "A treaty term means tribute in one language and aid in another",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_space_opera_02_edge_01",
+        "draft_space_opera_02_edge_04",
+        "draft_space_opera_02_edge_07"
+      ]
+    },
+    {
+      "id": "draft_space_opera_02_location",
+      "kind": "Location",
+      "label": "treaty dock",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_02",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L4"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L4"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_space_opera_02_resource",
+        "conflict": "A treaty term means tribute in one language and aid in another",
+        "risk": "A treaty term means tribute in one language and aid in another"
+      },
+      "relations": [
+        "draft_space_opera_02_edge_01",
+        "draft_space_opera_02_edge_02",
+        "draft_space_opera_02_edge_03",
+        "draft_space_opera_02_edge_06"
+      ]
+    },
+    {
+      "id": "draft_space_opera_02_resource",
+      "kind": "Resource",
+      "label": "translation matrices",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_02",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L4"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L4"
+      ],
+      "proposal": {
+        "sourceId": "draft_space_opera_02_location",
+        "scarcity": "A treaty term means tribute in one language and aid in another",
+        "proposedUse": "Suspend enforcement and reconcile both originals",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_space_opera_02_edge_02",
+        "draft_space_opera_02_edge_05",
+        "draft_space_opera_02_edge_08"
+      ]
+    },
+    {
+      "id": "draft_space_opera_02_pressure",
+      "kind": "Event",
+      "label": "A treaty term means tribute in one language and aid in another",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_02",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L4"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L4"
+      ],
+      "proposal": {
+        "trigger": "A treaty term means tribute in one language and aid in another",
+        "proposedEffect": "Changes access to translation matrices",
+        "effectTargetId": "draft_space_opera_02_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_space_opera_02_edge_03",
+        "draft_space_opera_02_edge_04",
+        "draft_space_opera_02_edge_05",
+        "draft_space_opera_02_edge_09",
+        "draft_space_opera_02_edge_10",
+        "draft_space_opera_02_companion_edge_01",
+        "draft_space_opera_02_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_space_opera_02_response",
+      "kind": "Event",
+      "label": "Suspend enforcement and reconcile both originals",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_02",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L4"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L4"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Suspend enforcement and reconcile both originals",
+        "proposedEffect": "Suspend enforcement and reconcile both originals",
+        "effectTargetId": "draft_space_opera_02_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_space_opera_02_edge_06",
+        "draft_space_opera_02_edge_07",
+        "draft_space_opera_02_edge_08",
+        "draft_space_opera_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_space_opera_02_report",
+      "kind": "Knowledge",
+      "label": "Each envoy claims the other signed tribute",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_02",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L4"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L4"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Each envoy claims the other signed tribute",
+        "aboutId": "draft_space_opera_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_space_opera_02_edge_09"
+      ]
+    },
+    {
+      "id": "draft_space_opera_02_evidence",
+      "kind": "Knowledge",
+      "label": "Parallel originals use different terms",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L4"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L4"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Parallel originals use different terms",
+        "aboutId": "draft_space_opera_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_space_opera_02_edge_10",
+        "draft_space_opera_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_space_opera_03_entity",
+      "kind": "Entity",
+      "label": "moon miners union",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_03",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L5"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L5"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep oxygen canisters usable at ice moon elevator",
+        "stakes": "An elevator monopoly delays emergency oxygen",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_space_opera_03_edge_01",
+        "draft_space_opera_03_edge_04",
+        "draft_space_opera_03_edge_07"
+      ]
+    },
+    {
+      "id": "draft_space_opera_03_location",
+      "kind": "Location",
+      "label": "ice moon elevator",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_03",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L5"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L5"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_space_opera_03_resource",
+        "conflict": "An elevator monopoly delays emergency oxygen",
+        "risk": "An elevator monopoly delays emergency oxygen"
+      },
+      "relations": [
+        "draft_space_opera_03_edge_01",
+        "draft_space_opera_03_edge_02",
+        "draft_space_opera_03_edge_03",
+        "draft_space_opera_03_edge_06"
+      ]
+    },
+    {
+      "id": "draft_space_opera_03_resource",
+      "kind": "Resource",
+      "label": "oxygen canisters",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_03",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L5"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L5"
+      ],
+      "proposal": {
+        "sourceId": "draft_space_opera_03_location",
+        "scarcity": "An elevator monopoly delays emergency oxygen",
+        "proposedUse": "Open a supervised rescue lift and audit fees",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_space_opera_03_edge_02",
+        "draft_space_opera_03_edge_05",
+        "draft_space_opera_03_edge_08"
+      ]
+    },
+    {
+      "id": "draft_space_opera_03_pressure",
+      "kind": "Event",
+      "label": "An elevator monopoly delays emergency oxygen",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_03",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L5"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L5"
+      ],
+      "proposal": {
+        "trigger": "An elevator monopoly delays emergency oxygen",
+        "proposedEffect": "Changes access to oxygen canisters",
+        "effectTargetId": "draft_space_opera_03_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_space_opera_03_edge_03",
+        "draft_space_opera_03_edge_04",
+        "draft_space_opera_03_edge_05",
+        "draft_space_opera_03_edge_09",
+        "draft_space_opera_03_edge_10",
+        "draft_space_opera_03_companion_edge_01",
+        "draft_space_opera_03_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_space_opera_03_response",
+      "kind": "Event",
+      "label": "Open a supervised rescue lift and audit fees",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_03",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L5"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L5"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Open a supervised rescue lift and audit fees",
+        "proposedEffect": "Open a supervised rescue lift and audit fees",
+        "effectTargetId": "draft_space_opera_03_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_space_opera_03_edge_06",
+        "draft_space_opera_03_edge_07",
+        "draft_space_opera_03_edge_08",
+        "draft_space_opera_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_space_opera_03_report",
+      "kind": "Knowledge",
+      "label": "The operator blames storms for every delay",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_03",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L5"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L5"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The operator blames storms for every delay",
+        "aboutId": "draft_space_opera_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_space_opera_03_edge_09"
+      ]
+    },
+    {
+      "id": "draft_space_opera_03_evidence",
+      "kind": "Knowledge",
+      "label": "Dock manifests show empty lifts departed",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L5"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L5"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Dock manifests show empty lifts departed",
+        "aboutId": "draft_space_opera_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_space_opera_03_edge_10",
+        "draft_space_opera_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_space_opera_04_entity",
+      "kind": "Entity",
+      "label": "archive fleet",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_04",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L6"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L6"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep memory cores usable at drifting memorial ship",
+        "stakes": "A damaged memorial record names the wrong war victim",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_space_opera_04_edge_01",
+        "draft_space_opera_04_edge_04",
+        "draft_space_opera_04_edge_07"
+      ]
+    },
+    {
+      "id": "draft_space_opera_04_location",
+      "kind": "Location",
+      "label": "drifting memorial ship",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_04",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L6"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L6"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_space_opera_04_resource",
+        "conflict": "A damaged memorial record names the wrong war victim",
+        "risk": "A damaged memorial record names the wrong war victim"
+      },
+      "relations": [
+        "draft_space_opera_04_edge_01",
+        "draft_space_opera_04_edge_02",
+        "draft_space_opera_04_edge_03",
+        "draft_space_opera_04_edge_06"
+      ]
+    },
+    {
+      "id": "draft_space_opera_04_resource",
+      "kind": "Resource",
+      "label": "memory cores",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_04",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L6"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L6"
+      ],
+      "proposal": {
+        "sourceId": "draft_space_opera_04_location",
+        "scarcity": "A damaged memorial record names the wrong war victim",
+        "proposedUse": "Recover independent logs before public correction",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_space_opera_04_edge_02",
+        "draft_space_opera_04_edge_05",
+        "draft_space_opera_04_edge_08"
+      ]
+    },
+    {
+      "id": "draft_space_opera_04_pressure",
+      "kind": "Event",
+      "label": "A damaged memorial record names the wrong war victim",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_04",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L6"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L6"
+      ],
+      "proposal": {
+        "trigger": "A damaged memorial record names the wrong war victim",
+        "proposedEffect": "Changes access to memory cores",
+        "effectTargetId": "draft_space_opera_04_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_space_opera_04_edge_03",
+        "draft_space_opera_04_edge_04",
+        "draft_space_opera_04_edge_05",
+        "draft_space_opera_04_edge_09",
+        "draft_space_opera_04_edge_10",
+        "draft_space_opera_04_companion_edge_01",
+        "draft_space_opera_04_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_space_opera_04_response",
+      "kind": "Event",
+      "label": "Recover independent logs before public correction",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_04",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L6"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L6"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Recover independent logs before public correction",
+        "proposedEffect": "Recover independent logs before public correction",
+        "effectTargetId": "draft_space_opera_04_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_space_opera_04_edge_06",
+        "draft_space_opera_04_edge_07",
+        "draft_space_opera_04_edge_08",
+        "draft_space_opera_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_space_opera_04_report",
+      "kind": "Knowledge",
+      "label": "Families hear the old record as settled truth",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_04",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L6"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L6"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Families hear the old record as settled truth",
+        "aboutId": "draft_space_opera_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_space_opera_04_edge_09"
+      ]
+    },
+    {
+      "id": "draft_space_opera_04_evidence",
+      "kind": "Knowledge",
+      "label": "Two intact cores identify the convoy instead",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L6"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L6"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Two intact cores identify the convoy instead",
+        "aboutId": "draft_space_opera_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_space_opera_04_edge_10",
+        "draft_space_opera_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_space_opera_05_entity",
+      "kind": "Entity",
+      "label": "refugee navigators",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_05",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L7"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L7"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep survey maps usable at outer-system shelter",
+        "stakes": "A changed exclusion zone closes the shelter's supply route",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_space_opera_05_edge_01",
+        "draft_space_opera_05_edge_04",
+        "draft_space_opera_05_edge_07"
+      ]
+    },
+    {
+      "id": "draft_space_opera_05_location",
+      "kind": "Location",
+      "label": "outer-system shelter",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_05",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L7"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L7"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_space_opera_05_resource",
+        "conflict": "A changed exclusion zone closes the shelter's supply route",
+        "risk": "A changed exclusion zone closes the shelter's supply route"
+      },
+      "relations": [
+        "draft_space_opera_05_edge_01",
+        "draft_space_opera_05_edge_02",
+        "draft_space_opera_05_edge_03",
+        "draft_space_opera_05_edge_06"
+      ]
+    },
+    {
+      "id": "draft_space_opera_05_resource",
+      "kind": "Resource",
+      "label": "survey maps",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_05",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L7"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L7"
+      ],
+      "proposal": {
+        "sourceId": "draft_space_opera_05_location",
+        "scarcity": "A changed exclusion zone closes the shelter's supply route",
+        "proposedUse": "Negotiate a safe corridor using updated hazard maps",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_space_opera_05_edge_02",
+        "draft_space_opera_05_edge_05",
+        "draft_space_opera_05_edge_08"
+      ]
+    },
+    {
+      "id": "draft_space_opera_05_pressure",
+      "kind": "Event",
+      "label": "A changed exclusion zone closes the shelter's supply route",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_05",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L7"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L7"
+      ],
+      "proposal": {
+        "trigger": "A changed exclusion zone closes the shelter's supply route",
+        "proposedEffect": "Changes access to survey maps",
+        "effectTargetId": "draft_space_opera_05_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_space_opera_05_edge_03",
+        "draft_space_opera_05_edge_04",
+        "draft_space_opera_05_edge_05",
+        "draft_space_opera_05_edge_09",
+        "draft_space_opera_05_edge_10",
+        "draft_space_opera_05_companion_edge_01",
+        "draft_space_opera_05_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_space_opera_05_response",
+      "kind": "Event",
+      "label": "Negotiate a safe corridor using updated hazard maps",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_05",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L7"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L7"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Negotiate a safe corridor using updated hazard maps",
+        "proposedEffect": "Negotiate a safe corridor using updated hazard maps",
+        "effectTargetId": "draft_space_opera_05_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_space_opera_05_edge_06",
+        "draft_space_opera_05_edge_07",
+        "draft_space_opera_05_edge_08",
+        "draft_space_opera_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_space_opera_05_report",
+      "kind": "Knowledge",
+      "label": "The capital says ships can use the old corridor",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_05",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L7"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L7"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The capital says ships can use the old corridor",
+        "aboutId": "draft_space_opera_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_space_opera_05_edge_09"
+      ]
+    },
+    {
+      "id": "draft_space_opera_05_evidence",
+      "kind": "Knowledge",
+      "label": "Beacon losses mark the corridor unsafe",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L7"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L7"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Beacon losses mark the corridor unsafe",
+        "aboutId": "draft_space_opera_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_space_opera_05_edge_10",
+        "draft_space_opera_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_space_opera_01_counterparty",
+      "kind": "Entity",
+      "label": "patrol logistics officer",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_01",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L2"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L2"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Preserve fleet fuel for a classified transfer while grain escorts vanish",
+        "stakes": "A patrol redeployment exposes grain ships to raiders",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_space_opera_01_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_space_opera_01_belief_holder",
+      "kind": "Entity",
+      "label": "grain brokers",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_01",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L2"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L2"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: A published patrol map proves the lane safe",
+        "stakes": "A patrol redeployment exposes grain ships to raiders",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_space_opera_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_space_opera_01_evidence_site",
+      "kind": "Location",
+      "label": "redeployment order archive",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L2"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L2"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A patrol redeployment exposes grain ships to raiders",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_space_opera_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_space_opera_01_alternative",
+      "kind": "Event",
+      "label": "Hire merchant escorts for the grain run",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_01",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L2"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L2"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Hire merchant escorts for the grain run",
+        "costAndConsequence": "Traders raise freight rates and defense stays thin",
+        "alternativeToId": "draft_space_opera_01_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_space_opera_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_space_opera_01_additional_belief",
+      "kind": "Knowledge",
+      "label": "A published patrol map proves the lane safe",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_01",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L2"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L2"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A published patrol map proves the lane safe",
+        "aboutId": "draft_space_opera_01_pressure",
+        "holderId": "draft_space_opera_01_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_space_opera_01_companion_edge_02",
+        "draft_space_opera_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_space_opera_02_counterparty",
+      "kind": "Entity",
+      "label": "treaty interpreter",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_02",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L3"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L3"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Defend a disputed translation to keep an envoy's mandate intact",
+        "stakes": "A treaty term means tribute in one language and aid in another",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_space_opera_02_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_space_opera_02_belief_holder",
+      "kind": "Entity",
+      "label": "treaty guards",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_02",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L3"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L3"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: The signature proves the words meant the same thing",
+        "stakes": "A treaty term means tribute in one language and aid in another",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_space_opera_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_space_opera_02_evidence_site",
+      "kind": "Location",
+      "label": "parallel-language recording booth",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L3"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L3"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A treaty term means tribute in one language and aid in another",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_space_opera_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_space_opera_02_alternative",
+      "kind": "Event",
+      "label": "Convene both delegations around an annotated third text",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_02",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L3"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L3"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Convene both delegations around an annotated third text",
+        "costAndConsequence": "Enforcement pauses and both sides risk losing face",
+        "alternativeToId": "draft_space_opera_02_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_space_opera_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_space_opera_02_additional_belief",
+      "kind": "Knowledge",
+      "label": "The signature proves the words meant the same thing",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_02",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L3"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L3"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The signature proves the words meant the same thing",
+        "aboutId": "draft_space_opera_02_pressure",
+        "holderId": "draft_space_opera_02_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_space_opera_02_companion_edge_02",
+        "draft_space_opera_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_space_opera_03_counterparty",
+      "kind": "Entity",
+      "label": "elevator fee keeper",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_03",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L4"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L4"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Maintain emergency monopoly fees during an oxygen shortage",
+        "stakes": "An elevator monopoly delays emergency oxygen",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_space_opera_03_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_space_opera_03_belief_holder",
+      "kind": "Entity",
+      "label": "dock crews",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_03",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L4"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L4"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Every delayed oxygen lift was grounded by storms",
+        "stakes": "An elevator monopoly delays emergency oxygen",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_space_opera_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_space_opera_03_evidence_site",
+      "kind": "Location",
+      "label": "empty-lift departure console",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L4"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L4"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "An elevator monopoly delays emergency oxygen",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_space_opera_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_space_opera_03_alternative",
+      "kind": "Event",
+      "label": "Reserve one lift cycle for canisters under public observation",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_03",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L4"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L4"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Reserve one lift cycle for canisters under public observation",
+        "costAndConsequence": "Ore shipments slip and miners pay storage costs",
+        "alternativeToId": "draft_space_opera_03_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_space_opera_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_space_opera_03_additional_belief",
+      "kind": "Knowledge",
+      "label": "Every delayed oxygen lift was grounded by storms",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_03",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L4"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L4"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Every delayed oxygen lift was grounded by storms",
+        "aboutId": "draft_space_opera_03_pressure",
+        "holderId": "draft_space_opera_03_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_space_opera_03_companion_edge_02",
+        "draft_space_opera_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_space_opera_04_counterparty",
+      "kind": "Entity",
+      "label": "memorial archivist",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_04",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L5"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L5"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Avoid publicly withdrawing a long-standing victim record",
+        "stakes": "A damaged memorial record names the wrong war victim",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_space_opera_04_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_space_opera_04_belief_holder",
+      "kind": "Entity",
+      "label": "fleet mourners",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_04",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L5"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L5"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: One surviving core cannot correct a memorial",
+        "stakes": "A damaged memorial record names the wrong war victim",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_space_opera_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_space_opera_04_evidence_site",
+      "kind": "Location",
+      "label": "intact core comparison bay",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L5"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L5"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A damaged memorial record names the wrong war victim",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_space_opera_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_space_opera_04_alternative",
+      "kind": "Event",
+      "label": "Issue a provisional correction with linked core excerpts",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_04",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L5"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L5"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Issue a provisional correction with linked core excerpts",
+        "costAndConsequence": "Families reopen a painful inquiry and the archive loses certainty",
+        "alternativeToId": "draft_space_opera_04_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_space_opera_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_space_opera_04_additional_belief",
+      "kind": "Knowledge",
+      "label": "One surviving core cannot correct a memorial",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_04",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L5"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L5"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "One surviving core cannot correct a memorial",
+        "aboutId": "draft_space_opera_04_pressure",
+        "holderId": "draft_space_opera_04_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_space_opera_04_companion_edge_02",
+        "draft_space_opera_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_space_opera_05_counterparty",
+      "kind": "Entity",
+      "label": "exclusion-zone cartographer",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_05",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L6"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L6"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Keep the old corridor open to protect capital schedules",
+        "stakes": "A changed exclusion zone closes the shelter's supply route",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_space_opera_05_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_space_opera_05_belief_holder",
+      "kind": "Entity",
+      "label": "supply captains",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_05",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L6"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L6"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Any ship can still follow last year's lane",
+        "stakes": "A changed exclusion zone closes the shelter's supply route",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_space_opera_05_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_space_opera_05_evidence_site",
+      "kind": "Location",
+      "label": "lost-beacon survey buoy",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L6"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L6"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A changed exclusion zone closes the shelter's supply route",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_space_opera_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_space_opera_05_alternative",
+      "kind": "Event",
+      "label": "Pilot a mapped relief route around the revised boundary",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_05",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L6"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L6"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Pilot a mapped relief route around the revised boundary",
+        "costAndConsequence": "Shelter deliveries arrive late and scouts face unknown hazards",
+        "alternativeToId": "draft_space_opera_05_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_space_opera_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_space_opera_05_additional_belief",
+      "kind": "Knowledge",
+      "label": "Any ship can still follow last year's lane",
+      "scopeId": "motif_space_opera",
+      "motifId": "space_opera",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_space_opera_05",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L6"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L6"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Any ship can still follow last year's lane",
+        "aboutId": "draft_space_opera_05_pressure",
+        "holderId": "draft_space_opera_05_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_space_opera_05_companion_edge_02",
+        "draft_space_opera_05_companion_edge_03"
+      ]
+    }
+  ],
+  "structuralEdges": [
+    {
+      "id": "draft_space_opera_01_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_space_opera_01_entity",
+      "toId": "draft_space_opera_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_01:entity>location"
+    },
+    {
+      "id": "draft_space_opera_01_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_space_opera_01_location",
+      "toId": "draft_space_opera_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_01:location>resource"
+    },
+    {
+      "id": "draft_space_opera_01_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_space_opera_01_pressure",
+      "toId": "draft_space_opera_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_01:pressure>location"
+    },
+    {
+      "id": "draft_space_opera_01_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_space_opera_01_pressure",
+      "toId": "draft_space_opera_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_01:pressure>entity"
+    },
+    {
+      "id": "draft_space_opera_01_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_space_opera_01_pressure",
+      "toId": "draft_space_opera_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_01:pressure>resource"
+    },
+    {
+      "id": "draft_space_opera_01_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_space_opera_01_response",
+      "toId": "draft_space_opera_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_01:response>location"
+    },
+    {
+      "id": "draft_space_opera_01_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_space_opera_01_response",
+      "toId": "draft_space_opera_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_01:response>entity"
+    },
+    {
+      "id": "draft_space_opera_01_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_space_opera_01_response",
+      "toId": "draft_space_opera_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_01:response>resource"
+    },
+    {
+      "id": "draft_space_opera_01_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_space_opera_01_report",
+      "toId": "draft_space_opera_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_01:report>pressure"
+    },
+    {
+      "id": "draft_space_opera_01_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_space_opera_01_evidence",
+      "toId": "draft_space_opera_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_01:evidence>pressure"
+    },
+    {
+      "id": "draft_space_opera_02_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_space_opera_02_entity",
+      "toId": "draft_space_opera_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_02:entity>location"
+    },
+    {
+      "id": "draft_space_opera_02_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_space_opera_02_location",
+      "toId": "draft_space_opera_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_02:location>resource"
+    },
+    {
+      "id": "draft_space_opera_02_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_space_opera_02_pressure",
+      "toId": "draft_space_opera_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_02:pressure>location"
+    },
+    {
+      "id": "draft_space_opera_02_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_space_opera_02_pressure",
+      "toId": "draft_space_opera_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_02:pressure>entity"
+    },
+    {
+      "id": "draft_space_opera_02_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_space_opera_02_pressure",
+      "toId": "draft_space_opera_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_02:pressure>resource"
+    },
+    {
+      "id": "draft_space_opera_02_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_space_opera_02_response",
+      "toId": "draft_space_opera_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_02:response>location"
+    },
+    {
+      "id": "draft_space_opera_02_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_space_opera_02_response",
+      "toId": "draft_space_opera_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_02:response>entity"
+    },
+    {
+      "id": "draft_space_opera_02_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_space_opera_02_response",
+      "toId": "draft_space_opera_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_02:response>resource"
+    },
+    {
+      "id": "draft_space_opera_02_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_space_opera_02_report",
+      "toId": "draft_space_opera_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_02:report>pressure"
+    },
+    {
+      "id": "draft_space_opera_02_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_space_opera_02_evidence",
+      "toId": "draft_space_opera_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_02:evidence>pressure"
+    },
+    {
+      "id": "draft_space_opera_03_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_space_opera_03_entity",
+      "toId": "draft_space_opera_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_03:entity>location"
+    },
+    {
+      "id": "draft_space_opera_03_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_space_opera_03_location",
+      "toId": "draft_space_opera_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_03:location>resource"
+    },
+    {
+      "id": "draft_space_opera_03_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_space_opera_03_pressure",
+      "toId": "draft_space_opera_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_03:pressure>location"
+    },
+    {
+      "id": "draft_space_opera_03_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_space_opera_03_pressure",
+      "toId": "draft_space_opera_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_03:pressure>entity"
+    },
+    {
+      "id": "draft_space_opera_03_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_space_opera_03_pressure",
+      "toId": "draft_space_opera_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_03:pressure>resource"
+    },
+    {
+      "id": "draft_space_opera_03_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_space_opera_03_response",
+      "toId": "draft_space_opera_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_03:response>location"
+    },
+    {
+      "id": "draft_space_opera_03_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_space_opera_03_response",
+      "toId": "draft_space_opera_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_03:response>entity"
+    },
+    {
+      "id": "draft_space_opera_03_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_space_opera_03_response",
+      "toId": "draft_space_opera_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_03:response>resource"
+    },
+    {
+      "id": "draft_space_opera_03_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_space_opera_03_report",
+      "toId": "draft_space_opera_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_03:report>pressure"
+    },
+    {
+      "id": "draft_space_opera_03_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_space_opera_03_evidence",
+      "toId": "draft_space_opera_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_03:evidence>pressure"
+    },
+    {
+      "id": "draft_space_opera_04_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_space_opera_04_entity",
+      "toId": "draft_space_opera_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_04:entity>location"
+    },
+    {
+      "id": "draft_space_opera_04_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_space_opera_04_location",
+      "toId": "draft_space_opera_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_04:location>resource"
+    },
+    {
+      "id": "draft_space_opera_04_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_space_opera_04_pressure",
+      "toId": "draft_space_opera_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_04:pressure>location"
+    },
+    {
+      "id": "draft_space_opera_04_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_space_opera_04_pressure",
+      "toId": "draft_space_opera_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_04:pressure>entity"
+    },
+    {
+      "id": "draft_space_opera_04_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_space_opera_04_pressure",
+      "toId": "draft_space_opera_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_04:pressure>resource"
+    },
+    {
+      "id": "draft_space_opera_04_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_space_opera_04_response",
+      "toId": "draft_space_opera_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_04:response>location"
+    },
+    {
+      "id": "draft_space_opera_04_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_space_opera_04_response",
+      "toId": "draft_space_opera_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_04:response>entity"
+    },
+    {
+      "id": "draft_space_opera_04_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_space_opera_04_response",
+      "toId": "draft_space_opera_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_04:response>resource"
+    },
+    {
+      "id": "draft_space_opera_04_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_space_opera_04_report",
+      "toId": "draft_space_opera_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_04:report>pressure"
+    },
+    {
+      "id": "draft_space_opera_04_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_space_opera_04_evidence",
+      "toId": "draft_space_opera_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_04:evidence>pressure"
+    },
+    {
+      "id": "draft_space_opera_05_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_space_opera_05_entity",
+      "toId": "draft_space_opera_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_05:entity>location"
+    },
+    {
+      "id": "draft_space_opera_05_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_space_opera_05_location",
+      "toId": "draft_space_opera_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_05:location>resource"
+    },
+    {
+      "id": "draft_space_opera_05_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_space_opera_05_pressure",
+      "toId": "draft_space_opera_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_05:pressure>location"
+    },
+    {
+      "id": "draft_space_opera_05_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_space_opera_05_pressure",
+      "toId": "draft_space_opera_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_05:pressure>entity"
+    },
+    {
+      "id": "draft_space_opera_05_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_space_opera_05_pressure",
+      "toId": "draft_space_opera_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_05:pressure>resource"
+    },
+    {
+      "id": "draft_space_opera_05_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_space_opera_05_response",
+      "toId": "draft_space_opera_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_05:response>location"
+    },
+    {
+      "id": "draft_space_opera_05_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_space_opera_05_response",
+      "toId": "draft_space_opera_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_05:response>entity"
+    },
+    {
+      "id": "draft_space_opera_05_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_space_opera_05_response",
+      "toId": "draft_space_opera_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_05:response>resource"
+    },
+    {
+      "id": "draft_space_opera_05_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_space_opera_05_report",
+      "toId": "draft_space_opera_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_05:report>pressure"
+    },
+    {
+      "id": "draft_space_opera_05_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_space_opera_05_evidence",
+      "toId": "draft_space_opera_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_space_opera_05:evidence>pressure"
+    },
+    {
+      "id": "draft_space_opera_01_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_space_opera_01_pressure",
+      "toId": "draft_space_opera_01_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L2"
+    },
+    {
+      "id": "draft_space_opera_01_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_space_opera_01_additional_belief",
+      "toId": "draft_space_opera_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L2"
+    },
+    {
+      "id": "draft_space_opera_01_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_space_opera_01_additional_belief",
+      "toId": "draft_space_opera_01_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L2"
+    },
+    {
+      "id": "draft_space_opera_01_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_space_opera_01_evidence_site",
+      "toId": "draft_space_opera_01_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L2"
+    },
+    {
+      "id": "draft_space_opera_01_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_space_opera_01_alternative",
+      "toId": "draft_space_opera_01_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L2"
+    },
+    {
+      "id": "draft_space_opera_02_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_space_opera_02_pressure",
+      "toId": "draft_space_opera_02_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L3"
+    },
+    {
+      "id": "draft_space_opera_02_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_space_opera_02_additional_belief",
+      "toId": "draft_space_opera_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L3"
+    },
+    {
+      "id": "draft_space_opera_02_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_space_opera_02_additional_belief",
+      "toId": "draft_space_opera_02_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L3"
+    },
+    {
+      "id": "draft_space_opera_02_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_space_opera_02_evidence_site",
+      "toId": "draft_space_opera_02_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L3"
+    },
+    {
+      "id": "draft_space_opera_02_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_space_opera_02_alternative",
+      "toId": "draft_space_opera_02_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L3"
+    },
+    {
+      "id": "draft_space_opera_03_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_space_opera_03_pressure",
+      "toId": "draft_space_opera_03_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L4"
+    },
+    {
+      "id": "draft_space_opera_03_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_space_opera_03_additional_belief",
+      "toId": "draft_space_opera_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L4"
+    },
+    {
+      "id": "draft_space_opera_03_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_space_opera_03_additional_belief",
+      "toId": "draft_space_opera_03_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L4"
+    },
+    {
+      "id": "draft_space_opera_03_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_space_opera_03_evidence_site",
+      "toId": "draft_space_opera_03_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L4"
+    },
+    {
+      "id": "draft_space_opera_03_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_space_opera_03_alternative",
+      "toId": "draft_space_opera_03_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L4"
+    },
+    {
+      "id": "draft_space_opera_04_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_space_opera_04_pressure",
+      "toId": "draft_space_opera_04_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L5"
+    },
+    {
+      "id": "draft_space_opera_04_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_space_opera_04_additional_belief",
+      "toId": "draft_space_opera_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L5"
+    },
+    {
+      "id": "draft_space_opera_04_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_space_opera_04_additional_belief",
+      "toId": "draft_space_opera_04_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L5"
+    },
+    {
+      "id": "draft_space_opera_04_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_space_opera_04_evidence_site",
+      "toId": "draft_space_opera_04_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L5"
+    },
+    {
+      "id": "draft_space_opera_04_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_space_opera_04_alternative",
+      "toId": "draft_space_opera_04_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L5"
+    },
+    {
+      "id": "draft_space_opera_05_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_space_opera_05_pressure",
+      "toId": "draft_space_opera_05_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L6"
+    },
+    {
+      "id": "draft_space_opera_05_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_space_opera_05_additional_belief",
+      "toId": "draft_space_opera_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L6"
+    },
+    {
+      "id": "draft_space_opera_05_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_space_opera_05_additional_belief",
+      "toId": "draft_space_opera_05_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L6"
+    },
+    {
+      "id": "draft_space_opera_05_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_space_opera_05_evidence_site",
+      "toId": "draft_space_opera_05_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L6"
+    },
+    {
+      "id": "draft_space_opera_05_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_space_opera_05_alternative",
+      "toId": "draft_space_opera_05_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L6"
+    }
+  ],
+  "proposedCausalLinks": [
+    {
+      "id": "draft_space_opera_01_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_space_opera_01_pressure",
+      "toId": "draft_space_opera_01_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_space_opera_01_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_space_opera_01_evidence",
+      "toId": "draft_space_opera_01_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_space_opera_02_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_space_opera_02_pressure",
+      "toId": "draft_space_opera_02_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_space_opera_02_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_space_opera_02_evidence",
+      "toId": "draft_space_opera_02_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_space_opera_03_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_space_opera_03_pressure",
+      "toId": "draft_space_opera_03_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_space_opera_03_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_space_opera_03_evidence",
+      "toId": "draft_space_opera_03_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_space_opera_04_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_space_opera_04_pressure",
+      "toId": "draft_space_opera_04_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_space_opera_04_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_space_opera_04_evidence",
+      "toId": "draft_space_opera_04_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_space_opera_05_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_space_opera_05_pressure",
+      "toId": "draft_space_opera_05_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_space_opera_05_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_space_opera_05_evidence",
+      "toId": "draft_space_opera_05_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    }
+  ]
+}

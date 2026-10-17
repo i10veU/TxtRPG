@@ -1,0 +1,3079 @@
+{
+  "schema": "world-node-drafts/v1",
+  "status": "Draft",
+  "runtime": false,
+  "scope": {
+    "id": "motif_fantasy",
+    "label": "판타지",
+    "kind": "genre-or-structure proposal; not a world definition"
+  },
+  "canonImpact": "none; no Draft item is accepted game setting",
+  "sourceRefs": [
+    "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+    "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+    "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft"
+  ],
+  "fronts": [
+    {
+      "id": "draft_fantasy_01",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A neglected oath closes the ford during a harvest crossing",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A neglected oath closes the ford during a harvest crossing",
+      "authoredIntervention": "Hear both banks and renew a public crossing accord",
+      "initialReport": "One bank says the other broke the rope first",
+      "verificationCandidate": "Knots preserved upstream date the cut",
+      "alternativeInterventions": "Re-tie the ford under witnesses from both banks",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L21",
+        "docs/v2/world-node-drafts/companion-a.txt#L17"
+      ],
+      "semanticSignature": "a neglected oath closes the ford during a harvest crossing hear both banks and renew a public crossing accord ferry ropes one bank says the other broke the rope first knots preserved upstream date the cut",
+      "nodeIds": [
+        "draft_fantasy_01_entity",
+        "draft_fantasy_01_location",
+        "draft_fantasy_01_resource",
+        "draft_fantasy_01_pressure",
+        "draft_fantasy_01_response",
+        "draft_fantasy_01_report",
+        "draft_fantasy_01_evidence",
+        "draft_fantasy_01_counterparty",
+        "draft_fantasy_01_belief_holder",
+        "draft_fantasy_01_evidence_site",
+        "draft_fantasy_01_alternative",
+        "draft_fantasy_01_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Harvest carts wait for a shared inspection",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_fantasy_01_counterparty",
+        "evidenceSiteId": "draft_fantasy_01_evidence_site",
+        "alternativeEventId": "draft_fantasy_01_alternative",
+        "additionalBeliefId": "draft_fantasy_01_additional_belief",
+        "beliefHolderId": "draft_fantasy_01_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L17"
+      }
+    },
+    {
+      "id": "draft_fantasy_02",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A blight spreads through a grove supplying winter salves",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A blight spreads through a grove supplying winter salves",
+      "authoredIntervention": "Quarantine the affected beds and share clean cuttings",
+      "initialReport": "Merchants say all moss is lost",
+      "verificationCandidate": "Fresh growth survives outside the blight line",
+      "alternativeInterventions": "Quarantine the blight and cultivate surviving moss",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L22",
+        "docs/v2/world-node-drafts/companion-a.txt#L18"
+      ],
+      "semanticSignature": "a blight spreads through a grove supplying winter salves quarantine the affected beds and share clean cuttings healing moss merchants say all moss is lost fresh growth survives outside the blight line",
+      "nodeIds": [
+        "draft_fantasy_02_entity",
+        "draft_fantasy_02_location",
+        "draft_fantasy_02_resource",
+        "draft_fantasy_02_pressure",
+        "draft_fantasy_02_response",
+        "draft_fantasy_02_report",
+        "draft_fantasy_02_evidence",
+        "draft_fantasy_02_counterparty",
+        "draft_fantasy_02_belief_holder",
+        "draft_fantasy_02_evidence_site",
+        "draft_fantasy_02_alternative",
+        "draft_fantasy_02_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Winter salves arrive later and gardens lose growing space",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_fantasy_02_counterparty",
+        "evidenceSiteId": "draft_fantasy_02_evidence_site",
+        "alternativeEventId": "draft_fantasy_02_alternative",
+        "additionalBeliefId": "draft_fantasy_02_additional_belief",
+        "beliefHolderId": "draft_fantasy_02_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L18"
+      }
+    },
+    {
+      "id": "draft_fantasy_03",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A beacon goes dark before a caravan's return",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A beacon goes dark before a caravan's return",
+      "authoredIntervention": "Relight the post and trace who drained its oil",
+      "initialReport": "The watch blames rain in the lens",
+      "verificationCandidate": "The empty oil cask has a fresh seal",
+      "alternativeInterventions": "Send a mounted guide to meet the caravan while the beacon is refilled",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L23",
+        "docs/v2/world-node-drafts/companion-a.txt#L19"
+      ],
+      "semanticSignature": "a beacon goes dark before a caravan s return relight the post and trace who drained its oil signal oil the watch blames rain in the lens the empty oil cask has a fresh seal",
+      "nodeIds": [
+        "draft_fantasy_03_entity",
+        "draft_fantasy_03_location",
+        "draft_fantasy_03_resource",
+        "draft_fantasy_03_pressure",
+        "draft_fantasy_03_response",
+        "draft_fantasy_03_report",
+        "draft_fantasy_03_evidence",
+        "draft_fantasy_03_counterparty",
+        "draft_fantasy_03_belief_holder",
+        "draft_fantasy_03_evidence_site",
+        "draft_fantasy_03_alternative",
+        "draft_fantasy_03_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "The road watch loses a rider for the night",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_fantasy_03_counterparty",
+        "evidenceSiteId": "draft_fantasy_03_evidence_site",
+        "alternativeEventId": "draft_fantasy_03_alternative",
+        "additionalBeliefId": "draft_fantasy_03_additional_belief",
+        "beliefHolderId": "draft_fantasy_03_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L19"
+      }
+    },
+    {
+      "id": "draft_fantasy_04",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A protective weave fails near an abandoned well",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A protective weave fails near an abandoned well",
+      "authoredIntervention": "Test the pattern against the well before selling replacements",
+      "initialReport": "The weavers claim the well itself moved",
+      "verificationCandidate": "Two dated patterns differ at one binding knot",
+      "alternativeInterventions": "Replace the single failed binding before restoring the whole veil",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L24",
+        "docs/v2/world-node-drafts/companion-a.txt#L20"
+      ],
+      "semanticSignature": "a protective weave fails near an abandoned well test the pattern against the well before selling replacements silver thread the weavers claim the well itself moved two dated patterns differ at one binding knot",
+      "nodeIds": [
+        "draft_fantasy_04_entity",
+        "draft_fantasy_04_location",
+        "draft_fantasy_04_resource",
+        "draft_fantasy_04_pressure",
+        "draft_fantasy_04_response",
+        "draft_fantasy_04_report",
+        "draft_fantasy_04_evidence",
+        "draft_fantasy_04_counterparty",
+        "draft_fantasy_04_belief_holder",
+        "draft_fantasy_04_evidence_site",
+        "draft_fantasy_04_alternative",
+        "draft_fantasy_04_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "The surrounding ward stays weak during repair",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_fantasy_04_counterparty",
+        "evidenceSiteId": "draft_fantasy_04_evidence_site",
+        "alternativeEventId": "draft_fantasy_04_alternative",
+        "additionalBeliefId": "draft_fantasy_04_additional_belief",
+        "beliefHolderId": "draft_fantasy_04_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L20"
+      }
+    },
+    {
+      "id": "draft_fantasy_05",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A tax collector hoards salt as village stores run low",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A tax collector hoards salt as village stores run low",
+      "authoredIntervention": "Open the public scales and release the surplus under receipt",
+      "initialReport": "The collector reports an empty warehouse",
+      "verificationCandidate": "Scale dust and receipts show an uncounted stack",
+      "alternativeInterventions": "Release a measured ration against public receipts",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L25",
+        "docs/v2/world-node-drafts/companion-a.txt#L21"
+      ],
+      "semanticSignature": "a tax collector hoards salt as village stores run low open the public scales and release the surplus under receipt salt sacks the collector reports an empty warehouse scale dust and receipts show an uncounted stack",
+      "nodeIds": [
+        "draft_fantasy_05_entity",
+        "draft_fantasy_05_location",
+        "draft_fantasy_05_resource",
+        "draft_fantasy_05_pressure",
+        "draft_fantasy_05_response",
+        "draft_fantasy_05_report",
+        "draft_fantasy_05_evidence",
+        "draft_fantasy_05_counterparty",
+        "draft_fantasy_05_belief_holder",
+        "draft_fantasy_05_evidence_site",
+        "draft_fantasy_05_alternative",
+        "draft_fantasy_05_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Merchants lose immediate sales and stewards must guard distribution",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_fantasy_05_counterparty",
+        "evidenceSiteId": "draft_fantasy_05_evidence_site",
+        "alternativeEventId": "draft_fantasy_05_alternative",
+        "additionalBeliefId": "draft_fantasy_05_additional_belief",
+        "beliefHolderId": "draft_fantasy_05_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L21"
+      }
+    }
+  ],
+  "nodes": [
+    {
+      "id": "draft_fantasy_01_entity",
+      "kind": "Entity",
+      "label": "river oathkeepers",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_01",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L21"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L21"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep ferry ropes usable at reed ford",
+        "stakes": "A neglected oath closes the ford during a harvest crossing",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_fantasy_01_edge_01",
+        "draft_fantasy_01_edge_04",
+        "draft_fantasy_01_edge_07"
+      ]
+    },
+    {
+      "id": "draft_fantasy_01_location",
+      "kind": "Location",
+      "label": "reed ford",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_01",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L21"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L21"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_fantasy_01_resource",
+        "conflict": "A neglected oath closes the ford during a harvest crossing",
+        "risk": "A neglected oath closes the ford during a harvest crossing"
+      },
+      "relations": [
+        "draft_fantasy_01_edge_01",
+        "draft_fantasy_01_edge_02",
+        "draft_fantasy_01_edge_03",
+        "draft_fantasy_01_edge_06"
+      ]
+    },
+    {
+      "id": "draft_fantasy_01_resource",
+      "kind": "Resource",
+      "label": "ferry ropes",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_01",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L21"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L21"
+      ],
+      "proposal": {
+        "sourceId": "draft_fantasy_01_location",
+        "scarcity": "A neglected oath closes the ford during a harvest crossing",
+        "proposedUse": "Hear both banks and renew a public crossing accord",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_fantasy_01_edge_02",
+        "draft_fantasy_01_edge_05",
+        "draft_fantasy_01_edge_08"
+      ]
+    },
+    {
+      "id": "draft_fantasy_01_pressure",
+      "kind": "Event",
+      "label": "A neglected oath closes the ford during a harvest crossing",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_01",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L21"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L21"
+      ],
+      "proposal": {
+        "trigger": "A neglected oath closes the ford during a harvest crossing",
+        "proposedEffect": "Changes access to ferry ropes",
+        "effectTargetId": "draft_fantasy_01_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_fantasy_01_edge_03",
+        "draft_fantasy_01_edge_04",
+        "draft_fantasy_01_edge_05",
+        "draft_fantasy_01_edge_09",
+        "draft_fantasy_01_edge_10",
+        "draft_fantasy_01_companion_edge_01",
+        "draft_fantasy_01_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_fantasy_01_response",
+      "kind": "Event",
+      "label": "Hear both banks and renew a public crossing accord",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_01",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L21"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L21"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Hear both banks and renew a public crossing accord",
+        "proposedEffect": "Hear both banks and renew a public crossing accord",
+        "effectTargetId": "draft_fantasy_01_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_fantasy_01_edge_06",
+        "draft_fantasy_01_edge_07",
+        "draft_fantasy_01_edge_08",
+        "draft_fantasy_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_fantasy_01_report",
+      "kind": "Knowledge",
+      "label": "One bank says the other broke the rope first",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_01",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L21"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L21"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "One bank says the other broke the rope first",
+        "aboutId": "draft_fantasy_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_fantasy_01_edge_09"
+      ]
+    },
+    {
+      "id": "draft_fantasy_01_evidence",
+      "kind": "Knowledge",
+      "label": "Knots preserved upstream date the cut",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L21"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L21"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Knots preserved upstream date the cut",
+        "aboutId": "draft_fantasy_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_fantasy_01_edge_10",
+        "draft_fantasy_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_fantasy_02_entity",
+      "kind": "Entity",
+      "label": "herbalist circle",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_02",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L22"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L22"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep healing moss usable at moss orchard",
+        "stakes": "A blight spreads through a grove supplying winter salves",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_fantasy_02_edge_01",
+        "draft_fantasy_02_edge_04",
+        "draft_fantasy_02_edge_07"
+      ]
+    },
+    {
+      "id": "draft_fantasy_02_location",
+      "kind": "Location",
+      "label": "moss orchard",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_02",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L22"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L22"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_fantasy_02_resource",
+        "conflict": "A blight spreads through a grove supplying winter salves",
+        "risk": "A blight spreads through a grove supplying winter salves"
+      },
+      "relations": [
+        "draft_fantasy_02_edge_01",
+        "draft_fantasy_02_edge_02",
+        "draft_fantasy_02_edge_03",
+        "draft_fantasy_02_edge_06"
+      ]
+    },
+    {
+      "id": "draft_fantasy_02_resource",
+      "kind": "Resource",
+      "label": "healing moss",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_02",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L22"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L22"
+      ],
+      "proposal": {
+        "sourceId": "draft_fantasy_02_location",
+        "scarcity": "A blight spreads through a grove supplying winter salves",
+        "proposedUse": "Quarantine the affected beds and share clean cuttings",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_fantasy_02_edge_02",
+        "draft_fantasy_02_edge_05",
+        "draft_fantasy_02_edge_08"
+      ]
+    },
+    {
+      "id": "draft_fantasy_02_pressure",
+      "kind": "Event",
+      "label": "A blight spreads through a grove supplying winter salves",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_02",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L22"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L22"
+      ],
+      "proposal": {
+        "trigger": "A blight spreads through a grove supplying winter salves",
+        "proposedEffect": "Changes access to healing moss",
+        "effectTargetId": "draft_fantasy_02_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_fantasy_02_edge_03",
+        "draft_fantasy_02_edge_04",
+        "draft_fantasy_02_edge_05",
+        "draft_fantasy_02_edge_09",
+        "draft_fantasy_02_edge_10",
+        "draft_fantasy_02_companion_edge_01",
+        "draft_fantasy_02_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_fantasy_02_response",
+      "kind": "Event",
+      "label": "Quarantine the affected beds and share clean cuttings",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_02",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L22"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L22"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Quarantine the affected beds and share clean cuttings",
+        "proposedEffect": "Quarantine the affected beds and share clean cuttings",
+        "effectTargetId": "draft_fantasy_02_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_fantasy_02_edge_06",
+        "draft_fantasy_02_edge_07",
+        "draft_fantasy_02_edge_08",
+        "draft_fantasy_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_fantasy_02_report",
+      "kind": "Knowledge",
+      "label": "Merchants say all moss is lost",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_02",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L22"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L22"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Merchants say all moss is lost",
+        "aboutId": "draft_fantasy_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_fantasy_02_edge_09"
+      ]
+    },
+    {
+      "id": "draft_fantasy_02_evidence",
+      "kind": "Knowledge",
+      "label": "Fresh growth survives outside the blight line",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L22"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L22"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Fresh growth survives outside the blight line",
+        "aboutId": "draft_fantasy_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_fantasy_02_edge_10",
+        "draft_fantasy_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_fantasy_03_entity",
+      "kind": "Entity",
+      "label": "watch of the old road",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_03",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L23"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L23"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep signal oil usable at stone milepost",
+        "stakes": "A beacon goes dark before a caravan's return",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_fantasy_03_edge_01",
+        "draft_fantasy_03_edge_04",
+        "draft_fantasy_03_edge_07"
+      ]
+    },
+    {
+      "id": "draft_fantasy_03_location",
+      "kind": "Location",
+      "label": "stone milepost",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_03",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L23"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L23"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_fantasy_03_resource",
+        "conflict": "A beacon goes dark before a caravan's return",
+        "risk": "A beacon goes dark before a caravan's return"
+      },
+      "relations": [
+        "draft_fantasy_03_edge_01",
+        "draft_fantasy_03_edge_02",
+        "draft_fantasy_03_edge_03",
+        "draft_fantasy_03_edge_06"
+      ]
+    },
+    {
+      "id": "draft_fantasy_03_resource",
+      "kind": "Resource",
+      "label": "signal oil",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_03",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L23"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L23"
+      ],
+      "proposal": {
+        "sourceId": "draft_fantasy_03_location",
+        "scarcity": "A beacon goes dark before a caravan's return",
+        "proposedUse": "Relight the post and trace who drained its oil",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_fantasy_03_edge_02",
+        "draft_fantasy_03_edge_05",
+        "draft_fantasy_03_edge_08"
+      ]
+    },
+    {
+      "id": "draft_fantasy_03_pressure",
+      "kind": "Event",
+      "label": "A beacon goes dark before a caravan's return",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_03",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L23"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L23"
+      ],
+      "proposal": {
+        "trigger": "A beacon goes dark before a caravan's return",
+        "proposedEffect": "Changes access to signal oil",
+        "effectTargetId": "draft_fantasy_03_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_fantasy_03_edge_03",
+        "draft_fantasy_03_edge_04",
+        "draft_fantasy_03_edge_05",
+        "draft_fantasy_03_edge_09",
+        "draft_fantasy_03_edge_10",
+        "draft_fantasy_03_companion_edge_01",
+        "draft_fantasy_03_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_fantasy_03_response",
+      "kind": "Event",
+      "label": "Relight the post and trace who drained its oil",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_03",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L23"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L23"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Relight the post and trace who drained its oil",
+        "proposedEffect": "Relight the post and trace who drained its oil",
+        "effectTargetId": "draft_fantasy_03_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_fantasy_03_edge_06",
+        "draft_fantasy_03_edge_07",
+        "draft_fantasy_03_edge_08",
+        "draft_fantasy_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_fantasy_03_report",
+      "kind": "Knowledge",
+      "label": "The watch blames rain in the lens",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_03",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L23"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L23"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The watch blames rain in the lens",
+        "aboutId": "draft_fantasy_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_fantasy_03_edge_09"
+      ]
+    },
+    {
+      "id": "draft_fantasy_03_evidence",
+      "kind": "Knowledge",
+      "label": "The empty oil cask has a fresh seal",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L23"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L23"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "The empty oil cask has a fresh seal",
+        "aboutId": "draft_fantasy_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_fantasy_03_edge_10",
+        "draft_fantasy_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_fantasy_04_entity",
+      "kind": "Entity",
+      "label": "weavers of the veil",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_04",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L24"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L24"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep silver thread usable at hill loomhouse",
+        "stakes": "A protective weave fails near an abandoned well",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_fantasy_04_edge_01",
+        "draft_fantasy_04_edge_04",
+        "draft_fantasy_04_edge_07"
+      ]
+    },
+    {
+      "id": "draft_fantasy_04_location",
+      "kind": "Location",
+      "label": "hill loomhouse",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_04",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L24"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L24"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_fantasy_04_resource",
+        "conflict": "A protective weave fails near an abandoned well",
+        "risk": "A protective weave fails near an abandoned well"
+      },
+      "relations": [
+        "draft_fantasy_04_edge_01",
+        "draft_fantasy_04_edge_02",
+        "draft_fantasy_04_edge_03",
+        "draft_fantasy_04_edge_06"
+      ]
+    },
+    {
+      "id": "draft_fantasy_04_resource",
+      "kind": "Resource",
+      "label": "silver thread",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_04",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L24"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L24"
+      ],
+      "proposal": {
+        "sourceId": "draft_fantasy_04_location",
+        "scarcity": "A protective weave fails near an abandoned well",
+        "proposedUse": "Test the pattern against the well before selling replacements",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_fantasy_04_edge_02",
+        "draft_fantasy_04_edge_05",
+        "draft_fantasy_04_edge_08"
+      ]
+    },
+    {
+      "id": "draft_fantasy_04_pressure",
+      "kind": "Event",
+      "label": "A protective weave fails near an abandoned well",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_04",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L24"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L24"
+      ],
+      "proposal": {
+        "trigger": "A protective weave fails near an abandoned well",
+        "proposedEffect": "Changes access to silver thread",
+        "effectTargetId": "draft_fantasy_04_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_fantasy_04_edge_03",
+        "draft_fantasy_04_edge_04",
+        "draft_fantasy_04_edge_05",
+        "draft_fantasy_04_edge_09",
+        "draft_fantasy_04_edge_10",
+        "draft_fantasy_04_companion_edge_01",
+        "draft_fantasy_04_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_fantasy_04_response",
+      "kind": "Event",
+      "label": "Test the pattern against the well before selling replacements",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_04",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L24"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L24"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Test the pattern against the well before selling replacements",
+        "proposedEffect": "Test the pattern against the well before selling replacements",
+        "effectTargetId": "draft_fantasy_04_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_fantasy_04_edge_06",
+        "draft_fantasy_04_edge_07",
+        "draft_fantasy_04_edge_08",
+        "draft_fantasy_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_fantasy_04_report",
+      "kind": "Knowledge",
+      "label": "The weavers claim the well itself moved",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_04",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L24"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L24"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The weavers claim the well itself moved",
+        "aboutId": "draft_fantasy_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_fantasy_04_edge_09"
+      ]
+    },
+    {
+      "id": "draft_fantasy_04_evidence",
+      "kind": "Knowledge",
+      "label": "Two dated patterns differ at one binding knot",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L24"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L24"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Two dated patterns differ at one binding knot",
+        "aboutId": "draft_fantasy_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_fantasy_04_edge_10",
+        "draft_fantasy_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_fantasy_05_entity",
+      "kind": "Entity",
+      "label": "market stewards",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_05",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L25"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L25"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep salt sacks usable at autumn fairground",
+        "stakes": "A tax collector hoards salt as village stores run low",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_fantasy_05_edge_01",
+        "draft_fantasy_05_edge_04",
+        "draft_fantasy_05_edge_07"
+      ]
+    },
+    {
+      "id": "draft_fantasy_05_location",
+      "kind": "Location",
+      "label": "autumn fairground",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_05",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L25"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L25"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_fantasy_05_resource",
+        "conflict": "A tax collector hoards salt as village stores run low",
+        "risk": "A tax collector hoards salt as village stores run low"
+      },
+      "relations": [
+        "draft_fantasy_05_edge_01",
+        "draft_fantasy_05_edge_02",
+        "draft_fantasy_05_edge_03",
+        "draft_fantasy_05_edge_06"
+      ]
+    },
+    {
+      "id": "draft_fantasy_05_resource",
+      "kind": "Resource",
+      "label": "salt sacks",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_05",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L25"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L25"
+      ],
+      "proposal": {
+        "sourceId": "draft_fantasy_05_location",
+        "scarcity": "A tax collector hoards salt as village stores run low",
+        "proposedUse": "Open the public scales and release the surplus under receipt",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_fantasy_05_edge_02",
+        "draft_fantasy_05_edge_05",
+        "draft_fantasy_05_edge_08"
+      ]
+    },
+    {
+      "id": "draft_fantasy_05_pressure",
+      "kind": "Event",
+      "label": "A tax collector hoards salt as village stores run low",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_05",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L25"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L25"
+      ],
+      "proposal": {
+        "trigger": "A tax collector hoards salt as village stores run low",
+        "proposedEffect": "Changes access to salt sacks",
+        "effectTargetId": "draft_fantasy_05_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_fantasy_05_edge_03",
+        "draft_fantasy_05_edge_04",
+        "draft_fantasy_05_edge_05",
+        "draft_fantasy_05_edge_09",
+        "draft_fantasy_05_edge_10",
+        "draft_fantasy_05_companion_edge_01",
+        "draft_fantasy_05_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_fantasy_05_response",
+      "kind": "Event",
+      "label": "Open the public scales and release the surplus under receipt",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_05",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L25"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L25"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Open the public scales and release the surplus under receipt",
+        "proposedEffect": "Open the public scales and release the surplus under receipt",
+        "effectTargetId": "draft_fantasy_05_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_fantasy_05_edge_06",
+        "draft_fantasy_05_edge_07",
+        "draft_fantasy_05_edge_08",
+        "draft_fantasy_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_fantasy_05_report",
+      "kind": "Knowledge",
+      "label": "The collector reports an empty warehouse",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_05",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L25"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L25"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The collector reports an empty warehouse",
+        "aboutId": "draft_fantasy_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_fantasy_05_edge_09"
+      ]
+    },
+    {
+      "id": "draft_fantasy_05_evidence",
+      "kind": "Knowledge",
+      "label": "Scale dust and receipts show an uncounted stack",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L25"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L25"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Scale dust and receipts show an uncounted stack",
+        "aboutId": "draft_fantasy_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_fantasy_05_edge_10",
+        "draft_fantasy_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_fantasy_01_counterparty",
+      "kind": "Entity",
+      "label": "far-bank rope master",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_01",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L17"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L17"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Keep toll authority by blaming the opposite bank for a cut",
+        "stakes": "A neglected oath closes the ford during a harvest crossing",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_fantasy_01_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_fantasy_01_belief_holder",
+      "kind": "Entity",
+      "label": "far-bank elders",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_01",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L17"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L17"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: An oath holds only if one bank yields first",
+        "stakes": "A neglected oath closes the ford during a harvest crossing",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_fantasy_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_fantasy_01_evidence_site",
+      "kind": "Location",
+      "label": "upstream knot shelter",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L17"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L17"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A neglected oath closes the ford during a harvest crossing",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_fantasy_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_fantasy_01_alternative",
+      "kind": "Event",
+      "label": "Re-tie the ford under witnesses from both banks",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_01",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L17"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L17"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Re-tie the ford under witnesses from both banks",
+        "costAndConsequence": "Harvest carts wait for a shared inspection",
+        "alternativeToId": "draft_fantasy_01_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_fantasy_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_fantasy_01_additional_belief",
+      "kind": "Knowledge",
+      "label": "An oath holds only if one bank yields first",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_01",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L17"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L17"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "An oath holds only if one bank yields first",
+        "aboutId": "draft_fantasy_01_pressure",
+        "holderId": "draft_fantasy_01_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_fantasy_01_companion_edge_02",
+        "draft_fantasy_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_fantasy_02_counterparty",
+      "kind": "Entity",
+      "label": "winter salve buyer",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_02",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L18"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L18"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Buy the remaining moss cheaply under a total-loss claim",
+        "stakes": "A blight spreads through a grove supplying winter salves",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_fantasy_02_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_fantasy_02_belief_holder",
+      "kind": "Entity",
+      "label": "foragers",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_02",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L18"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L18"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Unmarked moss is safe to gather now",
+        "stakes": "A blight spreads through a grove supplying winter salves",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_fantasy_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_fantasy_02_evidence_site",
+      "kind": "Location",
+      "label": "outer grove nursery",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L18"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L18"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A blight spreads through a grove supplying winter salves",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_fantasy_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_fantasy_02_alternative",
+      "kind": "Event",
+      "label": "Quarantine the blight and cultivate surviving moss",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_02",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L18"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L18"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Quarantine the blight and cultivate surviving moss",
+        "costAndConsequence": "Winter salves arrive later and gardens lose growing space",
+        "alternativeToId": "draft_fantasy_02_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_fantasy_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_fantasy_02_additional_belief",
+      "kind": "Knowledge",
+      "label": "Unmarked moss is safe to gather now",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_02",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L18"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L18"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Unmarked moss is safe to gather now",
+        "aboutId": "draft_fantasy_02_pressure",
+        "holderId": "draft_fantasy_02_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_fantasy_02_companion_edge_02",
+        "draft_fantasy_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_fantasy_03_counterparty",
+      "kind": "Entity",
+      "label": "lantern supplier",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_03",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L19"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L19"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Avoid liability for a sealed empty oil cask",
+        "stakes": "A beacon goes dark before a caravan's return",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_fantasy_03_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_fantasy_03_belief_holder",
+      "kind": "Entity",
+      "label": "returning drivers",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_03",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L19"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L19"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: The beacon failed only when rain reached its lens",
+        "stakes": "A beacon goes dark before a caravan's return",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_fantasy_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_fantasy_03_evidence_site",
+      "kind": "Location",
+      "label": "beacon supply shed",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L19"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L19"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A beacon goes dark before a caravan's return",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_fantasy_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_fantasy_03_alternative",
+      "kind": "Event",
+      "label": "Send a mounted guide to meet the caravan while the beacon is refilled",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_03",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L19"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L19"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Send a mounted guide to meet the caravan while the beacon is refilled",
+        "costAndConsequence": "The road watch loses a rider for the night",
+        "alternativeToId": "draft_fantasy_03_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_fantasy_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_fantasy_03_additional_belief",
+      "kind": "Knowledge",
+      "label": "The beacon failed only when rain reached its lens",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_03",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L19"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L19"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The beacon failed only when rain reached its lens",
+        "aboutId": "draft_fantasy_03_pressure",
+        "holderId": "draft_fantasy_03_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_fantasy_03_companion_edge_02",
+        "draft_fantasy_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_fantasy_04_counterparty",
+      "kind": "Entity",
+      "label": "well-binding weaver",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_04",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L20"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L20"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Avoid reopening a costly ward below the failed weave",
+        "stakes": "A protective weave fails near an abandoned well",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_fantasy_04_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_fantasy_04_belief_holder",
+      "kind": "Entity",
+      "label": "village mourners",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_04",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L20"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L20"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: A changed pattern means the well moved",
+        "stakes": "A protective weave fails near an abandoned well",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_fantasy_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_fantasy_04_evidence_site",
+      "kind": "Location",
+      "label": "well binding chamber",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L20"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L20"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A protective weave fails near an abandoned well",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_fantasy_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_fantasy_04_alternative",
+      "kind": "Event",
+      "label": "Replace the single failed binding before restoring the whole veil",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_04",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L20"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L20"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Replace the single failed binding before restoring the whole veil",
+        "costAndConsequence": "The surrounding ward stays weak during repair",
+        "alternativeToId": "draft_fantasy_04_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_fantasy_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_fantasy_04_additional_belief",
+      "kind": "Knowledge",
+      "label": "A changed pattern means the well moved",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_04",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L20"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L20"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A changed pattern means the well moved",
+        "aboutId": "draft_fantasy_04_pressure",
+        "holderId": "draft_fantasy_04_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_fantasy_04_companion_edge_02",
+        "draft_fantasy_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_fantasy_05_counterparty",
+      "kind": "Entity",
+      "label": "salt warehouse receiver",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_05",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L21"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L21"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Hold an uncounted stack until prices rise",
+        "stakes": "A tax collector hoards salt as village stores run low",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_fantasy_05_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_fantasy_05_belief_holder",
+      "kind": "Entity",
+      "label": "market buyers",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_05",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L21"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L21"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: The warehouse has no usable salt left",
+        "stakes": "A tax collector hoards salt as village stores run low",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_fantasy_05_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_fantasy_05_evidence_site",
+      "kind": "Location",
+      "label": "warehouse weighbridge",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L21"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L21"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A tax collector hoards salt as village stores run low",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_fantasy_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_fantasy_05_alternative",
+      "kind": "Event",
+      "label": "Release a measured ration against public receipts",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_05",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L21"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L21"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Release a measured ration against public receipts",
+        "costAndConsequence": "Merchants lose immediate sales and stewards must guard distribution",
+        "alternativeToId": "draft_fantasy_05_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_fantasy_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_fantasy_05_additional_belief",
+      "kind": "Knowledge",
+      "label": "The warehouse has no usable salt left",
+      "scopeId": "motif_fantasy",
+      "motifId": "fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_fantasy_05",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L21"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L21"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The warehouse has no usable salt left",
+        "aboutId": "draft_fantasy_05_pressure",
+        "holderId": "draft_fantasy_05_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_fantasy_05_companion_edge_02",
+        "draft_fantasy_05_companion_edge_03"
+      ]
+    }
+  ],
+  "structuralEdges": [
+    {
+      "id": "draft_fantasy_01_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_fantasy_01_entity",
+      "toId": "draft_fantasy_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_01:entity>location"
+    },
+    {
+      "id": "draft_fantasy_01_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_fantasy_01_location",
+      "toId": "draft_fantasy_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_01:location>resource"
+    },
+    {
+      "id": "draft_fantasy_01_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_fantasy_01_pressure",
+      "toId": "draft_fantasy_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_01:pressure>location"
+    },
+    {
+      "id": "draft_fantasy_01_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_fantasy_01_pressure",
+      "toId": "draft_fantasy_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_01:pressure>entity"
+    },
+    {
+      "id": "draft_fantasy_01_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_fantasy_01_pressure",
+      "toId": "draft_fantasy_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_01:pressure>resource"
+    },
+    {
+      "id": "draft_fantasy_01_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_fantasy_01_response",
+      "toId": "draft_fantasy_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_01:response>location"
+    },
+    {
+      "id": "draft_fantasy_01_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_fantasy_01_response",
+      "toId": "draft_fantasy_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_01:response>entity"
+    },
+    {
+      "id": "draft_fantasy_01_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_fantasy_01_response",
+      "toId": "draft_fantasy_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_01:response>resource"
+    },
+    {
+      "id": "draft_fantasy_01_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_fantasy_01_report",
+      "toId": "draft_fantasy_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_01:report>pressure"
+    },
+    {
+      "id": "draft_fantasy_01_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_fantasy_01_evidence",
+      "toId": "draft_fantasy_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_01:evidence>pressure"
+    },
+    {
+      "id": "draft_fantasy_02_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_fantasy_02_entity",
+      "toId": "draft_fantasy_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_02:entity>location"
+    },
+    {
+      "id": "draft_fantasy_02_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_fantasy_02_location",
+      "toId": "draft_fantasy_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_02:location>resource"
+    },
+    {
+      "id": "draft_fantasy_02_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_fantasy_02_pressure",
+      "toId": "draft_fantasy_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_02:pressure>location"
+    },
+    {
+      "id": "draft_fantasy_02_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_fantasy_02_pressure",
+      "toId": "draft_fantasy_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_02:pressure>entity"
+    },
+    {
+      "id": "draft_fantasy_02_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_fantasy_02_pressure",
+      "toId": "draft_fantasy_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_02:pressure>resource"
+    },
+    {
+      "id": "draft_fantasy_02_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_fantasy_02_response",
+      "toId": "draft_fantasy_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_02:response>location"
+    },
+    {
+      "id": "draft_fantasy_02_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_fantasy_02_response",
+      "toId": "draft_fantasy_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_02:response>entity"
+    },
+    {
+      "id": "draft_fantasy_02_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_fantasy_02_response",
+      "toId": "draft_fantasy_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_02:response>resource"
+    },
+    {
+      "id": "draft_fantasy_02_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_fantasy_02_report",
+      "toId": "draft_fantasy_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_02:report>pressure"
+    },
+    {
+      "id": "draft_fantasy_02_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_fantasy_02_evidence",
+      "toId": "draft_fantasy_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_02:evidence>pressure"
+    },
+    {
+      "id": "draft_fantasy_03_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_fantasy_03_entity",
+      "toId": "draft_fantasy_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_03:entity>location"
+    },
+    {
+      "id": "draft_fantasy_03_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_fantasy_03_location",
+      "toId": "draft_fantasy_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_03:location>resource"
+    },
+    {
+      "id": "draft_fantasy_03_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_fantasy_03_pressure",
+      "toId": "draft_fantasy_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_03:pressure>location"
+    },
+    {
+      "id": "draft_fantasy_03_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_fantasy_03_pressure",
+      "toId": "draft_fantasy_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_03:pressure>entity"
+    },
+    {
+      "id": "draft_fantasy_03_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_fantasy_03_pressure",
+      "toId": "draft_fantasy_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_03:pressure>resource"
+    },
+    {
+      "id": "draft_fantasy_03_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_fantasy_03_response",
+      "toId": "draft_fantasy_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_03:response>location"
+    },
+    {
+      "id": "draft_fantasy_03_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_fantasy_03_response",
+      "toId": "draft_fantasy_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_03:response>entity"
+    },
+    {
+      "id": "draft_fantasy_03_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_fantasy_03_response",
+      "toId": "draft_fantasy_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_03:response>resource"
+    },
+    {
+      "id": "draft_fantasy_03_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_fantasy_03_report",
+      "toId": "draft_fantasy_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_03:report>pressure"
+    },
+    {
+      "id": "draft_fantasy_03_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_fantasy_03_evidence",
+      "toId": "draft_fantasy_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_03:evidence>pressure"
+    },
+    {
+      "id": "draft_fantasy_04_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_fantasy_04_entity",
+      "toId": "draft_fantasy_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_04:entity>location"
+    },
+    {
+      "id": "draft_fantasy_04_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_fantasy_04_location",
+      "toId": "draft_fantasy_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_04:location>resource"
+    },
+    {
+      "id": "draft_fantasy_04_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_fantasy_04_pressure",
+      "toId": "draft_fantasy_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_04:pressure>location"
+    },
+    {
+      "id": "draft_fantasy_04_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_fantasy_04_pressure",
+      "toId": "draft_fantasy_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_04:pressure>entity"
+    },
+    {
+      "id": "draft_fantasy_04_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_fantasy_04_pressure",
+      "toId": "draft_fantasy_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_04:pressure>resource"
+    },
+    {
+      "id": "draft_fantasy_04_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_fantasy_04_response",
+      "toId": "draft_fantasy_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_04:response>location"
+    },
+    {
+      "id": "draft_fantasy_04_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_fantasy_04_response",
+      "toId": "draft_fantasy_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_04:response>entity"
+    },
+    {
+      "id": "draft_fantasy_04_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_fantasy_04_response",
+      "toId": "draft_fantasy_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_04:response>resource"
+    },
+    {
+      "id": "draft_fantasy_04_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_fantasy_04_report",
+      "toId": "draft_fantasy_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_04:report>pressure"
+    },
+    {
+      "id": "draft_fantasy_04_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_fantasy_04_evidence",
+      "toId": "draft_fantasy_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_04:evidence>pressure"
+    },
+    {
+      "id": "draft_fantasy_05_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_fantasy_05_entity",
+      "toId": "draft_fantasy_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_05:entity>location"
+    },
+    {
+      "id": "draft_fantasy_05_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_fantasy_05_location",
+      "toId": "draft_fantasy_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_05:location>resource"
+    },
+    {
+      "id": "draft_fantasy_05_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_fantasy_05_pressure",
+      "toId": "draft_fantasy_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_05:pressure>location"
+    },
+    {
+      "id": "draft_fantasy_05_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_fantasy_05_pressure",
+      "toId": "draft_fantasy_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_05:pressure>entity"
+    },
+    {
+      "id": "draft_fantasy_05_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_fantasy_05_pressure",
+      "toId": "draft_fantasy_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_05:pressure>resource"
+    },
+    {
+      "id": "draft_fantasy_05_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_fantasy_05_response",
+      "toId": "draft_fantasy_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_05:response>location"
+    },
+    {
+      "id": "draft_fantasy_05_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_fantasy_05_response",
+      "toId": "draft_fantasy_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_05:response>entity"
+    },
+    {
+      "id": "draft_fantasy_05_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_fantasy_05_response",
+      "toId": "draft_fantasy_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_05:response>resource"
+    },
+    {
+      "id": "draft_fantasy_05_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_fantasy_05_report",
+      "toId": "draft_fantasy_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_05:report>pressure"
+    },
+    {
+      "id": "draft_fantasy_05_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_fantasy_05_evidence",
+      "toId": "draft_fantasy_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_fantasy_05:evidence>pressure"
+    },
+    {
+      "id": "draft_fantasy_01_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_fantasy_01_pressure",
+      "toId": "draft_fantasy_01_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L17"
+    },
+    {
+      "id": "draft_fantasy_01_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_fantasy_01_additional_belief",
+      "toId": "draft_fantasy_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L17"
+    },
+    {
+      "id": "draft_fantasy_01_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_fantasy_01_additional_belief",
+      "toId": "draft_fantasy_01_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L17"
+    },
+    {
+      "id": "draft_fantasy_01_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_fantasy_01_evidence_site",
+      "toId": "draft_fantasy_01_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L17"
+    },
+    {
+      "id": "draft_fantasy_01_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_fantasy_01_alternative",
+      "toId": "draft_fantasy_01_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L17"
+    },
+    {
+      "id": "draft_fantasy_02_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_fantasy_02_pressure",
+      "toId": "draft_fantasy_02_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L18"
+    },
+    {
+      "id": "draft_fantasy_02_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_fantasy_02_additional_belief",
+      "toId": "draft_fantasy_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L18"
+    },
+    {
+      "id": "draft_fantasy_02_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_fantasy_02_additional_belief",
+      "toId": "draft_fantasy_02_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L18"
+    },
+    {
+      "id": "draft_fantasy_02_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_fantasy_02_evidence_site",
+      "toId": "draft_fantasy_02_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L18"
+    },
+    {
+      "id": "draft_fantasy_02_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_fantasy_02_alternative",
+      "toId": "draft_fantasy_02_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L18"
+    },
+    {
+      "id": "draft_fantasy_03_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_fantasy_03_pressure",
+      "toId": "draft_fantasy_03_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L19"
+    },
+    {
+      "id": "draft_fantasy_03_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_fantasy_03_additional_belief",
+      "toId": "draft_fantasy_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L19"
+    },
+    {
+      "id": "draft_fantasy_03_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_fantasy_03_additional_belief",
+      "toId": "draft_fantasy_03_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L19"
+    },
+    {
+      "id": "draft_fantasy_03_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_fantasy_03_evidence_site",
+      "toId": "draft_fantasy_03_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L19"
+    },
+    {
+      "id": "draft_fantasy_03_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_fantasy_03_alternative",
+      "toId": "draft_fantasy_03_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L19"
+    },
+    {
+      "id": "draft_fantasy_04_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_fantasy_04_pressure",
+      "toId": "draft_fantasy_04_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L20"
+    },
+    {
+      "id": "draft_fantasy_04_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_fantasy_04_additional_belief",
+      "toId": "draft_fantasy_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L20"
+    },
+    {
+      "id": "draft_fantasy_04_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_fantasy_04_additional_belief",
+      "toId": "draft_fantasy_04_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L20"
+    },
+    {
+      "id": "draft_fantasy_04_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_fantasy_04_evidence_site",
+      "toId": "draft_fantasy_04_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L20"
+    },
+    {
+      "id": "draft_fantasy_04_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_fantasy_04_alternative",
+      "toId": "draft_fantasy_04_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L20"
+    },
+    {
+      "id": "draft_fantasy_05_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_fantasy_05_pressure",
+      "toId": "draft_fantasy_05_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L21"
+    },
+    {
+      "id": "draft_fantasy_05_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_fantasy_05_additional_belief",
+      "toId": "draft_fantasy_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L21"
+    },
+    {
+      "id": "draft_fantasy_05_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_fantasy_05_additional_belief",
+      "toId": "draft_fantasy_05_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L21"
+    },
+    {
+      "id": "draft_fantasy_05_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_fantasy_05_evidence_site",
+      "toId": "draft_fantasy_05_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L21"
+    },
+    {
+      "id": "draft_fantasy_05_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_fantasy_05_alternative",
+      "toId": "draft_fantasy_05_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L21"
+    }
+  ],
+  "proposedCausalLinks": [
+    {
+      "id": "draft_fantasy_01_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_fantasy_01_pressure",
+      "toId": "draft_fantasy_01_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_fantasy_01_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_fantasy_01_evidence",
+      "toId": "draft_fantasy_01_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_fantasy_02_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_fantasy_02_pressure",
+      "toId": "draft_fantasy_02_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_fantasy_02_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_fantasy_02_evidence",
+      "toId": "draft_fantasy_02_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_fantasy_03_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_fantasy_03_pressure",
+      "toId": "draft_fantasy_03_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_fantasy_03_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_fantasy_03_evidence",
+      "toId": "draft_fantasy_03_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_fantasy_04_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_fantasy_04_pressure",
+      "toId": "draft_fantasy_04_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_fantasy_04_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_fantasy_04_evidence",
+      "toId": "draft_fantasy_04_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_fantasy_05_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_fantasy_05_pressure",
+      "toId": "draft_fantasy_05_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_fantasy_05_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_fantasy_05_evidence",
+      "toId": "draft_fantasy_05_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    }
+  ]
+}

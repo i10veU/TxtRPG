@@ -1,0 +1,3079 @@
+{
+  "schema": "world-node-drafts/v1",
+  "status": "Draft",
+  "runtime": false,
+  "scope": {
+    "id": "motif_hunter",
+    "label": "헌터",
+    "kind": "genre-or-structure proposal; not a world definition"
+  },
+  "canonImpact": "none; no Draft item is accepted game setting",
+  "sourceRefs": [
+    "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+    "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+    "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft"
+  ],
+  "fronts": [
+    {
+      "id": "draft_hunter_01",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A bounty pays for kills while breeding grounds remain open",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A bounty pays for kills while breeding grounds remain open",
+      "authoredIntervention": "Reward verified habitat closure instead",
+      "initialReport": "The board reports fewer tags as fewer beasts",
+      "verificationCandidate": "Nest surveys show new tracks",
+      "alternativeInterventions": "Tie the next bounty to closed breeding sites",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L27",
+        "docs/v2/world-node-drafts/companion-b.txt#L22"
+      ],
+      "semanticSignature": "a bounty pays for kills while breeding grounds remain open reward verified habitat closure instead tracking tags the board reports fewer tags as fewer beasts nest surveys show new tracks",
+      "nodeIds": [
+        "draft_hunter_01_entity",
+        "draft_hunter_01_location",
+        "draft_hunter_01_resource",
+        "draft_hunter_01_pressure",
+        "draft_hunter_01_response",
+        "draft_hunter_01_report",
+        "draft_hunter_01_evidence",
+        "draft_hunter_01_counterparty",
+        "draft_hunter_01_belief_holder",
+        "draft_hunter_01_evidence_site",
+        "draft_hunter_01_alternative",
+        "draft_hunter_01_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Hunters wait longer for pay and surveyors face danger",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_hunter_01_counterparty",
+        "evidenceSiteId": "draft_hunter_01_evidence_site",
+        "alternativeEventId": "draft_hunter_01_alternative",
+        "additionalBeliefId": "draft_hunter_01_additional_belief",
+        "beliefHolderId": "draft_hunter_01_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L22"
+      }
+    },
+    {
+      "id": "draft_hunter_02",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "Elite teams reserve antivenom before a public hunt",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "Elite teams reserve antivenom before a public hunt",
+      "authoredIntervention": "Set exposure-based triage and disclose stock",
+      "initialReport": "Teams claim every dose is already assigned",
+      "verificationCandidate": "Vial log shows unused reserves",
+      "alternativeInterventions": "Release a counted emergency cache to field medics",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L28",
+        "docs/v2/world-node-drafts/companion-b.txt#L23"
+      ],
+      "semanticSignature": "elite teams reserve antivenom before a public hunt set exposure based triage and disclose stock antivenom ampoules teams claim every dose is already assigned vial log shows unused reserves",
+      "nodeIds": [
+        "draft_hunter_02_entity",
+        "draft_hunter_02_location",
+        "draft_hunter_02_resource",
+        "draft_hunter_02_pressure",
+        "draft_hunter_02_response",
+        "draft_hunter_02_report",
+        "draft_hunter_02_evidence",
+        "draft_hunter_02_counterparty",
+        "draft_hunter_02_belief_holder",
+        "draft_hunter_02_evidence_site",
+        "draft_hunter_02_alternative",
+        "draft_hunter_02_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Elite teams lose reserve and officers face audit",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_hunter_02_counterparty",
+        "evidenceSiteId": "draft_hunter_02_evidence_site",
+        "alternativeEventId": "draft_hunter_02_alternative",
+        "additionalBeliefId": "draft_hunter_02_additional_belief",
+        "beliefHolderId": "draft_hunter_02_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L23"
+      }
+    },
+    {
+      "id": "draft_hunter_03",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A hunting route ignores seasonal migration and endangers farms",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A hunting route ignores seasonal migration and endangers farms",
+      "authoredIntervention": "Publish route timing and move the chase away from fields",
+      "initialReport": "Sponsors say farms are outside the route",
+      "verificationCandidate": "Scouts record tracks through planted land",
+      "alternativeInterventions": "Shift the route after a scout-led migration count",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L29",
+        "docs/v2/world-node-drafts/companion-b.txt#L24"
+      ],
+      "semanticSignature": "a hunting route ignores seasonal migration and endangers farms publish route timing and move the chase away from fields wind gauges sponsors say farms are outside the route scouts record tracks through planted land",
+      "nodeIds": [
+        "draft_hunter_03_entity",
+        "draft_hunter_03_location",
+        "draft_hunter_03_resource",
+        "draft_hunter_03_pressure",
+        "draft_hunter_03_response",
+        "draft_hunter_03_report",
+        "draft_hunter_03_evidence",
+        "draft_hunter_03_counterparty",
+        "draft_hunter_03_belief_holder",
+        "draft_hunter_03_evidence_site",
+        "draft_hunter_03_alternative",
+        "draft_hunter_03_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Teams walk farther and sponsors lose a fast start",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_hunter_03_counterparty",
+        "evidenceSiteId": "draft_hunter_03_evidence_site",
+        "alternativeEventId": "draft_hunter_03_alternative",
+        "additionalBeliefId": "draft_hunter_03_additional_belief",
+        "beliefHolderId": "draft_hunter_03_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L24"
+      }
+    },
+    {
+      "id": "draft_hunter_04",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A kill claim excludes villagers who bore the risk",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A kill claim excludes villagers who bore the risk",
+      "authoredIntervention": "Record the rescue effort before allocating salvage",
+      "initialReport": "The team says villagers stayed home",
+      "verificationCandidate": "Signal logs show villagers led evacuation",
+      "alternativeInterventions": "Hold salvage until risk witnesses are heard",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L30",
+        "docs/v2/world-node-drafts/companion-b.txt#L25"
+      ],
+      "semanticSignature": "a kill claim excludes villagers who bore the risk record the rescue effort before allocating salvage bone permits the team says villagers stayed home signal logs show villagers led evacuation",
+      "nodeIds": [
+        "draft_hunter_04_entity",
+        "draft_hunter_04_location",
+        "draft_hunter_04_resource",
+        "draft_hunter_04_pressure",
+        "draft_hunter_04_response",
+        "draft_hunter_04_report",
+        "draft_hunter_04_evidence",
+        "draft_hunter_04_counterparty",
+        "draft_hunter_04_belief_holder",
+        "draft_hunter_04_evidence_site",
+        "draft_hunter_04_alternative",
+        "draft_hunter_04_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Team payout is delayed and arbitration costs rise",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_hunter_04_counterparty",
+        "evidenceSiteId": "draft_hunter_04_evidence_site",
+        "alternativeEventId": "draft_hunter_04_alternative",
+        "additionalBeliefId": "draft_hunter_04_additional_belief",
+        "beliefHolderId": "draft_hunter_04_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L25"
+      }
+    },
+    {
+      "id": "draft_hunter_05",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A false trophy report causes watch posts to stand down",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A false trophy report causes watch posts to stand down",
+      "authoredIntervention": "Verify remains and restore the watch until confirmed",
+      "initialReport": "A hunter declares the threat ended",
+      "verificationCandidate": "Fresh spoor crosses the line",
+      "alternativeInterventions": "Restore one watch shift and verify fresh tracks",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L31",
+        "docs/v2/world-node-drafts/companion-b.txt#L26"
+      ],
+      "semanticSignature": "a false trophy report causes watch posts to stand down verify remains and restore the watch until confirmed flare kits a hunter declares the threat ended fresh spoor crosses the line",
+      "nodeIds": [
+        "draft_hunter_05_entity",
+        "draft_hunter_05_location",
+        "draft_hunter_05_resource",
+        "draft_hunter_05_pressure",
+        "draft_hunter_05_response",
+        "draft_hunter_05_report",
+        "draft_hunter_05_evidence",
+        "draft_hunter_05_counterparty",
+        "draft_hunter_05_belief_holder",
+        "draft_hunter_05_evidence_site",
+        "draft_hunter_05_alternative",
+        "draft_hunter_05_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "The village spends labor and hunters postpone payout",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_hunter_05_counterparty",
+        "evidenceSiteId": "draft_hunter_05_evidence_site",
+        "alternativeEventId": "draft_hunter_05_alternative",
+        "additionalBeliefId": "draft_hunter_05_additional_belief",
+        "beliefHolderId": "draft_hunter_05_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L26"
+      }
+    }
+  ],
+  "nodes": [
+    {
+      "id": "draft_hunter_01_entity",
+      "kind": "Entity",
+      "label": "hazard claims board",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_01",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L27"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L27"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep tracking tags usable at beast-track office",
+        "stakes": "A bounty pays for kills while breeding grounds remain open",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_hunter_01_edge_01",
+        "draft_hunter_01_edge_04",
+        "draft_hunter_01_edge_07"
+      ]
+    },
+    {
+      "id": "draft_hunter_01_location",
+      "kind": "Location",
+      "label": "beast-track office",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_01",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L27"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L27"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_hunter_01_resource",
+        "conflict": "A bounty pays for kills while breeding grounds remain open",
+        "risk": "A bounty pays for kills while breeding grounds remain open"
+      },
+      "relations": [
+        "draft_hunter_01_edge_01",
+        "draft_hunter_01_edge_02",
+        "draft_hunter_01_edge_03",
+        "draft_hunter_01_edge_06"
+      ]
+    },
+    {
+      "id": "draft_hunter_01_resource",
+      "kind": "Resource",
+      "label": "tracking tags",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_01",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L27"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L27"
+      ],
+      "proposal": {
+        "sourceId": "draft_hunter_01_location",
+        "scarcity": "A bounty pays for kills while breeding grounds remain open",
+        "proposedUse": "Reward verified habitat closure instead",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_hunter_01_edge_02",
+        "draft_hunter_01_edge_05",
+        "draft_hunter_01_edge_08"
+      ]
+    },
+    {
+      "id": "draft_hunter_01_pressure",
+      "kind": "Event",
+      "label": "A bounty pays for kills while breeding grounds remain open",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_01",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L27"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L27"
+      ],
+      "proposal": {
+        "trigger": "A bounty pays for kills while breeding grounds remain open",
+        "proposedEffect": "Changes access to tracking tags",
+        "effectTargetId": "draft_hunter_01_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_hunter_01_edge_03",
+        "draft_hunter_01_edge_04",
+        "draft_hunter_01_edge_05",
+        "draft_hunter_01_edge_09",
+        "draft_hunter_01_edge_10",
+        "draft_hunter_01_companion_edge_01",
+        "draft_hunter_01_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_hunter_01_response",
+      "kind": "Event",
+      "label": "Reward verified habitat closure instead",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_01",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L27"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L27"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Reward verified habitat closure instead",
+        "proposedEffect": "Reward verified habitat closure instead",
+        "effectTargetId": "draft_hunter_01_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_hunter_01_edge_06",
+        "draft_hunter_01_edge_07",
+        "draft_hunter_01_edge_08",
+        "draft_hunter_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_hunter_01_report",
+      "kind": "Knowledge",
+      "label": "The board reports fewer tags as fewer beasts",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_01",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L27"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L27"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The board reports fewer tags as fewer beasts",
+        "aboutId": "draft_hunter_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_hunter_01_edge_09"
+      ]
+    },
+    {
+      "id": "draft_hunter_01_evidence",
+      "kind": "Knowledge",
+      "label": "Nest surveys show new tracks",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L27"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L27"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Nest surveys show new tracks",
+        "aboutId": "draft_hunter_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_hunter_01_edge_10",
+        "draft_hunter_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_hunter_02_entity",
+      "kind": "Entity",
+      "label": "field medic guild",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_02",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L28"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L28"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep antivenom ampoules usable at hunt camp infirmary",
+        "stakes": "Elite teams reserve antivenom before a public hunt",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_hunter_02_edge_01",
+        "draft_hunter_02_edge_04",
+        "draft_hunter_02_edge_07"
+      ]
+    },
+    {
+      "id": "draft_hunter_02_location",
+      "kind": "Location",
+      "label": "hunt camp infirmary",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_02",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L28"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L28"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_hunter_02_resource",
+        "conflict": "Elite teams reserve antivenom before a public hunt",
+        "risk": "Elite teams reserve antivenom before a public hunt"
+      },
+      "relations": [
+        "draft_hunter_02_edge_01",
+        "draft_hunter_02_edge_02",
+        "draft_hunter_02_edge_03",
+        "draft_hunter_02_edge_06"
+      ]
+    },
+    {
+      "id": "draft_hunter_02_resource",
+      "kind": "Resource",
+      "label": "antivenom ampoules",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_02",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L28"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L28"
+      ],
+      "proposal": {
+        "sourceId": "draft_hunter_02_location",
+        "scarcity": "Elite teams reserve antivenom before a public hunt",
+        "proposedUse": "Set exposure-based triage and disclose stock",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_hunter_02_edge_02",
+        "draft_hunter_02_edge_05",
+        "draft_hunter_02_edge_08"
+      ]
+    },
+    {
+      "id": "draft_hunter_02_pressure",
+      "kind": "Event",
+      "label": "Elite teams reserve antivenom before a public hunt",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_02",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L28"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L28"
+      ],
+      "proposal": {
+        "trigger": "Elite teams reserve antivenom before a public hunt",
+        "proposedEffect": "Changes access to antivenom ampoules",
+        "effectTargetId": "draft_hunter_02_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_hunter_02_edge_03",
+        "draft_hunter_02_edge_04",
+        "draft_hunter_02_edge_05",
+        "draft_hunter_02_edge_09",
+        "draft_hunter_02_edge_10",
+        "draft_hunter_02_companion_edge_01",
+        "draft_hunter_02_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_hunter_02_response",
+      "kind": "Event",
+      "label": "Set exposure-based triage and disclose stock",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_02",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L28"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L28"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Set exposure-based triage and disclose stock",
+        "proposedEffect": "Set exposure-based triage and disclose stock",
+        "effectTargetId": "draft_hunter_02_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_hunter_02_edge_06",
+        "draft_hunter_02_edge_07",
+        "draft_hunter_02_edge_08",
+        "draft_hunter_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_hunter_02_report",
+      "kind": "Knowledge",
+      "label": "Teams claim every dose is already assigned",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_02",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L28"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L28"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Teams claim every dose is already assigned",
+        "aboutId": "draft_hunter_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_hunter_02_edge_09"
+      ]
+    },
+    {
+      "id": "draft_hunter_02_evidence",
+      "kind": "Knowledge",
+      "label": "Vial log shows unused reserves",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L28"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L28"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Vial log shows unused reserves",
+        "aboutId": "draft_hunter_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_hunter_02_edge_10",
+        "draft_hunter_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_hunter_03_entity",
+      "kind": "Entity",
+      "label": "scout cooperative",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_03",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L29"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L29"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep wind gauges usable at ridge observation blind",
+        "stakes": "A hunting route ignores seasonal migration and endangers farms",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_hunter_03_edge_01",
+        "draft_hunter_03_edge_04",
+        "draft_hunter_03_edge_07"
+      ]
+    },
+    {
+      "id": "draft_hunter_03_location",
+      "kind": "Location",
+      "label": "ridge observation blind",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_03",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L29"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L29"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_hunter_03_resource",
+        "conflict": "A hunting route ignores seasonal migration and endangers farms",
+        "risk": "A hunting route ignores seasonal migration and endangers farms"
+      },
+      "relations": [
+        "draft_hunter_03_edge_01",
+        "draft_hunter_03_edge_02",
+        "draft_hunter_03_edge_03",
+        "draft_hunter_03_edge_06"
+      ]
+    },
+    {
+      "id": "draft_hunter_03_resource",
+      "kind": "Resource",
+      "label": "wind gauges",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_03",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L29"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L29"
+      ],
+      "proposal": {
+        "sourceId": "draft_hunter_03_location",
+        "scarcity": "A hunting route ignores seasonal migration and endangers farms",
+        "proposedUse": "Publish route timing and move the chase away from fields",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_hunter_03_edge_02",
+        "draft_hunter_03_edge_05",
+        "draft_hunter_03_edge_08"
+      ]
+    },
+    {
+      "id": "draft_hunter_03_pressure",
+      "kind": "Event",
+      "label": "A hunting route ignores seasonal migration and endangers farms",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_03",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L29"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L29"
+      ],
+      "proposal": {
+        "trigger": "A hunting route ignores seasonal migration and endangers farms",
+        "proposedEffect": "Changes access to wind gauges",
+        "effectTargetId": "draft_hunter_03_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_hunter_03_edge_03",
+        "draft_hunter_03_edge_04",
+        "draft_hunter_03_edge_05",
+        "draft_hunter_03_edge_09",
+        "draft_hunter_03_edge_10",
+        "draft_hunter_03_companion_edge_01",
+        "draft_hunter_03_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_hunter_03_response",
+      "kind": "Event",
+      "label": "Publish route timing and move the chase away from fields",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_03",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L29"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L29"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Publish route timing and move the chase away from fields",
+        "proposedEffect": "Publish route timing and move the chase away from fields",
+        "effectTargetId": "draft_hunter_03_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_hunter_03_edge_06",
+        "draft_hunter_03_edge_07",
+        "draft_hunter_03_edge_08",
+        "draft_hunter_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_hunter_03_report",
+      "kind": "Knowledge",
+      "label": "Sponsors say farms are outside the route",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_03",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L29"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L29"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Sponsors say farms are outside the route",
+        "aboutId": "draft_hunter_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_hunter_03_edge_09"
+      ]
+    },
+    {
+      "id": "draft_hunter_03_evidence",
+      "kind": "Knowledge",
+      "label": "Scouts record tracks through planted land",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L29"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L29"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Scouts record tracks through planted land",
+        "aboutId": "draft_hunter_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_hunter_03_edge_10",
+        "draft_hunter_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_hunter_04_entity",
+      "kind": "Entity",
+      "label": "salvage arbitration board",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_04",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L30"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L30"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep bone permits usable at carcass clearing",
+        "stakes": "A kill claim excludes villagers who bore the risk",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_hunter_04_edge_01",
+        "draft_hunter_04_edge_04",
+        "draft_hunter_04_edge_07"
+      ]
+    },
+    {
+      "id": "draft_hunter_04_location",
+      "kind": "Location",
+      "label": "carcass clearing",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_04",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L30"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L30"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_hunter_04_resource",
+        "conflict": "A kill claim excludes villagers who bore the risk",
+        "risk": "A kill claim excludes villagers who bore the risk"
+      },
+      "relations": [
+        "draft_hunter_04_edge_01",
+        "draft_hunter_04_edge_02",
+        "draft_hunter_04_edge_03",
+        "draft_hunter_04_edge_06"
+      ]
+    },
+    {
+      "id": "draft_hunter_04_resource",
+      "kind": "Resource",
+      "label": "bone permits",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_04",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L30"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L30"
+      ],
+      "proposal": {
+        "sourceId": "draft_hunter_04_location",
+        "scarcity": "A kill claim excludes villagers who bore the risk",
+        "proposedUse": "Record the rescue effort before allocating salvage",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_hunter_04_edge_02",
+        "draft_hunter_04_edge_05",
+        "draft_hunter_04_edge_08"
+      ]
+    },
+    {
+      "id": "draft_hunter_04_pressure",
+      "kind": "Event",
+      "label": "A kill claim excludes villagers who bore the risk",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_04",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L30"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L30"
+      ],
+      "proposal": {
+        "trigger": "A kill claim excludes villagers who bore the risk",
+        "proposedEffect": "Changes access to bone permits",
+        "effectTargetId": "draft_hunter_04_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_hunter_04_edge_03",
+        "draft_hunter_04_edge_04",
+        "draft_hunter_04_edge_05",
+        "draft_hunter_04_edge_09",
+        "draft_hunter_04_edge_10",
+        "draft_hunter_04_companion_edge_01",
+        "draft_hunter_04_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_hunter_04_response",
+      "kind": "Event",
+      "label": "Record the rescue effort before allocating salvage",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_04",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L30"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L30"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Record the rescue effort before allocating salvage",
+        "proposedEffect": "Record the rescue effort before allocating salvage",
+        "effectTargetId": "draft_hunter_04_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_hunter_04_edge_06",
+        "draft_hunter_04_edge_07",
+        "draft_hunter_04_edge_08",
+        "draft_hunter_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_hunter_04_report",
+      "kind": "Knowledge",
+      "label": "The team says villagers stayed home",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_04",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L30"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L30"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The team says villagers stayed home",
+        "aboutId": "draft_hunter_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_hunter_04_edge_09"
+      ]
+    },
+    {
+      "id": "draft_hunter_04_evidence",
+      "kind": "Knowledge",
+      "label": "Signal logs show villagers led evacuation",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L30"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L30"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Signal logs show villagers led evacuation",
+        "aboutId": "draft_hunter_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_hunter_04_edge_10",
+        "draft_hunter_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_hunter_05_entity",
+      "kind": "Entity",
+      "label": "watch captain",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_05",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L31"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L31"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep flare kits usable at night lookout line",
+        "stakes": "A false trophy report causes watch posts to stand down",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_hunter_05_edge_01",
+        "draft_hunter_05_edge_04",
+        "draft_hunter_05_edge_07"
+      ]
+    },
+    {
+      "id": "draft_hunter_05_location",
+      "kind": "Location",
+      "label": "night lookout line",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_05",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L31"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L31"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_hunter_05_resource",
+        "conflict": "A false trophy report causes watch posts to stand down",
+        "risk": "A false trophy report causes watch posts to stand down"
+      },
+      "relations": [
+        "draft_hunter_05_edge_01",
+        "draft_hunter_05_edge_02",
+        "draft_hunter_05_edge_03",
+        "draft_hunter_05_edge_06"
+      ]
+    },
+    {
+      "id": "draft_hunter_05_resource",
+      "kind": "Resource",
+      "label": "flare kits",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_05",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L31"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L31"
+      ],
+      "proposal": {
+        "sourceId": "draft_hunter_05_location",
+        "scarcity": "A false trophy report causes watch posts to stand down",
+        "proposedUse": "Verify remains and restore the watch until confirmed",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_hunter_05_edge_02",
+        "draft_hunter_05_edge_05",
+        "draft_hunter_05_edge_08"
+      ]
+    },
+    {
+      "id": "draft_hunter_05_pressure",
+      "kind": "Event",
+      "label": "A false trophy report causes watch posts to stand down",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_05",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L31"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L31"
+      ],
+      "proposal": {
+        "trigger": "A false trophy report causes watch posts to stand down",
+        "proposedEffect": "Changes access to flare kits",
+        "effectTargetId": "draft_hunter_05_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_hunter_05_edge_03",
+        "draft_hunter_05_edge_04",
+        "draft_hunter_05_edge_05",
+        "draft_hunter_05_edge_09",
+        "draft_hunter_05_edge_10",
+        "draft_hunter_05_companion_edge_01",
+        "draft_hunter_05_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_hunter_05_response",
+      "kind": "Event",
+      "label": "Verify remains and restore the watch until confirmed",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_05",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L31"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L31"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Verify remains and restore the watch until confirmed",
+        "proposedEffect": "Verify remains and restore the watch until confirmed",
+        "effectTargetId": "draft_hunter_05_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_hunter_05_edge_06",
+        "draft_hunter_05_edge_07",
+        "draft_hunter_05_edge_08",
+        "draft_hunter_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_hunter_05_report",
+      "kind": "Knowledge",
+      "label": "A hunter declares the threat ended",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_05",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L31"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L31"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A hunter declares the threat ended",
+        "aboutId": "draft_hunter_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_hunter_05_edge_09"
+      ]
+    },
+    {
+      "id": "draft_hunter_05_evidence",
+      "kind": "Knowledge",
+      "label": "Fresh spoor crosses the line",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L31"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L31"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Fresh spoor crosses the line",
+        "aboutId": "draft_hunter_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_hunter_05_edge_10",
+        "draft_hunter_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_hunter_01_counterparty",
+      "kind": "Entity",
+      "label": "bounty assessor",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_01",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L22"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L22"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Pay for visible trophies while ignoring surviving nests",
+        "stakes": "A bounty pays for kills while breeding grounds remain open",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_hunter_01_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_hunter_01_belief_holder",
+      "kind": "Entity",
+      "label": "bounty sponsors",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_01",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L22"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L22"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Fewer tags mean fewer beasts in the field",
+        "stakes": "A bounty pays for kills while breeding grounds remain open",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_hunter_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_hunter_01_evidence_site",
+      "kind": "Location",
+      "label": "breeding-ground survey hide",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L22"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L22"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A bounty pays for kills while breeding grounds remain open",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_hunter_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_hunter_01_alternative",
+      "kind": "Event",
+      "label": "Tie the next bounty to closed breeding sites",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_01",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L22"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L22"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Tie the next bounty to closed breeding sites",
+        "costAndConsequence": "Hunters wait longer for pay and surveyors face danger",
+        "alternativeToId": "draft_hunter_01_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_hunter_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_hunter_01_additional_belief",
+      "kind": "Knowledge",
+      "label": "Fewer tags mean fewer beasts in the field",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_01",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L22"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L22"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Fewer tags mean fewer beasts in the field",
+        "aboutId": "draft_hunter_01_pressure",
+        "holderId": "draft_hunter_01_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_hunter_01_companion_edge_02",
+        "draft_hunter_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_hunter_02_counterparty",
+      "kind": "Entity",
+      "label": "elite supply officer",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_02",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L23"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L23"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Hold unused antivenom for a favored team",
+        "stakes": "Elite teams reserve antivenom before a public hunt",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_hunter_02_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_hunter_02_belief_holder",
+      "kind": "Entity",
+      "label": "hunt organizers",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_02",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L23"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L23"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Every vial has already been assigned",
+        "stakes": "Elite teams reserve antivenom before a public hunt",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_hunter_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_hunter_02_evidence_site",
+      "kind": "Location",
+      "label": "vial seal store",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L23"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L23"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "Elite teams reserve antivenom before a public hunt",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_hunter_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_hunter_02_alternative",
+      "kind": "Event",
+      "label": "Release a counted emergency cache to field medics",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_02",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L23"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L23"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Release a counted emergency cache to field medics",
+        "costAndConsequence": "Elite teams lose reserve and officers face audit",
+        "alternativeToId": "draft_hunter_02_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_hunter_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_hunter_02_additional_belief",
+      "kind": "Knowledge",
+      "label": "Every vial has already been assigned",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_02",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L23"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L23"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Every vial has already been assigned",
+        "aboutId": "draft_hunter_02_pressure",
+        "holderId": "draft_hunter_02_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_hunter_02_companion_edge_02",
+        "draft_hunter_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_hunter_03_counterparty",
+      "kind": "Entity",
+      "label": "route sponsor",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_03",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L24"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L24"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Run a cheap migration-season hunt near farms",
+        "stakes": "A hunting route ignores seasonal migration and endangers farms",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_hunter_03_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_hunter_03_belief_holder",
+      "kind": "Entity",
+      "label": "town bettors",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_03",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L24"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L24"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: The official route cannot affect farms",
+        "stakes": "A hunting route ignores seasonal migration and endangers farms",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_hunter_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_hunter_03_evidence_site",
+      "kind": "Location",
+      "label": "farm-edge track blind",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L24"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L24"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A hunting route ignores seasonal migration and endangers farms",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_hunter_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_hunter_03_alternative",
+      "kind": "Event",
+      "label": "Shift the route after a scout-led migration count",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_03",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L24"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L24"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Shift the route after a scout-led migration count",
+        "costAndConsequence": "Teams walk farther and sponsors lose a fast start",
+        "alternativeToId": "draft_hunter_03_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_hunter_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_hunter_03_additional_belief",
+      "kind": "Knowledge",
+      "label": "The official route cannot affect farms",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_03",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L24"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L24"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The official route cannot affect farms",
+        "aboutId": "draft_hunter_03_pressure",
+        "holderId": "draft_hunter_03_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_hunter_03_companion_edge_02",
+        "draft_hunter_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_hunter_04_counterparty",
+      "kind": "Entity",
+      "label": "kill-claim registrar",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_04",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L25"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L25"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Exclude villagers from salvage shares despite their evacuation work",
+        "stakes": "A kill claim excludes villagers who bore the risk",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_hunter_04_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_hunter_04_belief_holder",
+      "kind": "Entity",
+      "label": "sponsor accountants",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_04",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L25"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L25"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Only the final blow counts as borne risk",
+        "stakes": "A kill claim excludes villagers who bore the risk",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_hunter_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_hunter_04_evidence_site",
+      "kind": "Location",
+      "label": "village signal ledger",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L25"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L25"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A kill claim excludes villagers who bore the risk",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_hunter_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_hunter_04_alternative",
+      "kind": "Event",
+      "label": "Hold salvage until risk witnesses are heard",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_04",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L25"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L25"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Hold salvage until risk witnesses are heard",
+        "costAndConsequence": "Team payout is delayed and arbitration costs rise",
+        "alternativeToId": "draft_hunter_04_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_hunter_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_hunter_04_additional_belief",
+      "kind": "Knowledge",
+      "label": "Only the final blow counts as borne risk",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_04",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L25"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L25"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Only the final blow counts as borne risk",
+        "aboutId": "draft_hunter_04_pressure",
+        "holderId": "draft_hunter_04_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_hunter_04_companion_edge_02",
+        "draft_hunter_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_hunter_05_counterparty",
+      "kind": "Entity",
+      "label": "trophy seller",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_05",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L26"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L26"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Declare the threat gone to collect early payment",
+        "stakes": "A false trophy report causes watch posts to stand down",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_hunter_05_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_hunter_05_belief_holder",
+      "kind": "Entity",
+      "label": "watch recruits",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_05",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L26"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L26"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: A trophy proves no related beast remains",
+        "stakes": "A false trophy report causes watch posts to stand down",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_hunter_05_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_hunter_05_evidence_site",
+      "kind": "Location",
+      "label": "watch-line spoor trench",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L26"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L26"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A false trophy report causes watch posts to stand down",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_hunter_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_hunter_05_alternative",
+      "kind": "Event",
+      "label": "Restore one watch shift and verify fresh tracks",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_05",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L26"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L26"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Restore one watch shift and verify fresh tracks",
+        "costAndConsequence": "The village spends labor and hunters postpone payout",
+        "alternativeToId": "draft_hunter_05_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_hunter_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_hunter_05_additional_belief",
+      "kind": "Knowledge",
+      "label": "A trophy proves no related beast remains",
+      "scopeId": "motif_hunter",
+      "motifId": "hunter",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_hunter_05",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L26"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L26"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A trophy proves no related beast remains",
+        "aboutId": "draft_hunter_05_pressure",
+        "holderId": "draft_hunter_05_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_hunter_05_companion_edge_02",
+        "draft_hunter_05_companion_edge_03"
+      ]
+    }
+  ],
+  "structuralEdges": [
+    {
+      "id": "draft_hunter_01_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_hunter_01_entity",
+      "toId": "draft_hunter_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_01:entity>location"
+    },
+    {
+      "id": "draft_hunter_01_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_hunter_01_location",
+      "toId": "draft_hunter_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_01:location>resource"
+    },
+    {
+      "id": "draft_hunter_01_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_hunter_01_pressure",
+      "toId": "draft_hunter_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_01:pressure>location"
+    },
+    {
+      "id": "draft_hunter_01_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_hunter_01_pressure",
+      "toId": "draft_hunter_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_01:pressure>entity"
+    },
+    {
+      "id": "draft_hunter_01_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_hunter_01_pressure",
+      "toId": "draft_hunter_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_01:pressure>resource"
+    },
+    {
+      "id": "draft_hunter_01_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_hunter_01_response",
+      "toId": "draft_hunter_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_01:response>location"
+    },
+    {
+      "id": "draft_hunter_01_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_hunter_01_response",
+      "toId": "draft_hunter_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_01:response>entity"
+    },
+    {
+      "id": "draft_hunter_01_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_hunter_01_response",
+      "toId": "draft_hunter_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_01:response>resource"
+    },
+    {
+      "id": "draft_hunter_01_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_hunter_01_report",
+      "toId": "draft_hunter_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_01:report>pressure"
+    },
+    {
+      "id": "draft_hunter_01_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_hunter_01_evidence",
+      "toId": "draft_hunter_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_01:evidence>pressure"
+    },
+    {
+      "id": "draft_hunter_02_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_hunter_02_entity",
+      "toId": "draft_hunter_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_02:entity>location"
+    },
+    {
+      "id": "draft_hunter_02_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_hunter_02_location",
+      "toId": "draft_hunter_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_02:location>resource"
+    },
+    {
+      "id": "draft_hunter_02_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_hunter_02_pressure",
+      "toId": "draft_hunter_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_02:pressure>location"
+    },
+    {
+      "id": "draft_hunter_02_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_hunter_02_pressure",
+      "toId": "draft_hunter_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_02:pressure>entity"
+    },
+    {
+      "id": "draft_hunter_02_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_hunter_02_pressure",
+      "toId": "draft_hunter_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_02:pressure>resource"
+    },
+    {
+      "id": "draft_hunter_02_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_hunter_02_response",
+      "toId": "draft_hunter_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_02:response>location"
+    },
+    {
+      "id": "draft_hunter_02_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_hunter_02_response",
+      "toId": "draft_hunter_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_02:response>entity"
+    },
+    {
+      "id": "draft_hunter_02_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_hunter_02_response",
+      "toId": "draft_hunter_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_02:response>resource"
+    },
+    {
+      "id": "draft_hunter_02_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_hunter_02_report",
+      "toId": "draft_hunter_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_02:report>pressure"
+    },
+    {
+      "id": "draft_hunter_02_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_hunter_02_evidence",
+      "toId": "draft_hunter_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_02:evidence>pressure"
+    },
+    {
+      "id": "draft_hunter_03_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_hunter_03_entity",
+      "toId": "draft_hunter_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_03:entity>location"
+    },
+    {
+      "id": "draft_hunter_03_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_hunter_03_location",
+      "toId": "draft_hunter_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_03:location>resource"
+    },
+    {
+      "id": "draft_hunter_03_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_hunter_03_pressure",
+      "toId": "draft_hunter_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_03:pressure>location"
+    },
+    {
+      "id": "draft_hunter_03_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_hunter_03_pressure",
+      "toId": "draft_hunter_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_03:pressure>entity"
+    },
+    {
+      "id": "draft_hunter_03_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_hunter_03_pressure",
+      "toId": "draft_hunter_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_03:pressure>resource"
+    },
+    {
+      "id": "draft_hunter_03_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_hunter_03_response",
+      "toId": "draft_hunter_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_03:response>location"
+    },
+    {
+      "id": "draft_hunter_03_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_hunter_03_response",
+      "toId": "draft_hunter_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_03:response>entity"
+    },
+    {
+      "id": "draft_hunter_03_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_hunter_03_response",
+      "toId": "draft_hunter_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_03:response>resource"
+    },
+    {
+      "id": "draft_hunter_03_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_hunter_03_report",
+      "toId": "draft_hunter_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_03:report>pressure"
+    },
+    {
+      "id": "draft_hunter_03_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_hunter_03_evidence",
+      "toId": "draft_hunter_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_03:evidence>pressure"
+    },
+    {
+      "id": "draft_hunter_04_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_hunter_04_entity",
+      "toId": "draft_hunter_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_04:entity>location"
+    },
+    {
+      "id": "draft_hunter_04_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_hunter_04_location",
+      "toId": "draft_hunter_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_04:location>resource"
+    },
+    {
+      "id": "draft_hunter_04_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_hunter_04_pressure",
+      "toId": "draft_hunter_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_04:pressure>location"
+    },
+    {
+      "id": "draft_hunter_04_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_hunter_04_pressure",
+      "toId": "draft_hunter_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_04:pressure>entity"
+    },
+    {
+      "id": "draft_hunter_04_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_hunter_04_pressure",
+      "toId": "draft_hunter_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_04:pressure>resource"
+    },
+    {
+      "id": "draft_hunter_04_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_hunter_04_response",
+      "toId": "draft_hunter_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_04:response>location"
+    },
+    {
+      "id": "draft_hunter_04_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_hunter_04_response",
+      "toId": "draft_hunter_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_04:response>entity"
+    },
+    {
+      "id": "draft_hunter_04_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_hunter_04_response",
+      "toId": "draft_hunter_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_04:response>resource"
+    },
+    {
+      "id": "draft_hunter_04_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_hunter_04_report",
+      "toId": "draft_hunter_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_04:report>pressure"
+    },
+    {
+      "id": "draft_hunter_04_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_hunter_04_evidence",
+      "toId": "draft_hunter_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_04:evidence>pressure"
+    },
+    {
+      "id": "draft_hunter_05_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_hunter_05_entity",
+      "toId": "draft_hunter_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_05:entity>location"
+    },
+    {
+      "id": "draft_hunter_05_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_hunter_05_location",
+      "toId": "draft_hunter_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_05:location>resource"
+    },
+    {
+      "id": "draft_hunter_05_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_hunter_05_pressure",
+      "toId": "draft_hunter_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_05:pressure>location"
+    },
+    {
+      "id": "draft_hunter_05_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_hunter_05_pressure",
+      "toId": "draft_hunter_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_05:pressure>entity"
+    },
+    {
+      "id": "draft_hunter_05_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_hunter_05_pressure",
+      "toId": "draft_hunter_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_05:pressure>resource"
+    },
+    {
+      "id": "draft_hunter_05_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_hunter_05_response",
+      "toId": "draft_hunter_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_05:response>location"
+    },
+    {
+      "id": "draft_hunter_05_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_hunter_05_response",
+      "toId": "draft_hunter_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_05:response>entity"
+    },
+    {
+      "id": "draft_hunter_05_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_hunter_05_response",
+      "toId": "draft_hunter_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_05:response>resource"
+    },
+    {
+      "id": "draft_hunter_05_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_hunter_05_report",
+      "toId": "draft_hunter_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_05:report>pressure"
+    },
+    {
+      "id": "draft_hunter_05_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_hunter_05_evidence",
+      "toId": "draft_hunter_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_hunter_05:evidence>pressure"
+    },
+    {
+      "id": "draft_hunter_01_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_hunter_01_pressure",
+      "toId": "draft_hunter_01_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L22"
+    },
+    {
+      "id": "draft_hunter_01_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_hunter_01_additional_belief",
+      "toId": "draft_hunter_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L22"
+    },
+    {
+      "id": "draft_hunter_01_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_hunter_01_additional_belief",
+      "toId": "draft_hunter_01_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L22"
+    },
+    {
+      "id": "draft_hunter_01_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_hunter_01_evidence_site",
+      "toId": "draft_hunter_01_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L22"
+    },
+    {
+      "id": "draft_hunter_01_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_hunter_01_alternative",
+      "toId": "draft_hunter_01_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L22"
+    },
+    {
+      "id": "draft_hunter_02_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_hunter_02_pressure",
+      "toId": "draft_hunter_02_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L23"
+    },
+    {
+      "id": "draft_hunter_02_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_hunter_02_additional_belief",
+      "toId": "draft_hunter_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L23"
+    },
+    {
+      "id": "draft_hunter_02_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_hunter_02_additional_belief",
+      "toId": "draft_hunter_02_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L23"
+    },
+    {
+      "id": "draft_hunter_02_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_hunter_02_evidence_site",
+      "toId": "draft_hunter_02_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L23"
+    },
+    {
+      "id": "draft_hunter_02_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_hunter_02_alternative",
+      "toId": "draft_hunter_02_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L23"
+    },
+    {
+      "id": "draft_hunter_03_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_hunter_03_pressure",
+      "toId": "draft_hunter_03_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L24"
+    },
+    {
+      "id": "draft_hunter_03_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_hunter_03_additional_belief",
+      "toId": "draft_hunter_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L24"
+    },
+    {
+      "id": "draft_hunter_03_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_hunter_03_additional_belief",
+      "toId": "draft_hunter_03_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L24"
+    },
+    {
+      "id": "draft_hunter_03_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_hunter_03_evidence_site",
+      "toId": "draft_hunter_03_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L24"
+    },
+    {
+      "id": "draft_hunter_03_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_hunter_03_alternative",
+      "toId": "draft_hunter_03_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L24"
+    },
+    {
+      "id": "draft_hunter_04_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_hunter_04_pressure",
+      "toId": "draft_hunter_04_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L25"
+    },
+    {
+      "id": "draft_hunter_04_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_hunter_04_additional_belief",
+      "toId": "draft_hunter_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L25"
+    },
+    {
+      "id": "draft_hunter_04_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_hunter_04_additional_belief",
+      "toId": "draft_hunter_04_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L25"
+    },
+    {
+      "id": "draft_hunter_04_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_hunter_04_evidence_site",
+      "toId": "draft_hunter_04_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L25"
+    },
+    {
+      "id": "draft_hunter_04_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_hunter_04_alternative",
+      "toId": "draft_hunter_04_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L25"
+    },
+    {
+      "id": "draft_hunter_05_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_hunter_05_pressure",
+      "toId": "draft_hunter_05_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L26"
+    },
+    {
+      "id": "draft_hunter_05_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_hunter_05_additional_belief",
+      "toId": "draft_hunter_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L26"
+    },
+    {
+      "id": "draft_hunter_05_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_hunter_05_additional_belief",
+      "toId": "draft_hunter_05_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L26"
+    },
+    {
+      "id": "draft_hunter_05_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_hunter_05_evidence_site",
+      "toId": "draft_hunter_05_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L26"
+    },
+    {
+      "id": "draft_hunter_05_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_hunter_05_alternative",
+      "toId": "draft_hunter_05_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L26"
+    }
+  ],
+  "proposedCausalLinks": [
+    {
+      "id": "draft_hunter_01_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_hunter_01_pressure",
+      "toId": "draft_hunter_01_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_hunter_01_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_hunter_01_evidence",
+      "toId": "draft_hunter_01_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_hunter_02_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_hunter_02_pressure",
+      "toId": "draft_hunter_02_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_hunter_02_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_hunter_02_evidence",
+      "toId": "draft_hunter_02_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_hunter_03_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_hunter_03_pressure",
+      "toId": "draft_hunter_03_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_hunter_03_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_hunter_03_evidence",
+      "toId": "draft_hunter_03_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_hunter_04_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_hunter_04_pressure",
+      "toId": "draft_hunter_04_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_hunter_04_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_hunter_04_evidence",
+      "toId": "draft_hunter_04_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_hunter_05_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_hunter_05_pressure",
+      "toId": "draft_hunter_05_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_hunter_05_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_hunter_05_evidence",
+      "toId": "draft_hunter_05_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    }
+  ]
+}

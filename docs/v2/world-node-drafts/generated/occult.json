@@ -1,0 +1,3084 @@
+{
+  "schema": "world-node-drafts/v1",
+  "status": "Draft",
+  "runtime": false,
+  "scope": {
+    "id": "motif_occult",
+    "label": "괴이·오컬트",
+    "kind": "genre-or-structure proposal; not a world definition"
+  },
+  "canonImpact": "none; no Draft item is accepted game setting",
+  "sourceRefs": [
+    "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+    "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+    "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft"
+  ],
+  "fronts": [
+    {
+      "id": "draft_occult_01",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A copied warning invites people past a dangerous threshold",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A copied warning invites people past a dangerous threshold",
+      "authoredIntervention": "Trace the copy and close the stair until tested",
+      "initialReport": "The notice says the stair is safe at noon",
+      "verificationCandidate": "Witnesses record the threshold opening at noon",
+      "alternativeInterventions": "Station a witness at the stair and close it during noon testing",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied",
+        "An unexplained occurrence does not establish a supernatural cause"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L9",
+        "docs/v2/world-node-drafts/companion-b.txt#L7"
+      ],
+      "semanticSignature": "a copied warning invites people past a dangerous threshold trace the copy and close the stair until tested salt lines the notice says the stair is safe at noon witnesses record the threshold opening at noon",
+      "nodeIds": [
+        "draft_occult_01_entity",
+        "draft_occult_01_location",
+        "draft_occult_01_resource",
+        "draft_occult_01_pressure",
+        "draft_occult_01_response",
+        "draft_occult_01_report",
+        "draft_occult_01_evidence",
+        "draft_occult_01_counterparty",
+        "draft_occult_01_belief_holder",
+        "draft_occult_01_evidence_site",
+        "draft_occult_01_alternative",
+        "draft_occult_01_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Access to adjacent homes is restricted",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_occult_01_counterparty",
+        "evidenceSiteId": "draft_occult_01_evidence_site",
+        "alternativeEventId": "draft_occult_01_alternative",
+        "additionalBeliefId": "draft_occult_01_additional_belief",
+        "beliefHolderId": "draft_occult_01_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L7"
+      }
+    },
+    {
+      "id": "draft_occult_02",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "Several patients repeat a dream with conflicting exits",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "Several patients repeat a dream with conflicting exits",
+      "authoredIntervention": "Map differences before following any exit",
+      "initialReport": "A popular account claims one exit works for all",
+      "verificationCandidate": "Dated diaries show the exit moves by dreamer",
+      "alternativeInterventions": "Guide only a monitored sleeper through a recorded personal exit",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied",
+        "An unexplained occurrence does not establish a supernatural cause"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L10",
+        "docs/v2/world-node-drafts/companion-b.txt#L8"
+      ],
+      "semanticSignature": "several patients repeat a dream with conflicting exits map differences before following any exit sleep diaries a popular account claims one exit works for all dated diaries show the exit moves by dreamer",
+      "nodeIds": [
+        "draft_occult_02_entity",
+        "draft_occult_02_location",
+        "draft_occult_02_resource",
+        "draft_occult_02_pressure",
+        "draft_occult_02_response",
+        "draft_occult_02_report",
+        "draft_occult_02_evidence",
+        "draft_occult_02_counterparty",
+        "draft_occult_02_belief_holder",
+        "draft_occult_02_evidence_site",
+        "draft_occult_02_alternative",
+        "draft_occult_02_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "The clinic loses beds and no general cure is promised",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_occult_02_counterparty",
+        "evidenceSiteId": "draft_occult_02_evidence_site",
+        "alternativeEventId": "draft_occult_02_alternative",
+        "additionalBeliefId": "draft_occult_02_additional_belief",
+        "beliefHolderId": "draft_occult_02_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L8"
+      }
+    },
+    {
+      "id": "draft_occult_03",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A dead caller's voice asks for a message that harms a living witness",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A dead caller's voice asks for a message that harms a living witness",
+      "authoredIntervention": "Authenticate the voice and protect the named witness",
+      "initialReport": "Listeners assume the caller knows the whole story",
+      "verificationCandidate": "An earlier recording contradicts the accusation",
+      "alternativeInterventions": "Delay delivery until the witness and recording can be compared",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied",
+        "An unexplained occurrence does not establish a supernatural cause"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L11",
+        "docs/v2/world-node-drafts/companion-b.txt#L9"
+      ],
+      "semanticSignature": "a dead caller s voice asks for a message that harms a living witness authenticate the voice and protect the named witness wax recordings listeners assume the caller knows the whole story an earlier recording contradicts the accusation",
+      "nodeIds": [
+        "draft_occult_03_entity",
+        "draft_occult_03_location",
+        "draft_occult_03_resource",
+        "draft_occult_03_pressure",
+        "draft_occult_03_response",
+        "draft_occult_03_report",
+        "draft_occult_03_evidence",
+        "draft_occult_03_counterparty",
+        "draft_occult_03_belief_holder",
+        "draft_occult_03_evidence_site",
+        "draft_occult_03_alternative",
+        "draft_occult_03_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "The caller's request may expire and trust frays",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_occult_03_counterparty",
+        "evidenceSiteId": "draft_occult_03_evidence_site",
+        "alternativeEventId": "draft_occult_03_alternative",
+        "additionalBeliefId": "draft_occult_03_additional_belief",
+        "beliefHolderId": "draft_occult_03_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L9"
+      }
+    },
+    {
+      "id": "draft_occult_04",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A path bends toward a grave only when a name is spoken",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A path bends toward a grave only when a name is spoken",
+      "authoredIntervention": "Use unnamed markers and document the route",
+      "initialReport": "Locals claim the fog alone moves travelers",
+      "verificationCandidate": "Paired walkers find the spoken-name difference",
+      "alternativeInterventions": "Mark a silent bypass for travelers after sunset",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied",
+        "An unexplained occurrence does not establish a supernatural cause"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L12",
+        "docs/v2/world-node-drafts/companion-b.txt#L10"
+      ],
+      "semanticSignature": "a path bends toward a grave only when a name is spoken use unnamed markers and document the route blue lanterns locals claim the fog alone moves travelers paired walkers find the spoken name difference",
+      "nodeIds": [
+        "draft_occult_04_entity",
+        "draft_occult_04_location",
+        "draft_occult_04_resource",
+        "draft_occult_04_pressure",
+        "draft_occult_04_response",
+        "draft_occult_04_report",
+        "draft_occult_04_evidence",
+        "draft_occult_04_counterparty",
+        "draft_occult_04_belief_holder",
+        "draft_occult_04_evidence_site",
+        "draft_occult_04_alternative",
+        "draft_occult_04_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Travelers make a longer walk and keepers must maintain markers",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_occult_04_counterparty",
+        "evidenceSiteId": "draft_occult_04_evidence_site",
+        "alternativeEventId": "draft_occult_04_alternative",
+        "additionalBeliefId": "draft_occult_04_additional_belief",
+        "beliefHolderId": "draft_occult_04_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L10"
+      }
+    },
+    {
+      "id": "draft_occult_05",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A portrait gains a face before the subject disappears",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A portrait gains a face before the subject disappears",
+      "authoredIntervention": "Hide the plate and check who handled it",
+      "initialReport": "Neighbors say the subject left willingly",
+      "verificationCandidate": "Door records show no departure",
+      "alternativeInterventions": "Watch the portrayed person's home while preserving the canvas",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied",
+        "An unexplained occurrence does not establish a supernatural cause"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L13",
+        "docs/v2/world-node-drafts/companion-b.txt#L11"
+      ],
+      "semanticSignature": "a portrait gains a face before the subject disappears hide the plate and check who handled it portrait plates neighbors say the subject left willingly door records show no departure",
+      "nodeIds": [
+        "draft_occult_05_entity",
+        "draft_occult_05_location",
+        "draft_occult_05_resource",
+        "draft_occult_05_pressure",
+        "draft_occult_05_response",
+        "draft_occult_05_report",
+        "draft_occult_05_evidence",
+        "draft_occult_05_counterparty",
+        "draft_occult_05_belief_holder",
+        "draft_occult_05_evidence_site",
+        "draft_occult_05_alternative",
+        "draft_occult_05_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "A household faces intrusive observation and work is suspended",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_occult_05_counterparty",
+        "evidenceSiteId": "draft_occult_05_evidence_site",
+        "alternativeEventId": "draft_occult_05_alternative",
+        "additionalBeliefId": "draft_occult_05_additional_belief",
+        "beliefHolderId": "draft_occult_05_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L11"
+      }
+    }
+  ],
+  "nodes": [
+    {
+      "id": "draft_occult_01_entity",
+      "kind": "Entity",
+      "label": "threshold caretakers",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_01",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L9"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L9"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep salt lines usable at sealed stairwell",
+        "stakes": "A copied warning invites people past a dangerous threshold",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_occult_01_edge_01",
+        "draft_occult_01_edge_04",
+        "draft_occult_01_edge_07"
+      ]
+    },
+    {
+      "id": "draft_occult_01_location",
+      "kind": "Location",
+      "label": "sealed stairwell",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_01",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L9"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L9"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_occult_01_resource",
+        "conflict": "A copied warning invites people past a dangerous threshold",
+        "risk": "A copied warning invites people past a dangerous threshold"
+      },
+      "relations": [
+        "draft_occult_01_edge_01",
+        "draft_occult_01_edge_02",
+        "draft_occult_01_edge_03",
+        "draft_occult_01_edge_06"
+      ]
+    },
+    {
+      "id": "draft_occult_01_resource",
+      "kind": "Resource",
+      "label": "salt lines",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_01",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L9"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L9"
+      ],
+      "proposal": {
+        "sourceId": "draft_occult_01_location",
+        "scarcity": "A copied warning invites people past a dangerous threshold",
+        "proposedUse": "Trace the copy and close the stair until tested",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_occult_01_edge_02",
+        "draft_occult_01_edge_05",
+        "draft_occult_01_edge_08"
+      ]
+    },
+    {
+      "id": "draft_occult_01_pressure",
+      "kind": "Event",
+      "label": "A copied warning invites people past a dangerous threshold",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_01",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L9"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L9"
+      ],
+      "proposal": {
+        "trigger": "A copied warning invites people past a dangerous threshold",
+        "proposedEffect": "Changes access to salt lines",
+        "effectTargetId": "draft_occult_01_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_occult_01_edge_03",
+        "draft_occult_01_edge_04",
+        "draft_occult_01_edge_05",
+        "draft_occult_01_edge_09",
+        "draft_occult_01_edge_10",
+        "draft_occult_01_companion_edge_01",
+        "draft_occult_01_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_occult_01_response",
+      "kind": "Event",
+      "label": "Trace the copy and close the stair until tested",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_01",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L9"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L9"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Trace the copy and close the stair until tested",
+        "proposedEffect": "Trace the copy and close the stair until tested",
+        "effectTargetId": "draft_occult_01_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_occult_01_edge_06",
+        "draft_occult_01_edge_07",
+        "draft_occult_01_edge_08",
+        "draft_occult_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_occult_01_report",
+      "kind": "Knowledge",
+      "label": "The notice says the stair is safe at noon",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_01",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L9"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L9"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The notice says the stair is safe at noon",
+        "aboutId": "draft_occult_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_occult_01_edge_09"
+      ]
+    },
+    {
+      "id": "draft_occult_01_evidence",
+      "kind": "Knowledge",
+      "label": "Witnesses record the threshold opening at noon",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L9"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L9"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Witnesses record the threshold opening at noon",
+        "aboutId": "draft_occult_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_occult_01_edge_10",
+        "draft_occult_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_occult_02_entity",
+      "kind": "Entity",
+      "label": "sleep clinic",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_02",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L10"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L10"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep sleep diaries usable at shared-dream ward",
+        "stakes": "Several patients repeat a dream with conflicting exits",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_occult_02_edge_01",
+        "draft_occult_02_edge_04",
+        "draft_occult_02_edge_07"
+      ]
+    },
+    {
+      "id": "draft_occult_02_location",
+      "kind": "Location",
+      "label": "shared-dream ward",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_02",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L10"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L10"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_occult_02_resource",
+        "conflict": "Several patients repeat a dream with conflicting exits",
+        "risk": "Several patients repeat a dream with conflicting exits"
+      },
+      "relations": [
+        "draft_occult_02_edge_01",
+        "draft_occult_02_edge_02",
+        "draft_occult_02_edge_03",
+        "draft_occult_02_edge_06"
+      ]
+    },
+    {
+      "id": "draft_occult_02_resource",
+      "kind": "Resource",
+      "label": "sleep diaries",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_02",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L10"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L10"
+      ],
+      "proposal": {
+        "sourceId": "draft_occult_02_location",
+        "scarcity": "Several patients repeat a dream with conflicting exits",
+        "proposedUse": "Map differences before following any exit",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_occult_02_edge_02",
+        "draft_occult_02_edge_05",
+        "draft_occult_02_edge_08"
+      ]
+    },
+    {
+      "id": "draft_occult_02_pressure",
+      "kind": "Event",
+      "label": "Several patients repeat a dream with conflicting exits",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_02",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L10"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L10"
+      ],
+      "proposal": {
+        "trigger": "Several patients repeat a dream with conflicting exits",
+        "proposedEffect": "Changes access to sleep diaries",
+        "effectTargetId": "draft_occult_02_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_occult_02_edge_03",
+        "draft_occult_02_edge_04",
+        "draft_occult_02_edge_05",
+        "draft_occult_02_edge_09",
+        "draft_occult_02_edge_10",
+        "draft_occult_02_companion_edge_01",
+        "draft_occult_02_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_occult_02_response",
+      "kind": "Event",
+      "label": "Map differences before following any exit",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_02",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L10"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L10"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Map differences before following any exit",
+        "proposedEffect": "Map differences before following any exit",
+        "effectTargetId": "draft_occult_02_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_occult_02_edge_06",
+        "draft_occult_02_edge_07",
+        "draft_occult_02_edge_08",
+        "draft_occult_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_occult_02_report",
+      "kind": "Knowledge",
+      "label": "A popular account claims one exit works for all",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_02",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L10"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L10"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A popular account claims one exit works for all",
+        "aboutId": "draft_occult_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_occult_02_edge_09"
+      ]
+    },
+    {
+      "id": "draft_occult_02_evidence",
+      "kind": "Knowledge",
+      "label": "Dated diaries show the exit moves by dreamer",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L10"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L10"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Dated diaries show the exit moves by dreamer",
+        "aboutId": "draft_occult_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_occult_02_edge_10",
+        "draft_occult_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_occult_03_entity",
+      "kind": "Entity",
+      "label": "oral-history circle",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_03",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L11"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L11"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep wax recordings usable at abandoned radio room",
+        "stakes": "A dead caller's voice asks for a message that harms a living witness",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_occult_03_edge_01",
+        "draft_occult_03_edge_04",
+        "draft_occult_03_edge_07"
+      ]
+    },
+    {
+      "id": "draft_occult_03_location",
+      "kind": "Location",
+      "label": "abandoned radio room",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_03",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L11"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L11"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_occult_03_resource",
+        "conflict": "A dead caller's voice asks for a message that harms a living witness",
+        "risk": "A dead caller's voice asks for a message that harms a living witness"
+      },
+      "relations": [
+        "draft_occult_03_edge_01",
+        "draft_occult_03_edge_02",
+        "draft_occult_03_edge_03",
+        "draft_occult_03_edge_06"
+      ]
+    },
+    {
+      "id": "draft_occult_03_resource",
+      "kind": "Resource",
+      "label": "wax recordings",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_03",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L11"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L11"
+      ],
+      "proposal": {
+        "sourceId": "draft_occult_03_location",
+        "scarcity": "A dead caller's voice asks for a message that harms a living witness",
+        "proposedUse": "Authenticate the voice and protect the named witness",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_occult_03_edge_02",
+        "draft_occult_03_edge_05",
+        "draft_occult_03_edge_08"
+      ]
+    },
+    {
+      "id": "draft_occult_03_pressure",
+      "kind": "Event",
+      "label": "A dead caller's voice asks for a message that harms a living witness",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_03",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L11"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L11"
+      ],
+      "proposal": {
+        "trigger": "A dead caller's voice asks for a message that harms a living witness",
+        "proposedEffect": "Changes access to wax recordings",
+        "effectTargetId": "draft_occult_03_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_occult_03_edge_03",
+        "draft_occult_03_edge_04",
+        "draft_occult_03_edge_05",
+        "draft_occult_03_edge_09",
+        "draft_occult_03_edge_10",
+        "draft_occult_03_companion_edge_01",
+        "draft_occult_03_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_occult_03_response",
+      "kind": "Event",
+      "label": "Authenticate the voice and protect the named witness",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_03",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L11"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L11"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Authenticate the voice and protect the named witness",
+        "proposedEffect": "Authenticate the voice and protect the named witness",
+        "effectTargetId": "draft_occult_03_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_occult_03_edge_06",
+        "draft_occult_03_edge_07",
+        "draft_occult_03_edge_08",
+        "draft_occult_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_occult_03_report",
+      "kind": "Knowledge",
+      "label": "Listeners assume the caller knows the whole story",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_03",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L11"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L11"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Listeners assume the caller knows the whole story",
+        "aboutId": "draft_occult_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_occult_03_edge_09"
+      ]
+    },
+    {
+      "id": "draft_occult_03_evidence",
+      "kind": "Knowledge",
+      "label": "An earlier recording contradicts the accusation",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L11"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L11"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "An earlier recording contradicts the accusation",
+        "aboutId": "draft_occult_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_occult_03_edge_10",
+        "draft_occult_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_occult_04_entity",
+      "kind": "Entity",
+      "label": "lantern watch",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_04",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L12"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L12"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep blue lanterns usable at fog cemetery path",
+        "stakes": "A path bends toward a grave only when a name is spoken",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_occult_04_edge_01",
+        "draft_occult_04_edge_04",
+        "draft_occult_04_edge_07"
+      ]
+    },
+    {
+      "id": "draft_occult_04_location",
+      "kind": "Location",
+      "label": "fog cemetery path",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_04",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L12"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L12"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_occult_04_resource",
+        "conflict": "A path bends toward a grave only when a name is spoken",
+        "risk": "A path bends toward a grave only when a name is spoken"
+      },
+      "relations": [
+        "draft_occult_04_edge_01",
+        "draft_occult_04_edge_02",
+        "draft_occult_04_edge_03",
+        "draft_occult_04_edge_06"
+      ]
+    },
+    {
+      "id": "draft_occult_04_resource",
+      "kind": "Resource",
+      "label": "blue lanterns",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_04",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L12"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L12"
+      ],
+      "proposal": {
+        "sourceId": "draft_occult_04_location",
+        "scarcity": "A path bends toward a grave only when a name is spoken",
+        "proposedUse": "Use unnamed markers and document the route",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_occult_04_edge_02",
+        "draft_occult_04_edge_05",
+        "draft_occult_04_edge_08"
+      ]
+    },
+    {
+      "id": "draft_occult_04_pressure",
+      "kind": "Event",
+      "label": "A path bends toward a grave only when a name is spoken",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_04",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L12"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L12"
+      ],
+      "proposal": {
+        "trigger": "A path bends toward a grave only when a name is spoken",
+        "proposedEffect": "Changes access to blue lanterns",
+        "effectTargetId": "draft_occult_04_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_occult_04_edge_03",
+        "draft_occult_04_edge_04",
+        "draft_occult_04_edge_05",
+        "draft_occult_04_edge_09",
+        "draft_occult_04_edge_10",
+        "draft_occult_04_companion_edge_01",
+        "draft_occult_04_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_occult_04_response",
+      "kind": "Event",
+      "label": "Use unnamed markers and document the route",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_04",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L12"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L12"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Use unnamed markers and document the route",
+        "proposedEffect": "Use unnamed markers and document the route",
+        "effectTargetId": "draft_occult_04_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_occult_04_edge_06",
+        "draft_occult_04_edge_07",
+        "draft_occult_04_edge_08",
+        "draft_occult_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_occult_04_report",
+      "kind": "Knowledge",
+      "label": "Locals claim the fog alone moves travelers",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_04",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L12"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L12"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Locals claim the fog alone moves travelers",
+        "aboutId": "draft_occult_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_occult_04_edge_09"
+      ]
+    },
+    {
+      "id": "draft_occult_04_evidence",
+      "kind": "Knowledge",
+      "label": "Paired walkers find the spoken-name difference",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L12"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L12"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Paired walkers find the spoken-name difference",
+        "aboutId": "draft_occult_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_occult_04_edge_10",
+        "draft_occult_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_occult_05_entity",
+      "kind": "Entity",
+      "label": "household archivists",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_05",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L13"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L13"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep portrait plates usable at attic of borrowed faces",
+        "stakes": "A portrait gains a face before the subject disappears",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_occult_05_edge_01",
+        "draft_occult_05_edge_04",
+        "draft_occult_05_edge_07"
+      ]
+    },
+    {
+      "id": "draft_occult_05_location",
+      "kind": "Location",
+      "label": "attic of borrowed faces",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_05",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L13"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L13"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_occult_05_resource",
+        "conflict": "A portrait gains a face before the subject disappears",
+        "risk": "A portrait gains a face before the subject disappears"
+      },
+      "relations": [
+        "draft_occult_05_edge_01",
+        "draft_occult_05_edge_02",
+        "draft_occult_05_edge_03",
+        "draft_occult_05_edge_06"
+      ]
+    },
+    {
+      "id": "draft_occult_05_resource",
+      "kind": "Resource",
+      "label": "portrait plates",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_05",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L13"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L13"
+      ],
+      "proposal": {
+        "sourceId": "draft_occult_05_location",
+        "scarcity": "A portrait gains a face before the subject disappears",
+        "proposedUse": "Hide the plate and check who handled it",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_occult_05_edge_02",
+        "draft_occult_05_edge_05",
+        "draft_occult_05_edge_08"
+      ]
+    },
+    {
+      "id": "draft_occult_05_pressure",
+      "kind": "Event",
+      "label": "A portrait gains a face before the subject disappears",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_05",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L13"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L13"
+      ],
+      "proposal": {
+        "trigger": "A portrait gains a face before the subject disappears",
+        "proposedEffect": "Changes access to portrait plates",
+        "effectTargetId": "draft_occult_05_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_occult_05_edge_03",
+        "draft_occult_05_edge_04",
+        "draft_occult_05_edge_05",
+        "draft_occult_05_edge_09",
+        "draft_occult_05_edge_10",
+        "draft_occult_05_companion_edge_01",
+        "draft_occult_05_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_occult_05_response",
+      "kind": "Event",
+      "label": "Hide the plate and check who handled it",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_05",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L13"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L13"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Hide the plate and check who handled it",
+        "proposedEffect": "Hide the plate and check who handled it",
+        "effectTargetId": "draft_occult_05_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_occult_05_edge_06",
+        "draft_occult_05_edge_07",
+        "draft_occult_05_edge_08",
+        "draft_occult_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_occult_05_report",
+      "kind": "Knowledge",
+      "label": "Neighbors say the subject left willingly",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_05",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L13"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L13"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Neighbors say the subject left willingly",
+        "aboutId": "draft_occult_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_occult_05_edge_09"
+      ]
+    },
+    {
+      "id": "draft_occult_05_evidence",
+      "kind": "Knowledge",
+      "label": "Door records show no departure",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L13"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L13"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Door records show no departure",
+        "aboutId": "draft_occult_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_occult_05_edge_10",
+        "draft_occult_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_occult_01_counterparty",
+      "kind": "Entity",
+      "label": "threshold notice copyist",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_01",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L7"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L7"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Avoid admitting a copied warning sent visitors into danger",
+        "stakes": "A copied warning invites people past a dangerous threshold",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_occult_01_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_occult_01_belief_holder",
+      "kind": "Entity",
+      "label": "nearby residents",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_01",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L7"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L7"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Noon is safe because the warning says so",
+        "stakes": "A copied warning invites people past a dangerous threshold",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_occult_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_occult_01_evidence_site",
+      "kind": "Location",
+      "label": "notice block printing room",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L7"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L7"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A copied warning invites people past a dangerous threshold",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_occult_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_occult_01_alternative",
+      "kind": "Event",
+      "label": "Station a witness at the stair and close it during noon testing",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_01",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L7"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L7"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Station a witness at the stair and close it during noon testing",
+        "costAndConsequence": "Access to adjacent homes is restricted",
+        "alternativeToId": "draft_occult_01_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_occult_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_occult_01_additional_belief",
+      "kind": "Knowledge",
+      "label": "Noon is safe because the warning says so",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_01",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L7"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L7"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Noon is safe because the warning says so",
+        "aboutId": "draft_occult_01_pressure",
+        "holderId": "draft_occult_01_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_occult_01_companion_edge_02",
+        "draft_occult_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_occult_02_counterparty",
+      "kind": "Entity",
+      "label": "dream-exit collector",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_02",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L8"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L8"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Sell one universal exit account despite conflicting diaries",
+        "stakes": "Several patients repeat a dream with conflicting exits",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_occult_02_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_occult_02_belief_holder",
+      "kind": "Entity",
+      "label": "anxious families",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_02",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L8"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L8"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: The first successful exit works for every dreamer",
+        "stakes": "Several patients repeat a dream with conflicting exits",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_occult_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_occult_02_evidence_site",
+      "kind": "Location",
+      "label": "dated sleep diary cabinet",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L8"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L8"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "Several patients repeat a dream with conflicting exits",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_occult_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_occult_02_alternative",
+      "kind": "Event",
+      "label": "Guide only a monitored sleeper through a recorded personal exit",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_02",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L8"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L8"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Guide only a monitored sleeper through a recorded personal exit",
+        "costAndConsequence": "The clinic loses beds and no general cure is promised",
+        "alternativeToId": "draft_occult_02_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_occult_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_occult_02_additional_belief",
+      "kind": "Knowledge",
+      "label": "The first successful exit works for every dreamer",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_02",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L8"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L8"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The first successful exit works for every dreamer",
+        "aboutId": "draft_occult_02_pressure",
+        "holderId": "draft_occult_02_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_occult_02_companion_edge_02",
+        "draft_occult_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_occult_03_counterparty",
+      "kind": "Entity",
+      "label": "caller-message broker",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_03",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L9"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L9"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Turn a dead voice into leverage against a living witness",
+        "stakes": "A dead caller's voice asks for a message that harms a living witness",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_occult_03_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_occult_03_belief_holder",
+      "kind": "Entity",
+      "label": "grieving listeners",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_03",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L9"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L9"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: The caller cannot misremember the living",
+        "stakes": "A dead caller's voice asks for a message that harms a living witness",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_occult_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_occult_03_evidence_site",
+      "kind": "Location",
+      "label": "original recording vault",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L9"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L9"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A dead caller's voice asks for a message that harms a living witness",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_occult_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_occult_03_alternative",
+      "kind": "Event",
+      "label": "Delay delivery until the witness and recording can be compared",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_03",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L9"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L9"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Delay delivery until the witness and recording can be compared",
+        "costAndConsequence": "The caller's request may expire and trust frays",
+        "alternativeToId": "draft_occult_03_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_occult_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_occult_03_additional_belief",
+      "kind": "Knowledge",
+      "label": "The caller cannot misremember the living",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_03",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L9"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L9"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The caller cannot misremember the living",
+        "aboutId": "draft_occult_03_pressure",
+        "holderId": "draft_occult_03_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_occult_03_companion_edge_02",
+        "draft_occult_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_occult_04_counterparty",
+      "kind": "Entity",
+      "label": "grave-path keeper",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_04",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L10"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L10"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Protect a ritual name from being spoken near the bend",
+        "stakes": "A path bends toward a grave only when a name is spoken",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_occult_04_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_occult_04_belief_holder",
+      "kind": "Entity",
+      "label": "local guides",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_04",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L10"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L10"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Fog alone explains every missing traveler",
+        "stakes": "A path bends toward a grave only when a name is spoken",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_occult_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_occult_04_evidence_site",
+      "kind": "Location",
+      "label": "paired-walk marker stones",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L10"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L10"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A path bends toward a grave only when a name is spoken",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_occult_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_occult_04_alternative",
+      "kind": "Event",
+      "label": "Mark a silent bypass for travelers after sunset",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_04",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L10"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L10"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Mark a silent bypass for travelers after sunset",
+        "costAndConsequence": "Travelers make a longer walk and keepers must maintain markers",
+        "alternativeToId": "draft_occult_04_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_occult_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_occult_04_additional_belief",
+      "kind": "Knowledge",
+      "label": "Fog alone explains every missing traveler",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_04",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L10"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L10"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Fog alone explains every missing traveler",
+        "aboutId": "draft_occult_04_pressure",
+        "holderId": "draft_occult_04_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_occult_04_companion_edge_02",
+        "draft_occult_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_occult_05_counterparty",
+      "kind": "Entity",
+      "label": "portrait conservator",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_05",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L11"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L11"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Hide alterations to a portrait before another disappearance",
+        "stakes": "A portrait gains a face before the subject disappears",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_occult_05_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_occult_05_belief_holder",
+      "kind": "Entity",
+      "label": "neighbors",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_05",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L11"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L11"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: A changed portrait proves its subject chose to leave",
+        "stakes": "A portrait gains a face before the subject disappears",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_occult_05_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_occult_05_evidence_site",
+      "kind": "Location",
+      "label": "paint-layer inspection bench",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L11"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L11"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A portrait gains a face before the subject disappears",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_occult_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_occult_05_alternative",
+      "kind": "Event",
+      "label": "Watch the portrayed person's home while preserving the canvas",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_05",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L11"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L11"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Watch the portrayed person's home while preserving the canvas",
+        "costAndConsequence": "A household faces intrusive observation and work is suspended",
+        "alternativeToId": "draft_occult_05_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_occult_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_occult_05_additional_belief",
+      "kind": "Knowledge",
+      "label": "A changed portrait proves its subject chose to leave",
+      "scopeId": "motif_occult",
+      "motifId": "occult",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_occult_05",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L11"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L11"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A changed portrait proves its subject chose to leave",
+        "aboutId": "draft_occult_05_pressure",
+        "holderId": "draft_occult_05_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_occult_05_companion_edge_02",
+        "draft_occult_05_companion_edge_03"
+      ]
+    }
+  ],
+  "structuralEdges": [
+    {
+      "id": "draft_occult_01_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_occult_01_entity",
+      "toId": "draft_occult_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_01:entity>location"
+    },
+    {
+      "id": "draft_occult_01_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_occult_01_location",
+      "toId": "draft_occult_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_01:location>resource"
+    },
+    {
+      "id": "draft_occult_01_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_occult_01_pressure",
+      "toId": "draft_occult_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_01:pressure>location"
+    },
+    {
+      "id": "draft_occult_01_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_occult_01_pressure",
+      "toId": "draft_occult_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_01:pressure>entity"
+    },
+    {
+      "id": "draft_occult_01_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_occult_01_pressure",
+      "toId": "draft_occult_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_01:pressure>resource"
+    },
+    {
+      "id": "draft_occult_01_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_occult_01_response",
+      "toId": "draft_occult_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_01:response>location"
+    },
+    {
+      "id": "draft_occult_01_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_occult_01_response",
+      "toId": "draft_occult_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_01:response>entity"
+    },
+    {
+      "id": "draft_occult_01_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_occult_01_response",
+      "toId": "draft_occult_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_01:response>resource"
+    },
+    {
+      "id": "draft_occult_01_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_occult_01_report",
+      "toId": "draft_occult_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_01:report>pressure"
+    },
+    {
+      "id": "draft_occult_01_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_occult_01_evidence",
+      "toId": "draft_occult_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_01:evidence>pressure"
+    },
+    {
+      "id": "draft_occult_02_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_occult_02_entity",
+      "toId": "draft_occult_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_02:entity>location"
+    },
+    {
+      "id": "draft_occult_02_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_occult_02_location",
+      "toId": "draft_occult_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_02:location>resource"
+    },
+    {
+      "id": "draft_occult_02_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_occult_02_pressure",
+      "toId": "draft_occult_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_02:pressure>location"
+    },
+    {
+      "id": "draft_occult_02_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_occult_02_pressure",
+      "toId": "draft_occult_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_02:pressure>entity"
+    },
+    {
+      "id": "draft_occult_02_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_occult_02_pressure",
+      "toId": "draft_occult_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_02:pressure>resource"
+    },
+    {
+      "id": "draft_occult_02_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_occult_02_response",
+      "toId": "draft_occult_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_02:response>location"
+    },
+    {
+      "id": "draft_occult_02_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_occult_02_response",
+      "toId": "draft_occult_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_02:response>entity"
+    },
+    {
+      "id": "draft_occult_02_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_occult_02_response",
+      "toId": "draft_occult_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_02:response>resource"
+    },
+    {
+      "id": "draft_occult_02_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_occult_02_report",
+      "toId": "draft_occult_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_02:report>pressure"
+    },
+    {
+      "id": "draft_occult_02_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_occult_02_evidence",
+      "toId": "draft_occult_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_02:evidence>pressure"
+    },
+    {
+      "id": "draft_occult_03_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_occult_03_entity",
+      "toId": "draft_occult_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_03:entity>location"
+    },
+    {
+      "id": "draft_occult_03_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_occult_03_location",
+      "toId": "draft_occult_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_03:location>resource"
+    },
+    {
+      "id": "draft_occult_03_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_occult_03_pressure",
+      "toId": "draft_occult_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_03:pressure>location"
+    },
+    {
+      "id": "draft_occult_03_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_occult_03_pressure",
+      "toId": "draft_occult_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_03:pressure>entity"
+    },
+    {
+      "id": "draft_occult_03_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_occult_03_pressure",
+      "toId": "draft_occult_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_03:pressure>resource"
+    },
+    {
+      "id": "draft_occult_03_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_occult_03_response",
+      "toId": "draft_occult_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_03:response>location"
+    },
+    {
+      "id": "draft_occult_03_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_occult_03_response",
+      "toId": "draft_occult_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_03:response>entity"
+    },
+    {
+      "id": "draft_occult_03_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_occult_03_response",
+      "toId": "draft_occult_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_03:response>resource"
+    },
+    {
+      "id": "draft_occult_03_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_occult_03_report",
+      "toId": "draft_occult_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_03:report>pressure"
+    },
+    {
+      "id": "draft_occult_03_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_occult_03_evidence",
+      "toId": "draft_occult_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_03:evidence>pressure"
+    },
+    {
+      "id": "draft_occult_04_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_occult_04_entity",
+      "toId": "draft_occult_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_04:entity>location"
+    },
+    {
+      "id": "draft_occult_04_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_occult_04_location",
+      "toId": "draft_occult_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_04:location>resource"
+    },
+    {
+      "id": "draft_occult_04_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_occult_04_pressure",
+      "toId": "draft_occult_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_04:pressure>location"
+    },
+    {
+      "id": "draft_occult_04_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_occult_04_pressure",
+      "toId": "draft_occult_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_04:pressure>entity"
+    },
+    {
+      "id": "draft_occult_04_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_occult_04_pressure",
+      "toId": "draft_occult_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_04:pressure>resource"
+    },
+    {
+      "id": "draft_occult_04_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_occult_04_response",
+      "toId": "draft_occult_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_04:response>location"
+    },
+    {
+      "id": "draft_occult_04_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_occult_04_response",
+      "toId": "draft_occult_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_04:response>entity"
+    },
+    {
+      "id": "draft_occult_04_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_occult_04_response",
+      "toId": "draft_occult_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_04:response>resource"
+    },
+    {
+      "id": "draft_occult_04_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_occult_04_report",
+      "toId": "draft_occult_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_04:report>pressure"
+    },
+    {
+      "id": "draft_occult_04_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_occult_04_evidence",
+      "toId": "draft_occult_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_04:evidence>pressure"
+    },
+    {
+      "id": "draft_occult_05_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_occult_05_entity",
+      "toId": "draft_occult_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_05:entity>location"
+    },
+    {
+      "id": "draft_occult_05_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_occult_05_location",
+      "toId": "draft_occult_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_05:location>resource"
+    },
+    {
+      "id": "draft_occult_05_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_occult_05_pressure",
+      "toId": "draft_occult_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_05:pressure>location"
+    },
+    {
+      "id": "draft_occult_05_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_occult_05_pressure",
+      "toId": "draft_occult_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_05:pressure>entity"
+    },
+    {
+      "id": "draft_occult_05_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_occult_05_pressure",
+      "toId": "draft_occult_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_05:pressure>resource"
+    },
+    {
+      "id": "draft_occult_05_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_occult_05_response",
+      "toId": "draft_occult_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_05:response>location"
+    },
+    {
+      "id": "draft_occult_05_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_occult_05_response",
+      "toId": "draft_occult_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_05:response>entity"
+    },
+    {
+      "id": "draft_occult_05_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_occult_05_response",
+      "toId": "draft_occult_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_05:response>resource"
+    },
+    {
+      "id": "draft_occult_05_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_occult_05_report",
+      "toId": "draft_occult_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_05:report>pressure"
+    },
+    {
+      "id": "draft_occult_05_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_occult_05_evidence",
+      "toId": "draft_occult_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_occult_05:evidence>pressure"
+    },
+    {
+      "id": "draft_occult_01_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_occult_01_pressure",
+      "toId": "draft_occult_01_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L7"
+    },
+    {
+      "id": "draft_occult_01_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_occult_01_additional_belief",
+      "toId": "draft_occult_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L7"
+    },
+    {
+      "id": "draft_occult_01_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_occult_01_additional_belief",
+      "toId": "draft_occult_01_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L7"
+    },
+    {
+      "id": "draft_occult_01_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_occult_01_evidence_site",
+      "toId": "draft_occult_01_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L7"
+    },
+    {
+      "id": "draft_occult_01_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_occult_01_alternative",
+      "toId": "draft_occult_01_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L7"
+    },
+    {
+      "id": "draft_occult_02_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_occult_02_pressure",
+      "toId": "draft_occult_02_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L8"
+    },
+    {
+      "id": "draft_occult_02_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_occult_02_additional_belief",
+      "toId": "draft_occult_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L8"
+    },
+    {
+      "id": "draft_occult_02_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_occult_02_additional_belief",
+      "toId": "draft_occult_02_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L8"
+    },
+    {
+      "id": "draft_occult_02_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_occult_02_evidence_site",
+      "toId": "draft_occult_02_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L8"
+    },
+    {
+      "id": "draft_occult_02_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_occult_02_alternative",
+      "toId": "draft_occult_02_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L8"
+    },
+    {
+      "id": "draft_occult_03_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_occult_03_pressure",
+      "toId": "draft_occult_03_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L9"
+    },
+    {
+      "id": "draft_occult_03_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_occult_03_additional_belief",
+      "toId": "draft_occult_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L9"
+    },
+    {
+      "id": "draft_occult_03_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_occult_03_additional_belief",
+      "toId": "draft_occult_03_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L9"
+    },
+    {
+      "id": "draft_occult_03_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_occult_03_evidence_site",
+      "toId": "draft_occult_03_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L9"
+    },
+    {
+      "id": "draft_occult_03_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_occult_03_alternative",
+      "toId": "draft_occult_03_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L9"
+    },
+    {
+      "id": "draft_occult_04_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_occult_04_pressure",
+      "toId": "draft_occult_04_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L10"
+    },
+    {
+      "id": "draft_occult_04_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_occult_04_additional_belief",
+      "toId": "draft_occult_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L10"
+    },
+    {
+      "id": "draft_occult_04_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_occult_04_additional_belief",
+      "toId": "draft_occult_04_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L10"
+    },
+    {
+      "id": "draft_occult_04_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_occult_04_evidence_site",
+      "toId": "draft_occult_04_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L10"
+    },
+    {
+      "id": "draft_occult_04_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_occult_04_alternative",
+      "toId": "draft_occult_04_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L10"
+    },
+    {
+      "id": "draft_occult_05_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_occult_05_pressure",
+      "toId": "draft_occult_05_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L11"
+    },
+    {
+      "id": "draft_occult_05_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_occult_05_additional_belief",
+      "toId": "draft_occult_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L11"
+    },
+    {
+      "id": "draft_occult_05_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_occult_05_additional_belief",
+      "toId": "draft_occult_05_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L11"
+    },
+    {
+      "id": "draft_occult_05_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_occult_05_evidence_site",
+      "toId": "draft_occult_05_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L11"
+    },
+    {
+      "id": "draft_occult_05_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_occult_05_alternative",
+      "toId": "draft_occult_05_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L11"
+    }
+  ],
+  "proposedCausalLinks": [
+    {
+      "id": "draft_occult_01_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_occult_01_pressure",
+      "toId": "draft_occult_01_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_occult_01_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_occult_01_evidence",
+      "toId": "draft_occult_01_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_occult_02_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_occult_02_pressure",
+      "toId": "draft_occult_02_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_occult_02_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_occult_02_evidence",
+      "toId": "draft_occult_02_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_occult_03_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_occult_03_pressure",
+      "toId": "draft_occult_03_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_occult_03_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_occult_03_evidence",
+      "toId": "draft_occult_03_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_occult_04_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_occult_04_pressure",
+      "toId": "draft_occult_04_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_occult_04_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_occult_04_evidence",
+      "toId": "draft_occult_04_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_occult_05_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_occult_05_pressure",
+      "toId": "draft_occult_05_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_occult_05_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_occult_05_evidence",
+      "toId": "draft_occult_05_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    }
+  ]
+}
