@@ -164,6 +164,8 @@ T1_POLICY=prepare3 T2_POLICY=lord3 python3 tests/v2/measure/m8-judge.py a.json d
 
 2단계(§10)는 `T4_POLICY=fight2 T5_POLICY=hero2 T8=1`을 더한다. T8은 fight2가 나선 결전 가운데 이름으로 끝난 비율이다(`fightRaidDay`가 있는 행).
 
+`playCareer(정책, 시드, 주사위, 날)`(내보냄)은 한 경력의 행과 마지막 상태를 돌려준다. `tests/v2/long-career-save.test.js`가 긴 판의 저장을 이것으로 확인한다(V2-Core-147).
+
 열 설명:
 - 단계 도달일: 이끄는 자격(`unl_road_lead`), 모임, 건넘, 수호자(`defender`), 왕국의 이름(`unl_realm_renown`)
 - 결말

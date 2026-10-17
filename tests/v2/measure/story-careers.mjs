@@ -190,7 +190,9 @@ function lastFight(s) {
   return s;
 }
 
-function career(name, seed, k) {
+// the career's last state, for playCareer (tests that check a long career's save, D-125)
+let LAST = null;
+function career(name, seed, k, days = DAYS) {
   const pol = POLICY[name];
   if (!pol) throw new Error(`unknown policy ${name}`);
   LATE = { t0: null, ids: new Set() };
@@ -204,7 +206,7 @@ function career(name, seed, k) {
   const m = { deaths: 0, deathDays: [], deathsAfterGather: 0, lives: 1, dayLead: null, dayGather: null, dayCross: null, dayFate: null, fate: 0, dayDefender: null, dayRenown: null, hunts: 0, fightRaidDay: null };
   const mem = { trips: 0, fought: false, burnt: false, crown: false };
   const stamp = (key, cond) => { if (m[key] === null && cond) m[key] = Math.round(day(s, t0) * 10) / 10; };
-  for (let guard = 0; day(s, t0) < DAYS && guard < 8000; guard++) {
+  for (let guard = 0; day(s, t0) < days && guard < 8000; guard++) {
     if (dead(s)) {
       m.deaths++; m.deathDays.push(Math.round(day(s, t0) * 10) / 10); if (m.dayGather !== null) m.deathsAfterGather++;
       CLICKS += 1; s = run(step(s, NEW, d).state, WALK); m.lives++; mem.fought = false; continue;
@@ -293,9 +295,12 @@ function career(name, seed, k) {
   m.clicks = CLICKS;
   m.clicksToFate = m.clicksToFate ?? null;
   LATE = null;
+  LAST = s;
   return m;
 }
 const out = [];
 for (const pol of POLS) for (const seed of SEEDS) for (let k = 0; k < DICE; k++) out.push({ pol, seed, k, dead: LEADER_DEAD, ...career(pol, seed, k) });
 if (DIRECT) console.log(JSON.stringify(out));
-export { toTown, run, TO_TOWN };
+// V2-Core-147 (M8, MG-081): one career of a policy for `days`, with its row and its last state
+const playCareer = (name, seed, k, days) => ({ row: career(name, seed, k, days), state: LAST });
+export { toTown, run, TO_TOWN, playCareer };
