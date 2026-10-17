@@ -6,6 +6,8 @@
 //      the same words and is not; the guild greets the name once; the town's crowd knows the face
 //   4. the late challenge: the band's remnants, for a seasoned sword once the fate is decided -- the bounty and a quiet week,
 //      or a beating
+//   V2-Core-149 (D-127, #371): the word's arrival north is the world's fact and the ferryman's knowledge, which he passes on;
+//   the remnants' state is the world's fact, and the waystation posts their bounty again once they have regrouped
 //   5. save/load and determinism
 // node:assert/strict only (§13.1).
 import assert from "node:assert/strict";
@@ -79,6 +81,16 @@ function testTheWordGoesNorth() {
   const three = run(won, [DAY, DAY, DAY]).state;
   assert.ok(north(three), "a cadence on");
   assert.equal(sig(three, "fate_word_age"), 2);
+  // V2-Core-149: the arrival is the world's fact; the ferryman, who saw the caravans go, knows it and tells it
+  assert.equal(three.facts?.fact_fate_word?.value, "north");
+  const two = run(won, [DAY, DAY]).state;
+  assert.equal(two.facts?.fact_fate_word, undefined, "not before the word arrives");
+  assert.equal(three.knowledge?.npc_ferryman?.rum_fate_word_north?.claim, "north");
+  const ask = (s) => run(at(s, "loc_river_ford"), [P("act_talk_ferryman"), C("opt_ferryman_news")]);
+  const told = ask(three);
+  assert.ok(said(told).includes("txt_ferryman_fate_north"));
+  assert.ok(mine(told.state).rum_fate_word_north.sources.includes("npc_ferryman"));
+  assert.ok(!said(ask(two)).includes("txt_ferryman_fate_north"), "before the word went north");
   assert.ok(!north(run(lives, [DAY, DAY, DAY, DAY, DAY, DAY, DAY]).state), "no fate, no word");
 }
 
@@ -138,18 +150,29 @@ function testTheRemnants() {
   assert.ok(!available(at(crossing, "loc_band_camp", { sword: 2 }), "act_hunt_band_remnants"), "not before the fate is decided");
   const hunted = rollTo(woods, [P("act_hunt_band_remnants")], "success", "hunt-yes");
   assert.ok(said(hunted).includes("txt_remnants_hunted"));
+  // V2-Core-149: scattered, the world's fact; the waystation has nothing to post until they regroup
+  const board = (s) => run(at(s, "loc_far_bank"), [P("act_read_waystation_board")]);
+  assert.equal(hunted.state.facts?.fact_remnants?.value, "scattered");
+  assert.ok(!said(board(wonNorth)).includes("txt_board_remnants"), "never scattered, so never regrouped: no notice");
+  assert.ok(!said(board(hunted.state)).includes("txt_board_remnants"), "a quiet week");
   assert.equal(me(hunted.state).money, me(woods).money + 12);
   assert.equal(rel(hunted.state, "org_village"), rel(woods, "org_village") + 2);
   assert.ok(!available(hunted.state, "act_hunt_band_remnants"), "a quiet week");
   const six = run(hunted.state, [DAY, DAY, DAY, DAY, DAY, DAY]).state;
   assert.ok(!available(six, "act_hunt_band_remnants"), "six days on, still quiet");
+  assert.ok(!said(board(six)).includes("txt_board_remnants"));
   const expired = run(six, [DAY]).state;
   assert.ok(available(expired, "act_hunt_band_remnants"), "a week on, regrouped");
   assert.equal(sig(expired, "remnants_quiet"), 0);
+  assert.equal(expired.facts.fact_remnants.value, "regrouped");
+  const posted = board(expired);
+  assert.ok(said(posted).includes("txt_board_remnants"), "the bounty posted again");
+  assert.deepEqual(mine(posted.state).rum_remnants_regrouped.sources, ["obs_loc_far_bank"]);
   const firstClock = expired.fired.evt_unrest_remnants_regroup;
   const again = rollTo(expired, [P("act_hunt_band_remnants")], "success", "hunt-again");
   assert.equal(again.state.time.minute - expired.time.minute, 240);
   assert.equal(sig(again.state, "remnants_quiet"), 7, "a second hunt starts a full new week inside the old cooldown");
+  assert.equal(again.state.facts.fact_remnants.value, "scattered");
   assert.deepEqual(again.state.fired.evt_unrest_remnants_regroup, { count: firstClock.count + 1, lastMinute: again.state.time.minute });
   assert.ok(!available(again.state, "act_hunt_band_remnants"));
 
@@ -170,6 +193,7 @@ function testTheRemnants() {
   // The same restart must discard a much older cadence without catching up all dormant days.
   const dormant = run(hunted.state, Array(30).fill(DAY)).state;
   assert.equal(sig(dormant, "remnants_quiet"), 0);
+  assert.equal(dormant.facts.fact_remnants.value, "regrouped");
   const late = rollTo(dormant, [P("act_hunt_band_remnants")], "success", "hunt-late");
   assert.equal(sig(late.state, "remnants_quiet"), 7);
   assert.deepEqual(late.state.fired.evt_unrest_remnants_regroup, {
