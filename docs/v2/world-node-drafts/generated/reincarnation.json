@@ -1,0 +1,3089 @@
+{
+  "schema": "world-node-drafts/v1",
+  "status": "Draft",
+  "runtime": false,
+  "scope": {
+    "id": "motif_reincarnation",
+    "label": "환생",
+    "kind": "genre-or-structure proposal; not a world definition"
+  },
+  "canonImpact": "none; no Draft item is accepted game setting",
+  "sourceRefs": [
+    "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+    "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+    "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft"
+  ],
+  "fronts": [
+    {
+      "id": "draft_reincarnation_01",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A child recalls a craft that an extinct guild guarded",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A child recalls a craft that an extinct guild guarded",
+      "authoredIntervention": "Test the skill without declaring ancestry",
+      "initialReport": "The guild claims recall proves descent",
+      "verificationCandidate": "Technique errors show learning and memory are distinct",
+      "alternativeInterventions": "Test the child's method without assigning ancestry",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied",
+        "A new life does not automatically inherit property or status",
+        "Memory claim is not verified ancestry"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L57",
+        "docs/v2/world-node-drafts/companion-a.txt#L47"
+      ],
+      "semanticSignature": "a child recalls a craft that an extinct guild guarded test the skill without declaring ancestry family tablets the guild claims recall proves descent technique errors show learning and memory are distinct",
+      "nodeIds": [
+        "draft_reincarnation_01_entity",
+        "draft_reincarnation_01_location",
+        "draft_reincarnation_01_resource",
+        "draft_reincarnation_01_pressure",
+        "draft_reincarnation_01_response",
+        "draft_reincarnation_01_report",
+        "draft_reincarnation_01_evidence",
+        "draft_reincarnation_01_counterparty",
+        "draft_reincarnation_01_belief_holder",
+        "draft_reincarnation_01_evidence_site",
+        "draft_reincarnation_01_alternative",
+        "draft_reincarnation_01_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "The child faces scrutiny and heirs delay inheritance",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_reincarnation_01_counterparty",
+        "evidenceSiteId": "draft_reincarnation_01_evidence_site",
+        "alternativeEventId": "draft_reincarnation_01_alternative",
+        "additionalBeliefId": "draft_reincarnation_01_additional_belief",
+        "beliefHolderId": "draft_reincarnation_01_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L47"
+      }
+    },
+    {
+      "id": "draft_reincarnation_02",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A grove tied to an earlier life is threatened by new owners",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A grove tied to an earlier life is threatened by new owners",
+      "authoredIntervention": "Negotiate access based on living stewardship",
+      "initialReport": "Neighbors say the old planter owns the grove again",
+      "verificationCandidate": "Land deeds name heirs, while new cuttings show current care",
+      "alternativeInterventions": "Lease a protected cutting strip while title is resolved",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied",
+        "A new life does not automatically inherit property or status",
+        "Memory claim is not verified ancestry"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L58",
+        "docs/v2/world-node-drafts/companion-a.txt#L48"
+      ],
+      "semanticSignature": "a grove tied to an earlier life is threatened by new owners negotiate access based on living stewardship seed cuttings neighbors say the old planter owns the grove again land deeds name heirs while new cuttings show current care",
+      "nodeIds": [
+        "draft_reincarnation_02_entity",
+        "draft_reincarnation_02_location",
+        "draft_reincarnation_02_resource",
+        "draft_reincarnation_02_pressure",
+        "draft_reincarnation_02_response",
+        "draft_reincarnation_02_report",
+        "draft_reincarnation_02_evidence",
+        "draft_reincarnation_02_counterparty",
+        "draft_reincarnation_02_belief_holder",
+        "draft_reincarnation_02_evidence_site",
+        "draft_reincarnation_02_alternative",
+        "draft_reincarnation_02_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Owners lose planting ground and gardeners fund care",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_reincarnation_02_counterparty",
+        "evidenceSiteId": "draft_reincarnation_02_evidence_site",
+        "alternativeEventId": "draft_reincarnation_02_alternative",
+        "additionalBeliefId": "draft_reincarnation_02_additional_belief",
+        "beliefHolderId": "draft_reincarnation_02_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L48"
+      }
+    },
+    {
+      "id": "draft_reincarnation_03",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A traveler recognizes a debt from another life",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A traveler recognizes a debt from another life",
+      "authoredIntervention": "Separate moral repair from legal liability",
+      "initialReport": "A creditor demands repayment from the new household",
+      "verificationCandidate": "Old accounts name a different estate",
+      "alternativeInterventions": "Separate estate assets from the traveler's present household",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied",
+        "A new life does not automatically inherit property or status",
+        "Memory claim is not verified ancestry"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L59",
+        "docs/v2/world-node-drafts/companion-a.txt#L49"
+      ],
+      "semanticSignature": "a traveler recognizes a debt from another life separate moral repair from legal liability passage tokens a creditor demands repayment from the new household old accounts name a different estate",
+      "nodeIds": [
+        "draft_reincarnation_03_entity",
+        "draft_reincarnation_03_location",
+        "draft_reincarnation_03_resource",
+        "draft_reincarnation_03_pressure",
+        "draft_reincarnation_03_response",
+        "draft_reincarnation_03_report",
+        "draft_reincarnation_03_evidence",
+        "draft_reincarnation_03_counterparty",
+        "draft_reincarnation_03_belief_holder",
+        "draft_reincarnation_03_evidence_site",
+        "draft_reincarnation_03_alternative",
+        "draft_reincarnation_03_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Creditors recover less and hearings take time",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_reincarnation_03_counterparty",
+        "evidenceSiteId": "draft_reincarnation_03_evidence_site",
+        "alternativeEventId": "draft_reincarnation_03_alternative",
+        "additionalBeliefId": "draft_reincarnation_03_additional_belief",
+        "beliefHolderId": "draft_reincarnation_03_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L49"
+      }
+    },
+    {
+      "id": "draft_reincarnation_04",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "Old battle memories teach dangerous tactics to a peaceful apprentice",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "Old battle memories teach dangerous tactics to a peaceful apprentice",
+      "authoredIntervention": "Teach safer context before using the memory",
+      "initialReport": "Spectators call inherited skill harmless",
+      "verificationCandidate": "Practice records show a near injury",
+      "alternativeInterventions": "Teach the apprentice defense under padded supervision",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied",
+        "A new life does not automatically inherit property or status",
+        "Memory claim is not verified ancestry"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L60",
+        "docs/v2/world-node-drafts/companion-a.txt#L50"
+      ],
+      "semanticSignature": "old battle memories teach dangerous tactics to a peaceful apprentice teach safer context before using the memory training records spectators call inherited skill harmless practice records show a near injury",
+      "nodeIds": [
+        "draft_reincarnation_04_entity",
+        "draft_reincarnation_04_location",
+        "draft_reincarnation_04_resource",
+        "draft_reincarnation_04_pressure",
+        "draft_reincarnation_04_response",
+        "draft_reincarnation_04_report",
+        "draft_reincarnation_04_evidence",
+        "draft_reincarnation_04_counterparty",
+        "draft_reincarnation_04_belief_holder",
+        "draft_reincarnation_04_evidence_site",
+        "draft_reincarnation_04_alternative",
+        "draft_reincarnation_04_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Mentors spend time and performances are postponed",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_reincarnation_04_counterparty",
+        "evidenceSiteId": "draft_reincarnation_04_evidence_site",
+        "alternativeEventId": "draft_reincarnation_04_alternative",
+        "additionalBeliefId": "draft_reincarnation_04_additional_belief",
+        "beliefHolderId": "draft_reincarnation_04_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L50"
+      }
+    },
+    {
+      "id": "draft_reincarnation_05",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "Two families claim one child as the return of their dead",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "Two families claim one child as the return of their dead",
+      "authoredIntervention": "Protect the child's choice and test each family's story",
+      "initialReport": "Both households cite the same private phrase",
+      "verificationCandidate": "Independent witnesses trace the phrase to public mourning rites",
+      "alternativeInterventions": "Set a neutral guardianship hearing before either household takes the child",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied",
+        "A new life does not automatically inherit property or status",
+        "Memory claim is not verified ancestry"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L61",
+        "docs/v2/world-node-drafts/companion-a.txt#L51"
+      ],
+      "semanticSignature": "two families claim one child as the return of their dead protect the child s choice and test each family s story heirloom bowls both households cite the same private phrase independent witnesses trace the phrase to public mourning rites",
+      "nodeIds": [
+        "draft_reincarnation_05_entity",
+        "draft_reincarnation_05_location",
+        "draft_reincarnation_05_resource",
+        "draft_reincarnation_05_pressure",
+        "draft_reincarnation_05_response",
+        "draft_reincarnation_05_report",
+        "draft_reincarnation_05_evidence",
+        "draft_reincarnation_05_counterparty",
+        "draft_reincarnation_05_belief_holder",
+        "draft_reincarnation_05_evidence_site",
+        "draft_reincarnation_05_alternative",
+        "draft_reincarnation_05_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Both families wait and the child faces questioning",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_reincarnation_05_counterparty",
+        "evidenceSiteId": "draft_reincarnation_05_evidence_site",
+        "alternativeEventId": "draft_reincarnation_05_alternative",
+        "additionalBeliefId": "draft_reincarnation_05_additional_belief",
+        "beliefHolderId": "draft_reincarnation_05_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L51"
+      }
+    }
+  ],
+  "nodes": [
+    {
+      "id": "draft_reincarnation_01_entity",
+      "kind": "Entity",
+      "label": "lineage recorders",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_01",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L57"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L57"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep family tablets usable at birth registry",
+        "stakes": "A child recalls a craft that an extinct guild guarded",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_reincarnation_01_edge_01",
+        "draft_reincarnation_01_edge_04",
+        "draft_reincarnation_01_edge_07"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_01_location",
+      "kind": "Location",
+      "label": "birth registry",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_01",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L57"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L57"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_reincarnation_01_resource",
+        "conflict": "A child recalls a craft that an extinct guild guarded",
+        "risk": "A child recalls a craft that an extinct guild guarded"
+      },
+      "relations": [
+        "draft_reincarnation_01_edge_01",
+        "draft_reincarnation_01_edge_02",
+        "draft_reincarnation_01_edge_03",
+        "draft_reincarnation_01_edge_06"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_01_resource",
+      "kind": "Resource",
+      "label": "family tablets",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_01",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L57"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L57"
+      ],
+      "proposal": {
+        "sourceId": "draft_reincarnation_01_location",
+        "scarcity": "A child recalls a craft that an extinct guild guarded",
+        "proposedUse": "Test the skill without declaring ancestry",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_reincarnation_01_edge_02",
+        "draft_reincarnation_01_edge_05",
+        "draft_reincarnation_01_edge_08"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_01_pressure",
+      "kind": "Event",
+      "label": "A child recalls a craft that an extinct guild guarded",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_01",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L57"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L57"
+      ],
+      "proposal": {
+        "trigger": "A child recalls a craft that an extinct guild guarded",
+        "proposedEffect": "Changes access to family tablets",
+        "effectTargetId": "draft_reincarnation_01_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_reincarnation_01_edge_03",
+        "draft_reincarnation_01_edge_04",
+        "draft_reincarnation_01_edge_05",
+        "draft_reincarnation_01_edge_09",
+        "draft_reincarnation_01_edge_10",
+        "draft_reincarnation_01_companion_edge_01",
+        "draft_reincarnation_01_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_01_response",
+      "kind": "Event",
+      "label": "Test the skill without declaring ancestry",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_01",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L57"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L57"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Test the skill without declaring ancestry",
+        "proposedEffect": "Test the skill without declaring ancestry",
+        "effectTargetId": "draft_reincarnation_01_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_reincarnation_01_edge_06",
+        "draft_reincarnation_01_edge_07",
+        "draft_reincarnation_01_edge_08",
+        "draft_reincarnation_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_01_report",
+      "kind": "Knowledge",
+      "label": "The guild claims recall proves descent",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_01",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L57"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L57"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The guild claims recall proves descent",
+        "aboutId": "draft_reincarnation_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_reincarnation_01_edge_09"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_01_evidence",
+      "kind": "Knowledge",
+      "label": "Technique errors show learning and memory are distinct",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L57"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L57"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Technique errors show learning and memory are distinct",
+        "aboutId": "draft_reincarnation_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_reincarnation_01_edge_10",
+        "draft_reincarnation_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_02_entity",
+      "kind": "Entity",
+      "label": "mourning gardeners",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_02",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L58"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L58"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep seed cuttings usable at memorial orchard",
+        "stakes": "A grove tied to an earlier life is threatened by new owners",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_reincarnation_02_edge_01",
+        "draft_reincarnation_02_edge_04",
+        "draft_reincarnation_02_edge_07"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_02_location",
+      "kind": "Location",
+      "label": "memorial orchard",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_02",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L58"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L58"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_reincarnation_02_resource",
+        "conflict": "A grove tied to an earlier life is threatened by new owners",
+        "risk": "A grove tied to an earlier life is threatened by new owners"
+      },
+      "relations": [
+        "draft_reincarnation_02_edge_01",
+        "draft_reincarnation_02_edge_02",
+        "draft_reincarnation_02_edge_03",
+        "draft_reincarnation_02_edge_06"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_02_resource",
+      "kind": "Resource",
+      "label": "seed cuttings",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_02",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L58"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L58"
+      ],
+      "proposal": {
+        "sourceId": "draft_reincarnation_02_location",
+        "scarcity": "A grove tied to an earlier life is threatened by new owners",
+        "proposedUse": "Negotiate access based on living stewardship",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_reincarnation_02_edge_02",
+        "draft_reincarnation_02_edge_05",
+        "draft_reincarnation_02_edge_08"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_02_pressure",
+      "kind": "Event",
+      "label": "A grove tied to an earlier life is threatened by new owners",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_02",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L58"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L58"
+      ],
+      "proposal": {
+        "trigger": "A grove tied to an earlier life is threatened by new owners",
+        "proposedEffect": "Changes access to seed cuttings",
+        "effectTargetId": "draft_reincarnation_02_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_reincarnation_02_edge_03",
+        "draft_reincarnation_02_edge_04",
+        "draft_reincarnation_02_edge_05",
+        "draft_reincarnation_02_edge_09",
+        "draft_reincarnation_02_edge_10",
+        "draft_reincarnation_02_companion_edge_01",
+        "draft_reincarnation_02_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_02_response",
+      "kind": "Event",
+      "label": "Negotiate access based on living stewardship",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_02",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L58"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L58"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Negotiate access based on living stewardship",
+        "proposedEffect": "Negotiate access based on living stewardship",
+        "effectTargetId": "draft_reincarnation_02_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_reincarnation_02_edge_06",
+        "draft_reincarnation_02_edge_07",
+        "draft_reincarnation_02_edge_08",
+        "draft_reincarnation_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_02_report",
+      "kind": "Knowledge",
+      "label": "Neighbors say the old planter owns the grove again",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_02",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L58"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L58"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Neighbors say the old planter owns the grove again",
+        "aboutId": "draft_reincarnation_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_reincarnation_02_edge_09"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_02_evidence",
+      "kind": "Knowledge",
+      "label": "Land deeds name heirs, while new cuttings show current care",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L58"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L58"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Land deeds name heirs, while new cuttings show current care",
+        "aboutId": "draft_reincarnation_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_reincarnation_02_edge_10",
+        "draft_reincarnation_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_03_entity",
+      "kind": "Entity",
+      "label": "ferry witnesses",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_03",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L59"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L59"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep passage tokens usable at returning-soul ferry",
+        "stakes": "A traveler recognizes a debt from another life",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_reincarnation_03_edge_01",
+        "draft_reincarnation_03_edge_04",
+        "draft_reincarnation_03_edge_07"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_03_location",
+      "kind": "Location",
+      "label": "returning-soul ferry",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_03",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L59"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L59"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_reincarnation_03_resource",
+        "conflict": "A traveler recognizes a debt from another life",
+        "risk": "A traveler recognizes a debt from another life"
+      },
+      "relations": [
+        "draft_reincarnation_03_edge_01",
+        "draft_reincarnation_03_edge_02",
+        "draft_reincarnation_03_edge_03",
+        "draft_reincarnation_03_edge_06"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_03_resource",
+      "kind": "Resource",
+      "label": "passage tokens",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_03",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L59"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L59"
+      ],
+      "proposal": {
+        "sourceId": "draft_reincarnation_03_location",
+        "scarcity": "A traveler recognizes a debt from another life",
+        "proposedUse": "Separate moral repair from legal liability",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_reincarnation_03_edge_02",
+        "draft_reincarnation_03_edge_05",
+        "draft_reincarnation_03_edge_08"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_03_pressure",
+      "kind": "Event",
+      "label": "A traveler recognizes a debt from another life",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_03",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L59"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L59"
+      ],
+      "proposal": {
+        "trigger": "A traveler recognizes a debt from another life",
+        "proposedEffect": "Changes access to passage tokens",
+        "effectTargetId": "draft_reincarnation_03_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_reincarnation_03_edge_03",
+        "draft_reincarnation_03_edge_04",
+        "draft_reincarnation_03_edge_05",
+        "draft_reincarnation_03_edge_09",
+        "draft_reincarnation_03_edge_10",
+        "draft_reincarnation_03_companion_edge_01",
+        "draft_reincarnation_03_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_03_response",
+      "kind": "Event",
+      "label": "Separate moral repair from legal liability",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_03",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L59"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L59"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Separate moral repair from legal liability",
+        "proposedEffect": "Separate moral repair from legal liability",
+        "effectTargetId": "draft_reincarnation_03_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_reincarnation_03_edge_06",
+        "draft_reincarnation_03_edge_07",
+        "draft_reincarnation_03_edge_08",
+        "draft_reincarnation_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_03_report",
+      "kind": "Knowledge",
+      "label": "A creditor demands repayment from the new household",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_03",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L59"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L59"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A creditor demands repayment from the new household",
+        "aboutId": "draft_reincarnation_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_reincarnation_03_edge_09"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_03_evidence",
+      "kind": "Knowledge",
+      "label": "Old accounts name a different estate",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L59"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L59"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Old accounts name a different estate",
+        "aboutId": "draft_reincarnation_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_reincarnation_03_edge_10",
+        "draft_reincarnation_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_04_entity",
+      "kind": "Entity",
+      "label": "archive mentors",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_04",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L60"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L60"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep training records usable at memory gallery",
+        "stakes": "Old battle memories teach dangerous tactics to a peaceful apprentice",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_reincarnation_04_edge_01",
+        "draft_reincarnation_04_edge_04",
+        "draft_reincarnation_04_edge_07"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_04_location",
+      "kind": "Location",
+      "label": "memory gallery",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_04",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L60"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L60"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_reincarnation_04_resource",
+        "conflict": "Old battle memories teach dangerous tactics to a peaceful apprentice",
+        "risk": "Old battle memories teach dangerous tactics to a peaceful apprentice"
+      },
+      "relations": [
+        "draft_reincarnation_04_edge_01",
+        "draft_reincarnation_04_edge_02",
+        "draft_reincarnation_04_edge_03",
+        "draft_reincarnation_04_edge_06"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_04_resource",
+      "kind": "Resource",
+      "label": "training records",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_04",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L60"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L60"
+      ],
+      "proposal": {
+        "sourceId": "draft_reincarnation_04_location",
+        "scarcity": "Old battle memories teach dangerous tactics to a peaceful apprentice",
+        "proposedUse": "Teach safer context before using the memory",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_reincarnation_04_edge_02",
+        "draft_reincarnation_04_edge_05",
+        "draft_reincarnation_04_edge_08"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_04_pressure",
+      "kind": "Event",
+      "label": "Old battle memories teach dangerous tactics to a peaceful apprentice",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_04",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L60"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L60"
+      ],
+      "proposal": {
+        "trigger": "Old battle memories teach dangerous tactics to a peaceful apprentice",
+        "proposedEffect": "Changes access to training records",
+        "effectTargetId": "draft_reincarnation_04_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_reincarnation_04_edge_03",
+        "draft_reincarnation_04_edge_04",
+        "draft_reincarnation_04_edge_05",
+        "draft_reincarnation_04_edge_09",
+        "draft_reincarnation_04_edge_10",
+        "draft_reincarnation_04_companion_edge_01",
+        "draft_reincarnation_04_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_04_response",
+      "kind": "Event",
+      "label": "Teach safer context before using the memory",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_04",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L60"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L60"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Teach safer context before using the memory",
+        "proposedEffect": "Teach safer context before using the memory",
+        "effectTargetId": "draft_reincarnation_04_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_reincarnation_04_edge_06",
+        "draft_reincarnation_04_edge_07",
+        "draft_reincarnation_04_edge_08",
+        "draft_reincarnation_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_04_report",
+      "kind": "Knowledge",
+      "label": "Spectators call inherited skill harmless",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_04",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L60"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L60"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Spectators call inherited skill harmless",
+        "aboutId": "draft_reincarnation_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_reincarnation_04_edge_09"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_04_evidence",
+      "kind": "Knowledge",
+      "label": "Practice records show a near injury",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L60"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L60"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Practice records show a near injury",
+        "aboutId": "draft_reincarnation_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_reincarnation_04_edge_10",
+        "draft_reincarnation_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_05_entity",
+      "kind": "Entity",
+      "label": "family mediators",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_05",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L61"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L61"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep heirloom bowls usable at two-house courtyard",
+        "stakes": "Two families claim one child as the return of their dead",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_reincarnation_05_edge_01",
+        "draft_reincarnation_05_edge_04",
+        "draft_reincarnation_05_edge_07"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_05_location",
+      "kind": "Location",
+      "label": "two-house courtyard",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_05",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L61"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L61"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_reincarnation_05_resource",
+        "conflict": "Two families claim one child as the return of their dead",
+        "risk": "Two families claim one child as the return of their dead"
+      },
+      "relations": [
+        "draft_reincarnation_05_edge_01",
+        "draft_reincarnation_05_edge_02",
+        "draft_reincarnation_05_edge_03",
+        "draft_reincarnation_05_edge_06"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_05_resource",
+      "kind": "Resource",
+      "label": "heirloom bowls",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_05",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L61"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L61"
+      ],
+      "proposal": {
+        "sourceId": "draft_reincarnation_05_location",
+        "scarcity": "Two families claim one child as the return of their dead",
+        "proposedUse": "Protect the child's choice and test each family's story",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_reincarnation_05_edge_02",
+        "draft_reincarnation_05_edge_05",
+        "draft_reincarnation_05_edge_08"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_05_pressure",
+      "kind": "Event",
+      "label": "Two families claim one child as the return of their dead",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_05",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L61"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L61"
+      ],
+      "proposal": {
+        "trigger": "Two families claim one child as the return of their dead",
+        "proposedEffect": "Changes access to heirloom bowls",
+        "effectTargetId": "draft_reincarnation_05_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_reincarnation_05_edge_03",
+        "draft_reincarnation_05_edge_04",
+        "draft_reincarnation_05_edge_05",
+        "draft_reincarnation_05_edge_09",
+        "draft_reincarnation_05_edge_10",
+        "draft_reincarnation_05_companion_edge_01",
+        "draft_reincarnation_05_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_05_response",
+      "kind": "Event",
+      "label": "Protect the child's choice and test each family's story",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_05",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L61"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L61"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Protect the child's choice and test each family's story",
+        "proposedEffect": "Protect the child's choice and test each family's story",
+        "effectTargetId": "draft_reincarnation_05_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_reincarnation_05_edge_06",
+        "draft_reincarnation_05_edge_07",
+        "draft_reincarnation_05_edge_08",
+        "draft_reincarnation_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_05_report",
+      "kind": "Knowledge",
+      "label": "Both households cite the same private phrase",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_05",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L61"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L61"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Both households cite the same private phrase",
+        "aboutId": "draft_reincarnation_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_reincarnation_05_edge_09"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_05_evidence",
+      "kind": "Knowledge",
+      "label": "Independent witnesses trace the phrase to public mourning rites",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L61"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L61"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Independent witnesses trace the phrase to public mourning rites",
+        "aboutId": "draft_reincarnation_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_reincarnation_05_edge_10",
+        "draft_reincarnation_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_01_counterparty",
+      "kind": "Entity",
+      "label": "guild heir",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_01",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L47"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L47"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Claim exclusive teaching rights from a child's recall",
+        "stakes": "A child recalls a craft that an extinct guild guarded",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_reincarnation_01_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_01_belief_holder",
+      "kind": "Entity",
+      "label": "guild descendants",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_01",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L47"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L47"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Remembered craft proves blood descent",
+        "stakes": "A child recalls a craft that an extinct guild guarded",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_reincarnation_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_01_evidence_site",
+      "kind": "Location",
+      "label": "old guild exercise yard",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L47"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L47"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A child recalls a craft that an extinct guild guarded",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_reincarnation_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_01_alternative",
+      "kind": "Event",
+      "label": "Test the child's method without assigning ancestry",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_01",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L47"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L47"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Test the child's method without assigning ancestry",
+        "costAndConsequence": "The child faces scrutiny and heirs delay inheritance",
+        "alternativeToId": "draft_reincarnation_01_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_reincarnation_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_01_additional_belief",
+      "kind": "Knowledge",
+      "label": "Remembered craft proves blood descent",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_01",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L47"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L47"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Remembered craft proves blood descent",
+        "aboutId": "draft_reincarnation_01_pressure",
+        "holderId": "draft_reincarnation_01_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_reincarnation_01_companion_edge_02",
+        "draft_reincarnation_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_02_counterparty",
+      "kind": "Entity",
+      "label": "grove title holder",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_02",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L48"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L48"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Clear trees for new plots despite inherited memories",
+        "stakes": "A grove tied to an earlier life is threatened by new owners",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_reincarnation_02_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_02_belief_holder",
+      "kind": "Entity",
+      "label": "old neighbors",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_02",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L48"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L48"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: A former life automatically restores land title",
+        "stakes": "A grove tied to an earlier life is threatened by new owners",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_reincarnation_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_02_evidence_site",
+      "kind": "Location",
+      "label": "grove deed archive",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L48"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L48"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A grove tied to an earlier life is threatened by new owners",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_reincarnation_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_02_alternative",
+      "kind": "Event",
+      "label": "Lease a protected cutting strip while title is resolved",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_02",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L48"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L48"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Lease a protected cutting strip while title is resolved",
+        "costAndConsequence": "Owners lose planting ground and gardeners fund care",
+        "alternativeToId": "draft_reincarnation_02_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_reincarnation_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_02_additional_belief",
+      "kind": "Knowledge",
+      "label": "A former life automatically restores land title",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_02",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L48"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L48"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A former life automatically restores land title",
+        "aboutId": "draft_reincarnation_02_pressure",
+        "holderId": "draft_reincarnation_02_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_reincarnation_02_companion_edge_02",
+        "draft_reincarnation_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_03_counterparty",
+      "kind": "Entity",
+      "label": "household debt mediator",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_03",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L49"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L49"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Shield children from a predecessor's unpaid account",
+        "stakes": "A traveler recognizes a debt from another life",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_reincarnation_03_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_03_belief_holder",
+      "kind": "Entity",
+      "label": "ferry creditors",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_03",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L49"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L49"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Memory of a debt transfers liability",
+        "stakes": "A traveler recognizes a debt from another life",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_reincarnation_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_03_evidence_site",
+      "kind": "Location",
+      "label": "ferry debt registry",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L49"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L49"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A traveler recognizes a debt from another life",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_reincarnation_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_03_alternative",
+      "kind": "Event",
+      "label": "Separate estate assets from the traveler's present household",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_03",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L49"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L49"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Separate estate assets from the traveler's present household",
+        "costAndConsequence": "Creditors recover less and hearings take time",
+        "alternativeToId": "draft_reincarnation_03_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_reincarnation_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_03_additional_belief",
+      "kind": "Knowledge",
+      "label": "Memory of a debt transfers liability",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_03",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L49"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L49"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Memory of a debt transfers liability",
+        "aboutId": "draft_reincarnation_03_pressure",
+        "holderId": "draft_reincarnation_03_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_reincarnation_03_companion_edge_02",
+        "draft_reincarnation_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_04_counterparty",
+      "kind": "Entity",
+      "label": "reenactment trainer",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_04",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L50"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L50"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Turn recalled tactics into public entertainment",
+        "stakes": "Old battle memories teach dangerous tactics to a peaceful apprentice",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_reincarnation_04_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_04_belief_holder",
+      "kind": "Entity",
+      "label": "spectators",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_04",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L50"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L50"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Inherited combat skill cannot injure a pupil",
+        "stakes": "Old battle memories teach dangerous tactics to a peaceful apprentice",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_reincarnation_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_04_evidence_site",
+      "kind": "Location",
+      "label": "training safety yard",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L50"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L50"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "Old battle memories teach dangerous tactics to a peaceful apprentice",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_reincarnation_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_04_alternative",
+      "kind": "Event",
+      "label": "Teach the apprentice defense under padded supervision",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_04",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L50"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L50"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Teach the apprentice defense under padded supervision",
+        "costAndConsequence": "Mentors spend time and performances are postponed",
+        "alternativeToId": "draft_reincarnation_04_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_reincarnation_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_04_additional_belief",
+      "kind": "Knowledge",
+      "label": "Inherited combat skill cannot injure a pupil",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_04",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L50"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L50"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Inherited combat skill cannot injure a pupil",
+        "aboutId": "draft_reincarnation_04_pressure",
+        "holderId": "draft_reincarnation_04_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_reincarnation_04_companion_edge_02",
+        "draft_reincarnation_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_05_counterparty",
+      "kind": "Entity",
+      "label": "guardianship claimant",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_05",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L51"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L51"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Claim care of the child through a shared funeral phrase",
+        "stakes": "Two families claim one child as the return of their dead",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_reincarnation_05_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_05_belief_holder",
+      "kind": "Entity",
+      "label": "claiming households",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_05",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L51"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L51"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: A shared private phrase can have only one source",
+        "stakes": "Two families claim one child as the return of their dead",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_reincarnation_05_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_05_evidence_site",
+      "kind": "Location",
+      "label": "public rite transcript room",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L51"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L51"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "Two families claim one child as the return of their dead",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_reincarnation_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_05_alternative",
+      "kind": "Event",
+      "label": "Set a neutral guardianship hearing before either household takes the child",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_05",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L51"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L51"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Set a neutral guardianship hearing before either household takes the child",
+        "costAndConsequence": "Both families wait and the child faces questioning",
+        "alternativeToId": "draft_reincarnation_05_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_reincarnation_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_reincarnation_05_additional_belief",
+      "kind": "Knowledge",
+      "label": "A shared private phrase can have only one source",
+      "scopeId": "motif_reincarnation",
+      "motifId": "reincarnation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_reincarnation_05",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L51"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L51"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A shared private phrase can have only one source",
+        "aboutId": "draft_reincarnation_05_pressure",
+        "holderId": "draft_reincarnation_05_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_reincarnation_05_companion_edge_02",
+        "draft_reincarnation_05_companion_edge_03"
+      ]
+    }
+  ],
+  "structuralEdges": [
+    {
+      "id": "draft_reincarnation_01_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_reincarnation_01_entity",
+      "toId": "draft_reincarnation_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_01:entity>location"
+    },
+    {
+      "id": "draft_reincarnation_01_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_reincarnation_01_location",
+      "toId": "draft_reincarnation_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_01:location>resource"
+    },
+    {
+      "id": "draft_reincarnation_01_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_reincarnation_01_pressure",
+      "toId": "draft_reincarnation_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_01:pressure>location"
+    },
+    {
+      "id": "draft_reincarnation_01_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_reincarnation_01_pressure",
+      "toId": "draft_reincarnation_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_01:pressure>entity"
+    },
+    {
+      "id": "draft_reincarnation_01_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_reincarnation_01_pressure",
+      "toId": "draft_reincarnation_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_01:pressure>resource"
+    },
+    {
+      "id": "draft_reincarnation_01_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_reincarnation_01_response",
+      "toId": "draft_reincarnation_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_01:response>location"
+    },
+    {
+      "id": "draft_reincarnation_01_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_reincarnation_01_response",
+      "toId": "draft_reincarnation_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_01:response>entity"
+    },
+    {
+      "id": "draft_reincarnation_01_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_reincarnation_01_response",
+      "toId": "draft_reincarnation_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_01:response>resource"
+    },
+    {
+      "id": "draft_reincarnation_01_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_reincarnation_01_report",
+      "toId": "draft_reincarnation_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_01:report>pressure"
+    },
+    {
+      "id": "draft_reincarnation_01_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_reincarnation_01_evidence",
+      "toId": "draft_reincarnation_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_01:evidence>pressure"
+    },
+    {
+      "id": "draft_reincarnation_02_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_reincarnation_02_entity",
+      "toId": "draft_reincarnation_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_02:entity>location"
+    },
+    {
+      "id": "draft_reincarnation_02_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_reincarnation_02_location",
+      "toId": "draft_reincarnation_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_02:location>resource"
+    },
+    {
+      "id": "draft_reincarnation_02_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_reincarnation_02_pressure",
+      "toId": "draft_reincarnation_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_02:pressure>location"
+    },
+    {
+      "id": "draft_reincarnation_02_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_reincarnation_02_pressure",
+      "toId": "draft_reincarnation_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_02:pressure>entity"
+    },
+    {
+      "id": "draft_reincarnation_02_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_reincarnation_02_pressure",
+      "toId": "draft_reincarnation_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_02:pressure>resource"
+    },
+    {
+      "id": "draft_reincarnation_02_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_reincarnation_02_response",
+      "toId": "draft_reincarnation_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_02:response>location"
+    },
+    {
+      "id": "draft_reincarnation_02_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_reincarnation_02_response",
+      "toId": "draft_reincarnation_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_02:response>entity"
+    },
+    {
+      "id": "draft_reincarnation_02_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_reincarnation_02_response",
+      "toId": "draft_reincarnation_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_02:response>resource"
+    },
+    {
+      "id": "draft_reincarnation_02_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_reincarnation_02_report",
+      "toId": "draft_reincarnation_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_02:report>pressure"
+    },
+    {
+      "id": "draft_reincarnation_02_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_reincarnation_02_evidence",
+      "toId": "draft_reincarnation_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_02:evidence>pressure"
+    },
+    {
+      "id": "draft_reincarnation_03_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_reincarnation_03_entity",
+      "toId": "draft_reincarnation_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_03:entity>location"
+    },
+    {
+      "id": "draft_reincarnation_03_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_reincarnation_03_location",
+      "toId": "draft_reincarnation_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_03:location>resource"
+    },
+    {
+      "id": "draft_reincarnation_03_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_reincarnation_03_pressure",
+      "toId": "draft_reincarnation_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_03:pressure>location"
+    },
+    {
+      "id": "draft_reincarnation_03_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_reincarnation_03_pressure",
+      "toId": "draft_reincarnation_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_03:pressure>entity"
+    },
+    {
+      "id": "draft_reincarnation_03_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_reincarnation_03_pressure",
+      "toId": "draft_reincarnation_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_03:pressure>resource"
+    },
+    {
+      "id": "draft_reincarnation_03_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_reincarnation_03_response",
+      "toId": "draft_reincarnation_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_03:response>location"
+    },
+    {
+      "id": "draft_reincarnation_03_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_reincarnation_03_response",
+      "toId": "draft_reincarnation_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_03:response>entity"
+    },
+    {
+      "id": "draft_reincarnation_03_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_reincarnation_03_response",
+      "toId": "draft_reincarnation_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_03:response>resource"
+    },
+    {
+      "id": "draft_reincarnation_03_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_reincarnation_03_report",
+      "toId": "draft_reincarnation_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_03:report>pressure"
+    },
+    {
+      "id": "draft_reincarnation_03_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_reincarnation_03_evidence",
+      "toId": "draft_reincarnation_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_03:evidence>pressure"
+    },
+    {
+      "id": "draft_reincarnation_04_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_reincarnation_04_entity",
+      "toId": "draft_reincarnation_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_04:entity>location"
+    },
+    {
+      "id": "draft_reincarnation_04_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_reincarnation_04_location",
+      "toId": "draft_reincarnation_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_04:location>resource"
+    },
+    {
+      "id": "draft_reincarnation_04_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_reincarnation_04_pressure",
+      "toId": "draft_reincarnation_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_04:pressure>location"
+    },
+    {
+      "id": "draft_reincarnation_04_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_reincarnation_04_pressure",
+      "toId": "draft_reincarnation_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_04:pressure>entity"
+    },
+    {
+      "id": "draft_reincarnation_04_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_reincarnation_04_pressure",
+      "toId": "draft_reincarnation_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_04:pressure>resource"
+    },
+    {
+      "id": "draft_reincarnation_04_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_reincarnation_04_response",
+      "toId": "draft_reincarnation_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_04:response>location"
+    },
+    {
+      "id": "draft_reincarnation_04_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_reincarnation_04_response",
+      "toId": "draft_reincarnation_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_04:response>entity"
+    },
+    {
+      "id": "draft_reincarnation_04_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_reincarnation_04_response",
+      "toId": "draft_reincarnation_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_04:response>resource"
+    },
+    {
+      "id": "draft_reincarnation_04_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_reincarnation_04_report",
+      "toId": "draft_reincarnation_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_04:report>pressure"
+    },
+    {
+      "id": "draft_reincarnation_04_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_reincarnation_04_evidence",
+      "toId": "draft_reincarnation_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_04:evidence>pressure"
+    },
+    {
+      "id": "draft_reincarnation_05_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_reincarnation_05_entity",
+      "toId": "draft_reincarnation_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_05:entity>location"
+    },
+    {
+      "id": "draft_reincarnation_05_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_reincarnation_05_location",
+      "toId": "draft_reincarnation_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_05:location>resource"
+    },
+    {
+      "id": "draft_reincarnation_05_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_reincarnation_05_pressure",
+      "toId": "draft_reincarnation_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_05:pressure>location"
+    },
+    {
+      "id": "draft_reincarnation_05_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_reincarnation_05_pressure",
+      "toId": "draft_reincarnation_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_05:pressure>entity"
+    },
+    {
+      "id": "draft_reincarnation_05_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_reincarnation_05_pressure",
+      "toId": "draft_reincarnation_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_05:pressure>resource"
+    },
+    {
+      "id": "draft_reincarnation_05_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_reincarnation_05_response",
+      "toId": "draft_reincarnation_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_05:response>location"
+    },
+    {
+      "id": "draft_reincarnation_05_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_reincarnation_05_response",
+      "toId": "draft_reincarnation_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_05:response>entity"
+    },
+    {
+      "id": "draft_reincarnation_05_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_reincarnation_05_response",
+      "toId": "draft_reincarnation_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_05:response>resource"
+    },
+    {
+      "id": "draft_reincarnation_05_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_reincarnation_05_report",
+      "toId": "draft_reincarnation_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_05:report>pressure"
+    },
+    {
+      "id": "draft_reincarnation_05_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_reincarnation_05_evidence",
+      "toId": "draft_reincarnation_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_reincarnation_05:evidence>pressure"
+    },
+    {
+      "id": "draft_reincarnation_01_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_reincarnation_01_pressure",
+      "toId": "draft_reincarnation_01_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L47"
+    },
+    {
+      "id": "draft_reincarnation_01_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_reincarnation_01_additional_belief",
+      "toId": "draft_reincarnation_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L47"
+    },
+    {
+      "id": "draft_reincarnation_01_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_reincarnation_01_additional_belief",
+      "toId": "draft_reincarnation_01_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L47"
+    },
+    {
+      "id": "draft_reincarnation_01_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_reincarnation_01_evidence_site",
+      "toId": "draft_reincarnation_01_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L47"
+    },
+    {
+      "id": "draft_reincarnation_01_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_reincarnation_01_alternative",
+      "toId": "draft_reincarnation_01_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L47"
+    },
+    {
+      "id": "draft_reincarnation_02_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_reincarnation_02_pressure",
+      "toId": "draft_reincarnation_02_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L48"
+    },
+    {
+      "id": "draft_reincarnation_02_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_reincarnation_02_additional_belief",
+      "toId": "draft_reincarnation_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L48"
+    },
+    {
+      "id": "draft_reincarnation_02_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_reincarnation_02_additional_belief",
+      "toId": "draft_reincarnation_02_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L48"
+    },
+    {
+      "id": "draft_reincarnation_02_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_reincarnation_02_evidence_site",
+      "toId": "draft_reincarnation_02_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L48"
+    },
+    {
+      "id": "draft_reincarnation_02_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_reincarnation_02_alternative",
+      "toId": "draft_reincarnation_02_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L48"
+    },
+    {
+      "id": "draft_reincarnation_03_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_reincarnation_03_pressure",
+      "toId": "draft_reincarnation_03_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L49"
+    },
+    {
+      "id": "draft_reincarnation_03_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_reincarnation_03_additional_belief",
+      "toId": "draft_reincarnation_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L49"
+    },
+    {
+      "id": "draft_reincarnation_03_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_reincarnation_03_additional_belief",
+      "toId": "draft_reincarnation_03_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L49"
+    },
+    {
+      "id": "draft_reincarnation_03_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_reincarnation_03_evidence_site",
+      "toId": "draft_reincarnation_03_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L49"
+    },
+    {
+      "id": "draft_reincarnation_03_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_reincarnation_03_alternative",
+      "toId": "draft_reincarnation_03_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L49"
+    },
+    {
+      "id": "draft_reincarnation_04_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_reincarnation_04_pressure",
+      "toId": "draft_reincarnation_04_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L50"
+    },
+    {
+      "id": "draft_reincarnation_04_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_reincarnation_04_additional_belief",
+      "toId": "draft_reincarnation_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L50"
+    },
+    {
+      "id": "draft_reincarnation_04_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_reincarnation_04_additional_belief",
+      "toId": "draft_reincarnation_04_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L50"
+    },
+    {
+      "id": "draft_reincarnation_04_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_reincarnation_04_evidence_site",
+      "toId": "draft_reincarnation_04_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L50"
+    },
+    {
+      "id": "draft_reincarnation_04_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_reincarnation_04_alternative",
+      "toId": "draft_reincarnation_04_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L50"
+    },
+    {
+      "id": "draft_reincarnation_05_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_reincarnation_05_pressure",
+      "toId": "draft_reincarnation_05_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L51"
+    },
+    {
+      "id": "draft_reincarnation_05_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_reincarnation_05_additional_belief",
+      "toId": "draft_reincarnation_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L51"
+    },
+    {
+      "id": "draft_reincarnation_05_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_reincarnation_05_additional_belief",
+      "toId": "draft_reincarnation_05_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L51"
+    },
+    {
+      "id": "draft_reincarnation_05_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_reincarnation_05_evidence_site",
+      "toId": "draft_reincarnation_05_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L51"
+    },
+    {
+      "id": "draft_reincarnation_05_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_reincarnation_05_alternative",
+      "toId": "draft_reincarnation_05_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L51"
+    }
+  ],
+  "proposedCausalLinks": [
+    {
+      "id": "draft_reincarnation_01_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_reincarnation_01_pressure",
+      "toId": "draft_reincarnation_01_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_reincarnation_01_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_reincarnation_01_evidence",
+      "toId": "draft_reincarnation_01_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_reincarnation_02_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_reincarnation_02_pressure",
+      "toId": "draft_reincarnation_02_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_reincarnation_02_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_reincarnation_02_evidence",
+      "toId": "draft_reincarnation_02_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_reincarnation_03_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_reincarnation_03_pressure",
+      "toId": "draft_reincarnation_03_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_reincarnation_03_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_reincarnation_03_evidence",
+      "toId": "draft_reincarnation_03_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_reincarnation_04_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_reincarnation_04_pressure",
+      "toId": "draft_reincarnation_04_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_reincarnation_04_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_reincarnation_04_evidence",
+      "toId": "draft_reincarnation_04_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_reincarnation_05_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_reincarnation_05_pressure",
+      "toId": "draft_reincarnation_05_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_reincarnation_05_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_reincarnation_05_evidence",
+      "toId": "draft_reincarnation_05_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    }
+  ]
+}

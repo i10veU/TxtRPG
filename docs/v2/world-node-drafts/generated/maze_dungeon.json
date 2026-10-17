@@ -1,0 +1,3079 @@
+{
+  "schema": "world-node-drafts/v1",
+  "status": "Draft",
+  "runtime": false,
+  "scope": {
+    "id": "motif_maze_dungeon",
+    "label": "미궁·던전",
+    "kind": "genre-or-structure proposal; not a world definition"
+  },
+  "canonImpact": "none; no Draft item is accepted game setting",
+  "sourceRefs": [
+    "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+    "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+    "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft"
+  ],
+  "fronts": [
+    {
+      "id": "draft_maze_dungeon_01",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "An old map routes crews through a newly flooded gallery",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "An old map routes crews through a newly flooded gallery",
+      "authoredIntervention": "Annotate water depth and post a fresh safe path",
+      "initialReport": "The map house calls the flood temporary",
+      "verificationCandidate": "Water marks show it has risen for weeks",
+      "alternativeInterventions": "Mark a higher detour after measuring the waterline",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L51",
+        "docs/v2/world-node-drafts/companion-b.txt#L42"
+      ],
+      "semanticSignature": "an old map routes crews through a newly flooded gallery annotate water depth and post a fresh safe path ink maps the map house calls the flood temporary water marks show it has risen for weeks",
+      "nodeIds": [
+        "draft_maze_dungeon_01_entity",
+        "draft_maze_dungeon_01_location",
+        "draft_maze_dungeon_01_resource",
+        "draft_maze_dungeon_01_pressure",
+        "draft_maze_dungeon_01_response",
+        "draft_maze_dungeon_01_report",
+        "draft_maze_dungeon_01_evidence",
+        "draft_maze_dungeon_01_counterparty",
+        "draft_maze_dungeon_01_belief_holder",
+        "draft_maze_dungeon_01_evidence_site",
+        "draft_maze_dungeon_01_alternative",
+        "draft_maze_dungeon_01_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Delvers walk farther and use extra torches",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_maze_dungeon_01_counterparty",
+        "evidenceSiteId": "draft_maze_dungeon_01_evidence_site",
+        "alternativeEventId": "draft_maze_dungeon_01_alternative",
+        "additionalBeliefId": "draft_maze_dungeon_01_additional_belief",
+        "beliefHolderId": "draft_maze_dungeon_01_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L42"
+      }
+    },
+    {
+      "id": "draft_maze_dungeon_02",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "Cheap lamps consume oxygen in a sealed wing",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "Cheap lamps consume oxygen in a sealed wing",
+      "authoredIntervention": "Replace them with tested low-air lamps",
+      "initialReport": "The vendor says every lamp burns alike",
+      "verificationCandidate": "Flame tests reveal oxygen loss",
+      "alternativeInterventions": "Test lamps in a vented chamber before entry",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L52",
+        "docs/v2/world-node-drafts/companion-b.txt#L43"
+      ],
+      "semanticSignature": "cheap lamps consume oxygen in a sealed wing replace them with tested low air lamps breath lamps the vendor says every lamp burns alike flame tests reveal oxygen loss",
+      "nodeIds": [
+        "draft_maze_dungeon_02_entity",
+        "draft_maze_dungeon_02_location",
+        "draft_maze_dungeon_02_resource",
+        "draft_maze_dungeon_02_pressure",
+        "draft_maze_dungeon_02_response",
+        "draft_maze_dungeon_02_report",
+        "draft_maze_dungeon_02_evidence",
+        "draft_maze_dungeon_02_counterparty",
+        "draft_maze_dungeon_02_belief_holder",
+        "draft_maze_dungeon_02_evidence_site",
+        "draft_maze_dungeon_02_alternative",
+        "draft_maze_dungeon_02_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Teams delay departure and discard paid lamps",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_maze_dungeon_02_counterparty",
+        "evidenceSiteId": "draft_maze_dungeon_02_evidence_site",
+        "alternativeEventId": "draft_maze_dungeon_02_alternative",
+        "additionalBeliefId": "draft_maze_dungeon_02_additional_belief",
+        "beliefHolderId": "draft_maze_dungeon_02_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L43"
+      }
+    },
+    {
+      "id": "draft_maze_dungeon_03",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A relic removal shifts debris toward trapped workers",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A relic removal shifts debris toward trapped workers",
+      "authoredIntervention": "Secure the debris before moving the relic",
+      "initialReport": "A buyer says the chamber is empty",
+      "verificationCandidate": "Knock signals answer from behind the wall",
+      "alternativeInterventions": "Shore the debris and answer knocks before salvage",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L53",
+        "docs/v2/world-node-drafts/companion-b.txt#L44"
+      ],
+      "semanticSignature": "a relic removal shifts debris toward trapped workers secure the debris before moving the relic lift jacks a buyer says the chamber is empty knock signals answer from behind the wall",
+      "nodeIds": [
+        "draft_maze_dungeon_03_entity",
+        "draft_maze_dungeon_03_location",
+        "draft_maze_dungeon_03_resource",
+        "draft_maze_dungeon_03_pressure",
+        "draft_maze_dungeon_03_response",
+        "draft_maze_dungeon_03_report",
+        "draft_maze_dungeon_03_evidence",
+        "draft_maze_dungeon_03_counterparty",
+        "draft_maze_dungeon_03_belief_holder",
+        "draft_maze_dungeon_03_evidence_site",
+        "draft_maze_dungeon_03_alternative",
+        "draft_maze_dungeon_03_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Relic sale is delayed and supports use scarce timber",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_maze_dungeon_03_counterparty",
+        "evidenceSiteId": "draft_maze_dungeon_03_evidence_site",
+        "alternativeEventId": "draft_maze_dungeon_03_alternative",
+        "additionalBeliefId": "draft_maze_dungeon_03_additional_belief",
+        "beliefHolderId": "draft_maze_dungeon_03_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L44"
+      }
+    },
+    {
+      "id": "draft_maze_dungeon_04",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A chant masks the sound used to find an exit",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A chant masks the sound used to find an exit",
+      "authoredIntervention": "Lay physical return thread and record the chant timing",
+      "initialReport": "A guide says the sound has always changed",
+      "verificationCandidate": "Route threads show the change follows chanting",
+      "alternativeInterventions": "Suspend chanting until the exit cue is mapped",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L54",
+        "docs/v2/world-node-drafts/companion-b.txt#L45"
+      ],
+      "semanticSignature": "a chant masks the sound used to find an exit lay physical return thread and record the chant timing thread reels a guide says the sound has always changed route threads show the change follows chanting",
+      "nodeIds": [
+        "draft_maze_dungeon_04_entity",
+        "draft_maze_dungeon_04_location",
+        "draft_maze_dungeon_04_resource",
+        "draft_maze_dungeon_04_pressure",
+        "draft_maze_dungeon_04_response",
+        "draft_maze_dungeon_04_report",
+        "draft_maze_dungeon_04_evidence",
+        "draft_maze_dungeon_04_counterparty",
+        "draft_maze_dungeon_04_belief_holder",
+        "draft_maze_dungeon_04_evidence_site",
+        "draft_maze_dungeon_04_alternative",
+        "draft_maze_dungeon_04_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "The guide loses authority and travelers must mark threads",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_maze_dungeon_04_counterparty",
+        "evidenceSiteId": "draft_maze_dungeon_04_evidence_site",
+        "alternativeEventId": "draft_maze_dungeon_04_alternative",
+        "additionalBeliefId": "draft_maze_dungeon_04_additional_belief",
+        "beliefHolderId": "draft_maze_dungeon_04_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L45"
+      }
+    },
+    {
+      "id": "draft_maze_dungeon_05",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A lower passage drains the only potable pool",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A lower passage drains the only potable pool",
+      "authoredIntervention": "Seal the leak while keeping an escape route",
+      "initialReport": "An explorer calls the drained water stagnant",
+      "verificationCandidate": "Gauge and sample records show it was drinkable",
+      "alternativeInterventions": "Block the drain and survey a dry passage",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L55",
+        "docs/v2/world-node-drafts/companion-b.txt#L46"
+      ],
+      "semanticSignature": "a lower passage drains the only potable pool seal the leak while keeping an escape route water gauges an explorer calls the drained water stagnant gauge and sample records show it was drinkable",
+      "nodeIds": [
+        "draft_maze_dungeon_05_entity",
+        "draft_maze_dungeon_05_location",
+        "draft_maze_dungeon_05_resource",
+        "draft_maze_dungeon_05_pressure",
+        "draft_maze_dungeon_05_response",
+        "draft_maze_dungeon_05_report",
+        "draft_maze_dungeon_05_evidence",
+        "draft_maze_dungeon_05_counterparty",
+        "draft_maze_dungeon_05_belief_holder",
+        "draft_maze_dungeon_05_evidence_site",
+        "draft_maze_dungeon_05_alternative",
+        "draft_maze_dungeon_05_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Exploration slows and crews carry tools farther",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_maze_dungeon_05_counterparty",
+        "evidenceSiteId": "draft_maze_dungeon_05_evidence_site",
+        "alternativeEventId": "draft_maze_dungeon_05_alternative",
+        "additionalBeliefId": "draft_maze_dungeon_05_additional_belief",
+        "beliefHolderId": "draft_maze_dungeon_05_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L46"
+      }
+    }
+  ],
+  "nodes": [
+    {
+      "id": "draft_maze_dungeon_01_entity",
+      "kind": "Entity",
+      "label": "delvers' map house",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_01",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L51"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L51"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep ink maps usable at turning antechamber",
+        "stakes": "An old map routes crews through a newly flooded gallery",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_maze_dungeon_01_edge_01",
+        "draft_maze_dungeon_01_edge_04",
+        "draft_maze_dungeon_01_edge_07"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_01_location",
+      "kind": "Location",
+      "label": "turning antechamber",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_01",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L51"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L51"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_maze_dungeon_01_resource",
+        "conflict": "An old map routes crews through a newly flooded gallery",
+        "risk": "An old map routes crews through a newly flooded gallery"
+      },
+      "relations": [
+        "draft_maze_dungeon_01_edge_01",
+        "draft_maze_dungeon_01_edge_02",
+        "draft_maze_dungeon_01_edge_03",
+        "draft_maze_dungeon_01_edge_06"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_01_resource",
+      "kind": "Resource",
+      "label": "ink maps",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_01",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L51"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L51"
+      ],
+      "proposal": {
+        "sourceId": "draft_maze_dungeon_01_location",
+        "scarcity": "An old map routes crews through a newly flooded gallery",
+        "proposedUse": "Annotate water depth and post a fresh safe path",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_maze_dungeon_01_edge_02",
+        "draft_maze_dungeon_01_edge_05",
+        "draft_maze_dungeon_01_edge_08"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_01_pressure",
+      "kind": "Event",
+      "label": "An old map routes crews through a newly flooded gallery",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_01",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L51"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L51"
+      ],
+      "proposal": {
+        "trigger": "An old map routes crews through a newly flooded gallery",
+        "proposedEffect": "Changes access to ink maps",
+        "effectTargetId": "draft_maze_dungeon_01_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_maze_dungeon_01_edge_03",
+        "draft_maze_dungeon_01_edge_04",
+        "draft_maze_dungeon_01_edge_05",
+        "draft_maze_dungeon_01_edge_09",
+        "draft_maze_dungeon_01_edge_10",
+        "draft_maze_dungeon_01_companion_edge_01",
+        "draft_maze_dungeon_01_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_01_response",
+      "kind": "Event",
+      "label": "Annotate water depth and post a fresh safe path",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_01",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L51"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L51"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Annotate water depth and post a fresh safe path",
+        "proposedEffect": "Annotate water depth and post a fresh safe path",
+        "effectTargetId": "draft_maze_dungeon_01_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_maze_dungeon_01_edge_06",
+        "draft_maze_dungeon_01_edge_07",
+        "draft_maze_dungeon_01_edge_08",
+        "draft_maze_dungeon_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_01_report",
+      "kind": "Knowledge",
+      "label": "The map house calls the flood temporary",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_01",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L51"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L51"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The map house calls the flood temporary",
+        "aboutId": "draft_maze_dungeon_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_maze_dungeon_01_edge_09"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_01_evidence",
+      "kind": "Knowledge",
+      "label": "Water marks show it has risen for weeks",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L51"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L51"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Water marks show it has risen for weeks",
+        "aboutId": "draft_maze_dungeon_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_maze_dungeon_01_edge_10",
+        "draft_maze_dungeon_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_02_entity",
+      "kind": "Entity",
+      "label": "torch guild",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_02",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L52"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L52"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep breath lamps usable at airless corridor",
+        "stakes": "Cheap lamps consume oxygen in a sealed wing",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_maze_dungeon_02_edge_01",
+        "draft_maze_dungeon_02_edge_04",
+        "draft_maze_dungeon_02_edge_07"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_02_location",
+      "kind": "Location",
+      "label": "airless corridor",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_02",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L52"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L52"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_maze_dungeon_02_resource",
+        "conflict": "Cheap lamps consume oxygen in a sealed wing",
+        "risk": "Cheap lamps consume oxygen in a sealed wing"
+      },
+      "relations": [
+        "draft_maze_dungeon_02_edge_01",
+        "draft_maze_dungeon_02_edge_02",
+        "draft_maze_dungeon_02_edge_03",
+        "draft_maze_dungeon_02_edge_06"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_02_resource",
+      "kind": "Resource",
+      "label": "breath lamps",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_02",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L52"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L52"
+      ],
+      "proposal": {
+        "sourceId": "draft_maze_dungeon_02_location",
+        "scarcity": "Cheap lamps consume oxygen in a sealed wing",
+        "proposedUse": "Replace them with tested low-air lamps",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_maze_dungeon_02_edge_02",
+        "draft_maze_dungeon_02_edge_05",
+        "draft_maze_dungeon_02_edge_08"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_02_pressure",
+      "kind": "Event",
+      "label": "Cheap lamps consume oxygen in a sealed wing",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_02",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L52"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L52"
+      ],
+      "proposal": {
+        "trigger": "Cheap lamps consume oxygen in a sealed wing",
+        "proposedEffect": "Changes access to breath lamps",
+        "effectTargetId": "draft_maze_dungeon_02_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_maze_dungeon_02_edge_03",
+        "draft_maze_dungeon_02_edge_04",
+        "draft_maze_dungeon_02_edge_05",
+        "draft_maze_dungeon_02_edge_09",
+        "draft_maze_dungeon_02_edge_10",
+        "draft_maze_dungeon_02_companion_edge_01",
+        "draft_maze_dungeon_02_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_02_response",
+      "kind": "Event",
+      "label": "Replace them with tested low-air lamps",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_02",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L52"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L52"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Replace them with tested low-air lamps",
+        "proposedEffect": "Replace them with tested low-air lamps",
+        "effectTargetId": "draft_maze_dungeon_02_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_maze_dungeon_02_edge_06",
+        "draft_maze_dungeon_02_edge_07",
+        "draft_maze_dungeon_02_edge_08",
+        "draft_maze_dungeon_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_02_report",
+      "kind": "Knowledge",
+      "label": "The vendor says every lamp burns alike",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_02",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L52"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L52"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The vendor says every lamp burns alike",
+        "aboutId": "draft_maze_dungeon_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_maze_dungeon_02_edge_09"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_02_evidence",
+      "kind": "Knowledge",
+      "label": "Flame tests reveal oxygen loss",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L52"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L52"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Flame tests reveal oxygen loss",
+        "aboutId": "draft_maze_dungeon_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_maze_dungeon_02_edge_10",
+        "draft_maze_dungeon_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_03_entity",
+      "kind": "Entity",
+      "label": "salvage custodians",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_03",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L53"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L53"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep lift jacks usable at collapsed reliquary",
+        "stakes": "A relic removal shifts debris toward trapped workers",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_maze_dungeon_03_edge_01",
+        "draft_maze_dungeon_03_edge_04",
+        "draft_maze_dungeon_03_edge_07"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_03_location",
+      "kind": "Location",
+      "label": "collapsed reliquary",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_03",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L53"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L53"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_maze_dungeon_03_resource",
+        "conflict": "A relic removal shifts debris toward trapped workers",
+        "risk": "A relic removal shifts debris toward trapped workers"
+      },
+      "relations": [
+        "draft_maze_dungeon_03_edge_01",
+        "draft_maze_dungeon_03_edge_02",
+        "draft_maze_dungeon_03_edge_03",
+        "draft_maze_dungeon_03_edge_06"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_03_resource",
+      "kind": "Resource",
+      "label": "lift jacks",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_03",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L53"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L53"
+      ],
+      "proposal": {
+        "sourceId": "draft_maze_dungeon_03_location",
+        "scarcity": "A relic removal shifts debris toward trapped workers",
+        "proposedUse": "Secure the debris before moving the relic",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_maze_dungeon_03_edge_02",
+        "draft_maze_dungeon_03_edge_05",
+        "draft_maze_dungeon_03_edge_08"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_03_pressure",
+      "kind": "Event",
+      "label": "A relic removal shifts debris toward trapped workers",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_03",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L53"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L53"
+      ],
+      "proposal": {
+        "trigger": "A relic removal shifts debris toward trapped workers",
+        "proposedEffect": "Changes access to lift jacks",
+        "effectTargetId": "draft_maze_dungeon_03_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_maze_dungeon_03_edge_03",
+        "draft_maze_dungeon_03_edge_04",
+        "draft_maze_dungeon_03_edge_05",
+        "draft_maze_dungeon_03_edge_09",
+        "draft_maze_dungeon_03_edge_10",
+        "draft_maze_dungeon_03_companion_edge_01",
+        "draft_maze_dungeon_03_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_03_response",
+      "kind": "Event",
+      "label": "Secure the debris before moving the relic",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_03",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L53"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L53"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Secure the debris before moving the relic",
+        "proposedEffect": "Secure the debris before moving the relic",
+        "effectTargetId": "draft_maze_dungeon_03_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_maze_dungeon_03_edge_06",
+        "draft_maze_dungeon_03_edge_07",
+        "draft_maze_dungeon_03_edge_08",
+        "draft_maze_dungeon_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_03_report",
+      "kind": "Knowledge",
+      "label": "A buyer says the chamber is empty",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_03",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L53"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L53"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A buyer says the chamber is empty",
+        "aboutId": "draft_maze_dungeon_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_maze_dungeon_03_edge_09"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_03_evidence",
+      "kind": "Knowledge",
+      "label": "Knock signals answer from behind the wall",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L53"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L53"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Knock signals answer from behind the wall",
+        "aboutId": "draft_maze_dungeon_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_maze_dungeon_03_edge_10",
+        "draft_maze_dungeon_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_04_entity",
+      "kind": "Entity",
+      "label": "wayfinding monks",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_04",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L54"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L54"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep thread reels usable at forked echo hall",
+        "stakes": "A chant masks the sound used to find an exit",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_maze_dungeon_04_edge_01",
+        "draft_maze_dungeon_04_edge_04",
+        "draft_maze_dungeon_04_edge_07"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_04_location",
+      "kind": "Location",
+      "label": "forked echo hall",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_04",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L54"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L54"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_maze_dungeon_04_resource",
+        "conflict": "A chant masks the sound used to find an exit",
+        "risk": "A chant masks the sound used to find an exit"
+      },
+      "relations": [
+        "draft_maze_dungeon_04_edge_01",
+        "draft_maze_dungeon_04_edge_02",
+        "draft_maze_dungeon_04_edge_03",
+        "draft_maze_dungeon_04_edge_06"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_04_resource",
+      "kind": "Resource",
+      "label": "thread reels",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_04",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L54"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L54"
+      ],
+      "proposal": {
+        "sourceId": "draft_maze_dungeon_04_location",
+        "scarcity": "A chant masks the sound used to find an exit",
+        "proposedUse": "Lay physical return thread and record the chant timing",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_maze_dungeon_04_edge_02",
+        "draft_maze_dungeon_04_edge_05",
+        "draft_maze_dungeon_04_edge_08"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_04_pressure",
+      "kind": "Event",
+      "label": "A chant masks the sound used to find an exit",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_04",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L54"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L54"
+      ],
+      "proposal": {
+        "trigger": "A chant masks the sound used to find an exit",
+        "proposedEffect": "Changes access to thread reels",
+        "effectTargetId": "draft_maze_dungeon_04_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_maze_dungeon_04_edge_03",
+        "draft_maze_dungeon_04_edge_04",
+        "draft_maze_dungeon_04_edge_05",
+        "draft_maze_dungeon_04_edge_09",
+        "draft_maze_dungeon_04_edge_10",
+        "draft_maze_dungeon_04_companion_edge_01",
+        "draft_maze_dungeon_04_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_04_response",
+      "kind": "Event",
+      "label": "Lay physical return thread and record the chant timing",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_04",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L54"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L54"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Lay physical return thread and record the chant timing",
+        "proposedEffect": "Lay physical return thread and record the chant timing",
+        "effectTargetId": "draft_maze_dungeon_04_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_maze_dungeon_04_edge_06",
+        "draft_maze_dungeon_04_edge_07",
+        "draft_maze_dungeon_04_edge_08",
+        "draft_maze_dungeon_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_04_report",
+      "kind": "Knowledge",
+      "label": "A guide says the sound has always changed",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_04",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L54"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L54"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A guide says the sound has always changed",
+        "aboutId": "draft_maze_dungeon_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_maze_dungeon_04_edge_09"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_04_evidence",
+      "kind": "Knowledge",
+      "label": "Route threads show the change follows chanting",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L54"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L54"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Route threads show the change follows chanting",
+        "aboutId": "draft_maze_dungeon_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_maze_dungeon_04_edge_10",
+        "draft_maze_dungeon_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_05_entity",
+      "kind": "Entity",
+      "label": "well surveyors",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_05",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L55"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L55"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep water gauges usable at subterranean cistern",
+        "stakes": "A lower passage drains the only potable pool",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_maze_dungeon_05_edge_01",
+        "draft_maze_dungeon_05_edge_04",
+        "draft_maze_dungeon_05_edge_07"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_05_location",
+      "kind": "Location",
+      "label": "subterranean cistern",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_05",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L55"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L55"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_maze_dungeon_05_resource",
+        "conflict": "A lower passage drains the only potable pool",
+        "risk": "A lower passage drains the only potable pool"
+      },
+      "relations": [
+        "draft_maze_dungeon_05_edge_01",
+        "draft_maze_dungeon_05_edge_02",
+        "draft_maze_dungeon_05_edge_03",
+        "draft_maze_dungeon_05_edge_06"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_05_resource",
+      "kind": "Resource",
+      "label": "water gauges",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_05",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L55"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L55"
+      ],
+      "proposal": {
+        "sourceId": "draft_maze_dungeon_05_location",
+        "scarcity": "A lower passage drains the only potable pool",
+        "proposedUse": "Seal the leak while keeping an escape route",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_maze_dungeon_05_edge_02",
+        "draft_maze_dungeon_05_edge_05",
+        "draft_maze_dungeon_05_edge_08"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_05_pressure",
+      "kind": "Event",
+      "label": "A lower passage drains the only potable pool",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_05",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L55"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L55"
+      ],
+      "proposal": {
+        "trigger": "A lower passage drains the only potable pool",
+        "proposedEffect": "Changes access to water gauges",
+        "effectTargetId": "draft_maze_dungeon_05_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_maze_dungeon_05_edge_03",
+        "draft_maze_dungeon_05_edge_04",
+        "draft_maze_dungeon_05_edge_05",
+        "draft_maze_dungeon_05_edge_09",
+        "draft_maze_dungeon_05_edge_10",
+        "draft_maze_dungeon_05_companion_edge_01",
+        "draft_maze_dungeon_05_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_05_response",
+      "kind": "Event",
+      "label": "Seal the leak while keeping an escape route",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_05",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L55"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L55"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Seal the leak while keeping an escape route",
+        "proposedEffect": "Seal the leak while keeping an escape route",
+        "effectTargetId": "draft_maze_dungeon_05_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_maze_dungeon_05_edge_06",
+        "draft_maze_dungeon_05_edge_07",
+        "draft_maze_dungeon_05_edge_08",
+        "draft_maze_dungeon_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_05_report",
+      "kind": "Knowledge",
+      "label": "An explorer calls the drained water stagnant",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_05",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L55"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L55"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "An explorer calls the drained water stagnant",
+        "aboutId": "draft_maze_dungeon_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_maze_dungeon_05_edge_09"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_05_evidence",
+      "kind": "Knowledge",
+      "label": "Gauge and sample records show it was drinkable",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L55"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L55"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Gauge and sample records show it was drinkable",
+        "aboutId": "draft_maze_dungeon_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_maze_dungeon_05_edge_10",
+        "draft_maze_dungeon_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_01_counterparty",
+      "kind": "Entity",
+      "label": "old-map publisher",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_01",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L42"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L42"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Keep crews using a profitable chart after flooding",
+        "stakes": "An old map routes crews through a newly flooded gallery",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_maze_dungeon_01_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_01_belief_holder",
+      "kind": "Entity",
+      "label": "map buyers",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_01",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L42"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L42"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: The gallery will drain before the next crew arrives",
+        "stakes": "An old map routes crews through a newly flooded gallery",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_maze_dungeon_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_01_evidence_site",
+      "kind": "Location",
+      "label": "flood gauge alcove",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L42"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L42"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "An old map routes crews through a newly flooded gallery",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_maze_dungeon_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_01_alternative",
+      "kind": "Event",
+      "label": "Mark a higher detour after measuring the waterline",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_01",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L42"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L42"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Mark a higher detour after measuring the waterline",
+        "costAndConsequence": "Delvers walk farther and use extra torches",
+        "alternativeToId": "draft_maze_dungeon_01_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_maze_dungeon_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_01_additional_belief",
+      "kind": "Knowledge",
+      "label": "The gallery will drain before the next crew arrives",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_01",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L42"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L42"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The gallery will drain before the next crew arrives",
+        "aboutId": "draft_maze_dungeon_01_pressure",
+        "holderId": "draft_maze_dungeon_01_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_maze_dungeon_01_companion_edge_02",
+        "draft_maze_dungeon_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_02_counterparty",
+      "kind": "Entity",
+      "label": "cheap lamp seller",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_02",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L43"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L43"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Sell high-consumption lamps as standard supplies",
+        "stakes": "Cheap lamps consume oxygen in a sealed wing",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_maze_dungeon_02_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_02_belief_holder",
+      "kind": "Entity",
+      "label": "new delvers",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_02",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L43"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L43"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: All lamps use the same amount of air",
+        "stakes": "Cheap lamps consume oxygen in a sealed wing",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_maze_dungeon_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_02_evidence_site",
+      "kind": "Location",
+      "label": "sealed-wing flame chamber",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L43"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L43"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "Cheap lamps consume oxygen in a sealed wing",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_maze_dungeon_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_02_alternative",
+      "kind": "Event",
+      "label": "Test lamps in a vented chamber before entry",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_02",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L43"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L43"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Test lamps in a vented chamber before entry",
+        "costAndConsequence": "Teams delay departure and discard paid lamps",
+        "alternativeToId": "draft_maze_dungeon_02_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_maze_dungeon_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_02_additional_belief",
+      "kind": "Knowledge",
+      "label": "All lamps use the same amount of air",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_02",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L43"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L43"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "All lamps use the same amount of air",
+        "aboutId": "draft_maze_dungeon_02_pressure",
+        "holderId": "draft_maze_dungeon_02_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_maze_dungeon_02_companion_edge_02",
+        "draft_maze_dungeon_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_03_counterparty",
+      "kind": "Entity",
+      "label": "relic buyer",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_03",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L44"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L44"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Remove the relic before trapped workers are found",
+        "stakes": "A relic removal shifts debris toward trapped workers",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_maze_dungeon_03_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_03_belief_holder",
+      "kind": "Entity",
+      "label": "buyer agents",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_03",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L44"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L44"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: No worker remains behind the wall",
+        "stakes": "A relic removal shifts debris toward trapped workers",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_maze_dungeon_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_03_evidence_site",
+      "kind": "Location",
+      "label": "knock-signal wall seam",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L44"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L44"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A relic removal shifts debris toward trapped workers",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_maze_dungeon_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_03_alternative",
+      "kind": "Event",
+      "label": "Shore the debris and answer knocks before salvage",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_03",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L44"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L44"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Shore the debris and answer knocks before salvage",
+        "costAndConsequence": "Relic sale is delayed and supports use scarce timber",
+        "alternativeToId": "draft_maze_dungeon_03_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_maze_dungeon_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_03_additional_belief",
+      "kind": "Knowledge",
+      "label": "No worker remains behind the wall",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_03",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L44"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L44"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "No worker remains behind the wall",
+        "aboutId": "draft_maze_dungeon_03_pressure",
+        "holderId": "draft_maze_dungeon_03_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_maze_dungeon_03_companion_edge_02",
+        "draft_maze_dungeon_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_04_counterparty",
+      "kind": "Entity",
+      "label": "chanting guide",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_04",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L45"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L45"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Keep a ritual route even when the sound cue disappears",
+        "stakes": "A chant masks the sound used to find an exit",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_maze_dungeon_04_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_04_belief_holder",
+      "kind": "Entity",
+      "label": "lost pilgrims",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_04",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L45"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L45"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: The exit sound changes on its own",
+        "stakes": "A chant masks the sound used to find an exit",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_maze_dungeon_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_04_evidence_site",
+      "kind": "Location",
+      "label": "silent thread junction",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L45"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L45"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A chant masks the sound used to find an exit",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_maze_dungeon_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_04_alternative",
+      "kind": "Event",
+      "label": "Suspend chanting until the exit cue is mapped",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_04",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L45"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L45"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Suspend chanting until the exit cue is mapped",
+        "costAndConsequence": "The guide loses authority and travelers must mark threads",
+        "alternativeToId": "draft_maze_dungeon_04_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_maze_dungeon_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_04_additional_belief",
+      "kind": "Knowledge",
+      "label": "The exit sound changes on its own",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_04",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L45"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L45"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The exit sound changes on its own",
+        "aboutId": "draft_maze_dungeon_04_pressure",
+        "holderId": "draft_maze_dungeon_04_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_maze_dungeon_04_companion_edge_02",
+        "draft_maze_dungeon_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_05_counterparty",
+      "kind": "Entity",
+      "label": "lower-passage explorer",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_05",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L46"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L46"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Drain the pool to open a new route",
+        "stakes": "A lower passage drains the only potable pool",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_maze_dungeon_05_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_05_belief_holder",
+      "kind": "Entity",
+      "label": "dungeon merchants",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_05",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L46"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L46"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: The pool water was never drinkable",
+        "stakes": "A lower passage drains the only potable pool",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_maze_dungeon_05_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_05_evidence_site",
+      "kind": "Location",
+      "label": "potable pool assay ledge",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L46"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L46"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A lower passage drains the only potable pool",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_maze_dungeon_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_05_alternative",
+      "kind": "Event",
+      "label": "Block the drain and survey a dry passage",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_05",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L46"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L46"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Block the drain and survey a dry passage",
+        "costAndConsequence": "Exploration slows and crews carry tools farther",
+        "alternativeToId": "draft_maze_dungeon_05_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_maze_dungeon_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_maze_dungeon_05_additional_belief",
+      "kind": "Knowledge",
+      "label": "The pool water was never drinkable",
+      "scopeId": "motif_maze_dungeon",
+      "motifId": "maze_dungeon",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_maze_dungeon_05",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L46"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L46"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The pool water was never drinkable",
+        "aboutId": "draft_maze_dungeon_05_pressure",
+        "holderId": "draft_maze_dungeon_05_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_maze_dungeon_05_companion_edge_02",
+        "draft_maze_dungeon_05_companion_edge_03"
+      ]
+    }
+  ],
+  "structuralEdges": [
+    {
+      "id": "draft_maze_dungeon_01_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_maze_dungeon_01_entity",
+      "toId": "draft_maze_dungeon_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_01:entity>location"
+    },
+    {
+      "id": "draft_maze_dungeon_01_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_maze_dungeon_01_location",
+      "toId": "draft_maze_dungeon_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_01:location>resource"
+    },
+    {
+      "id": "draft_maze_dungeon_01_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_maze_dungeon_01_pressure",
+      "toId": "draft_maze_dungeon_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_01:pressure>location"
+    },
+    {
+      "id": "draft_maze_dungeon_01_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_maze_dungeon_01_pressure",
+      "toId": "draft_maze_dungeon_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_01:pressure>entity"
+    },
+    {
+      "id": "draft_maze_dungeon_01_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_maze_dungeon_01_pressure",
+      "toId": "draft_maze_dungeon_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_01:pressure>resource"
+    },
+    {
+      "id": "draft_maze_dungeon_01_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_maze_dungeon_01_response",
+      "toId": "draft_maze_dungeon_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_01:response>location"
+    },
+    {
+      "id": "draft_maze_dungeon_01_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_maze_dungeon_01_response",
+      "toId": "draft_maze_dungeon_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_01:response>entity"
+    },
+    {
+      "id": "draft_maze_dungeon_01_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_maze_dungeon_01_response",
+      "toId": "draft_maze_dungeon_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_01:response>resource"
+    },
+    {
+      "id": "draft_maze_dungeon_01_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_maze_dungeon_01_report",
+      "toId": "draft_maze_dungeon_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_01:report>pressure"
+    },
+    {
+      "id": "draft_maze_dungeon_01_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_maze_dungeon_01_evidence",
+      "toId": "draft_maze_dungeon_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_01:evidence>pressure"
+    },
+    {
+      "id": "draft_maze_dungeon_02_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_maze_dungeon_02_entity",
+      "toId": "draft_maze_dungeon_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_02:entity>location"
+    },
+    {
+      "id": "draft_maze_dungeon_02_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_maze_dungeon_02_location",
+      "toId": "draft_maze_dungeon_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_02:location>resource"
+    },
+    {
+      "id": "draft_maze_dungeon_02_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_maze_dungeon_02_pressure",
+      "toId": "draft_maze_dungeon_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_02:pressure>location"
+    },
+    {
+      "id": "draft_maze_dungeon_02_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_maze_dungeon_02_pressure",
+      "toId": "draft_maze_dungeon_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_02:pressure>entity"
+    },
+    {
+      "id": "draft_maze_dungeon_02_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_maze_dungeon_02_pressure",
+      "toId": "draft_maze_dungeon_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_02:pressure>resource"
+    },
+    {
+      "id": "draft_maze_dungeon_02_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_maze_dungeon_02_response",
+      "toId": "draft_maze_dungeon_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_02:response>location"
+    },
+    {
+      "id": "draft_maze_dungeon_02_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_maze_dungeon_02_response",
+      "toId": "draft_maze_dungeon_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_02:response>entity"
+    },
+    {
+      "id": "draft_maze_dungeon_02_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_maze_dungeon_02_response",
+      "toId": "draft_maze_dungeon_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_02:response>resource"
+    },
+    {
+      "id": "draft_maze_dungeon_02_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_maze_dungeon_02_report",
+      "toId": "draft_maze_dungeon_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_02:report>pressure"
+    },
+    {
+      "id": "draft_maze_dungeon_02_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_maze_dungeon_02_evidence",
+      "toId": "draft_maze_dungeon_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_02:evidence>pressure"
+    },
+    {
+      "id": "draft_maze_dungeon_03_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_maze_dungeon_03_entity",
+      "toId": "draft_maze_dungeon_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_03:entity>location"
+    },
+    {
+      "id": "draft_maze_dungeon_03_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_maze_dungeon_03_location",
+      "toId": "draft_maze_dungeon_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_03:location>resource"
+    },
+    {
+      "id": "draft_maze_dungeon_03_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_maze_dungeon_03_pressure",
+      "toId": "draft_maze_dungeon_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_03:pressure>location"
+    },
+    {
+      "id": "draft_maze_dungeon_03_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_maze_dungeon_03_pressure",
+      "toId": "draft_maze_dungeon_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_03:pressure>entity"
+    },
+    {
+      "id": "draft_maze_dungeon_03_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_maze_dungeon_03_pressure",
+      "toId": "draft_maze_dungeon_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_03:pressure>resource"
+    },
+    {
+      "id": "draft_maze_dungeon_03_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_maze_dungeon_03_response",
+      "toId": "draft_maze_dungeon_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_03:response>location"
+    },
+    {
+      "id": "draft_maze_dungeon_03_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_maze_dungeon_03_response",
+      "toId": "draft_maze_dungeon_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_03:response>entity"
+    },
+    {
+      "id": "draft_maze_dungeon_03_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_maze_dungeon_03_response",
+      "toId": "draft_maze_dungeon_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_03:response>resource"
+    },
+    {
+      "id": "draft_maze_dungeon_03_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_maze_dungeon_03_report",
+      "toId": "draft_maze_dungeon_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_03:report>pressure"
+    },
+    {
+      "id": "draft_maze_dungeon_03_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_maze_dungeon_03_evidence",
+      "toId": "draft_maze_dungeon_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_03:evidence>pressure"
+    },
+    {
+      "id": "draft_maze_dungeon_04_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_maze_dungeon_04_entity",
+      "toId": "draft_maze_dungeon_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_04:entity>location"
+    },
+    {
+      "id": "draft_maze_dungeon_04_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_maze_dungeon_04_location",
+      "toId": "draft_maze_dungeon_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_04:location>resource"
+    },
+    {
+      "id": "draft_maze_dungeon_04_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_maze_dungeon_04_pressure",
+      "toId": "draft_maze_dungeon_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_04:pressure>location"
+    },
+    {
+      "id": "draft_maze_dungeon_04_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_maze_dungeon_04_pressure",
+      "toId": "draft_maze_dungeon_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_04:pressure>entity"
+    },
+    {
+      "id": "draft_maze_dungeon_04_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_maze_dungeon_04_pressure",
+      "toId": "draft_maze_dungeon_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_04:pressure>resource"
+    },
+    {
+      "id": "draft_maze_dungeon_04_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_maze_dungeon_04_response",
+      "toId": "draft_maze_dungeon_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_04:response>location"
+    },
+    {
+      "id": "draft_maze_dungeon_04_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_maze_dungeon_04_response",
+      "toId": "draft_maze_dungeon_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_04:response>entity"
+    },
+    {
+      "id": "draft_maze_dungeon_04_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_maze_dungeon_04_response",
+      "toId": "draft_maze_dungeon_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_04:response>resource"
+    },
+    {
+      "id": "draft_maze_dungeon_04_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_maze_dungeon_04_report",
+      "toId": "draft_maze_dungeon_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_04:report>pressure"
+    },
+    {
+      "id": "draft_maze_dungeon_04_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_maze_dungeon_04_evidence",
+      "toId": "draft_maze_dungeon_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_04:evidence>pressure"
+    },
+    {
+      "id": "draft_maze_dungeon_05_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_maze_dungeon_05_entity",
+      "toId": "draft_maze_dungeon_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_05:entity>location"
+    },
+    {
+      "id": "draft_maze_dungeon_05_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_maze_dungeon_05_location",
+      "toId": "draft_maze_dungeon_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_05:location>resource"
+    },
+    {
+      "id": "draft_maze_dungeon_05_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_maze_dungeon_05_pressure",
+      "toId": "draft_maze_dungeon_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_05:pressure>location"
+    },
+    {
+      "id": "draft_maze_dungeon_05_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_maze_dungeon_05_pressure",
+      "toId": "draft_maze_dungeon_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_05:pressure>entity"
+    },
+    {
+      "id": "draft_maze_dungeon_05_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_maze_dungeon_05_pressure",
+      "toId": "draft_maze_dungeon_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_05:pressure>resource"
+    },
+    {
+      "id": "draft_maze_dungeon_05_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_maze_dungeon_05_response",
+      "toId": "draft_maze_dungeon_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_05:response>location"
+    },
+    {
+      "id": "draft_maze_dungeon_05_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_maze_dungeon_05_response",
+      "toId": "draft_maze_dungeon_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_05:response>entity"
+    },
+    {
+      "id": "draft_maze_dungeon_05_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_maze_dungeon_05_response",
+      "toId": "draft_maze_dungeon_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_05:response>resource"
+    },
+    {
+      "id": "draft_maze_dungeon_05_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_maze_dungeon_05_report",
+      "toId": "draft_maze_dungeon_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_05:report>pressure"
+    },
+    {
+      "id": "draft_maze_dungeon_05_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_maze_dungeon_05_evidence",
+      "toId": "draft_maze_dungeon_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_maze_dungeon_05:evidence>pressure"
+    },
+    {
+      "id": "draft_maze_dungeon_01_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_maze_dungeon_01_pressure",
+      "toId": "draft_maze_dungeon_01_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L42"
+    },
+    {
+      "id": "draft_maze_dungeon_01_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_maze_dungeon_01_additional_belief",
+      "toId": "draft_maze_dungeon_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L42"
+    },
+    {
+      "id": "draft_maze_dungeon_01_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_maze_dungeon_01_additional_belief",
+      "toId": "draft_maze_dungeon_01_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L42"
+    },
+    {
+      "id": "draft_maze_dungeon_01_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_maze_dungeon_01_evidence_site",
+      "toId": "draft_maze_dungeon_01_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L42"
+    },
+    {
+      "id": "draft_maze_dungeon_01_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_maze_dungeon_01_alternative",
+      "toId": "draft_maze_dungeon_01_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L42"
+    },
+    {
+      "id": "draft_maze_dungeon_02_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_maze_dungeon_02_pressure",
+      "toId": "draft_maze_dungeon_02_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L43"
+    },
+    {
+      "id": "draft_maze_dungeon_02_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_maze_dungeon_02_additional_belief",
+      "toId": "draft_maze_dungeon_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L43"
+    },
+    {
+      "id": "draft_maze_dungeon_02_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_maze_dungeon_02_additional_belief",
+      "toId": "draft_maze_dungeon_02_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L43"
+    },
+    {
+      "id": "draft_maze_dungeon_02_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_maze_dungeon_02_evidence_site",
+      "toId": "draft_maze_dungeon_02_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L43"
+    },
+    {
+      "id": "draft_maze_dungeon_02_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_maze_dungeon_02_alternative",
+      "toId": "draft_maze_dungeon_02_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L43"
+    },
+    {
+      "id": "draft_maze_dungeon_03_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_maze_dungeon_03_pressure",
+      "toId": "draft_maze_dungeon_03_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L44"
+    },
+    {
+      "id": "draft_maze_dungeon_03_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_maze_dungeon_03_additional_belief",
+      "toId": "draft_maze_dungeon_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L44"
+    },
+    {
+      "id": "draft_maze_dungeon_03_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_maze_dungeon_03_additional_belief",
+      "toId": "draft_maze_dungeon_03_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L44"
+    },
+    {
+      "id": "draft_maze_dungeon_03_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_maze_dungeon_03_evidence_site",
+      "toId": "draft_maze_dungeon_03_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L44"
+    },
+    {
+      "id": "draft_maze_dungeon_03_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_maze_dungeon_03_alternative",
+      "toId": "draft_maze_dungeon_03_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L44"
+    },
+    {
+      "id": "draft_maze_dungeon_04_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_maze_dungeon_04_pressure",
+      "toId": "draft_maze_dungeon_04_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L45"
+    },
+    {
+      "id": "draft_maze_dungeon_04_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_maze_dungeon_04_additional_belief",
+      "toId": "draft_maze_dungeon_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L45"
+    },
+    {
+      "id": "draft_maze_dungeon_04_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_maze_dungeon_04_additional_belief",
+      "toId": "draft_maze_dungeon_04_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L45"
+    },
+    {
+      "id": "draft_maze_dungeon_04_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_maze_dungeon_04_evidence_site",
+      "toId": "draft_maze_dungeon_04_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L45"
+    },
+    {
+      "id": "draft_maze_dungeon_04_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_maze_dungeon_04_alternative",
+      "toId": "draft_maze_dungeon_04_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L45"
+    },
+    {
+      "id": "draft_maze_dungeon_05_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_maze_dungeon_05_pressure",
+      "toId": "draft_maze_dungeon_05_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L46"
+    },
+    {
+      "id": "draft_maze_dungeon_05_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_maze_dungeon_05_additional_belief",
+      "toId": "draft_maze_dungeon_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L46"
+    },
+    {
+      "id": "draft_maze_dungeon_05_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_maze_dungeon_05_additional_belief",
+      "toId": "draft_maze_dungeon_05_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L46"
+    },
+    {
+      "id": "draft_maze_dungeon_05_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_maze_dungeon_05_evidence_site",
+      "toId": "draft_maze_dungeon_05_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L46"
+    },
+    {
+      "id": "draft_maze_dungeon_05_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_maze_dungeon_05_alternative",
+      "toId": "draft_maze_dungeon_05_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L46"
+    }
+  ],
+  "proposedCausalLinks": [
+    {
+      "id": "draft_maze_dungeon_01_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_maze_dungeon_01_pressure",
+      "toId": "draft_maze_dungeon_01_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_maze_dungeon_01_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_maze_dungeon_01_evidence",
+      "toId": "draft_maze_dungeon_01_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_maze_dungeon_02_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_maze_dungeon_02_pressure",
+      "toId": "draft_maze_dungeon_02_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_maze_dungeon_02_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_maze_dungeon_02_evidence",
+      "toId": "draft_maze_dungeon_02_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_maze_dungeon_03_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_maze_dungeon_03_pressure",
+      "toId": "draft_maze_dungeon_03_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_maze_dungeon_03_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_maze_dungeon_03_evidence",
+      "toId": "draft_maze_dungeon_03_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_maze_dungeon_04_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_maze_dungeon_04_pressure",
+      "toId": "draft_maze_dungeon_04_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_maze_dungeon_04_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_maze_dungeon_04_evidence",
+      "toId": "draft_maze_dungeon_04_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_maze_dungeon_05_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_maze_dungeon_05_pressure",
+      "toId": "draft_maze_dungeon_05_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_maze_dungeon_05_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_maze_dungeon_05_evidence",
+      "toId": "draft_maze_dungeon_05_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    }
+  ]
+}

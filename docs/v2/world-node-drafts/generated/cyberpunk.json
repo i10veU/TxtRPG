@@ -1,0 +1,3079 @@
+{
+  "schema": "world-node-drafts/v1",
+  "status": "Draft",
+  "runtime": false,
+  "scope": {
+    "id": "motif_cyberpunk",
+    "label": "사이버펑크",
+    "kind": "genre-or-structure proposal; not a world definition"
+  },
+  "canonImpact": "none; no Draft item is accepted game setting",
+  "sourceRefs": [
+    "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+    "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+    "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft"
+  ],
+  "fronts": [
+    {
+      "id": "draft_cyberpunk_01",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A heat broker diverts coolant before a flood alarm",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A heat broker diverts coolant before a flood alarm",
+      "authoredIntervention": "Expose the diversion and route reserve coolant to the pumps",
+      "initialReport": "The broker claims the outage came from old wiring",
+      "verificationCandidate": "Pump telemetry records the diversion before the outage",
+      "alternativeInterventions": "Negotiate a fixed emergency coolant allotment",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L3",
+        "docs/v2/world-node-drafts/companion-a.txt#L2"
+      ],
+      "semanticSignature": "a heat broker diverts coolant before a flood alarm expose the diversion and route reserve coolant to the pumps coolant cartridges the broker claims the outage came from old wiring pump telemetry records the diversion before the outage",
+      "nodeIds": [
+        "draft_cyberpunk_01_entity",
+        "draft_cyberpunk_01_location",
+        "draft_cyberpunk_01_resource",
+        "draft_cyberpunk_01_pressure",
+        "draft_cyberpunk_01_response",
+        "draft_cyberpunk_01_report",
+        "draft_cyberpunk_01_evidence",
+        "draft_cyberpunk_01_counterparty",
+        "draft_cyberpunk_01_belief_holder",
+        "draft_cyberpunk_01_evidence_site",
+        "draft_cyberpunk_01_alternative",
+        "draft_cyberpunk_01_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Factories lose paid cooling hours and may contest the order",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_cyberpunk_01_counterparty",
+        "evidenceSiteId": "draft_cyberpunk_01_evidence_site",
+        "alternativeEventId": "draft_cyberpunk_01_alternative",
+        "additionalBeliefId": "draft_cyberpunk_01_additional_belief",
+        "beliefHolderId": "draft_cyberpunk_01_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L2"
+      }
+    },
+    {
+      "id": "draft_cyberpunk_02",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A patent lock suspends mesh deliveries during an outbreak",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A patent lock suspends mesh deliveries during an outbreak",
+      "authoredIntervention": "Share a verified manufacturing recipe with the clinic",
+      "initialReport": "The supplier says no safe substitute exists",
+      "verificationCandidate": "Clinic trials document the substitute's failure rate",
+      "alternativeInterventions": "License a temporary local mesh run under clinic supervision",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L4",
+        "docs/v2/world-node-drafts/companion-a.txt#L3"
+      ],
+      "semanticSignature": "a patent lock suspends mesh deliveries during an outbreak share a verified manufacturing recipe with the clinic sterile mesh the supplier says no safe substitute exists clinic trials document the substitute s failure rate",
+      "nodeIds": [
+        "draft_cyberpunk_02_entity",
+        "draft_cyberpunk_02_location",
+        "draft_cyberpunk_02_resource",
+        "draft_cyberpunk_02_pressure",
+        "draft_cyberpunk_02_response",
+        "draft_cyberpunk_02_report",
+        "draft_cyberpunk_02_evidence",
+        "draft_cyberpunk_02_counterparty",
+        "draft_cyberpunk_02_belief_holder",
+        "draft_cyberpunk_02_evidence_site",
+        "draft_cyberpunk_02_alternative",
+        "draft_cyberpunk_02_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "The clinic must divert nurses into quality control",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_cyberpunk_02_counterparty",
+        "evidenceSiteId": "draft_cyberpunk_02_evidence_site",
+        "alternativeEventId": "draft_cyberpunk_02_alternative",
+        "additionalBeliefId": "draft_cyberpunk_02_additional_belief",
+        "beliefHolderId": "draft_cyberpunk_02_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L3"
+      }
+    },
+    {
+      "id": "draft_cyberpunk_03",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A private relay filters eviction notices",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A private relay filters eviction notices",
+      "authoredIntervention": "Publish the unfiltered notice archive to tenants",
+      "initialReport": "Residents hear that notices were never issued",
+      "verificationCandidate": "Signed relay receipts show notices were withheld",
+      "alternativeInterventions": "Require every future notice to receive a tenant receipt",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L5",
+        "docs/v2/world-node-drafts/companion-a.txt#L4"
+      ],
+      "semanticSignature": "a private relay filters eviction notices publish the unfiltered notice archive to tenants battery cells residents hear that notices were never issued signed relay receipts show notices were withheld",
+      "nodeIds": [
+        "draft_cyberpunk_03_entity",
+        "draft_cyberpunk_03_location",
+        "draft_cyberpunk_03_resource",
+        "draft_cyberpunk_03_pressure",
+        "draft_cyberpunk_03_response",
+        "draft_cyberpunk_03_report",
+        "draft_cyberpunk_03_evidence",
+        "draft_cyberpunk_03_counterparty",
+        "draft_cyberpunk_03_belief_holder",
+        "draft_cyberpunk_03_evidence_site",
+        "draft_cyberpunk_03_alternative",
+        "draft_cyberpunk_03_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Tenant representatives must staff a verification desk",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_cyberpunk_03_counterparty",
+        "evidenceSiteId": "draft_cyberpunk_03_evidence_site",
+        "alternativeEventId": "draft_cyberpunk_03_alternative",
+        "additionalBeliefId": "draft_cyberpunk_03_additional_belief",
+        "beliefHolderId": "draft_cyberpunk_03_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L4"
+      }
+    },
+    {
+      "id": "draft_cyberpunk_04",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A contractor reports clean water while diverting fresh membranes",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A contractor reports clean water while diverting fresh membranes",
+      "authoredIntervention": "Audit intake samples and seize the diverted stock",
+      "initialReport": "A public screen repeats the clean-water claim",
+      "verificationCandidate": "Independent samples and stock tags reveal the discrepancy",
+      "alternativeInterventions": "Isolate the suspect intake and distribute tested reserve water",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L6",
+        "docs/v2/world-node-drafts/companion-a.txt#L5"
+      ],
+      "semanticSignature": "a contractor reports clean water while diverting fresh membranes audit intake samples and seize the diverted stock membrane sheets a public screen repeats the clean water claim independent samples and stock tags reveal the discrepancy",
+      "nodeIds": [
+        "draft_cyberpunk_04_entity",
+        "draft_cyberpunk_04_location",
+        "draft_cyberpunk_04_resource",
+        "draft_cyberpunk_04_pressure",
+        "draft_cyberpunk_04_response",
+        "draft_cyberpunk_04_report",
+        "draft_cyberpunk_04_evidence",
+        "draft_cyberpunk_04_counterparty",
+        "draft_cyberpunk_04_belief_holder",
+        "draft_cyberpunk_04_evidence_site",
+        "draft_cyberpunk_04_alternative",
+        "draft_cyberpunk_04_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Households face rationing while samples clear",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_cyberpunk_04_counterparty",
+        "evidenceSiteId": "draft_cyberpunk_04_evidence_site",
+        "alternativeEventId": "draft_cyberpunk_04_alternative",
+        "additionalBeliefId": "draft_cyberpunk_04_additional_belief",
+        "beliefHolderId": "draft_cyberpunk_04_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L5"
+      }
+    },
+    {
+      "id": "draft_cyberpunk_05",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A fare algorithm skips a district's last tram",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A fare algorithm skips a district's last tram",
+      "authoredIntervention": "Override the schedule after proving the stranded shift exists",
+      "initialReport": "The operator blames missing passengers",
+      "verificationCandidate": "Gate counts show the passengers waiting",
+      "alternativeInterventions": "Fund a staffed late shuttle from unused daytime capacity",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L7",
+        "docs/v2/world-node-drafts/companion-a.txt#L6"
+      ],
+      "semanticSignature": "a fare algorithm skips a district s last tram override the schedule after proving the stranded shift exists brake modules the operator blames missing passengers gate counts show the passengers waiting",
+      "nodeIds": [
+        "draft_cyberpunk_05_entity",
+        "draft_cyberpunk_05_location",
+        "draft_cyberpunk_05_resource",
+        "draft_cyberpunk_05_pressure",
+        "draft_cyberpunk_05_response",
+        "draft_cyberpunk_05_report",
+        "draft_cyberpunk_05_evidence",
+        "draft_cyberpunk_05_counterparty",
+        "draft_cyberpunk_05_belief_holder",
+        "draft_cyberpunk_05_evidence_site",
+        "draft_cyberpunk_05_alternative",
+        "draft_cyberpunk_05_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Day riders lose a departure and crews work a split shift",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_cyberpunk_05_counterparty",
+        "evidenceSiteId": "draft_cyberpunk_05_evidence_site",
+        "alternativeEventId": "draft_cyberpunk_05_alternative",
+        "additionalBeliefId": "draft_cyberpunk_05_additional_belief",
+        "beliefHolderId": "draft_cyberpunk_05_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L6"
+      }
+    }
+  ],
+  "nodes": [
+    {
+      "id": "draft_cyberpunk_01_entity",
+      "kind": "Entity",
+      "label": "canal-grid cooperative",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_01",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L3"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L3"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep coolant cartridges usable at floodwall substation",
+        "stakes": "A heat broker diverts coolant before a flood alarm",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_cyberpunk_01_edge_01",
+        "draft_cyberpunk_01_edge_04",
+        "draft_cyberpunk_01_edge_07"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_01_location",
+      "kind": "Location",
+      "label": "floodwall substation",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_01",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L3"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L3"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_cyberpunk_01_resource",
+        "conflict": "A heat broker diverts coolant before a flood alarm",
+        "risk": "A heat broker diverts coolant before a flood alarm"
+      },
+      "relations": [
+        "draft_cyberpunk_01_edge_01",
+        "draft_cyberpunk_01_edge_02",
+        "draft_cyberpunk_01_edge_03",
+        "draft_cyberpunk_01_edge_06"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_01_resource",
+      "kind": "Resource",
+      "label": "coolant cartridges",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_01",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L3"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L3"
+      ],
+      "proposal": {
+        "sourceId": "draft_cyberpunk_01_location",
+        "scarcity": "A heat broker diverts coolant before a flood alarm",
+        "proposedUse": "Expose the diversion and route reserve coolant to the pumps",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_cyberpunk_01_edge_02",
+        "draft_cyberpunk_01_edge_05",
+        "draft_cyberpunk_01_edge_08"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_01_pressure",
+      "kind": "Event",
+      "label": "A heat broker diverts coolant before a flood alarm",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_01",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L3"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L3"
+      ],
+      "proposal": {
+        "trigger": "A heat broker diverts coolant before a flood alarm",
+        "proposedEffect": "Changes access to coolant cartridges",
+        "effectTargetId": "draft_cyberpunk_01_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_cyberpunk_01_edge_03",
+        "draft_cyberpunk_01_edge_04",
+        "draft_cyberpunk_01_edge_05",
+        "draft_cyberpunk_01_edge_09",
+        "draft_cyberpunk_01_edge_10",
+        "draft_cyberpunk_01_companion_edge_01",
+        "draft_cyberpunk_01_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_01_response",
+      "kind": "Event",
+      "label": "Expose the diversion and route reserve coolant to the pumps",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_01",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L3"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L3"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Expose the diversion and route reserve coolant to the pumps",
+        "proposedEffect": "Expose the diversion and route reserve coolant to the pumps",
+        "effectTargetId": "draft_cyberpunk_01_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_cyberpunk_01_edge_06",
+        "draft_cyberpunk_01_edge_07",
+        "draft_cyberpunk_01_edge_08",
+        "draft_cyberpunk_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_01_report",
+      "kind": "Knowledge",
+      "label": "The broker claims the outage came from old wiring",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_01",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L3"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L3"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The broker claims the outage came from old wiring",
+        "aboutId": "draft_cyberpunk_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_cyberpunk_01_edge_09"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_01_evidence",
+      "kind": "Knowledge",
+      "label": "Pump telemetry records the diversion before the outage",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L3"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L3"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Pump telemetry records the diversion before the outage",
+        "aboutId": "draft_cyberpunk_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_cyberpunk_01_edge_10",
+        "draft_cyberpunk_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_02_entity",
+      "kind": "Entity",
+      "label": "street clinic union",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_02",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L4"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L4"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep sterile mesh usable at elevated clinic",
+        "stakes": "A patent lock suspends mesh deliveries during an outbreak",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_cyberpunk_02_edge_01",
+        "draft_cyberpunk_02_edge_04",
+        "draft_cyberpunk_02_edge_07"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_02_location",
+      "kind": "Location",
+      "label": "elevated clinic",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_02",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L4"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L4"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_cyberpunk_02_resource",
+        "conflict": "A patent lock suspends mesh deliveries during an outbreak",
+        "risk": "A patent lock suspends mesh deliveries during an outbreak"
+      },
+      "relations": [
+        "draft_cyberpunk_02_edge_01",
+        "draft_cyberpunk_02_edge_02",
+        "draft_cyberpunk_02_edge_03",
+        "draft_cyberpunk_02_edge_06"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_02_resource",
+      "kind": "Resource",
+      "label": "sterile mesh",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_02",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L4"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L4"
+      ],
+      "proposal": {
+        "sourceId": "draft_cyberpunk_02_location",
+        "scarcity": "A patent lock suspends mesh deliveries during an outbreak",
+        "proposedUse": "Share a verified manufacturing recipe with the clinic",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_cyberpunk_02_edge_02",
+        "draft_cyberpunk_02_edge_05",
+        "draft_cyberpunk_02_edge_08"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_02_pressure",
+      "kind": "Event",
+      "label": "A patent lock suspends mesh deliveries during an outbreak",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_02",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L4"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L4"
+      ],
+      "proposal": {
+        "trigger": "A patent lock suspends mesh deliveries during an outbreak",
+        "proposedEffect": "Changes access to sterile mesh",
+        "effectTargetId": "draft_cyberpunk_02_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_cyberpunk_02_edge_03",
+        "draft_cyberpunk_02_edge_04",
+        "draft_cyberpunk_02_edge_05",
+        "draft_cyberpunk_02_edge_09",
+        "draft_cyberpunk_02_edge_10",
+        "draft_cyberpunk_02_companion_edge_01",
+        "draft_cyberpunk_02_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_02_response",
+      "kind": "Event",
+      "label": "Share a verified manufacturing recipe with the clinic",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_02",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L4"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L4"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Share a verified manufacturing recipe with the clinic",
+        "proposedEffect": "Share a verified manufacturing recipe with the clinic",
+        "effectTargetId": "draft_cyberpunk_02_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_cyberpunk_02_edge_06",
+        "draft_cyberpunk_02_edge_07",
+        "draft_cyberpunk_02_edge_08",
+        "draft_cyberpunk_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_02_report",
+      "kind": "Knowledge",
+      "label": "The supplier says no safe substitute exists",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_02",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L4"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L4"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The supplier says no safe substitute exists",
+        "aboutId": "draft_cyberpunk_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_cyberpunk_02_edge_09"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_02_evidence",
+      "kind": "Knowledge",
+      "label": "Clinic trials document the substitute's failure rate",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L4"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L4"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Clinic trials document the substitute's failure rate",
+        "aboutId": "draft_cyberpunk_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_cyberpunk_02_edge_10",
+        "draft_cyberpunk_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_03_entity",
+      "kind": "Entity",
+      "label": "tenant signal guild",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_03",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L5"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L5"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep battery cells usable at hanging market relay",
+        "stakes": "A private relay filters eviction notices",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_cyberpunk_03_edge_01",
+        "draft_cyberpunk_03_edge_04",
+        "draft_cyberpunk_03_edge_07"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_03_location",
+      "kind": "Location",
+      "label": "hanging market relay",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_03",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L5"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L5"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_cyberpunk_03_resource",
+        "conflict": "A private relay filters eviction notices",
+        "risk": "A private relay filters eviction notices"
+      },
+      "relations": [
+        "draft_cyberpunk_03_edge_01",
+        "draft_cyberpunk_03_edge_02",
+        "draft_cyberpunk_03_edge_03",
+        "draft_cyberpunk_03_edge_06"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_03_resource",
+      "kind": "Resource",
+      "label": "battery cells",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_03",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L5"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L5"
+      ],
+      "proposal": {
+        "sourceId": "draft_cyberpunk_03_location",
+        "scarcity": "A private relay filters eviction notices",
+        "proposedUse": "Publish the unfiltered notice archive to tenants",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_cyberpunk_03_edge_02",
+        "draft_cyberpunk_03_edge_05",
+        "draft_cyberpunk_03_edge_08"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_03_pressure",
+      "kind": "Event",
+      "label": "A private relay filters eviction notices",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_03",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L5"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L5"
+      ],
+      "proposal": {
+        "trigger": "A private relay filters eviction notices",
+        "proposedEffect": "Changes access to battery cells",
+        "effectTargetId": "draft_cyberpunk_03_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_cyberpunk_03_edge_03",
+        "draft_cyberpunk_03_edge_04",
+        "draft_cyberpunk_03_edge_05",
+        "draft_cyberpunk_03_edge_09",
+        "draft_cyberpunk_03_edge_10",
+        "draft_cyberpunk_03_companion_edge_01",
+        "draft_cyberpunk_03_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_03_response",
+      "kind": "Event",
+      "label": "Publish the unfiltered notice archive to tenants",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_03",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L5"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L5"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Publish the unfiltered notice archive to tenants",
+        "proposedEffect": "Publish the unfiltered notice archive to tenants",
+        "effectTargetId": "draft_cyberpunk_03_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_cyberpunk_03_edge_06",
+        "draft_cyberpunk_03_edge_07",
+        "draft_cyberpunk_03_edge_08",
+        "draft_cyberpunk_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_03_report",
+      "kind": "Knowledge",
+      "label": "Residents hear that notices were never issued",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_03",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L5"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L5"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Residents hear that notices were never issued",
+        "aboutId": "draft_cyberpunk_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_cyberpunk_03_edge_09"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_03_evidence",
+      "kind": "Knowledge",
+      "label": "Signed relay receipts show notices were withheld",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L5"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L5"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Signed relay receipts show notices were withheld",
+        "aboutId": "draft_cyberpunk_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_cyberpunk_03_edge_10",
+        "draft_cyberpunk_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_04_entity",
+      "kind": "Entity",
+      "label": "water auditors",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_04",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L6"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L6"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep membrane sheets usable at desalination intake",
+        "stakes": "A contractor reports clean water while diverting fresh membranes",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_cyberpunk_04_edge_01",
+        "draft_cyberpunk_04_edge_04",
+        "draft_cyberpunk_04_edge_07"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_04_location",
+      "kind": "Location",
+      "label": "desalination intake",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_04",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L6"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L6"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_cyberpunk_04_resource",
+        "conflict": "A contractor reports clean water while diverting fresh membranes",
+        "risk": "A contractor reports clean water while diverting fresh membranes"
+      },
+      "relations": [
+        "draft_cyberpunk_04_edge_01",
+        "draft_cyberpunk_04_edge_02",
+        "draft_cyberpunk_04_edge_03",
+        "draft_cyberpunk_04_edge_06"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_04_resource",
+      "kind": "Resource",
+      "label": "membrane sheets",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_04",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L6"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L6"
+      ],
+      "proposal": {
+        "sourceId": "draft_cyberpunk_04_location",
+        "scarcity": "A contractor reports clean water while diverting fresh membranes",
+        "proposedUse": "Audit intake samples and seize the diverted stock",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_cyberpunk_04_edge_02",
+        "draft_cyberpunk_04_edge_05",
+        "draft_cyberpunk_04_edge_08"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_04_pressure",
+      "kind": "Event",
+      "label": "A contractor reports clean water while diverting fresh membranes",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_04",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L6"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L6"
+      ],
+      "proposal": {
+        "trigger": "A contractor reports clean water while diverting fresh membranes",
+        "proposedEffect": "Changes access to membrane sheets",
+        "effectTargetId": "draft_cyberpunk_04_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_cyberpunk_04_edge_03",
+        "draft_cyberpunk_04_edge_04",
+        "draft_cyberpunk_04_edge_05",
+        "draft_cyberpunk_04_edge_09",
+        "draft_cyberpunk_04_edge_10",
+        "draft_cyberpunk_04_companion_edge_01",
+        "draft_cyberpunk_04_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_04_response",
+      "kind": "Event",
+      "label": "Audit intake samples and seize the diverted stock",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_04",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L6"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L6"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Audit intake samples and seize the diverted stock",
+        "proposedEffect": "Audit intake samples and seize the diverted stock",
+        "effectTargetId": "draft_cyberpunk_04_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_cyberpunk_04_edge_06",
+        "draft_cyberpunk_04_edge_07",
+        "draft_cyberpunk_04_edge_08",
+        "draft_cyberpunk_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_04_report",
+      "kind": "Knowledge",
+      "label": "A public screen repeats the clean-water claim",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_04",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L6"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L6"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A public screen repeats the clean-water claim",
+        "aboutId": "draft_cyberpunk_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_cyberpunk_04_edge_09"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_04_evidence",
+      "kind": "Knowledge",
+      "label": "Independent samples and stock tags reveal the discrepancy",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L6"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L6"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Independent samples and stock tags reveal the discrepancy",
+        "aboutId": "draft_cyberpunk_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_cyberpunk_04_edge_10",
+        "draft_cyberpunk_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_05_entity",
+      "kind": "Entity",
+      "label": "night transit crew",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_05",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L7"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L7"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep brake modules usable at underpass tram depot",
+        "stakes": "A fare algorithm skips a district's last tram",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_cyberpunk_05_edge_01",
+        "draft_cyberpunk_05_edge_04",
+        "draft_cyberpunk_05_edge_07"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_05_location",
+      "kind": "Location",
+      "label": "underpass tram depot",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_05",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L7"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L7"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_cyberpunk_05_resource",
+        "conflict": "A fare algorithm skips a district's last tram",
+        "risk": "A fare algorithm skips a district's last tram"
+      },
+      "relations": [
+        "draft_cyberpunk_05_edge_01",
+        "draft_cyberpunk_05_edge_02",
+        "draft_cyberpunk_05_edge_03",
+        "draft_cyberpunk_05_edge_06"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_05_resource",
+      "kind": "Resource",
+      "label": "brake modules",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_05",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L7"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L7"
+      ],
+      "proposal": {
+        "sourceId": "draft_cyberpunk_05_location",
+        "scarcity": "A fare algorithm skips a district's last tram",
+        "proposedUse": "Override the schedule after proving the stranded shift exists",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_cyberpunk_05_edge_02",
+        "draft_cyberpunk_05_edge_05",
+        "draft_cyberpunk_05_edge_08"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_05_pressure",
+      "kind": "Event",
+      "label": "A fare algorithm skips a district's last tram",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_05",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L7"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L7"
+      ],
+      "proposal": {
+        "trigger": "A fare algorithm skips a district's last tram",
+        "proposedEffect": "Changes access to brake modules",
+        "effectTargetId": "draft_cyberpunk_05_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_cyberpunk_05_edge_03",
+        "draft_cyberpunk_05_edge_04",
+        "draft_cyberpunk_05_edge_05",
+        "draft_cyberpunk_05_edge_09",
+        "draft_cyberpunk_05_edge_10",
+        "draft_cyberpunk_05_companion_edge_01",
+        "draft_cyberpunk_05_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_05_response",
+      "kind": "Event",
+      "label": "Override the schedule after proving the stranded shift exists",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_05",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L7"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L7"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Override the schedule after proving the stranded shift exists",
+        "proposedEffect": "Override the schedule after proving the stranded shift exists",
+        "effectTargetId": "draft_cyberpunk_05_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_cyberpunk_05_edge_06",
+        "draft_cyberpunk_05_edge_07",
+        "draft_cyberpunk_05_edge_08",
+        "draft_cyberpunk_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_05_report",
+      "kind": "Knowledge",
+      "label": "The operator blames missing passengers",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_05",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L7"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L7"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The operator blames missing passengers",
+        "aboutId": "draft_cyberpunk_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_cyberpunk_05_edge_09"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_05_evidence",
+      "kind": "Knowledge",
+      "label": "Gate counts show the passengers waiting",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L7"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L7"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Gate counts show the passengers waiting",
+        "aboutId": "draft_cyberpunk_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_cyberpunk_05_edge_10",
+        "draft_cyberpunk_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_01_counterparty",
+      "kind": "Entity",
+      "label": "coolant diversion broker",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_01",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L2"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L2"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Keep premium cooling contracts ahead of the public pumps",
+        "stakes": "A heat broker diverts coolant before a flood alarm",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_cyberpunk_01_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_01_belief_holder",
+      "kind": "Entity",
+      "label": "factory managers",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_01",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L2"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L2"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: The pumps can survive one hot night on backup coolant",
+        "stakes": "A heat broker diverts coolant before a flood alarm",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_cyberpunk_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_01_evidence_site",
+      "kind": "Location",
+      "label": "broker valve ledger room",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L2"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L2"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A heat broker diverts coolant before a flood alarm",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_cyberpunk_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_01_alternative",
+      "kind": "Event",
+      "label": "Negotiate a fixed emergency coolant allotment",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_01",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L2"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L2"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Negotiate a fixed emergency coolant allotment",
+        "costAndConsequence": "Factories lose paid cooling hours and may contest the order",
+        "alternativeToId": "draft_cyberpunk_01_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_cyberpunk_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_01_additional_belief",
+      "kind": "Knowledge",
+      "label": "The pumps can survive one hot night on backup coolant",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_01",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L2"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L2"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The pumps can survive one hot night on backup coolant",
+        "aboutId": "draft_cyberpunk_01_pressure",
+        "holderId": "draft_cyberpunk_01_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_cyberpunk_01_companion_edge_02",
+        "draft_cyberpunk_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_02_counterparty",
+      "kind": "Entity",
+      "label": "patent licensing steward",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_02",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L3"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L3"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Protect a monopoly while the clinic needs sterile supplies",
+        "stakes": "A patent lock suspends mesh deliveries during an outbreak",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_cyberpunk_02_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_02_belief_holder",
+      "kind": "Entity",
+      "label": "hospital purchasing board",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_02",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L3"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L3"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Unlicensed mesh always carries infection",
+        "stakes": "A patent lock suspends mesh deliveries during an outbreak",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_cyberpunk_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_02_evidence_site",
+      "kind": "Location",
+      "label": "licensing freeze archive",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L3"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L3"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A patent lock suspends mesh deliveries during an outbreak",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_cyberpunk_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_02_alternative",
+      "kind": "Event",
+      "label": "License a temporary local mesh run under clinic supervision",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_02",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L3"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L3"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: License a temporary local mesh run under clinic supervision",
+        "costAndConsequence": "The clinic must divert nurses into quality control",
+        "alternativeToId": "draft_cyberpunk_02_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_cyberpunk_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_02_additional_belief",
+      "kind": "Knowledge",
+      "label": "Unlicensed mesh always carries infection",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_02",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L3"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L3"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Unlicensed mesh always carries infection",
+        "aboutId": "draft_cyberpunk_02_pressure",
+        "holderId": "draft_cyberpunk_02_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_cyberpunk_02_companion_edge_02",
+        "draft_cyberpunk_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_03_counterparty",
+      "kind": "Entity",
+      "label": "private relay operator",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_03",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L4"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L4"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Keep eviction traffic private to retain landlord fees",
+        "stakes": "A private relay filters eviction notices",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_cyberpunk_03_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_03_belief_holder",
+      "kind": "Entity",
+      "label": "privacy advocates",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_03",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L4"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L4"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Publishing notices will expose residents' addresses",
+        "stakes": "A private relay filters eviction notices",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_cyberpunk_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_03_evidence_site",
+      "kind": "Location",
+      "label": "relay signature vault",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L4"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L4"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A private relay filters eviction notices",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_cyberpunk_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_03_alternative",
+      "kind": "Event",
+      "label": "Require every future notice to receive a tenant receipt",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_03",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L4"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L4"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Require every future notice to receive a tenant receipt",
+        "costAndConsequence": "Tenant representatives must staff a verification desk",
+        "alternativeToId": "draft_cyberpunk_03_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_cyberpunk_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_03_additional_belief",
+      "kind": "Knowledge",
+      "label": "Publishing notices will expose residents' addresses",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_03",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L4"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L4"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Publishing notices will expose residents' addresses",
+        "aboutId": "draft_cyberpunk_03_pressure",
+        "holderId": "draft_cyberpunk_03_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_cyberpunk_03_companion_edge_02",
+        "draft_cyberpunk_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_04_counterparty",
+      "kind": "Entity",
+      "label": "membrane shipment foreman",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_04",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L5"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L5"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Hide diverted sheets to preserve an outside sale",
+        "stakes": "A contractor reports clean water while diverting fresh membranes",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_cyberpunk_04_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_04_belief_holder",
+      "kind": "Entity",
+      "label": "district officials",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_04",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L5"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L5"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: The clean screen proves every tap is safe",
+        "stakes": "A contractor reports clean water while diverting fresh membranes",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_cyberpunk_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_04_evidence_site",
+      "kind": "Location",
+      "label": "contractor loading gantry",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L5"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L5"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A contractor reports clean water while diverting fresh membranes",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_cyberpunk_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_04_alternative",
+      "kind": "Event",
+      "label": "Isolate the suspect intake and distribute tested reserve water",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_04",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L5"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L5"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Isolate the suspect intake and distribute tested reserve water",
+        "costAndConsequence": "Households face rationing while samples clear",
+        "alternativeToId": "draft_cyberpunk_04_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_cyberpunk_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_04_additional_belief",
+      "kind": "Knowledge",
+      "label": "The clean screen proves every tap is safe",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_04",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L5"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L5"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The clean screen proves every tap is safe",
+        "aboutId": "draft_cyberpunk_04_pressure",
+        "holderId": "draft_cyberpunk_04_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_cyberpunk_04_companion_edge_02",
+        "draft_cyberpunk_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_05_counterparty",
+      "kind": "Entity",
+      "label": "fare-model auditor",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_05",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L6"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L6"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Raise route margins by dropping the last low-fare run",
+        "stakes": "A fare algorithm skips a district's last tram",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_cyberpunk_05_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_05_belief_holder",
+      "kind": "Entity",
+      "label": "budget committee",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_05",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L6"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L6"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: An extra tram would run empty",
+        "stakes": "A fare algorithm skips a district's last tram",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_cyberpunk_05_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_05_evidence_site",
+      "kind": "Location",
+      "label": "fare model audit terminal",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L6"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L6"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A fare algorithm skips a district's last tram",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_cyberpunk_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_05_alternative",
+      "kind": "Event",
+      "label": "Fund a staffed late shuttle from unused daytime capacity",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_05",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L6"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L6"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Fund a staffed late shuttle from unused daytime capacity",
+        "costAndConsequence": "Day riders lose a departure and crews work a split shift",
+        "alternativeToId": "draft_cyberpunk_05_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_cyberpunk_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_cyberpunk_05_additional_belief",
+      "kind": "Knowledge",
+      "label": "An extra tram would run empty",
+      "scopeId": "motif_cyberpunk",
+      "motifId": "cyberpunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_cyberpunk_05",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L6"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L6"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "An extra tram would run empty",
+        "aboutId": "draft_cyberpunk_05_pressure",
+        "holderId": "draft_cyberpunk_05_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_cyberpunk_05_companion_edge_02",
+        "draft_cyberpunk_05_companion_edge_03"
+      ]
+    }
+  ],
+  "structuralEdges": [
+    {
+      "id": "draft_cyberpunk_01_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_cyberpunk_01_entity",
+      "toId": "draft_cyberpunk_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_01:entity>location"
+    },
+    {
+      "id": "draft_cyberpunk_01_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_cyberpunk_01_location",
+      "toId": "draft_cyberpunk_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_01:location>resource"
+    },
+    {
+      "id": "draft_cyberpunk_01_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_cyberpunk_01_pressure",
+      "toId": "draft_cyberpunk_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_01:pressure>location"
+    },
+    {
+      "id": "draft_cyberpunk_01_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_cyberpunk_01_pressure",
+      "toId": "draft_cyberpunk_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_01:pressure>entity"
+    },
+    {
+      "id": "draft_cyberpunk_01_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_cyberpunk_01_pressure",
+      "toId": "draft_cyberpunk_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_01:pressure>resource"
+    },
+    {
+      "id": "draft_cyberpunk_01_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_cyberpunk_01_response",
+      "toId": "draft_cyberpunk_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_01:response>location"
+    },
+    {
+      "id": "draft_cyberpunk_01_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_cyberpunk_01_response",
+      "toId": "draft_cyberpunk_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_01:response>entity"
+    },
+    {
+      "id": "draft_cyberpunk_01_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_cyberpunk_01_response",
+      "toId": "draft_cyberpunk_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_01:response>resource"
+    },
+    {
+      "id": "draft_cyberpunk_01_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_cyberpunk_01_report",
+      "toId": "draft_cyberpunk_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_01:report>pressure"
+    },
+    {
+      "id": "draft_cyberpunk_01_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_cyberpunk_01_evidence",
+      "toId": "draft_cyberpunk_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_01:evidence>pressure"
+    },
+    {
+      "id": "draft_cyberpunk_02_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_cyberpunk_02_entity",
+      "toId": "draft_cyberpunk_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_02:entity>location"
+    },
+    {
+      "id": "draft_cyberpunk_02_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_cyberpunk_02_location",
+      "toId": "draft_cyberpunk_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_02:location>resource"
+    },
+    {
+      "id": "draft_cyberpunk_02_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_cyberpunk_02_pressure",
+      "toId": "draft_cyberpunk_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_02:pressure>location"
+    },
+    {
+      "id": "draft_cyberpunk_02_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_cyberpunk_02_pressure",
+      "toId": "draft_cyberpunk_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_02:pressure>entity"
+    },
+    {
+      "id": "draft_cyberpunk_02_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_cyberpunk_02_pressure",
+      "toId": "draft_cyberpunk_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_02:pressure>resource"
+    },
+    {
+      "id": "draft_cyberpunk_02_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_cyberpunk_02_response",
+      "toId": "draft_cyberpunk_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_02:response>location"
+    },
+    {
+      "id": "draft_cyberpunk_02_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_cyberpunk_02_response",
+      "toId": "draft_cyberpunk_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_02:response>entity"
+    },
+    {
+      "id": "draft_cyberpunk_02_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_cyberpunk_02_response",
+      "toId": "draft_cyberpunk_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_02:response>resource"
+    },
+    {
+      "id": "draft_cyberpunk_02_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_cyberpunk_02_report",
+      "toId": "draft_cyberpunk_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_02:report>pressure"
+    },
+    {
+      "id": "draft_cyberpunk_02_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_cyberpunk_02_evidence",
+      "toId": "draft_cyberpunk_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_02:evidence>pressure"
+    },
+    {
+      "id": "draft_cyberpunk_03_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_cyberpunk_03_entity",
+      "toId": "draft_cyberpunk_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_03:entity>location"
+    },
+    {
+      "id": "draft_cyberpunk_03_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_cyberpunk_03_location",
+      "toId": "draft_cyberpunk_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_03:location>resource"
+    },
+    {
+      "id": "draft_cyberpunk_03_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_cyberpunk_03_pressure",
+      "toId": "draft_cyberpunk_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_03:pressure>location"
+    },
+    {
+      "id": "draft_cyberpunk_03_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_cyberpunk_03_pressure",
+      "toId": "draft_cyberpunk_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_03:pressure>entity"
+    },
+    {
+      "id": "draft_cyberpunk_03_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_cyberpunk_03_pressure",
+      "toId": "draft_cyberpunk_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_03:pressure>resource"
+    },
+    {
+      "id": "draft_cyberpunk_03_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_cyberpunk_03_response",
+      "toId": "draft_cyberpunk_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_03:response>location"
+    },
+    {
+      "id": "draft_cyberpunk_03_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_cyberpunk_03_response",
+      "toId": "draft_cyberpunk_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_03:response>entity"
+    },
+    {
+      "id": "draft_cyberpunk_03_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_cyberpunk_03_response",
+      "toId": "draft_cyberpunk_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_03:response>resource"
+    },
+    {
+      "id": "draft_cyberpunk_03_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_cyberpunk_03_report",
+      "toId": "draft_cyberpunk_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_03:report>pressure"
+    },
+    {
+      "id": "draft_cyberpunk_03_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_cyberpunk_03_evidence",
+      "toId": "draft_cyberpunk_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_03:evidence>pressure"
+    },
+    {
+      "id": "draft_cyberpunk_04_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_cyberpunk_04_entity",
+      "toId": "draft_cyberpunk_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_04:entity>location"
+    },
+    {
+      "id": "draft_cyberpunk_04_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_cyberpunk_04_location",
+      "toId": "draft_cyberpunk_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_04:location>resource"
+    },
+    {
+      "id": "draft_cyberpunk_04_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_cyberpunk_04_pressure",
+      "toId": "draft_cyberpunk_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_04:pressure>location"
+    },
+    {
+      "id": "draft_cyberpunk_04_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_cyberpunk_04_pressure",
+      "toId": "draft_cyberpunk_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_04:pressure>entity"
+    },
+    {
+      "id": "draft_cyberpunk_04_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_cyberpunk_04_pressure",
+      "toId": "draft_cyberpunk_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_04:pressure>resource"
+    },
+    {
+      "id": "draft_cyberpunk_04_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_cyberpunk_04_response",
+      "toId": "draft_cyberpunk_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_04:response>location"
+    },
+    {
+      "id": "draft_cyberpunk_04_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_cyberpunk_04_response",
+      "toId": "draft_cyberpunk_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_04:response>entity"
+    },
+    {
+      "id": "draft_cyberpunk_04_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_cyberpunk_04_response",
+      "toId": "draft_cyberpunk_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_04:response>resource"
+    },
+    {
+      "id": "draft_cyberpunk_04_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_cyberpunk_04_report",
+      "toId": "draft_cyberpunk_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_04:report>pressure"
+    },
+    {
+      "id": "draft_cyberpunk_04_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_cyberpunk_04_evidence",
+      "toId": "draft_cyberpunk_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_04:evidence>pressure"
+    },
+    {
+      "id": "draft_cyberpunk_05_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_cyberpunk_05_entity",
+      "toId": "draft_cyberpunk_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_05:entity>location"
+    },
+    {
+      "id": "draft_cyberpunk_05_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_cyberpunk_05_location",
+      "toId": "draft_cyberpunk_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_05:location>resource"
+    },
+    {
+      "id": "draft_cyberpunk_05_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_cyberpunk_05_pressure",
+      "toId": "draft_cyberpunk_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_05:pressure>location"
+    },
+    {
+      "id": "draft_cyberpunk_05_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_cyberpunk_05_pressure",
+      "toId": "draft_cyberpunk_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_05:pressure>entity"
+    },
+    {
+      "id": "draft_cyberpunk_05_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_cyberpunk_05_pressure",
+      "toId": "draft_cyberpunk_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_05:pressure>resource"
+    },
+    {
+      "id": "draft_cyberpunk_05_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_cyberpunk_05_response",
+      "toId": "draft_cyberpunk_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_05:response>location"
+    },
+    {
+      "id": "draft_cyberpunk_05_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_cyberpunk_05_response",
+      "toId": "draft_cyberpunk_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_05:response>entity"
+    },
+    {
+      "id": "draft_cyberpunk_05_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_cyberpunk_05_response",
+      "toId": "draft_cyberpunk_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_05:response>resource"
+    },
+    {
+      "id": "draft_cyberpunk_05_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_cyberpunk_05_report",
+      "toId": "draft_cyberpunk_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_05:report>pressure"
+    },
+    {
+      "id": "draft_cyberpunk_05_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_cyberpunk_05_evidence",
+      "toId": "draft_cyberpunk_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_cyberpunk_05:evidence>pressure"
+    },
+    {
+      "id": "draft_cyberpunk_01_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_cyberpunk_01_pressure",
+      "toId": "draft_cyberpunk_01_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L2"
+    },
+    {
+      "id": "draft_cyberpunk_01_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_cyberpunk_01_additional_belief",
+      "toId": "draft_cyberpunk_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L2"
+    },
+    {
+      "id": "draft_cyberpunk_01_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_cyberpunk_01_additional_belief",
+      "toId": "draft_cyberpunk_01_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L2"
+    },
+    {
+      "id": "draft_cyberpunk_01_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_cyberpunk_01_evidence_site",
+      "toId": "draft_cyberpunk_01_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L2"
+    },
+    {
+      "id": "draft_cyberpunk_01_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_cyberpunk_01_alternative",
+      "toId": "draft_cyberpunk_01_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L2"
+    },
+    {
+      "id": "draft_cyberpunk_02_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_cyberpunk_02_pressure",
+      "toId": "draft_cyberpunk_02_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L3"
+    },
+    {
+      "id": "draft_cyberpunk_02_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_cyberpunk_02_additional_belief",
+      "toId": "draft_cyberpunk_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L3"
+    },
+    {
+      "id": "draft_cyberpunk_02_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_cyberpunk_02_additional_belief",
+      "toId": "draft_cyberpunk_02_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L3"
+    },
+    {
+      "id": "draft_cyberpunk_02_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_cyberpunk_02_evidence_site",
+      "toId": "draft_cyberpunk_02_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L3"
+    },
+    {
+      "id": "draft_cyberpunk_02_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_cyberpunk_02_alternative",
+      "toId": "draft_cyberpunk_02_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L3"
+    },
+    {
+      "id": "draft_cyberpunk_03_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_cyberpunk_03_pressure",
+      "toId": "draft_cyberpunk_03_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L4"
+    },
+    {
+      "id": "draft_cyberpunk_03_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_cyberpunk_03_additional_belief",
+      "toId": "draft_cyberpunk_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L4"
+    },
+    {
+      "id": "draft_cyberpunk_03_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_cyberpunk_03_additional_belief",
+      "toId": "draft_cyberpunk_03_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L4"
+    },
+    {
+      "id": "draft_cyberpunk_03_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_cyberpunk_03_evidence_site",
+      "toId": "draft_cyberpunk_03_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L4"
+    },
+    {
+      "id": "draft_cyberpunk_03_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_cyberpunk_03_alternative",
+      "toId": "draft_cyberpunk_03_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L4"
+    },
+    {
+      "id": "draft_cyberpunk_04_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_cyberpunk_04_pressure",
+      "toId": "draft_cyberpunk_04_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L5"
+    },
+    {
+      "id": "draft_cyberpunk_04_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_cyberpunk_04_additional_belief",
+      "toId": "draft_cyberpunk_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L5"
+    },
+    {
+      "id": "draft_cyberpunk_04_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_cyberpunk_04_additional_belief",
+      "toId": "draft_cyberpunk_04_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L5"
+    },
+    {
+      "id": "draft_cyberpunk_04_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_cyberpunk_04_evidence_site",
+      "toId": "draft_cyberpunk_04_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L5"
+    },
+    {
+      "id": "draft_cyberpunk_04_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_cyberpunk_04_alternative",
+      "toId": "draft_cyberpunk_04_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L5"
+    },
+    {
+      "id": "draft_cyberpunk_05_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_cyberpunk_05_pressure",
+      "toId": "draft_cyberpunk_05_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L6"
+    },
+    {
+      "id": "draft_cyberpunk_05_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_cyberpunk_05_additional_belief",
+      "toId": "draft_cyberpunk_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L6"
+    },
+    {
+      "id": "draft_cyberpunk_05_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_cyberpunk_05_additional_belief",
+      "toId": "draft_cyberpunk_05_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L6"
+    },
+    {
+      "id": "draft_cyberpunk_05_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_cyberpunk_05_evidence_site",
+      "toId": "draft_cyberpunk_05_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L6"
+    },
+    {
+      "id": "draft_cyberpunk_05_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_cyberpunk_05_alternative",
+      "toId": "draft_cyberpunk_05_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L6"
+    }
+  ],
+  "proposedCausalLinks": [
+    {
+      "id": "draft_cyberpunk_01_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_cyberpunk_01_pressure",
+      "toId": "draft_cyberpunk_01_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_cyberpunk_01_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_cyberpunk_01_evidence",
+      "toId": "draft_cyberpunk_01_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_cyberpunk_02_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_cyberpunk_02_pressure",
+      "toId": "draft_cyberpunk_02_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_cyberpunk_02_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_cyberpunk_02_evidence",
+      "toId": "draft_cyberpunk_02_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_cyberpunk_03_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_cyberpunk_03_pressure",
+      "toId": "draft_cyberpunk_03_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_cyberpunk_03_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_cyberpunk_03_evidence",
+      "toId": "draft_cyberpunk_03_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_cyberpunk_04_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_cyberpunk_04_pressure",
+      "toId": "draft_cyberpunk_04_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_cyberpunk_04_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_cyberpunk_04_evidence",
+      "toId": "draft_cyberpunk_04_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_cyberpunk_05_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_cyberpunk_05_pressure",
+      "toId": "draft_cyberpunk_05_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_cyberpunk_05_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_cyberpunk_05_evidence",
+      "toId": "draft_cyberpunk_05_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    }
+  ]
+}

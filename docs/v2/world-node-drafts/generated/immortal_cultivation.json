@@ -1,0 +1,3079 @@
+{
+  "schema": "world-node-drafts/v1",
+  "status": "Draft",
+  "runtime": false,
+  "scope": {
+    "id": "motif_immortal_cultivation",
+    "label": "선협",
+    "kind": "genre-or-structure proposal; not a world definition"
+  },
+  "canonImpact": "none; no Draft item is accepted game setting",
+  "sourceRefs": [
+    "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+    "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+    "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft"
+  ],
+  "fronts": [
+    {
+      "id": "draft_immortal_cultivation_01",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A sect diverts rain from common terraces to its inner garden",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A sect diverts rain from common terraces to its inner garden",
+      "authoredIntervention": "Bind a seasonal water allotment witnessed by both sides",
+      "initialReport": "The sect says the clouds chose its garden",
+      "verificationCandidate": "Rain stones show an artificial diversion",
+      "alternativeInterventions": "Set an alternating rain allotment for common terraces",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L21",
+        "docs/v2/world-node-drafts/companion-b.txt#L17"
+      ],
+      "semanticSignature": "a sect diverts rain from common terraces to its inner garden bind a seasonal water allotment witnessed by both sides spirit seeds the sect says the clouds chose its garden rain stones show an artificial diversion",
+      "nodeIds": [
+        "draft_immortal_cultivation_01_entity",
+        "draft_immortal_cultivation_01_location",
+        "draft_immortal_cultivation_01_resource",
+        "draft_immortal_cultivation_01_pressure",
+        "draft_immortal_cultivation_01_response",
+        "draft_immortal_cultivation_01_report",
+        "draft_immortal_cultivation_01_evidence",
+        "draft_immortal_cultivation_01_counterparty",
+        "draft_immortal_cultivation_01_belief_holder",
+        "draft_immortal_cultivation_01_evidence_site",
+        "draft_immortal_cultivation_01_alternative",
+        "draft_immortal_cultivation_01_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Inner herbs receive less water and the steward faces challenge",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_immortal_cultivation_01_counterparty",
+        "evidenceSiteId": "draft_immortal_cultivation_01_evidence_site",
+        "alternativeEventId": "draft_immortal_cultivation_01_alternative",
+        "additionalBeliefId": "draft_immortal_cultivation_01_additional_belief",
+        "beliefHolderId": "draft_immortal_cultivation_01_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L17"
+      }
+    },
+    {
+      "id": "draft_immortal_cultivation_02",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "Refinement waste poisons a downstream medicine spring",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "Refinement waste poisons a downstream medicine spring",
+      "authoredIntervention": "Halt the furnace and test a closed ash cycle",
+      "initialReport": "The court is told the spring has natural bitterness",
+      "verificationCandidate": "Upstream samples are clean",
+      "alternativeInterventions": "Suspend the furnace and supply sealed medicine water",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L22",
+        "docs/v2/world-node-drafts/companion-b.txt#L18"
+      ],
+      "semanticSignature": "refinement waste poisons a downstream medicine spring halt the furnace and test a closed ash cycle purification ash the court is told the spring has natural bitterness upstream samples are clean",
+      "nodeIds": [
+        "draft_immortal_cultivation_02_entity",
+        "draft_immortal_cultivation_02_location",
+        "draft_immortal_cultivation_02_resource",
+        "draft_immortal_cultivation_02_pressure",
+        "draft_immortal_cultivation_02_response",
+        "draft_immortal_cultivation_02_report",
+        "draft_immortal_cultivation_02_evidence",
+        "draft_immortal_cultivation_02_counterparty",
+        "draft_immortal_cultivation_02_belief_holder",
+        "draft_immortal_cultivation_02_evidence_site",
+        "draft_immortal_cultivation_02_alternative",
+        "draft_immortal_cultivation_02_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Alchemy work stops and clean water is rationed",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_immortal_cultivation_02_counterparty",
+        "evidenceSiteId": "draft_immortal_cultivation_02_evidence_site",
+        "alternativeEventId": "draft_immortal_cultivation_02_alternative",
+        "additionalBeliefId": "draft_immortal_cultivation_02_additional_belief",
+        "beliefHolderId": "draft_immortal_cultivation_02_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L18"
+      }
+    },
+    {
+      "id": "draft_immortal_cultivation_03",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A master trades unsafe shortcuts for apprentices' years",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A master trades unsafe shortcuts for apprentices' years",
+      "authoredIntervention": "Publish the cost and allow pupils to leave",
+      "initialReport": "Students hear the shortcut is harmless",
+      "verificationCandidate": "Former pupils show the same early exhaustion",
+      "alternativeInterventions": "Offer slow instruction with independent health checks",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L23",
+        "docs/v2/world-node-drafts/companion-b.txt#L19"
+      ],
+      "semanticSignature": "a master trades unsafe shortcuts for apprentices years publish the cost and allow pupils to leave breath manuals students hear the shortcut is harmless former pupils show the same early exhaustion",
+      "nodeIds": [
+        "draft_immortal_cultivation_03_entity",
+        "draft_immortal_cultivation_03_location",
+        "draft_immortal_cultivation_03_resource",
+        "draft_immortal_cultivation_03_pressure",
+        "draft_immortal_cultivation_03_response",
+        "draft_immortal_cultivation_03_report",
+        "draft_immortal_cultivation_03_evidence",
+        "draft_immortal_cultivation_03_counterparty",
+        "draft_immortal_cultivation_03_belief_holder",
+        "draft_immortal_cultivation_03_evidence_site",
+        "draft_immortal_cultivation_03_alternative",
+        "draft_immortal_cultivation_03_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Advancement takes longer and the mentor loses followers",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_immortal_cultivation_03_counterparty",
+        "evidenceSiteId": "draft_immortal_cultivation_03_evidence_site",
+        "alternativeEventId": "draft_immortal_cultivation_03_alternative",
+        "additionalBeliefId": "draft_immortal_cultivation_03_additional_belief",
+        "beliefHolderId": "draft_immortal_cultivation_03_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L19"
+      }
+    },
+    {
+      "id": "draft_immortal_cultivation_04",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A sect monopolizes anchors and strands ordinary travelers",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A sect monopolizes anchors and strands ordinary travelers",
+      "authoredIntervention": "Share inspected anchors under a common schedule",
+      "initialReport": "The sect calls public anchors unstable",
+      "verificationCandidate": "Measured crossings show the anchors hold",
+      "alternativeInterventions": "Schedule ordinary crossings on measured public anchors",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L24",
+        "docs/v2/world-node-drafts/companion-b.txt#L20"
+      ],
+      "semanticSignature": "a sect monopolizes anchors and strands ordinary travelers share inspected anchors under a common schedule anchor talismans the sect calls public anchors unstable measured crossings show the anchors hold",
+      "nodeIds": [
+        "draft_immortal_cultivation_04_entity",
+        "draft_immortal_cultivation_04_location",
+        "draft_immortal_cultivation_04_resource",
+        "draft_immortal_cultivation_04_pressure",
+        "draft_immortal_cultivation_04_response",
+        "draft_immortal_cultivation_04_report",
+        "draft_immortal_cultivation_04_evidence",
+        "draft_immortal_cultivation_04_counterparty",
+        "draft_immortal_cultivation_04_belief_holder",
+        "draft_immortal_cultivation_04_evidence_site",
+        "draft_immortal_cultivation_04_alternative",
+        "draft_immortal_cultivation_04_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Sect couriers wait and ferrymen must supervise",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_immortal_cultivation_04_counterparty",
+        "evidenceSiteId": "draft_immortal_cultivation_04_evidence_site",
+        "alternativeEventId": "draft_immortal_cultivation_04_alternative",
+        "additionalBeliefId": "draft_immortal_cultivation_04_additional_belief",
+        "beliefHolderId": "draft_immortal_cultivation_04_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L20"
+      }
+    },
+    {
+      "id": "draft_immortal_cultivation_05",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "Two successors claim a relic before its old vow expires",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "Two successors claim a relic before its old vow expires",
+      "authoredIntervention": "Read the vow publicly and defer transfer",
+      "initialReport": "Each successor cites a private promise",
+      "verificationCandidate": "The tablet records a third obligation to the valley",
+      "alternativeInterventions": "Hold the relic in trust until the valley obligation is met",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L25",
+        "docs/v2/world-node-drafts/companion-b.txt#L21"
+      ],
+      "semanticSignature": "two successors claim a relic before its old vow expires read the vow publicly and defer transfer vow tablets each successor cites a private promise the tablet records a third obligation to the valley",
+      "nodeIds": [
+        "draft_immortal_cultivation_05_entity",
+        "draft_immortal_cultivation_05_location",
+        "draft_immortal_cultivation_05_resource",
+        "draft_immortal_cultivation_05_pressure",
+        "draft_immortal_cultivation_05_response",
+        "draft_immortal_cultivation_05_report",
+        "draft_immortal_cultivation_05_evidence",
+        "draft_immortal_cultivation_05_counterparty",
+        "draft_immortal_cultivation_05_belief_holder",
+        "draft_immortal_cultivation_05_evidence_site",
+        "draft_immortal_cultivation_05_alternative",
+        "draft_immortal_cultivation_05_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Both heirs lose immediate use and guardians must protect it",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_immortal_cultivation_05_counterparty",
+        "evidenceSiteId": "draft_immortal_cultivation_05_evidence_site",
+        "alternativeEventId": "draft_immortal_cultivation_05_alternative",
+        "additionalBeliefId": "draft_immortal_cultivation_05_additional_belief",
+        "beliefHolderId": "draft_immortal_cultivation_05_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L21"
+      }
+    }
+  ],
+  "nodes": [
+    {
+      "id": "draft_immortal_cultivation_01_entity",
+      "kind": "Entity",
+      "label": "spirit-field cooperative",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_01",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L21"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L21"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep spirit seeds usable at terraced cloud field",
+        "stakes": "A sect diverts rain from common terraces to its inner garden",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_immortal_cultivation_01_edge_01",
+        "draft_immortal_cultivation_01_edge_04",
+        "draft_immortal_cultivation_01_edge_07"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_01_location",
+      "kind": "Location",
+      "label": "terraced cloud field",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_01",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L21"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L21"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_immortal_cultivation_01_resource",
+        "conflict": "A sect diverts rain from common terraces to its inner garden",
+        "risk": "A sect diverts rain from common terraces to its inner garden"
+      },
+      "relations": [
+        "draft_immortal_cultivation_01_edge_01",
+        "draft_immortal_cultivation_01_edge_02",
+        "draft_immortal_cultivation_01_edge_03",
+        "draft_immortal_cultivation_01_edge_06"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_01_resource",
+      "kind": "Resource",
+      "label": "spirit seeds",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_01",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L21"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L21"
+      ],
+      "proposal": {
+        "sourceId": "draft_immortal_cultivation_01_location",
+        "scarcity": "A sect diverts rain from common terraces to its inner garden",
+        "proposedUse": "Bind a seasonal water allotment witnessed by both sides",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_immortal_cultivation_01_edge_02",
+        "draft_immortal_cultivation_01_edge_05",
+        "draft_immortal_cultivation_01_edge_08"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_01_pressure",
+      "kind": "Event",
+      "label": "A sect diverts rain from common terraces to its inner garden",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_01",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L21"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L21"
+      ],
+      "proposal": {
+        "trigger": "A sect diverts rain from common terraces to its inner garden",
+        "proposedEffect": "Changes access to spirit seeds",
+        "effectTargetId": "draft_immortal_cultivation_01_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_immortal_cultivation_01_edge_03",
+        "draft_immortal_cultivation_01_edge_04",
+        "draft_immortal_cultivation_01_edge_05",
+        "draft_immortal_cultivation_01_edge_09",
+        "draft_immortal_cultivation_01_edge_10",
+        "draft_immortal_cultivation_01_companion_edge_01",
+        "draft_immortal_cultivation_01_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_01_response",
+      "kind": "Event",
+      "label": "Bind a seasonal water allotment witnessed by both sides",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_01",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L21"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L21"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Bind a seasonal water allotment witnessed by both sides",
+        "proposedEffect": "Bind a seasonal water allotment witnessed by both sides",
+        "effectTargetId": "draft_immortal_cultivation_01_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_immortal_cultivation_01_edge_06",
+        "draft_immortal_cultivation_01_edge_07",
+        "draft_immortal_cultivation_01_edge_08",
+        "draft_immortal_cultivation_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_01_report",
+      "kind": "Knowledge",
+      "label": "The sect says the clouds chose its garden",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_01",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L21"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L21"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The sect says the clouds chose its garden",
+        "aboutId": "draft_immortal_cultivation_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_immortal_cultivation_01_edge_09"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_01_evidence",
+      "kind": "Knowledge",
+      "label": "Rain stones show an artificial diversion",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L21"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L21"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Rain stones show an artificial diversion",
+        "aboutId": "draft_immortal_cultivation_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_immortal_cultivation_01_edge_10",
+        "draft_immortal_cultivation_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_02_entity",
+      "kind": "Entity",
+      "label": "alchemical safety court",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_02",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L22"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L22"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep purification ash usable at furnace valley",
+        "stakes": "Refinement waste poisons a downstream medicine spring",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_immortal_cultivation_02_edge_01",
+        "draft_immortal_cultivation_02_edge_04",
+        "draft_immortal_cultivation_02_edge_07"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_02_location",
+      "kind": "Location",
+      "label": "furnace valley",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_02",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L22"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L22"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_immortal_cultivation_02_resource",
+        "conflict": "Refinement waste poisons a downstream medicine spring",
+        "risk": "Refinement waste poisons a downstream medicine spring"
+      },
+      "relations": [
+        "draft_immortal_cultivation_02_edge_01",
+        "draft_immortal_cultivation_02_edge_02",
+        "draft_immortal_cultivation_02_edge_03",
+        "draft_immortal_cultivation_02_edge_06"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_02_resource",
+      "kind": "Resource",
+      "label": "purification ash",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_02",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L22"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L22"
+      ],
+      "proposal": {
+        "sourceId": "draft_immortal_cultivation_02_location",
+        "scarcity": "Refinement waste poisons a downstream medicine spring",
+        "proposedUse": "Halt the furnace and test a closed ash cycle",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_immortal_cultivation_02_edge_02",
+        "draft_immortal_cultivation_02_edge_05",
+        "draft_immortal_cultivation_02_edge_08"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_02_pressure",
+      "kind": "Event",
+      "label": "Refinement waste poisons a downstream medicine spring",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_02",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L22"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L22"
+      ],
+      "proposal": {
+        "trigger": "Refinement waste poisons a downstream medicine spring",
+        "proposedEffect": "Changes access to purification ash",
+        "effectTargetId": "draft_immortal_cultivation_02_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_immortal_cultivation_02_edge_03",
+        "draft_immortal_cultivation_02_edge_04",
+        "draft_immortal_cultivation_02_edge_05",
+        "draft_immortal_cultivation_02_edge_09",
+        "draft_immortal_cultivation_02_edge_10",
+        "draft_immortal_cultivation_02_companion_edge_01",
+        "draft_immortal_cultivation_02_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_02_response",
+      "kind": "Event",
+      "label": "Halt the furnace and test a closed ash cycle",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_02",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L22"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L22"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Halt the furnace and test a closed ash cycle",
+        "proposedEffect": "Halt the furnace and test a closed ash cycle",
+        "effectTargetId": "draft_immortal_cultivation_02_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_immortal_cultivation_02_edge_06",
+        "draft_immortal_cultivation_02_edge_07",
+        "draft_immortal_cultivation_02_edge_08",
+        "draft_immortal_cultivation_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_02_report",
+      "kind": "Knowledge",
+      "label": "The court is told the spring has natural bitterness",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_02",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L22"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L22"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The court is told the spring has natural bitterness",
+        "aboutId": "draft_immortal_cultivation_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_immortal_cultivation_02_edge_09"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_02_evidence",
+      "kind": "Knowledge",
+      "label": "Upstream samples are clean",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L22"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L22"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Upstream samples are clean",
+        "aboutId": "draft_immortal_cultivation_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_immortal_cultivation_02_edge_10",
+        "draft_immortal_cultivation_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_03_entity",
+      "kind": "Entity",
+      "label": "wandering mentor pact",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_03",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L23"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L23"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep breath manuals usable at stone stair monastery",
+        "stakes": "A master trades unsafe shortcuts for apprentices' years",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_immortal_cultivation_03_edge_01",
+        "draft_immortal_cultivation_03_edge_04",
+        "draft_immortal_cultivation_03_edge_07"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_03_location",
+      "kind": "Location",
+      "label": "stone stair monastery",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_03",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L23"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L23"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_immortal_cultivation_03_resource",
+        "conflict": "A master trades unsafe shortcuts for apprentices' years",
+        "risk": "A master trades unsafe shortcuts for apprentices' years"
+      },
+      "relations": [
+        "draft_immortal_cultivation_03_edge_01",
+        "draft_immortal_cultivation_03_edge_02",
+        "draft_immortal_cultivation_03_edge_03",
+        "draft_immortal_cultivation_03_edge_06"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_03_resource",
+      "kind": "Resource",
+      "label": "breath manuals",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_03",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L23"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L23"
+      ],
+      "proposal": {
+        "sourceId": "draft_immortal_cultivation_03_location",
+        "scarcity": "A master trades unsafe shortcuts for apprentices' years",
+        "proposedUse": "Publish the cost and allow pupils to leave",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_immortal_cultivation_03_edge_02",
+        "draft_immortal_cultivation_03_edge_05",
+        "draft_immortal_cultivation_03_edge_08"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_03_pressure",
+      "kind": "Event",
+      "label": "A master trades unsafe shortcuts for apprentices' years",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_03",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L23"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L23"
+      ],
+      "proposal": {
+        "trigger": "A master trades unsafe shortcuts for apprentices' years",
+        "proposedEffect": "Changes access to breath manuals",
+        "effectTargetId": "draft_immortal_cultivation_03_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_immortal_cultivation_03_edge_03",
+        "draft_immortal_cultivation_03_edge_04",
+        "draft_immortal_cultivation_03_edge_05",
+        "draft_immortal_cultivation_03_edge_09",
+        "draft_immortal_cultivation_03_edge_10",
+        "draft_immortal_cultivation_03_companion_edge_01",
+        "draft_immortal_cultivation_03_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_03_response",
+      "kind": "Event",
+      "label": "Publish the cost and allow pupils to leave",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_03",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L23"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L23"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Publish the cost and allow pupils to leave",
+        "proposedEffect": "Publish the cost and allow pupils to leave",
+        "effectTargetId": "draft_immortal_cultivation_03_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_immortal_cultivation_03_edge_06",
+        "draft_immortal_cultivation_03_edge_07",
+        "draft_immortal_cultivation_03_edge_08",
+        "draft_immortal_cultivation_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_03_report",
+      "kind": "Knowledge",
+      "label": "Students hear the shortcut is harmless",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_03",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L23"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L23"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Students hear the shortcut is harmless",
+        "aboutId": "draft_immortal_cultivation_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_immortal_cultivation_03_edge_09"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_03_evidence",
+      "kind": "Knowledge",
+      "label": "Former pupils show the same early exhaustion",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L23"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L23"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Former pupils show the same early exhaustion",
+        "aboutId": "draft_immortal_cultivation_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_immortal_cultivation_03_edge_10",
+        "draft_immortal_cultivation_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_04_entity",
+      "kind": "Entity",
+      "label": "sky-route ferrymen",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_04",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L24"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L24"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep anchor talismans usable at floating bridge",
+        "stakes": "A sect monopolizes anchors and strands ordinary travelers",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_immortal_cultivation_04_edge_01",
+        "draft_immortal_cultivation_04_edge_04",
+        "draft_immortal_cultivation_04_edge_07"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_04_location",
+      "kind": "Location",
+      "label": "floating bridge",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_04",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L24"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L24"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_immortal_cultivation_04_resource",
+        "conflict": "A sect monopolizes anchors and strands ordinary travelers",
+        "risk": "A sect monopolizes anchors and strands ordinary travelers"
+      },
+      "relations": [
+        "draft_immortal_cultivation_04_edge_01",
+        "draft_immortal_cultivation_04_edge_02",
+        "draft_immortal_cultivation_04_edge_03",
+        "draft_immortal_cultivation_04_edge_06"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_04_resource",
+      "kind": "Resource",
+      "label": "anchor talismans",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_04",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L24"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L24"
+      ],
+      "proposal": {
+        "sourceId": "draft_immortal_cultivation_04_location",
+        "scarcity": "A sect monopolizes anchors and strands ordinary travelers",
+        "proposedUse": "Share inspected anchors under a common schedule",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_immortal_cultivation_04_edge_02",
+        "draft_immortal_cultivation_04_edge_05",
+        "draft_immortal_cultivation_04_edge_08"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_04_pressure",
+      "kind": "Event",
+      "label": "A sect monopolizes anchors and strands ordinary travelers",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_04",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L24"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L24"
+      ],
+      "proposal": {
+        "trigger": "A sect monopolizes anchors and strands ordinary travelers",
+        "proposedEffect": "Changes access to anchor talismans",
+        "effectTargetId": "draft_immortal_cultivation_04_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_immortal_cultivation_04_edge_03",
+        "draft_immortal_cultivation_04_edge_04",
+        "draft_immortal_cultivation_04_edge_05",
+        "draft_immortal_cultivation_04_edge_09",
+        "draft_immortal_cultivation_04_edge_10",
+        "draft_immortal_cultivation_04_companion_edge_01",
+        "draft_immortal_cultivation_04_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_04_response",
+      "kind": "Event",
+      "label": "Share inspected anchors under a common schedule",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_04",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L24"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L24"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Share inspected anchors under a common schedule",
+        "proposedEffect": "Share inspected anchors under a common schedule",
+        "effectTargetId": "draft_immortal_cultivation_04_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_immortal_cultivation_04_edge_06",
+        "draft_immortal_cultivation_04_edge_07",
+        "draft_immortal_cultivation_04_edge_08",
+        "draft_immortal_cultivation_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_04_report",
+      "kind": "Knowledge",
+      "label": "The sect calls public anchors unstable",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_04",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L24"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L24"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The sect calls public anchors unstable",
+        "aboutId": "draft_immortal_cultivation_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_immortal_cultivation_04_edge_09"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_04_evidence",
+      "kind": "Knowledge",
+      "label": "Measured crossings show the anchors hold",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L24"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L24"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Measured crossings show the anchors hold",
+        "aboutId": "draft_immortal_cultivation_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_immortal_cultivation_04_edge_10",
+        "draft_immortal_cultivation_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_05_entity",
+      "kind": "Entity",
+      "label": "inheritance stewards",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_05",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L25"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L25"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep vow tablets usable at sealed cave treasury",
+        "stakes": "Two successors claim a relic before its old vow expires",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_immortal_cultivation_05_edge_01",
+        "draft_immortal_cultivation_05_edge_04",
+        "draft_immortal_cultivation_05_edge_07"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_05_location",
+      "kind": "Location",
+      "label": "sealed cave treasury",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_05",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L25"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L25"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_immortal_cultivation_05_resource",
+        "conflict": "Two successors claim a relic before its old vow expires",
+        "risk": "Two successors claim a relic before its old vow expires"
+      },
+      "relations": [
+        "draft_immortal_cultivation_05_edge_01",
+        "draft_immortal_cultivation_05_edge_02",
+        "draft_immortal_cultivation_05_edge_03",
+        "draft_immortal_cultivation_05_edge_06"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_05_resource",
+      "kind": "Resource",
+      "label": "vow tablets",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_05",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L25"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L25"
+      ],
+      "proposal": {
+        "sourceId": "draft_immortal_cultivation_05_location",
+        "scarcity": "Two successors claim a relic before its old vow expires",
+        "proposedUse": "Read the vow publicly and defer transfer",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_immortal_cultivation_05_edge_02",
+        "draft_immortal_cultivation_05_edge_05",
+        "draft_immortal_cultivation_05_edge_08"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_05_pressure",
+      "kind": "Event",
+      "label": "Two successors claim a relic before its old vow expires",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_05",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L25"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L25"
+      ],
+      "proposal": {
+        "trigger": "Two successors claim a relic before its old vow expires",
+        "proposedEffect": "Changes access to vow tablets",
+        "effectTargetId": "draft_immortal_cultivation_05_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_immortal_cultivation_05_edge_03",
+        "draft_immortal_cultivation_05_edge_04",
+        "draft_immortal_cultivation_05_edge_05",
+        "draft_immortal_cultivation_05_edge_09",
+        "draft_immortal_cultivation_05_edge_10",
+        "draft_immortal_cultivation_05_companion_edge_01",
+        "draft_immortal_cultivation_05_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_05_response",
+      "kind": "Event",
+      "label": "Read the vow publicly and defer transfer",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_05",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L25"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L25"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Read the vow publicly and defer transfer",
+        "proposedEffect": "Read the vow publicly and defer transfer",
+        "effectTargetId": "draft_immortal_cultivation_05_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_immortal_cultivation_05_edge_06",
+        "draft_immortal_cultivation_05_edge_07",
+        "draft_immortal_cultivation_05_edge_08",
+        "draft_immortal_cultivation_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_05_report",
+      "kind": "Knowledge",
+      "label": "Each successor cites a private promise",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_05",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L25"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L25"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Each successor cites a private promise",
+        "aboutId": "draft_immortal_cultivation_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_immortal_cultivation_05_edge_09"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_05_evidence",
+      "kind": "Knowledge",
+      "label": "The tablet records a third obligation to the valley",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L25"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L25"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "The tablet records a third obligation to the valley",
+        "aboutId": "draft_immortal_cultivation_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_immortal_cultivation_05_edge_10",
+        "draft_immortal_cultivation_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_01_counterparty",
+      "kind": "Entity",
+      "label": "sect rain steward",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_01",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L17"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L17"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Keep inner-garden harvests by diverting common rain",
+        "stakes": "A sect diverts rain from common terraces to its inner garden",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_immortal_cultivation_01_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_01_belief_holder",
+      "kind": "Entity",
+      "label": "outer cultivators",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_01",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L17"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L17"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Clouds chose the sect garden on their own",
+        "stakes": "A sect diverts rain from common terraces to its inner garden",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_immortal_cultivation_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_01_evidence_site",
+      "kind": "Location",
+      "label": "rain-stone alignment court",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L17"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L17"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A sect diverts rain from common terraces to its inner garden",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_immortal_cultivation_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_01_alternative",
+      "kind": "Event",
+      "label": "Set an alternating rain allotment for common terraces",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_01",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L17"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L17"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Set an alternating rain allotment for common terraces",
+        "costAndConsequence": "Inner herbs receive less water and the steward faces challenge",
+        "alternativeToId": "draft_immortal_cultivation_01_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_immortal_cultivation_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_01_additional_belief",
+      "kind": "Knowledge",
+      "label": "Clouds chose the sect garden on their own",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_01",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L17"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L17"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Clouds chose the sect garden on their own",
+        "aboutId": "draft_immortal_cultivation_01_pressure",
+        "holderId": "draft_immortal_cultivation_01_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_immortal_cultivation_01_companion_edge_02",
+        "draft_immortal_cultivation_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_02_counterparty",
+      "kind": "Entity",
+      "label": "refinement furnace keeper",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_02",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L18"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L18"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Dispose of costly waste downhill before testing",
+        "stakes": "Refinement waste poisons a downstream medicine spring",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_immortal_cultivation_02_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_02_belief_holder",
+      "kind": "Entity",
+      "label": "downstream patients",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_02",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L18"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L18"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: The spring was naturally bitter before refinement",
+        "stakes": "Refinement waste poisons a downstream medicine spring",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_immortal_cultivation_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_02_evidence_site",
+      "kind": "Location",
+      "label": "upstream spring sampling ledge",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L18"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L18"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "Refinement waste poisons a downstream medicine spring",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_immortal_cultivation_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_02_alternative",
+      "kind": "Event",
+      "label": "Suspend the furnace and supply sealed medicine water",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_02",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L18"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L18"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Suspend the furnace and supply sealed medicine water",
+        "costAndConsequence": "Alchemy work stops and clean water is rationed",
+        "alternativeToId": "draft_immortal_cultivation_02_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_immortal_cultivation_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_02_additional_belief",
+      "kind": "Knowledge",
+      "label": "The spring was naturally bitter before refinement",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_02",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L18"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L18"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The spring was naturally bitter before refinement",
+        "aboutId": "draft_immortal_cultivation_02_pressure",
+        "holderId": "draft_immortal_cultivation_02_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_immortal_cultivation_02_companion_edge_02",
+        "draft_immortal_cultivation_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_03_counterparty",
+      "kind": "Entity",
+      "label": "shortcut mentor",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_03",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L19"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L19"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Trade apprentice vitality for quick advancement",
+        "stakes": "A master trades unsafe shortcuts for apprentices' years",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_immortal_cultivation_03_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_03_belief_holder",
+      "kind": "Entity",
+      "label": "new apprentices",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_03",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L19"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L19"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: A fast shortcut cannot spend future years",
+        "stakes": "A master trades unsafe shortcuts for apprentices' years",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_immortal_cultivation_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_03_evidence_site",
+      "kind": "Location",
+      "label": "former pupils' recovery house",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L19"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L19"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A master trades unsafe shortcuts for apprentices' years",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_immortal_cultivation_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_03_alternative",
+      "kind": "Event",
+      "label": "Offer slow instruction with independent health checks",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_03",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L19"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L19"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Offer slow instruction with independent health checks",
+        "costAndConsequence": "Advancement takes longer and the mentor loses followers",
+        "alternativeToId": "draft_immortal_cultivation_03_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_immortal_cultivation_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_03_additional_belief",
+      "kind": "Knowledge",
+      "label": "A fast shortcut cannot spend future years",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_03",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L19"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L19"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A fast shortcut cannot spend future years",
+        "aboutId": "draft_immortal_cultivation_03_pressure",
+        "holderId": "draft_immortal_cultivation_03_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_immortal_cultivation_03_companion_edge_02",
+        "draft_immortal_cultivation_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_04_counterparty",
+      "kind": "Entity",
+      "label": "anchor registrar",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_04",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L20"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L20"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Reserve stable sky anchors for sect travel",
+        "stakes": "A sect monopolizes anchors and strands ordinary travelers",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_immortal_cultivation_04_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_04_belief_holder",
+      "kind": "Entity",
+      "label": "sect passengers",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_04",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L20"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L20"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Public anchors break under any loaded traveler",
+        "stakes": "A sect monopolizes anchors and strands ordinary travelers",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_immortal_cultivation_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_04_evidence_site",
+      "kind": "Location",
+      "label": "public crossing measurement platform",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L20"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L20"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A sect monopolizes anchors and strands ordinary travelers",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_immortal_cultivation_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_04_alternative",
+      "kind": "Event",
+      "label": "Schedule ordinary crossings on measured public anchors",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_04",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L20"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L20"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Schedule ordinary crossings on measured public anchors",
+        "costAndConsequence": "Sect couriers wait and ferrymen must supervise",
+        "alternativeToId": "draft_immortal_cultivation_04_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_immortal_cultivation_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_04_additional_belief",
+      "kind": "Knowledge",
+      "label": "Public anchors break under any loaded traveler",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_04",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L20"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L20"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Public anchors break under any loaded traveler",
+        "aboutId": "draft_immortal_cultivation_04_pressure",
+        "holderId": "draft_immortal_cultivation_04_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_immortal_cultivation_04_companion_edge_02",
+        "draft_immortal_cultivation_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_05_counterparty",
+      "kind": "Entity",
+      "label": "relic vow interpreter",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_05",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L21"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L21"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Read the tablet in favor of one heir",
+        "stakes": "Two successors claim a relic before its old vow expires",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_immortal_cultivation_05_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_05_belief_holder",
+      "kind": "Entity",
+      "label": "claiming successors",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_05",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L21"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L21"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: A private promise overrides a recorded public vow",
+        "stakes": "Two successors claim a relic before its old vow expires",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_immortal_cultivation_05_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_05_evidence_site",
+      "kind": "Location",
+      "label": "valley vow tablet alcove",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L21"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L21"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "Two successors claim a relic before its old vow expires",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_immortal_cultivation_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_05_alternative",
+      "kind": "Event",
+      "label": "Hold the relic in trust until the valley obligation is met",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_05",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L21"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L21"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Hold the relic in trust until the valley obligation is met",
+        "costAndConsequence": "Both heirs lose immediate use and guardians must protect it",
+        "alternativeToId": "draft_immortal_cultivation_05_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_immortal_cultivation_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_immortal_cultivation_05_additional_belief",
+      "kind": "Knowledge",
+      "label": "A private promise overrides a recorded public vow",
+      "scopeId": "motif_immortal_cultivation",
+      "motifId": "immortal_cultivation",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_immortal_cultivation_05",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L21"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L21"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A private promise overrides a recorded public vow",
+        "aboutId": "draft_immortal_cultivation_05_pressure",
+        "holderId": "draft_immortal_cultivation_05_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_immortal_cultivation_05_companion_edge_02",
+        "draft_immortal_cultivation_05_companion_edge_03"
+      ]
+    }
+  ],
+  "structuralEdges": [
+    {
+      "id": "draft_immortal_cultivation_01_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_immortal_cultivation_01_entity",
+      "toId": "draft_immortal_cultivation_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_01:entity>location"
+    },
+    {
+      "id": "draft_immortal_cultivation_01_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_immortal_cultivation_01_location",
+      "toId": "draft_immortal_cultivation_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_01:location>resource"
+    },
+    {
+      "id": "draft_immortal_cultivation_01_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_immortal_cultivation_01_pressure",
+      "toId": "draft_immortal_cultivation_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_01:pressure>location"
+    },
+    {
+      "id": "draft_immortal_cultivation_01_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_immortal_cultivation_01_pressure",
+      "toId": "draft_immortal_cultivation_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_01:pressure>entity"
+    },
+    {
+      "id": "draft_immortal_cultivation_01_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_immortal_cultivation_01_pressure",
+      "toId": "draft_immortal_cultivation_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_01:pressure>resource"
+    },
+    {
+      "id": "draft_immortal_cultivation_01_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_immortal_cultivation_01_response",
+      "toId": "draft_immortal_cultivation_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_01:response>location"
+    },
+    {
+      "id": "draft_immortal_cultivation_01_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_immortal_cultivation_01_response",
+      "toId": "draft_immortal_cultivation_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_01:response>entity"
+    },
+    {
+      "id": "draft_immortal_cultivation_01_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_immortal_cultivation_01_response",
+      "toId": "draft_immortal_cultivation_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_01:response>resource"
+    },
+    {
+      "id": "draft_immortal_cultivation_01_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_immortal_cultivation_01_report",
+      "toId": "draft_immortal_cultivation_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_01:report>pressure"
+    },
+    {
+      "id": "draft_immortal_cultivation_01_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_immortal_cultivation_01_evidence",
+      "toId": "draft_immortal_cultivation_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_01:evidence>pressure"
+    },
+    {
+      "id": "draft_immortal_cultivation_02_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_immortal_cultivation_02_entity",
+      "toId": "draft_immortal_cultivation_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_02:entity>location"
+    },
+    {
+      "id": "draft_immortal_cultivation_02_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_immortal_cultivation_02_location",
+      "toId": "draft_immortal_cultivation_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_02:location>resource"
+    },
+    {
+      "id": "draft_immortal_cultivation_02_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_immortal_cultivation_02_pressure",
+      "toId": "draft_immortal_cultivation_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_02:pressure>location"
+    },
+    {
+      "id": "draft_immortal_cultivation_02_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_immortal_cultivation_02_pressure",
+      "toId": "draft_immortal_cultivation_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_02:pressure>entity"
+    },
+    {
+      "id": "draft_immortal_cultivation_02_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_immortal_cultivation_02_pressure",
+      "toId": "draft_immortal_cultivation_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_02:pressure>resource"
+    },
+    {
+      "id": "draft_immortal_cultivation_02_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_immortal_cultivation_02_response",
+      "toId": "draft_immortal_cultivation_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_02:response>location"
+    },
+    {
+      "id": "draft_immortal_cultivation_02_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_immortal_cultivation_02_response",
+      "toId": "draft_immortal_cultivation_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_02:response>entity"
+    },
+    {
+      "id": "draft_immortal_cultivation_02_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_immortal_cultivation_02_response",
+      "toId": "draft_immortal_cultivation_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_02:response>resource"
+    },
+    {
+      "id": "draft_immortal_cultivation_02_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_immortal_cultivation_02_report",
+      "toId": "draft_immortal_cultivation_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_02:report>pressure"
+    },
+    {
+      "id": "draft_immortal_cultivation_02_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_immortal_cultivation_02_evidence",
+      "toId": "draft_immortal_cultivation_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_02:evidence>pressure"
+    },
+    {
+      "id": "draft_immortal_cultivation_03_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_immortal_cultivation_03_entity",
+      "toId": "draft_immortal_cultivation_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_03:entity>location"
+    },
+    {
+      "id": "draft_immortal_cultivation_03_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_immortal_cultivation_03_location",
+      "toId": "draft_immortal_cultivation_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_03:location>resource"
+    },
+    {
+      "id": "draft_immortal_cultivation_03_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_immortal_cultivation_03_pressure",
+      "toId": "draft_immortal_cultivation_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_03:pressure>location"
+    },
+    {
+      "id": "draft_immortal_cultivation_03_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_immortal_cultivation_03_pressure",
+      "toId": "draft_immortal_cultivation_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_03:pressure>entity"
+    },
+    {
+      "id": "draft_immortal_cultivation_03_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_immortal_cultivation_03_pressure",
+      "toId": "draft_immortal_cultivation_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_03:pressure>resource"
+    },
+    {
+      "id": "draft_immortal_cultivation_03_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_immortal_cultivation_03_response",
+      "toId": "draft_immortal_cultivation_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_03:response>location"
+    },
+    {
+      "id": "draft_immortal_cultivation_03_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_immortal_cultivation_03_response",
+      "toId": "draft_immortal_cultivation_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_03:response>entity"
+    },
+    {
+      "id": "draft_immortal_cultivation_03_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_immortal_cultivation_03_response",
+      "toId": "draft_immortal_cultivation_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_03:response>resource"
+    },
+    {
+      "id": "draft_immortal_cultivation_03_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_immortal_cultivation_03_report",
+      "toId": "draft_immortal_cultivation_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_03:report>pressure"
+    },
+    {
+      "id": "draft_immortal_cultivation_03_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_immortal_cultivation_03_evidence",
+      "toId": "draft_immortal_cultivation_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_03:evidence>pressure"
+    },
+    {
+      "id": "draft_immortal_cultivation_04_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_immortal_cultivation_04_entity",
+      "toId": "draft_immortal_cultivation_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_04:entity>location"
+    },
+    {
+      "id": "draft_immortal_cultivation_04_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_immortal_cultivation_04_location",
+      "toId": "draft_immortal_cultivation_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_04:location>resource"
+    },
+    {
+      "id": "draft_immortal_cultivation_04_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_immortal_cultivation_04_pressure",
+      "toId": "draft_immortal_cultivation_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_04:pressure>location"
+    },
+    {
+      "id": "draft_immortal_cultivation_04_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_immortal_cultivation_04_pressure",
+      "toId": "draft_immortal_cultivation_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_04:pressure>entity"
+    },
+    {
+      "id": "draft_immortal_cultivation_04_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_immortal_cultivation_04_pressure",
+      "toId": "draft_immortal_cultivation_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_04:pressure>resource"
+    },
+    {
+      "id": "draft_immortal_cultivation_04_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_immortal_cultivation_04_response",
+      "toId": "draft_immortal_cultivation_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_04:response>location"
+    },
+    {
+      "id": "draft_immortal_cultivation_04_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_immortal_cultivation_04_response",
+      "toId": "draft_immortal_cultivation_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_04:response>entity"
+    },
+    {
+      "id": "draft_immortal_cultivation_04_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_immortal_cultivation_04_response",
+      "toId": "draft_immortal_cultivation_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_04:response>resource"
+    },
+    {
+      "id": "draft_immortal_cultivation_04_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_immortal_cultivation_04_report",
+      "toId": "draft_immortal_cultivation_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_04:report>pressure"
+    },
+    {
+      "id": "draft_immortal_cultivation_04_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_immortal_cultivation_04_evidence",
+      "toId": "draft_immortal_cultivation_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_04:evidence>pressure"
+    },
+    {
+      "id": "draft_immortal_cultivation_05_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_immortal_cultivation_05_entity",
+      "toId": "draft_immortal_cultivation_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_05:entity>location"
+    },
+    {
+      "id": "draft_immortal_cultivation_05_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_immortal_cultivation_05_location",
+      "toId": "draft_immortal_cultivation_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_05:location>resource"
+    },
+    {
+      "id": "draft_immortal_cultivation_05_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_immortal_cultivation_05_pressure",
+      "toId": "draft_immortal_cultivation_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_05:pressure>location"
+    },
+    {
+      "id": "draft_immortal_cultivation_05_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_immortal_cultivation_05_pressure",
+      "toId": "draft_immortal_cultivation_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_05:pressure>entity"
+    },
+    {
+      "id": "draft_immortal_cultivation_05_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_immortal_cultivation_05_pressure",
+      "toId": "draft_immortal_cultivation_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_05:pressure>resource"
+    },
+    {
+      "id": "draft_immortal_cultivation_05_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_immortal_cultivation_05_response",
+      "toId": "draft_immortal_cultivation_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_05:response>location"
+    },
+    {
+      "id": "draft_immortal_cultivation_05_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_immortal_cultivation_05_response",
+      "toId": "draft_immortal_cultivation_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_05:response>entity"
+    },
+    {
+      "id": "draft_immortal_cultivation_05_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_immortal_cultivation_05_response",
+      "toId": "draft_immortal_cultivation_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_05:response>resource"
+    },
+    {
+      "id": "draft_immortal_cultivation_05_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_immortal_cultivation_05_report",
+      "toId": "draft_immortal_cultivation_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_05:report>pressure"
+    },
+    {
+      "id": "draft_immortal_cultivation_05_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_immortal_cultivation_05_evidence",
+      "toId": "draft_immortal_cultivation_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_immortal_cultivation_05:evidence>pressure"
+    },
+    {
+      "id": "draft_immortal_cultivation_01_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_immortal_cultivation_01_pressure",
+      "toId": "draft_immortal_cultivation_01_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L17"
+    },
+    {
+      "id": "draft_immortal_cultivation_01_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_immortal_cultivation_01_additional_belief",
+      "toId": "draft_immortal_cultivation_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L17"
+    },
+    {
+      "id": "draft_immortal_cultivation_01_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_immortal_cultivation_01_additional_belief",
+      "toId": "draft_immortal_cultivation_01_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L17"
+    },
+    {
+      "id": "draft_immortal_cultivation_01_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_immortal_cultivation_01_evidence_site",
+      "toId": "draft_immortal_cultivation_01_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L17"
+    },
+    {
+      "id": "draft_immortal_cultivation_01_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_immortal_cultivation_01_alternative",
+      "toId": "draft_immortal_cultivation_01_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L17"
+    },
+    {
+      "id": "draft_immortal_cultivation_02_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_immortal_cultivation_02_pressure",
+      "toId": "draft_immortal_cultivation_02_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L18"
+    },
+    {
+      "id": "draft_immortal_cultivation_02_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_immortal_cultivation_02_additional_belief",
+      "toId": "draft_immortal_cultivation_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L18"
+    },
+    {
+      "id": "draft_immortal_cultivation_02_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_immortal_cultivation_02_additional_belief",
+      "toId": "draft_immortal_cultivation_02_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L18"
+    },
+    {
+      "id": "draft_immortal_cultivation_02_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_immortal_cultivation_02_evidence_site",
+      "toId": "draft_immortal_cultivation_02_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L18"
+    },
+    {
+      "id": "draft_immortal_cultivation_02_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_immortal_cultivation_02_alternative",
+      "toId": "draft_immortal_cultivation_02_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L18"
+    },
+    {
+      "id": "draft_immortal_cultivation_03_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_immortal_cultivation_03_pressure",
+      "toId": "draft_immortal_cultivation_03_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L19"
+    },
+    {
+      "id": "draft_immortal_cultivation_03_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_immortal_cultivation_03_additional_belief",
+      "toId": "draft_immortal_cultivation_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L19"
+    },
+    {
+      "id": "draft_immortal_cultivation_03_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_immortal_cultivation_03_additional_belief",
+      "toId": "draft_immortal_cultivation_03_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L19"
+    },
+    {
+      "id": "draft_immortal_cultivation_03_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_immortal_cultivation_03_evidence_site",
+      "toId": "draft_immortal_cultivation_03_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L19"
+    },
+    {
+      "id": "draft_immortal_cultivation_03_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_immortal_cultivation_03_alternative",
+      "toId": "draft_immortal_cultivation_03_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L19"
+    },
+    {
+      "id": "draft_immortal_cultivation_04_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_immortal_cultivation_04_pressure",
+      "toId": "draft_immortal_cultivation_04_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L20"
+    },
+    {
+      "id": "draft_immortal_cultivation_04_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_immortal_cultivation_04_additional_belief",
+      "toId": "draft_immortal_cultivation_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L20"
+    },
+    {
+      "id": "draft_immortal_cultivation_04_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_immortal_cultivation_04_additional_belief",
+      "toId": "draft_immortal_cultivation_04_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L20"
+    },
+    {
+      "id": "draft_immortal_cultivation_04_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_immortal_cultivation_04_evidence_site",
+      "toId": "draft_immortal_cultivation_04_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L20"
+    },
+    {
+      "id": "draft_immortal_cultivation_04_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_immortal_cultivation_04_alternative",
+      "toId": "draft_immortal_cultivation_04_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L20"
+    },
+    {
+      "id": "draft_immortal_cultivation_05_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_immortal_cultivation_05_pressure",
+      "toId": "draft_immortal_cultivation_05_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L21"
+    },
+    {
+      "id": "draft_immortal_cultivation_05_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_immortal_cultivation_05_additional_belief",
+      "toId": "draft_immortal_cultivation_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L21"
+    },
+    {
+      "id": "draft_immortal_cultivation_05_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_immortal_cultivation_05_additional_belief",
+      "toId": "draft_immortal_cultivation_05_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L21"
+    },
+    {
+      "id": "draft_immortal_cultivation_05_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_immortal_cultivation_05_evidence_site",
+      "toId": "draft_immortal_cultivation_05_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L21"
+    },
+    {
+      "id": "draft_immortal_cultivation_05_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_immortal_cultivation_05_alternative",
+      "toId": "draft_immortal_cultivation_05_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L21"
+    }
+  ],
+  "proposedCausalLinks": [
+    {
+      "id": "draft_immortal_cultivation_01_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_immortal_cultivation_01_pressure",
+      "toId": "draft_immortal_cultivation_01_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_immortal_cultivation_01_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_immortal_cultivation_01_evidence",
+      "toId": "draft_immortal_cultivation_01_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_immortal_cultivation_02_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_immortal_cultivation_02_pressure",
+      "toId": "draft_immortal_cultivation_02_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_immortal_cultivation_02_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_immortal_cultivation_02_evidence",
+      "toId": "draft_immortal_cultivation_02_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_immortal_cultivation_03_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_immortal_cultivation_03_pressure",
+      "toId": "draft_immortal_cultivation_03_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_immortal_cultivation_03_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_immortal_cultivation_03_evidence",
+      "toId": "draft_immortal_cultivation_03_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_immortal_cultivation_04_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_immortal_cultivation_04_pressure",
+      "toId": "draft_immortal_cultivation_04_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_immortal_cultivation_04_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_immortal_cultivation_04_evidence",
+      "toId": "draft_immortal_cultivation_04_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_immortal_cultivation_05_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_immortal_cultivation_05_pressure",
+      "toId": "draft_immortal_cultivation_05_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_immortal_cultivation_05_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_immortal_cultivation_05_evidence",
+      "toId": "draft_immortal_cultivation_05_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    }
+  ]
+}

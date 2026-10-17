@@ -1,0 +1,3084 @@
+{
+  "schema": "world-node-drafts/v1",
+  "status": "Draft",
+  "runtime": false,
+  "scope": {
+    "id": "motif_other_world",
+    "label": "이세계",
+    "kind": "genre-or-structure proposal; not a world definition"
+  },
+  "canonImpact": "none; no Draft item is accepted game setting",
+  "sourceRefs": [
+    "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+    "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+    "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft"
+  ],
+  "fronts": [
+    {
+      "id": "draft_other_world_01",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "New arrivals cannot understand a warning about local water",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "New arrivals cannot understand a warning about local water",
+      "authoredIntervention": "Translate the warning and test it with a newcomer",
+      "initialReport": "Officials assume the warning is universally understood",
+      "verificationCandidate": "A newcomer repeats a dangerous mistranslation",
+      "alternativeInterventions": "Commission pictograms tested with new arrivals",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied",
+        "Arrival and crossworld travel law unresolved"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L39",
+        "docs/v2/world-node-drafts/companion-a.txt#L32"
+      ],
+      "semanticSignature": "new arrivals cannot understand a warning about local water translate the warning and test it with a newcomer phrase tablets officials assume the warning is universally understood a newcomer repeats a dangerous mistranslation",
+      "nodeIds": [
+        "draft_other_world_01_entity",
+        "draft_other_world_01_location",
+        "draft_other_world_01_resource",
+        "draft_other_world_01_pressure",
+        "draft_other_world_01_response",
+        "draft_other_world_01_report",
+        "draft_other_world_01_evidence",
+        "draft_other_world_01_counterparty",
+        "draft_other_world_01_belief_holder",
+        "draft_other_world_01_evidence_site",
+        "draft_other_world_01_alternative",
+        "draft_other_world_01_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Water access slows while signs are replaced",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_other_world_01_counterparty",
+        "evidenceSiteId": "draft_other_world_01_evidence_site",
+        "alternativeEventId": "draft_other_world_01_alternative",
+        "additionalBeliefId": "draft_other_world_01_additional_belief",
+        "beliefHolderId": "draft_other_world_01_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L32"
+      }
+    },
+    {
+      "id": "draft_other_world_02",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "Host homes receive less food than the people they shelter",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "Host homes receive less food than the people they shelter",
+      "authoredIntervention": "Audit ration counts and rebalance deliveries",
+      "initialReport": "The depot records every arrival as a single adult",
+      "verificationCandidate": "Household lists include children omitted from the count",
+      "alternativeInterventions": "Count hosted children before the next allocation",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied",
+        "Arrival and crossworld travel law unresolved"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L40",
+        "docs/v2/world-node-drafts/companion-a.txt#L33"
+      ],
+      "semanticSignature": "host homes receive less food than the people they shelter audit ration counts and rebalance deliveries ration cards the depot records every arrival as a single adult household lists include children omitted from the count",
+      "nodeIds": [
+        "draft_other_world_02_entity",
+        "draft_other_world_02_location",
+        "draft_other_world_02_resource",
+        "draft_other_world_02_pressure",
+        "draft_other_world_02_response",
+        "draft_other_world_02_report",
+        "draft_other_world_02_evidence",
+        "draft_other_world_02_counterparty",
+        "draft_other_world_02_belief_holder",
+        "draft_other_world_02_evidence_site",
+        "draft_other_world_02_alternative",
+        "draft_other_world_02_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Depot stores run lower and inspections take staff time",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_other_world_02_counterparty",
+        "evidenceSiteId": "draft_other_world_02_evidence_site",
+        "alternativeEventId": "draft_other_world_02_alternative",
+        "additionalBeliefId": "draft_other_world_02_additional_belief",
+        "beliefHolderId": "draft_other_world_02_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L33"
+      }
+    },
+    {
+      "id": "draft_other_world_03",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "Imported tools fail on local materials and injure apprentices",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "Imported tools fail on local materials and injure apprentices",
+      "authoredIntervention": "Publish material tests and retire the unsafe adapter",
+      "initialReport": "An importer claims the old standard still applies",
+      "verificationCandidate": "Break tests reveal the local grain difference",
+      "alternativeInterventions": "Limit imported tools to light work until local standards pass",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied",
+        "Arrival and crossworld travel law unresolved"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L41",
+        "docs/v2/world-node-drafts/companion-a.txt#L34"
+      ],
+      "semanticSignature": "imported tools fail on local materials and injure apprentices publish material tests and retire the unsafe adapter tool adapters an importer claims the old standard still applies break tests reveal the local grain difference",
+      "nodeIds": [
+        "draft_other_world_03_entity",
+        "draft_other_world_03_location",
+        "draft_other_world_03_resource",
+        "draft_other_world_03_pressure",
+        "draft_other_world_03_response",
+        "draft_other_world_03_report",
+        "draft_other_world_03_evidence",
+        "draft_other_world_03_counterparty",
+        "draft_other_world_03_belief_holder",
+        "draft_other_world_03_evidence_site",
+        "draft_other_world_03_alternative",
+        "draft_other_world_03_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Construction slows and importers lose sales",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_other_world_03_counterparty",
+        "evidenceSiteId": "draft_other_world_03_evidence_site",
+        "alternativeEventId": "draft_other_world_03_alternative",
+        "additionalBeliefId": "draft_other_world_03_additional_belief",
+        "beliefHolderId": "draft_other_world_03_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L34"
+      }
+    },
+    {
+      "id": "draft_other_world_04",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A shortcut changes direction when unwitnessed",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A shortcut changes direction when unwitnessed",
+      "authoredIntervention": "Require paired witnesses and mark stable landmarks",
+      "initialReport": "A guide promises the shortcut never moves",
+      "verificationCandidate": "Matched travel notes disagree only on solo passages",
+      "alternativeInterventions": "Require paired escorts and dated marker checks",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied",
+        "Arrival and crossworld travel law unresolved"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L42",
+        "docs/v2/world-node-drafts/companion-a.txt#L35"
+      ],
+      "semanticSignature": "a shortcut changes direction when unwitnessed require paired witnesses and mark stable landmarks trail markers a guide promises the shortcut never moves matched travel notes disagree only on solo passages",
+      "nodeIds": [
+        "draft_other_world_04_entity",
+        "draft_other_world_04_location",
+        "draft_other_world_04_resource",
+        "draft_other_world_04_pressure",
+        "draft_other_world_04_response",
+        "draft_other_world_04_report",
+        "draft_other_world_04_evidence",
+        "draft_other_world_04_counterparty",
+        "draft_other_world_04_belief_holder",
+        "draft_other_world_04_evidence_site",
+        "draft_other_world_04_alternative",
+        "draft_other_world_04_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Crossings become slower and escorts are scarce",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_other_world_04_counterparty",
+        "evidenceSiteId": "draft_other_world_04_evidence_site",
+        "alternativeEventId": "draft_other_world_04_alternative",
+        "additionalBeliefId": "draft_other_world_04_additional_belief",
+        "beliefHolderId": "draft_other_world_04_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L35"
+      }
+    },
+    {
+      "id": "draft_other_world_05",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "Two groups use the same gesture for opposite instructions",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "Two groups use the same gesture for opposite instructions",
+      "authoredIntervention": "Co-write a classroom lexicon and rehearse safety signals",
+      "initialReport": "Each teacher blames the other's accent",
+      "verificationCandidate": "A pictorial test reveals the gesture collision",
+      "alternativeInterventions": "Use spoken and pictorial confirmations for high-risk orders",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied",
+        "Arrival and crossworld travel law unresolved"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L43",
+        "docs/v2/world-node-drafts/companion-a.txt#L36"
+      ],
+      "semanticSignature": "two groups use the same gesture for opposite instructions co write a classroom lexicon and rehearse safety signals picture slates each teacher blames the other s accent a pictorial test reveals the gesture collision",
+      "nodeIds": [
+        "draft_other_world_05_entity",
+        "draft_other_world_05_location",
+        "draft_other_world_05_resource",
+        "draft_other_world_05_pressure",
+        "draft_other_world_05_response",
+        "draft_other_world_05_report",
+        "draft_other_world_05_evidence",
+        "draft_other_world_05_counterparty",
+        "draft_other_world_05_belief_holder",
+        "draft_other_world_05_evidence_site",
+        "draft_other_world_05_alternative",
+        "draft_other_world_05_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Teachers must retrain both groups",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_other_world_05_counterparty",
+        "evidenceSiteId": "draft_other_world_05_evidence_site",
+        "alternativeEventId": "draft_other_world_05_alternative",
+        "additionalBeliefId": "draft_other_world_05_additional_belief",
+        "beliefHolderId": "draft_other_world_05_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L36"
+      }
+    }
+  ],
+  "nodes": [
+    {
+      "id": "draft_other_world_01_entity",
+      "kind": "Entity",
+      "label": "arrival interpreters",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_01",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L39"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L39"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep phrase tablets usable at border translation house",
+        "stakes": "New arrivals cannot understand a warning about local water",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_other_world_01_edge_01",
+        "draft_other_world_01_edge_04",
+        "draft_other_world_01_edge_07"
+      ]
+    },
+    {
+      "id": "draft_other_world_01_location",
+      "kind": "Location",
+      "label": "border translation house",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_01",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L39"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L39"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_other_world_01_resource",
+        "conflict": "New arrivals cannot understand a warning about local water",
+        "risk": "New arrivals cannot understand a warning about local water"
+      },
+      "relations": [
+        "draft_other_world_01_edge_01",
+        "draft_other_world_01_edge_02",
+        "draft_other_world_01_edge_03",
+        "draft_other_world_01_edge_06"
+      ]
+    },
+    {
+      "id": "draft_other_world_01_resource",
+      "kind": "Resource",
+      "label": "phrase tablets",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_01",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L39"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L39"
+      ],
+      "proposal": {
+        "sourceId": "draft_other_world_01_location",
+        "scarcity": "New arrivals cannot understand a warning about local water",
+        "proposedUse": "Translate the warning and test it with a newcomer",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_other_world_01_edge_02",
+        "draft_other_world_01_edge_05",
+        "draft_other_world_01_edge_08"
+      ]
+    },
+    {
+      "id": "draft_other_world_01_pressure",
+      "kind": "Event",
+      "label": "New arrivals cannot understand a warning about local water",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_01",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L39"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L39"
+      ],
+      "proposal": {
+        "trigger": "New arrivals cannot understand a warning about local water",
+        "proposedEffect": "Changes access to phrase tablets",
+        "effectTargetId": "draft_other_world_01_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_other_world_01_edge_03",
+        "draft_other_world_01_edge_04",
+        "draft_other_world_01_edge_05",
+        "draft_other_world_01_edge_09",
+        "draft_other_world_01_edge_10",
+        "draft_other_world_01_companion_edge_01",
+        "draft_other_world_01_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_other_world_01_response",
+      "kind": "Event",
+      "label": "Translate the warning and test it with a newcomer",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_01",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L39"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L39"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Translate the warning and test it with a newcomer",
+        "proposedEffect": "Translate the warning and test it with a newcomer",
+        "effectTargetId": "draft_other_world_01_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_other_world_01_edge_06",
+        "draft_other_world_01_edge_07",
+        "draft_other_world_01_edge_08",
+        "draft_other_world_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_other_world_01_report",
+      "kind": "Knowledge",
+      "label": "Officials assume the warning is universally understood",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_01",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L39"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L39"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Officials assume the warning is universally understood",
+        "aboutId": "draft_other_world_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_other_world_01_edge_09"
+      ]
+    },
+    {
+      "id": "draft_other_world_01_evidence",
+      "kind": "Knowledge",
+      "label": "A newcomer repeats a dangerous mistranslation",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L39"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L39"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "A newcomer repeats a dangerous mistranslation",
+        "aboutId": "draft_other_world_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_other_world_01_edge_10",
+        "draft_other_world_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_other_world_02_entity",
+      "kind": "Entity",
+      "label": "host household league",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_02",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L40"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L40"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep ration cards usable at arrival quarter",
+        "stakes": "Host homes receive less food than the people they shelter",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_other_world_02_edge_01",
+        "draft_other_world_02_edge_04",
+        "draft_other_world_02_edge_07"
+      ]
+    },
+    {
+      "id": "draft_other_world_02_location",
+      "kind": "Location",
+      "label": "arrival quarter",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_02",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L40"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L40"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_other_world_02_resource",
+        "conflict": "Host homes receive less food than the people they shelter",
+        "risk": "Host homes receive less food than the people they shelter"
+      },
+      "relations": [
+        "draft_other_world_02_edge_01",
+        "draft_other_world_02_edge_02",
+        "draft_other_world_02_edge_03",
+        "draft_other_world_02_edge_06"
+      ]
+    },
+    {
+      "id": "draft_other_world_02_resource",
+      "kind": "Resource",
+      "label": "ration cards",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_02",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L40"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L40"
+      ],
+      "proposal": {
+        "sourceId": "draft_other_world_02_location",
+        "scarcity": "Host homes receive less food than the people they shelter",
+        "proposedUse": "Audit ration counts and rebalance deliveries",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_other_world_02_edge_02",
+        "draft_other_world_02_edge_05",
+        "draft_other_world_02_edge_08"
+      ]
+    },
+    {
+      "id": "draft_other_world_02_pressure",
+      "kind": "Event",
+      "label": "Host homes receive less food than the people they shelter",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_02",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L40"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L40"
+      ],
+      "proposal": {
+        "trigger": "Host homes receive less food than the people they shelter",
+        "proposedEffect": "Changes access to ration cards",
+        "effectTargetId": "draft_other_world_02_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_other_world_02_edge_03",
+        "draft_other_world_02_edge_04",
+        "draft_other_world_02_edge_05",
+        "draft_other_world_02_edge_09",
+        "draft_other_world_02_edge_10",
+        "draft_other_world_02_companion_edge_01",
+        "draft_other_world_02_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_other_world_02_response",
+      "kind": "Event",
+      "label": "Audit ration counts and rebalance deliveries",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_02",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L40"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L40"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Audit ration counts and rebalance deliveries",
+        "proposedEffect": "Audit ration counts and rebalance deliveries",
+        "effectTargetId": "draft_other_world_02_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_other_world_02_edge_06",
+        "draft_other_world_02_edge_07",
+        "draft_other_world_02_edge_08",
+        "draft_other_world_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_other_world_02_report",
+      "kind": "Knowledge",
+      "label": "The depot records every arrival as a single adult",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_02",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L40"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L40"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The depot records every arrival as a single adult",
+        "aboutId": "draft_other_world_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_other_world_02_edge_09"
+      ]
+    },
+    {
+      "id": "draft_other_world_02_evidence",
+      "kind": "Knowledge",
+      "label": "Household lists include children omitted from the count",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L40"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L40"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Household lists include children omitted from the count",
+        "aboutId": "draft_other_world_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_other_world_02_edge_10",
+        "draft_other_world_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_other_world_03_entity",
+      "kind": "Entity",
+      "label": "craft equivalence board",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_03",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L41"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L41"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep tool adapters usable at crossing workshop",
+        "stakes": "Imported tools fail on local materials and injure apprentices",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_other_world_03_edge_01",
+        "draft_other_world_03_edge_04",
+        "draft_other_world_03_edge_07"
+      ]
+    },
+    {
+      "id": "draft_other_world_03_location",
+      "kind": "Location",
+      "label": "crossing workshop",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_03",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L41"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L41"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_other_world_03_resource",
+        "conflict": "Imported tools fail on local materials and injure apprentices",
+        "risk": "Imported tools fail on local materials and injure apprentices"
+      },
+      "relations": [
+        "draft_other_world_03_edge_01",
+        "draft_other_world_03_edge_02",
+        "draft_other_world_03_edge_03",
+        "draft_other_world_03_edge_06"
+      ]
+    },
+    {
+      "id": "draft_other_world_03_resource",
+      "kind": "Resource",
+      "label": "tool adapters",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_03",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L41"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L41"
+      ],
+      "proposal": {
+        "sourceId": "draft_other_world_03_location",
+        "scarcity": "Imported tools fail on local materials and injure apprentices",
+        "proposedUse": "Publish material tests and retire the unsafe adapter",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_other_world_03_edge_02",
+        "draft_other_world_03_edge_05",
+        "draft_other_world_03_edge_08"
+      ]
+    },
+    {
+      "id": "draft_other_world_03_pressure",
+      "kind": "Event",
+      "label": "Imported tools fail on local materials and injure apprentices",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_03",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L41"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L41"
+      ],
+      "proposal": {
+        "trigger": "Imported tools fail on local materials and injure apprentices",
+        "proposedEffect": "Changes access to tool adapters",
+        "effectTargetId": "draft_other_world_03_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_other_world_03_edge_03",
+        "draft_other_world_03_edge_04",
+        "draft_other_world_03_edge_05",
+        "draft_other_world_03_edge_09",
+        "draft_other_world_03_edge_10",
+        "draft_other_world_03_companion_edge_01",
+        "draft_other_world_03_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_other_world_03_response",
+      "kind": "Event",
+      "label": "Publish material tests and retire the unsafe adapter",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_03",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L41"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L41"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Publish material tests and retire the unsafe adapter",
+        "proposedEffect": "Publish material tests and retire the unsafe adapter",
+        "effectTargetId": "draft_other_world_03_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_other_world_03_edge_06",
+        "draft_other_world_03_edge_07",
+        "draft_other_world_03_edge_08",
+        "draft_other_world_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_other_world_03_report",
+      "kind": "Knowledge",
+      "label": "An importer claims the old standard still applies",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_03",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L41"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L41"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "An importer claims the old standard still applies",
+        "aboutId": "draft_other_world_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_other_world_03_edge_09"
+      ]
+    },
+    {
+      "id": "draft_other_world_03_evidence",
+      "kind": "Knowledge",
+      "label": "Break tests reveal the local grain difference",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L41"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L41"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Break tests reveal the local grain difference",
+        "aboutId": "draft_other_world_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_other_world_03_edge_10",
+        "draft_other_world_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_other_world_04_entity",
+      "kind": "Entity",
+      "label": "border guides",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_04",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L42"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L42"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep trail markers usable at mist crossing trail",
+        "stakes": "A shortcut changes direction when unwitnessed",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_other_world_04_edge_01",
+        "draft_other_world_04_edge_04",
+        "draft_other_world_04_edge_07"
+      ]
+    },
+    {
+      "id": "draft_other_world_04_location",
+      "kind": "Location",
+      "label": "mist crossing trail",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_04",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L42"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L42"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_other_world_04_resource",
+        "conflict": "A shortcut changes direction when unwitnessed",
+        "risk": "A shortcut changes direction when unwitnessed"
+      },
+      "relations": [
+        "draft_other_world_04_edge_01",
+        "draft_other_world_04_edge_02",
+        "draft_other_world_04_edge_03",
+        "draft_other_world_04_edge_06"
+      ]
+    },
+    {
+      "id": "draft_other_world_04_resource",
+      "kind": "Resource",
+      "label": "trail markers",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_04",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L42"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L42"
+      ],
+      "proposal": {
+        "sourceId": "draft_other_world_04_location",
+        "scarcity": "A shortcut changes direction when unwitnessed",
+        "proposedUse": "Require paired witnesses and mark stable landmarks",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_other_world_04_edge_02",
+        "draft_other_world_04_edge_05",
+        "draft_other_world_04_edge_08"
+      ]
+    },
+    {
+      "id": "draft_other_world_04_pressure",
+      "kind": "Event",
+      "label": "A shortcut changes direction when unwitnessed",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_04",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L42"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L42"
+      ],
+      "proposal": {
+        "trigger": "A shortcut changes direction when unwitnessed",
+        "proposedEffect": "Changes access to trail markers",
+        "effectTargetId": "draft_other_world_04_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_other_world_04_edge_03",
+        "draft_other_world_04_edge_04",
+        "draft_other_world_04_edge_05",
+        "draft_other_world_04_edge_09",
+        "draft_other_world_04_edge_10",
+        "draft_other_world_04_companion_edge_01",
+        "draft_other_world_04_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_other_world_04_response",
+      "kind": "Event",
+      "label": "Require paired witnesses and mark stable landmarks",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_04",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L42"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L42"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Require paired witnesses and mark stable landmarks",
+        "proposedEffect": "Require paired witnesses and mark stable landmarks",
+        "effectTargetId": "draft_other_world_04_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_other_world_04_edge_06",
+        "draft_other_world_04_edge_07",
+        "draft_other_world_04_edge_08",
+        "draft_other_world_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_other_world_04_report",
+      "kind": "Knowledge",
+      "label": "A guide promises the shortcut never moves",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_04",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L42"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L42"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A guide promises the shortcut never moves",
+        "aboutId": "draft_other_world_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_other_world_04_edge_09"
+      ]
+    },
+    {
+      "id": "draft_other_world_04_evidence",
+      "kind": "Knowledge",
+      "label": "Matched travel notes disagree only on solo passages",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L42"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L42"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Matched travel notes disagree only on solo passages",
+        "aboutId": "draft_other_world_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_other_world_04_edge_10",
+        "draft_other_world_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_other_world_05_entity",
+      "kind": "Entity",
+      "label": "exchange teachers",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_05",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L43"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L43"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep picture slates usable at shared classroom",
+        "stakes": "Two groups use the same gesture for opposite instructions",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_other_world_05_edge_01",
+        "draft_other_world_05_edge_04",
+        "draft_other_world_05_edge_07"
+      ]
+    },
+    {
+      "id": "draft_other_world_05_location",
+      "kind": "Location",
+      "label": "shared classroom",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_05",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L43"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L43"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_other_world_05_resource",
+        "conflict": "Two groups use the same gesture for opposite instructions",
+        "risk": "Two groups use the same gesture for opposite instructions"
+      },
+      "relations": [
+        "draft_other_world_05_edge_01",
+        "draft_other_world_05_edge_02",
+        "draft_other_world_05_edge_03",
+        "draft_other_world_05_edge_06"
+      ]
+    },
+    {
+      "id": "draft_other_world_05_resource",
+      "kind": "Resource",
+      "label": "picture slates",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_05",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L43"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L43"
+      ],
+      "proposal": {
+        "sourceId": "draft_other_world_05_location",
+        "scarcity": "Two groups use the same gesture for opposite instructions",
+        "proposedUse": "Co-write a classroom lexicon and rehearse safety signals",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_other_world_05_edge_02",
+        "draft_other_world_05_edge_05",
+        "draft_other_world_05_edge_08"
+      ]
+    },
+    {
+      "id": "draft_other_world_05_pressure",
+      "kind": "Event",
+      "label": "Two groups use the same gesture for opposite instructions",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_05",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L43"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L43"
+      ],
+      "proposal": {
+        "trigger": "Two groups use the same gesture for opposite instructions",
+        "proposedEffect": "Changes access to picture slates",
+        "effectTargetId": "draft_other_world_05_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_other_world_05_edge_03",
+        "draft_other_world_05_edge_04",
+        "draft_other_world_05_edge_05",
+        "draft_other_world_05_edge_09",
+        "draft_other_world_05_edge_10",
+        "draft_other_world_05_companion_edge_01",
+        "draft_other_world_05_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_other_world_05_response",
+      "kind": "Event",
+      "label": "Co-write a classroom lexicon and rehearse safety signals",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_05",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L43"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L43"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Co-write a classroom lexicon and rehearse safety signals",
+        "proposedEffect": "Co-write a classroom lexicon and rehearse safety signals",
+        "effectTargetId": "draft_other_world_05_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_other_world_05_edge_06",
+        "draft_other_world_05_edge_07",
+        "draft_other_world_05_edge_08",
+        "draft_other_world_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_other_world_05_report",
+      "kind": "Knowledge",
+      "label": "Each teacher blames the other's accent",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_05",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L43"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L43"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Each teacher blames the other's accent",
+        "aboutId": "draft_other_world_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_other_world_05_edge_09"
+      ]
+    },
+    {
+      "id": "draft_other_world_05_evidence",
+      "kind": "Knowledge",
+      "label": "A pictorial test reveals the gesture collision",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L43"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L43"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "A pictorial test reveals the gesture collision",
+        "aboutId": "draft_other_world_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_other_world_05_edge_10",
+        "draft_other_world_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_other_world_01_counterparty",
+      "kind": "Entity",
+      "label": "water notice translator",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_01",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L32"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L32"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Use one official language to avoid translation costs",
+        "stakes": "New arrivals cannot understand a warning about local water",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_other_world_01_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_other_world_01_belief_holder",
+      "kind": "Entity",
+      "label": "arrival officers",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_01",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L32"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L32"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: A translated word alone makes the water safe",
+        "stakes": "New arrivals cannot understand a warning about local water",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_other_world_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_other_world_01_evidence_site",
+      "kind": "Location",
+      "label": "arrival fountain warning board",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L32"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L32"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "New arrivals cannot understand a warning about local water",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_other_world_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_other_world_01_alternative",
+      "kind": "Event",
+      "label": "Commission pictograms tested with new arrivals",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_01",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L32"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L32"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Commission pictograms tested with new arrivals",
+        "costAndConsequence": "Water access slows while signs are replaced",
+        "alternativeToId": "draft_other_world_01_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_other_world_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_other_world_01_additional_belief",
+      "kind": "Knowledge",
+      "label": "A translated word alone makes the water safe",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_01",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L32"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L32"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A translated word alone makes the water safe",
+        "aboutId": "draft_other_world_01_pressure",
+        "holderId": "draft_other_world_01_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_other_world_01_companion_edge_02",
+        "draft_other_world_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_other_world_02_counterparty",
+      "kind": "Entity",
+      "label": "ration registrar",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_02",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L33"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L33"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Keep ration accounts simple by counting each home once",
+        "stakes": "Host homes receive less food than the people they shelter",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_other_world_02_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_other_world_02_belief_holder",
+      "kind": "Entity",
+      "label": "depot supervisors",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_02",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L33"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L33"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Host homes always receive enough for their guests",
+        "stakes": "Host homes receive less food than the people they shelter",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_other_world_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_other_world_02_evidence_site",
+      "kind": "Location",
+      "label": "depot household register",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L33"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L33"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "Host homes receive less food than the people they shelter",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_other_world_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_other_world_02_alternative",
+      "kind": "Event",
+      "label": "Count hosted children before the next allocation",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_02",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L33"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L33"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Count hosted children before the next allocation",
+        "costAndConsequence": "Depot stores run lower and inspections take staff time",
+        "alternativeToId": "draft_other_world_02_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_other_world_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_other_world_02_additional_belief",
+      "kind": "Knowledge",
+      "label": "Host homes always receive enough for their guests",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_02",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L33"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L33"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Host homes always receive enough for their guests",
+        "aboutId": "draft_other_world_02_pressure",
+        "holderId": "draft_other_world_02_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_other_world_02_companion_edge_02",
+        "draft_other_world_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_other_world_03_counterparty",
+      "kind": "Entity",
+      "label": "tool importer",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_03",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L34"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L34"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Sell familiar tools without local break testing",
+        "stakes": "Imported tools fail on local materials and injure apprentices",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_other_world_03_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_other_world_03_belief_holder",
+      "kind": "Entity",
+      "label": "new apprentices",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_03",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L34"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L34"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Matching dimensions mean matching strength",
+        "stakes": "Imported tools fail on local materials and injure apprentices",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_other_world_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_other_world_03_evidence_site",
+      "kind": "Location",
+      "label": "apprentice fracture workshop",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L34"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L34"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "Imported tools fail on local materials and injure apprentices",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_other_world_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_other_world_03_alternative",
+      "kind": "Event",
+      "label": "Limit imported tools to light work until local standards pass",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_03",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L34"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L34"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Limit imported tools to light work until local standards pass",
+        "costAndConsequence": "Construction slows and importers lose sales",
+        "alternativeToId": "draft_other_world_03_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_other_world_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_other_world_03_additional_belief",
+      "kind": "Knowledge",
+      "label": "Matching dimensions mean matching strength",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_03",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L34"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L34"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Matching dimensions mean matching strength",
+        "aboutId": "draft_other_world_03_pressure",
+        "holderId": "draft_other_world_03_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_other_world_03_companion_edge_02",
+        "draft_other_world_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_other_world_04_counterparty",
+      "kind": "Entity",
+      "label": "shortcut toll guide",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_04",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L35"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L35"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Profit from solo travelers who cannot verify a moving route",
+        "stakes": "A shortcut changes direction when unwitnessed",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_other_world_04_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_other_world_04_belief_holder",
+      "kind": "Entity",
+      "label": "solo couriers",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_04",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L35"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L35"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: The shortcut stays fixed when no one watches",
+        "stakes": "A shortcut changes direction when unwitnessed",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_other_world_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_other_world_04_evidence_site",
+      "kind": "Location",
+      "label": "paired-path marker station",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L35"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L35"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A shortcut changes direction when unwitnessed",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_other_world_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_other_world_04_alternative",
+      "kind": "Event",
+      "label": "Require paired escorts and dated marker checks",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_04",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L35"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L35"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Require paired escorts and dated marker checks",
+        "costAndConsequence": "Crossings become slower and escorts are scarce",
+        "alternativeToId": "draft_other_world_04_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_other_world_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_other_world_04_additional_belief",
+      "kind": "Knowledge",
+      "label": "The shortcut stays fixed when no one watches",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_04",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L35"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L35"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The shortcut stays fixed when no one watches",
+        "aboutId": "draft_other_world_04_pressure",
+        "holderId": "draft_other_world_04_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_other_world_04_companion_edge_02",
+        "draft_other_world_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_other_world_05_counterparty",
+      "kind": "Entity",
+      "label": "gesture treaty teacher",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_05",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L36"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L36"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Preserve a ceremonial sign despite opposite meanings",
+        "stakes": "Two groups use the same gesture for opposite instructions",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_other_world_05_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_other_world_05_belief_holder",
+      "kind": "Entity",
+      "label": "visiting trainees",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_05",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L36"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L36"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: A shared gesture proves a shared intent",
+        "stakes": "Two groups use the same gesture for opposite instructions",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_other_world_05_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_other_world_05_evidence_site",
+      "kind": "Location",
+      "label": "exchange classroom trial board",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L36"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L36"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "Two groups use the same gesture for opposite instructions",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_other_world_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_other_world_05_alternative",
+      "kind": "Event",
+      "label": "Use spoken and pictorial confirmations for high-risk orders",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_05",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L36"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L36"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Use spoken and pictorial confirmations for high-risk orders",
+        "costAndConsequence": "Teachers must retrain both groups",
+        "alternativeToId": "draft_other_world_05_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_other_world_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_other_world_05_additional_belief",
+      "kind": "Knowledge",
+      "label": "A shared gesture proves a shared intent",
+      "scopeId": "motif_other_world",
+      "motifId": "other_world",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_other_world_05",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L36"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L36"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A shared gesture proves a shared intent",
+        "aboutId": "draft_other_world_05_pressure",
+        "holderId": "draft_other_world_05_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_other_world_05_companion_edge_02",
+        "draft_other_world_05_companion_edge_03"
+      ]
+    }
+  ],
+  "structuralEdges": [
+    {
+      "id": "draft_other_world_01_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_other_world_01_entity",
+      "toId": "draft_other_world_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_01:entity>location"
+    },
+    {
+      "id": "draft_other_world_01_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_other_world_01_location",
+      "toId": "draft_other_world_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_01:location>resource"
+    },
+    {
+      "id": "draft_other_world_01_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_other_world_01_pressure",
+      "toId": "draft_other_world_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_01:pressure>location"
+    },
+    {
+      "id": "draft_other_world_01_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_other_world_01_pressure",
+      "toId": "draft_other_world_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_01:pressure>entity"
+    },
+    {
+      "id": "draft_other_world_01_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_other_world_01_pressure",
+      "toId": "draft_other_world_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_01:pressure>resource"
+    },
+    {
+      "id": "draft_other_world_01_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_other_world_01_response",
+      "toId": "draft_other_world_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_01:response>location"
+    },
+    {
+      "id": "draft_other_world_01_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_other_world_01_response",
+      "toId": "draft_other_world_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_01:response>entity"
+    },
+    {
+      "id": "draft_other_world_01_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_other_world_01_response",
+      "toId": "draft_other_world_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_01:response>resource"
+    },
+    {
+      "id": "draft_other_world_01_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_other_world_01_report",
+      "toId": "draft_other_world_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_01:report>pressure"
+    },
+    {
+      "id": "draft_other_world_01_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_other_world_01_evidence",
+      "toId": "draft_other_world_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_01:evidence>pressure"
+    },
+    {
+      "id": "draft_other_world_02_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_other_world_02_entity",
+      "toId": "draft_other_world_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_02:entity>location"
+    },
+    {
+      "id": "draft_other_world_02_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_other_world_02_location",
+      "toId": "draft_other_world_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_02:location>resource"
+    },
+    {
+      "id": "draft_other_world_02_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_other_world_02_pressure",
+      "toId": "draft_other_world_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_02:pressure>location"
+    },
+    {
+      "id": "draft_other_world_02_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_other_world_02_pressure",
+      "toId": "draft_other_world_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_02:pressure>entity"
+    },
+    {
+      "id": "draft_other_world_02_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_other_world_02_pressure",
+      "toId": "draft_other_world_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_02:pressure>resource"
+    },
+    {
+      "id": "draft_other_world_02_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_other_world_02_response",
+      "toId": "draft_other_world_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_02:response>location"
+    },
+    {
+      "id": "draft_other_world_02_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_other_world_02_response",
+      "toId": "draft_other_world_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_02:response>entity"
+    },
+    {
+      "id": "draft_other_world_02_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_other_world_02_response",
+      "toId": "draft_other_world_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_02:response>resource"
+    },
+    {
+      "id": "draft_other_world_02_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_other_world_02_report",
+      "toId": "draft_other_world_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_02:report>pressure"
+    },
+    {
+      "id": "draft_other_world_02_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_other_world_02_evidence",
+      "toId": "draft_other_world_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_02:evidence>pressure"
+    },
+    {
+      "id": "draft_other_world_03_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_other_world_03_entity",
+      "toId": "draft_other_world_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_03:entity>location"
+    },
+    {
+      "id": "draft_other_world_03_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_other_world_03_location",
+      "toId": "draft_other_world_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_03:location>resource"
+    },
+    {
+      "id": "draft_other_world_03_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_other_world_03_pressure",
+      "toId": "draft_other_world_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_03:pressure>location"
+    },
+    {
+      "id": "draft_other_world_03_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_other_world_03_pressure",
+      "toId": "draft_other_world_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_03:pressure>entity"
+    },
+    {
+      "id": "draft_other_world_03_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_other_world_03_pressure",
+      "toId": "draft_other_world_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_03:pressure>resource"
+    },
+    {
+      "id": "draft_other_world_03_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_other_world_03_response",
+      "toId": "draft_other_world_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_03:response>location"
+    },
+    {
+      "id": "draft_other_world_03_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_other_world_03_response",
+      "toId": "draft_other_world_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_03:response>entity"
+    },
+    {
+      "id": "draft_other_world_03_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_other_world_03_response",
+      "toId": "draft_other_world_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_03:response>resource"
+    },
+    {
+      "id": "draft_other_world_03_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_other_world_03_report",
+      "toId": "draft_other_world_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_03:report>pressure"
+    },
+    {
+      "id": "draft_other_world_03_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_other_world_03_evidence",
+      "toId": "draft_other_world_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_03:evidence>pressure"
+    },
+    {
+      "id": "draft_other_world_04_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_other_world_04_entity",
+      "toId": "draft_other_world_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_04:entity>location"
+    },
+    {
+      "id": "draft_other_world_04_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_other_world_04_location",
+      "toId": "draft_other_world_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_04:location>resource"
+    },
+    {
+      "id": "draft_other_world_04_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_other_world_04_pressure",
+      "toId": "draft_other_world_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_04:pressure>location"
+    },
+    {
+      "id": "draft_other_world_04_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_other_world_04_pressure",
+      "toId": "draft_other_world_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_04:pressure>entity"
+    },
+    {
+      "id": "draft_other_world_04_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_other_world_04_pressure",
+      "toId": "draft_other_world_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_04:pressure>resource"
+    },
+    {
+      "id": "draft_other_world_04_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_other_world_04_response",
+      "toId": "draft_other_world_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_04:response>location"
+    },
+    {
+      "id": "draft_other_world_04_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_other_world_04_response",
+      "toId": "draft_other_world_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_04:response>entity"
+    },
+    {
+      "id": "draft_other_world_04_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_other_world_04_response",
+      "toId": "draft_other_world_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_04:response>resource"
+    },
+    {
+      "id": "draft_other_world_04_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_other_world_04_report",
+      "toId": "draft_other_world_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_04:report>pressure"
+    },
+    {
+      "id": "draft_other_world_04_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_other_world_04_evidence",
+      "toId": "draft_other_world_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_04:evidence>pressure"
+    },
+    {
+      "id": "draft_other_world_05_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_other_world_05_entity",
+      "toId": "draft_other_world_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_05:entity>location"
+    },
+    {
+      "id": "draft_other_world_05_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_other_world_05_location",
+      "toId": "draft_other_world_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_05:location>resource"
+    },
+    {
+      "id": "draft_other_world_05_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_other_world_05_pressure",
+      "toId": "draft_other_world_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_05:pressure>location"
+    },
+    {
+      "id": "draft_other_world_05_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_other_world_05_pressure",
+      "toId": "draft_other_world_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_05:pressure>entity"
+    },
+    {
+      "id": "draft_other_world_05_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_other_world_05_pressure",
+      "toId": "draft_other_world_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_05:pressure>resource"
+    },
+    {
+      "id": "draft_other_world_05_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_other_world_05_response",
+      "toId": "draft_other_world_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_05:response>location"
+    },
+    {
+      "id": "draft_other_world_05_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_other_world_05_response",
+      "toId": "draft_other_world_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_05:response>entity"
+    },
+    {
+      "id": "draft_other_world_05_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_other_world_05_response",
+      "toId": "draft_other_world_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_05:response>resource"
+    },
+    {
+      "id": "draft_other_world_05_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_other_world_05_report",
+      "toId": "draft_other_world_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_05:report>pressure"
+    },
+    {
+      "id": "draft_other_world_05_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_other_world_05_evidence",
+      "toId": "draft_other_world_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_other_world_05:evidence>pressure"
+    },
+    {
+      "id": "draft_other_world_01_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_other_world_01_pressure",
+      "toId": "draft_other_world_01_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L32"
+    },
+    {
+      "id": "draft_other_world_01_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_other_world_01_additional_belief",
+      "toId": "draft_other_world_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L32"
+    },
+    {
+      "id": "draft_other_world_01_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_other_world_01_additional_belief",
+      "toId": "draft_other_world_01_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L32"
+    },
+    {
+      "id": "draft_other_world_01_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_other_world_01_evidence_site",
+      "toId": "draft_other_world_01_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L32"
+    },
+    {
+      "id": "draft_other_world_01_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_other_world_01_alternative",
+      "toId": "draft_other_world_01_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L32"
+    },
+    {
+      "id": "draft_other_world_02_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_other_world_02_pressure",
+      "toId": "draft_other_world_02_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L33"
+    },
+    {
+      "id": "draft_other_world_02_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_other_world_02_additional_belief",
+      "toId": "draft_other_world_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L33"
+    },
+    {
+      "id": "draft_other_world_02_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_other_world_02_additional_belief",
+      "toId": "draft_other_world_02_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L33"
+    },
+    {
+      "id": "draft_other_world_02_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_other_world_02_evidence_site",
+      "toId": "draft_other_world_02_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L33"
+    },
+    {
+      "id": "draft_other_world_02_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_other_world_02_alternative",
+      "toId": "draft_other_world_02_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L33"
+    },
+    {
+      "id": "draft_other_world_03_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_other_world_03_pressure",
+      "toId": "draft_other_world_03_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L34"
+    },
+    {
+      "id": "draft_other_world_03_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_other_world_03_additional_belief",
+      "toId": "draft_other_world_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L34"
+    },
+    {
+      "id": "draft_other_world_03_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_other_world_03_additional_belief",
+      "toId": "draft_other_world_03_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L34"
+    },
+    {
+      "id": "draft_other_world_03_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_other_world_03_evidence_site",
+      "toId": "draft_other_world_03_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L34"
+    },
+    {
+      "id": "draft_other_world_03_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_other_world_03_alternative",
+      "toId": "draft_other_world_03_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L34"
+    },
+    {
+      "id": "draft_other_world_04_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_other_world_04_pressure",
+      "toId": "draft_other_world_04_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L35"
+    },
+    {
+      "id": "draft_other_world_04_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_other_world_04_additional_belief",
+      "toId": "draft_other_world_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L35"
+    },
+    {
+      "id": "draft_other_world_04_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_other_world_04_additional_belief",
+      "toId": "draft_other_world_04_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L35"
+    },
+    {
+      "id": "draft_other_world_04_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_other_world_04_evidence_site",
+      "toId": "draft_other_world_04_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L35"
+    },
+    {
+      "id": "draft_other_world_04_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_other_world_04_alternative",
+      "toId": "draft_other_world_04_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L35"
+    },
+    {
+      "id": "draft_other_world_05_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_other_world_05_pressure",
+      "toId": "draft_other_world_05_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L36"
+    },
+    {
+      "id": "draft_other_world_05_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_other_world_05_additional_belief",
+      "toId": "draft_other_world_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L36"
+    },
+    {
+      "id": "draft_other_world_05_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_other_world_05_additional_belief",
+      "toId": "draft_other_world_05_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L36"
+    },
+    {
+      "id": "draft_other_world_05_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_other_world_05_evidence_site",
+      "toId": "draft_other_world_05_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L36"
+    },
+    {
+      "id": "draft_other_world_05_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_other_world_05_alternative",
+      "toId": "draft_other_world_05_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L36"
+    }
+  ],
+  "proposedCausalLinks": [
+    {
+      "id": "draft_other_world_01_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_other_world_01_pressure",
+      "toId": "draft_other_world_01_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_other_world_01_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_other_world_01_evidence",
+      "toId": "draft_other_world_01_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_other_world_02_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_other_world_02_pressure",
+      "toId": "draft_other_world_02_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_other_world_02_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_other_world_02_evidence",
+      "toId": "draft_other_world_02_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_other_world_03_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_other_world_03_pressure",
+      "toId": "draft_other_world_03_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_other_world_03_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_other_world_03_evidence",
+      "toId": "draft_other_world_03_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_other_world_04_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_other_world_04_pressure",
+      "toId": "draft_other_world_04_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_other_world_04_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_other_world_04_evidence",
+      "toId": "draft_other_world_04_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_other_world_05_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_other_world_05_pressure",
+      "toId": "draft_other_world_05_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_other_world_05_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_other_world_05_evidence",
+      "toId": "draft_other_world_05_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    }
+  ]
+}

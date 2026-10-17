@@ -1,0 +1,3079 @@
+{
+  "schema": "world-node-drafts/v1",
+  "status": "Draft",
+  "runtime": false,
+  "scope": {
+    "id": "motif_martial_arts",
+    "label": "무협",
+    "kind": "genre-or-structure proposal; not a world definition"
+  },
+  "canonImpact": "none; no Draft item is accepted game setting",
+  "sourceRefs": [
+    "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+    "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+    "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft"
+  ],
+  "fronts": [
+    {
+      "id": "draft_martial_arts_01",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A rival bureau blocks medicine deliveries under a false warrant",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A rival bureau blocks medicine deliveries under a false warrant",
+      "authoredIntervention": "Challenge the warrant publicly and carry medicine together",
+      "initialReport": "A magistrate's seal is cited as authority",
+      "verificationCandidate": "The seal copy omits the magistrate's date",
+      "alternativeInterventions": "Escort one verified delivery under a magistrate's new seal",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L15",
+        "docs/v2/world-node-drafts/companion-b.txt#L12"
+      ],
+      "semanticSignature": "a rival bureau blocks medicine deliveries under a false warrant challenge the warrant publicly and carry medicine together pack horses a magistrate s seal is cited as authority the seal copy omits the magistrate s date",
+      "nodeIds": [
+        "draft_martial_arts_01_entity",
+        "draft_martial_arts_01_location",
+        "draft_martial_arts_01_resource",
+        "draft_martial_arts_01_pressure",
+        "draft_martial_arts_01_response",
+        "draft_martial_arts_01_report",
+        "draft_martial_arts_01_evidence",
+        "draft_martial_arts_01_counterparty",
+        "draft_martial_arts_01_belief_holder",
+        "draft_martial_arts_01_evidence_site",
+        "draft_martial_arts_01_alternative",
+        "draft_martial_arts_01_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "The bureau risks a clash and the road stays contested",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_martial_arts_01_counterparty",
+        "evidenceSiteId": "draft_martial_arts_01_evidence_site",
+        "alternativeEventId": "draft_martial_arts_01_alternative",
+        "additionalBeliefId": "draft_martial_arts_01_additional_belief",
+        "beliefHolderId": "draft_martial_arts_01_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L12"
+      }
+    },
+    {
+      "id": "draft_martial_arts_02",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A master withholds antidote training from outer disciples",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A master withholds antidote training from outer disciples",
+      "authoredIntervention": "Teach a safe first step and test it under supervision",
+      "initialReport": "The school says outsiders cannot learn the method",
+      "verificationCandidate": "Training notes show the step was once common",
+      "alternativeInterventions": "Teach a supervised antidote lesson to outer disciples",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L16",
+        "docs/v2/world-node-drafts/companion-b.txt#L13"
+      ],
+      "semanticSignature": "a master withholds antidote training from outer disciples teach a safe first step and test it under supervision root bundles the school says outsiders cannot learn the method training notes show the step was once common",
+      "nodeIds": [
+        "draft_martial_arts_02_entity",
+        "draft_martial_arts_02_location",
+        "draft_martial_arts_02_resource",
+        "draft_martial_arts_02_pressure",
+        "draft_martial_arts_02_response",
+        "draft_martial_arts_02_report",
+        "draft_martial_arts_02_evidence",
+        "draft_martial_arts_02_counterparty",
+        "draft_martial_arts_02_belief_holder",
+        "draft_martial_arts_02_evidence_site",
+        "draft_martial_arts_02_alternative",
+        "draft_martial_arts_02_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "The master loses control of the method and students need time",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_martial_arts_02_counterparty",
+        "evidenceSiteId": "draft_martial_arts_02_evidence_site",
+        "alternativeEventId": "draft_martial_arts_02_alternative",
+        "additionalBeliefId": "draft_martial_arts_02_additional_belief",
+        "beliefHolderId": "draft_martial_arts_02_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L13"
+      }
+    },
+    {
+      "id": "draft_martial_arts_03",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A feud destroys a bridge used by noncombatants",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A feud destroys a bridge used by noncombatants",
+      "authoredIntervention": "Offer a neutral duel site and repair the crossing",
+      "initialReport": "Both schools say the bridge is their boundary",
+      "verificationCandidate": "Village toll records predate either claim",
+      "alternativeInterventions": "Declare a neutral crossing for villagers pending mediation",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L17",
+        "docs/v2/world-node-drafts/companion-b.txt#L14"
+      ],
+      "semanticSignature": "a feud destroys a bridge used by noncombatants offer a neutral duel site and repair the crossing repair timber both schools say the bridge is their boundary village toll records predate either claim",
+      "nodeIds": [
+        "draft_martial_arts_03_entity",
+        "draft_martial_arts_03_location",
+        "draft_martial_arts_03_resource",
+        "draft_martial_arts_03_pressure",
+        "draft_martial_arts_03_response",
+        "draft_martial_arts_03_report",
+        "draft_martial_arts_03_evidence",
+        "draft_martial_arts_03_counterparty",
+        "draft_martial_arts_03_belief_holder",
+        "draft_martial_arts_03_evidence_site",
+        "draft_martial_arts_03_alternative",
+        "draft_martial_arts_03_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Both schools surrender a strategic post",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_martial_arts_03_counterparty",
+        "evidenceSiteId": "draft_martial_arts_03_evidence_site",
+        "alternativeEventId": "draft_martial_arts_03_alternative",
+        "additionalBeliefId": "draft_martial_arts_03_additional_belief",
+        "beliefHolderId": "draft_martial_arts_03_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L14"
+      }
+    },
+    {
+      "id": "draft_martial_arts_04",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A wounded rival hides a fever among caravan passengers",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A wounded rival hides a fever among caravan passengers",
+      "authoredIntervention": "Treat the fever without requiring a faction oath",
+      "initialReport": "Passengers hear the illness is a combat injury",
+      "verificationCandidate": "Temperature records show it spread before the fight",
+      "alternativeInterventions": "Separate sick passengers and carry the fighter under observation",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L18",
+        "docs/v2/world-node-drafts/companion-b.txt#L15"
+      ],
+      "semanticSignature": "a wounded rival hides a fever among caravan passengers treat the fever without requiring a faction oath needle cases passengers hear the illness is a combat injury temperature records show it spread before the fight",
+      "nodeIds": [
+        "draft_martial_arts_04_entity",
+        "draft_martial_arts_04_location",
+        "draft_martial_arts_04_resource",
+        "draft_martial_arts_04_pressure",
+        "draft_martial_arts_04_response",
+        "draft_martial_arts_04_report",
+        "draft_martial_arts_04_evidence",
+        "draft_martial_arts_04_counterparty",
+        "draft_martial_arts_04_belief_holder",
+        "draft_martial_arts_04_evidence_site",
+        "draft_martial_arts_04_alternative",
+        "draft_martial_arts_04_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "The caravan slows and medics use scarce herbs",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_martial_arts_04_counterparty",
+        "evidenceSiteId": "draft_martial_arts_04_evidence_site",
+        "alternativeEventId": "draft_martial_arts_04_alternative",
+        "additionalBeliefId": "draft_martial_arts_04_additional_belief",
+        "beliefHolderId": "draft_martial_arts_04_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L15"
+      }
+    },
+    {
+      "id": "draft_martial_arts_05",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A stolen manual sparks accusations between junior branches",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A stolen manual sparks accusations between junior branches",
+      "authoredIntervention": "Compare copying marks before punishment",
+      "initialReport": "An elder names one branch from memory",
+      "verificationCandidate": "Ink dates show the manual moved later",
+      "alternativeInterventions": "Seal the manual and audit access to its later binding",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L19",
+        "docs/v2/world-node-drafts/companion-b.txt#L16"
+      ],
+      "semanticSignature": "a stolen manual sparks accusations between junior branches compare copying marks before punishment practice blades an elder names one branch from memory ink dates show the manual moved later",
+      "nodeIds": [
+        "draft_martial_arts_05_entity",
+        "draft_martial_arts_05_location",
+        "draft_martial_arts_05_resource",
+        "draft_martial_arts_05_pressure",
+        "draft_martial_arts_05_response",
+        "draft_martial_arts_05_report",
+        "draft_martial_arts_05_evidence",
+        "draft_martial_arts_05_counterparty",
+        "draft_martial_arts_05_belief_holder",
+        "draft_martial_arts_05_evidence_site",
+        "draft_martial_arts_05_alternative",
+        "draft_martial_arts_05_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Training stops and both branches face suspicion",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_martial_arts_05_counterparty",
+        "evidenceSiteId": "draft_martial_arts_05_evidence_site",
+        "alternativeEventId": "draft_martial_arts_05_alternative",
+        "additionalBeliefId": "draft_martial_arts_05_additional_belief",
+        "beliefHolderId": "draft_martial_arts_05_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L16"
+      }
+    }
+  ],
+  "nodes": [
+    {
+      "id": "draft_martial_arts_01_entity",
+      "kind": "Entity",
+      "label": "river escort bureau",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_01",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L15"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L15"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep pack horses usable at mountain ferry road",
+        "stakes": "A rival bureau blocks medicine deliveries under a false warrant",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_martial_arts_01_edge_01",
+        "draft_martial_arts_01_edge_04",
+        "draft_martial_arts_01_edge_07"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_01_location",
+      "kind": "Location",
+      "label": "mountain ferry road",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_01",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L15"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L15"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_martial_arts_01_resource",
+        "conflict": "A rival bureau blocks medicine deliveries under a false warrant",
+        "risk": "A rival bureau blocks medicine deliveries under a false warrant"
+      },
+      "relations": [
+        "draft_martial_arts_01_edge_01",
+        "draft_martial_arts_01_edge_02",
+        "draft_martial_arts_01_edge_03",
+        "draft_martial_arts_01_edge_06"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_01_resource",
+      "kind": "Resource",
+      "label": "pack horses",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_01",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L15"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L15"
+      ],
+      "proposal": {
+        "sourceId": "draft_martial_arts_01_location",
+        "scarcity": "A rival bureau blocks medicine deliveries under a false warrant",
+        "proposedUse": "Challenge the warrant publicly and carry medicine together",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_martial_arts_01_edge_02",
+        "draft_martial_arts_01_edge_05",
+        "draft_martial_arts_01_edge_08"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_01_pressure",
+      "kind": "Event",
+      "label": "A rival bureau blocks medicine deliveries under a false warrant",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_01",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L15"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L15"
+      ],
+      "proposal": {
+        "trigger": "A rival bureau blocks medicine deliveries under a false warrant",
+        "proposedEffect": "Changes access to pack horses",
+        "effectTargetId": "draft_martial_arts_01_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_martial_arts_01_edge_03",
+        "draft_martial_arts_01_edge_04",
+        "draft_martial_arts_01_edge_05",
+        "draft_martial_arts_01_edge_09",
+        "draft_martial_arts_01_edge_10",
+        "draft_martial_arts_01_companion_edge_01",
+        "draft_martial_arts_01_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_01_response",
+      "kind": "Event",
+      "label": "Challenge the warrant publicly and carry medicine together",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_01",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L15"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L15"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Challenge the warrant publicly and carry medicine together",
+        "proposedEffect": "Challenge the warrant publicly and carry medicine together",
+        "effectTargetId": "draft_martial_arts_01_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_martial_arts_01_edge_06",
+        "draft_martial_arts_01_edge_07",
+        "draft_martial_arts_01_edge_08",
+        "draft_martial_arts_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_01_report",
+      "kind": "Knowledge",
+      "label": "A magistrate's seal is cited as authority",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_01",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L15"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L15"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A magistrate's seal is cited as authority",
+        "aboutId": "draft_martial_arts_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_martial_arts_01_edge_09"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_01_evidence",
+      "kind": "Knowledge",
+      "label": "The seal copy omits the magistrate's date",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L15"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L15"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "The seal copy omits the magistrate's date",
+        "aboutId": "draft_martial_arts_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_martial_arts_01_edge_10",
+        "draft_martial_arts_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_02_entity",
+      "kind": "Entity",
+      "label": "herbal school",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_02",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L16"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L16"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep root bundles usable at bamboo medicine court",
+        "stakes": "A master withholds antidote training from outer disciples",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_martial_arts_02_edge_01",
+        "draft_martial_arts_02_edge_04",
+        "draft_martial_arts_02_edge_07"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_02_location",
+      "kind": "Location",
+      "label": "bamboo medicine court",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_02",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L16"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L16"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_martial_arts_02_resource",
+        "conflict": "A master withholds antidote training from outer disciples",
+        "risk": "A master withholds antidote training from outer disciples"
+      },
+      "relations": [
+        "draft_martial_arts_02_edge_01",
+        "draft_martial_arts_02_edge_02",
+        "draft_martial_arts_02_edge_03",
+        "draft_martial_arts_02_edge_06"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_02_resource",
+      "kind": "Resource",
+      "label": "root bundles",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_02",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L16"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L16"
+      ],
+      "proposal": {
+        "sourceId": "draft_martial_arts_02_location",
+        "scarcity": "A master withholds antidote training from outer disciples",
+        "proposedUse": "Teach a safe first step and test it under supervision",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_martial_arts_02_edge_02",
+        "draft_martial_arts_02_edge_05",
+        "draft_martial_arts_02_edge_08"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_02_pressure",
+      "kind": "Event",
+      "label": "A master withholds antidote training from outer disciples",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_02",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L16"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L16"
+      ],
+      "proposal": {
+        "trigger": "A master withholds antidote training from outer disciples",
+        "proposedEffect": "Changes access to root bundles",
+        "effectTargetId": "draft_martial_arts_02_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_martial_arts_02_edge_03",
+        "draft_martial_arts_02_edge_04",
+        "draft_martial_arts_02_edge_05",
+        "draft_martial_arts_02_edge_09",
+        "draft_martial_arts_02_edge_10",
+        "draft_martial_arts_02_companion_edge_01",
+        "draft_martial_arts_02_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_02_response",
+      "kind": "Event",
+      "label": "Teach a safe first step and test it under supervision",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_02",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L16"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L16"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Teach a safe first step and test it under supervision",
+        "proposedEffect": "Teach a safe first step and test it under supervision",
+        "effectTargetId": "draft_martial_arts_02_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_martial_arts_02_edge_06",
+        "draft_martial_arts_02_edge_07",
+        "draft_martial_arts_02_edge_08",
+        "draft_martial_arts_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_02_report",
+      "kind": "Knowledge",
+      "label": "The school says outsiders cannot learn the method",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_02",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L16"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L16"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The school says outsiders cannot learn the method",
+        "aboutId": "draft_martial_arts_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_martial_arts_02_edge_09"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_02_evidence",
+      "kind": "Knowledge",
+      "label": "Training notes show the step was once common",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L16"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L16"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Training notes show the step was once common",
+        "aboutId": "draft_martial_arts_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_martial_arts_02_edge_10",
+        "draft_martial_arts_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_03_entity",
+      "kind": "Entity",
+      "label": "martial registry",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_03",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L17"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L17"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep repair timber usable at bridge duel ground",
+        "stakes": "A feud destroys a bridge used by noncombatants",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_martial_arts_03_edge_01",
+        "draft_martial_arts_03_edge_04",
+        "draft_martial_arts_03_edge_07"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_03_location",
+      "kind": "Location",
+      "label": "bridge duel ground",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_03",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L17"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L17"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_martial_arts_03_resource",
+        "conflict": "A feud destroys a bridge used by noncombatants",
+        "risk": "A feud destroys a bridge used by noncombatants"
+      },
+      "relations": [
+        "draft_martial_arts_03_edge_01",
+        "draft_martial_arts_03_edge_02",
+        "draft_martial_arts_03_edge_03",
+        "draft_martial_arts_03_edge_06"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_03_resource",
+      "kind": "Resource",
+      "label": "repair timber",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_03",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L17"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L17"
+      ],
+      "proposal": {
+        "sourceId": "draft_martial_arts_03_location",
+        "scarcity": "A feud destroys a bridge used by noncombatants",
+        "proposedUse": "Offer a neutral duel site and repair the crossing",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_martial_arts_03_edge_02",
+        "draft_martial_arts_03_edge_05",
+        "draft_martial_arts_03_edge_08"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_03_pressure",
+      "kind": "Event",
+      "label": "A feud destroys a bridge used by noncombatants",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_03",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L17"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L17"
+      ],
+      "proposal": {
+        "trigger": "A feud destroys a bridge used by noncombatants",
+        "proposedEffect": "Changes access to repair timber",
+        "effectTargetId": "draft_martial_arts_03_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_martial_arts_03_edge_03",
+        "draft_martial_arts_03_edge_04",
+        "draft_martial_arts_03_edge_05",
+        "draft_martial_arts_03_edge_09",
+        "draft_martial_arts_03_edge_10",
+        "draft_martial_arts_03_companion_edge_01",
+        "draft_martial_arts_03_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_03_response",
+      "kind": "Event",
+      "label": "Offer a neutral duel site and repair the crossing",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_03",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L17"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L17"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Offer a neutral duel site and repair the crossing",
+        "proposedEffect": "Offer a neutral duel site and repair the crossing",
+        "effectTargetId": "draft_martial_arts_03_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_martial_arts_03_edge_06",
+        "draft_martial_arts_03_edge_07",
+        "draft_martial_arts_03_edge_08",
+        "draft_martial_arts_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_03_report",
+      "kind": "Knowledge",
+      "label": "Both schools say the bridge is their boundary",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_03",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L17"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L17"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Both schools say the bridge is their boundary",
+        "aboutId": "draft_martial_arts_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_martial_arts_03_edge_09"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_03_evidence",
+      "kind": "Knowledge",
+      "label": "Village toll records predate either claim",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L17"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L17"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Village toll records predate either claim",
+        "aboutId": "draft_martial_arts_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_martial_arts_03_edge_10",
+        "draft_martial_arts_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_04_entity",
+      "kind": "Entity",
+      "label": "traveling physicians",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_04",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L18"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L18"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep needle cases usable at wind pass hostel",
+        "stakes": "A wounded rival hides a fever among caravan passengers",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_martial_arts_04_edge_01",
+        "draft_martial_arts_04_edge_04",
+        "draft_martial_arts_04_edge_07"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_04_location",
+      "kind": "Location",
+      "label": "wind pass hostel",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_04",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L18"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L18"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_martial_arts_04_resource",
+        "conflict": "A wounded rival hides a fever among caravan passengers",
+        "risk": "A wounded rival hides a fever among caravan passengers"
+      },
+      "relations": [
+        "draft_martial_arts_04_edge_01",
+        "draft_martial_arts_04_edge_02",
+        "draft_martial_arts_04_edge_03",
+        "draft_martial_arts_04_edge_06"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_04_resource",
+      "kind": "Resource",
+      "label": "needle cases",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_04",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L18"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L18"
+      ],
+      "proposal": {
+        "sourceId": "draft_martial_arts_04_location",
+        "scarcity": "A wounded rival hides a fever among caravan passengers",
+        "proposedUse": "Treat the fever without requiring a faction oath",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_martial_arts_04_edge_02",
+        "draft_martial_arts_04_edge_05",
+        "draft_martial_arts_04_edge_08"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_04_pressure",
+      "kind": "Event",
+      "label": "A wounded rival hides a fever among caravan passengers",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_04",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L18"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L18"
+      ],
+      "proposal": {
+        "trigger": "A wounded rival hides a fever among caravan passengers",
+        "proposedEffect": "Changes access to needle cases",
+        "effectTargetId": "draft_martial_arts_04_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_martial_arts_04_edge_03",
+        "draft_martial_arts_04_edge_04",
+        "draft_martial_arts_04_edge_05",
+        "draft_martial_arts_04_edge_09",
+        "draft_martial_arts_04_edge_10",
+        "draft_martial_arts_04_companion_edge_01",
+        "draft_martial_arts_04_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_04_response",
+      "kind": "Event",
+      "label": "Treat the fever without requiring a faction oath",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_04",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L18"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L18"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Treat the fever without requiring a faction oath",
+        "proposedEffect": "Treat the fever without requiring a faction oath",
+        "effectTargetId": "draft_martial_arts_04_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_martial_arts_04_edge_06",
+        "draft_martial_arts_04_edge_07",
+        "draft_martial_arts_04_edge_08",
+        "draft_martial_arts_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_04_report",
+      "kind": "Knowledge",
+      "label": "Passengers hear the illness is a combat injury",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_04",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L18"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L18"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Passengers hear the illness is a combat injury",
+        "aboutId": "draft_martial_arts_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_martial_arts_04_edge_09"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_04_evidence",
+      "kind": "Knowledge",
+      "label": "Temperature records show it spread before the fight",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L18"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L18"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Temperature records show it spread before the fight",
+        "aboutId": "draft_martial_arts_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_martial_arts_04_edge_10",
+        "draft_martial_arts_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_05_entity",
+      "kind": "Entity",
+      "label": "clan elders",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_05",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L19"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L19"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep practice blades usable at ancestral training hall",
+        "stakes": "A stolen manual sparks accusations between junior branches",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_martial_arts_05_edge_01",
+        "draft_martial_arts_05_edge_04",
+        "draft_martial_arts_05_edge_07"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_05_location",
+      "kind": "Location",
+      "label": "ancestral training hall",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_05",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L19"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L19"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_martial_arts_05_resource",
+        "conflict": "A stolen manual sparks accusations between junior branches",
+        "risk": "A stolen manual sparks accusations between junior branches"
+      },
+      "relations": [
+        "draft_martial_arts_05_edge_01",
+        "draft_martial_arts_05_edge_02",
+        "draft_martial_arts_05_edge_03",
+        "draft_martial_arts_05_edge_06"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_05_resource",
+      "kind": "Resource",
+      "label": "practice blades",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_05",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L19"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L19"
+      ],
+      "proposal": {
+        "sourceId": "draft_martial_arts_05_location",
+        "scarcity": "A stolen manual sparks accusations between junior branches",
+        "proposedUse": "Compare copying marks before punishment",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_martial_arts_05_edge_02",
+        "draft_martial_arts_05_edge_05",
+        "draft_martial_arts_05_edge_08"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_05_pressure",
+      "kind": "Event",
+      "label": "A stolen manual sparks accusations between junior branches",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_05",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L19"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L19"
+      ],
+      "proposal": {
+        "trigger": "A stolen manual sparks accusations between junior branches",
+        "proposedEffect": "Changes access to practice blades",
+        "effectTargetId": "draft_martial_arts_05_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_martial_arts_05_edge_03",
+        "draft_martial_arts_05_edge_04",
+        "draft_martial_arts_05_edge_05",
+        "draft_martial_arts_05_edge_09",
+        "draft_martial_arts_05_edge_10",
+        "draft_martial_arts_05_companion_edge_01",
+        "draft_martial_arts_05_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_05_response",
+      "kind": "Event",
+      "label": "Compare copying marks before punishment",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_05",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L19"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L19"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Compare copying marks before punishment",
+        "proposedEffect": "Compare copying marks before punishment",
+        "effectTargetId": "draft_martial_arts_05_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_martial_arts_05_edge_06",
+        "draft_martial_arts_05_edge_07",
+        "draft_martial_arts_05_edge_08",
+        "draft_martial_arts_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_05_report",
+      "kind": "Knowledge",
+      "label": "An elder names one branch from memory",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_05",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L19"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L19"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "An elder names one branch from memory",
+        "aboutId": "draft_martial_arts_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_martial_arts_05_edge_09"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_05_evidence",
+      "kind": "Knowledge",
+      "label": "Ink dates show the manual moved later",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L19"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L19"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Ink dates show the manual moved later",
+        "aboutId": "draft_martial_arts_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_martial_arts_05_edge_10",
+        "draft_martial_arts_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_01_counterparty",
+      "kind": "Entity",
+      "label": "rival escort captain",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_01",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L12"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L12"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Block medicine caravans while controlling the safe road",
+        "stakes": "A rival bureau blocks medicine deliveries under a false warrant",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_martial_arts_01_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_01_belief_holder",
+      "kind": "Entity",
+      "label": "road guards",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_01",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L12"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L12"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Any seal copy is a valid travel warrant",
+        "stakes": "A rival bureau blocks medicine deliveries under a false warrant",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_martial_arts_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_01_evidence_site",
+      "kind": "Location",
+      "label": "warrant seal registry",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L12"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L12"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A rival bureau blocks medicine deliveries under a false warrant",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_martial_arts_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_01_alternative",
+      "kind": "Event",
+      "label": "Escort one verified delivery under a magistrate's new seal",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_01",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L12"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L12"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Escort one verified delivery under a magistrate's new seal",
+        "costAndConsequence": "The bureau risks a clash and the road stays contested",
+        "alternativeToId": "draft_martial_arts_01_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_martial_arts_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_01_additional_belief",
+      "kind": "Knowledge",
+      "label": "Any seal copy is a valid travel warrant",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_01",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L12"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L12"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Any seal copy is a valid travel warrant",
+        "aboutId": "draft_martial_arts_01_pressure",
+        "holderId": "draft_martial_arts_01_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_martial_arts_01_companion_edge_02",
+        "draft_martial_arts_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_02_counterparty",
+      "kind": "Entity",
+      "label": "antidote master",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_02",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L13"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L13"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Reserve training for inner disciples to keep rank privilege",
+        "stakes": "A master withholds antidote training from outer disciples",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_martial_arts_02_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_02_belief_holder",
+      "kind": "Entity",
+      "label": "inner disciples",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_02",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L13"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L13"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: An outsider always poisons the remedy",
+        "stakes": "A master withholds antidote training from outer disciples",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_martial_arts_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_02_evidence_site",
+      "kind": "Location",
+      "label": "old training scroll cupboard",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L13"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L13"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A master withholds antidote training from outer disciples",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_martial_arts_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_02_alternative",
+      "kind": "Event",
+      "label": "Teach a supervised antidote lesson to outer disciples",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_02",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L13"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L13"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Teach a supervised antidote lesson to outer disciples",
+        "costAndConsequence": "The master loses control of the method and students need time",
+        "alternativeToId": "draft_martial_arts_02_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_martial_arts_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_02_additional_belief",
+      "kind": "Knowledge",
+      "label": "An outsider always poisons the remedy",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_02",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L13"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L13"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "An outsider always poisons the remedy",
+        "aboutId": "draft_martial_arts_02_pressure",
+        "holderId": "draft_martial_arts_02_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_martial_arts_02_companion_edge_02",
+        "draft_martial_arts_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_03_counterparty",
+      "kind": "Entity",
+      "label": "feuding bridge master",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_03",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L14"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L14"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Claim the crossing as school territory",
+        "stakes": "A feud destroys a bridge used by noncombatants",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_martial_arts_03_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_03_belief_holder",
+      "kind": "Entity",
+      "label": "junior fighters",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_03",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L14"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L14"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: A bridge used by a school belongs to it",
+        "stakes": "A feud destroys a bridge used by noncombatants",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_martial_arts_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_03_evidence_site",
+      "kind": "Location",
+      "label": "village toll archive",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L14"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L14"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A feud destroys a bridge used by noncombatants",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_martial_arts_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_03_alternative",
+      "kind": "Event",
+      "label": "Declare a neutral crossing for villagers pending mediation",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_03",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L14"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L14"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Declare a neutral crossing for villagers pending mediation",
+        "costAndConsequence": "Both schools surrender a strategic post",
+        "alternativeToId": "draft_martial_arts_03_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_martial_arts_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_03_additional_belief",
+      "kind": "Knowledge",
+      "label": "A bridge used by a school belongs to it",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_03",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L14"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L14"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A bridge used by a school belongs to it",
+        "aboutId": "draft_martial_arts_03_pressure",
+        "holderId": "draft_martial_arts_03_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_martial_arts_03_companion_edge_02",
+        "draft_martial_arts_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_04_counterparty",
+      "kind": "Entity",
+      "label": "wounded caravan fighter",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_04",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L15"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L15"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Conceal fever to avoid being left behind",
+        "stakes": "A wounded rival hides a fever among caravan passengers",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_martial_arts_04_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_04_belief_holder",
+      "kind": "Entity",
+      "label": "escort trainees",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_04",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L15"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L15"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: A wound fever cannot pass to passengers",
+        "stakes": "A wounded rival hides a fever among caravan passengers",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_martial_arts_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_04_evidence_site",
+      "kind": "Location",
+      "label": "caravan temperature station",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L15"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L15"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A wounded rival hides a fever among caravan passengers",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_martial_arts_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_04_alternative",
+      "kind": "Event",
+      "label": "Separate sick passengers and carry the fighter under observation",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_04",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L15"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L15"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Separate sick passengers and carry the fighter under observation",
+        "costAndConsequence": "The caravan slows and medics use scarce herbs",
+        "alternativeToId": "draft_martial_arts_04_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_martial_arts_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_04_additional_belief",
+      "kind": "Knowledge",
+      "label": "A wound fever cannot pass to passengers",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_04",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L15"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L15"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A wound fever cannot pass to passengers",
+        "aboutId": "draft_martial_arts_04_pressure",
+        "holderId": "draft_martial_arts_04_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_martial_arts_04_companion_edge_02",
+        "draft_martial_arts_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_05_counterparty",
+      "kind": "Entity",
+      "label": "manual custodian",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_05",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L16"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L16"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Name a rival branch before ink dates are checked",
+        "stakes": "A stolen manual sparks accusations between junior branches",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_martial_arts_05_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_05_belief_holder",
+      "kind": "Entity",
+      "label": "clan novices",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_05",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L16"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L16"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: The first accusation identifies the thief",
+        "stakes": "A stolen manual sparks accusations between junior branches",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_martial_arts_05_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_05_evidence_site",
+      "kind": "Location",
+      "label": "scribe ink workshop",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L16"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L16"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A stolen manual sparks accusations between junior branches",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_martial_arts_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_05_alternative",
+      "kind": "Event",
+      "label": "Seal the manual and audit access to its later binding",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_05",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L16"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L16"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Seal the manual and audit access to its later binding",
+        "costAndConsequence": "Training stops and both branches face suspicion",
+        "alternativeToId": "draft_martial_arts_05_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_martial_arts_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_martial_arts_05_additional_belief",
+      "kind": "Knowledge",
+      "label": "The first accusation identifies the thief",
+      "scopeId": "motif_martial_arts",
+      "motifId": "martial_arts",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_martial_arts_05",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L16"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L16"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The first accusation identifies the thief",
+        "aboutId": "draft_martial_arts_05_pressure",
+        "holderId": "draft_martial_arts_05_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_martial_arts_05_companion_edge_02",
+        "draft_martial_arts_05_companion_edge_03"
+      ]
+    }
+  ],
+  "structuralEdges": [
+    {
+      "id": "draft_martial_arts_01_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_martial_arts_01_entity",
+      "toId": "draft_martial_arts_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_01:entity>location"
+    },
+    {
+      "id": "draft_martial_arts_01_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_martial_arts_01_location",
+      "toId": "draft_martial_arts_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_01:location>resource"
+    },
+    {
+      "id": "draft_martial_arts_01_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_martial_arts_01_pressure",
+      "toId": "draft_martial_arts_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_01:pressure>location"
+    },
+    {
+      "id": "draft_martial_arts_01_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_martial_arts_01_pressure",
+      "toId": "draft_martial_arts_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_01:pressure>entity"
+    },
+    {
+      "id": "draft_martial_arts_01_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_martial_arts_01_pressure",
+      "toId": "draft_martial_arts_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_01:pressure>resource"
+    },
+    {
+      "id": "draft_martial_arts_01_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_martial_arts_01_response",
+      "toId": "draft_martial_arts_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_01:response>location"
+    },
+    {
+      "id": "draft_martial_arts_01_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_martial_arts_01_response",
+      "toId": "draft_martial_arts_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_01:response>entity"
+    },
+    {
+      "id": "draft_martial_arts_01_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_martial_arts_01_response",
+      "toId": "draft_martial_arts_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_01:response>resource"
+    },
+    {
+      "id": "draft_martial_arts_01_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_martial_arts_01_report",
+      "toId": "draft_martial_arts_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_01:report>pressure"
+    },
+    {
+      "id": "draft_martial_arts_01_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_martial_arts_01_evidence",
+      "toId": "draft_martial_arts_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_01:evidence>pressure"
+    },
+    {
+      "id": "draft_martial_arts_02_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_martial_arts_02_entity",
+      "toId": "draft_martial_arts_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_02:entity>location"
+    },
+    {
+      "id": "draft_martial_arts_02_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_martial_arts_02_location",
+      "toId": "draft_martial_arts_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_02:location>resource"
+    },
+    {
+      "id": "draft_martial_arts_02_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_martial_arts_02_pressure",
+      "toId": "draft_martial_arts_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_02:pressure>location"
+    },
+    {
+      "id": "draft_martial_arts_02_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_martial_arts_02_pressure",
+      "toId": "draft_martial_arts_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_02:pressure>entity"
+    },
+    {
+      "id": "draft_martial_arts_02_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_martial_arts_02_pressure",
+      "toId": "draft_martial_arts_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_02:pressure>resource"
+    },
+    {
+      "id": "draft_martial_arts_02_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_martial_arts_02_response",
+      "toId": "draft_martial_arts_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_02:response>location"
+    },
+    {
+      "id": "draft_martial_arts_02_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_martial_arts_02_response",
+      "toId": "draft_martial_arts_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_02:response>entity"
+    },
+    {
+      "id": "draft_martial_arts_02_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_martial_arts_02_response",
+      "toId": "draft_martial_arts_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_02:response>resource"
+    },
+    {
+      "id": "draft_martial_arts_02_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_martial_arts_02_report",
+      "toId": "draft_martial_arts_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_02:report>pressure"
+    },
+    {
+      "id": "draft_martial_arts_02_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_martial_arts_02_evidence",
+      "toId": "draft_martial_arts_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_02:evidence>pressure"
+    },
+    {
+      "id": "draft_martial_arts_03_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_martial_arts_03_entity",
+      "toId": "draft_martial_arts_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_03:entity>location"
+    },
+    {
+      "id": "draft_martial_arts_03_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_martial_arts_03_location",
+      "toId": "draft_martial_arts_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_03:location>resource"
+    },
+    {
+      "id": "draft_martial_arts_03_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_martial_arts_03_pressure",
+      "toId": "draft_martial_arts_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_03:pressure>location"
+    },
+    {
+      "id": "draft_martial_arts_03_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_martial_arts_03_pressure",
+      "toId": "draft_martial_arts_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_03:pressure>entity"
+    },
+    {
+      "id": "draft_martial_arts_03_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_martial_arts_03_pressure",
+      "toId": "draft_martial_arts_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_03:pressure>resource"
+    },
+    {
+      "id": "draft_martial_arts_03_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_martial_arts_03_response",
+      "toId": "draft_martial_arts_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_03:response>location"
+    },
+    {
+      "id": "draft_martial_arts_03_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_martial_arts_03_response",
+      "toId": "draft_martial_arts_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_03:response>entity"
+    },
+    {
+      "id": "draft_martial_arts_03_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_martial_arts_03_response",
+      "toId": "draft_martial_arts_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_03:response>resource"
+    },
+    {
+      "id": "draft_martial_arts_03_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_martial_arts_03_report",
+      "toId": "draft_martial_arts_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_03:report>pressure"
+    },
+    {
+      "id": "draft_martial_arts_03_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_martial_arts_03_evidence",
+      "toId": "draft_martial_arts_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_03:evidence>pressure"
+    },
+    {
+      "id": "draft_martial_arts_04_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_martial_arts_04_entity",
+      "toId": "draft_martial_arts_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_04:entity>location"
+    },
+    {
+      "id": "draft_martial_arts_04_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_martial_arts_04_location",
+      "toId": "draft_martial_arts_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_04:location>resource"
+    },
+    {
+      "id": "draft_martial_arts_04_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_martial_arts_04_pressure",
+      "toId": "draft_martial_arts_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_04:pressure>location"
+    },
+    {
+      "id": "draft_martial_arts_04_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_martial_arts_04_pressure",
+      "toId": "draft_martial_arts_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_04:pressure>entity"
+    },
+    {
+      "id": "draft_martial_arts_04_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_martial_arts_04_pressure",
+      "toId": "draft_martial_arts_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_04:pressure>resource"
+    },
+    {
+      "id": "draft_martial_arts_04_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_martial_arts_04_response",
+      "toId": "draft_martial_arts_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_04:response>location"
+    },
+    {
+      "id": "draft_martial_arts_04_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_martial_arts_04_response",
+      "toId": "draft_martial_arts_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_04:response>entity"
+    },
+    {
+      "id": "draft_martial_arts_04_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_martial_arts_04_response",
+      "toId": "draft_martial_arts_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_04:response>resource"
+    },
+    {
+      "id": "draft_martial_arts_04_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_martial_arts_04_report",
+      "toId": "draft_martial_arts_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_04:report>pressure"
+    },
+    {
+      "id": "draft_martial_arts_04_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_martial_arts_04_evidence",
+      "toId": "draft_martial_arts_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_04:evidence>pressure"
+    },
+    {
+      "id": "draft_martial_arts_05_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_martial_arts_05_entity",
+      "toId": "draft_martial_arts_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_05:entity>location"
+    },
+    {
+      "id": "draft_martial_arts_05_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_martial_arts_05_location",
+      "toId": "draft_martial_arts_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_05:location>resource"
+    },
+    {
+      "id": "draft_martial_arts_05_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_martial_arts_05_pressure",
+      "toId": "draft_martial_arts_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_05:pressure>location"
+    },
+    {
+      "id": "draft_martial_arts_05_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_martial_arts_05_pressure",
+      "toId": "draft_martial_arts_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_05:pressure>entity"
+    },
+    {
+      "id": "draft_martial_arts_05_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_martial_arts_05_pressure",
+      "toId": "draft_martial_arts_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_05:pressure>resource"
+    },
+    {
+      "id": "draft_martial_arts_05_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_martial_arts_05_response",
+      "toId": "draft_martial_arts_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_05:response>location"
+    },
+    {
+      "id": "draft_martial_arts_05_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_martial_arts_05_response",
+      "toId": "draft_martial_arts_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_05:response>entity"
+    },
+    {
+      "id": "draft_martial_arts_05_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_martial_arts_05_response",
+      "toId": "draft_martial_arts_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_05:response>resource"
+    },
+    {
+      "id": "draft_martial_arts_05_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_martial_arts_05_report",
+      "toId": "draft_martial_arts_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_05:report>pressure"
+    },
+    {
+      "id": "draft_martial_arts_05_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_martial_arts_05_evidence",
+      "toId": "draft_martial_arts_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_martial_arts_05:evidence>pressure"
+    },
+    {
+      "id": "draft_martial_arts_01_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_martial_arts_01_pressure",
+      "toId": "draft_martial_arts_01_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L12"
+    },
+    {
+      "id": "draft_martial_arts_01_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_martial_arts_01_additional_belief",
+      "toId": "draft_martial_arts_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L12"
+    },
+    {
+      "id": "draft_martial_arts_01_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_martial_arts_01_additional_belief",
+      "toId": "draft_martial_arts_01_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L12"
+    },
+    {
+      "id": "draft_martial_arts_01_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_martial_arts_01_evidence_site",
+      "toId": "draft_martial_arts_01_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L12"
+    },
+    {
+      "id": "draft_martial_arts_01_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_martial_arts_01_alternative",
+      "toId": "draft_martial_arts_01_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L12"
+    },
+    {
+      "id": "draft_martial_arts_02_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_martial_arts_02_pressure",
+      "toId": "draft_martial_arts_02_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L13"
+    },
+    {
+      "id": "draft_martial_arts_02_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_martial_arts_02_additional_belief",
+      "toId": "draft_martial_arts_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L13"
+    },
+    {
+      "id": "draft_martial_arts_02_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_martial_arts_02_additional_belief",
+      "toId": "draft_martial_arts_02_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L13"
+    },
+    {
+      "id": "draft_martial_arts_02_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_martial_arts_02_evidence_site",
+      "toId": "draft_martial_arts_02_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L13"
+    },
+    {
+      "id": "draft_martial_arts_02_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_martial_arts_02_alternative",
+      "toId": "draft_martial_arts_02_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L13"
+    },
+    {
+      "id": "draft_martial_arts_03_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_martial_arts_03_pressure",
+      "toId": "draft_martial_arts_03_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L14"
+    },
+    {
+      "id": "draft_martial_arts_03_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_martial_arts_03_additional_belief",
+      "toId": "draft_martial_arts_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L14"
+    },
+    {
+      "id": "draft_martial_arts_03_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_martial_arts_03_additional_belief",
+      "toId": "draft_martial_arts_03_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L14"
+    },
+    {
+      "id": "draft_martial_arts_03_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_martial_arts_03_evidence_site",
+      "toId": "draft_martial_arts_03_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L14"
+    },
+    {
+      "id": "draft_martial_arts_03_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_martial_arts_03_alternative",
+      "toId": "draft_martial_arts_03_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L14"
+    },
+    {
+      "id": "draft_martial_arts_04_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_martial_arts_04_pressure",
+      "toId": "draft_martial_arts_04_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L15"
+    },
+    {
+      "id": "draft_martial_arts_04_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_martial_arts_04_additional_belief",
+      "toId": "draft_martial_arts_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L15"
+    },
+    {
+      "id": "draft_martial_arts_04_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_martial_arts_04_additional_belief",
+      "toId": "draft_martial_arts_04_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L15"
+    },
+    {
+      "id": "draft_martial_arts_04_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_martial_arts_04_evidence_site",
+      "toId": "draft_martial_arts_04_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L15"
+    },
+    {
+      "id": "draft_martial_arts_04_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_martial_arts_04_alternative",
+      "toId": "draft_martial_arts_04_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L15"
+    },
+    {
+      "id": "draft_martial_arts_05_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_martial_arts_05_pressure",
+      "toId": "draft_martial_arts_05_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L16"
+    },
+    {
+      "id": "draft_martial_arts_05_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_martial_arts_05_additional_belief",
+      "toId": "draft_martial_arts_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L16"
+    },
+    {
+      "id": "draft_martial_arts_05_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_martial_arts_05_additional_belief",
+      "toId": "draft_martial_arts_05_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L16"
+    },
+    {
+      "id": "draft_martial_arts_05_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_martial_arts_05_evidence_site",
+      "toId": "draft_martial_arts_05_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L16"
+    },
+    {
+      "id": "draft_martial_arts_05_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_martial_arts_05_alternative",
+      "toId": "draft_martial_arts_05_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L16"
+    }
+  ],
+  "proposedCausalLinks": [
+    {
+      "id": "draft_martial_arts_01_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_martial_arts_01_pressure",
+      "toId": "draft_martial_arts_01_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_martial_arts_01_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_martial_arts_01_evidence",
+      "toId": "draft_martial_arts_01_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_martial_arts_02_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_martial_arts_02_pressure",
+      "toId": "draft_martial_arts_02_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_martial_arts_02_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_martial_arts_02_evidence",
+      "toId": "draft_martial_arts_02_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_martial_arts_03_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_martial_arts_03_pressure",
+      "toId": "draft_martial_arts_03_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_martial_arts_03_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_martial_arts_03_evidence",
+      "toId": "draft_martial_arts_03_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_martial_arts_04_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_martial_arts_04_pressure",
+      "toId": "draft_martial_arts_04_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_martial_arts_04_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_martial_arts_04_evidence",
+      "toId": "draft_martial_arts_04_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_martial_arts_05_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_martial_arts_05_pressure",
+      "toId": "draft_martial_arts_05_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_martial_arts_05_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_martial_arts_05_evidence",
+      "toId": "draft_martial_arts_05_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    }
+  ]
+}

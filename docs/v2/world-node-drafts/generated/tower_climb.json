@@ -1,0 +1,3079 @@
+{
+  "schema": "world-node-drafts/v1",
+  "status": "Draft",
+  "runtime": false,
+  "scope": {
+    "id": "motif_tower_climb",
+    "label": "탑 등반",
+    "kind": "genre-or-structure proposal; not a world definition"
+  },
+  "canonImpact": "none; no Draft item is accepted game setting",
+  "sourceRefs": [
+    "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+    "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+    "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft"
+  ],
+  "fronts": [
+    {
+      "id": "draft_tower_climb_01",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A sponsor hides rope wear before a timed ascent",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A sponsor hides rope wear before a timed ascent",
+      "authoredIntervention": "Inspect ropes and accept a slower climb",
+      "initialReport": "The sponsor says the rope is new",
+      "verificationCandidate": "Frayed core fibers show repeated use",
+      "alternativeInterventions": "Issue inspected reserve rope and postpone the start",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L45",
+        "docs/v2/world-node-drafts/companion-b.txt#L37"
+      ],
+      "semanticSignature": "a sponsor hides rope wear before a timed ascent inspect ropes and accept a slower climb safety ropes the sponsor says the rope is new frayed core fibers show repeated use",
+      "nodeIds": [
+        "draft_tower_climb_01_entity",
+        "draft_tower_climb_01_location",
+        "draft_tower_climb_01_resource",
+        "draft_tower_climb_01_pressure",
+        "draft_tower_climb_01_response",
+        "draft_tower_climb_01_report",
+        "draft_tower_climb_01_evidence",
+        "draft_tower_climb_01_counterparty",
+        "draft_tower_climb_01_belief_holder",
+        "draft_tower_climb_01_evidence_site",
+        "draft_tower_climb_01_alternative",
+        "draft_tower_climb_01_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "The sponsor loses a timed record and climbers wait",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_tower_climb_01_counterparty",
+        "evidenceSiteId": "draft_tower_climb_01_evidence_site",
+        "alternativeEventId": "draft_tower_climb_01_alternative",
+        "additionalBeliefId": "draft_tower_climb_01_additional_belief",
+        "beliefHolderId": "draft_tower_climb_01_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L37"
+      }
+    },
+    {
+      "id": "draft_tower_climb_02",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A shortcut marker survives after the ledge breaks",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A shortcut marker survives after the ledge breaks",
+      "authoredIntervention": "Remove the marker and map a longer safe route",
+      "initialReport": "A veteran claims the ledge still holds",
+      "verificationCandidate": "New sketches show the gap",
+      "alternativeInterventions": "Close the shortcut and mark the longer stable ledge",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L46",
+        "docs/v2/world-node-drafts/companion-b.txt#L38"
+      ],
+      "semanticSignature": "a shortcut marker survives after the ledge breaks remove the marker and map a longer safe route chalk markers a veteran claims the ledge still holds new sketches show the gap",
+      "nodeIds": [
+        "draft_tower_climb_02_entity",
+        "draft_tower_climb_02_location",
+        "draft_tower_climb_02_resource",
+        "draft_tower_climb_02_pressure",
+        "draft_tower_climb_02_response",
+        "draft_tower_climb_02_report",
+        "draft_tower_climb_02_evidence",
+        "draft_tower_climb_02_counterparty",
+        "draft_tower_climb_02_belief_holder",
+        "draft_tower_climb_02_evidence_site",
+        "draft_tower_climb_02_alternative",
+        "draft_tower_climb_02_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Teams lose time and carry more water",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_tower_climb_02_counterparty",
+        "evidenceSiteId": "draft_tower_climb_02_evidence_site",
+        "alternativeEventId": "draft_tower_climb_02_alternative",
+        "additionalBeliefId": "draft_tower_climb_02_additional_belief",
+        "beliefHolderId": "draft_tower_climb_02_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L38"
+      }
+    },
+    {
+      "id": "draft_tower_climb_03",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A climber hoards flasks while a storm traps the next team",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A climber hoards flasks while a storm traps the next team",
+      "authoredIntervention": "Set a shared emergency reserve by group size",
+      "initialReport": "The climber says the next team turned back",
+      "verificationCandidate": "Signal notes confirm they are still above",
+      "alternativeInterventions": "Share measured flasks through a rope relay",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L47",
+        "docs/v2/world-node-drafts/companion-b.txt#L39"
+      ],
+      "semanticSignature": "a climber hoards flasks while a storm traps the next team set a shared emergency reserve by group size heat flasks the climber says the next team turned back signal notes confirm they are still above",
+      "nodeIds": [
+        "draft_tower_climb_03_entity",
+        "draft_tower_climb_03_location",
+        "draft_tower_climb_03_resource",
+        "draft_tower_climb_03_pressure",
+        "draft_tower_climb_03_response",
+        "draft_tower_climb_03_report",
+        "draft_tower_climb_03_evidence",
+        "draft_tower_climb_03_counterparty",
+        "draft_tower_climb_03_belief_holder",
+        "draft_tower_climb_03_evidence_site",
+        "draft_tower_climb_03_alternative",
+        "draft_tower_climb_03_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "The donor's own descent reserve shrinks",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_tower_climb_03_counterparty",
+        "evidenceSiteId": "draft_tower_climb_03_evidence_site",
+        "alternativeEventId": "draft_tower_climb_03_alternative",
+        "additionalBeliefId": "draft_tower_climb_03_additional_belief",
+        "beliefHolderId": "draft_tower_climb_03_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L39"
+      }
+    },
+    {
+      "id": "draft_tower_climb_04",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "An echo repeats a rescue call from the wrong branch",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "An echo repeats a rescue call from the wrong branch",
+      "authoredIntervention": "Use timed call-and-response to locate the source",
+      "initialReport": "A hurried team follows the loudest echo",
+      "verificationCandidate": "Response intervals identify the real branch",
+      "alternativeInterventions": "Call and wait for a timed reply before committing crews",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L48",
+        "docs/v2/world-node-drafts/companion-b.txt#L40"
+      ],
+      "semanticSignature": "an echo repeats a rescue call from the wrong branch use timed call and response to locate the source signal whistles a hurried team follows the loudest echo response intervals identify the real branch",
+      "nodeIds": [
+        "draft_tower_climb_04_entity",
+        "draft_tower_climb_04_location",
+        "draft_tower_climb_04_resource",
+        "draft_tower_climb_04_pressure",
+        "draft_tower_climb_04_response",
+        "draft_tower_climb_04_report",
+        "draft_tower_climb_04_evidence",
+        "draft_tower_climb_04_counterparty",
+        "draft_tower_climb_04_belief_holder",
+        "draft_tower_climb_04_evidence_site",
+        "draft_tower_climb_04_alternative",
+        "draft_tower_climb_04_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Rescue is slower and a victim may deteriorate",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_tower_climb_04_counterparty",
+        "evidenceSiteId": "draft_tower_climb_04_evidence_site",
+        "alternativeEventId": "draft_tower_climb_04_alternative",
+        "additionalBeliefId": "draft_tower_climb_04_additional_belief",
+        "beliefHolderId": "draft_tower_climb_04_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L40"
+      }
+    },
+    {
+      "id": "draft_tower_climb_05",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A claimed summit leaves no record of the descent",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A claimed summit leaves no record of the descent",
+      "authoredIntervention": "Verify the route without erasing the climber's effort",
+      "initialReport": "The sponsor calls the seal conclusive",
+      "verificationCandidate": "A lower landing record shows an interrupted return",
+      "alternativeInterventions": "Treat the ascent as provisional until the climber returns",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L49",
+        "docs/v2/world-node-drafts/companion-b.txt#L41"
+      ],
+      "semanticSignature": "a claimed summit leaves no record of the descent verify the route without erasing the climber s effort ascent seals the sponsor calls the seal conclusive a lower landing record shows an interrupted return",
+      "nodeIds": [
+        "draft_tower_climb_05_entity",
+        "draft_tower_climb_05_location",
+        "draft_tower_climb_05_resource",
+        "draft_tower_climb_05_pressure",
+        "draft_tower_climb_05_response",
+        "draft_tower_climb_05_report",
+        "draft_tower_climb_05_evidence",
+        "draft_tower_climb_05_counterparty",
+        "draft_tower_climb_05_belief_holder",
+        "draft_tower_climb_05_evidence_site",
+        "draft_tower_climb_05_alternative",
+        "draft_tower_climb_05_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Awards wait and the sponsor risks embarrassment",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_tower_climb_05_counterparty",
+        "evidenceSiteId": "draft_tower_climb_05_evidence_site",
+        "alternativeEventId": "draft_tower_climb_05_alternative",
+        "additionalBeliefId": "draft_tower_climb_05_additional_belief",
+        "beliefHolderId": "draft_tower_climb_05_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L41"
+      }
+    }
+  ],
+  "nodes": [
+    {
+      "id": "draft_tower_climb_01_entity",
+      "kind": "Entity",
+      "label": "rope team registry",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_01",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L45"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L45"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep safety ropes usable at first ascent shelf",
+        "stakes": "A sponsor hides rope wear before a timed ascent",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_tower_climb_01_edge_01",
+        "draft_tower_climb_01_edge_04",
+        "draft_tower_climb_01_edge_07"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_01_location",
+      "kind": "Location",
+      "label": "first ascent shelf",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_01",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L45"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L45"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_tower_climb_01_resource",
+        "conflict": "A sponsor hides rope wear before a timed ascent",
+        "risk": "A sponsor hides rope wear before a timed ascent"
+      },
+      "relations": [
+        "draft_tower_climb_01_edge_01",
+        "draft_tower_climb_01_edge_02",
+        "draft_tower_climb_01_edge_03",
+        "draft_tower_climb_01_edge_06"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_01_resource",
+      "kind": "Resource",
+      "label": "safety ropes",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_01",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L45"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L45"
+      ],
+      "proposal": {
+        "sourceId": "draft_tower_climb_01_location",
+        "scarcity": "A sponsor hides rope wear before a timed ascent",
+        "proposedUse": "Inspect ropes and accept a slower climb",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_tower_climb_01_edge_02",
+        "draft_tower_climb_01_edge_05",
+        "draft_tower_climb_01_edge_08"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_01_pressure",
+      "kind": "Event",
+      "label": "A sponsor hides rope wear before a timed ascent",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_01",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L45"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L45"
+      ],
+      "proposal": {
+        "trigger": "A sponsor hides rope wear before a timed ascent",
+        "proposedEffect": "Changes access to safety ropes",
+        "effectTargetId": "draft_tower_climb_01_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_tower_climb_01_edge_03",
+        "draft_tower_climb_01_edge_04",
+        "draft_tower_climb_01_edge_05",
+        "draft_tower_climb_01_edge_09",
+        "draft_tower_climb_01_edge_10",
+        "draft_tower_climb_01_companion_edge_01",
+        "draft_tower_climb_01_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_01_response",
+      "kind": "Event",
+      "label": "Inspect ropes and accept a slower climb",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_01",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L45"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L45"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Inspect ropes and accept a slower climb",
+        "proposedEffect": "Inspect ropes and accept a slower climb",
+        "effectTargetId": "draft_tower_climb_01_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_tower_climb_01_edge_06",
+        "draft_tower_climb_01_edge_07",
+        "draft_tower_climb_01_edge_08",
+        "draft_tower_climb_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_01_report",
+      "kind": "Knowledge",
+      "label": "The sponsor says the rope is new",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_01",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L45"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L45"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The sponsor says the rope is new",
+        "aboutId": "draft_tower_climb_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_tower_climb_01_edge_09"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_01_evidence",
+      "kind": "Knowledge",
+      "label": "Frayed core fibers show repeated use",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L45"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L45"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Frayed core fibers show repeated use",
+        "aboutId": "draft_tower_climb_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_tower_climb_01_edge_10",
+        "draft_tower_climb_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_02_entity",
+      "kind": "Entity",
+      "label": "route cartographers",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_02",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L46"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L46"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep chalk markers usable at wind-step ledge",
+        "stakes": "A shortcut marker survives after the ledge breaks",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_tower_climb_02_edge_01",
+        "draft_tower_climb_02_edge_04",
+        "draft_tower_climb_02_edge_07"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_02_location",
+      "kind": "Location",
+      "label": "wind-step ledge",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_02",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L46"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L46"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_tower_climb_02_resource",
+        "conflict": "A shortcut marker survives after the ledge breaks",
+        "risk": "A shortcut marker survives after the ledge breaks"
+      },
+      "relations": [
+        "draft_tower_climb_02_edge_01",
+        "draft_tower_climb_02_edge_02",
+        "draft_tower_climb_02_edge_03",
+        "draft_tower_climb_02_edge_06"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_02_resource",
+      "kind": "Resource",
+      "label": "chalk markers",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_02",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L46"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L46"
+      ],
+      "proposal": {
+        "sourceId": "draft_tower_climb_02_location",
+        "scarcity": "A shortcut marker survives after the ledge breaks",
+        "proposedUse": "Remove the marker and map a longer safe route",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_tower_climb_02_edge_02",
+        "draft_tower_climb_02_edge_05",
+        "draft_tower_climb_02_edge_08"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_02_pressure",
+      "kind": "Event",
+      "label": "A shortcut marker survives after the ledge breaks",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_02",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L46"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L46"
+      ],
+      "proposal": {
+        "trigger": "A shortcut marker survives after the ledge breaks",
+        "proposedEffect": "Changes access to chalk markers",
+        "effectTargetId": "draft_tower_climb_02_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_tower_climb_02_edge_03",
+        "draft_tower_climb_02_edge_04",
+        "draft_tower_climb_02_edge_05",
+        "draft_tower_climb_02_edge_09",
+        "draft_tower_climb_02_edge_10",
+        "draft_tower_climb_02_companion_edge_01",
+        "draft_tower_climb_02_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_02_response",
+      "kind": "Event",
+      "label": "Remove the marker and map a longer safe route",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_02",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L46"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L46"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Remove the marker and map a longer safe route",
+        "proposedEffect": "Remove the marker and map a longer safe route",
+        "effectTargetId": "draft_tower_climb_02_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_tower_climb_02_edge_06",
+        "draft_tower_climb_02_edge_07",
+        "draft_tower_climb_02_edge_08",
+        "draft_tower_climb_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_02_report",
+      "kind": "Knowledge",
+      "label": "A veteran claims the ledge still holds",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_02",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L46"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L46"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A veteran claims the ledge still holds",
+        "aboutId": "draft_tower_climb_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_tower_climb_02_edge_09"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_02_evidence",
+      "kind": "Knowledge",
+      "label": "New sketches show the gap",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L46"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L46"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "New sketches show the gap",
+        "aboutId": "draft_tower_climb_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_tower_climb_02_edge_10",
+        "draft_tower_climb_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_03_entity",
+      "kind": "Entity",
+      "label": "camp quartermasters",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_03",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L47"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L47"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep heat flasks usable at high rest alcove",
+        "stakes": "A climber hoards flasks while a storm traps the next team",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_tower_climb_03_edge_01",
+        "draft_tower_climb_03_edge_04",
+        "draft_tower_climb_03_edge_07"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_03_location",
+      "kind": "Location",
+      "label": "high rest alcove",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_03",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L47"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L47"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_tower_climb_03_resource",
+        "conflict": "A climber hoards flasks while a storm traps the next team",
+        "risk": "A climber hoards flasks while a storm traps the next team"
+      },
+      "relations": [
+        "draft_tower_climb_03_edge_01",
+        "draft_tower_climb_03_edge_02",
+        "draft_tower_climb_03_edge_03",
+        "draft_tower_climb_03_edge_06"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_03_resource",
+      "kind": "Resource",
+      "label": "heat flasks",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_03",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L47"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L47"
+      ],
+      "proposal": {
+        "sourceId": "draft_tower_climb_03_location",
+        "scarcity": "A climber hoards flasks while a storm traps the next team",
+        "proposedUse": "Set a shared emergency reserve by group size",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_tower_climb_03_edge_02",
+        "draft_tower_climb_03_edge_05",
+        "draft_tower_climb_03_edge_08"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_03_pressure",
+      "kind": "Event",
+      "label": "A climber hoards flasks while a storm traps the next team",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_03",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L47"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L47"
+      ],
+      "proposal": {
+        "trigger": "A climber hoards flasks while a storm traps the next team",
+        "proposedEffect": "Changes access to heat flasks",
+        "effectTargetId": "draft_tower_climb_03_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_tower_climb_03_edge_03",
+        "draft_tower_climb_03_edge_04",
+        "draft_tower_climb_03_edge_05",
+        "draft_tower_climb_03_edge_09",
+        "draft_tower_climb_03_edge_10",
+        "draft_tower_climb_03_companion_edge_01",
+        "draft_tower_climb_03_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_03_response",
+      "kind": "Event",
+      "label": "Set a shared emergency reserve by group size",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_03",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L47"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L47"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Set a shared emergency reserve by group size",
+        "proposedEffect": "Set a shared emergency reserve by group size",
+        "effectTargetId": "draft_tower_climb_03_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_tower_climb_03_edge_06",
+        "draft_tower_climb_03_edge_07",
+        "draft_tower_climb_03_edge_08",
+        "draft_tower_climb_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_03_report",
+      "kind": "Knowledge",
+      "label": "The climber says the next team turned back",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_03",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L47"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L47"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The climber says the next team turned back",
+        "aboutId": "draft_tower_climb_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_tower_climb_03_edge_09"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_03_evidence",
+      "kind": "Knowledge",
+      "label": "Signal notes confirm they are still above",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L47"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L47"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Signal notes confirm they are still above",
+        "aboutId": "draft_tower_climb_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_tower_climb_03_edge_10",
+        "draft_tower_climb_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_04_entity",
+      "kind": "Entity",
+      "label": "rescue callers",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_04",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L48"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L48"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep signal whistles usable at echo shaft",
+        "stakes": "An echo repeats a rescue call from the wrong branch",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_tower_climb_04_edge_01",
+        "draft_tower_climb_04_edge_04",
+        "draft_tower_climb_04_edge_07"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_04_location",
+      "kind": "Location",
+      "label": "echo shaft",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_04",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L48"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L48"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_tower_climb_04_resource",
+        "conflict": "An echo repeats a rescue call from the wrong branch",
+        "risk": "An echo repeats a rescue call from the wrong branch"
+      },
+      "relations": [
+        "draft_tower_climb_04_edge_01",
+        "draft_tower_climb_04_edge_02",
+        "draft_tower_climb_04_edge_03",
+        "draft_tower_climb_04_edge_06"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_04_resource",
+      "kind": "Resource",
+      "label": "signal whistles",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_04",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L48"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L48"
+      ],
+      "proposal": {
+        "sourceId": "draft_tower_climb_04_location",
+        "scarcity": "An echo repeats a rescue call from the wrong branch",
+        "proposedUse": "Use timed call-and-response to locate the source",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_tower_climb_04_edge_02",
+        "draft_tower_climb_04_edge_05",
+        "draft_tower_climb_04_edge_08"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_04_pressure",
+      "kind": "Event",
+      "label": "An echo repeats a rescue call from the wrong branch",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_04",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L48"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L48"
+      ],
+      "proposal": {
+        "trigger": "An echo repeats a rescue call from the wrong branch",
+        "proposedEffect": "Changes access to signal whistles",
+        "effectTargetId": "draft_tower_climb_04_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_tower_climb_04_edge_03",
+        "draft_tower_climb_04_edge_04",
+        "draft_tower_climb_04_edge_05",
+        "draft_tower_climb_04_edge_09",
+        "draft_tower_climb_04_edge_10",
+        "draft_tower_climb_04_companion_edge_01",
+        "draft_tower_climb_04_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_04_response",
+      "kind": "Event",
+      "label": "Use timed call-and-response to locate the source",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_04",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L48"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L48"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Use timed call-and-response to locate the source",
+        "proposedEffect": "Use timed call-and-response to locate the source",
+        "effectTargetId": "draft_tower_climb_04_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_tower_climb_04_edge_06",
+        "draft_tower_climb_04_edge_07",
+        "draft_tower_climb_04_edge_08",
+        "draft_tower_climb_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_04_report",
+      "kind": "Knowledge",
+      "label": "A hurried team follows the loudest echo",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_04",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L48"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L48"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A hurried team follows the loudest echo",
+        "aboutId": "draft_tower_climb_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_tower_climb_04_edge_09"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_04_evidence",
+      "kind": "Knowledge",
+      "label": "Response intervals identify the real branch",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L48"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L48"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Response intervals identify the real branch",
+        "aboutId": "draft_tower_climb_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_tower_climb_04_edge_10",
+        "draft_tower_climb_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_05_entity",
+      "kind": "Entity",
+      "label": "summit witnesses",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_05",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L49"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L49"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep ascent seals usable at last landing",
+        "stakes": "A claimed summit leaves no record of the descent",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_tower_climb_05_edge_01",
+        "draft_tower_climb_05_edge_04",
+        "draft_tower_climb_05_edge_07"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_05_location",
+      "kind": "Location",
+      "label": "last landing",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_05",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L49"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L49"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_tower_climb_05_resource",
+        "conflict": "A claimed summit leaves no record of the descent",
+        "risk": "A claimed summit leaves no record of the descent"
+      },
+      "relations": [
+        "draft_tower_climb_05_edge_01",
+        "draft_tower_climb_05_edge_02",
+        "draft_tower_climb_05_edge_03",
+        "draft_tower_climb_05_edge_06"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_05_resource",
+      "kind": "Resource",
+      "label": "ascent seals",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_05",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L49"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L49"
+      ],
+      "proposal": {
+        "sourceId": "draft_tower_climb_05_location",
+        "scarcity": "A claimed summit leaves no record of the descent",
+        "proposedUse": "Verify the route without erasing the climber's effort",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_tower_climb_05_edge_02",
+        "draft_tower_climb_05_edge_05",
+        "draft_tower_climb_05_edge_08"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_05_pressure",
+      "kind": "Event",
+      "label": "A claimed summit leaves no record of the descent",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_05",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L49"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L49"
+      ],
+      "proposal": {
+        "trigger": "A claimed summit leaves no record of the descent",
+        "proposedEffect": "Changes access to ascent seals",
+        "effectTargetId": "draft_tower_climb_05_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_tower_climb_05_edge_03",
+        "draft_tower_climb_05_edge_04",
+        "draft_tower_climb_05_edge_05",
+        "draft_tower_climb_05_edge_09",
+        "draft_tower_climb_05_edge_10",
+        "draft_tower_climb_05_companion_edge_01",
+        "draft_tower_climb_05_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_05_response",
+      "kind": "Event",
+      "label": "Verify the route without erasing the climber's effort",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_05",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L49"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L49"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Verify the route without erasing the climber's effort",
+        "proposedEffect": "Verify the route without erasing the climber's effort",
+        "effectTargetId": "draft_tower_climb_05_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_tower_climb_05_edge_06",
+        "draft_tower_climb_05_edge_07",
+        "draft_tower_climb_05_edge_08",
+        "draft_tower_climb_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_05_report",
+      "kind": "Knowledge",
+      "label": "The sponsor calls the seal conclusive",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_05",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L49"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L49"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The sponsor calls the seal conclusive",
+        "aboutId": "draft_tower_climb_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_tower_climb_05_edge_09"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_05_evidence",
+      "kind": "Knowledge",
+      "label": "A lower landing record shows an interrupted return",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L49"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L49"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "A lower landing record shows an interrupted return",
+        "aboutId": "draft_tower_climb_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_tower_climb_05_edge_10",
+        "draft_tower_climb_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_01_counterparty",
+      "kind": "Entity",
+      "label": "sponsor rope handler",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_01",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L37"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L37"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Reuse a worn rope to meet an ascent deadline",
+        "stakes": "A sponsor hides rope wear before a timed ascent",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_tower_climb_01_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_01_belief_holder",
+      "kind": "Entity",
+      "label": "waiting climbers",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_01",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L37"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L37"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: An intact sheath proves a new rope",
+        "stakes": "A sponsor hides rope wear before a timed ascent",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_tower_climb_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_01_evidence_site",
+      "kind": "Location",
+      "label": "rope-core inspection rack",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L37"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L37"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A sponsor hides rope wear before a timed ascent",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_tower_climb_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_01_alternative",
+      "kind": "Event",
+      "label": "Issue inspected reserve rope and postpone the start",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_01",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L37"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L37"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Issue inspected reserve rope and postpone the start",
+        "costAndConsequence": "The sponsor loses a timed record and climbers wait",
+        "alternativeToId": "draft_tower_climb_01_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_tower_climb_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_01_additional_belief",
+      "kind": "Knowledge",
+      "label": "An intact sheath proves a new rope",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_01",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L37"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L37"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "An intact sheath proves a new rope",
+        "aboutId": "draft_tower_climb_01_pressure",
+        "holderId": "draft_tower_climb_01_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_tower_climb_01_companion_edge_02",
+        "draft_tower_climb_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_02_counterparty",
+      "kind": "Entity",
+      "label": "shortcut guide",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_02",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L38"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L38"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Keep selling a broken-ledge route from an old map",
+        "stakes": "A shortcut marker survives after the ledge breaks",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_tower_climb_02_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_02_belief_holder",
+      "kind": "Entity",
+      "label": "ascending teams",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_02",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L38"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L38"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: The old marker means the ledge still holds",
+        "stakes": "A shortcut marker survives after the ledge breaks",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_tower_climb_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_02_evidence_site",
+      "kind": "Location",
+      "label": "ledge survey anchor",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L38"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L38"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A shortcut marker survives after the ledge breaks",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_tower_climb_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_02_alternative",
+      "kind": "Event",
+      "label": "Close the shortcut and mark the longer stable ledge",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_02",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L38"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L38"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Close the shortcut and mark the longer stable ledge",
+        "costAndConsequence": "Teams lose time and carry more water",
+        "alternativeToId": "draft_tower_climb_02_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_tower_climb_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_02_additional_belief",
+      "kind": "Knowledge",
+      "label": "The old marker means the ledge still holds",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_02",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L38"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L38"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The old marker means the ledge still holds",
+        "aboutId": "draft_tower_climb_02_pressure",
+        "holderId": "draft_tower_climb_02_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_tower_climb_02_companion_edge_02",
+        "draft_tower_climb_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_03_counterparty",
+      "kind": "Entity",
+      "label": "flask-hoarding climber",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_03",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L39"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L39"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Keep a private reserve as the next camp is trapped",
+        "stakes": "A climber hoards flasks while a storm traps the next team",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_tower_climb_03_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_03_belief_holder",
+      "kind": "Entity",
+      "label": "camp spectators",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_03",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L39"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L39"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: The next team has already turned back",
+        "stakes": "A climber hoards flasks while a storm traps the next team",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_tower_climb_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_03_evidence_site",
+      "kind": "Location",
+      "label": "upper camp signal post",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L39"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L39"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A climber hoards flasks while a storm traps the next team",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_tower_climb_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_03_alternative",
+      "kind": "Event",
+      "label": "Share measured flasks through a rope relay",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_03",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L39"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L39"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Share measured flasks through a rope relay",
+        "costAndConsequence": "The donor's own descent reserve shrinks",
+        "alternativeToId": "draft_tower_climb_03_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_tower_climb_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_03_additional_belief",
+      "kind": "Knowledge",
+      "label": "The next team has already turned back",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_03",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L39"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L39"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The next team has already turned back",
+        "aboutId": "draft_tower_climb_03_pressure",
+        "holderId": "draft_tower_climb_03_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_tower_climb_03_companion_edge_02",
+        "draft_tower_climb_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_04_counterparty",
+      "kind": "Entity",
+      "label": "echo-chasing rescuer",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_04",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L40"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L40"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Follow the loud branch to reach a victim first",
+        "stakes": "An echo repeats a rescue call from the wrong branch",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_tower_climb_04_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_04_belief_holder",
+      "kind": "Entity",
+      "label": "rookie rescuers",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_04",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L40"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L40"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: The loudest echo marks the caller's branch",
+        "stakes": "An echo repeats a rescue call from the wrong branch",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_tower_climb_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_04_evidence_site",
+      "kind": "Location",
+      "label": "branch response timing station",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L40"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L40"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "An echo repeats a rescue call from the wrong branch",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_tower_climb_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_04_alternative",
+      "kind": "Event",
+      "label": "Call and wait for a timed reply before committing crews",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_04",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L40"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L40"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Call and wait for a timed reply before committing crews",
+        "costAndConsequence": "Rescue is slower and a victim may deteriorate",
+        "alternativeToId": "draft_tower_climb_04_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_tower_climb_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_04_additional_belief",
+      "kind": "Knowledge",
+      "label": "The loudest echo marks the caller's branch",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_04",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L40"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L40"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The loudest echo marks the caller's branch",
+        "aboutId": "draft_tower_climb_04_pressure",
+        "holderId": "draft_tower_climb_04_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_tower_climb_04_companion_edge_02",
+        "draft_tower_climb_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_05_counterparty",
+      "kind": "Entity",
+      "label": "summit sponsor",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_05",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L41"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L41"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Award a summit claim without verifying descent",
+        "stakes": "A claimed summit leaves no record of the descent",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_tower_climb_05_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_05_belief_holder",
+      "kind": "Entity",
+      "label": "record seekers",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_05",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L41"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L41"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: A summit seal alone proves a completed climb",
+        "stakes": "A claimed summit leaves no record of the descent",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_tower_climb_05_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_05_evidence_site",
+      "kind": "Location",
+      "label": "lower landing seal book",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L41"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L41"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A claimed summit leaves no record of the descent",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_tower_climb_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_05_alternative",
+      "kind": "Event",
+      "label": "Treat the ascent as provisional until the climber returns",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_05",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L41"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L41"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Treat the ascent as provisional until the climber returns",
+        "costAndConsequence": "Awards wait and the sponsor risks embarrassment",
+        "alternativeToId": "draft_tower_climb_05_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_tower_climb_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_tower_climb_05_additional_belief",
+      "kind": "Knowledge",
+      "label": "A summit seal alone proves a completed climb",
+      "scopeId": "motif_tower_climb",
+      "motifId": "tower_climb",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_tower_climb_05",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L41"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L41"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A summit seal alone proves a completed climb",
+        "aboutId": "draft_tower_climb_05_pressure",
+        "holderId": "draft_tower_climb_05_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_tower_climb_05_companion_edge_02",
+        "draft_tower_climb_05_companion_edge_03"
+      ]
+    }
+  ],
+  "structuralEdges": [
+    {
+      "id": "draft_tower_climb_01_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_tower_climb_01_entity",
+      "toId": "draft_tower_climb_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_01:entity>location"
+    },
+    {
+      "id": "draft_tower_climb_01_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_tower_climb_01_location",
+      "toId": "draft_tower_climb_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_01:location>resource"
+    },
+    {
+      "id": "draft_tower_climb_01_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_tower_climb_01_pressure",
+      "toId": "draft_tower_climb_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_01:pressure>location"
+    },
+    {
+      "id": "draft_tower_climb_01_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_tower_climb_01_pressure",
+      "toId": "draft_tower_climb_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_01:pressure>entity"
+    },
+    {
+      "id": "draft_tower_climb_01_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_tower_climb_01_pressure",
+      "toId": "draft_tower_climb_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_01:pressure>resource"
+    },
+    {
+      "id": "draft_tower_climb_01_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_tower_climb_01_response",
+      "toId": "draft_tower_climb_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_01:response>location"
+    },
+    {
+      "id": "draft_tower_climb_01_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_tower_climb_01_response",
+      "toId": "draft_tower_climb_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_01:response>entity"
+    },
+    {
+      "id": "draft_tower_climb_01_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_tower_climb_01_response",
+      "toId": "draft_tower_climb_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_01:response>resource"
+    },
+    {
+      "id": "draft_tower_climb_01_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_tower_climb_01_report",
+      "toId": "draft_tower_climb_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_01:report>pressure"
+    },
+    {
+      "id": "draft_tower_climb_01_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_tower_climb_01_evidence",
+      "toId": "draft_tower_climb_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_01:evidence>pressure"
+    },
+    {
+      "id": "draft_tower_climb_02_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_tower_climb_02_entity",
+      "toId": "draft_tower_climb_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_02:entity>location"
+    },
+    {
+      "id": "draft_tower_climb_02_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_tower_climb_02_location",
+      "toId": "draft_tower_climb_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_02:location>resource"
+    },
+    {
+      "id": "draft_tower_climb_02_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_tower_climb_02_pressure",
+      "toId": "draft_tower_climb_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_02:pressure>location"
+    },
+    {
+      "id": "draft_tower_climb_02_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_tower_climb_02_pressure",
+      "toId": "draft_tower_climb_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_02:pressure>entity"
+    },
+    {
+      "id": "draft_tower_climb_02_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_tower_climb_02_pressure",
+      "toId": "draft_tower_climb_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_02:pressure>resource"
+    },
+    {
+      "id": "draft_tower_climb_02_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_tower_climb_02_response",
+      "toId": "draft_tower_climb_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_02:response>location"
+    },
+    {
+      "id": "draft_tower_climb_02_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_tower_climb_02_response",
+      "toId": "draft_tower_climb_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_02:response>entity"
+    },
+    {
+      "id": "draft_tower_climb_02_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_tower_climb_02_response",
+      "toId": "draft_tower_climb_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_02:response>resource"
+    },
+    {
+      "id": "draft_tower_climb_02_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_tower_climb_02_report",
+      "toId": "draft_tower_climb_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_02:report>pressure"
+    },
+    {
+      "id": "draft_tower_climb_02_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_tower_climb_02_evidence",
+      "toId": "draft_tower_climb_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_02:evidence>pressure"
+    },
+    {
+      "id": "draft_tower_climb_03_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_tower_climb_03_entity",
+      "toId": "draft_tower_climb_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_03:entity>location"
+    },
+    {
+      "id": "draft_tower_climb_03_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_tower_climb_03_location",
+      "toId": "draft_tower_climb_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_03:location>resource"
+    },
+    {
+      "id": "draft_tower_climb_03_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_tower_climb_03_pressure",
+      "toId": "draft_tower_climb_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_03:pressure>location"
+    },
+    {
+      "id": "draft_tower_climb_03_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_tower_climb_03_pressure",
+      "toId": "draft_tower_climb_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_03:pressure>entity"
+    },
+    {
+      "id": "draft_tower_climb_03_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_tower_climb_03_pressure",
+      "toId": "draft_tower_climb_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_03:pressure>resource"
+    },
+    {
+      "id": "draft_tower_climb_03_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_tower_climb_03_response",
+      "toId": "draft_tower_climb_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_03:response>location"
+    },
+    {
+      "id": "draft_tower_climb_03_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_tower_climb_03_response",
+      "toId": "draft_tower_climb_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_03:response>entity"
+    },
+    {
+      "id": "draft_tower_climb_03_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_tower_climb_03_response",
+      "toId": "draft_tower_climb_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_03:response>resource"
+    },
+    {
+      "id": "draft_tower_climb_03_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_tower_climb_03_report",
+      "toId": "draft_tower_climb_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_03:report>pressure"
+    },
+    {
+      "id": "draft_tower_climb_03_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_tower_climb_03_evidence",
+      "toId": "draft_tower_climb_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_03:evidence>pressure"
+    },
+    {
+      "id": "draft_tower_climb_04_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_tower_climb_04_entity",
+      "toId": "draft_tower_climb_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_04:entity>location"
+    },
+    {
+      "id": "draft_tower_climb_04_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_tower_climb_04_location",
+      "toId": "draft_tower_climb_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_04:location>resource"
+    },
+    {
+      "id": "draft_tower_climb_04_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_tower_climb_04_pressure",
+      "toId": "draft_tower_climb_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_04:pressure>location"
+    },
+    {
+      "id": "draft_tower_climb_04_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_tower_climb_04_pressure",
+      "toId": "draft_tower_climb_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_04:pressure>entity"
+    },
+    {
+      "id": "draft_tower_climb_04_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_tower_climb_04_pressure",
+      "toId": "draft_tower_climb_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_04:pressure>resource"
+    },
+    {
+      "id": "draft_tower_climb_04_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_tower_climb_04_response",
+      "toId": "draft_tower_climb_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_04:response>location"
+    },
+    {
+      "id": "draft_tower_climb_04_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_tower_climb_04_response",
+      "toId": "draft_tower_climb_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_04:response>entity"
+    },
+    {
+      "id": "draft_tower_climb_04_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_tower_climb_04_response",
+      "toId": "draft_tower_climb_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_04:response>resource"
+    },
+    {
+      "id": "draft_tower_climb_04_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_tower_climb_04_report",
+      "toId": "draft_tower_climb_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_04:report>pressure"
+    },
+    {
+      "id": "draft_tower_climb_04_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_tower_climb_04_evidence",
+      "toId": "draft_tower_climb_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_04:evidence>pressure"
+    },
+    {
+      "id": "draft_tower_climb_05_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_tower_climb_05_entity",
+      "toId": "draft_tower_climb_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_05:entity>location"
+    },
+    {
+      "id": "draft_tower_climb_05_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_tower_climb_05_location",
+      "toId": "draft_tower_climb_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_05:location>resource"
+    },
+    {
+      "id": "draft_tower_climb_05_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_tower_climb_05_pressure",
+      "toId": "draft_tower_climb_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_05:pressure>location"
+    },
+    {
+      "id": "draft_tower_climb_05_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_tower_climb_05_pressure",
+      "toId": "draft_tower_climb_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_05:pressure>entity"
+    },
+    {
+      "id": "draft_tower_climb_05_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_tower_climb_05_pressure",
+      "toId": "draft_tower_climb_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_05:pressure>resource"
+    },
+    {
+      "id": "draft_tower_climb_05_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_tower_climb_05_response",
+      "toId": "draft_tower_climb_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_05:response>location"
+    },
+    {
+      "id": "draft_tower_climb_05_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_tower_climb_05_response",
+      "toId": "draft_tower_climb_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_05:response>entity"
+    },
+    {
+      "id": "draft_tower_climb_05_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_tower_climb_05_response",
+      "toId": "draft_tower_climb_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_05:response>resource"
+    },
+    {
+      "id": "draft_tower_climb_05_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_tower_climb_05_report",
+      "toId": "draft_tower_climb_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_05:report>pressure"
+    },
+    {
+      "id": "draft_tower_climb_05_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_tower_climb_05_evidence",
+      "toId": "draft_tower_climb_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_tower_climb_05:evidence>pressure"
+    },
+    {
+      "id": "draft_tower_climb_01_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_tower_climb_01_pressure",
+      "toId": "draft_tower_climb_01_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L37"
+    },
+    {
+      "id": "draft_tower_climb_01_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_tower_climb_01_additional_belief",
+      "toId": "draft_tower_climb_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L37"
+    },
+    {
+      "id": "draft_tower_climb_01_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_tower_climb_01_additional_belief",
+      "toId": "draft_tower_climb_01_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L37"
+    },
+    {
+      "id": "draft_tower_climb_01_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_tower_climb_01_evidence_site",
+      "toId": "draft_tower_climb_01_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L37"
+    },
+    {
+      "id": "draft_tower_climb_01_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_tower_climb_01_alternative",
+      "toId": "draft_tower_climb_01_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L37"
+    },
+    {
+      "id": "draft_tower_climb_02_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_tower_climb_02_pressure",
+      "toId": "draft_tower_climb_02_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L38"
+    },
+    {
+      "id": "draft_tower_climb_02_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_tower_climb_02_additional_belief",
+      "toId": "draft_tower_climb_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L38"
+    },
+    {
+      "id": "draft_tower_climb_02_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_tower_climb_02_additional_belief",
+      "toId": "draft_tower_climb_02_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L38"
+    },
+    {
+      "id": "draft_tower_climb_02_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_tower_climb_02_evidence_site",
+      "toId": "draft_tower_climb_02_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L38"
+    },
+    {
+      "id": "draft_tower_climb_02_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_tower_climb_02_alternative",
+      "toId": "draft_tower_climb_02_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L38"
+    },
+    {
+      "id": "draft_tower_climb_03_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_tower_climb_03_pressure",
+      "toId": "draft_tower_climb_03_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L39"
+    },
+    {
+      "id": "draft_tower_climb_03_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_tower_climb_03_additional_belief",
+      "toId": "draft_tower_climb_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L39"
+    },
+    {
+      "id": "draft_tower_climb_03_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_tower_climb_03_additional_belief",
+      "toId": "draft_tower_climb_03_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L39"
+    },
+    {
+      "id": "draft_tower_climb_03_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_tower_climb_03_evidence_site",
+      "toId": "draft_tower_climb_03_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L39"
+    },
+    {
+      "id": "draft_tower_climb_03_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_tower_climb_03_alternative",
+      "toId": "draft_tower_climb_03_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L39"
+    },
+    {
+      "id": "draft_tower_climb_04_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_tower_climb_04_pressure",
+      "toId": "draft_tower_climb_04_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L40"
+    },
+    {
+      "id": "draft_tower_climb_04_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_tower_climb_04_additional_belief",
+      "toId": "draft_tower_climb_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L40"
+    },
+    {
+      "id": "draft_tower_climb_04_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_tower_climb_04_additional_belief",
+      "toId": "draft_tower_climb_04_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L40"
+    },
+    {
+      "id": "draft_tower_climb_04_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_tower_climb_04_evidence_site",
+      "toId": "draft_tower_climb_04_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L40"
+    },
+    {
+      "id": "draft_tower_climb_04_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_tower_climb_04_alternative",
+      "toId": "draft_tower_climb_04_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L40"
+    },
+    {
+      "id": "draft_tower_climb_05_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_tower_climb_05_pressure",
+      "toId": "draft_tower_climb_05_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L41"
+    },
+    {
+      "id": "draft_tower_climb_05_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_tower_climb_05_additional_belief",
+      "toId": "draft_tower_climb_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L41"
+    },
+    {
+      "id": "draft_tower_climb_05_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_tower_climb_05_additional_belief",
+      "toId": "draft_tower_climb_05_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L41"
+    },
+    {
+      "id": "draft_tower_climb_05_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_tower_climb_05_evidence_site",
+      "toId": "draft_tower_climb_05_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L41"
+    },
+    {
+      "id": "draft_tower_climb_05_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_tower_climb_05_alternative",
+      "toId": "draft_tower_climb_05_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L41"
+    }
+  ],
+  "proposedCausalLinks": [
+    {
+      "id": "draft_tower_climb_01_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_tower_climb_01_pressure",
+      "toId": "draft_tower_climb_01_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_tower_climb_01_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_tower_climb_01_evidence",
+      "toId": "draft_tower_climb_01_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_tower_climb_02_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_tower_climb_02_pressure",
+      "toId": "draft_tower_climb_02_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_tower_climb_02_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_tower_climb_02_evidence",
+      "toId": "draft_tower_climb_02_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_tower_climb_03_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_tower_climb_03_pressure",
+      "toId": "draft_tower_climb_03_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_tower_climb_03_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_tower_climb_03_evidence",
+      "toId": "draft_tower_climb_03_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_tower_climb_04_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_tower_climb_04_pressure",
+      "toId": "draft_tower_climb_04_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_tower_climb_04_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_tower_climb_04_evidence",
+      "toId": "draft_tower_climb_04_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_tower_climb_05_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_tower_climb_05_pressure",
+      "toId": "draft_tower_climb_05_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_tower_climb_05_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_tower_climb_05_evidence",
+      "toId": "draft_tower_climb_05_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    }
+  ]
+}

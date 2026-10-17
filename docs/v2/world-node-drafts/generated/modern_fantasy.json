@@ -1,0 +1,3079 @@
+{
+  "schema": "world-node-drafts/v1",
+  "status": "Draft",
+  "runtime": false,
+  "scope": {
+    "id": "motif_modern_fantasy",
+    "label": "현대 판타지",
+    "kind": "genre-or-structure proposal; not a world definition"
+  },
+  "canonImpact": "none; no Draft item is accepted game setting",
+  "sourceRefs": [
+    "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+    "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+    "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft"
+  ],
+  "fronts": [
+    {
+      "id": "draft_modern_fantasy_01",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A hidden creature draws injured commuters to a locked platform",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A hidden creature draws injured commuters to a locked platform",
+      "authoredIntervention": "Open a screened treatment route without exposing patients",
+      "initialReport": "Transit notices describe ordinary maintenance",
+      "verificationCandidate": "Clinic intake times match the platform incidents",
+      "alternativeInterventions": "Open an escorted medical corridor to the platform",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L27",
+        "docs/v2/world-node-drafts/companion-a.txt#L22"
+      ],
+      "semanticSignature": "a hidden creature draws injured commuters to a locked platform open a screened treatment route without exposing patients warded gauze transit notices describe ordinary maintenance clinic intake times match the platform incidents",
+      "nodeIds": [
+        "draft_modern_fantasy_01_entity",
+        "draft_modern_fantasy_01_location",
+        "draft_modern_fantasy_01_resource",
+        "draft_modern_fantasy_01_pressure",
+        "draft_modern_fantasy_01_response",
+        "draft_modern_fantasy_01_report",
+        "draft_modern_fantasy_01_evidence",
+        "draft_modern_fantasy_01_counterparty",
+        "draft_modern_fantasy_01_belief_holder",
+        "draft_modern_fantasy_01_evidence_site",
+        "draft_modern_fantasy_01_alternative",
+        "draft_modern_fantasy_01_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Transit closes a line and exposes responders",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_modern_fantasy_01_counterparty",
+        "evidenceSiteId": "draft_modern_fantasy_01_evidence_site",
+        "alternativeEventId": "draft_modern_fantasy_01_alternative",
+        "additionalBeliefId": "draft_modern_fantasy_01_additional_belief",
+        "beliefHolderId": "draft_modern_fantasy_01_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L22"
+      }
+    },
+    {
+      "id": "draft_modern_fantasy_02",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A sealed passage appears on new trains but not public maps",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A sealed passage appears on new trains but not public maps",
+      "authoredIntervention": "Compare old route plans and mark a safe exit",
+      "initialReport": "The agency denies the passage existed",
+      "verificationCandidate": "An archived maintenance diagram labels the junction",
+      "alternativeInterventions": "Mark the passage on a temporary restricted map",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L28",
+        "docs/v2/world-node-drafts/companion-a.txt#L23"
+      ],
+      "semanticSignature": "a sealed passage appears on new trains but not public maps compare old route plans and mark a safe exit old route maps the agency denies the passage existed an archived maintenance diagram labels the junction",
+      "nodeIds": [
+        "draft_modern_fantasy_02_entity",
+        "draft_modern_fantasy_02_location",
+        "draft_modern_fantasy_02_resource",
+        "draft_modern_fantasy_02_pressure",
+        "draft_modern_fantasy_02_response",
+        "draft_modern_fantasy_02_report",
+        "draft_modern_fantasy_02_evidence",
+        "draft_modern_fantasy_02_counterparty",
+        "draft_modern_fantasy_02_belief_holder",
+        "draft_modern_fantasy_02_evidence_site",
+        "draft_modern_fantasy_02_alternative",
+        "draft_modern_fantasy_02_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Officials must explain a concealed route and guard it",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_modern_fantasy_02_counterparty",
+        "evidenceSiteId": "draft_modern_fantasy_02_evidence_site",
+        "alternativeEventId": "draft_modern_fantasy_02_alternative",
+        "additionalBeliefId": "draft_modern_fantasy_02_additional_belief",
+        "beliefHolderId": "draft_modern_fantasy_02_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L23"
+      }
+    },
+    {
+      "id": "draft_modern_fantasy_03",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A rooftop ward fades while residents sleep",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A rooftop ward fades while residents sleep",
+      "authoredIntervention": "Renew the shared boundary after asking tenants' consent",
+      "initialReport": "A landlord calls the noise plumbing",
+      "verificationCandidate": "Chalk residue records repeated ward crossings",
+      "alternativeInterventions": "Move sleepers below and re-mark the ward at dawn",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L29",
+        "docs/v2/world-node-drafts/companion-a.txt#L24"
+      ],
+      "semanticSignature": "a rooftop ward fades while residents sleep renew the shared boundary after asking tenants consent protective chalk a landlord calls the noise plumbing chalk residue records repeated ward crossings",
+      "nodeIds": [
+        "draft_modern_fantasy_03_entity",
+        "draft_modern_fantasy_03_location",
+        "draft_modern_fantasy_03_resource",
+        "draft_modern_fantasy_03_pressure",
+        "draft_modern_fantasy_03_response",
+        "draft_modern_fantasy_03_report",
+        "draft_modern_fantasy_03_evidence",
+        "draft_modern_fantasy_03_counterparty",
+        "draft_modern_fantasy_03_belief_holder",
+        "draft_modern_fantasy_03_evidence_site",
+        "draft_modern_fantasy_03_alternative",
+        "draft_modern_fantasy_03_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Tenants lose rooms while the roof is tested",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_modern_fantasy_03_counterparty",
+        "evidenceSiteId": "draft_modern_fantasy_03_evidence_site",
+        "alternativeEventId": "draft_modern_fantasy_03_alternative",
+        "additionalBeliefId": "draft_modern_fantasy_03_additional_belief",
+        "beliefHolderId": "draft_modern_fantasy_03_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L24"
+      }
+    },
+    {
+      "id": "draft_modern_fantasy_04",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "Calls from one tunnel arrive before the reported event",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "Calls from one tunnel arrive before the reported event",
+      "authoredIntervention": "Cross-check timestamps and warn responders of the loop",
+      "initialReport": "Dispatch assumes its clocks drifted",
+      "verificationCandidate": "Two independent radio clocks agree on the early call",
+      "alternativeInterventions": "Hold dispatch until two independent timestamps agree",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L30",
+        "docs/v2/world-node-drafts/companion-a.txt#L25"
+      ],
+      "semanticSignature": "calls from one tunnel arrive before the reported event cross check timestamps and warn responders of the loop portable radios dispatch assumes its clocks drifted two independent radio clocks agree on the early call",
+      "nodeIds": [
+        "draft_modern_fantasy_04_entity",
+        "draft_modern_fantasy_04_location",
+        "draft_modern_fantasy_04_resource",
+        "draft_modern_fantasy_04_pressure",
+        "draft_modern_fantasy_04_response",
+        "draft_modern_fantasy_04_report",
+        "draft_modern_fantasy_04_evidence",
+        "draft_modern_fantasy_04_counterparty",
+        "draft_modern_fantasy_04_belief_holder",
+        "draft_modern_fantasy_04_evidence_site",
+        "draft_modern_fantasy_04_alternative",
+        "draft_modern_fantasy_04_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "A genuine emergency can lose a minute",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_modern_fantasy_04_counterparty",
+        "evidenceSiteId": "draft_modern_fantasy_04_evidence_site",
+        "alternativeEventId": "draft_modern_fantasy_04_alternative",
+        "additionalBeliefId": "draft_modern_fantasy_04_additional_belief",
+        "beliefHolderId": "draft_modern_fantasy_04_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L25"
+      }
+    },
+    {
+      "id": "draft_modern_fantasy_05",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "Books returned at night carry names of missing neighbors",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "Books returned at night carry names of missing neighbors",
+      "authoredIntervention": "Preserve the cards and verify each name discreetly",
+      "initialReport": "A rumor says every named person is already dead",
+      "verificationCandidate": "A live borrower confirms one name and a changed address",
+      "alternativeInterventions": "Contact each named household before issuing a public warning",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L31",
+        "docs/v2/world-node-drafts/companion-a.txt#L26"
+      ],
+      "semanticSignature": "books returned at night carry names of missing neighbors preserve the cards and verify each name discreetly catalog cards a rumor says every named person is already dead a live borrower confirms one name and a changed address",
+      "nodeIds": [
+        "draft_modern_fantasy_05_entity",
+        "draft_modern_fantasy_05_location",
+        "draft_modern_fantasy_05_resource",
+        "draft_modern_fantasy_05_pressure",
+        "draft_modern_fantasy_05_response",
+        "draft_modern_fantasy_05_report",
+        "draft_modern_fantasy_05_evidence",
+        "draft_modern_fantasy_05_counterparty",
+        "draft_modern_fantasy_05_belief_holder",
+        "draft_modern_fantasy_05_evidence_site",
+        "draft_modern_fantasy_05_alternative",
+        "draft_modern_fantasy_05_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Volunteers spend time and may alert the source of the books",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_modern_fantasy_05_counterparty",
+        "evidenceSiteId": "draft_modern_fantasy_05_evidence_site",
+        "alternativeEventId": "draft_modern_fantasy_05_alternative",
+        "additionalBeliefId": "draft_modern_fantasy_05_additional_belief",
+        "beliefHolderId": "draft_modern_fantasy_05_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L26"
+      }
+    }
+  ],
+  "nodes": [
+    {
+      "id": "draft_modern_fantasy_01_entity",
+      "kind": "Entity",
+      "label": "night clinic volunteers",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_01",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L27"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L27"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep warded gauze usable at station basement clinic",
+        "stakes": "A hidden creature draws injured commuters to a locked platform",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_modern_fantasy_01_edge_01",
+        "draft_modern_fantasy_01_edge_04",
+        "draft_modern_fantasy_01_edge_07"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_01_location",
+      "kind": "Location",
+      "label": "station basement clinic",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_01",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L27"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L27"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_modern_fantasy_01_resource",
+        "conflict": "A hidden creature draws injured commuters to a locked platform",
+        "risk": "A hidden creature draws injured commuters to a locked platform"
+      },
+      "relations": [
+        "draft_modern_fantasy_01_edge_01",
+        "draft_modern_fantasy_01_edge_02",
+        "draft_modern_fantasy_01_edge_03",
+        "draft_modern_fantasy_01_edge_06"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_01_resource",
+      "kind": "Resource",
+      "label": "warded gauze",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_01",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L27"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L27"
+      ],
+      "proposal": {
+        "sourceId": "draft_modern_fantasy_01_location",
+        "scarcity": "A hidden creature draws injured commuters to a locked platform",
+        "proposedUse": "Open a screened treatment route without exposing patients",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_modern_fantasy_01_edge_02",
+        "draft_modern_fantasy_01_edge_05",
+        "draft_modern_fantasy_01_edge_08"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_01_pressure",
+      "kind": "Event",
+      "label": "A hidden creature draws injured commuters to a locked platform",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_01",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L27"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L27"
+      ],
+      "proposal": {
+        "trigger": "A hidden creature draws injured commuters to a locked platform",
+        "proposedEffect": "Changes access to warded gauze",
+        "effectTargetId": "draft_modern_fantasy_01_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_modern_fantasy_01_edge_03",
+        "draft_modern_fantasy_01_edge_04",
+        "draft_modern_fantasy_01_edge_05",
+        "draft_modern_fantasy_01_edge_09",
+        "draft_modern_fantasy_01_edge_10",
+        "draft_modern_fantasy_01_companion_edge_01",
+        "draft_modern_fantasy_01_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_01_response",
+      "kind": "Event",
+      "label": "Open a screened treatment route without exposing patients",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_01",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L27"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L27"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Open a screened treatment route without exposing patients",
+        "proposedEffect": "Open a screened treatment route without exposing patients",
+        "effectTargetId": "draft_modern_fantasy_01_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_modern_fantasy_01_edge_06",
+        "draft_modern_fantasy_01_edge_07",
+        "draft_modern_fantasy_01_edge_08",
+        "draft_modern_fantasy_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_01_report",
+      "kind": "Knowledge",
+      "label": "Transit notices describe ordinary maintenance",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_01",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L27"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L27"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Transit notices describe ordinary maintenance",
+        "aboutId": "draft_modern_fantasy_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_modern_fantasy_01_edge_09"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_01_evidence",
+      "kind": "Knowledge",
+      "label": "Clinic intake times match the platform incidents",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L27"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L27"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Clinic intake times match the platform incidents",
+        "aboutId": "draft_modern_fantasy_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_modern_fantasy_01_edge_10",
+        "draft_modern_fantasy_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_02_entity",
+      "kind": "Entity",
+      "label": "municipal archive staff",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_02",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L28"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L28"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep old route maps usable at subway records room",
+        "stakes": "A sealed passage appears on new trains but not public maps",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_modern_fantasy_02_edge_01",
+        "draft_modern_fantasy_02_edge_04",
+        "draft_modern_fantasy_02_edge_07"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_02_location",
+      "kind": "Location",
+      "label": "subway records room",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_02",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L28"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L28"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_modern_fantasy_02_resource",
+        "conflict": "A sealed passage appears on new trains but not public maps",
+        "risk": "A sealed passage appears on new trains but not public maps"
+      },
+      "relations": [
+        "draft_modern_fantasy_02_edge_01",
+        "draft_modern_fantasy_02_edge_02",
+        "draft_modern_fantasy_02_edge_03",
+        "draft_modern_fantasy_02_edge_06"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_02_resource",
+      "kind": "Resource",
+      "label": "old route maps",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_02",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L28"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L28"
+      ],
+      "proposal": {
+        "sourceId": "draft_modern_fantasy_02_location",
+        "scarcity": "A sealed passage appears on new trains but not public maps",
+        "proposedUse": "Compare old route plans and mark a safe exit",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_modern_fantasy_02_edge_02",
+        "draft_modern_fantasy_02_edge_05",
+        "draft_modern_fantasy_02_edge_08"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_02_pressure",
+      "kind": "Event",
+      "label": "A sealed passage appears on new trains but not public maps",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_02",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L28"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L28"
+      ],
+      "proposal": {
+        "trigger": "A sealed passage appears on new trains but not public maps",
+        "proposedEffect": "Changes access to old route maps",
+        "effectTargetId": "draft_modern_fantasy_02_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_modern_fantasy_02_edge_03",
+        "draft_modern_fantasy_02_edge_04",
+        "draft_modern_fantasy_02_edge_05",
+        "draft_modern_fantasy_02_edge_09",
+        "draft_modern_fantasy_02_edge_10",
+        "draft_modern_fantasy_02_companion_edge_01",
+        "draft_modern_fantasy_02_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_02_response",
+      "kind": "Event",
+      "label": "Compare old route plans and mark a safe exit",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_02",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L28"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L28"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Compare old route plans and mark a safe exit",
+        "proposedEffect": "Compare old route plans and mark a safe exit",
+        "effectTargetId": "draft_modern_fantasy_02_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_modern_fantasy_02_edge_06",
+        "draft_modern_fantasy_02_edge_07",
+        "draft_modern_fantasy_02_edge_08",
+        "draft_modern_fantasy_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_02_report",
+      "kind": "Knowledge",
+      "label": "The agency denies the passage existed",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_02",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L28"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L28"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The agency denies the passage existed",
+        "aboutId": "draft_modern_fantasy_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_modern_fantasy_02_edge_09"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_02_evidence",
+      "kind": "Knowledge",
+      "label": "An archived maintenance diagram labels the junction",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L28"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L28"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "An archived maintenance diagram labels the junction",
+        "aboutId": "draft_modern_fantasy_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_modern_fantasy_02_edge_10",
+        "draft_modern_fantasy_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_03_entity",
+      "kind": "Entity",
+      "label": "tenement caretakers",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_03",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L29"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L29"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep protective chalk usable at rooftop garden",
+        "stakes": "A rooftop ward fades while residents sleep",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_modern_fantasy_03_edge_01",
+        "draft_modern_fantasy_03_edge_04",
+        "draft_modern_fantasy_03_edge_07"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_03_location",
+      "kind": "Location",
+      "label": "rooftop garden",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_03",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L29"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L29"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_modern_fantasy_03_resource",
+        "conflict": "A rooftop ward fades while residents sleep",
+        "risk": "A rooftop ward fades while residents sleep"
+      },
+      "relations": [
+        "draft_modern_fantasy_03_edge_01",
+        "draft_modern_fantasy_03_edge_02",
+        "draft_modern_fantasy_03_edge_03",
+        "draft_modern_fantasy_03_edge_06"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_03_resource",
+      "kind": "Resource",
+      "label": "protective chalk",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_03",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L29"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L29"
+      ],
+      "proposal": {
+        "sourceId": "draft_modern_fantasy_03_location",
+        "scarcity": "A rooftop ward fades while residents sleep",
+        "proposedUse": "Renew the shared boundary after asking tenants' consent",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_modern_fantasy_03_edge_02",
+        "draft_modern_fantasy_03_edge_05",
+        "draft_modern_fantasy_03_edge_08"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_03_pressure",
+      "kind": "Event",
+      "label": "A rooftop ward fades while residents sleep",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_03",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L29"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L29"
+      ],
+      "proposal": {
+        "trigger": "A rooftop ward fades while residents sleep",
+        "proposedEffect": "Changes access to protective chalk",
+        "effectTargetId": "draft_modern_fantasy_03_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_modern_fantasy_03_edge_03",
+        "draft_modern_fantasy_03_edge_04",
+        "draft_modern_fantasy_03_edge_05",
+        "draft_modern_fantasy_03_edge_09",
+        "draft_modern_fantasy_03_edge_10",
+        "draft_modern_fantasy_03_companion_edge_01",
+        "draft_modern_fantasy_03_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_03_response",
+      "kind": "Event",
+      "label": "Renew the shared boundary after asking tenants' consent",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_03",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L29"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L29"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Renew the shared boundary after asking tenants' consent",
+        "proposedEffect": "Renew the shared boundary after asking tenants' consent",
+        "effectTargetId": "draft_modern_fantasy_03_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_modern_fantasy_03_edge_06",
+        "draft_modern_fantasy_03_edge_07",
+        "draft_modern_fantasy_03_edge_08",
+        "draft_modern_fantasy_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_03_report",
+      "kind": "Knowledge",
+      "label": "A landlord calls the noise plumbing",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_03",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L29"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L29"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A landlord calls the noise plumbing",
+        "aboutId": "draft_modern_fantasy_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_modern_fantasy_03_edge_09"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_03_evidence",
+      "kind": "Knowledge",
+      "label": "Chalk residue records repeated ward crossings",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L29"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L29"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Chalk residue records repeated ward crossings",
+        "aboutId": "draft_modern_fantasy_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_modern_fantasy_03_edge_10",
+        "draft_modern_fantasy_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_04_entity",
+      "kind": "Entity",
+      "label": "emergency dispatchers",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_04",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L30"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L30"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep portable radios usable at river tunnel portal",
+        "stakes": "Calls from one tunnel arrive before the reported event",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_modern_fantasy_04_edge_01",
+        "draft_modern_fantasy_04_edge_04",
+        "draft_modern_fantasy_04_edge_07"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_04_location",
+      "kind": "Location",
+      "label": "river tunnel portal",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_04",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L30"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L30"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_modern_fantasy_04_resource",
+        "conflict": "Calls from one tunnel arrive before the reported event",
+        "risk": "Calls from one tunnel arrive before the reported event"
+      },
+      "relations": [
+        "draft_modern_fantasy_04_edge_01",
+        "draft_modern_fantasy_04_edge_02",
+        "draft_modern_fantasy_04_edge_03",
+        "draft_modern_fantasy_04_edge_06"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_04_resource",
+      "kind": "Resource",
+      "label": "portable radios",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_04",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L30"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L30"
+      ],
+      "proposal": {
+        "sourceId": "draft_modern_fantasy_04_location",
+        "scarcity": "Calls from one tunnel arrive before the reported event",
+        "proposedUse": "Cross-check timestamps and warn responders of the loop",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_modern_fantasy_04_edge_02",
+        "draft_modern_fantasy_04_edge_05",
+        "draft_modern_fantasy_04_edge_08"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_04_pressure",
+      "kind": "Event",
+      "label": "Calls from one tunnel arrive before the reported event",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_04",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L30"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L30"
+      ],
+      "proposal": {
+        "trigger": "Calls from one tunnel arrive before the reported event",
+        "proposedEffect": "Changes access to portable radios",
+        "effectTargetId": "draft_modern_fantasy_04_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_modern_fantasy_04_edge_03",
+        "draft_modern_fantasy_04_edge_04",
+        "draft_modern_fantasy_04_edge_05",
+        "draft_modern_fantasy_04_edge_09",
+        "draft_modern_fantasy_04_edge_10",
+        "draft_modern_fantasy_04_companion_edge_01",
+        "draft_modern_fantasy_04_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_04_response",
+      "kind": "Event",
+      "label": "Cross-check timestamps and warn responders of the loop",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_04",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L30"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L30"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Cross-check timestamps and warn responders of the loop",
+        "proposedEffect": "Cross-check timestamps and warn responders of the loop",
+        "effectTargetId": "draft_modern_fantasy_04_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_modern_fantasy_04_edge_06",
+        "draft_modern_fantasy_04_edge_07",
+        "draft_modern_fantasy_04_edge_08",
+        "draft_modern_fantasy_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_04_report",
+      "kind": "Knowledge",
+      "label": "Dispatch assumes its clocks drifted",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_04",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L30"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L30"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Dispatch assumes its clocks drifted",
+        "aboutId": "draft_modern_fantasy_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_modern_fantasy_04_edge_09"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_04_evidence",
+      "kind": "Knowledge",
+      "label": "Two independent radio clocks agree on the early call",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L30"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L30"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Two independent radio clocks agree on the early call",
+        "aboutId": "draft_modern_fantasy_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_modern_fantasy_04_edge_10",
+        "draft_modern_fantasy_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_05_entity",
+      "kind": "Entity",
+      "label": "community librarians",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_05",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L31"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L31"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep catalog cards usable at night-return bookdrop",
+        "stakes": "Books returned at night carry names of missing neighbors",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_modern_fantasy_05_edge_01",
+        "draft_modern_fantasy_05_edge_04",
+        "draft_modern_fantasy_05_edge_07"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_05_location",
+      "kind": "Location",
+      "label": "night-return bookdrop",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_05",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L31"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L31"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_modern_fantasy_05_resource",
+        "conflict": "Books returned at night carry names of missing neighbors",
+        "risk": "Books returned at night carry names of missing neighbors"
+      },
+      "relations": [
+        "draft_modern_fantasy_05_edge_01",
+        "draft_modern_fantasy_05_edge_02",
+        "draft_modern_fantasy_05_edge_03",
+        "draft_modern_fantasy_05_edge_06"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_05_resource",
+      "kind": "Resource",
+      "label": "catalog cards",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_05",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L31"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L31"
+      ],
+      "proposal": {
+        "sourceId": "draft_modern_fantasy_05_location",
+        "scarcity": "Books returned at night carry names of missing neighbors",
+        "proposedUse": "Preserve the cards and verify each name discreetly",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_modern_fantasy_05_edge_02",
+        "draft_modern_fantasy_05_edge_05",
+        "draft_modern_fantasy_05_edge_08"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_05_pressure",
+      "kind": "Event",
+      "label": "Books returned at night carry names of missing neighbors",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_05",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L31"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L31"
+      ],
+      "proposal": {
+        "trigger": "Books returned at night carry names of missing neighbors",
+        "proposedEffect": "Changes access to catalog cards",
+        "effectTargetId": "draft_modern_fantasy_05_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_modern_fantasy_05_edge_03",
+        "draft_modern_fantasy_05_edge_04",
+        "draft_modern_fantasy_05_edge_05",
+        "draft_modern_fantasy_05_edge_09",
+        "draft_modern_fantasy_05_edge_10",
+        "draft_modern_fantasy_05_companion_edge_01",
+        "draft_modern_fantasy_05_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_05_response",
+      "kind": "Event",
+      "label": "Preserve the cards and verify each name discreetly",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_05",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L31"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L31"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Preserve the cards and verify each name discreetly",
+        "proposedEffect": "Preserve the cards and verify each name discreetly",
+        "effectTargetId": "draft_modern_fantasy_05_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_modern_fantasy_05_edge_06",
+        "draft_modern_fantasy_05_edge_07",
+        "draft_modern_fantasy_05_edge_08",
+        "draft_modern_fantasy_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_05_report",
+      "kind": "Knowledge",
+      "label": "A rumor says every named person is already dead",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_05",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L31"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L31"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A rumor says every named person is already dead",
+        "aboutId": "draft_modern_fantasy_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_modern_fantasy_05_edge_09"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_05_evidence",
+      "kind": "Knowledge",
+      "label": "A live borrower confirms one name and a changed address",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L31"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L31"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "A live borrower confirms one name and a changed address",
+        "aboutId": "draft_modern_fantasy_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_modern_fantasy_05_edge_10",
+        "draft_modern_fantasy_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_01_counterparty",
+      "kind": "Entity",
+      "label": "platform security lead",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_01",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L22"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L22"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Keep a creature incident outside its maintenance liability",
+        "stakes": "A hidden creature draws injured commuters to a locked platform",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_modern_fantasy_01_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_01_belief_holder",
+      "kind": "Entity",
+      "label": "station supervisors",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_01",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L22"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L22"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Injuries began elsewhere and commuters merely gathered there",
+        "stakes": "A hidden creature draws injured commuters to a locked platform",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_modern_fantasy_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_01_evidence_site",
+      "kind": "Location",
+      "label": "platform access-control booth",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L22"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L22"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A hidden creature draws injured commuters to a locked platform",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_modern_fantasy_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_01_alternative",
+      "kind": "Event",
+      "label": "Open an escorted medical corridor to the platform",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_01",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L22"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L22"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Open an escorted medical corridor to the platform",
+        "costAndConsequence": "Transit closes a line and exposes responders",
+        "alternativeToId": "draft_modern_fantasy_01_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_modern_fantasy_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_01_additional_belief",
+      "kind": "Knowledge",
+      "label": "Injuries began elsewhere and commuters merely gathered there",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_01",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L22"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L22"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Injuries began elsewhere and commuters merely gathered there",
+        "aboutId": "draft_modern_fantasy_01_pressure",
+        "holderId": "draft_modern_fantasy_01_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_modern_fantasy_01_companion_edge_02",
+        "draft_modern_fantasy_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_02_counterparty",
+      "kind": "Entity",
+      "label": "rail survey drafter",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_02",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L23"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L23"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Hide an unauthorized junction from public schedules",
+        "stakes": "A sealed passage appears on new trains but not public maps",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_modern_fantasy_02_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_02_belief_holder",
+      "kind": "Entity",
+      "label": "current route planners",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_02",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L23"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L23"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Old diagrams show only a planned tunnel",
+        "stakes": "A sealed passage appears on new trains but not public maps",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_modern_fantasy_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_02_evidence_site",
+      "kind": "Location",
+      "label": "retired signal cabinet",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L23"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L23"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A sealed passage appears on new trains but not public maps",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_modern_fantasy_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_02_alternative",
+      "kind": "Event",
+      "label": "Mark the passage on a temporary restricted map",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_02",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L23"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L23"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Mark the passage on a temporary restricted map",
+        "costAndConsequence": "Officials must explain a concealed route and guard it",
+        "alternativeToId": "draft_modern_fantasy_02_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_modern_fantasy_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_02_additional_belief",
+      "kind": "Knowledge",
+      "label": "Old diagrams show only a planned tunnel",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_02",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L23"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L23"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Old diagrams show only a planned tunnel",
+        "aboutId": "draft_modern_fantasy_02_pressure",
+        "holderId": "draft_modern_fantasy_02_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_modern_fantasy_02_companion_edge_02",
+        "draft_modern_fantasy_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_03_counterparty",
+      "kind": "Entity",
+      "label": "rooftop ward insurer",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_03",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L24"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L24"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Avoid paying for a fading rooftop protection ward",
+        "stakes": "A rooftop ward fades while residents sleep",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_modern_fantasy_03_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_03_belief_holder",
+      "kind": "Entity",
+      "label": "property manager",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_03",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L24"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L24"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: The chalk marks are harmless renovation dust",
+        "stakes": "A rooftop ward fades while residents sleep",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_modern_fantasy_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_03_evidence_site",
+      "kind": "Location",
+      "label": "roof drain inspection hatch",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L24"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L24"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A rooftop ward fades while residents sleep",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_modern_fantasy_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_03_alternative",
+      "kind": "Event",
+      "label": "Move sleepers below and re-mark the ward at dawn",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_03",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L24"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L24"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Move sleepers below and re-mark the ward at dawn",
+        "costAndConsequence": "Tenants lose rooms while the roof is tested",
+        "alternativeToId": "draft_modern_fantasy_03_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_modern_fantasy_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_03_additional_belief",
+      "kind": "Knowledge",
+      "label": "The chalk marks are harmless renovation dust",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_03",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L24"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L24"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The chalk marks are harmless renovation dust",
+        "aboutId": "draft_modern_fantasy_03_pressure",
+        "holderId": "draft_modern_fantasy_03_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_modern_fantasy_03_companion_edge_02",
+        "draft_modern_fantasy_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_04_counterparty",
+      "kind": "Entity",
+      "label": "tunnel clock technician",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_04",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L25"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L25"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Frame early calls as operator error to protect its equipment",
+        "stakes": "Calls from one tunnel arrive before the reported event",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_modern_fantasy_04_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_04_belief_holder",
+      "kind": "Entity",
+      "label": "dispatch trainees",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_04",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L25"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L25"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: All tunnel clocks drift in the same direction",
+        "stakes": "Calls from one tunnel arrive before the reported event",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_modern_fantasy_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_04_evidence_site",
+      "kind": "Location",
+      "label": "radio clock comparison bay",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L25"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L25"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "Calls from one tunnel arrive before the reported event",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_modern_fantasy_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_04_alternative",
+      "kind": "Event",
+      "label": "Hold dispatch until two independent timestamps agree",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_04",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L25"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L25"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Hold dispatch until two independent timestamps agree",
+        "costAndConsequence": "A genuine emergency can lose a minute",
+        "alternativeToId": "draft_modern_fantasy_04_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_modern_fantasy_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_04_additional_belief",
+      "kind": "Knowledge",
+      "label": "All tunnel clocks drift in the same direction",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_04",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L25"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L25"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "All tunnel clocks drift in the same direction",
+        "aboutId": "draft_modern_fantasy_04_pressure",
+        "holderId": "draft_modern_fantasy_04_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_modern_fantasy_04_companion_edge_02",
+        "draft_modern_fantasy_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_05_counterparty",
+      "kind": "Entity",
+      "label": "missing-person liaison",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_05",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L26"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L26"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Stop false death notices without erasing useful leads",
+        "stakes": "Books returned at night carry names of missing neighbors",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_modern_fantasy_05_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_05_belief_holder",
+      "kind": "Entity",
+      "label": "neighborhood readers",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_05",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L26"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L26"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Every name in a returned book marks a death",
+        "stakes": "Books returned at night carry names of missing neighbors",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_modern_fantasy_05_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_05_evidence_site",
+      "kind": "Location",
+      "label": "library return scanner archive",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L26"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L26"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "Books returned at night carry names of missing neighbors",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_modern_fantasy_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_05_alternative",
+      "kind": "Event",
+      "label": "Contact each named household before issuing a public warning",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_05",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L26"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L26"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Contact each named household before issuing a public warning",
+        "costAndConsequence": "Volunteers spend time and may alert the source of the books",
+        "alternativeToId": "draft_modern_fantasy_05_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_modern_fantasy_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_modern_fantasy_05_additional_belief",
+      "kind": "Knowledge",
+      "label": "Every name in a returned book marks a death",
+      "scopeId": "motif_modern_fantasy",
+      "motifId": "modern_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_modern_fantasy_05",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L26"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L26"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Every name in a returned book marks a death",
+        "aboutId": "draft_modern_fantasy_05_pressure",
+        "holderId": "draft_modern_fantasy_05_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_modern_fantasy_05_companion_edge_02",
+        "draft_modern_fantasy_05_companion_edge_03"
+      ]
+    }
+  ],
+  "structuralEdges": [
+    {
+      "id": "draft_modern_fantasy_01_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_modern_fantasy_01_entity",
+      "toId": "draft_modern_fantasy_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_01:entity>location"
+    },
+    {
+      "id": "draft_modern_fantasy_01_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_modern_fantasy_01_location",
+      "toId": "draft_modern_fantasy_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_01:location>resource"
+    },
+    {
+      "id": "draft_modern_fantasy_01_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_modern_fantasy_01_pressure",
+      "toId": "draft_modern_fantasy_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_01:pressure>location"
+    },
+    {
+      "id": "draft_modern_fantasy_01_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_modern_fantasy_01_pressure",
+      "toId": "draft_modern_fantasy_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_01:pressure>entity"
+    },
+    {
+      "id": "draft_modern_fantasy_01_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_modern_fantasy_01_pressure",
+      "toId": "draft_modern_fantasy_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_01:pressure>resource"
+    },
+    {
+      "id": "draft_modern_fantasy_01_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_modern_fantasy_01_response",
+      "toId": "draft_modern_fantasy_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_01:response>location"
+    },
+    {
+      "id": "draft_modern_fantasy_01_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_modern_fantasy_01_response",
+      "toId": "draft_modern_fantasy_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_01:response>entity"
+    },
+    {
+      "id": "draft_modern_fantasy_01_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_modern_fantasy_01_response",
+      "toId": "draft_modern_fantasy_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_01:response>resource"
+    },
+    {
+      "id": "draft_modern_fantasy_01_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_modern_fantasy_01_report",
+      "toId": "draft_modern_fantasy_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_01:report>pressure"
+    },
+    {
+      "id": "draft_modern_fantasy_01_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_modern_fantasy_01_evidence",
+      "toId": "draft_modern_fantasy_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_01:evidence>pressure"
+    },
+    {
+      "id": "draft_modern_fantasy_02_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_modern_fantasy_02_entity",
+      "toId": "draft_modern_fantasy_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_02:entity>location"
+    },
+    {
+      "id": "draft_modern_fantasy_02_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_modern_fantasy_02_location",
+      "toId": "draft_modern_fantasy_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_02:location>resource"
+    },
+    {
+      "id": "draft_modern_fantasy_02_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_modern_fantasy_02_pressure",
+      "toId": "draft_modern_fantasy_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_02:pressure>location"
+    },
+    {
+      "id": "draft_modern_fantasy_02_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_modern_fantasy_02_pressure",
+      "toId": "draft_modern_fantasy_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_02:pressure>entity"
+    },
+    {
+      "id": "draft_modern_fantasy_02_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_modern_fantasy_02_pressure",
+      "toId": "draft_modern_fantasy_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_02:pressure>resource"
+    },
+    {
+      "id": "draft_modern_fantasy_02_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_modern_fantasy_02_response",
+      "toId": "draft_modern_fantasy_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_02:response>location"
+    },
+    {
+      "id": "draft_modern_fantasy_02_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_modern_fantasy_02_response",
+      "toId": "draft_modern_fantasy_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_02:response>entity"
+    },
+    {
+      "id": "draft_modern_fantasy_02_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_modern_fantasy_02_response",
+      "toId": "draft_modern_fantasy_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_02:response>resource"
+    },
+    {
+      "id": "draft_modern_fantasy_02_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_modern_fantasy_02_report",
+      "toId": "draft_modern_fantasy_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_02:report>pressure"
+    },
+    {
+      "id": "draft_modern_fantasy_02_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_modern_fantasy_02_evidence",
+      "toId": "draft_modern_fantasy_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_02:evidence>pressure"
+    },
+    {
+      "id": "draft_modern_fantasy_03_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_modern_fantasy_03_entity",
+      "toId": "draft_modern_fantasy_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_03:entity>location"
+    },
+    {
+      "id": "draft_modern_fantasy_03_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_modern_fantasy_03_location",
+      "toId": "draft_modern_fantasy_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_03:location>resource"
+    },
+    {
+      "id": "draft_modern_fantasy_03_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_modern_fantasy_03_pressure",
+      "toId": "draft_modern_fantasy_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_03:pressure>location"
+    },
+    {
+      "id": "draft_modern_fantasy_03_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_modern_fantasy_03_pressure",
+      "toId": "draft_modern_fantasy_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_03:pressure>entity"
+    },
+    {
+      "id": "draft_modern_fantasy_03_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_modern_fantasy_03_pressure",
+      "toId": "draft_modern_fantasy_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_03:pressure>resource"
+    },
+    {
+      "id": "draft_modern_fantasy_03_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_modern_fantasy_03_response",
+      "toId": "draft_modern_fantasy_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_03:response>location"
+    },
+    {
+      "id": "draft_modern_fantasy_03_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_modern_fantasy_03_response",
+      "toId": "draft_modern_fantasy_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_03:response>entity"
+    },
+    {
+      "id": "draft_modern_fantasy_03_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_modern_fantasy_03_response",
+      "toId": "draft_modern_fantasy_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_03:response>resource"
+    },
+    {
+      "id": "draft_modern_fantasy_03_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_modern_fantasy_03_report",
+      "toId": "draft_modern_fantasy_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_03:report>pressure"
+    },
+    {
+      "id": "draft_modern_fantasy_03_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_modern_fantasy_03_evidence",
+      "toId": "draft_modern_fantasy_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_03:evidence>pressure"
+    },
+    {
+      "id": "draft_modern_fantasy_04_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_modern_fantasy_04_entity",
+      "toId": "draft_modern_fantasy_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_04:entity>location"
+    },
+    {
+      "id": "draft_modern_fantasy_04_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_modern_fantasy_04_location",
+      "toId": "draft_modern_fantasy_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_04:location>resource"
+    },
+    {
+      "id": "draft_modern_fantasy_04_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_modern_fantasy_04_pressure",
+      "toId": "draft_modern_fantasy_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_04:pressure>location"
+    },
+    {
+      "id": "draft_modern_fantasy_04_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_modern_fantasy_04_pressure",
+      "toId": "draft_modern_fantasy_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_04:pressure>entity"
+    },
+    {
+      "id": "draft_modern_fantasy_04_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_modern_fantasy_04_pressure",
+      "toId": "draft_modern_fantasy_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_04:pressure>resource"
+    },
+    {
+      "id": "draft_modern_fantasy_04_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_modern_fantasy_04_response",
+      "toId": "draft_modern_fantasy_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_04:response>location"
+    },
+    {
+      "id": "draft_modern_fantasy_04_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_modern_fantasy_04_response",
+      "toId": "draft_modern_fantasy_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_04:response>entity"
+    },
+    {
+      "id": "draft_modern_fantasy_04_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_modern_fantasy_04_response",
+      "toId": "draft_modern_fantasy_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_04:response>resource"
+    },
+    {
+      "id": "draft_modern_fantasy_04_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_modern_fantasy_04_report",
+      "toId": "draft_modern_fantasy_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_04:report>pressure"
+    },
+    {
+      "id": "draft_modern_fantasy_04_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_modern_fantasy_04_evidence",
+      "toId": "draft_modern_fantasy_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_04:evidence>pressure"
+    },
+    {
+      "id": "draft_modern_fantasy_05_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_modern_fantasy_05_entity",
+      "toId": "draft_modern_fantasy_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_05:entity>location"
+    },
+    {
+      "id": "draft_modern_fantasy_05_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_modern_fantasy_05_location",
+      "toId": "draft_modern_fantasy_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_05:location>resource"
+    },
+    {
+      "id": "draft_modern_fantasy_05_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_modern_fantasy_05_pressure",
+      "toId": "draft_modern_fantasy_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_05:pressure>location"
+    },
+    {
+      "id": "draft_modern_fantasy_05_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_modern_fantasy_05_pressure",
+      "toId": "draft_modern_fantasy_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_05:pressure>entity"
+    },
+    {
+      "id": "draft_modern_fantasy_05_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_modern_fantasy_05_pressure",
+      "toId": "draft_modern_fantasy_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_05:pressure>resource"
+    },
+    {
+      "id": "draft_modern_fantasy_05_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_modern_fantasy_05_response",
+      "toId": "draft_modern_fantasy_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_05:response>location"
+    },
+    {
+      "id": "draft_modern_fantasy_05_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_modern_fantasy_05_response",
+      "toId": "draft_modern_fantasy_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_05:response>entity"
+    },
+    {
+      "id": "draft_modern_fantasy_05_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_modern_fantasy_05_response",
+      "toId": "draft_modern_fantasy_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_05:response>resource"
+    },
+    {
+      "id": "draft_modern_fantasy_05_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_modern_fantasy_05_report",
+      "toId": "draft_modern_fantasy_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_05:report>pressure"
+    },
+    {
+      "id": "draft_modern_fantasy_05_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_modern_fantasy_05_evidence",
+      "toId": "draft_modern_fantasy_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_modern_fantasy_05:evidence>pressure"
+    },
+    {
+      "id": "draft_modern_fantasy_01_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_modern_fantasy_01_pressure",
+      "toId": "draft_modern_fantasy_01_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L22"
+    },
+    {
+      "id": "draft_modern_fantasy_01_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_modern_fantasy_01_additional_belief",
+      "toId": "draft_modern_fantasy_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L22"
+    },
+    {
+      "id": "draft_modern_fantasy_01_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_modern_fantasy_01_additional_belief",
+      "toId": "draft_modern_fantasy_01_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L22"
+    },
+    {
+      "id": "draft_modern_fantasy_01_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_modern_fantasy_01_evidence_site",
+      "toId": "draft_modern_fantasy_01_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L22"
+    },
+    {
+      "id": "draft_modern_fantasy_01_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_modern_fantasy_01_alternative",
+      "toId": "draft_modern_fantasy_01_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L22"
+    },
+    {
+      "id": "draft_modern_fantasy_02_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_modern_fantasy_02_pressure",
+      "toId": "draft_modern_fantasy_02_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L23"
+    },
+    {
+      "id": "draft_modern_fantasy_02_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_modern_fantasy_02_additional_belief",
+      "toId": "draft_modern_fantasy_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L23"
+    },
+    {
+      "id": "draft_modern_fantasy_02_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_modern_fantasy_02_additional_belief",
+      "toId": "draft_modern_fantasy_02_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L23"
+    },
+    {
+      "id": "draft_modern_fantasy_02_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_modern_fantasy_02_evidence_site",
+      "toId": "draft_modern_fantasy_02_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L23"
+    },
+    {
+      "id": "draft_modern_fantasy_02_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_modern_fantasy_02_alternative",
+      "toId": "draft_modern_fantasy_02_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L23"
+    },
+    {
+      "id": "draft_modern_fantasy_03_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_modern_fantasy_03_pressure",
+      "toId": "draft_modern_fantasy_03_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L24"
+    },
+    {
+      "id": "draft_modern_fantasy_03_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_modern_fantasy_03_additional_belief",
+      "toId": "draft_modern_fantasy_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L24"
+    },
+    {
+      "id": "draft_modern_fantasy_03_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_modern_fantasy_03_additional_belief",
+      "toId": "draft_modern_fantasy_03_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L24"
+    },
+    {
+      "id": "draft_modern_fantasy_03_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_modern_fantasy_03_evidence_site",
+      "toId": "draft_modern_fantasy_03_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L24"
+    },
+    {
+      "id": "draft_modern_fantasy_03_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_modern_fantasy_03_alternative",
+      "toId": "draft_modern_fantasy_03_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L24"
+    },
+    {
+      "id": "draft_modern_fantasy_04_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_modern_fantasy_04_pressure",
+      "toId": "draft_modern_fantasy_04_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L25"
+    },
+    {
+      "id": "draft_modern_fantasy_04_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_modern_fantasy_04_additional_belief",
+      "toId": "draft_modern_fantasy_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L25"
+    },
+    {
+      "id": "draft_modern_fantasy_04_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_modern_fantasy_04_additional_belief",
+      "toId": "draft_modern_fantasy_04_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L25"
+    },
+    {
+      "id": "draft_modern_fantasy_04_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_modern_fantasy_04_evidence_site",
+      "toId": "draft_modern_fantasy_04_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L25"
+    },
+    {
+      "id": "draft_modern_fantasy_04_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_modern_fantasy_04_alternative",
+      "toId": "draft_modern_fantasy_04_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L25"
+    },
+    {
+      "id": "draft_modern_fantasy_05_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_modern_fantasy_05_pressure",
+      "toId": "draft_modern_fantasy_05_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L26"
+    },
+    {
+      "id": "draft_modern_fantasy_05_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_modern_fantasy_05_additional_belief",
+      "toId": "draft_modern_fantasy_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L26"
+    },
+    {
+      "id": "draft_modern_fantasy_05_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_modern_fantasy_05_additional_belief",
+      "toId": "draft_modern_fantasy_05_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L26"
+    },
+    {
+      "id": "draft_modern_fantasy_05_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_modern_fantasy_05_evidence_site",
+      "toId": "draft_modern_fantasy_05_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L26"
+    },
+    {
+      "id": "draft_modern_fantasy_05_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_modern_fantasy_05_alternative",
+      "toId": "draft_modern_fantasy_05_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L26"
+    }
+  ],
+  "proposedCausalLinks": [
+    {
+      "id": "draft_modern_fantasy_01_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_modern_fantasy_01_pressure",
+      "toId": "draft_modern_fantasy_01_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_modern_fantasy_01_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_modern_fantasy_01_evidence",
+      "toId": "draft_modern_fantasy_01_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_modern_fantasy_02_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_modern_fantasy_02_pressure",
+      "toId": "draft_modern_fantasy_02_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_modern_fantasy_02_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_modern_fantasy_02_evidence",
+      "toId": "draft_modern_fantasy_02_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_modern_fantasy_03_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_modern_fantasy_03_pressure",
+      "toId": "draft_modern_fantasy_03_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_modern_fantasy_03_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_modern_fantasy_03_evidence",
+      "toId": "draft_modern_fantasy_03_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_modern_fantasy_04_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_modern_fantasy_04_pressure",
+      "toId": "draft_modern_fantasy_04_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_modern_fantasy_04_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_modern_fantasy_04_evidence",
+      "toId": "draft_modern_fantasy_04_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_modern_fantasy_05_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_modern_fantasy_05_pressure",
+      "toId": "draft_modern_fantasy_05_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_modern_fantasy_05_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_modern_fantasy_05_evidence",
+      "toId": "draft_modern_fantasy_05_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    }
+  ]
+}

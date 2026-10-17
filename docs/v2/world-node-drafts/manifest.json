@@ -1,0 +1,236 @@
+{
+  "schema": "world-node-drafts/manifest-v1",
+  "status": "Draft",
+  "runtime": false,
+  "meaning": "110 authored causal fronts expanded into 1320 linked candidate nodes; these are not 1320 independent mechanics or 22 established worlds",
+  "sourceRefs": [
+    "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+    "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+    "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft"
+  ],
+  "sources": [
+    "catalog-a.txt",
+    "catalog-b.txt",
+    "companion-a.txt",
+    "companion-b.txt"
+  ],
+  "motifCount": 22,
+  "authoredFrontCount": 110,
+  "nodeCount": 1320,
+  "kindCounts": {
+    "Entity": 330,
+    "Location": 220,
+    "Resource": 110,
+    "Event": 330,
+    "Knowledge": 330
+  },
+  "structuralEdgeCount": 1650,
+  "proposedCausalLinkCount": 220,
+  "knownLimits": [
+    "No generated file is imported by the playable worldData pack.",
+    "Each of the 110 fronts is a connected proposal; cross-front and crossworld gameplay links are not asserted.",
+    "Initial reports and added beliefs are unverified; evidence sites and observations are candidates.",
+    "Player intervention costs, durable outcomes, world travel, and save semantics remain unassigned unless explicitly authored.",
+    "Structural edges and proposed causal links are counted separately."
+  ],
+  "motifs": [
+    {
+      "slug": "cyberpunk",
+      "label": "사이버펑크",
+      "file": "generated/cyberpunk.json",
+      "authoredFronts": 5,
+      "nodes": 60,
+      "structuralEdges": 75,
+      "proposedCausalLinks": 10
+    },
+    {
+      "slug": "arcanepunk",
+      "label": "아케인펑크",
+      "file": "generated/arcanepunk.json",
+      "authoredFronts": 5,
+      "nodes": 60,
+      "structuralEdges": 75,
+      "proposedCausalLinks": 10
+    },
+    {
+      "slug": "apocalypse",
+      "label": "아포칼립스",
+      "file": "generated/apocalypse.json",
+      "authoredFronts": 5,
+      "nodes": 60,
+      "structuralEdges": 75,
+      "proposedCausalLinks": 10
+    },
+    {
+      "slug": "fantasy",
+      "label": "판타지",
+      "file": "generated/fantasy.json",
+      "authoredFronts": 5,
+      "nodes": 60,
+      "structuralEdges": 75,
+      "proposedCausalLinks": 10
+    },
+    {
+      "slug": "modern_fantasy",
+      "label": "현대 판타지",
+      "file": "generated/modern_fantasy.json",
+      "authoredFronts": 5,
+      "nodes": 60,
+      "structuralEdges": 75,
+      "proposedCausalLinks": 10
+    },
+    {
+      "slug": "medieval_fantasy",
+      "label": "중세 판타지",
+      "file": "generated/medieval_fantasy.json",
+      "authoredFronts": 5,
+      "nodes": 60,
+      "structuralEdges": 75,
+      "proposedCausalLinks": 10
+    },
+    {
+      "slug": "other_world",
+      "label": "이세계",
+      "file": "generated/other_world.json",
+      "authoredFronts": 5,
+      "nodes": 60,
+      "structuralEdges": 75,
+      "proposedCausalLinks": 10
+    },
+    {
+      "slug": "regression",
+      "label": "회귀",
+      "file": "generated/regression.json",
+      "authoredFronts": 5,
+      "nodes": 60,
+      "structuralEdges": 75,
+      "proposedCausalLinks": 10
+    },
+    {
+      "slug": "possession",
+      "label": "빙의",
+      "file": "generated/possession.json",
+      "authoredFronts": 5,
+      "nodes": 60,
+      "structuralEdges": 75,
+      "proposedCausalLinks": 10
+    },
+    {
+      "slug": "reincarnation",
+      "label": "환생",
+      "file": "generated/reincarnation.json",
+      "authoredFronts": 5,
+      "nodes": 60,
+      "structuralEdges": 75,
+      "proposedCausalLinks": 10
+    },
+    {
+      "slug": "science_fiction",
+      "label": "SF",
+      "file": "generated/science_fiction.json",
+      "authoredFronts": 5,
+      "nodes": 60,
+      "structuralEdges": 75,
+      "proposedCausalLinks": 10
+    },
+    {
+      "slug": "space_opera",
+      "label": "스페이스 오페라",
+      "file": "generated/space_opera.json",
+      "authoredFronts": 5,
+      "nodes": 60,
+      "structuralEdges": 75,
+      "proposedCausalLinks": 10
+    },
+    {
+      "slug": "occult",
+      "label": "괴이·오컬트",
+      "file": "generated/occult.json",
+      "authoredFronts": 5,
+      "nodes": 60,
+      "structuralEdges": 75,
+      "proposedCausalLinks": 10
+    },
+    {
+      "slug": "martial_arts",
+      "label": "무협",
+      "file": "generated/martial_arts.json",
+      "authoredFronts": 5,
+      "nodes": 60,
+      "structuralEdges": 75,
+      "proposedCausalLinks": 10
+    },
+    {
+      "slug": "immortal_cultivation",
+      "label": "선협",
+      "file": "generated/immortal_cultivation.json",
+      "authoredFronts": 5,
+      "nodes": 60,
+      "structuralEdges": 75,
+      "proposedCausalLinks": 10
+    },
+    {
+      "slug": "hunter",
+      "label": "헌터",
+      "file": "generated/hunter.json",
+      "authoredFronts": 5,
+      "nodes": 60,
+      "structuralEdges": 75,
+      "proposedCausalLinks": 10
+    },
+    {
+      "slug": "gate",
+      "label": "게이트",
+      "file": "generated/gate.json",
+      "authoredFronts": 5,
+      "nodes": 60,
+      "structuralEdges": 75,
+      "proposedCausalLinks": 10
+    },
+    {
+      "slug": "tower",
+      "label": "탑",
+      "file": "generated/tower.json",
+      "authoredFronts": 5,
+      "nodes": 60,
+      "structuralEdges": 75,
+      "proposedCausalLinks": 10
+    },
+    {
+      "slug": "tower_climb",
+      "label": "탑 등반",
+      "file": "generated/tower_climb.json",
+      "authoredFronts": 5,
+      "nodes": 60,
+      "structuralEdges": 75,
+      "proposedCausalLinks": 10
+    },
+    {
+      "slug": "maze_dungeon",
+      "label": "미궁·던전",
+      "file": "generated/maze_dungeon.json",
+      "authoredFronts": 5,
+      "nodes": 60,
+      "structuralEdges": 75,
+      "proposedCausalLinks": 10
+    },
+    {
+      "slug": "battle_arena",
+      "label": "배틀 아레나",
+      "file": "generated/battle_arena.json",
+      "authoredFronts": 5,
+      "nodes": 60,
+      "structuralEdges": 75,
+      "proposedCausalLinks": 10
+    },
+    {
+      "slug": "dimension_wander",
+      "label": "차원 유랑",
+      "file": "generated/dimension_wander.json",
+      "authoredFronts": 5,
+      "nodes": 60,
+      "structuralEdges": 75,
+      "proposedCausalLinks": 10
+    }
+  ]
+}

@@ -1,0 +1,3084 @@
+{
+  "schema": "world-node-drafts/v1",
+  "status": "Draft",
+  "runtime": false,
+  "scope": {
+    "id": "motif_dimension_wander",
+    "label": "차원 유랑",
+    "kind": "genre-or-structure proposal; not a world definition"
+  },
+  "canonImpact": "none; no Draft item is accepted game setting",
+  "sourceRefs": [
+    "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+    "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+    "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft"
+  ],
+  "fronts": [
+    {
+      "id": "draft_dimension_wander_01",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A traveler returns by a path that no longer reaches home",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A traveler returns by a path that no longer reaches home",
+      "authoredIntervention": "Compare landmarks before attempting the route again",
+      "initialReport": "The traveler says the path is unchanged",
+      "verificationCandidate": "Paired sketches show a missing junction",
+      "alternativeInterventions": "Mark the missing junction and test a new return together",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied",
+        "Interworld route and return law unresolved"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L63",
+        "docs/v2/world-node-drafts/companion-b.txt#L52"
+      ],
+      "semanticSignature": "a traveler returns by a path that no longer reaches home compare landmarks before attempting the route again route journals the traveler says the path is unchanged paired sketches show a missing junction",
+      "nodeIds": [
+        "draft_dimension_wander_01_entity",
+        "draft_dimension_wander_01_location",
+        "draft_dimension_wander_01_resource",
+        "draft_dimension_wander_01_pressure",
+        "draft_dimension_wander_01_response",
+        "draft_dimension_wander_01_report",
+        "draft_dimension_wander_01_evidence",
+        "draft_dimension_wander_01_counterparty",
+        "draft_dimension_wander_01_belief_holder",
+        "draft_dimension_wander_01_evidence_site",
+        "draft_dimension_wander_01_alternative",
+        "draft_dimension_wander_01_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Travel takes longer and guides cannot promise homecoming",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_dimension_wander_01_counterparty",
+        "evidenceSiteId": "draft_dimension_wander_01_evidence_site",
+        "alternativeEventId": "draft_dimension_wander_01_alternative",
+        "additionalBeliefId": "draft_dimension_wander_01_additional_belief",
+        "beliefHolderId": "draft_dimension_wander_01_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L52"
+      }
+    },
+    {
+      "id": "draft_dimension_wander_02",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A familiar bargain phrase means surrender across the boundary",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A familiar bargain phrase means surrender across the boundary",
+      "authoredIntervention": "Test a small exchange before signing a larger pact",
+      "initialReport": "Both groups think they agreed on trade",
+      "verificationCandidate": "A token exchange exposes the mismatch",
+      "alternativeInterventions": "Use a witnessed small exchange before a larger pact",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied",
+        "Interworld route and return law unresolved"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L64",
+        "docs/v2/world-node-drafts/companion-b.txt#L53"
+      ],
+      "semanticSignature": "a familiar bargain phrase means surrender across the boundary test a small exchange before signing a larger pact word tokens both groups think they agreed on trade a token exchange exposes the mismatch",
+      "nodeIds": [
+        "draft_dimension_wander_02_entity",
+        "draft_dimension_wander_02_location",
+        "draft_dimension_wander_02_resource",
+        "draft_dimension_wander_02_pressure",
+        "draft_dimension_wander_02_response",
+        "draft_dimension_wander_02_report",
+        "draft_dimension_wander_02_evidence",
+        "draft_dimension_wander_02_counterparty",
+        "draft_dimension_wander_02_belief_holder",
+        "draft_dimension_wander_02_evidence_site",
+        "draft_dimension_wander_02_alternative",
+        "draft_dimension_wander_02_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Trade slows and parties disclose uncertainty",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_dimension_wander_02_counterparty",
+        "evidenceSiteId": "draft_dimension_wander_02_evidence_site",
+        "alternativeEventId": "draft_dimension_wander_02_alternative",
+        "additionalBeliefId": "draft_dimension_wander_02_additional_belief",
+        "beliefHolderId": "draft_dimension_wander_02_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L53"
+      }
+    },
+    {
+      "id": "draft_dimension_wander_03",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A new crossing diverts supplies away from stranded families",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A new crossing diverts supplies away from stranded families",
+      "authoredIntervention": "Trace each chest and reserve a local floor",
+      "initialReport": "Porters believe all chests reached the refuge",
+      "verificationCandidate": "Receipt marks stop at the crossing",
+      "alternativeInterventions": "Reserve a counted local share before onward dispatch",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied",
+        "Interworld route and return law unresolved"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L65",
+        "docs/v2/world-node-drafts/companion-b.txt#L54"
+      ],
+      "semanticSignature": "a new crossing diverts supplies away from stranded families trace each chest and reserve a local floor supply chests porters believe all chests reached the refuge receipt marks stop at the crossing",
+      "nodeIds": [
+        "draft_dimension_wander_03_entity",
+        "draft_dimension_wander_03_location",
+        "draft_dimension_wander_03_resource",
+        "draft_dimension_wander_03_pressure",
+        "draft_dimension_wander_03_response",
+        "draft_dimension_wander_03_report",
+        "draft_dimension_wander_03_evidence",
+        "draft_dimension_wander_03_counterparty",
+        "draft_dimension_wander_03_belief_holder",
+        "draft_dimension_wander_03_evidence_site",
+        "draft_dimension_wander_03_alternative",
+        "draft_dimension_wander_03_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Other refuges receive less and porters keep ledgers",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_dimension_wander_03_counterparty",
+        "evidenceSiteId": "draft_dimension_wander_03_evidence_site",
+        "alternativeEventId": "draft_dimension_wander_03_alternative",
+        "additionalBeliefId": "draft_dimension_wander_03_additional_belief",
+        "beliefHolderId": "draft_dimension_wander_03_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L54"
+      }
+    },
+    {
+      "id": "draft_dimension_wander_04",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "Seeds brought home alter soil around a crossing",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "Seeds brought home alter soil around a crossing",
+      "authoredIntervention": "Contain the plot and compare untreated soil",
+      "initialReport": "Gardeners call the change ordinary growth",
+      "verificationCandidate": "Control jars show only imported seeds spread",
+      "alternativeInterventions": "Contain the seam garden and test new cuttings separately",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied",
+        "Interworld route and return law unresolved"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L66",
+        "docs/v2/world-node-drafts/companion-b.txt#L55"
+      ],
+      "semanticSignature": "seeds brought home alter soil around a crossing contain the plot and compare untreated soil sample jars gardeners call the change ordinary growth control jars show only imported seeds spread",
+      "nodeIds": [
+        "draft_dimension_wander_04_entity",
+        "draft_dimension_wander_04_location",
+        "draft_dimension_wander_04_resource",
+        "draft_dimension_wander_04_pressure",
+        "draft_dimension_wander_04_response",
+        "draft_dimension_wander_04_report",
+        "draft_dimension_wander_04_evidence",
+        "draft_dimension_wander_04_counterparty",
+        "draft_dimension_wander_04_belief_holder",
+        "draft_dimension_wander_04_evidence_site",
+        "draft_dimension_wander_04_alternative",
+        "draft_dimension_wander_04_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Harvest is delayed and gardeners lose a plot",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_dimension_wander_04_counterparty",
+        "evidenceSiteId": "draft_dimension_wander_04_evidence_site",
+        "alternativeEventId": "draft_dimension_wander_04_alternative",
+        "additionalBeliefId": "draft_dimension_wander_04_additional_belief",
+        "beliefHolderId": "draft_dimension_wander_04_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L55"
+      }
+    },
+    {
+      "id": "draft_dimension_wander_05",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A route opens outward but its return condition is unknown",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A route opens outward but its return condition is unknown",
+      "authoredIntervention": "Record test returns before inviting others through",
+      "initialReport": "Recruiters promise a certain return",
+      "verificationCandidate": "No dated return marker supports the promise",
+      "alternativeInterventions": "Require a documented round trip before opening recruitment",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied",
+        "Interworld route and return law unresolved"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L67",
+        "docs/v2/world-node-drafts/companion-b.txt#L56"
+      ],
+      "semanticSignature": "a route opens outward but its return condition is unknown record test returns before inviting others through anchor markers recruiters promise a certain return no dated return marker supports the promise",
+      "nodeIds": [
+        "draft_dimension_wander_05_entity",
+        "draft_dimension_wander_05_location",
+        "draft_dimension_wander_05_resource",
+        "draft_dimension_wander_05_pressure",
+        "draft_dimension_wander_05_response",
+        "draft_dimension_wander_05_report",
+        "draft_dimension_wander_05_evidence",
+        "draft_dimension_wander_05_counterparty",
+        "draft_dimension_wander_05_belief_holder",
+        "draft_dimension_wander_05_evidence_site",
+        "draft_dimension_wander_05_alternative",
+        "draft_dimension_wander_05_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Exploration slows and volunteers may be scarce",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_dimension_wander_05_counterparty",
+        "evidenceSiteId": "draft_dimension_wander_05_evidence_site",
+        "alternativeEventId": "draft_dimension_wander_05_alternative",
+        "additionalBeliefId": "draft_dimension_wander_05_additional_belief",
+        "beliefHolderId": "draft_dimension_wander_05_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L56"
+      }
+    }
+  ],
+  "nodes": [
+    {
+      "id": "draft_dimension_wander_01_entity",
+      "kind": "Entity",
+      "label": "border diarists",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_01",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L63"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L63"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep route journals usable at unmarked transit stop",
+        "stakes": "A traveler returns by a path that no longer reaches home",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_dimension_wander_01_edge_01",
+        "draft_dimension_wander_01_edge_04",
+        "draft_dimension_wander_01_edge_07"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_01_location",
+      "kind": "Location",
+      "label": "unmarked transit stop",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_01",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L63"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L63"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_dimension_wander_01_resource",
+        "conflict": "A traveler returns by a path that no longer reaches home",
+        "risk": "A traveler returns by a path that no longer reaches home"
+      },
+      "relations": [
+        "draft_dimension_wander_01_edge_01",
+        "draft_dimension_wander_01_edge_02",
+        "draft_dimension_wander_01_edge_03",
+        "draft_dimension_wander_01_edge_06"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_01_resource",
+      "kind": "Resource",
+      "label": "route journals",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_01",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L63"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L63"
+      ],
+      "proposal": {
+        "sourceId": "draft_dimension_wander_01_location",
+        "scarcity": "A traveler returns by a path that no longer reaches home",
+        "proposedUse": "Compare landmarks before attempting the route again",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_dimension_wander_01_edge_02",
+        "draft_dimension_wander_01_edge_05",
+        "draft_dimension_wander_01_edge_08"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_01_pressure",
+      "kind": "Event",
+      "label": "A traveler returns by a path that no longer reaches home",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_01",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L63"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L63"
+      ],
+      "proposal": {
+        "trigger": "A traveler returns by a path that no longer reaches home",
+        "proposedEffect": "Changes access to route journals",
+        "effectTargetId": "draft_dimension_wander_01_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_dimension_wander_01_edge_03",
+        "draft_dimension_wander_01_edge_04",
+        "draft_dimension_wander_01_edge_05",
+        "draft_dimension_wander_01_edge_09",
+        "draft_dimension_wander_01_edge_10",
+        "draft_dimension_wander_01_companion_edge_01",
+        "draft_dimension_wander_01_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_01_response",
+      "kind": "Event",
+      "label": "Compare landmarks before attempting the route again",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_01",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L63"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L63"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Compare landmarks before attempting the route again",
+        "proposedEffect": "Compare landmarks before attempting the route again",
+        "effectTargetId": "draft_dimension_wander_01_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_dimension_wander_01_edge_06",
+        "draft_dimension_wander_01_edge_07",
+        "draft_dimension_wander_01_edge_08",
+        "draft_dimension_wander_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_01_report",
+      "kind": "Knowledge",
+      "label": "The traveler says the path is unchanged",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_01",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L63"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L63"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The traveler says the path is unchanged",
+        "aboutId": "draft_dimension_wander_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_dimension_wander_01_edge_09"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_01_evidence",
+      "kind": "Knowledge",
+      "label": "Paired sketches show a missing junction",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L63"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L63"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Paired sketches show a missing junction",
+        "aboutId": "draft_dimension_wander_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_dimension_wander_01_edge_10",
+        "draft_dimension_wander_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_02_entity",
+      "kind": "Entity",
+      "label": "translation caravan",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_02",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L64"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L64"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep word tokens usable at meeting shore",
+        "stakes": "A familiar bargain phrase means surrender across the boundary",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_dimension_wander_02_edge_01",
+        "draft_dimension_wander_02_edge_04",
+        "draft_dimension_wander_02_edge_07"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_02_location",
+      "kind": "Location",
+      "label": "meeting shore",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_02",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L64"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L64"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_dimension_wander_02_resource",
+        "conflict": "A familiar bargain phrase means surrender across the boundary",
+        "risk": "A familiar bargain phrase means surrender across the boundary"
+      },
+      "relations": [
+        "draft_dimension_wander_02_edge_01",
+        "draft_dimension_wander_02_edge_02",
+        "draft_dimension_wander_02_edge_03",
+        "draft_dimension_wander_02_edge_06"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_02_resource",
+      "kind": "Resource",
+      "label": "word tokens",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_02",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L64"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L64"
+      ],
+      "proposal": {
+        "sourceId": "draft_dimension_wander_02_location",
+        "scarcity": "A familiar bargain phrase means surrender across the boundary",
+        "proposedUse": "Test a small exchange before signing a larger pact",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_dimension_wander_02_edge_02",
+        "draft_dimension_wander_02_edge_05",
+        "draft_dimension_wander_02_edge_08"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_02_pressure",
+      "kind": "Event",
+      "label": "A familiar bargain phrase means surrender across the boundary",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_02",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L64"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L64"
+      ],
+      "proposal": {
+        "trigger": "A familiar bargain phrase means surrender across the boundary",
+        "proposedEffect": "Changes access to word tokens",
+        "effectTargetId": "draft_dimension_wander_02_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_dimension_wander_02_edge_03",
+        "draft_dimension_wander_02_edge_04",
+        "draft_dimension_wander_02_edge_05",
+        "draft_dimension_wander_02_edge_09",
+        "draft_dimension_wander_02_edge_10",
+        "draft_dimension_wander_02_companion_edge_01",
+        "draft_dimension_wander_02_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_02_response",
+      "kind": "Event",
+      "label": "Test a small exchange before signing a larger pact",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_02",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L64"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L64"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Test a small exchange before signing a larger pact",
+        "proposedEffect": "Test a small exchange before signing a larger pact",
+        "effectTargetId": "draft_dimension_wander_02_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_dimension_wander_02_edge_06",
+        "draft_dimension_wander_02_edge_07",
+        "draft_dimension_wander_02_edge_08",
+        "draft_dimension_wander_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_02_report",
+      "kind": "Knowledge",
+      "label": "Both groups think they agreed on trade",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_02",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L64"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L64"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Both groups think they agreed on trade",
+        "aboutId": "draft_dimension_wander_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_dimension_wander_02_edge_09"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_02_evidence",
+      "kind": "Knowledge",
+      "label": "A token exchange exposes the mismatch",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L64"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L64"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "A token exchange exposes the mismatch",
+        "aboutId": "draft_dimension_wander_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_dimension_wander_02_edge_10",
+        "draft_dimension_wander_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_03_entity",
+      "kind": "Entity",
+      "label": "shelter network",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_03",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L65"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L65"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep supply chests usable at between-world refuge",
+        "stakes": "A new crossing diverts supplies away from stranded families",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_dimension_wander_03_edge_01",
+        "draft_dimension_wander_03_edge_04",
+        "draft_dimension_wander_03_edge_07"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_03_location",
+      "kind": "Location",
+      "label": "between-world refuge",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_03",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L65"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L65"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_dimension_wander_03_resource",
+        "conflict": "A new crossing diverts supplies away from stranded families",
+        "risk": "A new crossing diverts supplies away from stranded families"
+      },
+      "relations": [
+        "draft_dimension_wander_03_edge_01",
+        "draft_dimension_wander_03_edge_02",
+        "draft_dimension_wander_03_edge_03",
+        "draft_dimension_wander_03_edge_06"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_03_resource",
+      "kind": "Resource",
+      "label": "supply chests",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_03",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L65"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L65"
+      ],
+      "proposal": {
+        "sourceId": "draft_dimension_wander_03_location",
+        "scarcity": "A new crossing diverts supplies away from stranded families",
+        "proposedUse": "Trace each chest and reserve a local floor",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_dimension_wander_03_edge_02",
+        "draft_dimension_wander_03_edge_05",
+        "draft_dimension_wander_03_edge_08"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_03_pressure",
+      "kind": "Event",
+      "label": "A new crossing diverts supplies away from stranded families",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_03",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L65"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L65"
+      ],
+      "proposal": {
+        "trigger": "A new crossing diverts supplies away from stranded families",
+        "proposedEffect": "Changes access to supply chests",
+        "effectTargetId": "draft_dimension_wander_03_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_dimension_wander_03_edge_03",
+        "draft_dimension_wander_03_edge_04",
+        "draft_dimension_wander_03_edge_05",
+        "draft_dimension_wander_03_edge_09",
+        "draft_dimension_wander_03_edge_10",
+        "draft_dimension_wander_03_companion_edge_01",
+        "draft_dimension_wander_03_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_03_response",
+      "kind": "Event",
+      "label": "Trace each chest and reserve a local floor",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_03",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L65"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L65"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Trace each chest and reserve a local floor",
+        "proposedEffect": "Trace each chest and reserve a local floor",
+        "effectTargetId": "draft_dimension_wander_03_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_dimension_wander_03_edge_06",
+        "draft_dimension_wander_03_edge_07",
+        "draft_dimension_wander_03_edge_08",
+        "draft_dimension_wander_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_03_report",
+      "kind": "Knowledge",
+      "label": "Porters believe all chests reached the refuge",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_03",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L65"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L65"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Porters believe all chests reached the refuge",
+        "aboutId": "draft_dimension_wander_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_dimension_wander_03_edge_09"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_03_evidence",
+      "kind": "Knowledge",
+      "label": "Receipt marks stop at the crossing",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L65"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L65"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Receipt marks stop at the crossing",
+        "aboutId": "draft_dimension_wander_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_dimension_wander_03_edge_10",
+        "draft_dimension_wander_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_04_entity",
+      "kind": "Entity",
+      "label": "boundary ecologists",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_04",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L66"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L66"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep sample jars usable at seam garden",
+        "stakes": "Seeds brought home alter soil around a crossing",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_dimension_wander_04_edge_01",
+        "draft_dimension_wander_04_edge_04",
+        "draft_dimension_wander_04_edge_07"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_04_location",
+      "kind": "Location",
+      "label": "seam garden",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_04",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L66"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L66"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_dimension_wander_04_resource",
+        "conflict": "Seeds brought home alter soil around a crossing",
+        "risk": "Seeds brought home alter soil around a crossing"
+      },
+      "relations": [
+        "draft_dimension_wander_04_edge_01",
+        "draft_dimension_wander_04_edge_02",
+        "draft_dimension_wander_04_edge_03",
+        "draft_dimension_wander_04_edge_06"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_04_resource",
+      "kind": "Resource",
+      "label": "sample jars",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_04",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L66"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L66"
+      ],
+      "proposal": {
+        "sourceId": "draft_dimension_wander_04_location",
+        "scarcity": "Seeds brought home alter soil around a crossing",
+        "proposedUse": "Contain the plot and compare untreated soil",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_dimension_wander_04_edge_02",
+        "draft_dimension_wander_04_edge_05",
+        "draft_dimension_wander_04_edge_08"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_04_pressure",
+      "kind": "Event",
+      "label": "Seeds brought home alter soil around a crossing",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_04",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L66"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L66"
+      ],
+      "proposal": {
+        "trigger": "Seeds brought home alter soil around a crossing",
+        "proposedEffect": "Changes access to sample jars",
+        "effectTargetId": "draft_dimension_wander_04_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_dimension_wander_04_edge_03",
+        "draft_dimension_wander_04_edge_04",
+        "draft_dimension_wander_04_edge_05",
+        "draft_dimension_wander_04_edge_09",
+        "draft_dimension_wander_04_edge_10",
+        "draft_dimension_wander_04_companion_edge_01",
+        "draft_dimension_wander_04_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_04_response",
+      "kind": "Event",
+      "label": "Contain the plot and compare untreated soil",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_04",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L66"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L66"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Contain the plot and compare untreated soil",
+        "proposedEffect": "Contain the plot and compare untreated soil",
+        "effectTargetId": "draft_dimension_wander_04_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_dimension_wander_04_edge_06",
+        "draft_dimension_wander_04_edge_07",
+        "draft_dimension_wander_04_edge_08",
+        "draft_dimension_wander_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_04_report",
+      "kind": "Knowledge",
+      "label": "Gardeners call the change ordinary growth",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_04",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L66"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L66"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Gardeners call the change ordinary growth",
+        "aboutId": "draft_dimension_wander_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_dimension_wander_04_edge_09"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_04_evidence",
+      "kind": "Knowledge",
+      "label": "Control jars show only imported seeds spread",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L66"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L66"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Control jars show only imported seeds spread",
+        "aboutId": "draft_dimension_wander_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_dimension_wander_04_edge_10",
+        "draft_dimension_wander_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_05_entity",
+      "kind": "Entity",
+      "label": "return-route council",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_05",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L67"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L67"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep anchor markers usable at last known gate",
+        "stakes": "A route opens outward but its return condition is unknown",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_dimension_wander_05_edge_01",
+        "draft_dimension_wander_05_edge_04",
+        "draft_dimension_wander_05_edge_07"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_05_location",
+      "kind": "Location",
+      "label": "last known gate",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_05",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L67"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L67"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_dimension_wander_05_resource",
+        "conflict": "A route opens outward but its return condition is unknown",
+        "risk": "A route opens outward but its return condition is unknown"
+      },
+      "relations": [
+        "draft_dimension_wander_05_edge_01",
+        "draft_dimension_wander_05_edge_02",
+        "draft_dimension_wander_05_edge_03",
+        "draft_dimension_wander_05_edge_06"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_05_resource",
+      "kind": "Resource",
+      "label": "anchor markers",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_05",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L67"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L67"
+      ],
+      "proposal": {
+        "sourceId": "draft_dimension_wander_05_location",
+        "scarcity": "A route opens outward but its return condition is unknown",
+        "proposedUse": "Record test returns before inviting others through",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_dimension_wander_05_edge_02",
+        "draft_dimension_wander_05_edge_05",
+        "draft_dimension_wander_05_edge_08"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_05_pressure",
+      "kind": "Event",
+      "label": "A route opens outward but its return condition is unknown",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_05",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L67"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L67"
+      ],
+      "proposal": {
+        "trigger": "A route opens outward but its return condition is unknown",
+        "proposedEffect": "Changes access to anchor markers",
+        "effectTargetId": "draft_dimension_wander_05_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_dimension_wander_05_edge_03",
+        "draft_dimension_wander_05_edge_04",
+        "draft_dimension_wander_05_edge_05",
+        "draft_dimension_wander_05_edge_09",
+        "draft_dimension_wander_05_edge_10",
+        "draft_dimension_wander_05_companion_edge_01",
+        "draft_dimension_wander_05_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_05_response",
+      "kind": "Event",
+      "label": "Record test returns before inviting others through",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_05",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L67"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L67"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Record test returns before inviting others through",
+        "proposedEffect": "Record test returns before inviting others through",
+        "effectTargetId": "draft_dimension_wander_05_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_dimension_wander_05_edge_06",
+        "draft_dimension_wander_05_edge_07",
+        "draft_dimension_wander_05_edge_08",
+        "draft_dimension_wander_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_05_report",
+      "kind": "Knowledge",
+      "label": "Recruiters promise a certain return",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_05",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L67"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L67"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Recruiters promise a certain return",
+        "aboutId": "draft_dimension_wander_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_dimension_wander_05_edge_09"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_05_evidence",
+      "kind": "Knowledge",
+      "label": "No dated return marker supports the promise",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L67"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L67"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "No dated return marker supports the promise",
+        "aboutId": "draft_dimension_wander_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_dimension_wander_05_edge_10",
+        "draft_dimension_wander_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_01_counterparty",
+      "kind": "Entity",
+      "label": "route recruiter",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_01",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L52"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L52"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Continue guiding travelers along an obsolete return path",
+        "stakes": "A traveler returns by a path that no longer reaches home",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_dimension_wander_01_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_01_belief_holder",
+      "kind": "Entity",
+      "label": "new arrivals",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_01",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L52"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L52"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: The route cannot change for a returning traveler",
+        "stakes": "A traveler returns by a path that no longer reaches home",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_dimension_wander_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_01_evidence_site",
+      "kind": "Location",
+      "label": "paired-landmark sketch table",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L52"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L52"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A traveler returns by a path that no longer reaches home",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_dimension_wander_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_01_alternative",
+      "kind": "Event",
+      "label": "Mark the missing junction and test a new return together",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_01",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L52"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L52"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Mark the missing junction and test a new return together",
+        "costAndConsequence": "Travel takes longer and guides cannot promise homecoming",
+        "alternativeToId": "draft_dimension_wander_01_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_dimension_wander_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_01_additional_belief",
+      "kind": "Knowledge",
+      "label": "The route cannot change for a returning traveler",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_01",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L52"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L52"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The route cannot change for a returning traveler",
+        "aboutId": "draft_dimension_wander_01_pressure",
+        "holderId": "draft_dimension_wander_01_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_dimension_wander_01_companion_edge_02",
+        "draft_dimension_wander_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_02_counterparty",
+      "kind": "Entity",
+      "label": "boundary bargain broker",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_02",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L53"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L53"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Profit from a misunderstood surrender phrase",
+        "stakes": "A familiar bargain phrase means surrender across the boundary",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_dimension_wander_02_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_02_belief_holder",
+      "kind": "Entity",
+      "label": "caravan buyers",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_02",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L53"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L53"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: A familiar phrase keeps its meaning across worlds",
+        "stakes": "A familiar bargain phrase means surrender across the boundary",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_dimension_wander_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_02_evidence_site",
+      "kind": "Location",
+      "label": "bilingual token trial stall",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L53"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L53"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A familiar bargain phrase means surrender across the boundary",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_dimension_wander_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_02_alternative",
+      "kind": "Event",
+      "label": "Use a witnessed small exchange before a larger pact",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_02",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L53"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L53"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Use a witnessed small exchange before a larger pact",
+        "costAndConsequence": "Trade slows and parties disclose uncertainty",
+        "alternativeToId": "draft_dimension_wander_02_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_dimension_wander_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_02_additional_belief",
+      "kind": "Knowledge",
+      "label": "A familiar phrase keeps its meaning across worlds",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_02",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L53"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L53"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A familiar phrase keeps its meaning across worlds",
+        "aboutId": "draft_dimension_wander_02_pressure",
+        "holderId": "draft_dimension_wander_02_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_dimension_wander_02_companion_edge_02",
+        "draft_dimension_wander_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_03_counterparty",
+      "kind": "Entity",
+      "label": "chest diversion porter",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_03",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L54"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L54"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Redirect relief crates at a new crossing",
+        "stakes": "A new crossing diverts supplies away from stranded families",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_dimension_wander_03_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_03_belief_holder",
+      "kind": "Entity",
+      "label": "donors",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_03",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L54"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L54"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Every marked chest reached the stranded families",
+        "stakes": "A new crossing diverts supplies away from stranded families",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_dimension_wander_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_03_evidence_site",
+      "kind": "Location",
+      "label": "crossing receipt post",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L54"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L54"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A new crossing diverts supplies away from stranded families",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_dimension_wander_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_03_alternative",
+      "kind": "Event",
+      "label": "Reserve a counted local share before onward dispatch",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_03",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L54"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L54"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Reserve a counted local share before onward dispatch",
+        "costAndConsequence": "Other refuges receive less and porters keep ledgers",
+        "alternativeToId": "draft_dimension_wander_03_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_dimension_wander_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_03_additional_belief",
+      "kind": "Knowledge",
+      "label": "Every marked chest reached the stranded families",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_03",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L54"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L54"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Every marked chest reached the stranded families",
+        "aboutId": "draft_dimension_wander_03_pressure",
+        "holderId": "draft_dimension_wander_03_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_dimension_wander_03_companion_edge_02",
+        "draft_dimension_wander_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_04_counterparty",
+      "kind": "Entity",
+      "label": "imported-seed trader",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_04",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L55"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L55"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Spread fast-growing seeds near the boundary",
+        "stakes": "Seeds brought home alter soil around a crossing",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_dimension_wander_04_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_04_belief_holder",
+      "kind": "Entity",
+      "label": "home gardeners",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_04",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L55"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L55"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Any growth at the seam is ordinary local growth",
+        "stakes": "Seeds brought home alter soil around a crossing",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_dimension_wander_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_04_evidence_site",
+      "kind": "Location",
+      "label": "untreated soil control plot",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L55"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L55"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "Seeds brought home alter soil around a crossing",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_dimension_wander_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_04_alternative",
+      "kind": "Event",
+      "label": "Contain the seam garden and test new cuttings separately",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_04",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L55"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L55"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Contain the seam garden and test new cuttings separately",
+        "costAndConsequence": "Harvest is delayed and gardeners lose a plot",
+        "alternativeToId": "draft_dimension_wander_04_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_dimension_wander_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_04_additional_belief",
+      "kind": "Knowledge",
+      "label": "Any growth at the seam is ordinary local growth",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_04",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L55"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L55"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Any growth at the seam is ordinary local growth",
+        "aboutId": "draft_dimension_wander_04_pressure",
+        "holderId": "draft_dimension_wander_04_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_dimension_wander_04_companion_edge_02",
+        "draft_dimension_wander_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_05_counterparty",
+      "kind": "Entity",
+      "label": "return-route recruiter",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_05",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L56"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L56"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Invite travelers outward without proving return conditions",
+        "stakes": "A route opens outward but its return condition is unknown",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_dimension_wander_05_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_05_belief_holder",
+      "kind": "Entity",
+      "label": "would-be travelers",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_05",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L56"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L56"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: An outward opening guarantees a return path",
+        "stakes": "A route opens outward but its return condition is unknown",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_dimension_wander_05_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_05_evidence_site",
+      "kind": "Location",
+      "label": "dated return-marker station",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L56"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L56"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A route opens outward but its return condition is unknown",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_dimension_wander_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_05_alternative",
+      "kind": "Event",
+      "label": "Require a documented round trip before opening recruitment",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_05",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L56"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L56"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Require a documented round trip before opening recruitment",
+        "costAndConsequence": "Exploration slows and volunteers may be scarce",
+        "alternativeToId": "draft_dimension_wander_05_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_dimension_wander_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_dimension_wander_05_additional_belief",
+      "kind": "Knowledge",
+      "label": "An outward opening guarantees a return path",
+      "scopeId": "motif_dimension_wander",
+      "motifId": "dimension_wander",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_dimension_wander_05",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L56"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L56"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "An outward opening guarantees a return path",
+        "aboutId": "draft_dimension_wander_05_pressure",
+        "holderId": "draft_dimension_wander_05_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_dimension_wander_05_companion_edge_02",
+        "draft_dimension_wander_05_companion_edge_03"
+      ]
+    }
+  ],
+  "structuralEdges": [
+    {
+      "id": "draft_dimension_wander_01_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_dimension_wander_01_entity",
+      "toId": "draft_dimension_wander_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_01:entity>location"
+    },
+    {
+      "id": "draft_dimension_wander_01_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_dimension_wander_01_location",
+      "toId": "draft_dimension_wander_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_01:location>resource"
+    },
+    {
+      "id": "draft_dimension_wander_01_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_dimension_wander_01_pressure",
+      "toId": "draft_dimension_wander_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_01:pressure>location"
+    },
+    {
+      "id": "draft_dimension_wander_01_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_dimension_wander_01_pressure",
+      "toId": "draft_dimension_wander_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_01:pressure>entity"
+    },
+    {
+      "id": "draft_dimension_wander_01_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_dimension_wander_01_pressure",
+      "toId": "draft_dimension_wander_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_01:pressure>resource"
+    },
+    {
+      "id": "draft_dimension_wander_01_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_dimension_wander_01_response",
+      "toId": "draft_dimension_wander_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_01:response>location"
+    },
+    {
+      "id": "draft_dimension_wander_01_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_dimension_wander_01_response",
+      "toId": "draft_dimension_wander_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_01:response>entity"
+    },
+    {
+      "id": "draft_dimension_wander_01_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_dimension_wander_01_response",
+      "toId": "draft_dimension_wander_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_01:response>resource"
+    },
+    {
+      "id": "draft_dimension_wander_01_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_dimension_wander_01_report",
+      "toId": "draft_dimension_wander_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_01:report>pressure"
+    },
+    {
+      "id": "draft_dimension_wander_01_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_dimension_wander_01_evidence",
+      "toId": "draft_dimension_wander_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_01:evidence>pressure"
+    },
+    {
+      "id": "draft_dimension_wander_02_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_dimension_wander_02_entity",
+      "toId": "draft_dimension_wander_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_02:entity>location"
+    },
+    {
+      "id": "draft_dimension_wander_02_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_dimension_wander_02_location",
+      "toId": "draft_dimension_wander_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_02:location>resource"
+    },
+    {
+      "id": "draft_dimension_wander_02_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_dimension_wander_02_pressure",
+      "toId": "draft_dimension_wander_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_02:pressure>location"
+    },
+    {
+      "id": "draft_dimension_wander_02_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_dimension_wander_02_pressure",
+      "toId": "draft_dimension_wander_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_02:pressure>entity"
+    },
+    {
+      "id": "draft_dimension_wander_02_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_dimension_wander_02_pressure",
+      "toId": "draft_dimension_wander_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_02:pressure>resource"
+    },
+    {
+      "id": "draft_dimension_wander_02_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_dimension_wander_02_response",
+      "toId": "draft_dimension_wander_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_02:response>location"
+    },
+    {
+      "id": "draft_dimension_wander_02_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_dimension_wander_02_response",
+      "toId": "draft_dimension_wander_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_02:response>entity"
+    },
+    {
+      "id": "draft_dimension_wander_02_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_dimension_wander_02_response",
+      "toId": "draft_dimension_wander_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_02:response>resource"
+    },
+    {
+      "id": "draft_dimension_wander_02_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_dimension_wander_02_report",
+      "toId": "draft_dimension_wander_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_02:report>pressure"
+    },
+    {
+      "id": "draft_dimension_wander_02_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_dimension_wander_02_evidence",
+      "toId": "draft_dimension_wander_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_02:evidence>pressure"
+    },
+    {
+      "id": "draft_dimension_wander_03_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_dimension_wander_03_entity",
+      "toId": "draft_dimension_wander_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_03:entity>location"
+    },
+    {
+      "id": "draft_dimension_wander_03_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_dimension_wander_03_location",
+      "toId": "draft_dimension_wander_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_03:location>resource"
+    },
+    {
+      "id": "draft_dimension_wander_03_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_dimension_wander_03_pressure",
+      "toId": "draft_dimension_wander_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_03:pressure>location"
+    },
+    {
+      "id": "draft_dimension_wander_03_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_dimension_wander_03_pressure",
+      "toId": "draft_dimension_wander_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_03:pressure>entity"
+    },
+    {
+      "id": "draft_dimension_wander_03_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_dimension_wander_03_pressure",
+      "toId": "draft_dimension_wander_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_03:pressure>resource"
+    },
+    {
+      "id": "draft_dimension_wander_03_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_dimension_wander_03_response",
+      "toId": "draft_dimension_wander_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_03:response>location"
+    },
+    {
+      "id": "draft_dimension_wander_03_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_dimension_wander_03_response",
+      "toId": "draft_dimension_wander_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_03:response>entity"
+    },
+    {
+      "id": "draft_dimension_wander_03_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_dimension_wander_03_response",
+      "toId": "draft_dimension_wander_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_03:response>resource"
+    },
+    {
+      "id": "draft_dimension_wander_03_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_dimension_wander_03_report",
+      "toId": "draft_dimension_wander_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_03:report>pressure"
+    },
+    {
+      "id": "draft_dimension_wander_03_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_dimension_wander_03_evidence",
+      "toId": "draft_dimension_wander_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_03:evidence>pressure"
+    },
+    {
+      "id": "draft_dimension_wander_04_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_dimension_wander_04_entity",
+      "toId": "draft_dimension_wander_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_04:entity>location"
+    },
+    {
+      "id": "draft_dimension_wander_04_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_dimension_wander_04_location",
+      "toId": "draft_dimension_wander_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_04:location>resource"
+    },
+    {
+      "id": "draft_dimension_wander_04_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_dimension_wander_04_pressure",
+      "toId": "draft_dimension_wander_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_04:pressure>location"
+    },
+    {
+      "id": "draft_dimension_wander_04_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_dimension_wander_04_pressure",
+      "toId": "draft_dimension_wander_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_04:pressure>entity"
+    },
+    {
+      "id": "draft_dimension_wander_04_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_dimension_wander_04_pressure",
+      "toId": "draft_dimension_wander_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_04:pressure>resource"
+    },
+    {
+      "id": "draft_dimension_wander_04_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_dimension_wander_04_response",
+      "toId": "draft_dimension_wander_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_04:response>location"
+    },
+    {
+      "id": "draft_dimension_wander_04_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_dimension_wander_04_response",
+      "toId": "draft_dimension_wander_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_04:response>entity"
+    },
+    {
+      "id": "draft_dimension_wander_04_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_dimension_wander_04_response",
+      "toId": "draft_dimension_wander_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_04:response>resource"
+    },
+    {
+      "id": "draft_dimension_wander_04_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_dimension_wander_04_report",
+      "toId": "draft_dimension_wander_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_04:report>pressure"
+    },
+    {
+      "id": "draft_dimension_wander_04_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_dimension_wander_04_evidence",
+      "toId": "draft_dimension_wander_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_04:evidence>pressure"
+    },
+    {
+      "id": "draft_dimension_wander_05_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_dimension_wander_05_entity",
+      "toId": "draft_dimension_wander_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_05:entity>location"
+    },
+    {
+      "id": "draft_dimension_wander_05_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_dimension_wander_05_location",
+      "toId": "draft_dimension_wander_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_05:location>resource"
+    },
+    {
+      "id": "draft_dimension_wander_05_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_dimension_wander_05_pressure",
+      "toId": "draft_dimension_wander_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_05:pressure>location"
+    },
+    {
+      "id": "draft_dimension_wander_05_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_dimension_wander_05_pressure",
+      "toId": "draft_dimension_wander_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_05:pressure>entity"
+    },
+    {
+      "id": "draft_dimension_wander_05_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_dimension_wander_05_pressure",
+      "toId": "draft_dimension_wander_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_05:pressure>resource"
+    },
+    {
+      "id": "draft_dimension_wander_05_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_dimension_wander_05_response",
+      "toId": "draft_dimension_wander_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_05:response>location"
+    },
+    {
+      "id": "draft_dimension_wander_05_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_dimension_wander_05_response",
+      "toId": "draft_dimension_wander_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_05:response>entity"
+    },
+    {
+      "id": "draft_dimension_wander_05_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_dimension_wander_05_response",
+      "toId": "draft_dimension_wander_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_05:response>resource"
+    },
+    {
+      "id": "draft_dimension_wander_05_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_dimension_wander_05_report",
+      "toId": "draft_dimension_wander_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_05:report>pressure"
+    },
+    {
+      "id": "draft_dimension_wander_05_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_dimension_wander_05_evidence",
+      "toId": "draft_dimension_wander_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_dimension_wander_05:evidence>pressure"
+    },
+    {
+      "id": "draft_dimension_wander_01_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_dimension_wander_01_pressure",
+      "toId": "draft_dimension_wander_01_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L52"
+    },
+    {
+      "id": "draft_dimension_wander_01_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_dimension_wander_01_additional_belief",
+      "toId": "draft_dimension_wander_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L52"
+    },
+    {
+      "id": "draft_dimension_wander_01_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_dimension_wander_01_additional_belief",
+      "toId": "draft_dimension_wander_01_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L52"
+    },
+    {
+      "id": "draft_dimension_wander_01_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_dimension_wander_01_evidence_site",
+      "toId": "draft_dimension_wander_01_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L52"
+    },
+    {
+      "id": "draft_dimension_wander_01_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_dimension_wander_01_alternative",
+      "toId": "draft_dimension_wander_01_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L52"
+    },
+    {
+      "id": "draft_dimension_wander_02_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_dimension_wander_02_pressure",
+      "toId": "draft_dimension_wander_02_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L53"
+    },
+    {
+      "id": "draft_dimension_wander_02_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_dimension_wander_02_additional_belief",
+      "toId": "draft_dimension_wander_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L53"
+    },
+    {
+      "id": "draft_dimension_wander_02_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_dimension_wander_02_additional_belief",
+      "toId": "draft_dimension_wander_02_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L53"
+    },
+    {
+      "id": "draft_dimension_wander_02_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_dimension_wander_02_evidence_site",
+      "toId": "draft_dimension_wander_02_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L53"
+    },
+    {
+      "id": "draft_dimension_wander_02_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_dimension_wander_02_alternative",
+      "toId": "draft_dimension_wander_02_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L53"
+    },
+    {
+      "id": "draft_dimension_wander_03_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_dimension_wander_03_pressure",
+      "toId": "draft_dimension_wander_03_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L54"
+    },
+    {
+      "id": "draft_dimension_wander_03_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_dimension_wander_03_additional_belief",
+      "toId": "draft_dimension_wander_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L54"
+    },
+    {
+      "id": "draft_dimension_wander_03_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_dimension_wander_03_additional_belief",
+      "toId": "draft_dimension_wander_03_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L54"
+    },
+    {
+      "id": "draft_dimension_wander_03_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_dimension_wander_03_evidence_site",
+      "toId": "draft_dimension_wander_03_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L54"
+    },
+    {
+      "id": "draft_dimension_wander_03_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_dimension_wander_03_alternative",
+      "toId": "draft_dimension_wander_03_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L54"
+    },
+    {
+      "id": "draft_dimension_wander_04_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_dimension_wander_04_pressure",
+      "toId": "draft_dimension_wander_04_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L55"
+    },
+    {
+      "id": "draft_dimension_wander_04_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_dimension_wander_04_additional_belief",
+      "toId": "draft_dimension_wander_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L55"
+    },
+    {
+      "id": "draft_dimension_wander_04_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_dimension_wander_04_additional_belief",
+      "toId": "draft_dimension_wander_04_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L55"
+    },
+    {
+      "id": "draft_dimension_wander_04_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_dimension_wander_04_evidence_site",
+      "toId": "draft_dimension_wander_04_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L55"
+    },
+    {
+      "id": "draft_dimension_wander_04_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_dimension_wander_04_alternative",
+      "toId": "draft_dimension_wander_04_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L55"
+    },
+    {
+      "id": "draft_dimension_wander_05_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_dimension_wander_05_pressure",
+      "toId": "draft_dimension_wander_05_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L56"
+    },
+    {
+      "id": "draft_dimension_wander_05_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_dimension_wander_05_additional_belief",
+      "toId": "draft_dimension_wander_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L56"
+    },
+    {
+      "id": "draft_dimension_wander_05_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_dimension_wander_05_additional_belief",
+      "toId": "draft_dimension_wander_05_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L56"
+    },
+    {
+      "id": "draft_dimension_wander_05_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_dimension_wander_05_evidence_site",
+      "toId": "draft_dimension_wander_05_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L56"
+    },
+    {
+      "id": "draft_dimension_wander_05_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_dimension_wander_05_alternative",
+      "toId": "draft_dimension_wander_05_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L56"
+    }
+  ],
+  "proposedCausalLinks": [
+    {
+      "id": "draft_dimension_wander_01_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_dimension_wander_01_pressure",
+      "toId": "draft_dimension_wander_01_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_dimension_wander_01_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_dimension_wander_01_evidence",
+      "toId": "draft_dimension_wander_01_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_dimension_wander_02_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_dimension_wander_02_pressure",
+      "toId": "draft_dimension_wander_02_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_dimension_wander_02_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_dimension_wander_02_evidence",
+      "toId": "draft_dimension_wander_02_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_dimension_wander_03_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_dimension_wander_03_pressure",
+      "toId": "draft_dimension_wander_03_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_dimension_wander_03_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_dimension_wander_03_evidence",
+      "toId": "draft_dimension_wander_03_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_dimension_wander_04_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_dimension_wander_04_pressure",
+      "toId": "draft_dimension_wander_04_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_dimension_wander_04_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_dimension_wander_04_evidence",
+      "toId": "draft_dimension_wander_04_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_dimension_wander_05_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_dimension_wander_05_pressure",
+      "toId": "draft_dimension_wander_05_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_dimension_wander_05_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_dimension_wander_05_evidence",
+      "toId": "draft_dimension_wander_05_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    }
+  ]
+}
