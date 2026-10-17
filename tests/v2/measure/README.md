@@ -166,6 +166,9 @@ T1_POLICY=prepare3 T2_POLICY=lord3 python3 tests/v2/measure/m8-judge.py a.json d
 
 `playCareer(정책, 시드, 주사위, 날)`(내보냄)은 한 경력의 행과 마지막 상태를 돌려준다. `tests/v2/long-career-save.test.js`가 긴 판의 저장을 이것으로 확인한다(V2-Core-147).
 
+M8 3단계(Q9의 경제 값, 사전 등록 §14, #369)부터 `story-careers.mjs`와 `road-news-careers.mjs`는 강철 검과 사슬 갑옷의 값을 상인의 선택지에서 읽는다. 값에 은화 6을 더한 만큼 있을 때 산다. `road-news-careers.mjs`의 `wealth`도 그 값으로 센다. 후보가 없으면 출력은 그대로다. `candidates/m8p12-gear-dearer.mjs`(P12)는 장비 값을 1.2배 한다.
+결과(§14.7): P12는 옮기지 않았다. 계약 후보 K1(`candidates/k1-contract-bound.mjs`)은 게임 값이 되었다(V2-Core-148, D-126). 이제 그 모듈을 덧대도 행동은 같다(짐표 운반 72경력으로 확인).
+
 열 설명:
 - 단계 도달일: 이끄는 자격(`unl_road_lead`), 모임, 건넘, 수호자(`defender`), 왕국의 이름(`unl_realm_renown`)
 - 결말

@@ -131,6 +131,24 @@ test.describe("V2 the ford and the town (MG-045/046)", () => {
       expect(me(across).money).toBe(me(atFord).money);
       expect(me(across).locationId).toBe("loc_far_bank");
       expect(across.signals.merchant_ferry_account).toBe(3);
+
+      // V2-Core-148 (D-126, M8 step 3 K1): in the town the note's sack goes at the note's price whatever the town wants.
+      // The town has enough when the carrier arrives; a few days on its want comes back -- and still the market's price
+      // is not offered while the carriage is under way
+      await dispatch(page, [M("loc_castle_town")]);
+      expect((await getState(page)).signals.town_flour_wanted ?? 0).toBe(0);
+      for (let day = 0; day < 10 && ((await getState(page)).signals.town_flour_wanted ?? 0) < 1; day += 1) await page.locator("#waitDayBtn").click();
+      const wanting = await getState(page);
+      expect(wanting.signals.town_flour_wanted).toBeGreaterThanOrEqual(1);
+      await act(page, "성읍의 상인과 대화");
+      await expect(option(page, "짐표대로 밀가루를 넘긴다 (은화 4)")).toBeVisible();
+      await expect(option(page, "밀가루 자루를 판다")).toHaveCount(0);
+      await option(page, "짐표대로 밀가루를 넘긴다 (은화 4)").click();
+      await expect(log(page)).toContainText("마침 찾던 참이오. 그래도 값은 짐표대로 넷이오.");
+      const paid = await getState(page);
+      expect(me(paid).money).toBe(me(wanting).money + 4);
+      expect(paid.signals.town_flour_wanted).toBe(wanting.signals.town_flour_wanted - 1);
+      expect(paid.relations[`npc_town_merchant:${paid.player.actorId}`].tags ?? []).not.toContain("carrying");
     }
     expect(pageErrors).toEqual([]);
     expect(consoleErrors).toEqual([]);

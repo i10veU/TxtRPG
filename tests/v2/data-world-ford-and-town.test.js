@@ -5,7 +5,9 @@
 //   2. the ferryman passes the word on: the player learns what the town wanted *then*, heard today
 //   3. the word can be old: the world moves on, what the ferryman knows does not until the next caravan
 //   4. the carrier's note (X3-A): a supplier the merchant knows is given a note for the next carriage; the flour crosses on
-//      his account and the carriage's sack is bought even when the want is met; then the next note
+//      his account and the carriage's sack is bought even when the want is met; then the next note. Since V2-Core-148
+//      (D-126, M8 step 3 K1) that sack goes at the note's price (4) while the town wants too; the market's price is for the
+//      carrier's second sack, once the note's is sold
 //   5. a note shown with nothing to carry: the ferryman sees it, doubts every note until the next caravan brings the
 //      merchant's answer (less regard for the carrier), and refuses that carrier's notes for good
 //   6. a real save from before (fixtures/save-before-ford-and-town.json, written by the pack at 000b535): it loads, and
@@ -144,16 +146,27 @@ function testTheNote(sold) {
   assert.ok(s.relations[`npc_town_merchant:${s.player.actorId}`].tags.includes("carrying"));
   assert.ok(!atMerchant(s, "opt_town_merchant_order"), "no new note while a carriage is under way");
   s = run(s, [M("loc_castle_town")]).state;
-  // the carriage's sack is bought even when the town has enough; while it wants, it sells the ordinary way
+  // the carriage's sack is bought at the note's price (4) whatever the town wants: even when it has enough ...
   const full = structuredClone(s);
   full.signals.town_flour_wanted = 0;
   assert.ok(atMerchant(full, "opt_town_merchant_sell_flour_note"));
   assert.ok(!atMerchant(full, "opt_town_merchant_sell_flour") && !atMerchant(full, "opt_town_merchant_sell_flour_fair"));
+  // ... and while it wants (V2-Core-148, D-126, M8 step 3 K1): the market's price is the free trader's, not the carrier's
   const wanting = structuredClone(full);
-  wanting.signals.town_flour_wanted = 1;
-  assert.ok(!atMerchant(wanting, "opt_town_merchant_sell_flour_note"), "while the town wants, the sack sells the ordinary way");
+  wanting.signals.town_flour_wanted = 2;
+  wanting.actors.player_1.inventory.item_flour_sack = 2; // staged: the note's sack and one of the carrier's own
+  assert.ok(atMerchant(wanting, "opt_town_merchant_sell_flour_note"), "while the town wants, the note's sack still sells at 4");
+  assert.ok(!atMerchant(wanting, "opt_town_merchant_sell_flour") && !atMerchant(wanting, "opt_town_merchant_sell_flour_fair"), "not at the market's price while carrying");
+  const paid = run(wanting, MERCHANT("opt_town_merchant_sell_flour_note"));
+  assert.equal(me(paid.state).money, me(wanting).money + 4);
+  assert.equal(paid.state.signals.town_flour_wanted, 1, "the town's want is met by one sack");
+  assert.ok(texts(paid.log[1]).includes("txt_town_merchant_buy_flour_note_wanted") && !texts(paid.log[1]).includes("txt_town_merchant_buy_flour_note"));
+  assert.ok(texts(paid.log[1]).includes("txt_town_merchant_note_back"));
+  // the carriage done, the carrier's own sack takes the market's chance like any other
+  assert.ok(atMerchant(paid.state, "opt_town_merchant_sell_flour"), "the second sack sells at the market's price");
   const kept = run(full, MERCHANT("opt_town_merchant_sell_flour_note"));
   assert.equal(me(kept.state).money, me(full).money + 4);
+  assert.ok(texts(kept.log[1]).includes("txt_town_merchant_buy_flour_note") && !texts(kept.log[1]).includes("txt_town_merchant_buy_flour_note_wanted"));
   assert.ok(texts(kept.log[1]).includes("txt_town_merchant_note_back"));
   assert.equal(kept.state.relations[`npc_town_merchant:${kept.state.player.actorId}`].tags?.includes("carrying") ?? false, false, "the carriage done");
   assert.equal(rel(kept.state, "npc_town_merchant"), 15);

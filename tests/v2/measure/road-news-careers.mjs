@@ -33,6 +33,10 @@ if (TRUST_RULE) {
 const CAND = [];
 for (const c of (process.env.CANDIDATE ?? "").split(",").filter(Boolean)) CAND.push(await import(new URL(`./candidates/${c}.mjs`, import.meta.url).href));
 for (const c of CAND) c.patch(d);
+// M8 step 3 (Q9, docs/v2/m8-balance-preregistration.md §14): the gear's price as the merchant's options show it -- a guard
+// buys it with six silver to spare, and the gear counts at that price in `wealth`
+const PRICE = (id) => -d.choices.choice_town_merchant_dialogue.options.find((o) => o.id === id).effects.find((e) => e.op === "money").add;
+const STEEL_PRICE = PRICE("opt_town_merchant_buy_steel_sword"), MAIL_PRICE = PRICE("opt_town_merchant_buy_mail_shirt");
 const SEEDS = JSON.parse(readFileSync(new URL(`./${process.env.SEEDS_FILE ?? "seeds.json"}`, import.meta.url), "utf8")).slice(+process.argv[2], +process.argv[3]);
 const DICE = +process.argv[4], DAYS = +process.argv[5], POLS = process.argv[6].split(","), LEADER_DEAD = process.argv[7] === "dead";
 const FERRY = { type: "ferry" }; // the crossing, taken the way `crossing` says
@@ -119,8 +123,8 @@ function career(pol, seed, k) {
     if (s.pending) break;
     if (ok(s, "opt_guild_clerk_estate")) s = run(s, talk("opt_guild_clerk_estate"));
     for (const id of ["opt_guild_clerk_fallen_steel", "opt_guild_clerk_fallen_mail"]) if (ok(s, id)) s = run(s, talk(id));
-    if ((me(s).inventory?.item_steel_sword ?? 0) < 1 && me(s).money >= 30) s = run(s, buy("opt_town_merchant_buy_steel_sword"));
-    if ((me(s).inventory?.item_mail_shirt ?? 0) < 1 && me(s).money >= 54) s = run(s, buy("opt_town_merchant_buy_mail_shirt"));
+    if ((me(s).inventory?.item_steel_sword ?? 0) < 1 && me(s).money >= STEEL_PRICE + 6) s = run(s, buy("opt_town_merchant_buy_steel_sword"));
+    if ((me(s).inventory?.item_mail_shirt ?? 0) < 1 && me(s).money >= MAIL_PRICE + 6) s = run(s, buy("opt_town_merchant_buy_mail_shirt"));
     for (const id of ["act_equip_steel_sword", "act_equip_mail_shirt"]) { const a = d.actions[id]; if (a && evaluateCondition(a.requires, { state: s, data: d, actorId: s.player.actorId, contextKind: "player" })) s = run(s, [P(id)]); }
     if ((me(s).inventory?.item_steel_sword ?? 0) > 0 && (me(s).inventory?.item_mail_shirt ?? 0) > 0 && m.gearDay === null) m.gearDay = (s.time.minute - t0) / 1440;
     if (deep(s)) s = trip(s);
@@ -181,7 +185,7 @@ function career(pol, seed, k) {
   LATE = null;
   m.lost = (s.signals?.caravans_unguarded ?? 0) - m.lost0;
   m.wallet = me(s).money;
-  m.wealth = me(s).money + 24 * (me(s).inventory?.item_steel_sword ?? 0) + 48 * (me(s).inventory?.item_mail_shirt ?? 0);
+  m.wealth = me(s).money + STEEL_PRICE * (me(s).inventory?.item_steel_sword ?? 0) + MAIL_PRICE * (me(s).inventory?.item_mail_shirt ?? 0);
   return m;
 }
 const out = [];
