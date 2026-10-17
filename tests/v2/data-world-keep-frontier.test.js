@@ -1,7 +1,7 @@
 // V2-Core-139 (roadmap M5, chapter 3 "변경을 지키는 일", docs/v2/main-story-design.md §2), through the ordinary step() API
 // and the real pack.
-//   1. the band grows a step every caravan's cadence from its gathering (1) to six, its size a world fact (few/many/
-//      host); half as fast once the guild keeps its guards
+//   1. the band grows a step every nine days (V2-Core-143, D-121) from its gathering (1) to six, its size a world fact
+//      (few/many/host); half as fast once the guild keeps its guards
 //   2. the guild: a guard it knows, who knows who leads them, can tell it -- once; the guild keeps its guards
 //   3. watching the band: the way is the ferryman's word; at the woods a watch shows how many they are (the world's fact,
 //      dated), and near the end that they mean to cross; a watch that fails is spotted and hurts
@@ -23,7 +23,8 @@ const E = (optionId) => [P("act_talk_elder"), C(optionId)];
 const FERRY = (o) => [P("act_talk_ferryman"), C(o)];
 const CLERK = (o) => [P("act_talk_guild_clerk"), C(o)];
 const DAY = { type: "wait", minutes: 1440 };
-const CADENCE = [DAY, DAY, DAY]; // a caravan's cadence (a wait is at most a day)
+// the band's growth step, nine days (V2-Core-143, D-121; a wait is at most a day)
+const STEP = Array.from({ length: 9 }, () => DAY);
 // history-41: the confrontation and the dispersal -- the leader lives (as data-world-band-across)
 const TO_DISPERSAL = [
   P("act_observe_village"), P("act_observe_village"), ...E("opt_ask_ruins"), M("loc_market"), P("act_buy_lantern"), M("loc_village"),
@@ -83,23 +84,23 @@ function testTheBandGrows() {
   const sizes = [];
   let s = gathered;
   for (let i = 0; i < 7; i += 1) {
-    s = run(s, CADENCE).state;
+    s = run(s, STEP).state;
     sizes.push([sig(s, "band_strength"), factOf(s, "fact_band_size")]);
   }
-  assert.deepEqual(sizes, [[2, "few"], [3, "many"], [4, "many"], [5, "host"], [6, "host"], [6, "host"], [6, "host"]], "a step each cadence, to six");
-  // the guild keeps its guards: every other cadence
+  assert.deepEqual(sizes, [[2, "few"], [3, "many"], [4, "many"], [5, "host"], [6, "host"], [6, "host"], [6, "host"]], "a step each growth step, to six");
+  // the guild keeps its guards: every other step
   const kept = structuredClone(gathered);
   kept.flags = { ...kept.flags, guild_keeps_guards: true };
   const slow = [];
   let t = kept;
   for (let i = 0; i < 6; i += 1) {
-    t = run(t, CADENCE).state;
+    t = run(t, STEP).state;
     slow.push(sig(t, "band_strength"));
   }
   assert.deepEqual(slow, [2, 2, 3, 3, 4, 4], "half as fast");
   // the same days walked an hour at a time give the same band (the honest clock)
   let h = gathered;
-  for (let i = 0; i < 72 * 3; i += 1) h = run(h, [{ type: "wait", minutes: 60 }]).state;
+  for (let i = 0; i < 24 * 9 * 3; i += 1) h = run(h, [{ type: "wait", minutes: 60 }]).state;
   assert.equal(sig(h, "band_strength"), 4);
 }
 
@@ -138,7 +139,7 @@ function testTheWatch() {
   assert.equal(me(spotted.state).hp.current, me(woods).hp.current - 3);
   assert.equal(mine(spotted.state).rum_band_size, undefined);
   // near the end: they mean to cross
-  const late = run(woods, [...CADENCE, ...CADENCE, ...CADENCE, ...CADENCE]).state;
+  const late = run(woods, [...STEP, ...STEP, ...STEP, ...STEP]).state;
   assert.equal(sig(late, "band_strength"), 5);
   const seenLate = rollTo(late, [P("act_watch_band_camp")], "success", "watch-late");
   assert.equal(mine(seenLate.state).rum_band_size.claim, "host");
@@ -176,10 +177,10 @@ function testTheVillageAndTheLord() {
   const town = (st) => run(st, [...TO_FORD, ...FERRY("opt_ferryman_cross"), M("loc_castle_town"), P("act_read_castle_notices")]);
   const early = town(warned);
   assert.ok(!said(early).includes("txt_castle_lord_offer"));
-  const two = run(warned, CADENCE).state;
+  const two = run(warned, STEP).state;
   assert.equal(sig(two, "band_strength"), 2);
   assert.ok(!said(town(two)).includes("txt_castle_lord_offer"), "not while the band is few");
-  const many = run(warned, [...CADENCE, ...CADENCE]).state;
+  const many = run(warned, [...STEP, ...STEP]).state;
   assert.ok(sig(many, "band_strength") >= 3);
   const posted = town(many);
   assert.ok(said(posted).includes("txt_castle_lord_offer"));
@@ -213,7 +214,7 @@ function testStoryAndData() {
 
 function testSaveAndDeterminism(end) {
   assert.deepEqual(validateState(end), []);
-  const path = [...CADENCE, ...E("opt_elder_band_word")];
+  const path = [...STEP, ...E("opt_elder_band_word")];
   const loaded = parseLoadedRecord(JSON.parse(JSON.stringify(buildSaveRecord("slot_keep", end, { savedAt: 1 }))));
   assert.deepEqual(run(loaded, path).state, run(end, path).state, "loaded, the same end");
 }

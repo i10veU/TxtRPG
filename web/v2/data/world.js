@@ -385,13 +385,18 @@ const BAND_GATHERING = { op: "signal", key: "band_gathering", min: 1 };
 const KNOWS_BAND_SCARRED = { op: "rumor", rumor: "rum_band_led_by_scarred" };
 const KNOWS_BAND_LEADER = { op: "or", of: [KNOWS_BAND_SCARRED, { op: "rumor", rumor: "rum_band_led_by_remnant" }] };
 const FRONTIER_WARNED = { op: "flag", key: "frontier_warned" };
-// V2-Core-139 (roadmap M5, chapter 3 "변경을 지키는 일", docs/v2/main-story-design.md §2): the band grows one step a
-// caravan's cadence (`band_strength` 1..6, half as fast once the guild keeps its guards); four ways to answer it --
+// V2-Core-139 (roadmap M5, chapter 3 "변경을 지키는 일", docs/v2/main-story-design.md §2): the band grows one step every
+// nine days (`band_strength` 1..6, half as fast once the guild keeps its guards); four ways to answer it --
 // tell the guild who leads them, watch the band where it gathers, help the village prepare (`frontier_defense`), and
 // take or refuse the lord's offer (MC-02, `lord_pact` 1 taken / 2 refused). Nothing south of the river is attacked
 // yet (chapter 4, M6); no caravan, road, ledger or trade value changes.
 const BAND_AT = (n) => ({ op: "signal", key: "band_strength", min: n });
 const GUILD_KEEPS_GUARDS = { op: "flag", key: "guild_keeps_guards" };
+// V2-Core-143 (roadmap M8 balance step 1c, D-121, docs/v2/m8-balance-preregistration.md §8.3, §9): the band's growth step. It was a
+// caravan's cadence (three days): the band crossed about day 22, before a guard's purse and the guild's trust could fund any
+// preparation (the design's "silver with nothing to buy after day 60"). Nine days: it crosses about day 53, or about day 61
+// once the guild keeps its guards -- chosen by the pre-registered rule and confirmed on the hold-out sample
+const BAND_GROWTH_MINUTES = 12960;
 const LORD_UNDECIDED = { op: "signal", key: "lord_pact", max: 0 };
 const DEFENSE_UP = [{ op: "signal", key: "frontier_defense", add: 1 }];
 const BAND_SIZE_FACT = {
@@ -401,7 +406,7 @@ const BAND_SIZE_FACT = {
   else: [{ op: "if", when: BAND_AT(3), then: [{ op: "fact", fact: "fact_band_size", set: "many" }], else: [{ op: "fact", fact: "fact_band_size", set: "few" }] }]
 };
 // V2-Core-140 (roadmap M6, chapters 4 "강을 건너오는 불길" and 5 "마지막 싸움과 그 뒤", main-story-design.md §3): the band
-// crosses once it is six strong, or once six cadences have passed since it gathered (`band_cycles` counts the gathering's
+// crosses once it is six strong, or once six growth steps have passed since it gathered (`band_cycles` counts the gathering's
 // own step and each one after) -- smaller, then, if the guild kept its guards. It holds the crossroads three days
 // (`raid_days`), then strikes the village: the frontier holds if its preparedness is at least half the band, rounded up
 // (under the lord's banner if the frontier took his offer); otherwise it falls. Before that, one who stands before the
@@ -416,7 +421,7 @@ const FATE_DECIDED = { op: "signal", key: "frontier_fate", min: 1 };
 const BAND_IN_THE_LAND = { op: "and", of: [BAND_CROSSED, { op: "not", of: BAND_BROKEN }, { op: "not", of: FATE_DECIDED }] };
 const DEFENSE_AT = (n) => ({ op: "signal", key: "frontier_defense", min: n });
 // preparedness at least half the band, rounded up: 5-6 -> 3, else 2 (a band crosses at least four strong: the gathering's
-// step and six cadences grow even a slowed band to four)
+// step and six growth steps grow even a slowed band to four)
 const FRONTIER_HOLDS = { op: "or", of: [DEFENSE_AT(3), { op: "and", of: [{ op: "not", of: BAND_AT(5) }, DEFENSE_AT(2)] }] };
 const ENDING = (n, claim) => [{ op: "signal", key: "frontier_fate", add: n }, { op: "fact", fact: "fact_ending", set: claim }];
 const VILLAGE_DEFENDER = { op: "relation", from: "org_village", to: "self", tag: "defender" };
@@ -1132,15 +1137,15 @@ export const worldData = {
         { op: "if", when: LEADER_LIVES, then: [{ op: "fact", fact: "fact_band_leader", set: "scarred_chief" }], else: [{ op: "fact", fact: "fact_band_leader", set: "chief_right_hand" }] }
       ]
     },
-    // V2-Core-139 (M5): the band grows a step every caravan's cadence, to six; once the guild keeps its guards, every
-    // other cadence (`band_growth_skip` alternates). Its id sorts after the gathering, so the first step is the
-    // gathering's own (strength 1)
+    // V2-Core-139 (M5): the band grows a step every growth step (nine days since V2-Core-143, D-121), to six; once the guild
+    // keeps its guards, every other step (`band_growth_skip` alternates). Its id sorts after the gathering, so the first
+    // step is the gathering's own (strength 1)
     evt_unrest_band_grows: {
       trigger: { op: "and", of: [BAND_GATHERING, { op: "not", of: BAND_AT(6) }, { op: "not", of: BAND_CROSSED }] },
-      cooldown: 4320,
+      cooldown: BAND_GROWTH_MINUTES,
       catchUp: true,
       effects: [
-        // V2-Core-140 (M6): the cadences since the gathering, its own step the first
+        // V2-Core-140 (M6): the growth steps since the gathering, its own step the first
         { op: "signal", key: "band_cycles", add: 1 },
         {
           op: "if",
@@ -1154,7 +1159,7 @@ export const worldData = {
         BAND_SIZE_FACT
       ]
     },
-    // V2-Core-140 (M6): the band crosses -- six strong, or the gathering and six cadences on. Its id sorts before the
+    // V2-Core-140 (M6): the band crosses -- six strong, or the gathering and six growth steps on. Its id sorts before the
     // gathering's and the growth's, so it reads the band as the step before left it
     evt_unrest_band_crosses: {
       trigger: { op: "and", of: [BAND_GATHERING, { op: "or", of: [BAND_AT(6), { op: "signal", key: "band_cycles", min: 7 }] }] },
