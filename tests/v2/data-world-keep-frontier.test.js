@@ -145,6 +145,20 @@ function testTheWatch() {
   assert.equal(mine(seenLate.state).rum_band_size.claim, "host");
   assert.ok(mine(seenLate.state).rum_band_crossing_soon);
   assert.equal(factOf(seenLate.state, "fact_band_crossing"), "soon");
+  // V2-Core-146 (#365): once the band has crossed, the camp is empty -- no watch, no warning that is already false
+  let gone = late;
+  for (let i = 0; i < 30 && !gone.flags?.band_crossed; i += 1) gone = run(gone, [DAY]).state;
+  assert.ok(!gone.signals?.frontier_fate, "the band is still in the land");
+  assert.equal(gone.flags.band_crossed, true);
+  assert.equal(me(gone).locationId, "loc_band_camp");
+  assert.equal(rejected(gone, P("act_watch_band_camp")), "requirements_not_met", "the camp is empty");
+  // ... and says so: the tracks lead to the river (chapter 4's word, read from the tracks)
+  assert.equal(rejected(late, P("act_search_empty_camp")), "requirements_not_met", "not while the band is there");
+  const searched = run(gone, [P("act_search_empty_camp")]);
+  assert.ok(said(searched).includes("txt_band_camp_empty"));
+  assert.deepEqual(mine(searched.state).rum_band_crossed.sources, ["obs_loc_band_camp"]);
+  assert.equal(mine(searched.state).rum_band_crossed.confidence, 70);
+  assert.equal(mine(searched.state).rum_band_crossed.claim, "crossed");
 }
 
 // 4-5. the village prepares; the lord's offer
