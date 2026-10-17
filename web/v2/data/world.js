@@ -1619,10 +1619,12 @@ export const worldData = {
         ...REST_WOUNDS
       ]
     },
-    // V2-Core-139 (M5): watching the band from the trees -- how many they are now; near the end, that they mean to cross
+    // V2-Core-139 (M5): watching the band from the trees -- how many they are now; near the end, that they mean to cross.
+    // V2-Core-146 (#365, D-124): only while the band is still there (BAND_ACROSS, as the stores' burning) -- a watch of the
+    // empty camp after the crossing used to report a host "about to cross", a warning that was already false
     act_watch_band_camp: {
       name: "숲에 숨어 무리를 지켜본다",
-      requires: { op: "and", of: [{ op: "location", at: "loc_band_camp" }, BAND_GATHERING] },
+      requires: { op: "and", of: [{ op: "location", at: "loc_band_camp" }, BAND_ACROSS] },
       check: { stat: "per", skill: "investigation", tags: ["investigation"], difficulty: "normal" },
       minutes: 60,
       outcomes: {
@@ -1634,6 +1636,15 @@ export const worldData = {
         ],
         fail: [{ op: "proficiency", id: "investigation", add: 5 }, { op: "hp", add: -3 }, say("txt_band_camp_spotted")]
       }
+    },
+    // V2-Core-146 (#365, D-124): the camp after the crossing -- cold fires and tracks to the river. What one sees there is that
+    // the band has gone south (read from the tracks: plausible, not seen at the crossroads); while it is in the land -- after
+    // the fate the remnants regroup there (act_hunt_band_remnants)
+    act_search_empty_camp: {
+      name: "버려진 진터를 살핀다",
+      requires: { op: "and", of: [{ op: "location", at: "loc_band_camp" }, BAND_IN_THE_LAND] },
+      minutes: 30,
+      effects: [{ op: "rumor", rumor: "rum_band_crossed", observe: true, source: "obs_loc_band_camp", confidence: 70, about: "now" }, say("txt_band_camp_empty")]
     },
     act_read_waystation_board: {
       name: "길목의 게시판을 읽는다",
@@ -3468,6 +3479,7 @@ export const worldData = {
     txt_band_camp_host: "숲이 사람으로 찼다. 국경 쪽 말씨를 쓰는 낯선 자들도 섞였다. 천막을 걷는 이들이 있다.",
     txt_band_camp_crossing: "누군가 강 쪽을 가리키며 날짜를 센다. 오래 기다리지 않을 셈이다.",
     txt_band_camp_spotted: "마른 가지가 부러진다. 망보던 자가 돌을 던지고 소리친다. 숲을 빠져나오는 길에 몸 여기저기가 긁히고 찢긴다.",
+    txt_band_camp_empty: "진터가 비었다. 식은 재와 버린 짐이 흩어져 있고, 발자국은 강 쪽으로 이어진다. 무리는 이미 강을 건넜다.",
     txt_castle_lord_offer: "포고판에 새 글이 붙었다. 강 남쪽 변경에도 영주의 순찰을 보내 지켜 주겠다고 한다. 대신 그 땅에서도 사람을 내고 세를 바치라고.",
     txt_guild_clerk_warned: "서기가 장부에 무언가를 적는다. \"그자가 이끈다면 이야기가 다르지. 조합이 품삯을 올려 호위들을 붙잡아 두겠소.\"",
     txt_elder_given_silver: "원로가 은화를 받아 마을 젊은이들에게 창과 등불을 사게 하겠다고 한다.",
