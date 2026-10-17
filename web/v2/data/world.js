@@ -1033,6 +1033,22 @@ export const worldData = {
       cooldown: 1440,
       effects: [{ op: "signal", key: "mill_flour_stock", add: 2 }]
     },
+    // After the frontier's fate, the herbalist can keep a shared supply. A submitted batch begins its own clock;
+    // one salve is ready on each of the next two days, whether this character stays nearby or lives to collect it.
+    evt_herbalist_brews: {
+      trigger: { op: "and", of: [{ op: "flag", key: "herbalist_stock_established" }, { op: "signal", key: "herbalist_brew_due", min: 1 }] },
+      restartWhen: { op: "signal", key: "herbalist_brew_due", eq: 3 },
+      cooldown: 1440,
+      catchUp: true,
+      effects: [
+        {
+          op: "if",
+          when: { op: "and", of: [{ op: "signal", key: "herbalist_brew_due", max: 2 }, { op: "signal", key: "herbalist_salve_stock", max: 1 }] },
+          then: [{ op: "signal", key: "herbalist_salve_stock", add: 1 }]
+        },
+        { op: "signal", key: "herbalist_brew_due", add: -1 }
+      ]
+    },
     // V2-Core-88 (#217): the first time anyone reaches the royal city (narration, once for the world)
     evt_royal_city_first: {
       trigger: { op: "location", at: "loc_royal_city" },
@@ -2984,6 +3000,86 @@ export const worldData = {
             say("txt_herbalist_given_herbs")
           ]
         },
+        // After the frontier's fate, an experienced herbalist can help her set up work that continues without them.
+        // The flour and herbs are supplied by the player; the salves stay in the world until someone collects them.
+        {
+          id: "opt_herbalist_establish_stock",
+          name: "약초꾼의 마을 연고 일을 돕는다 (밀가루 한 자루)",
+          requires: {
+            op: "and",
+            of: [
+              FATE_DECIDED,
+              { op: "skill", skill: "herbalism", min: 2 },
+              { op: "relation", from: "npc_herbalist", to: "self", min: 10 },
+              { op: "item", item: "item_flour_sack", min: 1 },
+              { op: "not", of: { op: "flag", key: "herbalist_stock_established" } }
+            ]
+          },
+          minutes: 120,
+          effects: [
+            { op: "item", item: "item_flour_sack", add: -1 },
+            { op: "flag", key: "herbalist_stock_established", value: true },
+            { op: "fact", fact: "fact_herbalist_stock", set: "established" },
+            { op: "rumor", rumor: "rum_herbalist_stock", source: "npc_herbalist", confidence: 90 },
+            say("txt_herbalist_establish_stock")
+          ]
+        },
+        {
+          id: "opt_herbalist_stock_status",
+          name: "약초꾼이 맡은 연고 일에 대해 묻는다",
+          requires: FATE_DECIDED,
+          effects: [
+            {
+              op: "if",
+              when: { op: "flag", key: "herbalist_stock_established" },
+              then: [
+                { op: "rumor", rumor: "rum_herbalist_stock", source: "npc_herbalist", confidence: 90 },
+                {
+                  op: "if",
+                  when: { op: "signal", key: "herbalist_salve_stock", min: 1 },
+                  then: [
+                    { op: "if", when: { op: "signal", key: "herbalist_brew_due", min: 1 }, then: [say("txt_herbalist_stock_ready_working")], else: [say("txt_herbalist_stock_ready")] }
+                  ],
+                  else: [
+                    { op: "if", when: { op: "signal", key: "herbalist_brew_due", min: 1 }, then: [say("txt_herbalist_stock_working")], else: [say("txt_herbalist_stock_empty")] }
+                  ]
+                }
+              ],
+              else: [say("txt_herbalist_stock_guidance")]
+            }
+          ]
+        },
+        {
+          id: "opt_herbalist_supply_batch",
+          name: "정화초 두 묶음을 약초꾼의 연고 일에 맡긴다",
+          requires: {
+            op: "and",
+            of: [
+              { op: "flag", key: "herbalist_stock_established" },
+              { op: "rumor", rumor: "rum_herbalist_stock" },
+              { op: "item", item: "item_purifying_herb", min: 2 },
+              { op: "signal", key: "herbalist_brew_due", max: 0 },
+              { op: "signal", key: "herbalist_salve_stock", max: 0 }
+            ]
+          },
+          minutes: 30,
+          effects: [
+            { op: "item", item: "item_purifying_herb", add: -2 },
+            { op: "signal", key: "herbalist_brew_due", add: 3 },
+            say("txt_herbalist_supply_batch")
+          ]
+        },
+        {
+          id: "opt_herbalist_collect_salve",
+          name: "약초꾼이 만든 연고를 찾아간다",
+          requires: { op: "and", of: [{ op: "flag", key: "herbalist_stock_established" }, { op: "rumor", rumor: "rum_herbalist_stock" }, { op: "signal", key: "herbalist_salve_stock", min: 1 }] },
+          minutes: 10,
+          effects: [
+            { op: "signal", key: "herbalist_salve_stock", add: -1 },
+            { op: "item", item: "item_herbal_salve", add: 1 },
+            say("txt_herbalist_collect_salve")
+          ]
+        },
         // V2-Core-70 (#170): her salve -- 3 silver to one she has talked with, 1 to one the village honoured
         {
           id: "opt_herbalist_buy_salve",
@@ -3196,6 +3292,7 @@ export const worldData = {
     // V2-Core-139 (M5): the band's size, the way to it, its crossing; the guild's answer; the lord's offer and the frontier's
     fact_band_size: {},
     fact_frontier_prepared: {},
+    fact_herbalist_stock: {},
     fact_band_camp: {},
     fact_band_crossing: {},
     fact_guild_keeps_guards: {},
@@ -3278,6 +3375,7 @@ export const worldData = {
     rum_band_crossing_soon: { factId: "fact_band_crossing", claim: "soon", validDays: 3, story: { chapter: 3 } },
     rum_guild_keeps_guards: { factId: "fact_guild_keeps_guards", claim: "kept", story: { chapter: 3 } },
     rum_frontier_prepared: { factId: "fact_frontier_prepared", claim: "helped", story: { chapter: 3 } },
+    rum_herbalist_stock: { factId: "fact_herbalist_stock", claim: "established" },
     rum_lord_offer: { factId: "fact_lord_offer", claim: "posted", validDays: 6, story: { chapter: 3 } },
     rum_lord_pact_accepted: { factId: "fact_lord_pact", claim: "accepted", story: { chapter: 3 } },
     rum_lord_pact_refused: { factId: "fact_lord_pact", claim: "refused", story: { chapter: 3 } },
@@ -3488,6 +3586,14 @@ export const worldData = {
     txt_small_talk_honored_memory: "원로는 마을이 이름을 걸고 감사했던 방랑자 이야기를 꺼낸다. 마을 사람들은 아직도 그 이야기를 한다고 한다.",
     txt_buy_lantern_trusted: "상인은 손사래를 치며 은화 두 닢만 받고 등불을 건넨다. 마을을 구한 사람에게 제값을 받을 수는 없다고 한다.",
     txt_herbalist_given_herbs: "약초꾼은 정화초 두 묶음을 받아 들고 환하게 웃는다. 앓는 집들에 나눠 주겠다고 한다.",
+    txt_herbalist_establish_stock: "약초꾼은 가져온 밀가루로 일하는 이들의 끼니를 마련한다. 마을에 남아 연고를 만들겠다고 한다.",
+    txt_herbalist_supply_batch: "정화초 두 묶음을 맡기자 약초꾼은 내일 연고 하나, 그다음 날 또 하나를 만들어 두겠다고 한다.",
+    txt_herbalist_collect_salve: "약초꾼이 만들어 둔 연고 한 단지를 건넨다.",
+    txt_herbalist_stock_guidance: "약초꾼은 솜씨와 믿을 만한 손, 일하는 이들이 먹을 밀가루가 있으면 마을에 연고 일을 남길 수 있다고 한다.",
+    txt_herbalist_stock_ready: "약초꾼이 만들어 둔 연고가 있다. 직접 와서 가져가라고 한다.",
+    txt_herbalist_stock_ready_working: "약초꾼이 만들어 둔 연고 하나가 있고, 다음 단지도 달이고 있다고 한다.",
+    txt_herbalist_stock_working: "약초꾼은 맡긴 정화초로 연고를 달이고 있다. 내일 다시 와 달라고 한다.",
+    txt_herbalist_stock_empty: "약초꾼은 만들어 둔 연고가 없다고 한다. 정화초 두 묶음을 맡기면 다시 만들 수 있다.",
     txt_herbalist_salve: "약초꾼은 은화 세 닢을 받고 작은 연고 단지를 건넨다.",
     txt_herbalist_salve_trusted: "약초꾼은 은화 한 닢만 받고 연고 단지를 쥐여 준다. 마을이 감사한 사람에게서 더 받을 수는 없다고 한다.",
     txt_apply_salve: "상처에 약초 연고를 바르자 쓰라림이 가라앉는다.",
@@ -3652,6 +3758,7 @@ export const worldData = {
     lbl_rumor_rum_band_crossing_soon: "무리가 곧 강을 건너올 셈이다",
     lbl_rumor_rum_guild_keeps_guards: "조합이 품삯을 올려 호위들을 붙잡아 두기로 했다",
     lbl_rumor_rum_frontier_prepared: "마을의 대비를 도왔다",
+    lbl_rumor_rum_herbalist_stock: "약초꾼이 맡긴 정화초로 연고를 마련해 둔다",
     lbl_rumor_rum_lord_offer: "영주가 변경에 보호를 내주는 대신 사람과 세를 바라는 포고를 붙였다",
     lbl_rumor_rum_lord_pact_accepted: "변경은 영주의 보호를 받아들였다",
     lbl_rumor_rum_lord_pact_refused: "변경은 스스로 지키기로 했다",
