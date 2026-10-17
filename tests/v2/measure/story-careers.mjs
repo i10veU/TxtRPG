@@ -13,6 +13,9 @@
 //   hero (every hand the region offers, the last fight, the realm's name, the remnants)
 //   `dead`: the chief dead from the start of the guard's work (staged; his right hand leads the band)
 //   PACK_ROOT=<dir> measures the pack under <dir>/web/v2 instead of this checkout
+//   WAIT_DAY=1 takes the guard's idle waits with the UI's "기다리기 (하루)" (web/v2/ui/wait.js, V2-Core-144)
+// Every row counts the clicks a player would make (`clicks`, `clicksToFate`): an action, a move or a choice is one;
+// a wait is a press of the 30-minute button per half hour, or one press of the day button
 import { readFileSync } from "node:fs";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
@@ -25,6 +28,9 @@ const { worldData: d } = await import(at("data/world.js"));
 for (const c of (process.env.CANDIDATE ?? "").split(",").filter(Boolean)) (await import(new URL(`./candidates/${c}.mjs`, import.meta.url).href)).patch(d);
 // the price the elder asks for the village's silver, as the option shows it (step 1c's cost-aware policies)
 const SILVER_COST = -d.choices.choice_elder_dialogue.options.find((o) => o.id === "opt_elder_give_silver").effects.find((e) => e.op === "money").add;
+// V2-Core-144 (M8, D-122): the day button, for the clicks to the ending
+const WAIT_DAY = process.env.WAIT_DAY === "1";
+const { waitDay } = WAIT_DAY ? await import(at("ui/wait.js")) : {};
 
 const DIRECT = process.argv[1] && pathToFileURL(process.argv[1]).href === import.meta.url;
 const SEEDS = DIRECT ? JSON.parse(readFileSync(new URL(`./${process.env.SEEDS_FILE ?? "seeds.json"}`, import.meta.url), "utf8")).slice(+process.argv[2], +process.argv[3]) : [];
@@ -59,11 +65,13 @@ const knows = (s, r) => Boolean(s.knowledge?.[s.player.actorId]?.[r]);
 const dead = (s) => s.pending?.kind === "newCharacter";
 let LATE = null;
 let STUCK = new Set(); // the days a career spent without an available passage back north
+let CLICKS = 0; // the player's presses so far in this career
 // one step at a time; a rejected step is skipped (a policy's plan meeting the world as it is)
 function run(s, list) {
   for (const a of list) {
     if (dead(s)) return s;
     if (LATE && LATE.t0 !== null && day(s, LATE.t0) >= 60 && (a.type === "perform" || a.type === "choose")) LATE.ids.add(a.actionId ?? a.optionId);
+    CLICKS += a.type === "wait" ? Math.ceil(a.minutes / 30) : 1;
     const r = step(s, a, d);
     if (r.events.some((e) => e.type === "action.rejected")) return s;
     s = r.state;
@@ -96,6 +104,8 @@ function toTown(s) {
   const crossing = hasLetter(s) ? "opt_ferryman_cross_letter" : me(s).money >= 3 ? "opt_ferryman_cross" : null;
   return crossing ? go(ferryman(s, crossing), "loc_castle_town") : s;
 }
+// one press of the day button (WAIT_DAY=1)
+const dayWait = (s) => { CLICKS += 1; return waitDay(s, d).state; };
 const restVillage = (s) => { for (let i = 0; i < 6 && !dead(s) && hp(s) < me(s).hp.max; i++) s = run(s, [P("act_rest_village")]); return s; };
 
 // the guard's work: one convoy (or a lodging night when spent), as the escort careers' blind no-danger guard
@@ -106,10 +116,12 @@ function guardWork(s, saveForVillage = false) {
   if (!saveForVillage && (me(s).inventory?.item_steel_sword ?? 0) < 1 && me(s).money >= 30) s = merchant(s, "opt_town_merchant_buy_steel_sword");
   if (!saveForVillage && (me(s).inventory?.item_mail_shirt ?? 0) < 1 && me(s).money >= 54) s = merchant(s, "opt_town_merchant_buy_mail_shirt");
   for (const id of ["act_equip_steel_sword", "act_equip_mail_shirt"]) if (can(s, id)) s = run(s, [P(id)]);
-  for (let h = 0; h < 96 && !offer(s, "choice_guild_clerk_dialogue", "opt_guild_clerk_escort"); h++) s = run(s, [{ type: "wait", minutes: 60 }]);
+  // with the day button, no hour-by-hour wait for the next convoy: a day at a time below, the policy deciding again
+  // after each day, as a player would
+  for (let h = 0; !WAIT_DAY && h < 96 && !offer(s, "choice_guild_clerk_dialogue", "opt_guild_clerk_escort"); h++) s = run(s, [{ type: "wait", minutes: 60 }]);
   const lead = offer(s, "choice_guild_clerk_dialogue", "opt_guild_clerk_escort_lead");
   if ((stam(s) < (lead ? 3 : 2) || hp(s) <= 6) && me(s).money >= 2) return run(s, [P("act_lodge_castle_town")]);
-  if (!offer(s, "choice_guild_clerk_dialogue", "opt_guild_clerk_escort")) return run(s, [{ type: "wait", minutes: 480 }]);
+  if (!offer(s, "choice_guild_clerk_dialogue", "opt_guild_clerk_escort")) return WAIT_DAY ? dayWait(s) : run(s, [{ type: "wait", minutes: 480 }]);
   s = clerk(s, lead ? "opt_guild_clerk_escort_lead" : "opt_guild_clerk_escort");
   return dead(s) || me(s).locationId === "loc_castle_town" ? s : run(s, [M("loc_castle_town")]);
 }
@@ -170,24 +182,26 @@ function career(name, seed, k) {
   if (!pol) throw new Error(`unknown policy ${name}`);
   LATE = { t0: null, ids: new Set() };
   STUCK = new Set();
+  CLICKS = 0;
   let s = run(createInitialState({ worldSeed: seed, data: d }).state, TO_TOWN);
   if (LEADER_DEAD) s.actors.npc_bandit_leader.alive = false; // staged, before the band gathers (stated in the report)
   s.rng.cursor += k * 11;
   const t0 = s.time.minute;
   LATE.t0 = t0;
-  const m = { deaths: 0, deathDays: [], deathsAfterGather: 0, lives: 1, dayLead: null, dayGather: null, dayCross: null, dayFate: null, fate: 0, dayDefender: null, dayRenown: null, hunts: 0 };
+  const m = { deaths: 0, deathDays: [], deathsAfterGather: 0, lives: 1, dayLead: null, dayGather: null, dayCross: null, dayFate: null, fate: 0, dayDefender: null, dayRenown: null, hunts: 0, fightRaidDay: null };
   const mem = { trips: 0, fought: false, burnt: false, crown: false };
   const stamp = (key, cond) => { if (m[key] === null && cond) m[key] = Math.round(day(s, t0) * 10) / 10; };
   for (let guard = 0; day(s, t0) < DAYS && guard < 8000; guard++) {
     if (dead(s)) {
       m.deaths++; m.deathDays.push(Math.round(day(s, t0) * 10) / 10); if (m.dayGather !== null) m.deathsAfterGather++;
-      s = run(step(s, NEW, d).state, WALK); m.lives++; mem.fought = false; continue;
+      CLICKS += 1; s = run(step(s, NEW, d).state, WALK); m.lives++; mem.fought = false; continue;
     }
     if (s.pending) { m.stalled = true; break; } // a dialogue left open: the policy's plan met a choice it could not finish
     stamp("dayLead", g(s).unlocks?.unl_road_lead);
     stamp("dayGather", (s.signals?.band_gathering ?? 0) >= 1);
     stamp("dayCross", s.flags?.band_crossed === true);
     stamp("dayFate", (s.signals?.frontier_fate ?? 0) >= 1);
+    if (m.clicksToFate === undefined && m.dayFate !== null) m.clicksToFate = CLICKS;
     stamp("dayDefender", evaluateCondition({ op: "relation", from: "org_village", to: "self", tag: "defender" }, ctx(s)));
     stamp("dayRenown", g(s).unlocks?.unl_realm_renown);
     const gathered = m.dayGather !== null, crossed = s.flags?.band_crossed === true, decided = (s.signals?.frontier_fate ?? 0) >= 1;
@@ -213,7 +227,7 @@ function career(name, seed, k) {
       s = southTrip(s, again, mem); mem.trips++; mem.lastTrip = day(s, t0); continue;
     }
     // the band across: the fighter goes to meet it (a successor too, while it is in the land)
-    if (pol.fight && crossed && !decided && !s.flags?.band_broken && !mem.fought) { s = toTown(lastFight(run(s, [M("loc_far_bank"), M("loc_river_ford"), M("loc_crossroads")]))); mem.fought = true; continue; }
+    if (pol.fight && crossed && !decided && !s.flags?.band_broken && !mem.fought) { m.fightRaidDay = s.signals?.raid_days ?? null; s = toTown(lastFight(run(s, [M("loc_far_bank"), M("loc_river_ford"), M("loc_crossroads")]))); mem.fought = true; continue; }
     // the realm's name: the defender walks to the royal city once the word has gone north
     if (pol.renown && s.flags?.fate_word_north && evaluateCondition({ op: "relation", from: "org_village", to: "self", tag: "defender" }, ctx(s)) && !g(s).unlocks?.unl_realm_renown && !mem.royal) {
       mem.royal = true; s = run(s, [M("loc_far_bank"), P("act_read_waystation_board"), M("loc_royal_city"), P("act_read_royal_records"), M("loc_far_bank"), M("loc_castle_town"), P("act_talk_guild_clerk"), C("opt_guild_clerk_ask")]); continue;
@@ -235,6 +249,8 @@ function career(name, seed, k) {
   m.wallet = me(s).money;
   m.stuckSouthDays = STUCK.size;
   m.stalled = m.stalled ?? false;
+  m.clicks = CLICKS;
+  m.clicksToFate = m.clicksToFate ?? null;
   LATE = null;
   return m;
 }

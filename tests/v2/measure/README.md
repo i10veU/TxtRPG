@@ -168,3 +168,5 @@ T1_POLICY=prepare3 T2_POLICY=lord3 python3 tests/v2/measure/m8-judge.py a.json d
 - 강 남쪽에서 뱃삯이 없어 묶인 날(`stuckSouthDays`)
 - 정책이 끝내지 못한 대화(`stalled`, 0이어야 한다)
 - 늦은 경력의 폭(`lateKinds`)
+- 누름 수(`clicks`, 결말까지 `clicksToFate`): 행동·이동·선택은 한 번이다. 기다림은 30분 단추를 30분마다 한 번 누른 것으로 센다. `WAIT_DAY=1`이면 호위의 빈 시간을 "기다리기 (하루)"(`web/v2/ui/wait.js`)로 보낸다. 한 번 누를 때마다 하루이고, 정책은 하루마다 다시 판단한다(V2-Core-144)
+- 결전에 나선 때(`fightRaidDay`): 무리가 갈림길에 머문 몇째 날에 출발했는가(`raid_days`). 나서지 않았으면 `null`
