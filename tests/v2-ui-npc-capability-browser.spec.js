@@ -30,7 +30,7 @@ async function gotoApp(page) {
 }
 const getState = (page) => page.evaluate(() => window.__v2App.getState());
 const leaderStamina = async (page) => (await getState(page)).actors.npc_bandit_leader.growth.growth_wanderer.resources.stamina;
-const strike = (page) => page.locator("#choiceOptions button", { hasText: "정면으로 맞붙는다" }).click();
+const strike = (page) => page.locator("#choiceOptions button:not([disabled])", { hasText: "정면으로 맞붙는다" }).click();
 const logCount = async (page, text) => (await page.locator("#log").innerText()).split(text).length - 1;
 
 test.describe("V2 NPC capability (the leader's stamina pays for his heavy blow)", () => {

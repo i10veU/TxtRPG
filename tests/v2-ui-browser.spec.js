@@ -89,7 +89,7 @@ test.describe("V2 minimal browser UI (real entry point)", () => {
     await expect(page.locator("#choice")).toBeVisible();
     await expect(page.locator("#actions")).toBeEmpty();
     await expect(page.locator("#moves")).toBeEmpty();
-    await page.locator("#choiceOptions button", { hasText: "폐허에 대해 묻는다" }).click();
+    await page.locator("#choiceOptions button:not([disabled])", { hasText: "폐허에 대해 묻는다" }).click();
     await expect(page.locator("#choice")).toBeHidden();
 
     // V2-Core-29: the lantern is bought at the market, the ruins are visited

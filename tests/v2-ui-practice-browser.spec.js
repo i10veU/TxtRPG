@@ -39,7 +39,7 @@ async function investigate(page, { observe }) {
     await expect(page.locator("#status")).toContainText("조사 30");
   }
   await act(page, "원로를 찾아간다");
-  await page.locator("#choiceOptions button", { hasText: "폐허에 대해 묻는다" }).click();
+  await page.locator("#choiceOptions button:not([disabled])", { hasText: "폐허에 대해 묻는다" }).click();
   await move(page, "시장");
   await act(page, "등불을 산다");
   await move(page, "변경 마을");

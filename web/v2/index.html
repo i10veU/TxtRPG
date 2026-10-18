@@ -104,14 +104,24 @@
   #actions, #choiceOptions { display: grid; gap: 0.45rem; counter-reset: pick; }
   #actions button, #choiceOptions button {
     text-align: left; font-family: var(--serif); font-size: 1.02rem; line-height: 1.5;
-    background: var(--page); padding: 0.7rem 0.9rem; display: flex; gap: 0.7rem; align-items: baseline;
+    background: var(--page); padding: 0.7rem 0.9rem;
   }
   #actions button:not(:disabled)::before, #choiceOptions button:not(:disabled)::before {
     counter-increment: pick; content: counter(pick);
     font: 600 0.8rem/1.5rem var(--sans); color: var(--accent); min-width: 1.5rem; height: 1.5rem; text-align: center;
     border: 1px solid var(--accent); border-radius: 50%; flex: none;
   }
-  #actions button:disabled { background: transparent; border-style: dashed; padding-left: 3.1rem; font-size: 0.92rem; }
+  #actions button:disabled, #choiceOptions button:disabled { background: transparent; border-style: dashed; padding-left: 3.1rem; font-size: 0.92rem; display: block; }
+  /* V2-Core-153: what the choice asks -- time, cost, the check and its chance, what I have (✓) or lack (필요) */
+  #actions button, #choiceOptions button { display: grid; grid-template-columns: auto 1fr; column-gap: 0.7rem; align-items: baseline; }
+  #actions button[data-note]::after, #choiceOptions button[data-note]::after {
+    content: attr(data-note); grid-column: 2; display: block; margin-top: 0.15rem;
+    font: 0.8rem/1.4 var(--sans); color: var(--muted); letter-spacing: 0.01em;
+  }
+  #actions button:disabled[data-note]::after, #choiceOptions button:disabled[data-note]::after { color: var(--danger); }
+  button[data-risk="likely"]::after, button[data-risk="sure"]::after { color: var(--accent) !important; }
+  button[data-risk="hard"]::after, button[data-risk="desperate"]::after { color: var(--news-ink) !important; }
+  #moves button[data-note]::after { content: " · " attr(data-note); color: var(--muted); font-size: 0.82rem; }
   #choice { display: grid; gap: 0.6rem; }
   #choice[hidden], #menu[hidden], #game[hidden], #storySection[hidden], #news[hidden] { display: none; }
   .roads { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; padding-top: 0.2rem; }

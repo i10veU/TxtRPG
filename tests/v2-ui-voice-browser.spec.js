@@ -38,7 +38,7 @@ test.describe("V2 the voice (J3)", () => {
     await expect(page.locator("#vitals")).toHaveText("체력 10/10 · 기력 6/6 · 은화 8");
 
     await page.locator("#actions button", { hasText: "원로를 찾아간다" }).click();
-    await page.locator("#choiceOptions button", { hasText: "폐허에 대해 묻는다" }).click();
+    await page.locator("#choiceOptions button:not([disabled])", { hasText: "폐허에 대해 묻는다" }).click();
     await expect(scene(page).locator("p")).toHaveCount(1);
     await expect(scene(page)).toHaveText(await text(page, "txt_ask_ruins"));
     await expect(goal(page).locator("[data-track=main]")).toHaveText(await text(page, "goal_search_ruins"));
@@ -61,7 +61,7 @@ test.describe("V2 the voice (J3)", () => {
     await expect(scene(page)).toContainText(await text(page, "txt_prologue_scout_purse"));
     await expect(scene(page)).not.toContainText(await text(page, "txt_prologue_purse"));
     await page.locator("#actions button", { hasText: "원로를 찾아간다" }).click();
-    await page.locator("#choiceOptions button", { hasText: "폐허에 대해 묻는다" }).click();
+    await page.locator("#choiceOptions button:not([disabled])", { hasText: "폐허에 대해 묻는다" }).click();
     await expect(goal(page).locator("[data-track=main]")).toHaveText(await text(page, "goal_search_ruins_night"));
     expect(pageErrors).toEqual([]);
     expect(consoleErrors).toEqual([]);
@@ -71,7 +71,7 @@ test.describe("V2 the voice (J3)", () => {
     const { pageErrors, consoleErrors } = await gotoApp(page);
     await page.locator("#newGameBtn").click();
     await page.locator("#actions button", { hasText: "원로를 찾아간다" }).click();
-    await page.locator("#choiceOptions button", { hasText: "폐허에 대해 묻는다" }).click();
+    await page.locator("#choiceOptions button:not([disabled])", { hasText: "폐허에 대해 묻는다" }).click();
     await page.locator("#saveSlotInput").fill("slot_voice");
     await page.locator("#saveBtn").click();
     await expect(page.locator("#log")).toContainText("slot_voice");

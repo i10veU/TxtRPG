@@ -43,7 +43,7 @@ async function margins(page) {
 }
 async function strike(page) {
   const before = (await margins(page)).length;
-  await page.locator("#choiceOptions button", { hasText: STRIKE }).click();
+  await page.locator("#choiceOptions button:not([disabled])", { hasText: STRIKE }).click();
   await expect.poll(async () => (await margins(page)).length).toBe(before + 1);
   return (await margins(page))[0];
 }

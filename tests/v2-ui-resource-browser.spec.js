@@ -33,7 +33,7 @@ async function gotoApp(page) {
   await expect.poll(async () => page.evaluate(() => Boolean(window.__v2App))).toBe(true);
   return { pageErrors, consoleErrors };
 }
-const choiceButton = (page, label) => page.locator("#choiceOptions button", { hasText: label });
+const choiceButton = (page, label) => page.locator("#choiceOptions button:not([disabled])", { hasText: label });
 const status = (page) => page.locator("#status");
 const getState = (page) => page.evaluate(() => window.__v2App.getState());
 // plant a save through the app's own storage module, from the current state changed by `mutate`

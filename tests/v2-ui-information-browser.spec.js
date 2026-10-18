@@ -42,7 +42,7 @@ async function startCanonicalGame(page) {
 async function talkToElder(page, optionLabel) {
   await act(page, "원로를 찾아간다");
   await expect(page.locator("#choice")).toBeVisible();
-  await page.locator("#choiceOptions button", { hasText: optionLabel }).click();
+  await page.locator("#choiceOptions button:not([disabled])", { hasText: optionLabel }).click();
   await expect(page.locator("#choice")).toBeHidden();
 }
 
@@ -60,9 +60,9 @@ test.describe("V2 information loop (elder rumor -> investigation -> confirmation
     // 2. the elder dialogue offers both options through the real choice UI
     await act(page, "원로를 찾아간다");
     await expect(page.locator("#choice")).toBeVisible();
-    await expect(page.locator("#choiceOptions button", { hasText: "폐허에 대해 묻는다" })).toHaveCount(1);
-    await expect(page.locator("#choiceOptions button", { hasText: "안부만 묻는다" })).toHaveCount(1);
-    await page.locator("#choiceOptions button", { hasText: "폐허에 대해 묻는다" }).click();
+    await expect(page.locator("#choiceOptions button:not([disabled])", { hasText: "폐허에 대해 묻는다" })).toHaveCount(1);
+    await expect(page.locator("#choiceOptions button:not([disabled])", { hasText: "안부만 묻는다" })).toHaveCount(1);
+    await page.locator("#choiceOptions button:not([disabled])", { hasText: "폐허에 대해 묻는다" }).click();
     await expect(page.locator("#choice")).toBeHidden();
 
     // 3. the rumor result: told in the log, recorded as the player's knowledge

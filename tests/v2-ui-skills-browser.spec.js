@@ -50,7 +50,7 @@ test.describe("V2 skills (practice -> threshold -> rank, shown in the status)", 
 
     await page.locator("#actions button", { hasText: "칼을 뽑아 두목과 맞선다" }).click();
     for (let i = 0; i < 10 && (await page.locator("#choice").isVisible()); i += 1) {
-      await page.locator("#choiceOptions button", { hasText: "정면으로 맞붙는다" }).click();
+      await page.locator("#choiceOptions button:not([disabled])", { hasText: "정면으로 맞붙는다" }).click();
     }
     await expect(page.locator("#choice")).toBeHidden();
     await expect(status(page)).toContainText("기술: 조사 3 (수련), 검술 1 (초심)");

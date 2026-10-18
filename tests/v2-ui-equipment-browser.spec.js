@@ -34,7 +34,7 @@ async function gotoApp(page) {
 }
 const act = (page, label) => page.locator("#actions button", { hasText: label }).click();
 const actionButton = (page, label) => page.locator("#actions button", { hasText: label });
-const choiceButton = (page, label) => page.locator("#choiceOptions button", { hasText: label });
+const choiceButton = (page, label) => page.locator("#choiceOptions button:not([disabled])", { hasText: label });
 const status = (page) => page.locator("#status");
 const getState = (page) => page.evaluate(() => window.__v2App.getState());
 const dispatchAll = (page, actions) => page.evaluate((list) => list.forEach((a) => window.__v2App.dispatch(a)), actions);

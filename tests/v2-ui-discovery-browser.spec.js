@@ -31,7 +31,7 @@ test.describe("V2 discovery and the reading bands (V2-Core-152)", () => {
     await page.locator("#actions button", { hasText: "원로를 찾아간다" }).click();
     await expect(page.locator("#choiceTitle")).toHaveText(await text(page, "lbl_choice_choice_elder_dialogue"));
     await expect(page.locator("#doingLabel")).toBeHidden();
-    await page.locator("#choiceOptions button", { hasText: "폐허에 대해 묻는다" }).click();
+    await page.locator("#choiceOptions button:not([disabled])", { hasText: "폐허에 대해 묻는다" }).click();
     await expect(news(page)).toHaveCount(1);
     await expect(news(page).first()).toHaveAttribute("data-kind", "learned");
     await expect(news(page).first()).toContainText("새로 안 것");

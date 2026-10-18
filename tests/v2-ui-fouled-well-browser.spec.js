@@ -41,10 +41,10 @@ test.describe("V2 fouled well (Slice 2: discovery)", () => {
     await expect(page.locator("#actions button", { hasText: "약초꾼에게 말을 건다" })).toHaveCount(0);
     await move(page, "시장");
     await act(page, "약초꾼에게 말을 건다");
-    await page.locator("#choiceOptions button", { hasText: "마을의 배앓이에 대해 묻는다" }).click();
+    await page.locator("#choiceOptions button:not([disabled])", { hasText: "마을의 배앓이에 대해 묻는다" }).click();
     await expect(page.locator("#log")).toContainText("그 샘이 탈이 난 게 틀림없다고 한다.");
     await act(page, "약초꾼에게 말을 건다");
-    await page.locator("#choiceOptions button", { hasText: "마을의 배앓이에 대해 묻는다" }).click();
+    await page.locator("#choiceOptions button:not([disabled])", { hasText: "마을의 배앓이에 대해 묻는다" }).click();
     expect((await getState(page)).relations["npc_herbalist:player_1"]).toMatchObject({ score: 5, tags: ["consulted"] });
 
     // the spring: the miasma on arrival (not resisted on this seed: 2 HP)
