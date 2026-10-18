@@ -102,6 +102,14 @@ function testEveryCheckNamesADefinedStat() {
     act_search_crossroads: ["per", null],
     act_watch_band_camp: ["per", null], // V2-Core-139: watching the band
     act_petition_crown: ["wis", null], // V2-Core-141: the frontier's plight told at court
+    // V2-Core-155 (D-133): the ways of the encounters
+    act_enc_spring_trap_disarm: ["dex", null],
+    act_enc_toll_post_ledger: ["int", null],
+    act_enc_mill_wheel_push: ["str", null],
+    act_enc_mill_wheel_rope: ["int", null],
+    act_enc_levy_officer_peek: ["per", null],
+    act_enc_followed_slip: ["dex", null],
+    act_enc_followed_face: ["wis", null],
     act_burn_band_stores: ["dex", null], // V2-Core-141: the band's stores
     act_hunt_band_remnants: ["str", null], // V2-Core-142: the remnants
     "choice_guild_clerk_dialogue.opt_guild_clerk_escort": ["str", null], // V2-Core-78: the caravan guard

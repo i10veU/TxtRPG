@@ -98,6 +98,14 @@ function testChecksReadSkills() {
     act_watch_band_camp: ["investigation", null], // V2-Core-139: watching the band
     act_petition_crown: [null, null], // V2-Core-141: the frontier's plight told at court
     act_burn_band_stores: [null, null], // V2-Core-141: the band's stores
+    // V2-Core-155 (D-133): the ways of the encounters -- the toll post's ledger is read with the investigation skill
+    act_enc_spring_trap_disarm: [null, null],
+    act_enc_toll_post_ledger: ["investigation", null],
+    act_enc_mill_wheel_push: [null, null],
+    act_enc_mill_wheel_rope: [null, null],
+    act_enc_levy_officer_peek: [null, null],
+    act_enc_followed_slip: [null, null],
+    act_enc_followed_face: [null, null],
     act_hunt_band_remnants: ["swordsmanship", null], // V2-Core-142: the remnants, for a seasoned sword
     "choice_guild_clerk_dialogue.opt_guild_clerk_escort": ["swordsmanship", null], // V2-Core-78: the caravan guard
     "choice_guild_clerk_dialogue.opt_guild_clerk_escort_lead": ["swordsmanship", null], // V2-Core-105: leading it
