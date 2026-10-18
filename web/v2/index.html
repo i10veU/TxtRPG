@@ -154,6 +154,18 @@
     @keyframes glow { from { box-shadow: 0 0 0 3px var(--accent); } to { box-shadow: 0 0 0 0 transparent; } }
   }
 
+  /* V2-Core-158: the pictures -- the place at the head of the page (to the card's edges), the cover, the last page */
+  .art { margin: 0; }
+  .art canvas, canvas.ending-art { display: block; width: 100%; max-width: 100%; aspect-ratio: 12 / 5; }
+  .page > .art { margin: -1.25rem calc(-1 * clamp(1rem, 5vw, 2.25rem)) -0.35rem; border-radius: 5px 5px 0 0; overflow: hidden; }
+  #ending:not([hidden]) + .art { display: none; }
+  #menu > .cover { border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; }
+  #ending canvas.ending-art { border-radius: 4px; }
+  @media (prefers-reduced-motion: no-preference) {
+    canvas.fresh { animation: develop 0.8s ease-out; }
+    @keyframes develop { from { opacity: 0.2; } to { opacity: 1; } }
+  }
+
   /* V2-Core-156: the end of a story or a life, and the chronicle */
   #ending { border: 1px solid var(--accent); border-radius: 6px; padding: 1rem 1.1rem; display: grid; gap: 0.5rem; background: var(--accent-soft); }
   #ending[hidden], #chronicleSection[hidden] { display: none; }
@@ -200,6 +212,7 @@
 <p id="error" hidden></p>
 
 <div id="menu">
+  <figure class="art cover" aria-hidden="true"><canvas id="coverArt"></canvas></figure>
   <p class="lede">이름 없는 이들이 남긴 일이 세계의 역사가 된다. 이름은 세계가 기억할 때 생긴다.</p>
   <ul class="howto">
     <li><b>위의 글</b>이 방금 일어난 일이다. 새로 알게 된 것은 그 아래 카드에 남는다.</li>
@@ -226,6 +239,7 @@
 <div id="game" hidden>
   <div class="page">
     <section id="ending" hidden aria-live="polite"></section>
+    <figure class="art" aria-hidden="true"><canvas id="sceneArt"></canvas></figure>
     <div class="where"><span id="location"></span><span class="body"><span id="marks" aria-hidden="true"><i class="hp"></i><i class="st"></i></span><span id="vitals"></span></span></div>
     <article id="scene" aria-live="polite"></article>
     <ul id="news" hidden aria-live="polite"></ul>

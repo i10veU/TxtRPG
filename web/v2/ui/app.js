@@ -26,6 +26,8 @@ import { stakesOf, duration } from "./stakes.js";
 import { greetingFor } from "./people.js";
 import { deedsTrue, endingLearned } from "./deeds.js";
 import * as chronicle from "../storage/chronicle.js";
+import { sceneOf, endingScene, COVER } from "./art.js";
+import { paint } from "./paint.js";
 
 const DAY_MINUTES = 1440;
 
@@ -80,6 +82,8 @@ const el = {
   news: document.getElementById("news"),
   choiceTitle: document.getElementById("choiceTitle"),
   ending: document.getElementById("ending"),
+  sceneArt: document.getElementById("sceneArt"),
+  coverArt: document.getElementById("coverArt"),
   chronicleSection: document.getElementById("chronicleSection"),
   lives: document.getElementById("lives"),
   deedBook: document.getElementById("deedBook"),
@@ -686,12 +690,49 @@ function renderScene() {
 
 const NEWS_WORDS = { learned: "새로 안 것", story: "이야기가 움직였다", confirmed: "확인했다", gained: "얻었다", spent: "내주었다", healed: "나았다", hurt: "다쳤다", grew: "늘었다", deed: "이룬 일" };
 
+// V2-Core-158 (D-136): the pictures -- the place in the light of the hour at the head of the page, the cover on the
+// menu, the last page of a life on the ending card (ui/art.js says what is drawn, ui/paint.js draws it). A picture is
+// drawn again only when what it shows, the page's width or the theme changes
+const darkTheme = () => {
+  const chosen = document.documentElement.dataset.theme;
+  return chosen === "dark" || (chosen !== "light" && Boolean(globalThis.matchMedia?.("(prefers-color-scheme: dark)").matches));
+};
+const drawn = new WeakMap();
+function picture(canvas, scene) {
+  if (!canvas) return;
+  const dark = darkTheme();
+  const key = `${JSON.stringify(scene)}|${dark}|${canvas.clientWidth}`;
+  if (drawn.get(canvas) === key) return;
+  const paper = getComputedStyle(document.documentElement).getPropertyValue("--page").trim() || "#f4f5f1";
+  if (!paint(canvas, scene, { dark, paper })) return;
+  const changed = canvas.dataset.scene !== scene.key || canvas.dataset.band !== scene.band;
+  drawn.set(canvas, key);
+  canvas.dataset.scene = scene.key;
+  canvas.dataset.band = scene.band;
+  if (changed) {
+    canvas.classList.remove("fresh");
+    void canvas.offsetWidth; // restart the fade for a new picture
+    canvas.classList.add("fresh");
+    // once only: the ending card is rebuilt on every step, and a picture put back must not fade in again
+    canvas.addEventListener("animationend", () => canvas.classList.remove("fresh"), { once: true });
+  }
+}
+const endingArt = document.createElement("canvas");
+endingArt.className = "ending-art";
+endingArt.setAttribute("aria-hidden", "true");
+function renderPictures() {
+  if (state) picture(el.sceneArt, sceneOf(state, worldData));
+  else picture(el.coverArt, COVER);
+  if (endingCard) picture(endingArt, endingScene(endingCard.end));
+}
+
 function renderEnding() {
   if (!el.ending) return;
   clearChildren(el.ending);
   el.ending.hidden = !endingCard;
   if (!endingCard) return;
   el.ending.dataset.end = endingCard.end;
+  el.ending.appendChild(endingArt);
   const label = document.createElement("small");
   label.textContent = endingCard.end === "died" ? "이 삶의 끝" : "이야기의 끝";
   const title = document.createElement("h2");
@@ -824,6 +865,7 @@ function render() {
   if (!state) {
     el.menu.hidden = false;
     el.game.hidden = true;
+    renderPictures();
     return;
   }
   el.menu.hidden = true;
@@ -858,6 +900,7 @@ function render() {
   renderKnowledge(playerView.knowledge, playerView.pending);
   renderLog();
   renderEnding();
+  renderPictures();
   renderScene();
   renderNews();
   renderGoal();
@@ -1015,6 +1058,12 @@ el.saveBtn?.addEventListener("click", () => {
   }
   saveGame(slot);
 });
+
+// the pictures follow the page's width and the theme
+const repaint = () => requestAnimationFrame(renderPictures);
+if (globalThis.ResizeObserver) new ResizeObserver(repaint).observe(document.getElementById("app"));
+globalThis.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", repaint);
+new MutationObserver(repaint).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 
 renderBackgroundChoice();
 refreshSlotList();
