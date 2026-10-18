@@ -49,7 +49,7 @@ async function gotoApp(page) {
   return { pageErrors, consoleErrors };
 }
 const act = (page, label) => page.locator("#actions button", { hasText: label }).click();
-const option = (page, label) => page.locator("#choiceOptions button", { hasText: label });
+const option = (page, label) => page.locator("#choiceOptions button:not([disabled])", { hasText: label });
 const getState = (page) => page.evaluate(() => window.__v2App.getState());
 
 const talk = (page) => act(page, "원로를 찾아간다").then(() => option(page, "안부만 묻는다").click());

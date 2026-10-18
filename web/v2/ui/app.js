@@ -22,6 +22,7 @@ import * as storage from "../storage/idb.js";
 import { worldData } from "../data/world.js";
 import { waitDay } from "./wait.js";
 import { currentGoals } from "./goals.js";
+import { stakesOf, duration } from "./stakes.js";
 
 const DAY_MINUTES = 1440;
 
@@ -227,6 +228,17 @@ function makeButton(label, onClick, { disabled = false, title } = {}) {
   return btn;
 }
 
+// V2-Core-153 (D-131): what the choice asks of me, under its words (ui/stakes.js). Shown by CSS from data-note, so the
+// button's own text stays the choice's words
+function markStakes(btn, stakes) {
+  if (!stakes) return btn;
+  if (stakes.note) btn.dataset.note = stakes.note;
+  if (stakes.risk) btn.dataset.risk = stakes.risk;
+  if (stakes.locked) btn.dataset.locked = "true";
+  if (stakes.title) btn.title = stakes.title;
+  return btn;
+}
+
 function dispatch(action) {
   if (!state || busy) return;
   busy = true;
@@ -293,12 +305,17 @@ function renderChoice(pending) {
   if (el.choiceTitle) el.choiceTitle.textContent = word(`lbl_choice_${pending.choiceId}`, "무엇이라고 할까");
   const def = worldData.choices?.[pending.choiceId];
   const options = Array.isArray(def?.options) ? def.options : [];
-  options.forEach((option) => {
-    if (!option || typeof option !== "object") return;
-    const available = option.requires === undefined || evaluateCondition(option.requires, requiresCtx("player"));
-    if (!available) return;
+  const shown = options.filter((o) => o && typeof o === "object").map((option) => ({
+    option,
+    available: option.requires === undefined || evaluateCondition(option.requires, requiresCtx("player")),
+    stakes: stakesOf(option, state, worldData)
+  }));
+  // what I can say first; then what I could, if I had the means (an option behind something not mine stays hidden)
+  [...shown.filter((o) => o.available), ...shown.filter((o) => !o.available && o.stakes?.locked)].forEach(({ option, available, stakes }) => {
     const label = option.name ?? option.id;
-    el.choiceOptions.appendChild(makeButton(label, () => dispatch({ type: "choose", optionId: option.id })));
+    el.choiceOptions.appendChild(
+      markStakes(makeButton(label, () => dispatch({ type: "choose", optionId: option.id }), { disabled: !available }), stakes)
+    );
   });
 }
 
@@ -326,7 +343,9 @@ function renderMoves(actorLocationId, pendingActive) {
     if (!link || typeof link.to !== "string") return;
     const available = link.requires === undefined || evaluateCondition(link.requires, requiresCtx("player"));
     if (!available) return;
-    el.moves.appendChild(makeButton(`${toward(locationName(link.to))} 간다`, () => dispatch({ type: "move", to: link.to })));
+    const btn = makeButton(`${toward(locationName(link.to))} 간다`, () => dispatch({ type: "move", to: link.to }));
+    if (Number.isInteger(link.minutes)) btn.dataset.note = duration(link.minutes);
+    el.moves.appendChild(btn);
   });
 }
 
@@ -345,9 +364,12 @@ function renderActions(actions, pendingActive) {
     const def = worldData.actions?.[actionId];
     const label = def?.name ?? actionId;
     el.actions.appendChild(
-      makeButton(available ? label : `${label} (지금은 할 수 없다)`, () => dispatch({ type: "perform", actionId }), {
-        disabled: !available
-      })
+      markStakes(
+        makeButton(available ? label : `${label} (지금은 할 수 없다)`, () => dispatch({ type: "perform", actionId }), {
+          disabled: !available
+        }),
+        def ? stakesOf(def, state, worldData) : null
+      )
     );
   });
 }

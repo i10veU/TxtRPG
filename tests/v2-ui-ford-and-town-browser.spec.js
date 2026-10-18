@@ -40,7 +40,7 @@ async function gotoApp(page) {
   return { pageErrors, consoleErrors };
 }
 const act = (page, label) => page.locator("#actions button", { hasText: label }).click();
-const option = (page, label) => page.locator("#choiceOptions button", { hasText: label });
+const option = (page, label) => page.locator("#choiceOptions button:not([disabled])", { hasText: label });
 const getState = (page) => page.evaluate(() => window.__v2App.getState());
 const log = (page) => page.locator("#log");
 const word = (page, text) => page.locator("#knowledge li", { hasText: text });
@@ -105,7 +105,7 @@ test.describe("V2 the ford and the town (MG-045/046)", () => {
     // two sacks sold: a supplier he knows -- he gives his note while the town wants flour
     for (let i = 0; i < 2; i += 1) {
       await act(page, "성읍의 상인과 대화");
-      await page.locator("#choiceOptions button", { hasText: /^밀가루 자루를 판다/ }).first().click();
+      await page.locator("#choiceOptions button:not([disabled])", { hasText: /^밀가루 자루를 판다/ }).first().click();
     }
     const sold = await getState(page);
     expect(sold.relations[`npc_town_merchant:${sold.player.actorId}`].score).toBe(10);

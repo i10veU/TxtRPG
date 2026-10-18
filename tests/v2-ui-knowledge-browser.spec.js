@@ -39,7 +39,7 @@ async function gotoApp(page) {
   return { pageErrors, consoleErrors };
 }
 const act = (page, label) => page.locator("#actions button", { hasText: label }).click();
-const option = (page, label) => page.locator("#choiceOptions button", { hasText: label });
+const option = (page, label) => page.locator("#choiceOptions button:not([disabled])", { hasText: label });
 const knowledge = (page) => page.locator("#knowledge li");
 const word = (page, text) => page.locator("#knowledge li", { hasText: text });
 const noIds = async (page, where) => {

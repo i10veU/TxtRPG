@@ -25,7 +25,7 @@ async function gotoApp(page) {
 }
 const act = (page, label) => page.locator("#actions button", { hasText: label }).click();
 const move = (page, label) => page.locator("#moves button", { hasText: label }).click();
-const option = (page, label) => page.locator("#choiceOptions button", { hasText: label });
+const option = (page, label) => page.locator("#choiceOptions button:not([disabled])", { hasText: label });
 const status = (page) => page.locator("#status");
 const getState = (page) => page.evaluate(() => window.__v2App.getState());
 // click the gathering and wait for its own check line (each gathering also rolls the miasma: 2 lines)

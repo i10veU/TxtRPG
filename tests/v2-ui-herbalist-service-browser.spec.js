@@ -3,7 +3,7 @@ const { test, expect } = require("@playwright/test");
 
 const ENTRY_URL = "http://127.0.0.1:4173/v2/index.html";
 const act = (page, label) => page.locator("#actions button", { hasText: label }).click();
-const option = (page, label) => page.locator("#choiceOptions button", { hasText: label });
+const option = (page, label) => page.locator("#choiceOptions button:not([disabled])", { hasText: label });
 const getState = (page) => page.evaluate(() => window.__v2App.getState());
 async function loadSlot(page, slot) {
   await page.reload({ waitUntil: "networkidle" });

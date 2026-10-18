@@ -1842,6 +1842,35 @@ export function check(spec, ctx) {
   return { result: { tier, dice, roll, modifiers, total, difficulty, margin }, rng };
 }
 
+// checkOdds(spec, ctx) -> { difficulty, modifier, chance: { great, success, partial } } (V2-Core-153, D-131).
+// The chance of meeting each tier, from the same difficulty, retry penalty and modifiers `check` uses, over every face
+// the dice can show -- never the next roll itself (state.rng is not read: that roll is the future). Pure.
+export function checkOdds(spec, ctx) {
+  if (!isPlainObject(spec)) {
+    throw new TypeError("check spec must be a plain object");
+  }
+  const system = typeof ctx.data?.world?.growthSystemId === "string" ? ctx.data.world.growthSystemId : undefined;
+  const rules = checkRules(ctx);
+  const attempts = spec.attemptKey !== undefined ? ctx.state.attempts?.[spec.attemptKey] ?? 0 : 0;
+  const difficulty = resolveDifficulty(spec, ctx, system, rules) + attempts * rules.retryPenalty;
+  const modifier = computeCheckModifiers(spec, ctx, system, rules).reduce((sum, m) => sum + m.value, 0);
+  const diceCount = Number.isInteger(rules.dice.count) ? rules.dice.count : DEFAULT_CHECK_DICE.count;
+  const diceSides = Number.isInteger(rules.dice.sides) ? rules.dice.sides : DEFAULT_CHECK_DICE.sides;
+  // ways[s] = how many of the sides^count rolls sum to s
+  let ways = [1];
+  for (let i = 0; i < diceCount; i += 1) {
+    const next = new Array(ways.length + diceSides).fill(0);
+    ways.forEach((w, s) => {
+      for (let face = 1; face <= diceSides; face += 1) next[s + face] += w;
+    });
+    ways = next;
+  }
+  const all = diceSides ** diceCount;
+  const atLeast = (threshold) => ways.reduce((sum, w, roll) => (roll + modifier - difficulty >= threshold ? sum + w : sum), 0) / all;
+  const tiers = rules.tiers;
+  return { difficulty, modifier, chance: { great: atLeast(tiers.great), success: atLeast(tiers.success), partial: atLeast(tiers.partial) } };
+}
+
 // -- validateData (§11, D-56) ------------------------------------------------
 //
 // Pure, read-only, never throws (like validateState, D-55) -- a content

@@ -69,7 +69,7 @@ test.describe("V2 UI / view() boundary (D-67, current local-client model)", () =
     expect(v.pending).toEqual({ kind: "newCharacter" });
     expect(v.actor.alive).toBe(false);
 
-    await page.locator("#choiceOptions button", { hasText: "새로 시작한다 (떠돌이)" }).click();
+    await page.locator("#choiceOptions button:not([disabled])", { hasText: "새로 시작한다 (떠돌이)" }).click();
     v = await expectScreenMatchesView(page);
     expect(v.pending).toBeNull();
     expect(v.actor.id).toBe("player_2");
@@ -78,7 +78,9 @@ test.describe("V2 UI / view() boundary (D-67, current local-client model)", () =
     expect(consoleErrors).toEqual([]);
   });
 
-  test("locked actions and requirement-gated move links reveal no reason", async ({ page }) => {
+  // V2-Core-153 (D-131) narrows D-67: a locked action now says what of *mine* is lacking (my things, silver, strength,
+  // skills, stats, traits, unlocks) -- never a reason the world holds (a place, a flag, a relation, what I have heard)
+  test("locked actions and requirement-gated move links reveal no reason of the world's", async ({ page }) => {
     const { pageErrors, consoleErrors } = await gotoApp(page);
     await page.locator("#newGameBtn").click();
 
@@ -88,11 +90,15 @@ test.describe("V2 UI / view() boundary (D-67, current local-client model)", () =
     await expect(page.locator("#moves button", { hasText: "폐허" })).toHaveCount(0);
     await expect(page.locator("#moves")).not.toContainText("등불");
 
-    // a locked action entry is exactly a disabled button with the fixed suffix
+    // a locked action entry is a disabled button with the fixed suffix; under it, only what of mine it lacks
     const locked = page.locator("#actions button", { hasText: "도적 두목 앞에 나선다" });
     await expect(locked).toBeDisabled();
     await expect(locked).toHaveText("도적 두목 앞에 나선다 (지금은 할 수 없다)");
-    await expect(locked).not.toHaveAttribute("title", /.+/);
+    const lacking = await page.evaluate(() => {
+      const d = window.__v2App.worldData;
+      return `필요: ${d.items.item_relic.name} · ${d.texts.lbl_unlock_unl_keen_eye}`;
+    });
+    await expect(locked).toHaveAttribute("data-note", lacking);
 
     // satisfy the requirement: the link appears, nothing else changes
     await move(page, "시장");
@@ -101,6 +107,13 @@ test.describe("V2 UI / view() boundary (D-67, current local-client model)", () =
     await expect(page.locator("#moves button")).toHaveCount(2);
     await expect(page.locator("#moves button", { hasText: "폐허" })).toBeEnabled();
     await expect(page.locator("#error")).toBeHidden();
+
+    // locked by where I am (the world's): no reason at all
+    await move(page, "폐허");
+    const away = page.locator("#actions button", { hasText: "원로를 찾아간다" });
+    await expect(away).toBeDisabled();
+    await expect(away).not.toHaveAttribute("data-note", /.+/);
+    await expect(away).not.toHaveAttribute("title", /.+/);
 
     expect(pageErrors).toEqual([]);
     expect(consoleErrors).toEqual([]);

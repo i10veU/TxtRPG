@@ -38,7 +38,7 @@ async function gotoApp(page) {
 }
 
 const getState = (page) => page.evaluate(() => window.__v2App.getState());
-const choiceButton = (page, label) => page.locator("#choiceOptions button", { hasText: label });
+const choiceButton = (page, label) => page.locator("#choiceOptions button:not([disabled])", { hasText: label });
 async function startReady(page) {
   await page.evaluate(async ({ seed, actions }) => {
     await window.__v2App.newGame(seed);

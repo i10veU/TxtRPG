@@ -63,10 +63,10 @@ function player(page) {
     state: () => page.evaluate(() => window.__v2App.getState()),
     act: async (id) => press(page.locator("#actions button", { hasText: exact(await name("action", id)) })),
     move: async (id) => press(page.locator("#moves button", { hasText: exact(await name("move", id)) })),
-    choose: async (choice, id) => press(page.locator("#choiceOptions button", { hasText: exact(await name("option", id, choice)) })),
-    offered: async (choice, id) => (await page.locator("#choiceOptions button", { hasText: exact(await name("option", id, choice)) }).count()) === 1,
+    choose: async (choice, id) => press(page.locator("#choiceOptions button:not([disabled])", { hasText: exact(await name("option", id, choice)) })),
+    offered: async (choice, id) => (await page.locator("#choiceOptions button:not([disabled])", { hasText: exact(await name("option", id, choice)) }).count()) === 1,
     waitDay: async () => press(page.locator("#waitDayBtn")),
-    startOver: async () => press(page.locator("#choiceOptions button", { hasText: /^새로 시작한다/ }).first())
+    startOver: async () => press(page.locator("#choiceOptions button:not([disabled])", { hasText: /^새로 시작한다/ }).first())
   };
 }
 

@@ -36,7 +36,7 @@ async function gotoApp(page) {
   return { pageErrors, consoleErrors };
 }
 const act = (page, label) => page.locator("#actions button", { hasText: label }).click();
-const choiceButton = (page, label) => page.locator("#choiceOptions button", { hasText: label });
+const choiceButton = (page, label) => page.locator("#choiceOptions button:not([disabled])", { hasText: label });
 const status = (page) => page.locator("#status");
 const getState = (page) => page.evaluate(() => window.__v2App.getState());
 // click a fight option and wait for its own check line (the log lists the newest entry first)

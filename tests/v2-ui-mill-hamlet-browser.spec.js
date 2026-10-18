@@ -31,7 +31,7 @@ async function gotoApp(page) {
 }
 const act = (page, label) => page.locator("#actions button", { hasText: label }).click();
 const move = (page, label) => page.locator("#moves button", { hasText: label }).click();
-const option = (page, label) => page.locator("#choiceOptions button", { hasText: label });
+const option = (page, label) => page.locator("#choiceOptions button:not([disabled])", { hasText: label });
 const getState = (page) => page.evaluate(() => window.__v2App.getState());
 const miller = async (page, label) => {
   await act(page, "방앗간 주인과 대화");

@@ -99,7 +99,7 @@ test.describe("V2 waiting a day (M8): the half-hour button, a day at a time", ()
     await expect(page.locator("#choice")).toBeVisible();
     await expect(page.locator("#waitBtn")).toBeDisabled();
     await expect(waitDayBtn(page)).toBeDisabled();
-    await page.locator("#choiceOptions button", { hasText: "안부만 묻는다" }).click();
+    await page.locator("#choiceOptions button:not([disabled])", { hasText: "안부만 묻는다" }).click();
     await expect(page.locator("#choice")).toBeHidden();
     await expect(waitDayBtn(page)).toBeEnabled();
 

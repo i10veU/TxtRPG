@@ -39,7 +39,7 @@ async function startCanonicalGame(page) {
 // V2-Core-30: the investigation needs the elder's rumor, so the loop starts here
 async function askElder(page) {
   await act(page, "원로를 찾아간다");
-  await page.locator("#choiceOptions button", { hasText: "폐허에 대해 묻는다" }).click();
+  await page.locator("#choiceOptions button:not([disabled])", { hasText: "폐허에 대해 묻는다" }).click();
   await expect(page.locator("#choice")).toBeHidden();
 }
 
@@ -170,7 +170,7 @@ test.describe("V2 canonical loop (location gates / hazard / recovery)", () => {
     expect(stillDead.actors.player_1.alive).toBe(false);
 
     // succession is intact
-    await page.locator("#choiceOptions button", { hasText: "새로 시작한다 (떠돌이)" }).click();
+    await page.locator("#choiceOptions button:not([disabled])", { hasText: "새로 시작한다 (떠돌이)" }).click();
     await expect(page.locator("#choice")).toBeHidden();
     await expect(page.locator("#status")).toContainText("HP 10/10");
     await expect(page.locator("#status")).toContainText("소지금 11");

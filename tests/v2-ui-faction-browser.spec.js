@@ -29,7 +29,7 @@ async function gotoApp(page) {
 
 const move = (page, label) => page.locator("#moves button", { hasText: label }).click();
 const act = (page, label) => page.locator("#actions button", { hasText: label }).click();
-const choiceButton = (page, label) => page.locator("#choiceOptions button", { hasText: label });
+const choiceButton = (page, label) => page.locator("#choiceOptions button:not([disabled])", { hasText: label });
 const getState = (page) => page.evaluate(() => window.__v2App.getState());
 const edge = (state, key) => state.relations?.[key];
 

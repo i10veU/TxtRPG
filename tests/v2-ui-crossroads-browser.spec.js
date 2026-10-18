@@ -29,7 +29,7 @@ async function gotoApp(page) {
   return { pageErrors, consoleErrors };
 }
 const act = (page, label) => page.locator("#actions button", { hasText: label }).click();
-const option = (page, label) => page.locator("#choiceOptions button", { hasText: label });
+const option = (page, label) => page.locator("#choiceOptions button:not([disabled])", { hasText: label });
 const road = (page) => page.locator("#moves button", { hasText: "옛 갈림길" });
 const getState = (page) => page.evaluate(() => window.__v2App.getState());
 const dispatchAll = (page, list) => page.evaluate((actions) => actions.forEach((a) => window.__v2App.dispatch(a)), list);
