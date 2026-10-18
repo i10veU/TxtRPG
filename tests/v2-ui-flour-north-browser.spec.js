@@ -43,7 +43,7 @@ test.describe("V2 flour north (Slice 7: the frontier's flour sells in the town)"
     await page.evaluate((list) => list.forEach((a) => window.__v2App.dispatch(a)), TO_TRADE);
     const before = await getState(page);
 
-    await act(page, "방앗간 주인과 대화");
+    await act(page, "방앗간 주인에게 말을 건다");
     await option(page, "밀가루 자루를 산다 (은화 2)").click();
     await expect(page.locator("#log")).toContainText("강 건너에선 더 쳐줄지도 모른다고 한다.");
     expect((await getState(page)).actors.player_1.inventory.item_flour_sack).toBe(1);
@@ -61,10 +61,10 @@ test.describe("V2 flour north (Slice 7: the frontier's flour sells in the town)"
 
     await move(page, "옛 갈림길");
     await move(page, "강나루");
-    await act(page, "뱃사공과 대화");
+    await act(page, "뱃사공에게 말을 건다");
     await option(page, "원로의 통행 편지를 보이고 강을 건넌다").click();
     await move(page, "영주의 성읍");
-    await act(page, "성읍의 상인과 대화");
+    await act(page, "성읍의 상인에게 말을 건다");
     await option(page, "밀가루 자루를 판다 (은화 6)").click();
     await expect(page.locator("#log")).toContainText("강 남쪽 밀은 곱게 빻였다며 은화 여섯 닢을 내준다.");
     const end = await getState(page);

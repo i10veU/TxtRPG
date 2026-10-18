@@ -90,7 +90,7 @@ test.describe("V2 the memory reaches a choice (RPG Depth 3)", () => {
     const start = await getState(page);
 
     await page.evaluate((list) => list.forEach((a) => window.__v2App.dispatch(a)), [DAY, DAY, DAY]);
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await option(page, "상단 호위를 맡는다").click();
     await option(page, "새로 시작한다 (떠돌이)").click();
     expect((await getState(page)).signals.guards_fallen).toBe(1);
@@ -110,11 +110,11 @@ test.describe("V2 the memory reaches a choice (RPG Depth 3)", () => {
     expect(inTown.actors.player_2.locationId).toBe("loc_castle_town");
 
     // the clerk offers the careful way
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await expect(option(page, "길을 조심스레 간다")).toBeVisible();
     await option(page, "일거리를 묻는다").click();
     await expect(page.locator("#log")).toContainText("날을 넘겨 천천히 길을 가는 방법도 있다고");
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await option(page, "길을 조심스레 간다").click();
     await expect(page.locator("#location")).toContainText("강 건너 길목");
     const end = await getState(page);

@@ -71,7 +71,7 @@ const replayInPage = (page, actions) => page.evaluate(async (actions) => {
 }, actions);
 
 async function escort(page) {
-  await act(page, "상단 조합의 서기와 대화");
+  await act(page, "상단 조합의 서기를 찾아간다");
   await option(page, "상단 호위를 맡는다").click();
   await expect(page.locator("#location")).toContainText("강 건너 길목");
 }
@@ -87,7 +87,7 @@ test.describe("V2 the road keeps living (World Simulation 1 integrated)", () => 
     expect(three.actors.player_1.locationId).toBe("loc_castle_town");
 
     await page.evaluate((a) => window.__v2App.dispatch(a), DAY);
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await option(page, "일거리를 묻는다").click();
     await expect(page.locator("#log")).toContainText("강나루로 내려가는 상단이 호위를 구한다고");
     await escort(page);

@@ -48,7 +48,7 @@ test.describe("V2 the echo (Slice 6: the town's talk comes back south)", () => {
     await move(page, "강나루");
     await page.evaluate((list) => list.forEach((a) => window.__v2App.dispatch(a)), [DAY, DAY, DAY]); // a caravan's round trip
     expect((await getState(page)).signals.caravan_visits).toBeGreaterThanOrEqual(2);
-    await act(page, "뱃사공과 대화");
+    await act(page, "뱃사공에게 말을 건다");
     await option(page, "강 건너 소식을 묻는다").click();
     await expect(page.locator("#log")).toContainText("그쪽에선 폐허의 도적 떼가 마을 사람들 손에 모두 쓰러졌다고들 한단다.");
     expect((await getState(page)).knowledge.player_1.rum_bandits_legend.claim).toBe("dispersed"); // what was seen stays

@@ -74,7 +74,7 @@ function careerInPage(page, count) {
   }, { count, ESCORT, HOUR });
 }
 async function escort(page) {
-  await act(page, "상단 조합의 서기와 대화");
+  await act(page, "상단 조합의 서기를 찾아간다");
   await option(page, "상단 호위를 맡는다").click();
   await expect(page.locator("#location")).toContainText("강 건너 길목");
   await page.locator("#moves button", { hasText: "영주의 성읍" }).click();

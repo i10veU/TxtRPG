@@ -89,7 +89,7 @@ test.describe("V2 what the world remembers (World Memory 1 integrated)", () => {
     const start = await getState(page);
 
     await page.evaluate((list) => list.forEach((a) => window.__v2App.dispatch(a)), [DAY, DAY, DAY]);
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await option(page, "상단 호위를 맡는다").click();
     await option(page, "새로 시작한다 (떠돌이)").click();
     const lived = await getState(page);
@@ -106,7 +106,7 @@ test.describe("V2 what the world remembers (World Memory 1 integrated)", () => {
     const inTown = await getState(page);
     expect(inTown.flags.guard_fall_word_south).toBeUndefined();
     expect(inTown.relations["npc_guild_clerk:player_2"]).toBeUndefined();
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await option(page, "일거리를 묻는다").click();
     await expect(page.locator("#log")).toContainText("조합이 믿던 호위 하나가 길에서 돌아오지 못했다고");
 

@@ -35,7 +35,7 @@ const move = (page, label) => page.locator("#moves button", { hasText: label }).
 const option = (page, label) => page.locator("#choiceOptions button:not([disabled])", { hasText: label });
 const getState = (page) => page.evaluate(() => window.__v2App.getState());
 const ferryman = async (page, label) => {
-  await act(page, "뱃사공과 대화");
+  await act(page, "뱃사공에게 말을 건다");
   await option(page, label).click();
 };
 
@@ -81,7 +81,7 @@ test.describe("V2 river ford (Slice 4: the outside world)", () => {
     await expect(page.locator("#log")).toContainText("왕도에서 큰 장이 열려");
 
     // the crossing by letter; the far bank
-    await act(page, "뱃사공과 대화");
+    await act(page, "뱃사공에게 말을 건다");
     await expect(option(page, "강을 건넌다 (뱃삯 은화 3)")).toHaveCount(0);
     await option(page, "원로의 통행 편지를 보이고 강을 건넌다").click();
     await expect(page.locator("#location")).toContainText("강 건너 길목");

@@ -47,7 +47,7 @@ async function saveReloadLoad(page, slot, count) {
   expect(await getState(page)).toEqual(saved);
 }
 async function escort(page) {
-  await act(page, "상단 조합의 서기와 대화");
+  await act(page, "상단 조합의 서기를 찾아간다");
   await option(page, "상단 호위를 맡는다").click();
   await expect(page.locator("#location")).toContainText("강 건너 길목");
   await move(page, "영주의 성읍");
@@ -60,7 +60,7 @@ test.describe("V2 the guild sizes up a guard (World Simulation 1)", () => {
     await expect(page.locator("#game")).toBeVisible();
     await page.evaluate((list) => list.forEach((a) => window.__v2App.dispatch(a)), TO_TOWN);
 
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await option(page, "일거리를 묻는다").click();
     await expect(page.locator("#log")).toContainText("상단 호위들은 대개 가죽 조끼를 걸친다고");
     await expect(page.locator("#log")).not.toContainText("먼저 쉬고 오라고 한다.");
@@ -72,7 +72,7 @@ test.describe("V2 the guild sizes up a guard (World Simulation 1)", () => {
     const before = await getState(page);
     expect(before.actors.player_1.hp.current).toBe(3);
 
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await option(page, "일거리를 묻는다").click();
     await expect(page.locator("#log")).toContainText("먼저 쉬고 오라고 한다.");
     await expect(page.locator("#log")).toContainText("하룻밤 쉬고 오라고 한다.");

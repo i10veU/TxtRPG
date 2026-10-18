@@ -47,7 +47,7 @@ async function saveReloadLoad(page, slot, count) {
   expect(await getState(page)).toEqual(saved);
 }
 async function escort(page) {
-  await act(page, "상단 조합의 서기와 대화");
+  await act(page, "상단 조합의 서기를 찾아간다");
   await option(page, "상단 호위를 맡는다").click();
   await expect(page.locator("#location")).toContainText("강 건너 길목");
   await move(page, "영주의 성읍");
@@ -71,7 +71,7 @@ test.describe("V2 gear for the road (RPG Depth 1)", () => {
     await page.locator("#slotList li", { hasText: "slot_buyer" }).getByRole("button", { name: "불러오기" }).click();
     await expect(page.locator("#game")).toBeVisible();
 
-    await act(page, "성읍의 상인과 대화");
+    await act(page, "성읍의 상인에게 말을 건다");
     await option(page, "가죽 조끼를 산다 (은화 3)").click();
     await expect(page.locator("#log")).toContainText("칼끝 하나쯤은 막아 준다고 한다.");
     await act(page, "가죽 조끼를 입는다");
@@ -81,7 +81,7 @@ test.describe("V2 gear for the road (RPG Depth 1)", () => {
     expect((await getState(page)).actors.player_1.loadout.body).toBe("item_leather_jerkin");
 
     const before = await getState(page);
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await option(page, "상단 호위를 맡는다").click();
     const after = await getState(page);
     expect(after.signals.guards_hired).toBe(1);

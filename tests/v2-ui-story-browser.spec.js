@@ -61,7 +61,7 @@ test.describe("V2 the main thread, chapter 2 (M4): across the river", () => {
     });
     expect((await getState(page)).signals.band_gathering).toBe(1);
 
-    await act(page, "뱃사공과 대화");
+    await act(page, "뱃사공에게 말을 건다");
     await option(page, "강 건너 무리에 대해 묻는다").click();
     await expect(page.locator("#log")).toContainText("무장한 사내들");
     // V2-Core-151: the story is in the notebook, which a player opens

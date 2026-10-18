@@ -46,7 +46,7 @@ test.describe("V2 the carrier (Slice 6: one who saw it brings it north)", () => 
 
     await move(page, "옛 갈림길");
     await move(page, "강나루");
-    await act(page, "뱃사공과 대화");
+    await act(page, "뱃사공에게 말을 건다");
     await option(page, "강을 건넌다 (뱃삯 은화 3)").click();
     await move(page, "영주의 성읍");
     await act(page, "성읍의 포고판을 읽는다");

@@ -86,7 +86,7 @@ test.describe("V2 the fallen's kit (succession legacy)", () => {
     expect(doomed.signals.kit_steel ?? 0).toBe(0);
 
     // the escort ends them; the guild keeps the steel and the mail
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await option(page, "상단 호위를 맡는다").click();
     await expect(option(page, "새로 시작한다 (떠돌이)")).toBeVisible();
     const fell = await getState(page);
@@ -103,7 +103,7 @@ test.describe("V2 the fallen's kit (succession legacy)", () => {
     expect(next.actors.player_2.loadout ?? {}).toEqual({});
     expect(next.relations["npc_guild_clerk:player_2"]).toBeUndefined();
     expect(next.actors.player_2.money).toBeLessThan(12);
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await expect(option(page, "쓰러진 호위가 남긴 강철 검을 받는다")).toHaveCount(0);
     await option(page, "일거리를 묻는다").click();
     await expect(page.locator("#log")).toContainText("돌아오지 못한 호위가 지녔던 물건을 조합이 거두어 두었고");
@@ -117,10 +117,10 @@ test.describe("V2 the fallen's kit (succession legacy)", () => {
     });
     await loadSlot(page, "slot_silver");
     const start = await getState(page);
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await option(page, "쓰러진 호위가 남긴 강철 검을 받는다 (은화 12)").click();
     await expect(page.locator("#log")).toContainText("은화 열두 닢을 받아 장부에 적는다.");
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await expect(option(page, "쓰러진 호위가 남긴 강철 검을 받는다")).toHaveCount(0);
     await option(page, "쓰러진 호위가 남긴 사슬 갑옷을 받는다 (은화 24)").click();
     await expect(page.locator("#log")).toContainText("은화 스물네 닢을 받아 장부에 적는다.");

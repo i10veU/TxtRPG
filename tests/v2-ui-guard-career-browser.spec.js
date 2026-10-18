@@ -68,7 +68,7 @@ const replayInPage = (page, actions) => page.evaluate(async (actions) => {
   return actions.reduce((s, a) => step(s, a, worldData).state, createInitialState({ worldSeed: "integrated-36", data: worldData, templateId: "start_scout" }).state);
 }, actions);
 async function escort(page) {
-  await act(page, "상단 조합의 서기와 대화");
+  await act(page, "상단 조합의 서기를 찾아간다");
   await option(page, "상단 호위를 맡는다").click();
   await expect(page.locator("#location")).toContainText("강 건너 길목");
 }
@@ -86,14 +86,14 @@ test.describe("V2 a name on the road (RPG Depth 1 integrated)", () => {
     await page.evaluate((list) => list.forEach((a) => window.__v2App.dispatch(a)), [DAY, DAY, DAY]);
     await escort(page);
     await move(page, "영주의 성읍");
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await option(page, "일거리를 묻는다").click();
     await expect(page.locator("#log")).toContainText("믿을 만한 호위라고 한다.");
 
     await saveReloadLoad(page, "slot_career", 1);
 
     await page.evaluate((list) => list.forEach((a) => window.__v2App.dispatch(a)), [DAY, DAY, DAY]);
-    await act(page, "성읍의 상인과 대화");
+    await act(page, "성읍의 상인에게 말을 건다");
     await option(page, "가죽 조끼를 산다 (은화 3)").click();
     await act(page, "가죽 조끼를 입는다");
     await escort(page);

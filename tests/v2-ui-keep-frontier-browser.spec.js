@@ -63,12 +63,12 @@ test.describe("V2 the main thread, chapter 3 (M5): keeping the frontier", () => 
     await loadSlot(page, "slot_ch3");
     expect((await getState(page)).signals.band_strength).toBe(1);
 
-    await act(page, "뱃사공과 대화");
+    await act(page, "뱃사공에게 말을 건다");
     await option(page, "강 건너 무리에 대해 묻는다").click();
     await expect(story(page).filter({ hasText: CH3 })).toHaveCount(1);
     await expect(story(page).filter({ hasText: WAY })).toHaveAttribute("data-chapter", "3");
 
-    await act(page, "뱃사공과 대화");
+    await act(page, "뱃사공에게 말을 건다");
     await option(page, "강을 건넌다").click();
     await move(page, "북쪽 숲 너머");
     expect((await getState(page)).actors.player_1.locationId).toBe("loc_band_camp");

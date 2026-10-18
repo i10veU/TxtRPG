@@ -78,7 +78,7 @@ function careerInPage(page, count) {
   }, { count, ESCORT, HOUR });
 }
 async function escort(page) {
-  await act(page, "상단 조합의 서기와 대화");
+  await act(page, "상단 조합의 서기를 찾아간다");
   await option(page, "상단 호위를 맡는다").click();
   await expect(page.locator("#location")).toContainText("강 건너 길목");
   await page.locator("#moves button", { hasText: "영주의 성읍" }).click();
@@ -117,13 +117,13 @@ test.describe("V2 beyond the last rank (RPG Depth 3 integrated)", () => {
     await expect(statusLine(page, "해금:")).toContainText("상단을 이끌 자격");
     await act(page, "성읍에서 묵는다");
     const wait9 = await waitForCaravan(page);
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await expect(option(page, "상단 호위를 이끈다")).toBeVisible();
     await expect(option(page, "길을 조심스레 간다")).toHaveCount(0);
     await option(page, "일거리를 묻는다").click();
     await expect(page.locator("#log")).toContainText("호위를 이끄는 자리도 맡을 만하다고");
     await expect(page.locator("#log")).not.toContainText("날을 넘겨 천천히 길을 가는 방법도 있다고");
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await option(page, "상단 호위를 이끈다").click();
     await expect(page.locator("#location")).toContainText("강 건너 길목");
     await page.locator("#moves button", { hasText: "영주의 성읍" }).click();
@@ -164,7 +164,7 @@ test.describe("V2 beyond the last rank (RPG Depth 3 integrated)", () => {
     // the escort that ends her, the new life
     const waitFall = await waitForCaravan(page);
     expect(waitFall).toBe(hours);
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await option(page, "상단 호위를 맡는다").click();
     await option(page, "새로 시작한다 (떠돌이)").click();
     expect((await getState(page)).signals.guards_fallen).toBe(1);
@@ -172,13 +172,13 @@ test.describe("V2 beyond the last rank (RPG Depth 3 integrated)", () => {
     // the successor in the town: the careful way is offered, the lead is not
     await page.evaluate((list) => list.forEach((a) => window.__v2App.dispatch(a)), NEXT_LIFE_TO_TOWN);
     const waitNext = await waitForCaravan(page);
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await expect(option(page, "길을 조심스레 간다")).toBeVisible();
     await expect(option(page, "상단 호위를 이끈다")).toHaveCount(0);
     await option(page, "일거리를 묻는다").click();
     await expect(page.locator("#log")).toContainText("날을 넘겨 천천히 길을 가는 방법도 있다고");
     await expect(page.locator("#log")).not.toContainText("호위를 이끄는 자리도 맡을 만하다고");
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await option(page, "길을 조심스레 간다").click();
     await expect(page.locator("#location")).toContainText("강 건너 길목");
     const end = await getState(page);

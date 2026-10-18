@@ -42,7 +42,7 @@ test.describe("V2 castle-town market (Slice 5: the same goods, valued differentl
     await page.evaluate((list) => list.forEach((a) => window.__v2App.dispatch(a)), TO_TOWN);
     await expect(page.locator("#location")).toContainText("영주의 성읍");
 
-    await act(page, "성읍의 상인과 대화");
+    await act(page, "성읍의 상인에게 말을 건다");
     await expect(option(page, "정화초를 판다 (은화 4)")).toHaveCount(0); // carries no herb
     await option(page, "강 남쪽 물건에 대해 묻는다").click();
     await expect(page.locator("#log")).toContainText("철물은 북쪽에서 내려오니 성읍이 강 남쪽보다 싸다고");
@@ -60,7 +60,7 @@ test.describe("V2 castle-town market (Slice 5: the same goods, valued differentl
 
     // the iron sword, for less than at the frontier market
     const before = (await getState(page)).actors.player_1.money;
-    await act(page, "성읍의 상인과 대화");
+    await act(page, "성읍의 상인에게 말을 건다");
     await option(page, "철검을 산다 (은화 2)").click();
     await expect(page.locator("#log")).toContainText("새로 벼린 철검을 받는다.");
     await expect(page.locator("#status")).toContainText("철검 x1");
