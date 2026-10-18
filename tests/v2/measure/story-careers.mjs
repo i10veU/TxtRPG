@@ -55,7 +55,11 @@ const POLICY = {
   // vigil at the crossroads once the band is said to be about to cross, the fight when it stands there; never the world's
   // own word that it crossed. hero2 is also careful: the band's stores are fired only with HP to spare
   fight2: { watch: true, fight: true, informed: true, scout: 6 },
-  hero2: { silver: 2, watch: true, notice: true, lord: "refuse", burn: true, crown: true, fight: true, renown: true, remnants: true, informed: true, scout: 6, careful: true }
+  hero2: { silver: 2, watch: true, notice: true, lord: "refuse", burn: true, crown: true, fight: true, renown: true, remnants: true, informed: true, scout: 6, careful: true },
+  // M8 step 4 (docs/v2/m8-balance-preregistration.md §15, #378): the same players reading the empty camp's tracks
+  // (V2-Core-146) -- at the camp, a search when the watch is closed; the vigil once the band is about to cross or has crossed
+  fight3: { watch: true, fight: true, informed: true, scout: 6, tracks: true },
+  hero3: { silver: 2, watch: true, notice: true, lord: "refuse", burn: true, crown: true, fight: true, renown: true, remnants: true, informed: true, scout: 6, careful: true, tracks: true }
 };
 
 const P = (a) => ({ type: "perform", actionId: a }), M = (to) => ({ type: "move", to }), C = (o) => ({ type: "choose", optionId: o });
@@ -248,7 +252,7 @@ function career(name, seed, k, days = DAYS) {
     // vigil at the crossroads until it stands there (hourly, or a day at a time with the day button)
     if (pol.informed && !decided && !s.flags?.band_broken && !mem.fought) {
       // the vigil keeps the fare home (or the elder's letter): a successor has no letter of right
-      if (knows(s, "rum_band_crossing_soon") && (me(s).money >= 3 || (me(s).inventory?.item_passage_letter ?? 0) > 0 || me(s).locationId !== "loc_castle_town")) {
+      if ((knows(s, "rum_band_crossing_soon") || (pol.tracks && knows(s, "rum_band_crossed"))) && (me(s).money >= 3 || (me(s).inventory?.item_passage_letter ?? 0) > 0 || me(s).locationId !== "loc_castle_town")) {
         s = toCrossroads(s);
         if (can(s, "act_face_band")) { m.fightRaidDay = s.signals?.raid_days ?? null; s = toTown(lastFight(s)); mem.fought = true; continue; }
         if (!dead(s)) s = WAIT_DAY ? dayWait(s) : run(s, [{ type: "wait", minutes: 60 }]);
@@ -268,6 +272,7 @@ function career(name, seed, k, days = DAYS) {
         mem.lastScout = day(s, t0);
         s = go(s, "loc_far_bank", "loc_band_camp");
         if (can(s, "act_watch_band_camp")) s = run(s, [P("act_watch_band_camp")]);
+        else if (pol.tracks && can(s, "act_search_empty_camp")) s = run(s, [P("act_search_empty_camp")]);
         if (!dead(s)) s = toTown(s);
         continue;
       }
