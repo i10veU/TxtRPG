@@ -2214,7 +2214,10 @@ export const worldData = {
             },
             { op: "if", when: VILLAGE_DEFENDER, then: [say("txt_elder_after_defender")] },
             { op: "if", when: GUILD_KEEPS_GUARDS, then: [say("txt_elder_after_guild")] },
-            { op: "if", when: FRONTIER_WARNED, then: [say("txt_elder_after_warned")] }
+            { op: "if", when: FRONTIER_WARNED, then: [say("txt_elder_after_warned")] },
+            // V2-Core-150 (D-128, #373): and the guard who did not come back, once the village has heard it (World Memory,
+            // V2-Core-103) -- no name and no more than the village heard (D-71, N-06)
+            { op: "if", when: { op: "flag", key: "guard_fall_word_south" }, then: [say("txt_elder_after_fallen")] }
           ]
         },
         {
@@ -3600,6 +3603,7 @@ export const worldData = {
     txt_elder_after_defender: "원로가 덧붙인다. \"마을 사람들은 그날 앞장선 이의 이름을 부르네. 우물가에서도, 방앗간에서도.\"",
     txt_elder_after_guild: "\"상단 조합도 그 일을 장부에 적었다더군. 품삯을 올려 호위를 붙잡아 둔 덕에 무리가 더디게 컸다고.\"",
     txt_elder_after_warned: "\"자네가 처음 강 건너 소식을 가져왔을 때 마을에 일러둔 것이 헛되지 않았네.\"",
+    txt_elder_after_fallen: "원로가 잠시 말을 멈춘다. \"그 길에서 돌아오지 못한 호위도 있었지. 이름은 모르지만, 마을은 그 일도 기억하네.\"",
     txt_hideout_abandoned: "은신처는 텅 비어 있다. 서둘러 짐을 챙겨 떠난 흔적뿐, 싸움의 자국은 없다. 도적단은 쓰러진 것이 아니라 흩어졌다.",
     txt_bandits_disperse: "원로는 도적단 잔당에게 사람을 보내 해산을 권한다. 두목은 더 이상 도적단의 일원이 아니다.",
     txt_market_reopens: "도적단이 흩어졌다는 소식에 상인들이 안도하며 은화 몇 닢을 사례한다.",
