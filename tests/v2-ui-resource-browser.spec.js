@@ -72,7 +72,7 @@ test.describe("V2 resources (stamina pays for the techniques)", () => {
     await expect(status(page)).toContainText("자원: 기력 3/6");
     await page.locator("#waitBtn").click();
     await expect(status(page)).toContainText("자원: 기력 3/6"); // no regeneration over time
-    await page.locator("#actions button", { hasText: "마을에서 쉬기" }).click();
+    await page.locator("#actions button", { hasText: "마을 어귀에서 쉬며 상처를 돌본다" }).click();
     await expect(status(page)).toContainText("자원: 기력 6/6");
     expect((await getState(page)).actors.player_1.growth.growth_wanderer.resources.stamina).toEqual({ current: 6, max: 6 });
 

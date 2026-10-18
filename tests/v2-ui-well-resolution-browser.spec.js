@@ -44,11 +44,11 @@ test.describe("V2 fouled well resolution (Slice 2: the purified spring)", () => 
 
     // purify: the case is resolved; the 30 minutes at the spring roll no miasma
     const before = await checkLines(page);
-    await act(page, "샘을 정화한다");
+    await act(page, "정화제를 샘에 붓는다");
     await expect(page.locator("#log")).toContainText("독한 안개가 천천히 걷히고 물빛이 맑아진다.");
     expect(await checkLines(page)).toBe(before);
     expect((await getState(page)).cases.case_fouled_well.stage).toBe("resolved");
-    await expect(page.locator("#actions button", { hasText: "샘을 정화한다" })).toHaveCount(0);
+    await expect(page.locator("#actions button", { hasText: "정화제를 샘에 붓는다" })).toHaveCount(0);
 
     // save -> reload -> load
     await page.locator("#saveSlotInput").fill("slot_purified");
@@ -64,19 +64,19 @@ test.describe("V2 fouled well resolution (Slice 2: the purified spring)", () => 
     // the village sees its well clear; the well runs clear
     await move(page, "변경 마을");
     await expect(page.locator("#log")).toContainText("길어 올린 물이 다시 맑다며");
-    await act(page, "우물 살피기");
+    await act(page, "우물물을 길어 냄새를 맡아 본다");
     await expect(page.locator("#log")).toContainText("이제 썩은 냄새는 없다.");
 
     // the herbalist: the sickness has passed; she thanks the purifier, once
     await move(page, "시장");
-    await act(page, "약초꾼과 대화");
+    await act(page, "약초꾼에게 말을 건다");
     await option(page, "마을의 배앓이에 대해 묻는다").click();
     await expect(page.locator("#log")).toContainText("배앓이가 잦아들었다며 웃는다.");
-    await act(page, "약초꾼과 대화");
+    await act(page, "약초꾼에게 말을 건다");
     await option(page, "샘을 정화했다고 전한다").click();
-    await expect(page.locator("#log")).toContainText("손을 꼭 잡고 고맙다고 말한다.");
+    await expect(page.locator("#log")).toContainText("손을 꼭 잡고 고맙다고 한다.");
     expect((await getState(page)).relations["npc_herbalist:player_1"]).toMatchObject({ score: 15, tags: ["consulted", "purifier", "taught", "thanked"] });
-    await act(page, "약초꾼과 대화");
+    await act(page, "약초꾼에게 말을 건다");
     await expect(option(page, "샘을 정화했다고 전한다")).toHaveCount(0);
 
     expect(pageErrors).toEqual([]);

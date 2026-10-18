@@ -67,7 +67,7 @@ test.describe("V2 stats (STR / DEX / CON / INT / WIS / PER)", () => {
     expect((await getState(page)).dataRef).toEqual({ id: "frontier_village_pack", version: "0.3.0" });
 
     // the fight begins; saved; a second save whose leader is stronger (STR 16 -> +3 difficulty)
-    await page.locator("#actions button", { hasText: "도적 두목과 싸운다" }).click();
+    await page.locator("#actions button", { hasText: "칼을 뽑아 두목과 맞선다" }).click();
     await expect(page.locator("#choice")).toBeVisible();
     await page.locator("#saveSlotInput").fill("slot_fight");
     await page.locator("#saveBtn").click();

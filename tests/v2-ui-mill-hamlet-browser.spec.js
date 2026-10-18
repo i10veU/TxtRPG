@@ -72,7 +72,7 @@ test.describe("V2 mill hamlet (Slice 4: the region's second settlement)", () => 
     // delivered: trade between the settlements
     await move(page, "옛 갈림길");
     await move(page, "변경 마을");
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await option(page, "물레방아 마을의 밀가루를 전한다").click();
     await expect(page.locator("#log")).toContainText("곧 장터에 수레가 올 거라고 말한다.");
     expect((await getState(page)).relations["org_mill_hamlet:org_village"].tags).toEqual(["trading"]);

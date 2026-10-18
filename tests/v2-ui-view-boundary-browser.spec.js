@@ -53,7 +53,7 @@ test.describe("V2 UI / view() boundary (D-67, current local-client model)", () =
     expect(v.pending).toBeNull();
 
     await move(page, "시장");
-    await act(page, "등불 구입");
+    await act(page, "등불을 산다");
     await expectScreenMatchesView(page);
     await move(page, "변경 마을");
     await move(page, "폐허");
@@ -69,7 +69,7 @@ test.describe("V2 UI / view() boundary (D-67, current local-client model)", () =
     expect(v.pending).toEqual({ kind: "newCharacter" });
     expect(v.actor.alive).toBe(false);
 
-    await page.locator("#choiceOptions button", { hasText: "새 캐릭터로 시작 (떠돌이)" }).click();
+    await page.locator("#choiceOptions button", { hasText: "새로 시작한다 (떠돌이)" }).click();
     v = await expectScreenMatchesView(page);
     expect(v.pending).toBeNull();
     expect(v.actor.id).toBe("player_2");
@@ -89,14 +89,14 @@ test.describe("V2 UI / view() boundary (D-67, current local-client model)", () =
     await expect(page.locator("#moves")).not.toContainText("등불");
 
     // a locked action entry is exactly a disabled button with the fixed suffix
-    const locked = page.locator("#actions button", { hasText: "도적 두목과 대면" });
+    const locked = page.locator("#actions button", { hasText: "도적 두목 앞에 나선다" });
     await expect(locked).toBeDisabled();
-    await expect(locked).toHaveText("도적 두목과 대면 (잠김)");
+    await expect(locked).toHaveText("도적 두목 앞에 나선다 (지금은 할 수 없다)");
     await expect(locked).not.toHaveAttribute("title", /.+/);
 
     // satisfy the requirement: the link appears, nothing else changes
     await move(page, "시장");
-    await act(page, "등불 구입");
+    await act(page, "등불을 산다");
     await move(page, "변경 마을");
     await expect(page.locator("#moves button")).toHaveCount(2);
     await expect(page.locator("#moves button", { hasText: "폐허" })).toBeEnabled();

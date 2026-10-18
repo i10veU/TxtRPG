@@ -166,7 +166,7 @@ test.describe("V2 beyond the last rank (RPG Depth 3 integrated)", () => {
     expect(waitFall).toBe(hours);
     await act(page, "상단 조합의 서기와 대화");
     await option(page, "상단 호위를 맡는다").click();
-    await option(page, "새 캐릭터로 시작 (떠돌이)").click();
+    await option(page, "새로 시작한다 (떠돌이)").click();
     expect((await getState(page)).signals.guards_fallen).toBe(1);
 
     // the successor in the town: the careful way is offered, the lead is not

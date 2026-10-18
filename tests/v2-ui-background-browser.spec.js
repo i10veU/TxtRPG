@@ -6,8 +6,8 @@
 const { test, expect } = require("@playwright/test");
 
 const ENTRY_URL = "http://127.0.0.1:4173/v2/index.html";
-const WANDERER = "새 캐릭터로 시작 (떠돌이)";
-const SCOUT = "새 캐릭터로 시작 (정찰자)";
+const WANDERER = "새로 시작한다 (떠돌이)";
+const SCOUT = "새로 시작한다 (정찰자)";
 
 async function gotoApp(page) {
   const pageErrors = [];
@@ -33,7 +33,7 @@ test.describe("V2 starting background (the scout and night vision)", () => {
 
     // the wanderer, with a lantern, falls to the ruins' hazard
     await move(page, "시장");
-    await act(page, "등불 구입");
+    await act(page, "등불을 산다");
     await move(page, "변경 마을");
     await move(page, "폐허");
     for (let i = 0; i < 8 && (await page.locator("#choice").isHidden()); i += 1) await page.locator("#waitBtn").click();
@@ -48,11 +48,11 @@ test.describe("V2 starting background (the scout and night vision)", () => {
     await expect(page.locator("#status")).not.toContainText("낡은 등불");
 
     // no lantern: the rumor, then straight into the dark ruins, and the search
-    await act(page, "원로와 대화");
-    await choiceButton(page, "폐허에 대해 묻기").click();
+    await act(page, "원로를 찾아간다");
+    await choiceButton(page, "폐허에 대해 묻는다").click();
     await move(page, "폐허");
     await expect(page.locator("#location")).toContainText("폐허");
-    await act(page, "폐허 조사");
+    await act(page, "폐허 안을 살핀다");
     await expect(page.locator("#log")).toContainText("판정:");
     const state = await getState(page);
     expect(state.player.actorId).toBe("player_2");

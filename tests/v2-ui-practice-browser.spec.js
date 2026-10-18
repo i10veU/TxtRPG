@@ -34,18 +34,18 @@ async function investigate(page, { observe }) {
   await page.evaluate((seed) => window.__v2App.newGame(seed), SEED);
   await expect(page.locator("#game")).toBeVisible();
   if (observe) {
-    await act(page, "마을 살피기");
-    await act(page, "마을 살피기");
+    await act(page, "마을 사람들 사이에 섞여 귀를 기울인다");
+    await act(page, "마을 사람들 사이에 섞여 귀를 기울인다");
     await expect(page.locator("#status")).toContainText("조사 30");
   }
-  await act(page, "원로와 대화");
-  await page.locator("#choiceOptions button", { hasText: "폐허에 대해 묻기" }).click();
+  await act(page, "원로를 찾아간다");
+  await page.locator("#choiceOptions button", { hasText: "폐허에 대해 묻는다" }).click();
   await move(page, "시장");
-  await act(page, "등불 구입");
+  await act(page, "등불을 산다");
   await move(page, "변경 마을");
   await move(page, "폐허");
   const before = (await margins(page)).length;
-  await act(page, "폐허 조사");
+  await act(page, "폐허 안을 살핀다");
   await expect.poll(async () => (await margins(page)).length).toBe(before + 1);
   return (await margins(page))[0];
 }

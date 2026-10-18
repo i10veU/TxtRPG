@@ -95,8 +95,8 @@ test.describe("V2 what the guard knows, in words (Road News, step 1b)", () => {
     await noIds(page, "#game");
     // the next life: the buttons name the backgrounds
     await stage(page, { trouble: 0, score: 0, slot: "slot_words_end", patch: "s.actors[s.player.actorId].hp.current = 0; s.actors[s.player.actorId].alive = false; s.pending = { kind: 'newCharacter' };" });
-    await expect(option(page, "새 캐릭터로 시작 (떠돌이)")).toBeVisible();
-    await expect(option(page, "새 캐릭터로 시작 (정찰자)")).toBeVisible();
+    await expect(option(page, "새로 시작한다 (떠돌이)")).toBeVisible();
+    await expect(option(page, "새로 시작한다 (정찰자)")).toBeVisible();
     await noIds(page, "#game");
     expect(pageErrors).toEqual([]);
     expect(consoleErrors).toEqual([]);

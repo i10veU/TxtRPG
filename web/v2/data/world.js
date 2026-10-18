@@ -841,7 +841,29 @@ export const worldData = {
   world: {
     id: "frontier_village",
     growthSystemId: "growth_wanderer",
-    startTemplateId: "start_wanderer"
+    startTemplateId: "start_wanderer",
+    // V2-Core-151 (J3, the voice): read by the UI only, never by the engine. The prologue a new character opens with, by
+    // background; and what the character means to do now -- the first goal of each track whose `when` holds, from what
+    // the character knows (its rumours) and what it has done (cases), never from the world's hidden state
+    prologue: {
+      start_wanderer: ["txt_prologue_levy", "txt_prologue_south", "txt_prologue_name", "txt_prologue_forest", "txt_prologue_well", "txt_prologue_purse"],
+      start_scout: ["txt_prologue_scout_levy", "txt_prologue_south", "txt_prologue_name", "txt_prologue_forest", "txt_prologue_well", "txt_prologue_scout_purse"]
+    },
+    goals: [
+      { track: "main", textId: "goal_after", when: { op: "or", of: ["rum_ending_name", "rum_ending_held", "rum_ending_lord", "rum_ending_fell"].map((rumor) => ({ op: "rumor", rumor })) } },
+      { track: "main", textId: "goal_face_band", when: { op: "rumor", rumor: "rum_band_crossed" } },
+      { track: "main", textId: "goal_watch_crossing", when: { op: "rumor", rumor: "rum_frontier_warned" } },
+      { track: "main", textId: "goal_tell_elder_leader", when: { op: "or", of: [{ op: "rumor", rumor: "rum_band_led_by_scarred" }, { op: "rumor", rumor: "rum_band_led_by_remnant" }] } },
+      { track: "main", textId: "goal_who_gathers", when: { op: "rumor", rumor: "rum_elder_asks_band" } },
+      { track: "main", textId: "goal_road_open", when: { op: "case", case: "case_ruins_mystery", stage: "resolved" } },
+      { track: "main", textId: "goal_settle_bandits", when: { op: "flag", key: "ruins_secret_confirmed" } },
+      { track: "main", textId: "goal_search_ruins_night", when: { op: "and", of: [{ op: "rumor", rumor: "rum_ruins_secret" }, { op: "trait", trait: "night_vision" }] } },
+      { track: "main", textId: "goal_search_ruins", when: { op: "rumor", rumor: "rum_ruins_secret" } },
+      { track: "main", textId: "goal_meet_elder", when: { op: "always" } },
+      { track: "well", textId: "goal_well_cause", when: { op: "and", of: [{ op: "rumor", rumor: "rum_spring_cause" }, { op: "not", of: { op: "case", case: "case_fouled_well", stage: "resolved" } }] } },
+      { track: "well", textId: "goal_well_source", when: { op: "and", of: [{ op: "rumor", rumor: "rum_well_source" }, { op: "not", of: { op: "case", case: "case_fouled_well", stage: "resolved" } }] } },
+      { track: "well", textId: "goal_well_sick", when: { op: "and", of: [{ op: "not", of: { op: "rumor", rumor: "rum_well_fate" } }, { op: "not", of: { op: "rumor", rumor: "rum_well_legend" } }, { op: "not", of: { op: "case", case: "case_fouled_well", stage: "resolved" } }] } }
+    ]
   },
 
   characterTemplates: {
@@ -1308,7 +1330,7 @@ export const worldData = {
 
   actions: {
     act_observe_village: {
-      name: "마을 살피기",
+      name: "마을 사람들 사이에 섞여 귀를 기울인다",
       requires: { op: "location", at: "loc_village" },
       effects: [
         { op: "proficiency", id: "investigation", add: 15 },
@@ -1324,7 +1346,7 @@ export const worldData = {
     // V2-Core-64 (#160): the well -- PER (what one notices) with the investigation skill. A success
     // records where the water comes from (the world's fact) and the character sees it first-hand
     act_inspect_well: {
-      name: "우물 살피기",
+      name: "우물물을 길어 냄새를 맡아 본다",
       requires: { op: "location", at: "loc_village" },
       check: { stat: "per", skill: "investigation", tags: ["investigation"], difficulty: "normal" },
       minutes: 20,
@@ -1341,13 +1363,13 @@ export const worldData = {
     },
     // V2-Core-64 (#160): the herbalist keeps a stall at the market (a dialogue NPC, like the elder)
     act_talk_herbalist: {
-      name: "약초꾼과 대화",
+      name: "약초꾼에게 말을 건다",
       requires: { op: "location", at: "loc_market" },
       effects: [{ op: "choice", choice: "choice_herbalist_dialogue", sourceId: "act_talk_herbalist" }]
     },
     // V2-Core-64 (#160): searching the spring -- PER with the investigation skill, under the miasma
     act_search_spring: {
-      name: "샘 조사",
+      name: "샘 주변을 뒤져 본다",
       requires: { op: "and", of: [{ op: "location", at: "loc_forest_spring" }, KNOWS_WELL_SOURCE] },
       check: { stat: "per", skill: "investigation", tags: ["investigation"], difficulty: "normal" },
       minutes: 40,
@@ -1374,7 +1396,7 @@ export const worldData = {
     // V2-Core-66 (#160): purifying the spring -- the character's own finding (their knowledge of the
     // cause, not the world's fact) and a remedy, while the case is open
     act_purify_spring: {
-      name: "샘을 정화한다",
+      name: "정화제를 샘에 붓는다",
       requires: {
         op: "and",
         of: [
@@ -1397,7 +1419,7 @@ export const worldData = {
     // V2-Core-65 (#160): gathering purifying herbs -- WIS with the herbalism skill, 2 stamina whatever
     // comes of it (the option requires it, every outcome pays it, as the fight's techniques)
     act_gather_herbs: {
-      name: "정화초 채집",
+      name: "물가에서 정화초를 찾는다",
       requires: { op: "and", of: [{ op: "location", at: "loc_forest_spring" }, KNOWS_WELL_SOURCE, STAMINA_AT_LEAST(2)] },
       check: { stat: "wis", skill: "herbalism", tags: ["herbalism"], difficulty: "normal" },
       minutes: 30,
@@ -1726,7 +1748,7 @@ export const worldData = {
       ]
     },
     act_buy_lantern: {
-      name: "등불 구입",
+      name: "등불을 산다",
       requires: { op: "and", of: [{ op: "location", at: "loc_market" }, { op: "money", min: 5 }] },
       effects: [
         { op: "money", add: -5 },
@@ -1736,7 +1758,7 @@ export const worldData = {
     },
     // V2-Core-70 (#170): the merchants' price for one the village honoured
     act_buy_lantern_trusted: {
-      name: "등불 구입 (마을의 호의, 은화 2)",
+      name: "등불을 산다 (마을의 호의, 은화 2)",
       requires: { op: "and", of: [{ op: "location", at: "loc_market" }, VILLAGE_TRUSTED, { op: "money", min: 2 }] },
       effects: [
         { op: "money", add: -2 },
@@ -1763,7 +1785,7 @@ export const worldData = {
     },
     // V2-Core-58 (D-87): the sword is sold where the lantern is; wielding it is a choice of its own
     act_buy_iron_sword: {
-      name: "철검 구입",
+      name: "철검을 산다",
       requires: { op: "and", of: [{ op: "location", at: "loc_market" }, { op: "money", min: 3 }] },
       effects: [
         { op: "money", add: -3 },
@@ -1820,13 +1842,13 @@ export const worldData = {
       effects: [{ op: "unequip", item: "item_mail_shirt" }, say("txt_unequip_mail_shirt")]
     },
     act_talk_elder: {
-      name: "원로와 대화",
+      name: "원로를 찾아간다",
       requires: { op: "location", at: "loc_village" },
       showWhenLocked: true,
       effects: [{ op: "choice", choice: "choice_elder_dialogue", sourceId: "act_talk_elder" }]
     },
     act_investigate_ruins: {
-      name: "폐허 조사",
+      name: "폐허 안을 살핀다",
       requires: {
         op: "and",
         of: [
@@ -1891,7 +1913,7 @@ export const worldData = {
     // add, clamped at max HP by the engine); it is a `perform`, so the engine's
     // pending/dead gate rejects it for a dead player -- it can never revive anyone.
     act_rest_village: {
-      name: "마을에서 쉬기",
+      name: "마을 어귀에서 쉬며 상처를 돌본다",
       requires: { op: "location", at: "loc_village" },
       minutes: 60,
       effects: [
@@ -1903,7 +1925,7 @@ export const worldData = {
       ]
     },
     act_confront_leader: {
-      name: "도적 두목과 대면",
+      name: "도적 두목 앞에 나선다",
       requires: {
         op: "and",
         of: [
@@ -1949,7 +1971,7 @@ export const worldData = {
     // character's own proof that the hideout is his, while he lives and the case is open. It
     // opens the fight's choice; each exchange is an option of it (choice_fight_leader)
     act_fight_leader: {
-      name: "도적 두목과 싸운다",
+      name: "칼을 뽑아 두목과 맞선다",
       requires: {
         op: "and",
         of: [
@@ -2070,7 +2092,7 @@ export const worldData = {
       options: [
         {
           id: "opt_ask_ruins",
-          name: "폐허에 대해 묻기",
+          name: "폐허에 대해 묻는다",
           // V2-Core-55 (D-84): the +5 is for the first telling only -- once per character (their own
           // knowledge), so asking again is not a way to earn trust
           effects: [
@@ -2083,7 +2105,7 @@ export const worldData = {
         },
         {
           id: "opt_small_talk",
-          name: "안부만 묻기",
+          name: "안부만 묻는다",
           // V2-Core-55 (D-84): dialogue only -- repeatable, so it earns no trust
           effects: [
             { op: "narrate", textId: "txt_small_talk" },
@@ -3499,13 +3521,13 @@ export const worldData = {
   },
 
   texts: {
-    txt_observe_village: "당신은 마을 곳곳을 둘러보며 사람들의 표정과 대화를 살핀다.",
-    txt_buy_lantern: "상인에게 은화를 건네고 낡은 등불을 받는다.",
+    txt_observe_village: "사람들 틈에 섞여 귀를 연다. 낯선 얼굴을 흘끔거리긴 해도 어디서 왔느냐고 묻는 이는 없다. 다들 제 걱정이 더 크다.",
+    txt_buy_lantern: "상인에게 은화를 건네고 낡은 등불을 받는다. 심지는 짧아도 폐허 안을 비추기엔 충분하다.",
     txt_buy_iron_sword: "상인에게 은화 세 닢을 건네고 손때 묻은 철검을 받는다.",
     txt_equip_iron_sword: "철검을 뽑아 손에 쥔다.",
     txt_unequip_iron_sword: "철검을 칼집에 넣고 허리에 찬다.",
-    txt_ask_ruins: "원로는 목소리를 낮추며 마을 외곽의 폐허에 대해 이야기한다.",
-    txt_small_talk: "원로와 짧은 안부를 나눈다.",
+    txt_ask_ruins: "원로가 목소리를 낮춘다. \"마을 바깥 폐허에 사람이 드나드네. 밤마다 불빛이 보여.\" 갈림길을 막은 도적들이 그 안에 숨어 있다는 말이다.",
+    txt_small_talk: "원로와 짧게 안부를 나눈다. 노인은 내 행색을 한 번 훑어보고는 아무것도 묻지 않는다.",
     txt_elder_band_ask: "원로가 이마를 짚는다. \"강 건너에서 사람을 모은다는 말이 상단 편에 왔네. 품삯을 후하게 준다더군. 누가 모으는지 알아봐 주게. 그걸 알아야 마을이 무엇을 대비할지 정하지.\"",
     txt_elder_band_scarred: "옆구리를 감싸는 사내 이야기를 듣자 원로의 얼굴이 굳는다. \"그 버릇을 아는 이는 많지 않네. 그가 돌아올 셈이로군.\" 원로는 마을 사람들에게 밤길과 샘가를 지키게 하겠다고 한다.",
     txt_elder_band_remnant: "폐허의 두목 밑에 있던 자가 사람을 모은다는 말에 원로가 길게 숨을 쉰다. \"머리를 잃은 뱀이 새 머리를 얻었군.\" 원로는 마을 사람들에게 밤길과 샘가를 지키게 하겠다고 한다.",
@@ -3530,36 +3552,36 @@ export const worldData = {
     txt_elder_given_sword: "원로가 철검을 받아 든다. \"이걸 쥘 손은 마을에도 있네.\"",
     txt_elder_given_salve: "원로가 연고를 약초꾼에게 맡기겠다고 한다. 다친 이를 돌볼 준비가 하나 늘었다.",
     txt_elder_lord_accepted: "원로가 오래 생각하다 고개를 끄덕인다. \"영주의 깃발 아래 서는 것이 오늘 마을을 지킨다면.\" 영주의 순찰이 강을 건너올 것이다. 대신 마을의 젊은이 몇이 성읍으로 간다.",
-    txt_elder_lord_refused: "원로가 당신의 손을 잡는다. \"변경은 늘 스스로 서 왔네. 이번에도 그러지.\" 영주의 순찰은 오지 않는다.",
+    txt_elder_lord_refused: "원로가 내 손을 잡는다. \"변경은 늘 스스로 서 왔네. 이번에도 그러지.\" 영주의 순찰은 오지 않는다. 나로서는 다행한 일이다.",
     txt_board_band_remnant: "쪽지 아래에 누군가 덧적었다. '폐허 두목 밑에 있던 놈들이 또 모인다.'",
-    txt_investigate_success: "등불 아래 드러난 흔적은 도적들의 은신처를 가리키고 있었다.",
-    txt_investigate_fail: "폐허는 어둡고 흔적은 모호하다. 확실한 것을 찾지 못했다.",
-    txt_confront_success: "당신은 도적 두목과 마주하고 진실을 밝혀낸다.",
-    txt_confront_fail: "대치는 뜻대로 풀리지 않았다.",
-    txt_report_findings: "당신이 알아낸 것을 전하자 원로는 오래 침묵하다 천천히 고개를 끄덕인다.",
+    txt_investigate_success: "등불을 비추자 벽 그늘에 쌓인 짐짝과 꺼진 모닥불 자리가 드러난다. 여기가 도적들의 은신처다.",
+    txt_investigate_fail: "폐허 안은 어둡고 흔적은 흐릿하다. 확실한 것을 찾지 못했다.",
+    txt_confront_success: "두목과 마주 선다. 내가 본 것을 하나하나 늘어놓자, 그가 부정하기를 그만둔다.",
+    txt_confront_fail: "말이 엇나갔다. 두목은 코웃음을 치며 등을 돌린다.",
+    txt_report_findings: "폐허에서 본 것을 털어놓자 원로는 오래 말이 없다가 천천히 고개를 끄덕인다.",
     txt_leader_old_wound: "원로는 주위를 살피고 낮게 말한다. 두목은 젊은 시절 왼쪽 옆구리에 깊은 상처를 입었고, 그 뒤로 그쪽을 늘 감싼다고 한다.",
-    txt_confront_backed: "마을 사람들이 당신 뒤에 서 있다는 사실이 도적 두목을 더욱 흔든다.",
+    txt_confront_backed: "내 뒤에 마을 사람들이 서 있다. 두목의 눈이 자꾸 그쪽으로 간다.",
     txt_bandit_news: "원로는 폐허의 도적단이 흩어졌다는 소식을 들려준다. 마을 사람들 사이에서 그 이야기는 오래 회자된다.",
     txt_elder_north_legend: "원로는 덧붙인다. 상단 사람들 말로는 강 건너 성읍에선 아직도 도적들이 모두 쓰러졌다고들 한다고, 고친 이야기가 그곳까지 가려면 아직 멀었다고 한다.",
     txt_bandit_legend: "원로는 이제 마을에서 전해지는 이야기를 들려준다. 폐허의 도적단이 마을 사람들 손에 모두 쓰러졌다는 전설이다.",
-    txt_correct_legend: "당신은 폐허에서 본 것을 원로에게 전한다. 원로는 한참을 생각하더니, 앞으로는 있었던 그대로 전하겠다고 말한다.",
+    txt_correct_legend: "폐허에서 본 것을 원로에게 그대로 전한다. 원로는 한참 생각하더니, 앞으로는 있었던 그대로 전하겠다고 한다.",
     txt_bandit_news_corrected: "원로는 마을의 전설 대신, 도적단이 쓰러진 것이 아니라 흩어졌다는 사실을 들려준다. 누군가 폐허에서 그것을 직접 보았다고 한다.",
     txt_hideout_after_fight: "은신처에는 두목이 쓰러진 싸움의 흔적이 남아 있다. 남은 도적들은 짐을 챙겨 흩어졌다.",
-    txt_fight_start: "당신은 은신처의 도적 두목 앞에 선다. 그가 칼을 뽑는다.",
-    txt_fight_strike_great: "당신의 일격이 두목을 크게 베어 낸다.",
-    txt_fight_strike_hit: "당신의 공격이 두목에게 닿는다.",
+    txt_fight_start: "은신처 안쪽에서 두목이 나를 본다. 말은 끝났다. 그가 칼을 뽑는다.",
+    txt_fight_strike_great: "내 칼이 두목을 깊이 베어 낸다.",
+    txt_fight_strike_hit: "내 칼끝이 두목에게 닿는다.",
     txt_fight_trade: "서로의 칼이 스치고, 둘 다 상처를 입는다.",
-    txt_fight_struck: "두목의 칼이 당신을 벤다.",
+    txt_fight_struck: "두목의 칼이 나를 벤다.",
     txt_fight_leader_heavy_blow: "두목이 온 힘을 실어 칼을 내려친다.",
     txt_fight_counter_great: "그의 공격을 정확히 읽고 받아친 칼이 깊이 박힌다.",
     txt_fight_counter_hit: "그의 공격을 흘리고 받아친다.",
-    txt_fight_counter_graze: "받아치려 했지만 그의 칼끝이 당신을 스친다.",
-    txt_fight_counter_miss: "공격을 잘못 읽었다. 두목의 칼이 당신을 깊이 벤다.",
+    txt_fight_counter_graze: "받아치려 했지만 그의 칼끝이 나를 스친다.",
+    txt_fight_counter_miss: "그의 칼을 잘못 읽었다. 칼날이 나를 깊이 벤다.",
     txt_fight_leader_reels: "두목이 비틀거린다. 그의 숨이 거칠다.",
-    txt_fight_victory: "도적 두목이 쓰러진다. 두목을 잃은 도적들이 당신 앞에서 물러선다.",
-    txt_fight_flee: "당신은 칼을 거두고 폐허를 빠져나와 마을로 달아난다. 두목은 쫓아오지 않지만, 당신을 기억할 것이다.",
+    txt_fight_victory: "두목이 쓰러진다. 두목을 잃은 도적들이 내 앞에서 물러선다.",
+    txt_fight_flee: "칼을 거두고 폐허를 빠져나와 마을로 달아난다. 두목은 쫓아오지 않는다. 대신 내 얼굴을 기억할 것이다.",
     txt_village_whispers_ruins: "우물가의 사람들이 폐허 쪽을 흘끔거리며 수군거린다. 누가 그 안에서 도적들의 물건을 찾아냈다는 말이 벌써 돌았다.",
-    txt_herbalist_herbs_back: "약초꾼이 바구니를 들어 보인다. \"샘가에서 다시 정화초가 올라오더군요. 누가 부지런히 캐 오는 덕에 시장에도 돌기 시작했어요.\" 약초꾼이 고마운 눈으로 당신을 본다.",
+    txt_herbalist_herbs_back: "약초꾼이 바구니를 들어 보인다. \"샘가에서 다시 정화초가 올라오더군요. 누가 부지런히 캐 오는 덕에 시장에도 돌기 시작했어요.\" 약초꾼이 고마운 눈으로 나를 본다.",
     txt_ferryman_watch: "뱃사공이 은화를 받아 넣는다. \"강 건너 길목에서 칼 찬 무리가 배를 찾으면, 내가 먼저 건너와 마을에 알리지. 하루는 벌 거요.\"",
     txt_elder_ferryman_word: "\"뱃사공이 밤배로 건너와 알려 주었네. 덕분에 하루를 벌었어.\"",
     txt_elder_crown_writ: "\"왕궁의 글이 왔네. 변경이 스스로 사람을 모아 지켜도 된다는 글이야. 젊은이들이 창을 들었네.\"",
@@ -3574,25 +3596,25 @@ export const worldData = {
     txt_castle_frontier_seen: "포고판 옆 성문지기가 말한다. 변경 쪽 길로 사람이 올라온 것이 몇 해 만이라고.",
     txt_board_southerner: "게시판 앞의 사내들이 남쪽 변경에서 강을 건너온 나그네 이야기를 한다. 그 길이 다시 열렸느냐고 묻는다.",
     txt_royal_records_defender: "새로 내걸린 글 한 장이 사람들을 모은다. 남쪽 끝 변경에서 갈림길을 막은 무리의 우두머리를 한 사람이 쓰러뜨렸고, 무리는 흩어졌다고 한다. 글은 그를 남쪽 변경의 수호자라 부른다.",
-    txt_royal_records_you: "글 앞에 선 사람들 가운데 누군가 당신을 알아보고 손가락으로 가리킨다. 웅성거림이 퍼진다. 왕도가 그 이름을 안다.",
+    txt_royal_records_you: "글 앞에 선 사람들 가운데 누군가 나를 알아보고 손가락으로 가리킨다. 웅성거림이 퍼진다. 강 북쪽에 두고 온 이름이 아니라 변경이 붙여 준 이름이다. 왕도가 그 이름을 안다.",
     txt_castle_fate_name: "포고판 앞에서 상단 사람들이 남쪽 소식을 전한다. 변경의 갈림길에서 한 사람이 무리의 우두머리를 베었다고. 사람들은 그를 갈림길의 수호자라 부른다.",
     txt_castle_fate_held: "상단 사람들이 남쪽 소식을 전한다. 강을 건너온 무리를 변경 마을이 스스로 막아 냈다고.",
     txt_castle_fate_lord: "포고판에 영주의 글이 붙었다. 영주의 순찰이 남쪽 변경을 무리에게서 지켜 냈다고, 변경은 이제 영주의 깃발 아래 있다고.",
     txt_castle_fate_fell: "상단 사람들이 남쪽 소식을 전하며 고개를 젓는다. 강을 건너온 무리가 변경 마을을 쳤다고, 곳간이 비고 집 몇 채가 탔다고.",
-    txt_castle_known_you: "포고판 앞의 사람들이 당신을 돌아본다. 누군가 \"수호자다\" 하고 속삭인다.",
-    txt_guild_clerk_renowned: "서기가 장부에서 고개를 들고 한참 당신을 본다. \"남쪽 변경의 수호자를 조합 장부에 올린 적이 있다는 게 자랑이 되겠소.\" 서기가 장부에 무언가를 덧적는다.",
+    txt_castle_known_you: "포고판 앞의 사람들이 나를 돌아본다. 누군가 \"수호자다\" 하고 속삭인다. 이 성읍의 징집 장부에서 달아난 사람이라는 것은 아무도 모른다.",
+    txt_guild_clerk_renowned: "서기가 장부에서 고개를 들고 한참 나를 본다. \"남쪽 변경의 수호자를 조합 장부에 올린 적이 있다는 게 자랑이 되겠소.\" 서기가 장부에 무언가를 덧적는다.",
     txt_remnants_hunted: "숲 너머 오래된 모닥불 자리에서 다시 모인 무리의 남은 자들을 찾아낸다. 칼이 몇 번 오가고 그들은 흩어진다. 길목의 상인들이 걸어 둔 사례금 열두 닢을 받는다. 한 주는 숲이 조용할 것이다.",
     txt_remnants_ambush: "남은 자들을 쫓다가 오히려 덫에 걸린다. 사방에서 날아든 몽둥이와 칼끝에 크게 다쳐 간신히 빠져나온다.",
-    txt_face_band_chief: "갈림길의 이정표 아래에 무리가 진을 쳤다. 그 앞에 왼쪽 옆구리를 감싼 사내가 서 있다. 폐허에서 놓친 두목이다. 그가 당신을 알아보고 칼을 뽑는다.",
+    txt_face_band_chief: "갈림길의 이정표 아래에 무리가 진을 쳤다. 그 앞에 왼쪽 옆구리를 감싼 사내가 서 있다. 폐허에서 놓친 두목이다. 그가 나를 알아보고 칼을 뽑는다.",
     txt_face_band_right_hand: "갈림길의 이정표 아래에 무리가 진을 쳤다. 그 앞에 폐허의 두목 밑에 있던 사내가 서 있다. 이제 그가 무리를 이끈다. 그가 칼을 뽑는다.",
-    txt_final_strike_great: "당신의 일격이 그를 크게 베어 낸다. 뒤에 선 무리가 웅성거린다.",
-    txt_final_strike_hit: "당신의 공격이 그에게 닿는다.",
-    txt_final_struck: "그의 칼이 당신을 벤다.",
+    txt_final_strike_great: "내 칼이 그를 크게 베어 낸다. 뒤에 선 무리가 웅성거린다.",
+    txt_final_strike_hit: "내 칼끝이 그에게 닿는다.",
+    txt_final_struck: "그의 칼이 나를 벤다.",
     txt_final_heavy_blow: "그가 온 힘을 실어 칼을 내려친다.",
-    txt_final_counter_miss: "공격을 잘못 읽었다. 그의 칼이 당신을 깊이 벤다.",
+    txt_final_counter_miss: "그의 칼을 잘못 읽었다. 칼날이 나를 깊이 벤다.",
     txt_final_foe_reels: "그가 비틀거린다. 뒤에 선 무리가 한 걸음 물러선다.",
-    txt_final_victory: "무리를 이끌던 자가 쓰러진다. 이끄는 이를 잃은 무리가 하나둘 칼을 버리고 강 쪽으로 흩어진다. 마을 쪽에서 누군가 당신의 이름을 부른다.",
-    txt_final_flee: "당신은 칼을 거두고 갈림길을 빠져나와 마을로 달아난다. 무리는 쫓아오지 않는다. 아직은.",
+    txt_final_victory: "무리를 이끌던 자가 쓰러진다. 이끄는 이를 잃은 무리가 하나둘 칼을 버리고 강 쪽으로 흩어진다. 마을 쪽에서 누군가 나를 부른다. 내가 강 북쪽에 두고 온 이름이 아니다.",
+    txt_final_flee: "칼을 거두고 갈림길을 빠져나와 마을로 달아난다. 무리는 쫓아오지 않는다. 아직은.",
     txt_elder_band_crossed: "원로가 지팡이를 짚고 일어선다. \"무리가 강을 건너 갈림길에 진을 쳤네. 사흘이면 마을로 내려올 걸세.\"",
     txt_elder_raid_ready: "원로가 마을 쪽을 돌아본다. \"창과 등불은 갖추었네. 저 수라면 버틸 수 있을 걸세.\"",
     txt_elder_raid_thin: "원로가 고개를 젓는다. \"저 수를 막기에는 마을이 가진 것이 모자라네. 무리를 이끄는 자를 꺾지 못한다면.\"",
@@ -3607,15 +3629,15 @@ export const worldData = {
     txt_hideout_abandoned: "은신처는 텅 비어 있다. 서둘러 짐을 챙겨 떠난 흔적뿐, 싸움의 자국은 없다. 도적단은 쓰러진 것이 아니라 흩어졌다.",
     txt_bandits_disperse: "원로는 도적단 잔당에게 사람을 보내 해산을 권한다. 두목은 더 이상 도적단의 일원이 아니다.",
     txt_market_reopens: "도적단이 흩어졌다는 소식에 상인들이 안도하며 은화 몇 닢을 사례한다.",
-    txt_rest_village: "마을 어귀의 평상에 앉아 숨을 고르며 상처를 돌본다.",
+    txt_rest_village: "마을 어귀의 평상에 앉아 숨을 고르고 상처를 돌본다.",
     txt_ruins_hazard: "무너진 벽돌이 머리 위로 쏟아져 내린다.",
     txt_succession: "쓰러진 이가 남긴 은화 몇 닢이 새 방랑자의 손에 들어온다.",
     txt_inspect_well_success: "두레박으로 길어 올린 물에서 썩은 풀 냄새가 난다. 우물 벽의 물때가 숲 쪽에서 흘러드는 물길을 가리킨다. 이 물은 숲속 샘에서 온다.",
-    txt_inspect_well_fail: "우물물은 조금 탁해 보이지만, 무엇이 문제인지는 알 수 없다.",
+    txt_inspect_well_fail: "우물물이 조금 탁해 보인다. 무엇이 문제인지는 알 수 없다.",
     txt_herbalist_sickness: "약초꾼은 요즘 배앓이를 하는 사람이 부쩍 늘었다며 혀를 찬다. 마을 우물은 숲속 샘에서 물을 받는데, 그 샘이 탈이 난 게 틀림없다고 한다.",
     txt_herbalist_small_talk: "약초꾼은 말린 약초 다발을 정리하며 계절 이야기를 늘어놓는다.",
     txt_search_spring_success: "샘 위쪽 바위 틈에 짐승의 사체가 걸려 썩어 가고 있다. 샘물을 흐리는 것은 이것이다.",
-    txt_search_spring_fail: "샘가는 안개와 악취로 가득하다. 원인을 찾지 못했다.",
+    txt_search_spring_fail: "샘가는 안개와 악취로 가득하다. 까닭을 찾지 못했다.",
     txt_spring_miasma: "샘에서 피어오르는 독한 기운에 숨이 막히고 속이 뒤집힌다.",
     txt_spring_miasma_resisted: "샘의 독한 기운이 밀려오지만, 숨을 고르며 버텨 낸다.",
     txt_gather_herbs_great: "물가 바위 그늘에서 싱싱한 정화초 무더기를 찾아 두 묶음을 거둔다.",
@@ -3627,19 +3649,19 @@ export const worldData = {
     txt_well_clears: "마을 우물가에 사람들이 모여 있다. 길어 올린 물이 다시 맑다며, 배앓이하던 아이들도 일어났다고 한다.",
     txt_inspect_well_clear: "두레박으로 길어 올린 물이 맑고 차다. 물길은 여전히 숲속 샘에서 흘러오지만, 이제 썩은 냄새는 없다.",
     txt_herbalist_sickness_passed: "약초꾼은 배앓이가 잦아들었다며 웃는다. 누군가 숲속 샘을 정화했다는 소문이 돈다고 한다.",
-    txt_herbalist_thanks: "당신이 샘에서 한 일을 듣자 약초꾼은 손을 꼭 잡고 고맙다고 말한다. 마을 사람들 대신 하는 인사라고 한다.",
+    txt_herbalist_thanks: "샘에서 한 일을 이야기하자 약초꾼이 내 손을 꼭 잡고 고맙다고 한다. 마을 사람들 대신 하는 인사라고 한다.",
     txt_spring_bandit_arrows: "사체에 박힌 화살의 깃이 눈에 익다. 폐허의 은신처에서 본 것과 같은, 도적단의 화살이다.",
-    txt_tell_spring_arrows: "당신이 샘의 짐승에 박혀 있던 화살 이야기를 하자 원로의 얼굴이 굳는다. 샘을 흐린 것도 도적들이었다는 말이 곧 마을에 퍼질 것이다.",
+    txt_tell_spring_arrows: "샘의 짐승에 박혀 있던 화살 이야기를 하자 원로의 얼굴이 굳는다. 샘을 흐린 것도 도적들이었다는 말이 곧 마을에 퍼질 것이다.",
     txt_spring_bandits_leader_lives: "원로는 덧붙인다. 샘을 흐린 것도 그 도적들이었다고. 그 일을 시킨 두목은 아직 어딘가 살아 있다고 한다.",
     txt_spring_bandits_leader_dead: "원로는 덧붙인다. 샘을 흐린 것도 그 도적들이었다고. 그 일을 시킨 두목은 이미 죽었으니, 적어도 다시는 그런 일이 없을 거라고 한다.",
     txt_ask_ruins_spring: "원로는 폐허의 도적들이 숲속 샘까지 흐려 놓았다는 이야기도 잊지 않고 덧붙인다.",
     txt_herbalist_bandit_rumor: "약초꾼은 목소리를 낮춘다. 샘을 흐린 게 폐허의 도적들이었다는 이야기가 시장에도 돈다고 한다.",
     txt_search_spring_purified: "샘은 맑고 고요하다. 바위 틈 아래 새로 덮은 흙과 정화제의 쌉쌀한 냄새가, 누군가 이곳을 손수 정화했음을 말해 준다.",
     txt_herbalist_well_legend: "약초꾼은 시장에 도는 이야기를 들려준다. 마을 사람들이 제물을 바치자 노한 샘의 정령이 누그러졌다는 것이다.",
-    txt_herbalist_correct_legend: "당신이 샘에서 본 것을 전하자 약초꾼은 고개를 끄덕인다. 정령이 아니라 사람이 한 일이었다고, 앞으로는 그렇게 전하겠다고 한다.",
+    txt_herbalist_correct_legend: "샘에서 본 것을 그대로 전하자 약초꾼이 고개를 끄덕인다. 정령이 아니라 사람이 한 일이었다고, 앞으로는 그렇게 전하겠다고 한다.",
     txt_herbalist_north_legend: "약초꾼은 덧붙인다. 북쪽 성읍에선 아직도 샘의 정령이 제물을 받고 누그러졌다고들 한다더라고.",
     txt_herbalist_well_corrected: "약초꾼은 시장의 정령 이야기 대신, 누군가 샘에서 사체를 치우고 정화제를 부었다는 사실을 들려준다. 직접 본 사람이 있다고 한다.",
-    txt_village_honor: "원로는 마을 사람들을 모아 당신 앞에 선다. 도적을 몰아내고 샘을 되살린 이에게 마을의 이름으로 감사한다고, 이제 이 마을은 당신의 편이라고 말한다.",
+    txt_village_honor: "원로가 마을 사람들을 모아 내 앞에 선다. 도적을 몰아내고 샘을 되살린 이에게 마을의 이름으로 감사한다고, 이제 이 마을은 내 편이라고 한다. 어디서 왔는지는 끝내 묻지 않는다.",
     txt_small_talk_honored_memory: "원로는 마을이 이름을 걸고 감사했던 방랑자 이야기를 꺼낸다. 마을 사람들은 아직도 그 이야기를 한다고 한다.",
     txt_buy_lantern_trusted: "상인은 손사래를 치며 은화 두 닢만 받고 등불을 건넨다. 마을을 구한 사람에게 제값을 받을 수는 없다고 한다.",
     txt_herbalist_given_herbs: "약초꾼은 정화초 두 묶음을 받아 들고 환하게 웃는다. 앓는 집들에 나눠 주겠다고 한다.",
@@ -3665,7 +3687,7 @@ export const worldData = {
     txt_miller_news_scarred_man: "그는 목소리를 낮춘다. 며칠 전 옆구리를 감싼 사내가 강나루에서 배를 찾더라는 소문이 있다고, 그 뒤로 사람들이 밤길을 꺼린다고 한다.",
     txt_miller_caravan_bought: "\"지난번 상단이 우리 밀가루를 한 자루 사 갔네. 성읍에서 찾으니 사 갔겠지. 한 자루 더 지고 가 보게.\" 그는 상단이 강을 건넌 뒤의 일은 모른다.",
     txt_miller_news_leader_fell: "그는 폐허의 두목이 쓰러졌다는 이야기를 이곳에서도 들었다고 한다. 이제 짐수레가 다시 길에 나설 수 있겠다며 웃는다.",
-    txt_miller_welcome: "변경 마을이 감사했다는 사람이 당신이냐며, 그는 밀가루 묻은 손으로 당신의 손을 잡는다.",
+    txt_miller_welcome: "변경 마을이 감사했다는 사람이 나냐며, 그는 밀가루 묻은 손으로 내 손을 잡는다.",
     txt_miller_trade_running: "요즘은 변경 마을 장터로 수레가 오간다며 그는 흡족해한다.",
     txt_miller_buy_herb: "방앗간 주인은 정화초를 받아 들고 은화 두 닢을 건넨다. 이 근방에서는 귀한 풀이라고 한다.",
     txt_miller_sell_flour: "방앗간 주인은 밀가루 자루 하나를 내준다. 마을과 거래가 트인 뒤로 밀이 남는다며, 강 건너에선 더 쳐줄지도 모른다고 한다.",
@@ -3720,7 +3742,7 @@ export const worldData = {
     txt_town_merchant_flour_fair: "요즘은 밀가루 값이 올랐다고 한다. 왕도의 큰 장으로 상단들이 곡식을 실어 올라가는 통에 성읍에는 밀이 귀하다고.",
     txt_town_merchant_buy_flour_fair: "상인은 자루를 반기며 은화 여덟 닢을 세어 준다. 큰 장이 끝나기 전에 더 가져오라고 한다.",
     txt_escort_known_bonus: "서기는 품삯에 은화 한 닢을 더 얹어 준다. 조합이 믿는 호위에게는 그만큼 더 쳐 준다고 한다.",
-    txt_guild_clerk_knows_you: "서기는 장부를 넘기다 고개를 든다. 상단 사람들이 당신 이야기를 하더라고, 믿을 만한 호위라고 한다.",
+    txt_guild_clerk_knows_you: "서기가 장부를 넘기다 고개를 든다. 상단 사람들이 내 이야기를 하더라고, 믿을 만한 호위라고 한다.",
     txt_escort_wound: "옆구리에 상처를 입었다. 칼을 들 때마다 당기지만, 하룻밤 푹 쉬면 가라앉을 것 같다.",
     txt_escort_deep_wound: "상처가 깊다. 숨이 찰 때마다 옆구리가 찢어지는 듯하다. 쉬어서 몸을 추스르거나 약초 연고를 바르지 않으면 이 몸으로는 길을 이끌 수 없을 것 같다.",
     txt_treat_road_wound: "약초 연고를 상처에 두텁게 바르고 천으로 감는다. 며칠 동안 당기던 것이 풀린다.",
@@ -3733,9 +3755,9 @@ export const worldData = {
     txt_unequip_steel_sword: "강철 검을 칼집에 넣고 허리에 찬다.",
     txt_equip_mail_shirt: "사슬 갑옷을 머리부터 뒤집어쓰고 허리끈을 조인다. 철 소리가 나지만 몸이 든든하다.",
     txt_unequip_mail_shirt: "사슬 갑옷을 벗어 개어 둔다.",
-    txt_guild_clerk_too_hurt: "서기는 당신을 위아래로 훑어본다. 그 몸으로 길에 나섰다가 일이 틀어지면 돌아오지 못할 수도 있다고, 먼저 쉬고 오라고 한다.",
-    txt_guild_clerk_sees_wound: "서기는 옆구리를 감싼 당신의 손을 본다. 상처를 안고 칼을 들면 둔해진다고, 하룻밤 쉬고 오라고 한다.",
-    txt_guild_clerk_sees_deep_wound: "서기는 당신이 걷는 모양만 보고도 고개를 젓는다. 저 상처는 하룻밤으로 낫지 않는다고, 약초 연고를 바르거나 오래 쉬어야 한다고 한다.",
+    txt_guild_clerk_too_hurt: "서기가 나를 위아래로 훑어본다. 그 몸으로 길에 나섰다가 일이 틀어지면 돌아오지 못할 수도 있다고, 먼저 쉬고 오라고 한다.",
+    txt_guild_clerk_sees_wound: "서기가 옆구리를 감싼 내 손을 본다. 상처를 안고 칼을 들면 둔해진다고, 하룻밤 쉬고 오라고 한다.",
+    txt_guild_clerk_sees_deep_wound: "서기는 내가 걷는 모양만 보고도 고개를 젓는다. 저 상처는 하룻밤으로 낫지 않는다고, 약초 연고를 바르거나 오래 쉬어야 한다고 한다.",
     txt_guild_clerk_deep_closes_lead: "그 몸으로는 상단을 이끄는 일을 맡길 수 없다고 한다. 평범한 호위라면 맡아도 좋지만, 몸이 나을 때까지 이끄는 일은 없다.",
     txt_guild_clerk_no_leather: "상단 호위들은 대개 가죽 조끼를 걸친다고 서기가 덧붙인다. 성읍 상인에게 가면 구할 수 있다고.",
     txt_town_merchant_sell_sword: "상인에게 은화 두 닢을 건네고 새로 벼린 철검을 받는다.",
@@ -3751,7 +3773,7 @@ export const worldData = {
     txt_careful_great: "하루를 꼬박 들여 길목마다 살피며 간다. 좀도둑들은 낌새를 채고 비켜 가고, 상단은 아무 일 없이 강 건너 길목에 닿는다. 서기는 적은 품삯에 웃돈을 조금 얹는다.",
     txt_careful_success: "해가 지기 전에 멈추고 날이 밝으면 다시 걷는다. 느린 길이었지만 상단은 무사히 강 건너 길목에 닿는다.",
     txt_careful_fail: "길을 살피다 덤벼들 틈을 보인다. 그러나 서두르지 않은 덕에 상단을 돌려세울 수 있었고, 다친 사람 없이 강 건너 길목에 닿는다. 품삯은 거의 없다.",
-    txt_guild_clerk_lead_offer: "서기는 장부에서 눈을 들어 당신의 칼 솜씨를 새삼 헤아린다. 이만한 솜씨면 호위를 이끄는 자리도 맡을 만하다고, 품삯도 그만큼 다르다고 한다.",
+    txt_guild_clerk_lead_offer: "서기가 장부에서 눈을 들어 내 칼 솜씨를 새삼 헤아린다. 이만한 솜씨면 호위를 이끄는 자리도 맡을 만하다고, 품삯도 그만큼 다르다고 한다.",
     txt_guild_clerk_danger_offer: "서기는 목소리를 낮춘다. 강철을 걸친 이만 부탁할 수 있는 상단이 있다고 한다 — 길이 험하고 상대가 독하지만 품삯은 두 배에 가깝다고.",
     txt_danger_great: "험한 길목에서 호위들을 이끌어 독한 무리를 단번에 꺾는다. 상단은 짐 하나 잃지 않고 닿고, 상단주는 놀라 은화를 한 움큼 더 얹는다.",
     txt_danger_success: "호위들을 촘촘히 세워 험한 길을 뚫는다. 상단은 무사히 닿고, 위험한 일의 품삯이 넉넉히 치러진다.",
@@ -3895,6 +3917,38 @@ export const worldData = {
     txt_rest_wound_closes: "하룻밤 쉬고 나니 옆구리의 상처가 가라앉았다.",
     txt_rest_deep_wound_stays: "깊은 상처는 쉬어도 더디게 아문다. 약초 연고가 있으면 한결 빠를 것 같다.",
     txt_rest_deep_wound_closes: "며칠을 쉰 끝에 깊은 상처가 마침내 아물었다.",
-    txt_treat_deep_wound: "깊은 상처에 약초 연고를 두텁게 바르고 천으로 단단히 감는다. 쑤시던 것이 가라앉는다."
+    txt_treat_deep_wound: "깊은 상처에 약초 연고를 두텁게 바르고 천으로 단단히 감는다. 쑤시던 것이 가라앉는다.",
+    txt_prologue_levy: "영주의 징집령이 성읍 게시판에 붙던 날 밤, 나는 강을 건넜다. 뱃사공은 뱃삯을 받고 아무것도 묻지 않았다.",
+    txt_prologue_scout_levy: "나는 영주의 척후였다. 숲길과 밤길을 읽는 일로 먹고살았다. 징집령이 성읍 게시판에 붙던 날, 그 장부에 내 이름도 있었다. 그날 밤 나는 강을 건넜다.",
+    txt_prologue_south: "강 남쪽은 영주의 땅이 아니라고들 한다. 왕국의 지도에는 있지만, 영주의 사람들은 강을 건너오지 않는다고.",
+    txt_prologue_name: "내 이름은 강 북쪽에 두고 왔다. 거기서는 그 이름이 징집 장부에 적혀 있을 것이다.",
+    txt_prologue_forest: "갈림길은 도적들이 막고 있다고 했다. 길을 버리고 밤새 숲을 돌았다. 자정 무렵 개 짖는 소리가 들리고, 낮은 담장 너머로 우물이 보였다. 원로들이 다스린다는 마을이다.",
+    txt_prologue_well: "우물가에 사람은 없었다. 두레박 옆에 엎어 둔 물동이에서 썩은 풀 냄새가 났다.",
+    txt_prologue_purse: "은화 여덟 닢. 이름 없는 사내 하나. 여기서부터는 아무도 나를 모른다.",
+    txt_prologue_scout_purse: "뱃삯을 치르고 나니 은화 세 닢이 남았다. 이름 없는 사내 하나. 여기서부터는 아무도 나를 모른다.",
+    txt_place_loc_village: "변경 마을. 낮은 담장과 함께 쓰는 우물, 원로의 집. 영주의 사람들은 여기까지 내려오지 않는다.",
+    txt_place_loc_market: "장터. 상인의 좌판과 약초꾼의 노점이 마주 보고 있다.",
+    txt_place_loc_ruins: "폐허. 무너진 벽 사이로 바람이 운다. 발밑을 조심해야 한다.",
+    txt_place_loc_forest_spring: "숲속 샘. 마을 우물의 물이 여기서 흘러간다.",
+    txt_place_loc_crossroads: "옛 갈림길. 닳은 이정표가 동쪽과 북쪽, 그리고 강 건너를 가리킨다.",
+    txt_place_loc_mill_hamlet: "물레방아 마을. 물레 도는 소리와 밀가루 냄새.",
+    txt_place_loc_river_ford: "강나루. 내가 건너온 강이다. 뱃사공이 배를 매어 두고 있다.",
+    txt_place_loc_far_bank: "강 건너 길목. 다시 영주의 땅이다. 게시판 앞에서는 저절로 고개가 숙여진다.",
+    txt_place_loc_castle_town: "영주의 성읍. 성벽 위에 깃발이 보인다. 내가 달아난 곳이다.",
+    txt_place_loc_royal_city: "왕도. 사람이 너무 많아서 아무도 나를 보지 않는다.",
+    txt_place_loc_band_camp: "북쪽 숲 너머. 나무 사이로 연기 냄새가 난다.",
+    goal_meet_elder: "이 마을에 자리를 잡는다. 원로들이 다스린다니 먼저 원로를 만나 본다.",
+    goal_search_ruins: "원로가 말한 폐허를 직접 살핀다. 안이 어둡다니 장터에서 등불부터 구한다.",
+    goal_search_ruins_night: "원로가 말한 폐허를 직접 살핀다. 척후 노릇을 하던 눈이라 등불 없이도 어둠은 읽힌다.",
+    goal_settle_bandits: "폐허에서 본 것을 원로에게 전하고, 도적 두목과 결판을 낸다.",
+    goal_road_open: "갈림길이 다시 열렸다. 물레방아 마을과 강나루로 가서 바깥 소식을 듣는다.",
+    goal_who_gathers: "원로의 부탁. 강 건너에서 사람을 모으는 자가 누구인지 알아낸다. 나루와 강 건너 사람들에게 묻는다.",
+    goal_tell_elder_leader: "무리를 이끄는 자를 알아냈다. 원로에게 알린다.",
+    goal_watch_crossing: "무리가 언제 강을 건너오는지 지켜본다. 그 사이 마을의 대비를 돕고 몸을 갖춘다.",
+    goal_face_band: "무리가 강을 건너 갈림길에 진을 쳤다. 마을로 내려오기 전에 갈림길로 간다.",
+    goal_after: "변경의 일은 끝났다. 이제 무엇을 할지는 내가 정한다.",
+    goal_well_sick: "마을 사람들이 배앓이를 한다. 장터의 약초꾼이라면 까닭을 알지도 모른다.",
+    goal_well_source: "우물물은 숲속 샘에서 온다. 샘에 가 본다.",
+    goal_well_cause: "샘 위쪽의 사체가 물을 흐린다. 치우고 정화제를 부어야 한다. 정화제는 약초꾼이 정화초로 달여 준다."
   }
 };

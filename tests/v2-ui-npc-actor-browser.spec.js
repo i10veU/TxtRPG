@@ -9,7 +9,7 @@ const { test, expect } = require("@playwright/test");
 const ENTRY_URL = "http://127.0.0.1:4173/v2/index.html";
 // the investigation and the confrontation succeed on this seed (tests/v2/npc-actor.test.js)
 const SEED = "history-41";
-const CONFRONT = "도적 두목과 대면";
+const CONFRONT = "도적 두목 앞에 나선다";
 
 const P = (actionId) => ({ type: "perform", actionId });
 const TO_CONFRONT = [

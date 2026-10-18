@@ -40,7 +40,7 @@ async function startCanonicalGame(page) {
 
 // talk to the elder and pick one of the two options
 async function talkToElder(page, optionLabel) {
-  await act(page, "원로와 대화");
+  await act(page, "원로를 찾아간다");
   await expect(page.locator("#choice")).toBeVisible();
   await page.locator("#choiceOptions button", { hasText: optionLabel }).click();
   await expect(page.locator("#choice")).toBeHidden();
@@ -54,19 +54,19 @@ test.describe("V2 information loop (elder rumor -> investigation -> confirmation
     await startCanonicalGame(page);
     await expect(page.locator("#location")).toContainText("변경 마을");
     expect(await getRumor(page)).toBeNull();
-    await act(page, "마을 살피기");
-    await act(page, "마을 살피기");
+    await act(page, "마을 사람들 사이에 섞여 귀를 기울인다");
+    await act(page, "마을 사람들 사이에 섞여 귀를 기울인다");
 
     // 2. the elder dialogue offers both options through the real choice UI
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await expect(page.locator("#choice")).toBeVisible();
-    await expect(page.locator("#choiceOptions button", { hasText: "폐허에 대해 묻기" })).toHaveCount(1);
-    await expect(page.locator("#choiceOptions button", { hasText: "안부만 묻기" })).toHaveCount(1);
-    await page.locator("#choiceOptions button", { hasText: "폐허에 대해 묻기" }).click();
+    await expect(page.locator("#choiceOptions button", { hasText: "폐허에 대해 묻는다" })).toHaveCount(1);
+    await expect(page.locator("#choiceOptions button", { hasText: "안부만 묻는다" })).toHaveCount(1);
+    await page.locator("#choiceOptions button", { hasText: "폐허에 대해 묻는다" }).click();
     await expect(page.locator("#choice")).toBeHidden();
 
     // 3. the rumor result: told in the log, recorded as the player's knowledge
-    await expect(page.locator("#log")).toContainText("원로는 목소리를 낮추며");
+    await expect(page.locator("#log")).toContainText("원로가 목소리를 낮춘다");
     expect(await getRumor(page)).toEqual({
       rumorId: "rum_ruins_secret",
       factId: "fact_ruins_secret",
@@ -84,22 +84,22 @@ test.describe("V2 information loop (elder rumor -> investigation -> confirmation
 
     // 4. market -> lantern
     await move(page, "시장");
-    await act(page, "등불 구입");
+    await act(page, "등불을 산다");
     await expect(page.locator("#status")).toContainText("소지금 3");
 
     // 5. to the ruins: with the rumor and the lantern the investigation is offered
     await move(page, "변경 마을");
     await move(page, "폐허");
     await expect(page.locator("#location")).toContainText("폐허");
-    await expect(actionButton(page, "폐허 조사")).toBeEnabled();
+    await expect(actionButton(page, "폐허 안을 살핀다")).toBeEnabled();
 
     // 6. investigation (a real check)
-    await act(page, "폐허 조사");
+    await act(page, "폐허 안을 살핀다");
     const log = await page.evaluate(() => window.__v2App.getLog());
     expect(log.some((line) => line.includes("판정:"))).toBe(true);
 
     // 7. the information is confirmed: same claim, now also from what the player saw
-    await expect(page.locator("#log")).toContainText("등불 아래 드러난 흔적");
+    await expect(page.locator("#log")).toContainText("여기가 도적들의 은신처다");
     const confirmed = await getRumor(page);
     expect(confirmed.claim).toBe("bandit_hideout");
     expect(confirmed.confirmations).toBe(2);
@@ -111,9 +111,9 @@ test.describe("V2 information loop (elder rumor -> investigation -> confirmation
     // 9. confrontation, existing gating (confirmed flag + unlock) and result; leave
     // the hazard first and recover, as in the canonical loop
     await move(page, "변경 마을");
-    await act(page, "마을에서 쉬기");
-    await expect(actionButton(page, "도적 두목과 대면")).toBeEnabled();
-    await act(page, "도적 두목과 대면");
+    await act(page, "마을 어귀에서 쉬며 상처를 돌본다");
+    await expect(actionButton(page, "도적 두목 앞에 나선다")).toBeEnabled();
+    await act(page, "도적 두목 앞에 나선다");
     const final = await getState(page);
     expect(final.cases.case_ruins_mystery.stage).toBe("resolved");
     expect(final.time.minute).toBe(270);
@@ -128,11 +128,11 @@ test.describe("V2 information loop (elder rumor -> investigation -> confirmation
     await startCanonicalGame(page);
 
     // small talk teaches nothing
-    await talkToElder(page, "안부만 묻기");
+    await talkToElder(page, "안부만 묻는다");
     expect(await getRumor(page)).toBeNull();
 
     await move(page, "시장");
-    await act(page, "등불 구입");
+    await act(page, "등불을 산다");
     await move(page, "변경 마을");
     await move(page, "폐허");
 
@@ -140,7 +140,7 @@ test.describe("V2 information loop (elder rumor -> investigation -> confirmation
     // dispatching it behind the UI's back does nothing (no reason is shown)
     await expect(page.locator("#location")).toContainText("폐허");
     expect((await getState(page)).actors.player_1.inventory.item_lantern).toBe(1);
-    await expect(actionButton(page, "폐허 조사")).toHaveCount(0);
+    await expect(actionButton(page, "폐허 안을 살핀다")).toHaveCount(0);
     const unchanged = await page.evaluate(() => {
       const before = JSON.stringify(window.__v2App.getState());
       window.__v2App.dispatch({ type: "perform", actionId: "act_investigate_ruins" });
@@ -152,10 +152,10 @@ test.describe("V2 information loop (elder rumor -> investigation -> confirmation
 
     // not a dead end: go back, ask about the ruins, return
     await move(page, "변경 마을");
-    await talkToElder(page, "폐허에 대해 묻기");
+    await talkToElder(page, "폐허에 대해 묻는다");
     expect((await getRumor(page)).confirmations).toBe(1);
     await move(page, "폐허");
-    await expect(actionButton(page, "폐허 조사")).toBeEnabled();
+    await expect(actionButton(page, "폐허 안을 살핀다")).toBeEnabled();
 
     expect(pageErrors).toEqual([]);
     expect(consoleErrors).toEqual([]);
@@ -165,9 +165,9 @@ test.describe("V2 information loop (elder rumor -> investigation -> confirmation
     const { pageErrors, consoleErrors } = await gotoApp(page);
     await startCanonicalGame(page);
 
-    await talkToElder(page, "폐허에 대해 묻기");
+    await talkToElder(page, "폐허에 대해 묻는다");
     await move(page, "시장");
-    await act(page, "등불 구입");
+    await act(page, "등불을 산다");
     await move(page, "변경 마을");
     await move(page, "폐허");
     const beforeInvestigate = await getState(page);
@@ -179,7 +179,7 @@ test.describe("V2 information loop (elder rumor -> investigation -> confirmation
     await expect.poll(() => page.locator("#slotList li").count()).toBe(1);
 
     // the next action on the live game
-    await act(page, "폐허 조사");
+    await act(page, "폐허 안을 살핀다");
     const resultLive = await getState(page);
     const rumorLive = await getRumor(page);
     const checkLive = (await page.evaluate(() => window.__v2App.getLog())).filter((line) => line.includes("판정:"));
@@ -194,9 +194,9 @@ test.describe("V2 information loop (elder rumor -> investigation -> confirmation
     // 10. the loaded game is the saved one: same state, same knowledge, investigation still offered
     expect(await getState(page)).toEqual(beforeInvestigate);
     expect(await getRumor(page)).toEqual(rumorBefore);
-    await expect(actionButton(page, "폐허 조사")).toBeEnabled();
+    await expect(actionButton(page, "폐허 안을 살핀다")).toBeEnabled();
 
-    await act(page, "폐허 조사");
+    await act(page, "폐허 안을 살핀다");
     expect(await getState(page)).toEqual(resultLive);
     expect(await getRumor(page)).toEqual(rumorLive);
     const checkLoaded = (await page.evaluate(() => window.__v2App.getLog())).filter((line) => line.includes("판정:"));

@@ -56,7 +56,7 @@ test.describe("V2 the road of the word (Slice 6 integrated: carried north, echoe
     await expect(page.locator("#game")).toBeVisible();
     await dispatchAll(page, TO_SEEN);
 
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await option(page, "마을 바깥의 길에 대해 묻는다").click();
     await move(page, "옛 갈림길");
     await move(page, "강나루");
@@ -91,7 +91,7 @@ test.describe("V2 the road of the word (Slice 6 integrated: carried north, echoe
     // the village still tells its own legend
     await move(page, "옛 갈림길");
     await move(page, "변경 마을");
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await option(page, "도적단의 소식을 묻는다").click();
     await expect(page.locator("#log")).toContainText("모두 쓰러졌다는 전설이다.");
 

@@ -3,7 +3,7 @@
 //   the road's talk carries a fall south, late (World Bible N-06: news travels with the caravans) -- the same pattern as
 //   the corrected tales going north (V2-Core-80): `evt_fallen_word_south`'s first firing counts it out, the next one a
 //   caravan's cadence (three days) later sets `guard_fall_word_south`, only once the road is in use. From then on the
-//   elder, asked "안부만 묻기", says a guard did not come back -- to anyone, a successor too (the village's word, not the
+//   elder, asked "안부만 묻는다", says a guard did not come back -- to anyone, a successor too (the village's word, not the
 //   successor's knowledge: none is inherited, D-71). He says no more than the clerk did: nothing of who, nothing of how.
 //   1. before it and just after the fall: nothing; three days later: the line;
 //   2. a guard the guild did not know: the village never hears;

@@ -19,8 +19,8 @@ const SEED = "succession-120";
 const REPORT = "조사에서 알아낸 것을 전한다";
 const FATE = "도적단 잔당의 처분을 원로에게 맡긴다";
 const NEWS = "도적단의 소식을 묻는다";
-const NEW_CHARACTER = "새 캐릭터로 시작 (떠돌이)"; // V2-Core-53: one button per background
-const CONFRONT = "도적 두목과 대면";
+const NEW_CHARACTER = "새로 시작한다 (떠돌이)"; // V2-Core-53: one button per background
+const CONFRONT = "도적 두목 앞에 나선다";
 const MARKET_EVENT = "evt_market_reopens";
 const MARKET_TEXT = "상인들이 안도하며 은화 몇 닢을 사례한다";
 const SUCCESSION_TEXT = "쓰러진 이가 남긴 은화 몇 닢이 새 방랑자의 손에 들어온다";
@@ -54,7 +54,7 @@ async function startGame(page, seed) {
 
 // talk to the elder and pick one of the options
 async function talkAndChoose(page, optionLabel) {
-  await act(page, "원로와 대화");
+  await act(page, "원로를 찾아간다");
   await expect(page.locator("#choice")).toBeVisible();
   await choiceButton(page, optionLabel).click();
   await expect(page.locator("#choice")).toBeHidden();
@@ -63,16 +63,16 @@ async function talkAndChoose(page, optionLabel) {
 // observe x2, the elder's rumor, the lantern, the ruins, the investigation, back to the
 // village to rest: the character's own proof (relic) is in their own inventory
 async function playToConfirmedVillage(page) {
-  await act(page, "마을 살피기");
-  await act(page, "마을 살피기");
-  await talkAndChoose(page, "폐허에 대해 묻기");
+  await act(page, "마을 사람들 사이에 섞여 귀를 기울인다");
+  await act(page, "마을 사람들 사이에 섞여 귀를 기울인다");
+  await talkAndChoose(page, "폐허에 대해 묻는다");
   await move(page, "시장");
-  await act(page, "등불 구입");
+  await act(page, "등불을 산다");
   await move(page, "변경 마을");
   await move(page, "폐허");
-  await act(page, "폐허 조사");
+  await act(page, "폐허 안을 살핀다");
   await move(page, "변경 마을");
-  await act(page, "마을에서 쉬기");
+  await act(page, "마을 어귀에서 쉬며 상처를 돌본다");
 }
 
 // ...the report, the confrontation, and the decision about the bandits' fate
@@ -189,11 +189,11 @@ test.describe("V2 succession investigation (what passes on, and who the world re
     }
     expect(successor.flags.ruins_secret_confirmed).toBe(true);
     expect(successor.relations["npc_bandit_leader:org_bandits"].tags).toEqual([]);
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await expect(choiceButton(page, NEWS)).toHaveCount(1); // world-only `requires`: offered to the successor too
     await expect(choiceButton(page, REPORT)).toHaveCount(0); // the personal proof is not
     await expect(choiceButton(page, FATE)).toHaveCount(0);
-    await choiceButton(page, "안부만 묻기").click();
+    await choiceButton(page, "안부만 묻는다").click();
     await expect(page.locator("#choice")).toBeHidden();
 
     // 8. the predecessor's personal state stays with the predecessor
@@ -229,10 +229,10 @@ test.describe("V2 succession investigation (what passes on, and who the world re
     const proven = await getState(page);
     expect(relic(proven, "player_2")).toBe(1);
     expect(proven.relations["npc_bandit_leader:org_bandits"].tags).toEqual([]);
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await expect(choiceButton(page, NEWS)).toHaveCount(1); // the world's history holds: still offered
     await expect(choiceButton(page, FATE)).toHaveCount(0); // and the fate cannot be decided again
-    await choiceButton(page, "안부만 묻기").click();
+    await choiceButton(page, "안부만 묻는다").click();
     await expect(page.locator("#choice")).toBeHidden();
     await move(page, "시장");
     expect(fired(await getState(page))).toBeUndefined(); // no edge of their own yet

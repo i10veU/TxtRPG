@@ -47,7 +47,7 @@ test.describe("V2 equipment (owned is not wielded; the sword in hand opens a tec
     await dispatchAll(page, TO_RELIC);
 
     // buy: owned, not wielded
-    await act(page, "철검 구입");
+    await act(page, "철검을 산다");
     await expect(status(page)).toContainText("소지품: 철검 x1, 낡은 등불 x1");
     await expect(status(page)).not.toContainText("장비:");
     await expect(status(page)).toContainText("소지금 0");
@@ -106,7 +106,7 @@ test.describe("V2 equipment (owned is not wielded; the sword in hand opens a tec
     await expect(page.locator("#game")).toBeVisible();
     await expect(actionButton(page, "철검을 든다")).toHaveCount(0);
     await page.locator("#moves button", { hasText: "시장" }).click();
-    await act(page, "철검 구입");
+    await act(page, "철검을 산다");
     await act(page, "철검을 든다");
     await expect(status(page)).toContainText("장비: 손 철검");
     await expect(status(page)).toContainText("특성: 조사의 재능, 밤눈");

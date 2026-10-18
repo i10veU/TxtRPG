@@ -20,8 +20,8 @@ const REPORT = "조사에서 알아낸 것을 전한다";
 const FATE = "도적단 잔당의 처분을 원로에게 맡긴다";
 const NEWS = "도적단의 소식을 묻는다";
 const NEWS_TEXT = "원로는 폐허의 도적단이 흩어졌다는 소식을 들려준다";
-const NEW_CHARACTER = "새 캐릭터로 시작 (떠돌이)"; // V2-Core-53: one button per background
-const CONFRONT = "도적 두목과 대면";
+const NEW_CHARACTER = "새로 시작한다 (떠돌이)"; // V2-Core-53: one button per background
+const CONFRONT = "도적 두목 앞에 나선다";
 
 async function gotoApp(page) {
   const pageErrors = [];
@@ -49,7 +49,7 @@ async function startGame(page, seed) {
 
 // talk to the elder and pick one of the options
 async function talkAndChoose(page, optionLabel) {
-  await act(page, "원로와 대화");
+  await act(page, "원로를 찾아간다");
   await expect(page.locator("#choice")).toBeVisible();
   await choiceButton(page, optionLabel).click();
   await expect(page.locator("#choice")).toBeHidden();
@@ -58,16 +58,16 @@ async function talkAndChoose(page, optionLabel) {
 // observe x2, the elder's rumor, the lantern, the ruins, the investigation, and back to
 // the village to rest: this character's own proof is in their inventory, the world flag is set
 async function playToConfirmedVillage(page) {
-  await act(page, "마을 살피기");
-  await act(page, "마을 살피기");
-  await talkAndChoose(page, "폐허에 대해 묻기");
+  await act(page, "마을 사람들 사이에 섞여 귀를 기울인다");
+  await act(page, "마을 사람들 사이에 섞여 귀를 기울인다");
+  await talkAndChoose(page, "폐허에 대해 묻는다");
   await move(page, "시장");
-  await act(page, "등불 구입");
+  await act(page, "등불을 산다");
   await move(page, "변경 마을");
   await move(page, "폐허");
-  await act(page, "폐허 조사");
+  await act(page, "폐허 안을 살핀다");
   await move(page, "변경 마을");
-  await act(page, "마을에서 쉬기");
+  await act(page, "마을 어귀에서 쉬며 상처를 돌본다");
 }
 
 // ...and the rest of the first character's story: the report, the confrontation, the decision
@@ -138,7 +138,7 @@ test.describe("V2 successor gates (the world's flag is not a character's own pro
     await saveTo(page, "slot_successor", 1);
 
     // 7. behind the UI's back the personal choices are refused, and nothing changes
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await expect(page.locator("#choice")).toBeVisible();
     await expect(choiceButton(page, REPORT)).toHaveCount(0);
     await expect(choiceButton(page, FATE)).toHaveCount(0);
@@ -162,8 +162,8 @@ test.describe("V2 successor gates (the world's flag is not a character's own pro
     // the confrontation is shown locked, and stays locked with the keen-eye unlock: the world flag alone is not proof
     const locked = actionButton(page, CONFRONT);
     await expect(locked).toBeDisabled();
-    await expect(locked).toHaveText(`${CONFRONT} (잠김)`);
-    for (let i = 0; i < 4; i += 1) await act(page, "마을 살피기");
+    await expect(locked).toHaveText(`${CONFRONT} (지금은 할 수 없다)`);
+    for (let i = 0; i < 4; i += 1) await act(page, "마을 사람들 사이에 섞여 귀를 기울인다");
     expect((await getState(page)).actors.player_2.growth.growth_wanderer.unlocks).toEqual({ unl_keen_eye: true });
     await expect(actionButton(page, CONFRONT)).toBeDisabled();
     expect(await dispatchUnchanged(page, { type: "perform", actionId: "act_confront_leader" })).toBe(true);
@@ -184,7 +184,7 @@ test.describe("V2 successor gates (the world's flag is not a character's own pro
 
     // the same inputs: refused personal choice, then the world's news
     const sequence = async () => {
-      await act(page, "원로와 대화");
+      await act(page, "원로를 찾아간다");
       await expect(choiceButton(page, REPORT)).toHaveCount(0);
       expect(await dispatchUnchanged(page, choose("opt_report_findings"))).toBe(true);
       await choiceButton(page, NEWS).click();
@@ -210,23 +210,23 @@ test.describe("V2 successor gates (the world's flag is not a character's own pro
     await dieAndStartSuccessor(page);
 
     // the successor asks the elder, but the rumor is not proof: no report yet
-    await talkAndChoose(page, "폐허에 대해 묻기");
-    await act(page, "원로와 대화");
+    await talkAndChoose(page, "폐허에 대해 묻는다");
+    await act(page, "원로를 찾아간다");
     await expect(choiceButton(page, REPORT)).toHaveCount(0);
-    await choiceButton(page, "안부만 묻기").click();
+    await choiceButton(page, "안부만 묻는다").click();
     await expect(page.locator("#choice")).toBeHidden();
     expect(relic(await getState(page), "player_2")).toBe(0);
 
     // their own investigation
-    await act(page, "마을 살피기");
-    await act(page, "마을 살피기");
+    await act(page, "마을 사람들 사이에 섞여 귀를 기울인다");
+    await act(page, "마을 사람들 사이에 섞여 귀를 기울인다");
     await move(page, "시장");
-    await act(page, "등불 구입");
+    await act(page, "등불을 산다");
     await move(page, "변경 마을");
     await move(page, "폐허");
-    await act(page, "폐허 조사");
+    await act(page, "폐허 안을 살핀다");
     await move(page, "변경 마을");
-    await act(page, "마을에서 쉬기");
+    await act(page, "마을 어귀에서 쉬며 상처를 돌본다");
     const earned = await getState(page);
     expect(relic(earned, "player_2")).toBe(1);
     expect(relic(earned, "player_1")).toBe(1);

@@ -17,7 +17,7 @@ const REPORT = "조사에서 알아낸 것을 전한다";
 const FATE = "도적단 잔당의 처분을 원로에게 맡긴다";
 const NEWS = "도적단의 소식을 묻는다";
 const NEWS_TEXT = "원로는 폐허의 도적단이 흩어졌다는 소식을 들려준다";
-const NEW_CHARACTER = "새 캐릭터로 시작 (떠돌이)"; // V2-Core-53: one button per background
+const NEW_CHARACTER = "새로 시작한다 (떠돌이)"; // V2-Core-53: one button per background
 
 async function gotoApp(page) {
   const pageErrors = [];
@@ -44,7 +44,7 @@ async function startCanonicalGame(page) {
 
 // talk to the elder and pick one of the options
 async function talkAndChoose(page, optionLabel) {
-  await act(page, "원로와 대화");
+  await act(page, "원로를 찾아간다");
   await expect(page.locator("#choice")).toBeVisible();
   await choiceButton(page, optionLabel).click();
   await expect(page.locator("#choice")).toBeHidden();
@@ -52,18 +52,18 @@ async function talkAndChoose(page, optionLabel) {
 
 // the information, the village's backing, the confrontation, and the elder's decision
 async function playToDecision(page, { decide = true } = {}) {
-  await act(page, "마을 살피기");
-  await act(page, "마을 살피기");
-  await talkAndChoose(page, "폐허에 대해 묻기");
+  await act(page, "마을 사람들 사이에 섞여 귀를 기울인다");
+  await act(page, "마을 사람들 사이에 섞여 귀를 기울인다");
+  await talkAndChoose(page, "폐허에 대해 묻는다");
   await move(page, "시장");
-  await act(page, "등불 구입");
+  await act(page, "등불을 산다");
   await move(page, "변경 마을");
   await move(page, "폐허");
-  await act(page, "폐허 조사");
+  await act(page, "폐허 안을 살핀다");
   await move(page, "변경 마을");
-  await act(page, "마을에서 쉬기");
+  await act(page, "마을 어귀에서 쉬며 상처를 돌본다");
   await talkAndChoose(page, REPORT);
-  await act(page, "도적 두목과 대면");
+  await act(page, "도적 두목 앞에 나선다");
   if (decide) await talkAndChoose(page, FATE);
 }
 
@@ -114,10 +114,10 @@ test.describe("V2 successor (what the world keeps, what a character keeps)", () 
     expect(decided.relations["npc_bandit_leader:org_bandits"].tags).toEqual([]);
     expect(decided.flags.ruins_secret_confirmed).toBe(true);
     // the acting character is offered the news as well: it is the world's, not theirs
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await expect(choiceButton(page, NEWS)).toHaveCount(1);
     await expect(choiceButton(page, FATE)).toHaveCount(0);
-    await choiceButton(page, "안부만 묻기").click();
+    await choiceButton(page, "안부만 묻는다").click();
 
     // 4. save the world as it stands
     await saveTo(page, "slot_world", 1);
@@ -146,7 +146,7 @@ test.describe("V2 successor (what the world keeps, what a character keeps)", () 
     expect(view.actor.id).toBe("player_2");
 
     // 7-8. the same place and action: the world's history is there, the personal decision is not
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await expect(page.locator("#choice")).toBeVisible();
     await expect(choiceButton(page, NEWS)).toHaveCount(1);
     await expect(choiceButton(page, FATE)).toHaveCount(0);
@@ -177,7 +177,7 @@ test.describe("V2 successor (what the world keeps, what a character keeps)", () 
     // 4. save before the character dies
     await saveTo(page, "slot_decided", 1);
     await dieAndStartSuccessor(page);
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await expect(choiceButton(page, NEWS)).toHaveCount(1);
     await choiceButton(page, NEWS).click();
     await expect(page.locator("#choice")).toBeHidden();
@@ -187,7 +187,7 @@ test.describe("V2 successor (what the world keeps, what a character keeps)", () 
     // 9. reload: the same saved moment, the same input -> the same result
     await reloadAndLoad(page, "slot_decided");
     await dieAndStartSuccessor(page);
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await expect(choiceButton(page, NEWS)).toHaveCount(1);
     await choiceButton(page, NEWS).click();
     await expect(page.locator("#choice")).toBeHidden();
@@ -196,20 +196,20 @@ test.describe("V2 successor (what the world keeps, what a character keeps)", () 
     // 10. the successor's own save comes back intact and offers the same news
     await reloadAndLoad(page, "slot_successor");
     expect(await getState(page)).toEqual(stateX);
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await expect(choiceButton(page, NEWS)).toHaveCount(1);
-    await choiceButton(page, "안부만 묻기").click();
+    await choiceButton(page, "안부만 묻는다").click();
 
     // another history: the bandits' fate was never decided, so the world has no news to tell
     await page.evaluate(() => window.__v2App.backToMenu());
     await startCanonicalGame(page);
     await playToDecision(page, { decide: false });
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await expect(choiceButton(page, NEWS)).toHaveCount(0);
     expect(await dispatchUnchanged(page, "opt_ask_bandit_news")).toBe(true);
-    await choiceButton(page, "안부만 묻기").click();
+    await choiceButton(page, "안부만 묻는다").click();
     await dieAndStartSuccessor(page);
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await expect(choiceButton(page, NEWS)).toHaveCount(0);
     expect(await dispatchUnchanged(page, "opt_ask_bandit_news")).toBe(true);
     await expect(page.locator("#log")).toContainText("할 수 없다");

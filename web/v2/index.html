@@ -3,85 +3,124 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TxtRPG V2</title>
+<title>무명의 연대기</title>
 <link rel="icon" href="data:,">
 <style>
+  /* V2-Core-151 (J3): a reading screen. The scene leads; what I mean to do and what I can do follow; the notebook folds away.
+     No external fonts or files: the page runs offline. */
   :root {
-    color-scheme: light dark;
-    --gap: 0.75rem;
+    --bg: #e9ece6;
+    --page: #f4f5f1;
+    --ink: #1e2420;
+    --muted: #5b655d;
+    --rule: #c9cfc6;
+    --accent: #45604a;
+    --accent-soft: #dfe7dd;
+    --danger: #8a2f2f;
+    --serif: "Nanum Myeongjo", "Noto Serif KR", "Noto Serif CJK KR", "AppleMyungjo", "Batang", serif;
+    --sans: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", system-ui, sans-serif;
+    --gap: 1rem;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #121513; --page: #181c19; --ink: #d8ddd5; --muted: #8e998f; --rule: #2d342f; --accent: #93b293; --accent-soft: #223026; --danger: #d98a8a;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #121513; --page: #181c19; --ink: #d8ddd5; --muted: #8e998f; --rule: #2d342f; --accent: #93b293; --accent-soft: #223026; --danger: #d98a8a;
+    color-scheme: dark;
   }
   * { box-sizing: border-box; }
   body {
     margin: 0;
-    padding: var(--gap);
-    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-    line-height: 1.5;
-    max-width: 720px;
-    margin-inline: auto;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.6;
+    padding-block: 1.25rem 3rem;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
   }
+  .wrap { max-width: 40rem; margin-inline: auto; display: grid; gap: var(--gap); }
+  h1 { font-family: var(--serif); font-weight: 700; font-size: 1.5rem; letter-spacing: 0.04em; margin: 0; }
+  h2 { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em; color: var(--muted); margin: 0 0 0.4rem; }
   button {
     font: inherit;
-    padding: 0.5rem 0.75rem;
-    margin: 0.15rem;
-    border-radius: 0.4rem;
-    border: 1px solid currentColor;
-    background: transparent;
     color: inherit;
+    background: transparent;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 0.55rem 0.8rem;
     cursor: pointer;
-    min-height: 2.4rem;
+    min-height: 2.6rem;
   }
-  button:disabled { opacity: 0.5; cursor: not-allowed; }
-  button:hover:not(:disabled) { background: rgba(128,128,128,0.15); }
-  section { margin-block: var(--gap); }
-  h1 { font-size: 1.25rem; }
-  h2 { font-size: 1rem; margin-block: 0.4rem; }
-  #location { font-weight: bold; font-size: 1.05rem; }
-  #status p { margin: 0.15rem 0; }
-  #log {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    max-height: 40vh;
-    overflow-y: auto;
-    border: 1px solid rgba(128,128,128,0.4);
-    border-radius: 0.4rem;
-    padding: 0.5rem;
-  }
-  #log li { padding: 0.15rem 0; border-bottom: 1px dashed rgba(128,128,128,0.25); }
-  #log li:last-child { border-bottom: none; }
-  #knowledge { list-style: none; padding: 0; margin: 0; }
-  #knowledge li { padding: 0.15rem 0; }
-  #knowledge li[data-relevant] { font-weight: bold; }
-  #knowledge li[data-stale] { opacity: 0.7; }
-  #story { list-style: none; padding: 0; margin: 0; }
-  #story li { padding: 0.15rem 0 0.15rem 1rem; }
-  #story li.story-chapter { padding-left: 0; font-weight: bold; margin-top: 0.3rem; }
-  #storySection[hidden] { display: none; }
-  #actions, #moves, #choice { display: flex; flex-wrap: wrap; gap: 0.25rem; }
-  #choice[hidden], #menu[hidden], #game[hidden] { display: none; }
-  #error {
-    background: #7a1f1f;
-    color: #fff;
-    padding: 0.5rem;
-    border-radius: 0.4rem;
-  }
+  button:hover:not(:disabled) { border-color: var(--accent); }
+  button:focus-visible, select:focus-visible, input:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  button:disabled { opacity: 0.45; cursor: not-allowed; }
+  select, input { font: inherit; color: inherit; background: var(--page); border: 1px solid var(--rule); border-radius: 4px; padding: 0.45rem 0.6rem; }
+  #error { background: var(--danger); color: var(--page); padding: 0.6rem 0.8rem; border-radius: 4px; margin: 0; }
+
+  /* the menu */
+  #menu { display: grid; gap: 1.25rem; padding-top: 1.5rem; }
+  .lede { font-family: var(--serif); font-size: 1.05rem; line-height: 1.9; color: var(--muted); margin: 0; }
+  .start { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+  #newGameBtn { background: var(--accent); border-color: var(--accent); color: var(--page); }
+  #slotList { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.25rem; }
+  #slotList li { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+
+  /* the game */
+  #game:not([hidden]) { display: grid; gap: 0.75rem; }
+  .screen { background: var(--page); border: 1px solid var(--rule); border-radius: 4px; padding: 1.5rem clamp(1rem, 5vw, 2.5rem) 1.25rem; display: grid; gap: 1.25rem; }
+  .where { display: flex; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap; font-size: 0.8rem; letter-spacing: 0.06em; color: var(--muted); }
+  #location { font-weight: 500; }
+  #vitals { font-variant-numeric: tabular-nums; }
+  #scene { font-family: var(--serif); font-size: 1.12rem; line-height: 1.95; display: grid; gap: 0.85em; min-width: 0; }
+  #scene p { margin: 0; text-wrap: pretty; }
+  #scene p.aside { font-family: var(--sans); font-size: 0.9rem; color: var(--muted); }
+  #goal { border-top: 1px solid var(--rule); padding-top: 0.9rem; display: grid; gap: 0.2rem; }
+  #goal h2 { margin: 0; }
+  #goalText { margin: 0; font-family: var(--serif); line-height: 1.75; display: grid; gap: 0.15rem; }
+  #goalText span.side { color: var(--muted); }
+  .doing { display: grid; gap: 0.5rem; }
+  #actions, #choiceOptions { display: grid; gap: 0.4rem; }
+  #actions button, #choiceOptions button { text-align: left; font-family: var(--serif); font-size: 1rem; line-height: 1.6; }
+  #choice[hidden], #menu[hidden], #game[hidden], #storySection[hidden] { display: none; }
+  .roads { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
+  #moves { display: contents; }
+  #moves button, .roads > button { font-size: 0.9rem; }
+
+  /* the notebook */
+  #notebook { border-top: 1px solid var(--rule); padding-top: 0.75rem; }
+  #notebookBtn { border: none; padding: 0.25rem 0; min-height: 0; font-size: 0.9rem; color: var(--muted); letter-spacing: 0.04em; }
+  #notebookBtn::before { content: "▸ "; }
+  #notebookBtn[aria-expanded="true"]::before { content: "▾ "; }
+  #notes[hidden] { display: none; }
+  .notes { display: grid; gap: 1.1rem; padding-top: 0.9rem; font-size: 0.9rem; }
+  #status p { margin: 0.1rem 0; }
+  #knowledge, #story, #log { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.25rem; }
+  #knowledge li[data-relevant] { font-weight: 600; }
+  #knowledge li[data-stale] { opacity: 0.65; }
+  #story li { padding-left: 1rem; }
+  #story li.story-chapter { padding-left: 0; font-weight: 600; margin-top: 0.3rem; }
+  #log { max-height: 16rem; overflow-y: auto; color: var(--muted); }
   #saveRow { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
-  #saveSlotInput { font: inherit; padding: 0.4rem; flex: 1; min-width: 8rem; }
-  #slotList { list-style: none; padding: 0; margin: 0; }
-  #slotList li { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; padding: 0.2rem 0; }
+  #saveSlotInput { flex: 1; min-width: 0; }
   @media (max-width: 420px) {
-    body { padding: 0.5rem; }
-    button { flex: 1 1 auto; }
+    #scene { font-size: 1.05rem; }
   }
 </style>
 </head>
 <body>
-<h1>TxtRPG V2</h1>
+<div class="wrap" id="app">
+<h1>무명의 연대기</h1>
 <p id="error" hidden></p>
 
 <div id="menu">
-  <section>
-    <label for="backgroundSelect">배경</label>
+  <p class="lede">이름 없는 이들이 남긴 일이 세계의 역사가 된다. 이름은 세계가 기억할 때 생긴다.</p>
+  <section class="start">
+    <label for="backgroundSelect">내가 누구였는지</label>
     <select id="backgroundSelect"></select>
     <button id="newGameBtn">새 게임</button>
   </section>
@@ -92,51 +131,52 @@
 </div>
 
 <div id="game" hidden>
-  <section>
-    <div id="location"></div>
-    <div id="status"></div>
-  </section>
-
-  <section>
-    <h2>이동</h2>
-    <div id="moves"></div>
-  </section>
-
-  <section>
-    <h2>행동</h2>
-    <div id="actions"></div>
-    <button id="waitBtn">기다리기 (30분)</button>
-    <button id="waitDayBtn">기다리기 (하루)</button>
-  </section>
-
-  <section id="choice" hidden>
-    <h2>선택</h2>
-    <div id="choiceOptions"></div>
-  </section>
-
-  <section id="storySection" hidden>
-    <h2>이야기</h2>
-    <ul id="story"></ul>
-  </section>
-
-  <section>
-    <h2>아는 것</h2>
-    <ul id="knowledge"></ul>
-  </section>
-
-  <section>
-    <h2>기록</h2>
-    <ul id="log"></ul>
-  </section>
-
-  <section>
-    <h2>저장</h2>
-    <div id="saveRow">
-      <input id="saveSlotInput" type="text" placeholder="저장 슬롯 이름" value="slot_1">
-      <button id="saveBtn">저장</button>
-    </div>
+  <div class="screen">
+    <div class="where"><span id="location"></span><span id="vitals"></span></div>
+    <article id="scene" aria-live="polite"></article>
+    <section id="goal">
+      <h2>지금 할 일</h2>
+      <p id="goalText"></p>
+    </section>
+    <section id="choice" hidden>
+      <div id="choiceOptions"></div>
+    </section>
+    <section class="doing">
+      <div id="actions"></div>
+      <div class="roads">
+        <div id="moves"></div>
+        <button id="waitBtn">잠시 기다린다 (30분)</button>
+        <button id="waitDayBtn">하루를 보낸다</button>
+      </div>
+    </section>
+    <section id="notebook">
+      <button id="notebookBtn" type="button" aria-expanded="false" aria-controls="notes">수첩 펼치기 · 몸 상태, 이야기, 아는 것, 기록</button>
+      <div class="notes" id="notes" hidden>
+        <section>
+          <h2>몸 상태와 가진 것</h2>
+          <div id="status"></div>
+        </section>
+        <section id="storySection" hidden>
+          <h2>이야기</h2>
+          <ul id="story"></ul>
+        </section>
+        <section>
+          <h2>아는 것</h2>
+          <ul id="knowledge"></ul>
+        </section>
+        <section>
+          <h2>기록</h2>
+          <ul id="log"></ul>
+        </section>
+      </div>
+    </section>
+  </div>
+  <section id="saveRow">
+    <input id="saveSlotInput" type="text" placeholder="저장 이름" value="slot_1" aria-label="저장 이름">
+    <button id="saveBtn">저장</button>
     <button id="backToMenuBtn">메뉴로</button>
   </section>
+</div>
 </div>
 
 <script type="module" src="./ui/app.js"></script>

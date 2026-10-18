@@ -38,17 +38,17 @@ test.describe("V2 skills (practice -> threshold -> rank, shown in the status)", 
     await page.evaluate((seed) => window.__v2App.newGame(seed), SEED);
     await expect(page.locator("#game")).toBeVisible();
 
-    await page.locator("#actions button", { hasText: "마을 살피기" }).click();
+    await page.locator("#actions button", { hasText: "마을 사람들 사이에 섞여 귀를 기울인다" }).click();
     await expect(status(page)).toContainText("조사 15");
     await expect(status(page)).not.toContainText("기술:");
-    await page.locator("#actions button", { hasText: "마을 살피기" }).click();
+    await page.locator("#actions button", { hasText: "마을 사람들 사이에 섞여 귀를 기울인다" }).click();
     await expect(status(page)).toContainText("기술: 조사 1 (초심)"); // V2-Core-53: with its mastery tier
 
     await page.evaluate((actions) => actions.forEach((a) => window.__v2App.dispatch(a)), TO_READY_AFTER_OBSERVING);
     await expect(status(page)).toContainText("기술: 조사 3 (수련)");
     await expect(status(page)).toContainText("해금: 예리한 눈");
 
-    await page.locator("#actions button", { hasText: "도적 두목과 싸운다" }).click();
+    await page.locator("#actions button", { hasText: "칼을 뽑아 두목과 맞선다" }).click();
     for (let i = 0; i < 10 && (await page.locator("#choice").isVisible()); i += 1) {
       await page.locator("#choiceOptions button", { hasText: "정면으로 맞붙는다" }).click();
     }

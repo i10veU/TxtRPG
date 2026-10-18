@@ -64,10 +64,10 @@ test.describe("V2 world history (a settled world edge is not undone by a later i
     expect(await getState(page)).toEqual(dispersed);
 
     // back to the ruins with the real buttons, and a successful second investigation
-    await act(page, "마을에서 쉬기");
-    await act(page, "마을에서 쉬기");
+    await act(page, "마을 어귀에서 쉬며 상처를 돌본다");
+    await act(page, "마을 어귀에서 쉬며 상처를 돌본다");
     await move(page, "폐허");
-    await act(page, "폐허 조사");
+    await act(page, "폐허 안을 살핀다");
     const searched = await getState(page);
     expect(searched.attempts).toEqual(dispersed.attempts); // no attemptKey on this check
     expect(searched.actors.player_1.inventory.item_relic).toBe(2); // the second success did happen
@@ -75,7 +75,7 @@ test.describe("V2 world history (a settled world edge is not undone by a later i
     await move(page, "변경 마을");
 
     // the elder: the news of the dispersal is still told, and the fate cannot be decided again
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await expect(page.locator("#choice")).toBeVisible();
     await expect(choiceButton(page, NEWS)).toHaveCount(1);
     await expect(choiceButton(page, FATE)).toHaveCount(0);

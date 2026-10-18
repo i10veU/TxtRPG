@@ -47,7 +47,7 @@ test.describe("V2 crossroads (Slice 4: the road out)", () => {
     expect((await getState(page)).actors.npc_bandit_leader.alive).toBe(true);
 
     // the elder tells of the region
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await option(page, "마을 바깥의 길에 대해 묻는다").click();
     await expect(page.locator("#log")).toContainText("북쪽으로 가면 강나루가 나온다고 한다.");
 
