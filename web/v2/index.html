@@ -81,6 +81,20 @@
   .where { display: flex; justify-content: space-between; gap: 0.5rem 0.75rem; flex-wrap: wrap; font-size: 0.82rem; color: var(--muted); padding-bottom: 0.75rem; border-bottom: 1px solid var(--rule); }
   #location { font-weight: 600; color: var(--ink); }
   #vitals { font-variant-numeric: tabular-nums; }
+  /* V2-Core-157: the body as two thin bars -- strength of body, strength left for effort */
+  .where .body { display: inline-flex; align-items: center; gap: 0.6rem; }
+  #marks { display: inline-grid; gap: 3px; width: 3.2rem; }
+  #marks i { display: block; height: 4px; border-radius: 2px; background: var(--rule); position: relative; overflow: hidden; }
+  #marks i::after { content: ""; position: absolute; inset: 0; transform-origin: left; background: var(--accent); }
+  #marks i.hp::after { transform: scaleX(var(--hp, 1)); }
+  #marks i.st::after { transform: scaleX(var(--st, 1)); background: var(--news-ink); }
+  #marks[data-low="true"] i.hp::after { background: var(--danger); }
+  .howto { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem; font-size: 0.92rem; color: var(--muted); }
+  .howto b { color: var(--ink); font-weight: 600; }
+  @media (prefers-reduced-motion: no-preference) {
+    #scene p { animation: ink 0.5s ease-out both; animation-delay: calc(var(--i, 0) * 0.35s); }
+    @keyframes ink { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: none; } }
+  }
   #scene { font-family: var(--serif); font-size: 1.18rem; line-height: 1.9; display: grid; gap: 1em; min-width: 0; max-width: 34em; }
   #scene p { margin: 0; text-wrap: pretty; }
   /* what the step taught or gave me */
@@ -187,6 +201,11 @@
 
 <div id="menu">
   <p class="lede">이름 없는 이들이 남긴 일이 세계의 역사가 된다. 이름은 세계가 기억할 때 생긴다.</p>
+  <ul class="howto">
+    <li><b>위의 글</b>이 방금 일어난 일이다. 새로 알게 된 것은 그 아래 카드에 남는다.</li>
+    <li><b>초록 띠</b>가 지금 할 일이다. 이야기가 움직이면 함께 바뀐다.</li>
+    <li><b>번호</b>를 누르거나 숫자 키로 고른다. 선택지 아래에 드는 시간과 해낼 가능성이 보인다.</li>
+  </ul>
   <section class="start">
     <label for="backgroundSelect">내가 누구였는지</label>
     <select id="backgroundSelect"></select>
@@ -207,7 +226,7 @@
 <div id="game" hidden>
   <div class="page">
     <section id="ending" hidden aria-live="polite"></section>
-    <div class="where"><span id="location"></span><span id="vitals"></span></div>
+    <div class="where"><span id="location"></span><span class="body"><span id="marks" aria-hidden="true"><i class="hp"></i><i class="st"></i></span><span id="vitals"></span></span></div>
     <article id="scene" aria-live="polite"></article>
     <ul id="news" hidden aria-live="polite"></ul>
   </div>

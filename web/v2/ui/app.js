@@ -668,12 +668,18 @@ function renderKnowledge(knowledge, pending) {
   });
 }
 
+// V2-Core-157 (D-135): the lines come in one after another -- by CSS alone (--i is a line's place), so every word is on
+// the page from the first moment, for a reader, a screen reader and a test alike; no motion when motion is not wanted
+let sceneShown = null;
 function renderScene() {
   if (!el.scene) return;
+  if (sceneShown === sceneLines) return; // the same scene, not drawn again (its lines would come in twice)
+  sceneShown = sceneLines;
   clearChildren(el.scene);
-  sceneLines.forEach((text) => {
+  sceneLines.forEach((text, i) => {
     const p = document.createElement("p");
     p.textContent = text;
+    p.style.setProperty("--i", String(i));
     el.scene.appendChild(p);
   });
 }
@@ -792,6 +798,14 @@ function renderVitals(actor) {
   el.vitals.textContent = [`체력 ${actor.hp.current}/${actor.hp.max}`, stamina && `기력 ${stamina.current}/${stamina.max}`, `은화 ${actor.money}`]
     .filter(Boolean)
     .join(" · ");
+  // V2-Core-157: the body as marks, a glance before the numbers (Seoul 2033's three hearts); drawn by CSS from data-*
+  const marks = document.getElementById("marks");
+  if (marks) {
+    marks.dataset.hp = String(Math.round((10 * Math.max(0, actor.hp.current)) / Math.max(1, actor.hp.max)));
+    marks.dataset.low = String(actor.hp.current * 10 <= actor.hp.max * 3);
+    marks.style.setProperty("--hp", String(Math.max(0, actor.hp.current) / Math.max(1, actor.hp.max)));
+    marks.style.setProperty("--st", stamina ? String(stamina.current / Math.max(1, stamina.max)) : "0");
+  }
 }
 
 function renderLog() {
