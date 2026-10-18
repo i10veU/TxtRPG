@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>무명의 연대기</title>
-<link rel="icon" href="data:,">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2318232e'/%3E%3Ccircle cx='22.5' cy='9.5' r='3.6' fill='%23eef0e2'/%3E%3Cpath d='M5 21.5q10 6.5 22-1.5l-2.2 3.4q-8.6 5.2-17.6 1.4z' fill='%23eef0e2'/%3E%3Cpath d='M9 15.5l4.5 7.5' stroke='%23eef0e2' stroke-width='1.3' stroke-linecap='round'/%3E%3Cpath d='M4 28h24' stroke='%23eef0e2' stroke-width='1' opacity='.45'/%3E%3C/svg%3E">
 <style>
   /* V2-Core-151 (J3): a reading screen. The scene leads; what I mean to do and what I can do follow; the notebook folds away.
      No external fonts or files: the page runs offline. */
@@ -20,6 +20,12 @@
     --news-bg: #f1efe2;
     --news-rule: #d9d3b4;
     --news-ink: #7a6420;
+    --tint: #e4eae1;
+    --seal: #9a3a2c;
+    --seal-ink: #f6efe6;
+    --cover-bg: #141d24;
+    --cover-ink: #eef0e2;
+    --cover-muted: #a9b4b0;
     --serif: "Nanum Myeongjo", "Noto Serif KR", "Noto Serif CJK KR", "AppleMyungjo", "Batang", serif;
     --sans: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", system-ui, sans-serif;
     --gap: 1rem;
@@ -28,11 +34,13 @@
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
       --bg: #121513; --page: #181c19; --ink: #d8ddd5; --muted: #8e998f; --rule: #2d342f; --accent: #93b293; --accent-soft: #223026; --danger: #d98a8a; --news-bg: #23211a; --news-rule: #4a4430; --news-ink: #c9ad5a;
+      --tint: #1f2823; --seal: #8e3a30; --seal-ink: #f1e7dc; --cover-bg: #0f161b; --cover-ink: #e6e9dc; --cover-muted: #97a29e;
       color-scheme: dark;
     }
   }
   :root[data-theme="dark"] {
     --bg: #121513; --page: #181c19; --ink: #d8ddd5; --muted: #8e998f; --rule: #2d342f; --accent: #93b293; --accent-soft: #223026; --danger: #d98a8a; --news-bg: #23211a; --news-rule: #4a4430; --news-ink: #c9ad5a;
+    --tint: #1f2823; --seal: #8e3a30; --seal-ink: #f1e7dc; --cover-bg: #0f161b; --cover-ink: #e6e9dc; --cover-muted: #97a29e;
     color-scheme: dark;
   }
   * { box-sizing: border-box; }
@@ -47,7 +55,16 @@
     padding-right: max(16px, env(safe-area-inset-right, 0px));
   }
   .wrap { max-width: 40rem; margin-inline: auto; display: grid; gap: var(--gap); }
-  h1 { font-family: var(--serif); font-weight: 700; font-size: 1.5rem; letter-spacing: 0.04em; margin: 0; }
+  h1 { font-family: var(--serif); font-weight: 700; font-size: 1.5rem; letter-spacing: 0.04em; margin: 0; text-wrap: balance; }
+  /* V2-Core-159: a small masthead in the game, its seal; on the menu the cover carries the name */
+  .masthead { display: flex; align-items: center; gap: 0.6rem; }
+  #app[data-view="menu"] > .masthead { display: none; }
+  .brand { font: 700 1.05rem/1 var(--serif); letter-spacing: 0.08em; }
+  .seal {
+    display: inline-flex; flex-direction: column; align-items: center; justify-content: center; flex: none;
+    width: 2rem; height: 2rem; border-radius: 3px; background: var(--seal); color: var(--seal-ink); font: 700 0.74rem/1.02 var(--serif);
+  }
+  .cover .seal { width: 2.7rem; height: 2.7rem; font-size: 1.08rem; }
   h2 { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em; color: var(--muted); margin: 0 0 0.4rem; }
   button {
     font: inherit;
@@ -60,18 +77,33 @@
     min-height: 2.6rem;
   }
   button:hover:not(:disabled) { border-color: var(--accent); }
+  button:active:not(:disabled) { transform: translateY(1px); }
+  @media (prefers-reduced-motion: no-preference) {
+    button { transition: background-color 0.12s ease, border-color 0.12s ease, transform 0.06s ease; }
+  }
   button:focus-visible, select:focus-visible, input:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   button:disabled { opacity: 0.45; cursor: not-allowed; }
   select, input { font: inherit; color: inherit; background: var(--page); border: 1px solid var(--rule); border-radius: 4px; padding: 0.45rem 0.6rem; }
   #error { background: var(--danger); color: var(--page); padding: 0.6rem 0.8rem; border-radius: 4px; margin: 0; }
 
   /* the menu */
-  #menu { display: grid; gap: 1.25rem; padding-top: 1.5rem; }
+  #menu { display: grid; gap: 1.4rem; padding-top: 0.5rem; }
+  #menu > .cover { background: var(--cover-bg); color: var(--cover-ink); }
+  .cover figcaption { display: grid; gap: 0.55rem; padding: 0.4rem clamp(1rem, 5vw, 2rem) 1.4rem; }
+  .cover .title { display: flex; align-items: center; gap: 0.7rem; }
+  .cover h1 { font-size: clamp(1.6rem, 6vw, 2.2rem); color: var(--cover-ink); letter-spacing: 0.08em; }
+  .cover .lede { color: var(--cover-muted); }
+  .menu-part { display: grid; gap: 0.5rem; }
+  .start #newGameBtn { padding: 0.65rem 1.4rem; font-weight: 600; letter-spacing: 0.04em; }
+  #slotEmpty { margin: 0; color: var(--muted); font-size: 0.92rem; }
+  #slotEmpty[hidden] { display: none; }
   .lede { font-family: var(--serif); font-size: 1.05rem; line-height: 1.9; color: var(--muted); margin: 0; }
   .start { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
   #newGameBtn { background: var(--accent); border-color: var(--accent); color: var(--page); }
   #slotList { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.25rem; }
-  #slotList li { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+  #slotList li { display: flex; align-items: center; gap: 0.5rem 0.9rem; flex-wrap: wrap; padding: 0.45rem 0; border-bottom: 1px solid var(--rule); }
+  #slotList li .slot { font-weight: 600; }
+  #slotList li .saved { color: var(--muted); font-size: 0.86rem; font-variant-numeric: tabular-nums; margin-right: auto; }
 
   /* the game: three bands that never blur -- what happened (the page), what I mean to do (the strip), what I can do
      (the list) -- then the notebook. V2-Core-152 */
@@ -79,7 +111,8 @@
   .band-label { font: 600 0.8rem/1 var(--sans); letter-spacing: 0.12em; color: var(--muted); margin: 0; }
   .page { background: var(--page); border: 1px solid var(--rule); border-radius: 6px; padding: 1.25rem clamp(1rem, 5vw, 2.25rem) 1.5rem; display: grid; gap: 1.1rem; }
   .where { display: flex; justify-content: space-between; gap: 0.5rem 0.75rem; flex-wrap: wrap; font-size: 0.82rem; color: var(--muted); padding-bottom: 0.75rem; border-bottom: 1px solid var(--rule); }
-  #location { font-weight: 600; color: var(--ink); }
+  #location { color: var(--muted); }
+  #location .place { font: 700 1rem/1.3 var(--serif); color: var(--ink); letter-spacing: 0.02em; }
   #vitals { font-variant-numeric: tabular-nums; }
   /* V2-Core-157: the body as two thin bars -- strength of body, strength left for effort */
   .where .body { display: inline-flex; align-items: center; gap: 0.6rem; }
@@ -125,6 +158,7 @@
     font: 600 0.8rem/1.5rem var(--sans); color: var(--accent); min-width: 1.5rem; height: 1.5rem; text-align: center;
     border: 1px solid var(--accent); border-radius: 50%; flex: none;
   }
+  #actions button:hover:not(:disabled), #choiceOptions button:hover:not(:disabled) { background: var(--tint); }
   #actions button:disabled, #choiceOptions button:disabled { background: transparent; border-style: dashed; padding-left: 3.1rem; font-size: 0.92rem; display: block; }
   /* V2-Core-153: what the choice asks -- time, cost, the check and its chance, what I have (✓) or lack (필요) */
   #actions button, #choiceOptions button { display: grid; grid-template-columns: auto 1fr; column-gap: 0.7rem; align-items: baseline; }
@@ -207,25 +241,34 @@
 </style>
 </head>
 <body>
-<div class="wrap" id="app">
-<h1>무명의 연대기</h1>
+<div class="wrap" id="app" data-view="menu">
+<header class="masthead"><span class="seal" aria-hidden="true"><span>無</span><span>名</span></span><span class="brand">무명의 연대기</span></header>
 <p id="error" hidden></p>
 
 <div id="menu">
-  <figure class="art cover" aria-hidden="true"><canvas id="coverArt"></canvas></figure>
-  <p class="lede">이름 없는 이들이 남긴 일이 세계의 역사가 된다. 이름은 세계가 기억할 때 생긴다.</p>
+  <figure class="art cover">
+    <canvas id="coverArt" aria-hidden="true"></canvas>
+    <figcaption>
+      <div class="title"><span class="seal" aria-hidden="true"><span>無</span><span>名</span></span><h1>무명의 연대기</h1></div>
+      <p class="lede">이름 없는 이들이 남긴 일이 세계의 역사가 된다. 이름은 세계가 기억할 때 생긴다.</p>
+    </figcaption>
+  </figure>
+  <section class="menu-part">
+  <h2>읽는 법</h2>
   <ul class="howto">
     <li><b>위의 글</b>이 방금 일어난 일이다. 새로 알게 된 것은 그 아래 카드에 남는다.</li>
     <li><b>초록 띠</b>가 지금 할 일이다. 이야기가 움직이면 함께 바뀐다.</li>
     <li><b>번호</b>를 누르거나 숫자 키로 고른다. 선택지 아래에 드는 시간과 해낼 가능성이 보인다.</li>
   </ul>
+  </section>
   <section class="start">
     <label for="backgroundSelect">내가 누구였는지</label>
     <select id="backgroundSelect"></select>
     <button id="newGameBtn">새 게임</button>
   </section>
-  <section>
+  <section class="menu-part">
     <h2>저장된 게임</h2>
+    <p id="slotEmpty">아직 저장한 게임이 없다. 게임 중에 아래의 「저장」으로 남긴다.</p>
     <ul id="slotList"></ul>
   </section>
   <section id="chronicleSection" hidden>
@@ -285,7 +328,7 @@
     </section>
   </div>
   <section id="saveRow">
-    <input id="saveSlotInput" type="text" placeholder="저장 이름" value="slot_1" aria-label="저장 이름">
+    <input id="saveSlotInput" type="text" placeholder="저장 이름" value="기록 1" aria-label="저장 이름">
     <button id="saveBtn">저장</button>
     <button id="backToMenuBtn">메뉴로</button>
   </section>
