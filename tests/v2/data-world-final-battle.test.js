@@ -9,7 +9,8 @@
 //      else his right hand (an actor); the village surrounds him with one it has prepared; won, the band breaks, the
 //      village calls the name, and the raid never comes. Breaking off sends one to the village, the band still there
 //   5. the elder: while the band is in the land, when it will strike and how the village stands; after, what became of
-//      the frontier and what the world remembers
+//      the frontier and what the world remembers -- since V2-Core-150 (D-128, #373) the guard who did not come back too,
+//      once the village has heard it (World Memory: no name, D-71)
 //   6. save/load and determinism
 // node:assert/strict only (§13.1).
 import assert from "node:assert/strict";
@@ -292,6 +293,14 @@ function testTheElder() {
   assert.ok(said(r).includes("txt_elder_after_guild"));
   assert.ok(said(r).includes("txt_elder_after_warned"));
   assert.ok(!said(r).includes("txt_elder_after_defender"));
+  assert.ok(!said(r).includes("txt_elder_after_fallen"), "no guard lost: nothing to remember");
+  // V2-Core-150: a known guard fell before the crossing; the word comes south on its own cadence, and the elder's telling
+  // of that day remembers the one who did not come back -- by no name
+  const mourning = run(withSignals(village, { guards_fallen: 1 }), [DAY, DAY, DAY, DAY]).state; // counted out, then a cadence on
+  assert.equal(mourning.flags?.guard_fall_word_south, true, "the word came south");
+  const mourned = after(mourning);
+  assert.ok(said(mourned).includes("txt_elder_after_fallen"));
+  assert.ok(said(mourned).includes("txt_elder_after_fell"), "and the frontier's fate as before");
   // the name: the defender, told to whoever asks -- a successor too
   const won = rollTo(rollTo(run(chiefAtCrossroads, [P("act_face_band")]).state, [C("opt_final_chief_strike")], "great", "final-a").state, [C("opt_final_chief_strike")], "great", "final-b").state;
   const named = after(run(won, [M("loc_village")]).state);

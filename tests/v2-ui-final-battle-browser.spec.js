@@ -6,6 +6,8 @@
 //      in the story panel; breaking off sends one to the village
 //   2. the elder says when it will strike and that the village has too little; three days on, the elder tells how the
 //      frontier fell -- chapter 5; save -> reload -> load keeps the story panel and the state
+//   3. (V2-Core-150, D-128) a world whose guild lost a guard it knew (staged through the real storage adapter): the word
+//      comes south on its own cadence, and the elder's telling of that day remembers the one who did not come back
 const { test, expect } = require("@playwright/test");
 
 const ENTRY_URL = "http://127.0.0.1:4173/v2/index.html";
@@ -89,6 +91,44 @@ test.describe("V2 the main thread, chapters 4 and 5 (M6): the band crosses; the 
     await loadSlot(page, "slot_ch5_saved");
     expect(await getState(page)).toEqual(told);
     expect(await story(page).allTextContents()).toEqual(lines);
+    expect(pageErrors).toEqual([]);
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("a guard the guild knew did not come back: the word comes south, and the elder's telling remembers it", async ({ page }) => {
+    test.setTimeout(120000);
+    const { pageErrors, consoleErrors } = await gotoApp(page);
+    await page.evaluate(() => window.__v2App.newGame("history-41"));
+    await dispatch(page, TO_DISPERSAL);
+    await page.evaluate(() => {
+      for (let i = 0; i < 60 && !window.__v2App.getState().flags.band_crossed; i += 1) window.__v2App.dispatch({ type: "wait", minutes: 1440 });
+    });
+    await page.evaluate(async () => {
+      const idb = await import("/v2/storage/idb.js");
+      const s = structuredClone(window.__v2App.getState());
+      s.actors[s.player.actorId].locationId = "loc_village";
+      s.signals = { ...s.signals, guards_fallen: 1 }; // the world's memory: a guard it knew fell on the road
+      await idb.save("slot_mourning", s, { savedAt: 1 });
+    });
+    await loadSlot(page, "slot_mourning");
+    await act(page, "원로와 대화");
+    await expect(option(page, "그날의 일을 듣는다")).toHaveCount(0);
+    await option(page, "안부만 묻기").click();
+    for (let i = 0; i < 6 && !(await getState(page)).flags.guard_fall_word_south; i += 1) await dispatch(page, [{ type: "wait", minutes: 1440 }]);
+    const heard = await getState(page);
+    expect(heard.flags.guard_fall_word_south).toBe(true);
+    expect(heard.signals.frontier_fate).toBe(4);
+    await act(page, "원로와 대화");
+    await option(page, "그날의 일을 듣는다").click();
+    await expect(page.locator("#log")).toContainText("그날 밤 마을이 무너졌네");
+    await expect(page.locator("#log")).toContainText("그 길에서 돌아오지 못한 호위도 있었지");
+
+    const told = await getState(page);
+    await page.locator("#saveSlotInput").fill("slot_mourned");
+    await page.locator("#saveBtn").click();
+    await expect(page.locator("#log")).toContainText("slot_mourned");
+    await loadSlot(page, "slot_mourned");
+    expect(await getState(page)).toEqual(told);
     expect(pageErrors).toEqual([]);
     expect(consoleErrors).toEqual([]);
   });
