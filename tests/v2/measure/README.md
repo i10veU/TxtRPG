@@ -149,6 +149,7 @@ tests/v2/measure/campaign.sh trade-parity <base-commit> /tmp/c3    # 교역 216�
 | `prepare2`·`lord2` | M8 1b단계: 같은 일에 더해, 무리가 강 건너에 있는 동안 6일마다 은화를 들고 다시 남쪽에 간다 |
 | `prepare3`·`lord3` | M8 1c단계: 조합에 이끄는 자를 알리고, 선물 하나 값이 모이면 바로, 3일마다 다시 간다. 그동안 장비를 사지 않는다 |
 | `fight2`·`hero2` | M8 2단계: 세계의 건넘 깃발을 읽지 않는다. HP가 가득할 때 6일마다 무리를 지켜보고, 곧 건넌다는 말을 들으면 갈림길에서 기다렸다가 싸운다. 후계자는 길을 다시 묻는다. hero2는 HP가 5를 넘을 때만 식량에 불을 놓는다 |
+| `fight3`·`hero3` | M8 4단계(§15, #378): fight2·hero2에 빈 진터의 발자국을 더한다. 지켜볼 수 없는 진터는 살피고, 곧 건넌다는 말이나 건넜다는 앎이 있으면 갈림길에서 기다린다. 나머지는 같다 |
 
 ```
 node tests/v2/measure/story-careers.mjs 0 10 4 120 idle,prepare,lord,fight,hero [dead] > rows.json   # dead: 두목이 죽은 세계(연출)
@@ -162,7 +163,7 @@ CANDIDATE=m8c9-band-every-9-days node tests/v2/measure/story-careers.mjs 0 10 4 
 T1_POLICY=prepare3 T2_POLICY=lord3 python3 tests/v2/measure/m8-judge.py a.json d.json
 ```
 
-2단계(§10)는 `T4_POLICY=fight2 T5_POLICY=hero2 T8=1`을 더한다. T8은 fight2가 나선 결전 가운데 이름으로 끝난 비율이다(`fightRaidDay`가 있는 행).
+2단계(§10)는 `T4_POLICY=fight2 T5_POLICY=hero2 T8=1`을 더한다. 4단계(§15)는 `T4_POLICY=fight3 T5_POLICY=hero3 T8=1`이다. T8은 fight2가 나선 결전 가운데 이름으로 끝난 비율이다(`fightRaidDay`가 있는 행).
 
 `playCareer(정책, 시드, 주사위, 날)`(내보냄)은 한 경력의 행과 마지막 상태를 돌려준다. `tests/v2/long-career-save.test.js`가 긴 판의 저장을 이것으로 확인한다(V2-Core-147).
 
