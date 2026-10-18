@@ -698,12 +698,13 @@ const darkTheme = () => {
   return chosen === "dark" || (chosen !== "light" && Boolean(globalThis.matchMedia?.("(prefers-color-scheme: dark)").matches));
 };
 const drawn = new WeakMap();
-function picture(canvas, scene) {
+// `ground` is the colour of what the picture sits on, which its foot dissolves into
+function picture(canvas, scene, ground = "--page") {
   if (!canvas) return;
   const dark = darkTheme();
   const key = `${JSON.stringify(scene)}|${dark}|${canvas.clientWidth}`;
   if (drawn.get(canvas) === key) return;
-  const paper = getComputedStyle(document.documentElement).getPropertyValue("--page").trim() || "#f4f5f1";
+  const paper = getComputedStyle(document.documentElement).getPropertyValue(ground).trim() || "#f4f5f1";
   if (!paint(canvas, scene, { dark, paper })) return;
   const changed = canvas.dataset.scene !== scene.key || canvas.dataset.band !== scene.band;
   drawn.set(canvas, key);
@@ -722,8 +723,8 @@ endingArt.className = "ending-art";
 endingArt.setAttribute("aria-hidden", "true");
 function renderPictures() {
   if (state) picture(el.sceneArt, sceneOf(state, worldData));
-  else picture(el.coverArt, COVER);
-  if (endingCard) picture(endingArt, endingScene(endingCard.end));
+  else picture(el.coverArt, COVER, "--cover-bg");
+  if (endingCard) picture(endingArt, endingScene(endingCard.end), "--accent-soft");
 }
 
 function renderEnding() {
@@ -862,6 +863,7 @@ function renderLog() {
 }
 
 function render() {
+  document.getElementById("app")?.setAttribute("data-view", state ? "game" : "menu");
   if (!state) {
     el.menu.hidden = false;
     el.game.hidden = true;
@@ -877,7 +879,11 @@ function render() {
     return;
   }
 
-  el.location.textContent = `${locationName(playerView.actor.locationId)} · ${formatTime(state.time.minute)}`;
+  clearChildren(el.location);
+  const place = document.createElement("span");
+  place.className = "place";
+  place.textContent = locationName(playerView.actor.locationId);
+  el.location.append(place, ` · ${formatTime(state.time.minute)}`);
   renderStatus(playerView.actor);
   renderVitals(playerView.actor);
 
@@ -911,6 +917,12 @@ function render() {
   }
 }
 
+// V2-Core-159: when a game was saved, as a person says it ("10월 18일 오후 3:20")
+function savedWhen(savedAt) {
+  const at = new Date(savedAt);
+  if (!Number.isFinite(at.getTime())) return "";
+  return at.toLocaleString("ko-KR", { month: "long", day: "numeric", hour: "numeric", minute: "2-digit" });
+}
 async function refreshSlotList() {
   const request = ++slotListVersion;
   const intent = intentVersion;
@@ -925,12 +937,17 @@ async function refreshSlotList() {
   }
   if (request !== slotListVersion || intent !== intentVersion) return;
   clearChildren(el.slotList);
+  const empty = document.getElementById("slotEmpty");
+  if (empty) empty.hidden = slots.length > 0;
   slots.forEach((meta) => {
     const li = document.createElement("li");
-    const label = document.createElement("span");
-    label.textContent = `${meta.slot} (${new Date(meta.savedAt).toLocaleString()})`;
-    li.appendChild(label);
-    li.appendChild(makeButton("불러오기", () => loadGame(meta.slot)));
+    const name = document.createElement("span");
+    name.className = "slot";
+    name.textContent = meta.slot;
+    const when = document.createElement("span");
+    when.className = "saved";
+    when.textContent = savedWhen(meta.savedAt);
+    li.append(name, when, makeButton("불러오기", () => loadGame(meta.slot)));
     el.slotList.appendChild(li);
   });
 }
