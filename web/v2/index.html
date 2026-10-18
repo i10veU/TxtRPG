@@ -17,6 +17,9 @@
     --accent: #45604a;
     --accent-soft: #dfe7dd;
     --danger: #8a2f2f;
+    --news-bg: #f1efe2;
+    --news-rule: #d9d3b4;
+    --news-ink: #7a6420;
     --serif: "Nanum Myeongjo", "Noto Serif KR", "Noto Serif CJK KR", "AppleMyungjo", "Batang", serif;
     --sans: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", system-ui, sans-serif;
     --gap: 1rem;
@@ -24,12 +27,12 @@
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #121513; --page: #181c19; --ink: #d8ddd5; --muted: #8e998f; --rule: #2d342f; --accent: #93b293; --accent-soft: #223026; --danger: #d98a8a;
+      --bg: #121513; --page: #181c19; --ink: #d8ddd5; --muted: #8e998f; --rule: #2d342f; --accent: #93b293; --accent-soft: #223026; --danger: #d98a8a; --news-bg: #23211a; --news-rule: #4a4430; --news-ink: #c9ad5a;
       color-scheme: dark;
     }
   }
   :root[data-theme="dark"] {
-    --bg: #121513; --page: #181c19; --ink: #d8ddd5; --muted: #8e998f; --rule: #2d342f; --accent: #93b293; --accent-soft: #223026; --danger: #d98a8a;
+    --bg: #121513; --page: #181c19; --ink: #d8ddd5; --muted: #8e998f; --rule: #2d342f; --accent: #93b293; --accent-soft: #223026; --danger: #d98a8a; --news-bg: #23211a; --news-rule: #4a4430; --news-ink: #c9ad5a;
     color-scheme: dark;
   }
   * { box-sizing: border-box; }
@@ -70,32 +73,65 @@
   #slotList { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.25rem; }
   #slotList li { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
 
-  /* the game */
-  #game:not([hidden]) { display: grid; gap: 0.75rem; }
-  .screen { background: var(--page); border: 1px solid var(--rule); border-radius: 4px; padding: 1.5rem clamp(1rem, 5vw, 2.5rem) 1.25rem; display: grid; gap: 1.25rem; }
-  .where { display: flex; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap; font-size: 0.8rem; letter-spacing: 0.06em; color: var(--muted); }
-  #location { font-weight: 500; }
+  /* the game: three bands that never blur -- what happened (the page), what I mean to do (the strip), what I can do
+     (the list) -- then the notebook. V2-Core-152 */
+  #game:not([hidden]) { display: grid; gap: 0.9rem; }
+  .band-label { font: 600 0.8rem/1 var(--sans); letter-spacing: 0.12em; color: var(--muted); margin: 0; }
+  .page { background: var(--page); border: 1px solid var(--rule); border-radius: 6px; padding: 1.25rem clamp(1rem, 5vw, 2.25rem) 1.5rem; display: grid; gap: 1.1rem; }
+  .where { display: flex; justify-content: space-between; gap: 0.5rem 0.75rem; flex-wrap: wrap; font-size: 0.82rem; color: var(--muted); padding-bottom: 0.75rem; border-bottom: 1px solid var(--rule); }
+  #location { font-weight: 600; color: var(--ink); }
   #vitals { font-variant-numeric: tabular-nums; }
-  #scene { font-family: var(--serif); font-size: 1.12rem; line-height: 1.95; display: grid; gap: 0.85em; min-width: 0; }
+  #scene { font-family: var(--serif); font-size: 1.18rem; line-height: 1.9; display: grid; gap: 1em; min-width: 0; max-width: 34em; }
   #scene p { margin: 0; text-wrap: pretty; }
-  #scene p.aside { font-family: var(--sans); font-size: 0.9rem; color: var(--muted); }
-  #goal { border-top: 1px solid var(--rule); padding-top: 0.9rem; display: grid; gap: 0.2rem; }
-  #goal h2 { margin: 0; }
-  #goalText { margin: 0; font-family: var(--serif); line-height: 1.75; display: grid; gap: 0.15rem; }
-  #goalText span.side { color: var(--muted); }
-  .doing { display: grid; gap: 0.5rem; }
-  #actions, #choiceOptions { display: grid; gap: 0.4rem; }
-  #actions button, #choiceOptions button { text-align: left; font-family: var(--serif); font-size: 1rem; line-height: 1.6; }
-  #choice[hidden], #menu[hidden], #game[hidden], #storySection[hidden] { display: none; }
-  .roads { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
+  /* what the step taught or gave me */
+  #news { list-style: none; margin: 0; padding: 0.75rem 0.9rem; display: grid; gap: 0.45rem; background: var(--news-bg); border: 1px solid var(--news-rule); border-radius: 6px; }
+  #news li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.2rem 0.6rem; }
+  #news .tag { font: 600 0.72rem/1.6 var(--sans); letter-spacing: 0.06em; color: var(--page); background: var(--news-ink); border-radius: 3px; padding: 0 0.45rem; }
+  #news li[data-kind="spent"] .tag, #news li[data-kind="hurt"] .tag { background: var(--muted); }
+  #news li[data-kind="hurt"] .tag { background: var(--danger); }
+  #news .what { font-family: var(--serif); font-size: 1.02rem; font-weight: 700; }
+  #news .note { font-size: 0.82rem; color: var(--muted); }
+  /* what I mean to do */
+  #goal { background: var(--accent-soft); border-radius: 6px; padding: 0.8rem 1rem; display: grid; gap: 0.35rem; }
+  #goalText { margin: 0; font-family: var(--serif); font-size: 1.05rem; line-height: 1.7; display: grid; gap: 0.25rem; }
+  #goalText span[data-track="main"] { font-weight: 700; }
+  #goalText span.side { color: var(--muted); font-size: 0.95rem; }
+  #goal[data-changed="true"] .band-label::after { content: " · 새 목표"; color: var(--accent); font-weight: 700; }
+  /* what I can do */
+  .play { display: grid; gap: 1.1rem; }
+  .doing { display: grid; gap: 0.6rem; }
+  #doingLabel[hidden] { display: none; }
+  #actions, #choiceOptions { display: grid; gap: 0.45rem; counter-reset: pick; }
+  #actions button, #choiceOptions button {
+    text-align: left; font-family: var(--serif); font-size: 1.02rem; line-height: 1.5;
+    background: var(--page); padding: 0.7rem 0.9rem; display: flex; gap: 0.7rem; align-items: baseline;
+  }
+  #actions button:not(:disabled)::before, #choiceOptions button:not(:disabled)::before {
+    counter-increment: pick; content: counter(pick);
+    font: 600 0.8rem/1.5rem var(--sans); color: var(--accent); min-width: 1.5rem; height: 1.5rem; text-align: center;
+    border: 1px solid var(--accent); border-radius: 50%; flex: none;
+  }
+  #actions button:disabled { background: transparent; border-style: dashed; padding-left: 3.1rem; font-size: 0.92rem; }
+  #choice { display: grid; gap: 0.6rem; }
+  #choice[hidden], #menu[hidden], #game[hidden], #storySection[hidden], #news[hidden] { display: none; }
+  .roads { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; padding-top: 0.2rem; }
   #moves { display: contents; }
-  #moves button, .roads > button { font-size: 0.9rem; }
+  #moves button, .roads > button { font-size: 0.9rem; background: transparent; }
+  #moves button::before { content: "→ "; color: var(--accent); }
+  @media (prefers-reduced-motion: no-preference) {
+    #news:not([hidden]) { animation: rise 0.35s ease-out; }
+    #goal[data-changed="true"] { animation: glow 1.2s ease-out; }
+    @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+    @keyframes glow { from { box-shadow: 0 0 0 3px var(--accent); } to { box-shadow: 0 0 0 0 transparent; } }
+  }
 
   /* the notebook */
-  #notebook { border-top: 1px solid var(--rule); padding-top: 0.75rem; }
+  #notebook { border-top: 1px solid var(--rule); padding-top: 0.6rem; }
   #notebookBtn { border: none; padding: 0.25rem 0; min-height: 0; font-size: 0.9rem; color: var(--muted); letter-spacing: 0.04em; }
   #notebookBtn::before { content: "▸ "; }
   #notebookBtn[aria-expanded="true"]::before { content: "▾ "; }
+  #notebookBtn::after { content: " · " attr(data-count); }
+  #knowledge li[data-new] { font-weight: 700; color: var(--accent); }
   #notes[hidden] { display: none; }
   .notes { display: grid; gap: 1.1rem; padding-top: 0.9rem; font-size: 0.9rem; }
   #status p { margin: 0.1rem 0; }
@@ -108,7 +144,7 @@
   #saveRow { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
   #saveSlotInput { flex: 1; min-width: 0; }
   @media (max-width: 420px) {
-    #scene { font-size: 1.05rem; }
+    #scene { font-size: 1.08rem; }
   }
 </style>
 </head>
@@ -131,17 +167,22 @@
 </div>
 
 <div id="game" hidden>
-  <div class="screen">
+  <div class="page">
     <div class="where"><span id="location"></span><span id="vitals"></span></div>
     <article id="scene" aria-live="polite"></article>
-    <section id="goal">
-      <h2>지금 할 일</h2>
-      <p id="goalText"></p>
-    </section>
+    <ul id="news" hidden aria-live="polite"></ul>
+  </div>
+  <section id="goal" data-changed="false">
+    <h2 class="band-label">지금 할 일</h2>
+    <p id="goalText"></p>
+  </section>
+  <div class="play">
     <section id="choice" hidden>
+      <h2 class="band-label" id="choiceTitle">무엇이라고 할까</h2>
       <div id="choiceOptions"></div>
     </section>
-    <section class="doing">
+    <section class="doing" id="doing">
+      <h2 class="band-label" id="doingLabel">무엇을 할까</h2>
       <div id="actions"></div>
       <div class="roads">
         <div id="moves"></div>
@@ -150,7 +191,7 @@
       </div>
     </section>
     <section id="notebook">
-      <button id="notebookBtn" type="button" aria-expanded="false" aria-controls="notes">수첩 펼치기 · 몸 상태, 이야기, 아는 것, 기록</button>
+      <button id="notebookBtn" type="button" aria-expanded="false" aria-controls="notes" data-count="아는 것 0">수첩 펼치기</button>
       <div class="notes" id="notes" hidden>
         <section>
           <h2>몸 상태와 가진 것</h2>
