@@ -68,9 +68,9 @@ test.describe("V2 crossroads (Slice 4: the road out)", () => {
     expect(await getState(page)).toEqual(saved);
 
     // the milestone, and the leader's trail
-    await act(page, "이정표 읽기");
+    await act(page, "닳은 이정표의 글씨를 읽는다");
     await expect(page.locator("#log")).toContainText("강을 건너 왕도로 이어지는 길이라고 새겨져 있다.");
-    await act(page, "갈림길 살피기");
+    await act(page, "갈림길 주변의 흔적을 살핀다");
     await expect(page.locator("#log")).toContainText("발자국은 강나루 쪽으로 이어진다.");
     const end = await getState(page);
     expect([end.facts.fact_road_royal.value, end.facts.fact_leader_trail.value]).toEqual(["beyond_ford", "toward_ford"]);

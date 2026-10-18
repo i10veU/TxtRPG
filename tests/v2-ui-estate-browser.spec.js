@@ -87,7 +87,7 @@ test.describe("V2 the guild holds a fallen guard's share (succession legacy 2)",
     expect(doomed.signals.estate_held ?? 0).toBe(0);
 
     // the escort ends them; the guild holds a share of the purse, bounded
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await option(page, "상단 호위를 맡는다").click();
     await expect(option(page, "새로 시작한다 (떠돌이)")).toBeVisible();
     const fell = await getState(page);
@@ -104,18 +104,18 @@ test.describe("V2 the guild holds a fallen guard's share (succession legacy 2)",
     expect(next.signals.estate_held).toBe(12);
 
     // the clerk says the guild holds a share; the claim is a real button
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await option(page, "일거리를 묻는다").click();
     await expect(page.locator("#log")).toContainText("은화 일부를 조합이 맡아 두었고, 이어 가는 이가 찾아오면 내준다고 한다.");
     const start = await getState(page);
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await option(page, "조합이 맡아 둔 몫을 찾아간다").click();
     await expect(page.locator("#log")).toContainText("서기는 맡아 둔 은화를 세어 건넨다.");
     const end = await getState(page);
     expect(end.actors.player_2.money).toBe(start.actors.player_2.money + 12);
     expect(end.signals.estate_held).toBe(0);
     expect(end.relations["npc_guild_clerk:player_2"]).toBeUndefined();
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await expect(option(page, "조합이 맡아 둔 몫을 찾아간다")).toHaveCount(0);
 
     await page.locator("#saveSlotInput").fill("slot_estate");
@@ -142,7 +142,7 @@ test.describe("V2 the guild holds a fallen guard's share (succession legacy 2)",
     await expect(page.locator("#game")).toBeVisible();
     await page.evaluate((list) => list.forEach((a) => window.__v2App.dispatch(a)), TO_TOWN);
     await stageDoomed(page, { money: 100, score: 5, slot: "slot_unknown" });
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await option(page, "상단 호위를 맡는다").click();
     await expect(option(page, "새로 시작한다 (떠돌이)")).toBeVisible();
     const fell = await getState(page);
@@ -150,7 +150,7 @@ test.describe("V2 the guild holds a fallen guard's share (succession legacy 2)",
     expect(fell.signals.guards_fallen ?? 0).toBe(0);
     await option(page, "새로 시작한다 (떠돌이)").click();
     await page.evaluate((list) => list.forEach((a) => window.__v2App.dispatch(a)), SUCCESSOR_WALK);
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await expect(option(page, "조합이 맡아 둔 몫을 찾아간다")).toHaveCount(0);
     await option(page, "일거리를 묻는다").click();
     await expect(page.locator("#log")).not.toContainText("은화 일부를 조합이 맡아 두었고");

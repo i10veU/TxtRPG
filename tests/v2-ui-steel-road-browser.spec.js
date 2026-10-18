@@ -50,7 +50,7 @@ test.describe("V2 steel for the road (RPG Depth 4)", () => {
     await page.evaluate((list) => list.forEach((a) => window.__v2App.dispatch(a)), TO_TOWN);
 
     // the poor guard's merchant: nothing in steel
-    await act(page, "성읍의 상인과 대화");
+    await act(page, "성읍의 상인에게 말을 건다");
     await expect(option(page, "강철 검을 산다")).toHaveCount(0);
     await expect(option(page, "사슬 갑옷을 산다")).toHaveCount(0);
     await option(page, "강 남쪽 물건에 대해 묻는다").click();
@@ -66,12 +66,12 @@ test.describe("V2 steel for the road (RPG Depth 4)", () => {
     });
     await loadSlot(page, "slot_rich");
 
-    await act(page, "성읍의 상인과 대화");
+    await act(page, "성읍의 상인에게 말을 건다");
     await expect(option(page, "강철 검을 산다 (은화 24)")).toBeVisible();
     await expect(option(page, "사슬 갑옷을 산다 (은화 48)")).toBeVisible();
     await option(page, "강철 검을 산다 (은화 24)").click();
     await expect(page.locator("#log")).toContainText("값은 은화 스물네 닢이라고 한다.");
-    await act(page, "성읍의 상인과 대화");
+    await act(page, "성읍의 상인에게 말을 건다");
     await expect(option(page, "강철 검을 산다")).toHaveCount(0);
     await option(page, "사슬 갑옷을 산다 (은화 48)").click();
     await expect(page.locator("#log")).toContainText("은화 마흔여덟 닢을 부른다.");
@@ -100,7 +100,7 @@ test.describe("V2 steel for the road (RPG Depth 4)", () => {
       while (!wanted(window.__v2App.getState()) && n < 96) { window.__v2App.dispatch(HOUR); n += 1; }
     }, { HOUR });
     const before = await getState(page);
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await option(page, "상단 호위를 맡는다").click();
     await expect(page.locator("#location")).toContainText("강 건너 길목");
     const after = await getState(page);

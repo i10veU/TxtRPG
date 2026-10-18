@@ -863,7 +863,10 @@ export const worldData = {
       { track: "well", textId: "goal_well_cause", when: { op: "and", of: [{ op: "rumor", rumor: "rum_spring_cause" }, { op: "not", of: { op: "case", case: "case_fouled_well", stage: "resolved" } }] } },
       { track: "well", textId: "goal_well_source", when: { op: "and", of: [{ op: "rumor", rumor: "rum_well_source" }, { op: "not", of: { op: "case", case: "case_fouled_well", stage: "resolved" } }] } },
       { track: "well", textId: "goal_well_sick", when: { op: "and", of: [{ op: "not", of: { op: "rumor", rumor: "rum_well_fate" } }, { op: "not", of: { op: "rumor", rumor: "rum_well_legend" } }, { op: "not", of: { op: "case", case: "case_fouled_well", stage: "resolved" } }] } }
-    ]
+    ],
+    // V2-Core-154 (D-132): how each person greets me when I come to talk, by what is between us and the hour -- the
+    // first that holds. Read by the UI only
+    greetings: {"choice_elder_dialogue":[{"when":{"op":"rumor","rumor":"rum_ending_fell"},"textId":"greet_elder_fell"},{"when":{"op":"or","of":[{"op":"flag","key":"village_honored"},{"op":"relation","from":"org_village","to":"self","tag":"trusted"}]},"textId":"greet_elder_honored"},{"when":{"op":"and","of":[{"op":"day","hourFrom":22,"hourTo":4},{"op":"relation","from":"npc_elder","to":"self","tag":"confidant"}]},"textId":"greet_elder_night_confidant"},{"when":{"op":"day","hourFrom":22,"hourTo":4},"textId":"greet_elder_night"},{"when":{"op":"relation","from":"npc_elder","to":"self","tag":"confidant"},"textId":"greet_elder_confidant"},{"when":{"op":"relation","from":"npc_elder","to":"self","min":1},"textId":"greet_elder_known"},{"when":{"op":"always"},"textId":"greet_elder_stranger"}],"choice_herbalist_dialogue":[{"when":{"op":"relation","from":"org_village","to":"self","tag":"trusted"},"textId":"greet_herbalist_trusted"},{"when":{"op":"relation","from":"npc_herbalist","to":"self","tag":"purifier"},"textId":"greet_herbalist_purifier"},{"when":{"op":"day","hourFrom":22,"hourTo":4},"textId":"greet_herbalist_night"},{"when":{"op":"relation","from":"npc_herbalist","to":"self","tag":"consulted"},"textId":"greet_herbalist_known"},{"when":{"op":"always"},"textId":"greet_herbalist_stranger"}],"choice_miller_dialogue":[{"when":{"op":"relation","from":"npc_miller","to":"self","tag":"welcomed"},"textId":"greet_miller_welcomed"},{"when":{"op":"always"},"textId":"greet_miller_stranger"}],"choice_ferryman_dialogue":[{"when":{"op":"relation","from":"npc_ferryman","to":"self","tag":"note_misused"},"textId":"greet_ferryman_misused"},{"when":{"op":"flag","key":"ferryman_watches"},"textId":"greet_ferryman_watching"},{"when":{"op":"relation","from":"npc_ferryman","to":"self","min":1},"textId":"greet_ferryman_known"},{"when":{"op":"always"},"textId":"greet_ferryman_stranger"}],"choice_town_merchant_dialogue":[{"when":{"op":"relation","from":"npc_town_merchant","to":"self","tag":"carrying"},"textId":"greet_town_merchant_carrying"},{"when":{"op":"relation","from":"npc_town_merchant","to":"self","min":10},"textId":"greet_town_merchant_supplier"},{"when":{"op":"always"},"textId":"greet_town_merchant_stranger"}],"choice_guild_clerk_dialogue":[{"when":{"op":"relation","from":"npc_guild_clerk","to":"self","tag":"renowned"},"textId":"greet_guild_clerk_renowned"},{"when":{"op":"relation","from":"npc_guild_clerk","to":"self","min":10},"textId":"greet_guild_clerk_known"},{"when":{"op":"always"},"textId":"greet_guild_clerk_stranger"}]}
   },
 
   characterTemplates: {
@@ -1432,7 +1435,7 @@ export const worldData = {
     // V2-Core-72 (#180): the milestone -- INT (the worn letters) with the investigation skill. A success
     // records the region's roads (the world's truth) and the character reads them first-hand
     act_read_milestone: {
-      name: "이정표 읽기",
+      name: "닳은 이정표의 글씨를 읽는다",
       requires: { op: "location", at: "loc_crossroads" },
       check: { stat: "int", skill: "investigation", tags: ["investigation"], difficulty: "normal" },
       minutes: 20,
@@ -1453,7 +1456,7 @@ export const worldData = {
     // V2-Core-72 (#180): the crossroads remember who used the road -- PER with the investigation skill;
     // what is found depends on whether the bandit leader lives
     act_search_crossroads: {
-      name: "갈림길 살피기",
+      name: "갈림길 주변의 흔적을 살핀다",
       requires: { op: "location", at: "loc_crossroads" },
       check: { stat: "per", skill: "investigation", tags: ["investigation"], difficulty: "normal" },
       minutes: 30,
@@ -1480,7 +1483,7 @@ export const worldData = {
     },
     // V2-Core-74 (#180): the ferryman (a dialogue NPC)
     act_talk_ferryman: {
-      name: "뱃사공과 대화",
+      name: "뱃사공에게 말을 건다",
       requires: { op: "location", at: "loc_river_ford" },
       effects: [{ op: "choice", choice: "choice_ferryman_dialogue", sourceId: "act_talk_ferryman" }]
     },
@@ -1631,13 +1634,13 @@ export const worldData = {
     },
     // V2-Core-77 (#189): the castle town's merchant (a dialogue NPC, no actor: D-92)
     act_talk_town_merchant: {
-      name: "성읍의 상인과 대화",
+      name: "성읍의 상인에게 말을 건다",
       requires: { op: "location", at: "loc_castle_town" },
       effects: [{ op: "choice", choice: "choice_town_merchant_dialogue", sourceId: "act_talk_town_merchant" }]
     },
     // V2-Core-78 (#189): the merchants' guild clerk (a dialogue NPC, no actor: D-92)
     act_talk_guild_clerk: {
-      name: "상단 조합의 서기와 대화",
+      name: "상단 조합의 서기를 찾아간다",
       requires: { op: "location", at: "loc_castle_town" },
       effects: [{ op: "choice", choice: "choice_guild_clerk_dialogue", sourceId: "act_talk_guild_clerk" }]
     },
@@ -1727,13 +1730,13 @@ export const worldData = {
     },
     // V2-Core-73 (#180): the miller (a dialogue NPC, like the elder and the herbalist)
     act_talk_miller: {
-      name: "방앗간 주인과 대화",
+      name: "방앗간 주인에게 말을 건다",
       requires: { op: "location", at: "loc_mill_hamlet" },
       effects: [{ op: "choice", choice: "choice_miller_dialogue", sourceId: "act_talk_miller" }]
     },
     // V2-Core-73 (#180): the hamlet's bread, once the two settlements trade
     act_buy_mill_bread: {
-      name: "물레방아 빵 구입 (은화 1)",
+      name: "물레방아 빵을 산다 (은화 1)",
       requires: { op: "and", of: [{ op: "location", at: "loc_market" }, HAMLET_TRADES, { op: "money", min: 1 }] },
       effects: [{ op: "money", add: -1 }, { op: "item", item: "item_mill_bread", add: 1 }, say("txt_buy_mill_bread")]
     },
@@ -3957,6 +3960,30 @@ export const worldData = {
     goal_after: "변경의 일은 끝났다. 이제 무엇을 할지는 내가 정한다.",
     goal_well_sick: "마을 사람들이 배앓이를 한다. 장터의 약초꾼이라면 까닭을 알지도 모른다.",
     goal_well_source: "우물물은 숲속 샘에서 온다. 샘에 가 본다.",
-    goal_well_cause: "샘 위쪽의 사체가 물을 흐린다. 치우고 정화제를 부어야 한다. 정화제는 약초꾼이 정화초로 달여 준다."
+    goal_well_cause: "샘 위쪽의 사체가 물을 흐린다. 치우고 정화제를 부어야 한다. 정화제는 약초꾼이 정화초로 달여 준다.",
+    greet_elder_fell: "무너진 담장 곁에 원로가 앉아 있다. 나를 보고도 한참 아무 말이 없다. 그러다 겨우 손짓으로 곁을 내준다.",
+    greet_elder_honored: "원로가 지팡이를 내려놓고 먼저 손을 내민다. \"어서 오게. 이 마을에서 자네를 모르는 이는 이제 없네.\"",
+    greet_elder_night_confidant: "늦은 밤인데도 원로는 문을 열어 준다. \"자네라면 깨워도 되네. 들어오게.\"",
+    greet_elder_night: "늦은 밤이다. 한참 문을 두드리자 원로가 등잔을 들고 나온다. 잠이 덜 깬 눈으로 나를 살핀다. \"이 밤에 무슨 일인가.\"",
+    greet_elder_confidant: "원로가 주위를 한 번 살피고 문을 닫는다. 이제 그는 나에게만 하는 이야기가 있다.",
+    greet_elder_known: "원로가 고개를 끄덕여 나를 들인다. 아직 웃지는 않지만, 경계하는 눈빛은 아니다.",
+    greet_elder_stranger: "흰머리의 노인이 문간에서 나를 막아선다. 원로다. 낯선 행색을 위아래로 훑고서야 입을 연다. \"어디서 온 누구인지는 묻지 않겠네. 이 마을에선 하는 일로 사람을 보지.\"",
+    greet_herbalist_trusted: "약초꾼이 좌판 너머에서 손을 흔든다. \"마을을 살린 분이 오셨네! 오늘은 뭐가 필요해요?\"",
+    greet_herbalist_purifier: "약초꾼이 말린 정화초 다발을 들어 보인다. \"샘이 맑아진 뒤로 이게 다시 나요. 다 손님 덕이에요.\"",
+    greet_herbalist_night: "등잔 아래서 약초꾼이 하품을 참으며 말린 풀을 고른다. \"이 시간에 오는 사람은 아픈 사람뿐인데. 어디 아파요?\"",
+    greet_herbalist_known: "약초꾼이 나를 알아보고 웃는다. \"또 왔네요. 배앓이 이야기는 좀 알아봤어요?\"",
+    greet_herbalist_stranger: "쑥 냄새가 짙은 노점이다. 소매를 걷어붙인 사람이 약초를 다듬다 고개를 든다. 약초꾼이다. \"처음 보는 얼굴이네. 요즘 배앓이 약은 찾는 사람이 많아서요.\"",
+    greet_miller_welcomed: "방앗간 주인이 밀가루 묻은 손을 앞치마에 닦으며 달려 나온다. \"변경 마을 친구 왔구려! 오늘따라 물레가 잘 돈다오.\"",
+    greet_miller_stranger: "물레 소리가 귀를 채운다. 온몸에 밀가루를 뒤집어쓴 사람이 나를 보고 눈을 끔뻑인다. 방앗간 주인이다. \"길이 막힌 뒤로 손님은 처음이구려. 어디서 오셨소?\"",
+    greet_ferryman_misused: "뱃사공이 노를 무릎에 걸친 채 나를 본다. 눈이 차갑다. \"짐도 없이 짐표를 내미는 손님은 기억해 두오.\"",
+    greet_ferryman_watching: "뱃사공이 고개만 까딱한다. 강 건너를 지켜보겠다던 약속을 잊지 않은 얼굴이다.",
+    greet_ferryman_known: "뱃사공이 밧줄을 감다 말고 턱짓을 한다. \"또 오셨소.\"",
+    greet_ferryman_stranger: "뱃사공이 나를 알아본다. 그 밤, 아무것도 묻지 않고 나를 건네준 사람이다. 이번에도 묻지 않는다. \"건너든 말든, 뱃삯은 셋이오.\"",
+    greet_town_merchant_carrying: "상인이 장부를 펼친 채 나를 맞는다. \"짐표의 밀가루는 오는 중이오?\"",
+    greet_town_merchant_supplier: "상인이 반색한다. \"남쪽 밀가루를 대는 분이로군. 앉으시오.\"",
+    greet_town_merchant_stranger: "비단 띠를 두른 상인이 주판알을 튕기다 눈만 든다. 내 행색을 값으로 매기는 눈이다. \"남쪽에서 왔소? 남쪽 물건이라면 들어 보지.\"",
+    greet_guild_clerk_renowned: "서기가 장부에서 고개를 들더니 붓을 내려놓는다. 이 사람이 자리에서 일어서는 것은 처음 본다.",
+    greet_guild_clerk_known: "서기가 장부를 넘기며 내 이름 대신 적어 둔 표식을 찾는다. \"왔군. 일거리가 있소.\"",
+    greet_guild_clerk_stranger: "먹 냄새 나는 방이다. 서기가 장부에서 눈을 떼지 않은 채 묻는다. \"이름은?\" 대답하지 않자, 서기는 이름 칸을 비워 둔 채 무언가를 적는다."
   }
 };

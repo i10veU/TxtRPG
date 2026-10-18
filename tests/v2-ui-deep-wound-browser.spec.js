@@ -80,7 +80,7 @@ async function stageGuard(page, { hp, lead, slot, mild }) {
 }
 const toTown = async (page) => { await page.evaluate((list) => list.forEach((a) => window.__v2App.dispatch(a)), TO_TOWN); };
 const escort = async (page, label = "상단 호위를 맡는다") => {
-  await act(page, "상단 조합의 서기와 대화");
+  await act(page, "상단 조합의 서기를 찾아간다");
   await option(page, label).click();
 };
 const lodge = async (page) => { await act(page, "성읍에서 묵는다"); };
@@ -119,7 +119,7 @@ test.describe("V2 the mild wound heals, the deep wound (Death & Injury, step 1)"
     await toTown(page);
     await stageGuard(page, { hp: 5, lead: true, slot: "slot_deep" });
     const start = await getState(page);
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await expect(option(page, "상단 호위를 이끈다")).toBeVisible(); // whole: the lead job is open
     await option(page, "상단 호위를 맡는다").click();
     await expect(page.locator("#log")).toContainText("상처가 깊다");
@@ -131,7 +131,7 @@ test.describe("V2 the mild wound heals, the deep wound (Death & Injury, step 1)"
 
     // the lead job is closed, the ordinary escort is not; the clerk says what he sees (a convoy waits again)
     await untilConvoy(page);
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await expect(option(page, "상단 호위를 이끈다")).toHaveCount(0);
     await expect(option(page, "상단 호위를 맡는다")).toBeVisible();
     await option(page, "일거리를 묻는다").click();
@@ -171,7 +171,7 @@ test.describe("V2 the mild wound heals, the deep wound (Death & Injury, step 1)"
 
     // the lead job is back (the next convoy)
     await untilConvoy(page);
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await expect(option(page, "상단 호위를 이끈다")).toBeVisible();
     expect(pageErrors).toEqual([]);
     expect(consoleErrors).toEqual([]);

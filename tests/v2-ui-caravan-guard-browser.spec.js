@@ -42,7 +42,7 @@ test.describe("V2 caravan guard (Slice 5: work for the merchants' guild)", () =>
     await page.evaluate((list) => list.forEach((a) => window.__v2App.dispatch(a)), TO_TOWN);
     await expect(page.locator("#location")).toContainText("영주의 성읍");
 
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await option(page, "일거리를 묻는다").click();
     await expect(page.locator("#log")).toContainText("강나루로 내려가는 상단이 호위를 구한다고");
 
@@ -58,7 +58,7 @@ test.describe("V2 caravan guard (Slice 5: work for the merchants' guild)", () =>
     expect(await getState(page)).toEqual(saved);
 
     // the escort
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await option(page, "상단 호위를 맡는다").click();
     await expect(page.locator("#location")).toContainText("강 건너 길목");
     const after = await getState(page);
@@ -68,7 +68,7 @@ test.describe("V2 caravan guard (Slice 5: work for the merchants' guild)", () =>
 
     // back in the town: this caravan has its guard
     await move(page, "영주의 성읍");
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await expect(option(page, "상단 호위를 맡는다")).toHaveCount(0);
     await option(page, "일거리를 묻는다").click();
     await expect(page.locator("#log")).toContainText("이미 호위를 구했으니 다음 상단을 기다리라고");

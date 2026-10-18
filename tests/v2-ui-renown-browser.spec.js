@@ -157,7 +157,7 @@ test.describe("V2 the strongest one (M7): the realm's name", () => {
       await idb.save("slot_word_north", s, { savedAt: 1 });
     });
     await loadSlot(page, "slot_word_north");
-    const ask = async () => { await act(page, "뱃사공과 대화"); await option(page, "강 건너 소식을 묻는다").click(); };
+    const ask = async () => { await act(page, "뱃사공에게 말을 건다"); await option(page, "강 건너 소식을 묻는다").click(); };
     await ask();
     await expect(page.locator("#log")).not.toContainText("변경 이야기는 상단 편에 북으로 올라갔소");
     for (let i = 0; i < 6 && !(await getState(page)).flags.fate_word_north; i += 1) await page.locator("#waitDayBtn").click();

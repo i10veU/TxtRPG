@@ -46,9 +46,9 @@ const log = (page) => page.locator("#log");
 const word = (page, text) => page.locator("#knowledge li", { hasText: text });
 const dispatch = (page, list) => page.evaluate((l) => l.forEach((a) => window.__v2App.dispatch(a)), list);
 const me = (s) => s.actors[s.player.actorId];
-const ferryman = async (page, label) => { await act(page, "뱃사공과 대화"); await option(page, label).click(); };
-const merchant = async (page, label) => { await act(page, "성읍의 상인과 대화"); await option(page, label).click(); };
-const miller = async (page, label) => { await act(page, "방앗간 주인과 대화"); await option(page, label).click(); };
+const ferryman = async (page, label) => { await act(page, "뱃사공에게 말을 건다"); await option(page, label).click(); };
+const merchant = async (page, label) => { await act(page, "성읍의 상인에게 말을 건다"); await option(page, label).click(); };
+const miller = async (page, label) => { await act(page, "방앗간 주인에게 말을 건다"); await option(page, label).click(); };
 
 async function loadSlot(page, slot) {
   await page.reload({ waitUntil: "networkidle" });
@@ -104,7 +104,7 @@ test.describe("V2 the ford and the town (MG-045/046)", () => {
 
     // two sacks sold: a supplier he knows -- he gives his note while the town wants flour
     for (let i = 0; i < 2; i += 1) {
-      await act(page, "성읍의 상인과 대화");
+      await act(page, "성읍의 상인에게 말을 건다");
       await page.locator("#choiceOptions button:not([disabled])", { hasText: /^밀가루 자루를 판다/ }).first().click();
     }
     const sold = await getState(page);
@@ -121,7 +121,7 @@ test.describe("V2 the ford and the town (MG-045/046)", () => {
       await dispatch(page, [M("loc_far_bank"), M("loc_river_ford"), M("loc_crossroads"), M("loc_mill_hamlet"), { type: "wait", minutes: 1440 }]);
       await miller(page, "밀가루 자루를 산다");
       await dispatch(page, [M("loc_crossroads"), M("loc_river_ford")]);
-      await act(page, "뱃사공과 대화");
+      await act(page, "뱃사공에게 말을 건다");
       await expect(option(page, "상인의 짐표를 보이고 밀가루를 싣는다")).toBeVisible();
       await expect(option(page, "짐 없이 상인의 짐표를 내민다")).toHaveCount(0);
       const atFord = await getState(page);
@@ -140,7 +140,7 @@ test.describe("V2 the ford and the town (MG-045/046)", () => {
       for (let day = 0; day < 10 && ((await getState(page)).signals.town_flour_wanted ?? 0) < 1; day += 1) await page.locator("#waitDayBtn").click();
       const wanting = await getState(page);
       expect(wanting.signals.town_flour_wanted).toBeGreaterThanOrEqual(1);
-      await act(page, "성읍의 상인과 대화");
+      await act(page, "성읍의 상인에게 말을 건다");
       await expect(option(page, "짐표대로 밀가루를 넘긴다 (은화 4)")).toBeVisible();
       await expect(option(page, "밀가루 자루를 판다")).toHaveCount(0);
       await option(page, "짐표대로 밀가루를 넘긴다 (은화 4)").click();

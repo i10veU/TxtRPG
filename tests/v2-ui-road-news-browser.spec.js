@@ -91,7 +91,7 @@ async function stageRoad(page, { trouble, score, slot, ride = false }) {
   await loadSlot(page, slot);
 }
 const toTown = async (page) => { await page.evaluate((list) => list.forEach((a) => window.__v2App.dispatch(a)), TO_TOWN); };
-const clerk = (page) => act(page, "상단 조합의 서기와 대화");
+const clerk = (page) => act(page, "상단 조합의 서기를 찾아간다");
 const ask = async (page) => { await clerk(page); await option(page, "일거리를 묻는다").click(); };
 const newGameInTown = async (page) => {
   await page.evaluate((seed) => window.__v2App.newGame(seed), SEED);

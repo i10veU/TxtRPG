@@ -81,12 +81,12 @@ const startNext = async (page) => {
   await page.evaluate((list) => list.forEach((a) => window.__v2App.dispatch(a)), SUCCESSOR_WALK);
 };
 const fall = async (page) => {
-  await act(page, "상단 조합의 서기와 대화");
+  await act(page, "상단 조합의 서기를 찾아간다");
   await option(page, "상단 호위를 맡는다").click();
   await expect(option(page, "새로 시작한다 (떠돌이)")).toBeVisible();
 };
 const claim = async (page) => {
-  await act(page, "상단 조합의 서기와 대화");
+  await act(page, "상단 조합의 서기를 찾아간다");
   await option(page, "조합이 맡아 둔 몫을 찾아간다").click();
   await expect(page.locator("#log")).toContainText("서기는 맡아 둔 은화를 세어 건넨다.");
 };
@@ -163,7 +163,7 @@ test.describe("V2 generations in the real app (succession legacy 2)", () => {
     await startNext(page);
     const next = await getState(page);
     expect(next.signals.estate_held ?? 0).toBe(0);
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await expect(option(page, "조합이 맡아 둔 몫을 찾아간다")).toHaveCount(0);
     await option(page, "일거리를 묻는다").click();
     await expect(page.locator("#log")).not.toContainText("은화 일부를 조합이 맡아 두었고");

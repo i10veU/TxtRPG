@@ -97,7 +97,7 @@ test.describe("V2 an honest clock (World Simulation 3, integrated)", () => {
     expect((await getState(page)).signals.guards_fallen ?? 0).toBe(0);
 
     // the escort ends them (a real button); the successor starts and walks to the town
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await option(page, "상단 호위를 맡는다").click();
     await expect(option(page, "새로 시작한다 (떠돌이)")).toBeVisible();
     expect((await getState(page)).signals.guards_fallen).toBe(1);
@@ -129,7 +129,7 @@ test.describe("V2 an honest clock (World Simulation 3, integrated)", () => {
     expect(NUMBERS(back)).toEqual(NUMBERS(home));
 
     // the clerk says why a convoy left
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await option(page, "일거리를 묻는다").click();
     await expect(page.locator("#log")).toContainText("호위를 오래 못 구한 상단은 기다려 주지 않는다고");
 

@@ -52,7 +52,7 @@ async function saveReloadLoad(page, slot, count) {
   expect(await getState(page)).toEqual(saved);
 }
 async function escort(page) {
-  await act(page, "상단 조합의 서기와 대화");
+  await act(page, "상단 조합의 서기를 찾아간다");
   await option(page, "상단 호위를 맡는다").click();
   await expect(page.locator("#location")).toContainText("강 건너 길목");
   await move(page, "영주의 성읍");
@@ -109,10 +109,10 @@ test.describe("V2 what a long absence costs (World Simulation 2)", () => {
     expect(back.signals.caravans_unguarded).toBe(1);
 
     // the clerk says so; three jobs wait (the cap's shares), one caravan is gone
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await option(page, "일거리를 묻는다").click();
     await expect(page.locator("#log")).toContainText("호위를 오래 못 구한 상단은 기다려 주지 않는다고");
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await option(page, "상단 호위를 맡는다").click();
     await expect(page.locator("#location")).toContainText("강 건너 길목");
     const end = await getState(page);

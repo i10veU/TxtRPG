@@ -54,7 +54,7 @@ const act = (page, label) => page.locator("#actions button", { hasText: label })
 const option = (page, label) => page.locator("#choiceOptions button:not([disabled])", { hasText: label });
 const getState = (page) => page.evaluate(() => window.__v2App.getState());
 const log = (page) => page.locator("#log");
-const clerk = (page) => act(page, "상단 조합의 서기와 대화");
+const clerk = (page) => act(page, "상단 조합의 서기를 찾아간다");
 const ask = async (page) => { await clerk(page); await option(page, "일거리를 묻는다").click(); };
 const lodge = (page) => act(page, "성읍에서 묵는다");
 const me = (s) => s.actors[s.player.actorId];

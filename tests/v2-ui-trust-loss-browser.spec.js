@@ -40,7 +40,7 @@ const move = (page, label) => page.locator("#moves button", { hasText: label }).
 const option = (page, label) => page.locator("#choiceOptions button:not([disabled])", { hasText: label });
 const getState = (page) => page.evaluate(() => window.__v2App.getState());
 const log = (page) => page.locator("#log");
-const clerk = (page) => act(page, "상단 조합의 서기와 대화");
+const clerk = (page) => act(page, "상단 조합의 서기를 찾아간다");
 const standing = (s) => s.relations?.["npc_guild_clerk:" + s.player.actorId]?.score ?? 0;
 
 async function loadSlot(page, slot) {

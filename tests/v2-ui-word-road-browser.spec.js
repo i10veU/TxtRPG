@@ -60,7 +60,7 @@ test.describe("V2 the road of the word (Slice 6 integrated: carried north, echoe
     await option(page, "마을 바깥의 길에 대해 묻는다").click();
     await move(page, "옛 갈림길");
     await move(page, "강나루");
-    await act(page, "뱃사공과 대화");
+    await act(page, "뱃사공에게 말을 건다");
     await option(page, "강을 건넌다 (뱃삯 은화 3)").click();
     await move(page, "영주의 성읍");
     await act(page, "성읍의 포고판을 읽는다");
@@ -85,7 +85,7 @@ test.describe("V2 the road of the word (Slice 6 integrated: carried north, echoe
     await move(page, "강 건너 길목");
     await move(page, "강나루");
     await dispatchAll(page, [DAY, DAY, DAY]);
-    await act(page, "뱃사공과 대화");
+    await act(page, "뱃사공에게 말을 건다");
     await option(page, "강 건너 소식을 묻는다").click();
     await expect(page.locator("#log")).toContainText("성읍에서도 이제 고쳐 말한다고 한다.");
     // the village still tells its own legend

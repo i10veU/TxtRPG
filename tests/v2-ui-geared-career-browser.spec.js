@@ -95,17 +95,17 @@ test.describe("V2 a geared career (RPG Depth 4, integrated)", () => {
     expect(career.actors.player_1.growth.growth_wanderer.unlocks.unl_road_lead).toBe(true);
 
     // the clerk's word about a hard convoy; the mail, bought and worn with real buttons
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await expect(option(page, "위험한 상단 호위를 이끈다")).toBeVisible();
     await option(page, "일거리를 묻는다").click();
     await expect(page.locator("#log")).toContainText("강철을 걸친 이만 부탁할 수 있는 상단이");
-    await act(page, "성읍의 상인과 대화");
+    await act(page, "성읍의 상인에게 말을 건다");
     await option(page, "사슬 갑옷을 산다 (은화 48)").click();
     await act(page, "사슬 갑옷을 입는다");
     expect((await getState(page)).actors.player_1.loadout).toEqual({ hand: "item_steel_sword", body: "item_mail_shirt" });
 
     // the hard convoy, with a real button
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await option(page, "위험한 상단 호위를 이끈다").click();
     await expect(page.locator("#location")).toContainText("강 건너 길목");
     expect((await getState(page)).actors.player_1.money).toBeGreaterThanOrEqual(2);
@@ -137,7 +137,7 @@ test.describe("V2 a geared career (RPG Depth 4, integrated)", () => {
     const doomed = await getState(page);
     expect(doomed.signals.guards_fallen ?? 0).toBe(0);
 
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await option(page, "위험한 상단 호위를 이끈다").click();
     await expect(option(page, "새로 시작한다 (떠돌이)")).toBeVisible();
     const fell = await getState(page);
@@ -154,11 +154,11 @@ test.describe("V2 a geared career (RPG Depth 4, integrated)", () => {
     expect(next.actors.player_2.inventory?.item_steel_sword).toBeUndefined();
     expect(next.actors.player_2.inventory?.item_mail_shirt).toBeUndefined();
     expect(next.actors.player_2.growth.growth_wanderer.unlocks?.unl_road_lead).toBeUndefined();
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await expect(option(page, "길을 조심스레 간다")).toBeVisible();
     await expect(option(page, "위험한 상단 호위를 이끈다")).toHaveCount(0);
     await option(page, "일거리를 묻는다").click();
-    await act(page, "성읍의 상인과 대화");
+    await act(page, "성읍의 상인에게 말을 건다");
     await expect(option(page, "강철 검을 산다")).toHaveCount(0);
     await expect(option(page, "사슬 갑옷을 산다")).toHaveCount(0);
     await option(page, "강 남쪽 물건에 대해 묻는다").click();

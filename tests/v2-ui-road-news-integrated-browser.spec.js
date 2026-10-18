@@ -44,7 +44,7 @@ const getState = (page) => page.evaluate(() => window.__v2App.getState());
 const log = (page) => page.locator("#log");
 const knowledge = (page) => page.locator("#knowledge li");
 const word = (page, text) => page.locator("#knowledge li", { hasText: text });
-const clerk = (page) => act(page, "상단 조합의 서기와 대화");
+const clerk = (page) => act(page, "상단 조합의 서기를 찾아간다");
 const ask = async (page) => { await clerk(page); await option(page, "일거리를 묻는다").click(); };
 const me = (s) => s.actors[s.player.actorId];
 

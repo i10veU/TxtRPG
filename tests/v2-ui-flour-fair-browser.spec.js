@@ -67,28 +67,28 @@ test.describe("V2 the fair's news (Slice 7: what you hear sets what you earn)", 
     await expect(page.locator("#game")).toBeVisible();
 
     for (let i = 0; i < 2; i += 1) {
-      await act(page, "방앗간 주인과 대화");
+      await act(page, "방앗간 주인에게 말을 건다");
       await option(page, "밀가루 자루를 산다 (은화 2)").click();
     }
     await move(page, "옛 갈림길");
     await move(page, "강나루");
     await page.evaluate((list) => list.forEach((a) => window.__v2App.dispatch(a)), [DAY, DAY, DAY]);
-    await act(page, "뱃사공과 대화");
+    await act(page, "뱃사공에게 말을 건다");
     await option(page, "강 건너 소식을 묻는다").click();
     await expect(page.locator("#log")).toContainText("왕도에서 큰 장이 열려");
 
     await saveReloadLoad(page, "slot_fair", 2);
 
-    await act(page, "뱃사공과 대화");
+    await act(page, "뱃사공에게 말을 건다");
     await option(page, "원로의 통행 편지를 보이고 강을 건넌다").click();
     await move(page, "영주의 성읍");
-    await act(page, "성읍의 상인과 대화");
+    await act(page, "성읍의 상인에게 말을 건다");
     await expect(option(page, "밀가루 자루를 판다 (은화 6)")).toHaveCount(0);
     await option(page, "강 남쪽 물건에 대해 묻는다").click();
     await expect(page.locator("#log")).toContainText("왕도의 큰 장으로 상단들이 곡식을 실어 올라가는 통에");
     const before = await getState(page);
     for (let i = 0; i < 2; i += 1) {
-      await act(page, "성읍의 상인과 대화");
+      await act(page, "성읍의 상인에게 말을 건다");
       await option(page, "밀가루 자루를 판다 (은화 8)").click();
     }
     await expect(page.locator("#log")).toContainText("큰 장이 끝나기 전에 더 가져오라고 한다.");

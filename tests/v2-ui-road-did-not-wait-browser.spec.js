@@ -91,7 +91,7 @@ test.describe("V2 the road that did not wait (World Simulation 2, integrated)", 
     const back = await getState(page);
     expect(back.signals.guards_owed).toBe(3);
     expect(back.signals.caravans_unguarded).toBe(1);
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await expect(option(page, "길을 조심스레 간다")).toHaveCount(0);
     await option(page, "일거리를 묻는다").click();
     await expect(page.locator("#log")).toContainText("호위를 오래 못 구한 상단은 기다려 주지 않는다고");
@@ -120,7 +120,7 @@ test.describe("V2 the road that did not wait (World Simulation 2, integrated)", 
     expect(doomed.signals.guards_fallen ?? 0).toBe(0);
 
     // the escort ends him; the guild knew him, so the world counts it
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await option(page, "상단 호위를 맡는다").click();
     await expect(option(page, "새로 시작한다 (떠돌이)")).toBeVisible();
     const fell = await getState(page);
@@ -142,14 +142,14 @@ test.describe("V2 the road that did not wait (World Simulation 2, integrated)", 
     expect(next.player.actorId).toBe("player_2");
     expect(next.relations["npc_guild_clerk:player_2"]).toBeUndefined();
     expect(next.signals.guards_fallen).toBe(1);
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await expect(option(page, "길을 조심스레 간다")).toBeVisible();
     await option(page, "일거리를 묻는다").click();
     await expect(page.locator("#log")).toContainText("호위를 오래 못 구한 상단은 기다려 주지 않는다고");
     await expect(page.locator("#log")).toContainText("조합이 믿던 호위 하나가 길에서 돌아오지 못했다고");
 
     // the careful way, with a real button: a day on the road
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await option(page, "길을 조심스레 간다").click();
     await expect(page.locator("#location")).toContainText("강 건너 길목");
     const end = await getState(page);

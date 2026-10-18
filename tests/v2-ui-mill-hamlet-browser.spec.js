@@ -34,7 +34,7 @@ const move = (page, label) => page.locator("#moves button", { hasText: label }).
 const option = (page, label) => page.locator("#choiceOptions button:not([disabled])", { hasText: label });
 const getState = (page) => page.evaluate(() => window.__v2App.getState());
 const miller = async (page, label) => {
-  await act(page, "방앗간 주인과 대화");
+  await act(page, "방앗간 주인에게 말을 건다");
   await option(page, label).click();
 };
 
@@ -80,7 +80,7 @@ test.describe("V2 mill hamlet (Slice 4: the region's second settlement)", () => 
     // the market: the hamlet's carts, its bread
     await move(page, "시장");
     await expect(page.locator("#log")).toContainText("물레방아 마을의 수레가 들어와 있다.");
-    await act(page, "물레방아 빵 구입");
+    await act(page, "물레방아 빵을 산다");
     await expect(page.locator("#status")).toContainText("물레방아 빵 x1");
     await act(page, "물레방아 빵을 먹는다");
     await expect(page.locator("#log")).toContainText("몸에 힘이 돈다.");

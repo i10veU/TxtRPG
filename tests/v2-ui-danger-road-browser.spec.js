@@ -71,18 +71,18 @@ test.describe("V2 a harder convoy for the geared lead (RPG Depth 4)", () => {
       while (!wanted(window.__v2App.getState()) && n < 96) { window.__v2App.dispatch(HOUR); n += 1; }
     }, { HOUR });
     await waitForConvoy();
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await expect(option(page, "상단 호위를 이끈다")).toBeVisible();
     await expect(option(page, "위험한 상단 호위를 이끈다")).toHaveCount(0);
     await option(page, "일거리를 묻는다").click();
     await expect(page.locator("#log")).not.toContainText("강철을 걸친 이만 부탁할 수 있는 상단이");
 
     // the steel sword, with real buttons
-    await act(page, "성읍의 상인과 대화");
+    await act(page, "성읍의 상인에게 말을 건다");
     await option(page, "강철 검을 산다 (은화 24)").click();
     await act(page, "강철 검을 든다");
 
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await expect(option(page, "위험한 상단 호위를 이끈다")).toBeVisible();
     await option(page, "일거리를 묻는다").click();
     await expect(page.locator("#log")).toContainText("강철을 걸친 이만 부탁할 수 있는 상단이");
@@ -96,7 +96,7 @@ test.describe("V2 a harder convoy for the geared lead (RPG Depth 4)", () => {
 
     // the hard convoy, with a real button
     const before = await getState(page);
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await option(page, "위험한 상단 호위를 이끈다").click();
     await expect(page.locator("#location")).toContainText("강 건너 길목");
     const after = await getState(page);

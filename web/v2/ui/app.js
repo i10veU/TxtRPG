@@ -23,6 +23,7 @@ import { worldData } from "../data/world.js";
 import { waitDay } from "./wait.js";
 import { currentGoals } from "./goals.js";
 import { stakesOf, duration } from "./stakes.js";
+import { greetingFor } from "./people.js";
 
 const DAY_MINUTES = 1440;
 
@@ -135,6 +136,10 @@ function applyEvents(events) {
 const SCENE_TYPES = new Set(["narration", "action.rejected", "actor.died"]);
 function setScene(events) {
   const lines = events.filter((e) => SCENE_TYPES.has(e.type)).map(describeEvent).filter(Boolean);
+  // V2-Core-154: a talk begins with how the person greets me (ui/people.js)
+  const offered = events.find((e) => e.type === "choice.offered");
+  const greeting = offered ? greetingFor(offered.data.choiceId, state, worldData) : null;
+  if (greeting) lines.unshift(greeting);
   sceneLines = lines.length > 0 ? lines : placeLines();
 }
 function placeLines() {

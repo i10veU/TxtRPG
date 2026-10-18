@@ -42,9 +42,9 @@ const log = (page) => page.locator("#log");
 const word = (page, text) => page.locator("#knowledge li", { hasText: text });
 const dispatch = (page, list) => page.evaluate((l) => l.forEach((a) => window.__v2App.dispatch(a)), list);
 const me = (s) => s.actors[s.player.actorId];
-const ferryman = async (page, label) => { await act(page, "뱃사공과 대화"); await option(page, label).click(); };
-const merchant = async (page, label) => { await act(page, "성읍의 상인과 대화"); await option(page, label).click(); };
-const miller = async (page, label) => { await act(page, "방앗간 주인과 대화"); await option(page, label).click(); };
+const ferryman = async (page, label) => { await act(page, "뱃사공에게 말을 건다"); await option(page, label).click(); };
+const merchant = async (page, label) => { await act(page, "성읍의 상인에게 말을 건다"); await option(page, label).click(); };
+const miller = async (page, label) => { await act(page, "방앗간 주인에게 말을 건다"); await option(page, label).click(); };
 
 async function loadSlot(page, slot) {
   await page.reload({ waitUntil: "networkidle" });

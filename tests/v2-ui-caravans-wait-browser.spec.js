@@ -51,7 +51,7 @@ async function saveReloadLoad(page, slot, count) {
   expect(await getState(page)).toEqual(saved);
 }
 async function escort(page) {
-  await act(page, "상단 조합의 서기와 대화");
+  await act(page, "상단 조합의 서기를 찾아간다");
   await option(page, "상단 호위를 맡는다").click();
   await expect(page.locator("#location")).toContainText("강 건너 길목");
   await move(page, "영주의 성읍");
@@ -86,10 +86,10 @@ test.describe("V2 the caravans do not wait (World Simulation 2)", () => {
     const start = await getState(page);
 
     // the crossing, the clerk's word
-    await act(page, "뱃사공과 대화");
+    await act(page, "뱃사공에게 말을 건다");
     await option(page, "강을 건넌다").click();
     await move(page, "영주의 성읍");
-    await act(page, "상단 조합의 서기와 대화");
+    await act(page, "상단 조합의 서기를 찾아간다");
     await option(page, "일거리를 묻는다").click();
     await expect(page.locator("#log")).toContainText("호위를 오래 못 구한 상단은 기다려 주지 않는다고");
 

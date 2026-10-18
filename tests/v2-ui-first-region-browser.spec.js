@@ -60,15 +60,15 @@ test.describe("V2 the first region (M2): the ford's watch and the waystation's c
     });
     await loadSlot(page, "slot_region");
 
-    await act(page, "뱃사공과 대화");
+    await act(page, "뱃사공에게 말을 건다");
     await option(page, "강 건너 무리에 대해 묻는다").click();
-    await act(page, "뱃사공과 대화");
+    await act(page, "뱃사공에게 말을 건다");
     await option(page, "무리가 건너오면 마을에 알려 달라고 부탁한다").click();
     await expect(page.locator("#log")).toContainText("하루는 벌 거요");
     await expect(story(page).filter({ hasText: "뱃사공이 무리가 건너오면 마을에 알려 주기로 했다" })).toHaveAttribute("data-chapter", "3");
     expect((await getState(page)).flags.ferryman_watches).toBe(true);
 
-    await act(page, "뱃사공과 대화");
+    await act(page, "뱃사공에게 말을 건다");
     await option(page, "강을 건넌다").click();
     await act(page, "길목의 게시판을 읽는다");
     await expect(page.locator("#log")).toContainText("남쪽 변경에서 강을 건너온 나그네");

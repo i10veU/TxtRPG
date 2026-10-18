@@ -61,33 +61,33 @@ test.describe("V2 the town's demand (Slice 7: flour has its limits)", () => {
     expect((await getState(page)).actors.player_1.money).toBe(20);
 
     // the mill: two sacks today
-    await act(page, "방앗간 주인과 대화");
+    await act(page, "방앗간 주인에게 말을 건다");
     await buyButton(page).click();
-    await act(page, "방앗간 주인과 대화");
+    await act(page, "방앗간 주인에게 말을 건다");
     await buyButton(page).click();
-    await act(page, "방앗간 주인과 대화");
+    await act(page, "방앗간 주인에게 말을 건다");
     await expect(buyButton(page)).toHaveCount(0);
     await closeChoice(page, "이 근방의 소식을 묻는다");
     await expect(page.locator("#log")).toContainText("오늘 내놓을 밀가루는 벌써 다 나갔다고 한다.");
     await page.evaluate((a) => window.__v2App.dispatch(a), DAY);
-    await act(page, "방앗간 주인과 대화");
+    await act(page, "방앗간 주인에게 말을 건다");
     await buyButton(page).click();
     expect((await getState(page)).actors.player_1.inventory.item_flour_sack).toBe(3);
 
     // the town: two sacks, then enough
     await move(page, "옛 갈림길");
     await move(page, "강나루");
-    await act(page, "뱃사공과 대화");
+    await act(page, "뱃사공에게 말을 건다");
     await option(page, "원로의 통행 편지를 보이고 강을 건넌다").click();
     await move(page, "영주의 성읍");
-    await act(page, "성읍의 상인과 대화");
+    await act(page, "성읍의 상인에게 말을 건다");
     await closeChoice(page, "강 남쪽 물건에 대해 묻는다");
     await expect(page.locator("#log")).toContainText("성읍 빵집들이 강 남쪽 밀을 찾는다고.");
-    await act(page, "성읍의 상인과 대화");
+    await act(page, "성읍의 상인에게 말을 건다");
     await sellButton(page).click();
-    await act(page, "성읍의 상인과 대화");
+    await act(page, "성읍의 상인에게 말을 건다");
     await sellButton(page).click();
-    await act(page, "성읍의 상인과 대화");
+    await act(page, "성읍의 상인에게 말을 건다");
     await expect(sellButton(page)).toHaveCount(0);
     await closeChoice(page, "강 남쪽 물건에 대해 묻는다");
     await expect(page.locator("#log")).toContainText("밀가루는 지난번에 들어온 것으로 당분간 넉넉하다고 한다.");
@@ -105,7 +105,7 @@ test.describe("V2 the town's demand (Slice 7: flour has its limits)", () => {
 
     // days later the town wants flour again
     await page.evaluate((list) => list.forEach((a) => window.__v2App.dispatch(a)), [DAY, DAY, DAY]);
-    await act(page, "성읍의 상인과 대화");
+    await act(page, "성읍의 상인에게 말을 건다");
     await option(page, /밀가루 자루를 판다/).click(); // by now the second caravan's fair may set the price (V2-Core-86)
     const end = await getState(page);
     expect(end.actors.player_1.inventory.item_flour_sack ?? 0).toBe(0);
