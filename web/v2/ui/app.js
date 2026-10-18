@@ -24,6 +24,8 @@ import { waitDay } from "./wait.js";
 import { currentGoals } from "./goals.js";
 import { stakesOf, duration } from "./stakes.js";
 import { greetingFor } from "./people.js";
+import { deedsTrue, endingLearned } from "./deeds.js";
+import * as chronicle from "../storage/chronicle.js";
 
 const DAY_MINUTES = 1440;
 
@@ -40,6 +42,9 @@ let sceneLines = [];
 // V2-Core-152: what the last step taught or gave me (rumours, items, silver, wounds), and whether my goal moved
 let newsItems = [];
 let goalChanged = false;
+// V2-Core-156 (D-134): the life being played, as the chronicle keeps it (storage/chronicle.js), and the ending shown
+let life = null;
+let endingCard = null;
 
 // V2-Core-126 (#309, Road News step 1b): no internal id on screen. The pack's ids are shown by the words its `texts` give them
 // (`lbl_*`); the engine's own ids (a check's tier, a rejection's code) by the UI's words here
@@ -74,6 +79,10 @@ const el = {
   goal: document.getElementById("goal"),
   news: document.getElementById("news"),
   choiceTitle: document.getElementById("choiceTitle"),
+  ending: document.getElementById("ending"),
+  chronicleSection: document.getElementById("chronicleSection"),
+  lives: document.getElementById("lives"),
+  deedBook: document.getElementById("deedBook"),
   notebookBtn: document.getElementById("notebookBtn"),
   vitals: document.getElementById("vitals"),
   knowledge: document.getElementById("knowledge"),
@@ -153,7 +162,7 @@ function snapshot() {
   if (!state) return null;
   const v = view(state, worldData);
   if (!v) return null;
-  return { knowledge: v.knowledge ?? {}, actor: v.actor, goals: currentGoals(state, worldData).map((g) => g.textId) };
+  return { knowledge: v.knowledge ?? {}, actor: v.actor, goals: currentGoals(state, worldData).map((g) => g.textId), deeds: deedsTrue(state, worldData) };
 }
 function diffNews(before, after) {
   if (!before || !after) return [];
@@ -180,12 +189,122 @@ function diffNews(before, after) {
   if (money !== 0) items.push({ kind: money > 0 ? "gained" : "spent", text: `은화 ${Math.abs(money)}` });
   const hp = after.actor.hp.current - before.actor.hp.current;
   if (hp !== 0) items.push({ kind: hp > 0 ? "healed" : "hurt", text: `체력 ${hp > 0 ? "+" : "−"}${Math.abs(hp)}` });
+  items.push(...growthNews(before.actor, after.actor));
   return items;
 }
-function noteChanges(before) {
+// V2-Core-156: the numbers going up (RPG.kr) -- practice, a skill's rank, a stat, a new gift, a wound taken or closed
+const WOUNDS = new Set(["road_wound", "road_wound_deep"]);
+function growthNews(beforeActor, afterActor) {
+  const sys = worldData.world.growthSystemId;
+  const g0 = beforeActor.growth?.[sys] ?? {};
+  const g1 = afterActor.growth?.[sys] ?? {};
+  const items = [];
+  const keys = (a, b) => [...new Set([...Object.keys(a ?? {}), ...Object.keys(b ?? {})])].sort();
+  keys(g0.proficiency, g1.proficiency).forEach((k) => {
+    const d = (g1.proficiency?.[k] ?? 0) - (g0.proficiency?.[k] ?? 0);
+    if (d > 0) items.push({ kind: "grew", text: `${word(`lbl_prof_${k}`, k)} 숙련 +${d}` });
+  });
+  keys(g0.skills, g1.skills).forEach((k) => {
+    const a = g0.skills?.[k] ?? 0;
+    const b = g1.skills?.[k] ?? 0;
+    if (b > a) items.push({ kind: "grew", text: `${word(`lbl_skill_${k}`, k)} ${a} → ${b}` });
+  });
+  keys(g0.stats, g1.stats).forEach((k) => {
+    const a = g0.stats?.[k] ?? 0;
+    const b = g1.stats?.[k] ?? 0;
+    if (b > a) items.push({ kind: "grew", text: `${word(`lbl_stat_${k}`, k)} ${a} → ${b}` });
+  });
+  keys(g0.unlocks, g1.unlocks).forEach((k) => {
+    if (g1.unlocks?.[k] && !g0.unlocks?.[k]) items.push({ kind: "grew", text: `새 재주 · ${word(`lbl_unlock_${k}`, k)}` });
+  });
+  keys(g0.traits, g1.traits).forEach((k) => {
+    const had = g0.traits?.[k] === true;
+    const has = g1.traits?.[k] === true;
+    if (has && !had) items.push({ kind: WOUNDS.has(k) ? "hurt" : "grew", text: word(`lbl_trait_${k}`, k) });
+    if (had && !has && WOUNDS.has(k)) {
+      const name = word(`lbl_trait_${k}`, k);
+      items.push({ kind: "healed", text: `${name}${subjectParticle(name)} 아물었다` });
+    }
+  });
+  return items;
+}
+// "상처가", "흉이": the subject particle a Korean word takes
+function subjectParticle(name) {
+  const code = name.charCodeAt(name.length - 1) - 0xac00;
+  return code >= 0 && code < 11172 && code % 28 !== 0 ? "이" : "가";
+}
+
+function noteChanges(before, events = []) {
   const after = snapshot();
   newsItems = diffNews(before, after);
   goalChanged = Boolean(before && after) && before.goals[0] !== after.goals[0];
+  if (!before || !after || !life) return;
+  // what this life has done -- a deed true already when the life began is not its own
+  const fresh = after.deeds.filter((id) => !before.deeds.includes(id) && !life.baseline.includes(id) && !life.deeds.includes(id));
+  if (fresh.length > 0) {
+    life.deeds.push(...fresh);
+    fresh.forEach((id) => newsItems.push({ kind: "deed", text: word(id, id), note: word(`${id}_desc`, ""), deedId: id }));
+    chronicle
+      .markDeeds(fresh)
+      .then((first) => {
+        if (first.length === 0) return;
+        newsItems.forEach((n) => {
+          if (first.includes(n.deedId)) n.note = `처음 이룬 일 · ${n.note}`;
+        });
+        render();
+      })
+      .catch(() => {});
+  }
+  const ending = endingLearned(before.knowledge, after.knowledge, worldData);
+  if (ending) closeLife(ending.id);
+  else if (events.some((e) => e.type === "actor.died" && e.visibility === "player")) closeLife("died");
+  else if (fresh.length > 0) keepLife();
+}
+
+// V2-Core-156 (D-134): the life in the chronicle -- begun with a new game or a new life, found again on a load
+const lifeKey = () => `${state.worldId}:${state.player.actorId}`;
+const daysOf = (l) => Math.floor((state.time.minute - l.startMinute) / DAY_MINUTES) + 1;
+function keepLife() {
+  if (!life) return;
+  chronicle.putLife({ ...life, days: daysOf(life) }).catch(() => {});
+}
+function beginLife(templateId) {
+  life = { key: lifeKey(), templateId, startMinute: state.time.minute, baseline: deedsTrue(state, worldData), deeds: [], end: null };
+  endingCard = null;
+  keepLife();
+}
+function resumeLife() {
+  const key = lifeKey();
+  life = null;
+  endingCard = null;
+  chronicle
+    .getLife(key)
+    .then((found) => {
+      if (!state || lifeKey() !== key) return;
+      // an older save, or a chronicle cleared: the life is kept from here on; its background is not known (the actor does not
+      // keep it), so none is shown rather than a guess
+      life = found ?? { key, templateId: null, startMinute: state.time.minute, baseline: deedsTrue(state, worldData), deeds: [], end: null };
+      if (!found) keepLife();
+    })
+    .catch(() => {});
+}
+// one life in a line: its background (when known), how long, how it ended, what it did
+const lifeLine = (templateId, days, title, deeds) =>
+  [templateId && templateName(templateId), `${days}일`, title, `이룬 일 ${deeds}`].filter(Boolean).join(" · ");
+// an ending (or a fall) closes the record's account -- the life may go on, and later deeds still join it
+function closeLife(end) {
+  if (!life) return;
+  if (life.end === null) life.end = end;
+  // a fall after the story has closed: the life is remembered by its ending, not as a nameless fall
+  const story = end === "died" ? (life.end === "died" ? null : life.end) : end;
+  endingCard = {
+    end,
+    title: word(story ? `${story}_title` : "end_died_title", ""),
+    body: word(end !== "died" ? `${end}_body` : story ? "end_died_after_body" : "end_died_body", ""),
+    meta: lifeLine(life.templateId, daysOf(life), null, life.deeds.length),
+    deeds: life.deeds.map((id) => word(id, id))
+  };
+  keepLife();
 }
 
 function prologueLines(templateId) {
@@ -258,7 +377,8 @@ function dispatch(action) {
     if (action.type === "startCharacter" && !result.events.some((e) => e.type === "action.rejected")) {
       sceneLines = prologueLines(action.templateId);
     }
-    noteChanges(action.type === "startCharacter" ? null : before);
+    noteChanges(action.type === "startCharacter" ? null : before, result.events);
+    if (action.type === "startCharacter" && !result.events.some((e) => e.type === "action.rejected")) beginLife(action.templateId);
   } catch (err) {
     showError(`처리 중 오류: ${err.message}`);
   } finally {
@@ -284,7 +404,7 @@ function waitADay() {
     if (!result.events.some((e) => SCENE_TYPES.has(e.type))) {
       sceneLines = [result.stop === null ? "하루가 지났다. 별다른 일은 없었다." : `${formatDuration(result.minutes)}을 기다렸다.`];
     }
-    noteChanges(before);
+    noteChanges(before, result.events);
   } catch (err) {
     showError(`처리 중 오류: ${err.message}`);
   } finally {
@@ -558,7 +678,76 @@ function renderScene() {
   });
 }
 
-const NEWS_WORDS = { learned: "새로 안 것", story: "이야기가 움직였다", confirmed: "확인했다", gained: "얻었다", spent: "내주었다", healed: "나았다", hurt: "다쳤다" };
+const NEWS_WORDS = { learned: "새로 안 것", story: "이야기가 움직였다", confirmed: "확인했다", gained: "얻었다", spent: "내주었다", healed: "나았다", hurt: "다쳤다", grew: "늘었다", deed: "이룬 일" };
+
+function renderEnding() {
+  if (!el.ending) return;
+  clearChildren(el.ending);
+  el.ending.hidden = !endingCard;
+  if (!endingCard) return;
+  el.ending.dataset.end = endingCard.end;
+  const label = document.createElement("small");
+  label.textContent = endingCard.end === "died" ? "이 삶의 끝" : "이야기의 끝";
+  const title = document.createElement("h2");
+  title.textContent = endingCard.title;
+  const body = document.createElement("p");
+  body.textContent = endingCard.body;
+  const meta = document.createElement("p");
+  meta.className = "meta";
+  meta.textContent = endingCard.meta;
+  el.ending.append(label, title, body, meta);
+  if (endingCard.deeds.length > 0) {
+    const list = document.createElement("ul");
+    endingCard.deeds.forEach((d) => {
+      const li = document.createElement("li");
+      li.textContent = d;
+      list.appendChild(li);
+    });
+    el.ending.appendChild(list);
+  }
+  if (endingCard.end !== "died") {
+    el.ending.appendChild(makeButton("이 세계에서 계속 살아간다", () => {
+      endingCard = null;
+      render();
+    }));
+  }
+}
+
+// the chronicle on the menu: the lives that ended, and the book of deeds (what was never done stays a blank)
+async function refreshChronicle() {
+  if (!el.chronicleSection) return;
+  let lives = [];
+  let done = [];
+  try {
+    [lives, done] = await Promise.all([chronicle.listLives(), chronicle.listDeeds()]);
+  } catch {
+    el.chronicleSection.hidden = true;
+    return;
+  }
+  if (state) return;
+  clearChildren(el.lives);
+  lives.slice(0, 12).forEach((l) => {
+    const li = document.createElement("li");
+    const title = l.end === "died" ? word("end_died_title", "") : word(`${l.end}_title`, l.end);
+    li.textContent = lifeLine(l.templateId, l.days, title, l.deeds.length);
+    li.dataset.end = l.end;
+    el.lives.appendChild(li);
+  });
+  clearChildren(el.deedBook);
+  const doneIds = new Set(done.map((d) => d.id));
+  const all = worldData.world.deeds ?? [];
+  all.forEach((d) => {
+    const li = document.createElement("li");
+    const known = doneIds.has(d.id);
+    li.dataset.done = String(known);
+    li.textContent = known ? word(d.id, d.id) : "？？？";
+    if (known) li.title = word(`${d.id}_desc`, "");
+    el.deedBook.appendChild(li);
+  });
+  const count = document.getElementById("deedCount");
+  if (count) count.textContent = `${doneIds.size} / ${all.length}`;
+  el.chronicleSection.hidden = lives.length === 0 && doneIds.size === 0;
+}
 function renderNews() {
   if (!el.news) return;
   clearChildren(el.news);
@@ -654,6 +843,7 @@ function render() {
   renderStory(playerView.knowledge);
   renderKnowledge(playerView.knowledge, playerView.pending);
   renderLog();
+  renderEnding();
   renderScene();
   renderNews();
   renderGoal();
@@ -716,6 +906,7 @@ function newGame(seed, templateId = el.backgroundSelect?.value || undefined) {
   sceneLines = prologueLines(state.actors[state.player.actorId]?.templateId ?? templateId ?? worldData.world.startTemplateId);
   newsItems = [];
   goalChanged = false;
+  beginLife(state.actors[state.player.actorId]?.templateId ?? templateId ?? worldData.world.startTemplateId);
   showError("");
   render();
 }
@@ -760,6 +951,7 @@ async function loadGame(slot) {
     sceneLines = placeLines();
     newsItems = [];
     goalChanged = false;
+    resumeLife();
     showError("");
     render();
   } catch (err) {
@@ -774,6 +966,7 @@ function backToMenu() {
   showError("");
   render();
   refreshSlotList();
+  refreshChronicle();
 }
 
 el.newGameBtn?.addEventListener("click", () => newGame());
@@ -811,6 +1004,7 @@ el.saveBtn?.addEventListener("click", () => {
 
 renderBackgroundChoice();
 refreshSlotList();
+refreshChronicle();
 render();
 
 // Test-only hook, mirroring the pattern already used by web/v2/storage/smoke.html

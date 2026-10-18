@@ -140,6 +140,23 @@
     @keyframes glow { from { box-shadow: 0 0 0 3px var(--accent); } to { box-shadow: 0 0 0 0 transparent; } }
   }
 
+  /* V2-Core-156: the end of a story or a life, and the chronicle */
+  #ending { border: 1px solid var(--accent); border-radius: 6px; padding: 1rem 1.1rem; display: grid; gap: 0.5rem; background: var(--accent-soft); }
+  #ending[hidden], #chronicleSection[hidden] { display: none; }
+  #ending[data-end="died"] { border-color: var(--danger); }
+  #ending small { font: 600 0.74rem/1 var(--sans); letter-spacing: 0.12em; color: var(--muted); }
+  #ending h2 { font-family: var(--serif); font-size: 1.4rem; color: var(--ink); letter-spacing: 0.02em; margin: 0; }
+  #ending p { margin: 0; font-family: var(--serif); line-height: 1.85; }
+  #ending p.meta { font-family: var(--sans); font-size: 0.86rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+  #ending ul { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  #ending li { font-size: 0.82rem; border: 1px solid var(--rule); border-radius: 999px; padding: 0.1rem 0.6rem; background: var(--page); }
+  #lives, #deedBook { list-style: none; margin: 0 0 0.8rem; padding: 0; display: grid; gap: 0.25rem; }
+  #deedBook { grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); }
+  #deedBook li { font-size: 0.86rem; border: 1px solid var(--rule); border-radius: 4px; padding: 0.35rem 0.5rem; }
+  #deedBook li[data-done="false"] { color: var(--muted); border-style: dashed; }
+  #news li[data-kind="deed"] .tag { background: var(--accent); }
+  #news li[data-kind="grew"] .tag { background: var(--accent); }
+
   /* the notebook */
   #notebook { border-top: 1px solid var(--rule); padding-top: 0.6rem; }
   #notebookBtn { border: none; padding: 0.25rem 0; min-height: 0; font-size: 0.9rem; color: var(--muted); letter-spacing: 0.04em; }
@@ -179,10 +196,17 @@
     <h2>저장된 게임</h2>
     <ul id="slotList"></ul>
   </section>
+  <section id="chronicleSection" hidden>
+    <h2>연대기</h2>
+    <ul id="lives"></ul>
+    <h2>이룬 일 <span id="deedCount"></span></h2>
+    <ul id="deedBook"></ul>
+  </section>
 </div>
 
 <div id="game" hidden>
   <div class="page">
+    <section id="ending" hidden aria-live="polite"></section>
     <div class="where"><span id="location"></span><span id="vitals"></span></div>
     <article id="scene" aria-live="polite"></article>
     <ul id="news" hidden aria-live="polite"></ul>
