@@ -35,6 +35,9 @@ const logEntries = [];
 const MAX_LOG_ENTRIES = 200;
 // V2-Core-151 (J3): the scene -- what the last thing I did brought, in prose. The record (logEntries) keeps every line
 let sceneLines = [];
+// V2-Core-152: what the last step taught or gave me (rumours, items, silver, wounds), and whether my goal moved
+let newsItems = [];
+let goalChanged = false;
 
 // V2-Core-126 (#309, Road News step 1b): no internal id on screen. The pack's ids are shown by the words its `texts` give them
 // (`lbl_*`); the engine's own ids (a check's tier, a rejection's code) by the UI's words here
@@ -66,6 +69,10 @@ const el = {
   log: document.getElementById("log"),
   scene: document.getElementById("scene"),
   goalText: document.getElementById("goalText"),
+  goal: document.getElementById("goal"),
+  news: document.getElementById("news"),
+  choiceTitle: document.getElementById("choiceTitle"),
+  notebookBtn: document.getElementById("notebookBtn"),
   vitals: document.getElementById("vitals"),
   knowledge: document.getElementById("knowledge"),
   storySection: document.getElementById("storySection"),
@@ -134,6 +141,47 @@ function placeLines() {
   const text = actor && worldData.texts?.[`txt_place_${actor.locationId}`];
   return text ? [text] : [];
 }
+// V2-Core-152: a step's gains, read by comparing what I knew and had before it with after it (view() only -- nothing
+// hidden). A word I had not heard, a word now confirmed, an item, silver, a wound, a new turn of the story
+function snapshot() {
+  if (!state) return null;
+  const v = view(state, worldData);
+  if (!v) return null;
+  return { knowledge: v.knowledge ?? {}, actor: v.actor, goals: currentGoals(state, worldData).map((g) => g.textId) };
+}
+function diffNews(before, after) {
+  if (!before || !after) return [];
+  const items = [];
+  for (const [rumorId, k] of Object.entries(after.knowledge)) {
+    if (!k || typeof k.rumorId !== "string") continue;
+    const old = before.knowledge[rumorId];
+    const label = word(`lbl_rumor_${rumorId}`, null);
+    if (!label) continue;
+    const chapter = worldData.rumors?.[rumorId]?.story?.chapter;
+    const from = (k.sources ?? [k.source]).map(sourceName).join(", ");
+    if (!old) items.push({ kind: Number.isInteger(chapter) ? "story" : "learned", text: label, note: from, rumorId });
+    else if (old.confidence < 90 && k.confidence >= 90) items.push({ kind: "confirmed", text: label, note: "직접 확인함", rumorId });
+  }
+  const inv = (a) => a.inventory ?? {};
+  const itemIds = new Set([...Object.keys(inv(before.actor)), ...Object.keys(inv(after.actor))]);
+  for (const id of itemIds) {
+    const d = (inv(after.actor)[id] ?? 0) - (inv(before.actor)[id] ?? 0);
+    const name = worldData.items?.[id]?.name ?? id;
+    if (d > 0) items.push({ kind: "gained", text: d > 1 ? `${name} ${d}` : name });
+    if (d < 0) items.push({ kind: "spent", text: -d > 1 ? `${name} ${-d}` : name });
+  }
+  const money = after.actor.money - before.actor.money;
+  if (money !== 0) items.push({ kind: money > 0 ? "gained" : "spent", text: `은화 ${Math.abs(money)}` });
+  const hp = after.actor.hp.current - before.actor.hp.current;
+  if (hp !== 0) items.push({ kind: hp > 0 ? "healed" : "hurt", text: `체력 ${hp > 0 ? "+" : "−"}${Math.abs(hp)}` });
+  return items;
+}
+function noteChanges(before) {
+  const after = snapshot();
+  newsItems = diffNews(before, after);
+  goalChanged = Boolean(before && after) && before.goals[0] !== after.goals[0];
+}
+
 function prologueLines(templateId) {
   const ids = worldData.world.prologue?.[templateId] ?? [];
   return ids.map((id) => worldData.texts?.[id]).filter(Boolean);
@@ -183,6 +231,7 @@ function dispatch(action) {
   if (!state || busy) return;
   busy = true;
   showError("");
+  const before = snapshot();
   try {
     const result = step(state, action, worldData);
     state = result.state;
@@ -192,6 +241,7 @@ function dispatch(action) {
     if (action.type === "startCharacter" && !result.events.some((e) => e.type === "action.rejected")) {
       sceneLines = prologueLines(action.templateId);
     }
+    noteChanges(action.type === "startCharacter" ? null : before);
   } catch (err) {
     showError(`처리 중 오류: ${err.message}`);
   } finally {
@@ -206,6 +256,7 @@ function waitADay() {
   if (!state || busy) return;
   busy = true;
   showError("");
+  const before = snapshot();
   try {
     const result = waitDay(state, worldData);
     state = result.state;
@@ -216,6 +267,7 @@ function waitADay() {
     if (!result.events.some((e) => SCENE_TYPES.has(e.type))) {
       sceneLines = [result.stop === null ? "하루가 지났다. 별다른 일은 없었다." : `${formatDuration(result.minutes)}을 기다렸다.`];
     }
+    noteChanges(before);
   } catch (err) {
     showError(`처리 중 오류: ${err.message}`);
   } finally {
@@ -238,6 +290,7 @@ function renderChoice(pending) {
     return;
   }
   el.choice.hidden = false;
+  if (el.choiceTitle) el.choiceTitle.textContent = word(`lbl_choice_${pending.choiceId}`, "무엇이라고 할까");
   const def = worldData.choices?.[pending.choiceId];
   const options = Array.isArray(def?.options) ? def.options : [];
   options.forEach((option) => {
@@ -253,6 +306,7 @@ function renderNewCharacter(pending) {
   clearChildren(el.choiceOptions);
   if (!pending || pending.kind !== "newCharacter") return false;
   el.choice.hidden = false;
+  if (el.choiceTitle) el.choiceTitle.textContent = "다시, 이름 없는 누군가로";
   Object.keys(worldData.characterTemplates ?? {})
     .sort()
     .forEach((templateId) => {
@@ -444,6 +498,7 @@ function renderKnowledge(knowledge, pending) {
     const li = document.createElement("li");
     li.textContent = (relevant ? "[지금 선택과 관련] " : "") + parts.join(" · ");
     if (relevant) li.dataset.relevant = "true";
+    if (newsItems.some((n) => n.rumorId === k.rumorId)) li.dataset.new = "true";
     if (stale) li.dataset.stale = "true";
     if (expired) li.dataset.expired = "true";
     el.knowledge.appendChild(li);
@@ -460,10 +515,36 @@ function renderScene() {
   });
 }
 
+const NEWS_WORDS = { learned: "새로 안 것", story: "이야기가 움직였다", confirmed: "확인했다", gained: "얻었다", spent: "내주었다", healed: "나았다", hurt: "다쳤다" };
+function renderNews() {
+  if (!el.news) return;
+  clearChildren(el.news);
+  el.news.hidden = newsItems.length === 0;
+  newsItems.forEach((n) => {
+    const li = document.createElement("li");
+    li.dataset.kind = n.kind;
+    const tag = document.createElement("span");
+    tag.className = "tag";
+    tag.textContent = NEWS_WORDS[n.kind];
+    const what = document.createElement("span");
+    what.className = "what";
+    what.textContent = n.text;
+    li.append(tag, what);
+    if (n.note) {
+      const note = document.createElement("span");
+      note.className = "note";
+      note.textContent = n.note;
+      li.appendChild(note);
+    }
+    el.news.appendChild(li);
+  });
+}
+
 // V2-Core-151: what I mean to do now (ui/goals.js), the main thread first
 function renderGoal() {
   if (!el.goalText) return;
   clearChildren(el.goalText);
+  if (el.goal) el.goal.dataset.changed = String(goalChanged);
   currentGoals(state, worldData).forEach((goal, i) => {
     const span = document.createElement("span");
     span.dataset.track = goal.track;
@@ -523,13 +604,21 @@ function render() {
     clearChildren(el.choiceOptions);
   }
 
+  const doingLabel = document.getElementById("doingLabel");
+  if (doingLabel) doingLabel.hidden = pendingActive;
   el.waitBtn.disabled = pendingActive;
   el.waitDayBtn.disabled = pendingActive;
   renderStory(playerView.knowledge);
   renderKnowledge(playerView.knowledge, playerView.pending);
   renderLog();
   renderScene();
+  renderNews();
   renderGoal();
+  if (el.notebookBtn) {
+    const known = Object.values(playerView.knowledge ?? {}).filter((k) => k && typeof k.rumorId === "string").length;
+    const fresh = newsItems.filter((n) => n.rumorId).length;
+    el.notebookBtn.dataset.count = fresh > 0 ? `아는 것 ${known} · 새로 ${fresh}` : `아는 것 ${known}`;
+  }
 }
 
 async function refreshSlotList() {
@@ -582,6 +671,8 @@ function newGame(seed, templateId = el.backgroundSelect?.value || undefined) {
   logEntries.length = 0;
   applyEvents(result.events);
   sceneLines = prologueLines(state.actors[state.player.actorId]?.templateId ?? templateId ?? worldData.world.startTemplateId);
+  newsItems = [];
+  goalChanged = false;
   showError("");
   render();
 }
@@ -624,6 +715,8 @@ async function loadGame(slot) {
     logEntries.length = 0;
     pushLog(`"${slot}"에서 불러왔다.`);
     sceneLines = placeLines();
+    newsItems = [];
+    goalChanged = false;
     showError("");
     render();
   } catch (err) {
@@ -650,7 +743,19 @@ const notes = document.getElementById("notes");
 notebookBtn?.addEventListener("click", () => {
   notes.hidden = !notes.hidden;
   notebookBtn.setAttribute("aria-expanded", String(!notes.hidden));
-  notebookBtn.textContent = `${notes.hidden ? "수첩 펼치기" : "수첩 접기"} · 몸 상태, 이야기, 아는 것, 기록`;
+  notebookBtn.textContent = notes.hidden ? "수첩 펼치기" : "수첩 접기";
+});
+// V2-Core-152: the number keys press the numbered choices (what to say, else what to do), as they are shown
+document.addEventListener("keydown", (e) => {
+  if (!state || e.altKey || e.ctrlKey || e.metaKey || /^(INPUT|SELECT|TEXTAREA)$/.test(e.target?.tagName ?? "")) return;
+  const n = Number(e.key);
+  if (!Number.isInteger(n) || n < 1 || n > 9) return;
+  const list = el.choice.hidden ? el.actions : el.choiceOptions;
+  const button = [...list.querySelectorAll("button")].filter((b) => !b.disabled)[n - 1];
+  if (button) {
+    e.preventDefault();
+    button.click();
+  }
 });
 el.saveBtn?.addEventListener("click", () => {
   const slot = (el.saveSlotInput?.value || "").trim();
