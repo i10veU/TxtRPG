@@ -5,6 +5,8 @@
 //   1. the royal records name the frontier's defender -- and this character, reading them, is known to the realm (the
 //      character panel shows the title)
 //   2. the castle town's notices tell the deed; save -> reload -> load keeps the state
+//   3. (V2-Core-149, D-127) after the remnants regroup the waystation's board posts their bounty again
+//   4. (V2-Core-149, D-127) the word goes north on its own cadence and the ferryman passes it on; kept across a reload
 const { test, expect } = require("@playwright/test");
 
 const ENTRY_URL = "http://127.0.0.1:4173/v2/index.html";
@@ -130,6 +132,49 @@ test.describe("V2 the strongest one (M7): the realm's name", () => {
     await dispatch(page, [{ type: "wait", minutes: 1440 }]);
     expect((await getState(page)).signals.remnants_quiet).toBe(0);
     await expect(page.locator("#actions")).toContainText("숲 너머에 남은 무리를 뒤쫓는다");
+    // V2-Core-149 (D-127): back in the woods, and the waystation says so
+    expect((await getState(page)).facts.fact_remnants.value).toBe("regrouped");
+    await move(page, "강 건너 길목");
+    await act(page, "길목의 게시판을 읽는다");
+    await expect(page.locator("#log")).toContainText("무리의 남은 자들이 다시 모였다고 한다");
+    await expect(page.locator("#knowledge li", { hasText: "숲 너머에 무리의 잔당이 다시 모였다" })).toHaveCount(1);
+    expect(pageErrors).toEqual([]);
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("the word goes north on its cadence; the ferryman passes it on -- kept across a reload", async ({ page }) => {
+    test.setTimeout(120000);
+    const { pageErrors, consoleErrors } = await gotoApp(page);
+    await page.evaluate(() => window.__v2App.newGame("history-41"));
+    await dispatch(page, TO_DISPERSAL);
+    // staged: the band broken by this character a cadence ago, the word on its way (its first step taken just now)
+    await page.evaluate(async () => {
+      const idb = await import("/v2/storage/idb.js");
+      const s = structuredClone(window.__v2App.getState());
+      s.flags = { ...s.flags, band_crossed: true, band_broken: true, road_walked: true };
+      s.signals = { ...s.signals, frontier_fate: 1, fate_word_age: 1 };
+      s.fired = { ...s.fired, evt_unrest_word_north: { count: 1, lastMinute: s.time.minute } };
+      await idb.save("slot_word_north", s, { savedAt: 1 });
+    });
+    await loadSlot(page, "slot_word_north");
+    const ask = async () => { await act(page, "뱃사공과 대화"); await option(page, "강 건너 소식을 묻는다").click(); };
+    await ask();
+    await expect(page.locator("#log")).not.toContainText("변경 이야기는 상단 편에 북으로 올라갔소");
+    for (let i = 0; i < 6 && !(await getState(page)).flags.fate_word_north; i += 1) await page.locator("#waitDayBtn").click();
+    const arrived = await getState(page);
+    expect(arrived.flags.fate_word_north).toBe(true);
+    expect(arrived.facts.fact_fate_word.value).toBe("north");
+    await ask();
+    await expect(page.locator("#log")).toContainText("변경 이야기는 상단 편에 북으로 올라갔소");
+    await expect(page.locator("#knowledge li", { hasText: "변경의 일이 상단 편에 북쪽으로 올라갔다" })).toHaveCount(1);
+    await expect(story(page).filter({ hasText: "변경의 일이 상단 편에 북쪽으로 올라갔다" })).toHaveCount(1);
+
+    const told = await getState(page);
+    await page.locator("#saveSlotInput").fill("slot_word_told");
+    await page.locator("#saveBtn").click();
+    await expect(page.locator("#log")).toContainText("slot_word_told");
+    await loadSlot(page, "slot_word_told");
+    expect(await getState(page)).toEqual(told);
     expect(pageErrors).toEqual([]);
     expect(consoleErrors).toEqual([]);
   });

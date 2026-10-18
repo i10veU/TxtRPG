@@ -1187,7 +1187,17 @@ export const worldData = {
       catchUp: true,
       effects: [
         { op: "signal", key: "fate_word_age", add: 1 },
-        { op: "if", when: { op: "signal", key: "fate_word_age", eq: 2 }, then: [{ op: "flag", key: "fate_word_north", value: true }] }
+        {
+          op: "if",
+          when: { op: "signal", key: "fate_word_age", eq: 2 },
+          then: [
+            { op: "flag", key: "fate_word_north", value: true },
+            // V2-Core-149 (D-127, #371): the world's fact of it (as the first arrivals' flag and fact, V2-Core-141), and the
+            // ferryman's own word -- the caravans that carried it crossed at his ford; he passes it on when asked
+            { op: "fact", fact: "fact_fate_word", set: "north" },
+            { op: "rumor", rumor: "rum_fate_word_north", subject: "npc_ferryman", source: "obs_loc_river_ford", confidence: 80, about: "now" }
+          ]
+        }
       ]
     },
     // V2-Core-142 (M7): the remnants regroup -- a day at a time, from the hunt's week
@@ -1196,7 +1206,11 @@ export const worldData = {
       restartWhen: { op: "signal", key: "remnants_quiet", eq: 8 },
       cooldown: 1440,
       catchUp: true,
-      effects: [{ op: "signal", key: "remnants_quiet", add: -1 }]
+      effects: [
+        { op: "signal", key: "remnants_quiet", add: -1 },
+        // V2-Core-149 (D-127, #371): back in the woods -- the world's fact, which the waystation's board posts
+        { op: "if", when: { op: "signal", key: "remnants_quiet", max: 0 }, then: [{ op: "fact", fact: "fact_remnants", set: "regrouped" }] }
+      ]
     },
     evt_unrest_raid_strikes: {
       trigger: {
@@ -1670,6 +1684,12 @@ export const worldData = {
         { op: "if", when: { op: "flag", key: "village_honored" }, then: [say("txt_board_village_name")] },
         // V2-Core-141 (M2): the waystation's talk of a southerner
         { op: "if", when: { op: "flag", key: "frontier_seen_far_bank" }, then: [{ op: "rumor", rumor: "rum_frontier_seen_far_bank", source: "obs_loc_far_bank", confidence: 80 }, say("txt_board_southerner")] },
+        // V2-Core-149 (D-127, #371): the remnants back in the woods -- the waystation's merchants post their bounty again
+        {
+          op: "if",
+          when: { op: "fact", fact: "fact_remnants", eq: "regrouped" },
+          then: [{ op: "rumor", rumor: "rum_remnants_regrouped", observe: true, source: "obs_loc_far_bank", confidence: 80 }, say("txt_board_remnants")]
+        },
         // V2-Core-138 (M4): a band gathering across the river posts for hands; scrawled under it, whose men they are
         {
           op: "if",
@@ -1974,6 +1994,7 @@ export const worldData = {
           { op: "proficiency", id: "combat", add: 5 },
           // a week: the countdown takes its first day on this very step
           { op: "signal", key: "remnants_quiet", add: 8 },
+          { op: "fact", fact: "fact_remnants", set: "scattered" },
           { op: "money", add: 12 },
           { op: "relation", from: "org_village", add: 2 },
           say("txt_remnants_hunted")
@@ -2450,6 +2471,12 @@ export const worldData = {
                 { op: "if", when: { op: "signal", key: "caravan_took_flour", min: 1 }, then: [{ op: "rumor", rumor: "rum_caravan_took_flour", from: "npc_ferryman" }, say("txt_ferryman_caravan_took")] },
                 { op: "if", when: NOTES_DOUBTED, then: [say("txt_ferryman_doubts_notes")] }
               ]
+            },
+            // V2-Core-149 (D-127, #371): the frontier's story gone north with the caravans -- his own word, passed on
+            {
+              op: "if",
+              when: { op: "fact", fact: "fact_fate_word", eq: "north" },
+              then: [{ op: "rumor", rumor: "rum_fate_word_north", from: "npc_ferryman" }, say("txt_ferryman_fate_north")]
             }
           ]
         },
@@ -3329,6 +3356,9 @@ export const worldData = {
     fact_frontier_seen_town: {},
     fact_frontier_seen_far_bank: {},
     fact_royal_city: {},
+    // V2-Core-149 (D-127): the word north arrived; the remnants regrouped / scattered
+    fact_fate_word: {},
+    fact_remnants: {},
     // V2-Core-125 (#307): the road to the ford -- quiet / uneasy / dangerous, set at each turn (a save from before has none) --
     // and the world's place on the road's course, drawn at creation from its own stream (a save from before has none: the first)
     fact_road_north: {},
@@ -3405,6 +3435,9 @@ export const worldData = {
     rum_ending_held: { factId: "fact_ending", claim: "frontier_held", story: { chapter: 5 } },
     rum_ending_lord: { factId: "fact_ending", claim: "lord_banner", story: { chapter: 5 } },
     rum_ending_fell: { factId: "fact_ending", claim: "frontier_fell", story: { chapter: 5 } },
+    // V2-Core-149 (D-127)
+    rum_fate_word_north: { factId: "fact_fate_word", claim: "north", story: { chapter: 5 } },
+    rum_remnants_regrouped: { factId: "fact_remnants", claim: "regrouped" },
     // V2-Core-141 (M2)
     rum_ferryman_watches: { factId: "fact_ferryman_watch", claim: "watching", story: { chapter: 3 } },
     rum_crown_writ: { factId: "fact_crown_writ", claim: "granted", story: { chapter: 3 } },
@@ -3662,6 +3695,7 @@ export const worldData = {
     txt_board_royal_city: "길목의 게시판에는 이정표가 그려져 있다. 이 길을 따라 북쪽으로 닷새를 걸으면 왕도라고 한다.",
     txt_board_levy: "영주의 징집령이 나붙어 있다. 열여섯 살이 넘은 남자는 성으로 오라는 내용이다.",
     txt_board_bounty: "빛바랜 수배서 한 장이 눈에 띈다. 옆구리에 오래된 상처가 있는 도적 두목, 현상금 은화 쉰 닢.",
+    txt_board_remnants: "새 방이 붙어 있다. 숲 너머 옛 진터에 무리의 남은 자들이 다시 모였다고 한다. 길목의 상인들이 그들을 흩는 이에게 은화 열두 닢을 건다.",
     txt_board_road_safe: "남쪽 변경의 길이 다시 안전해졌다는 상단 조합의 공고가 붙어 있다.",
     txt_board_village_name: "게시판 귀퉁이에 누군가 적어 놓았다. 남쪽 변경 마을에서 도적을 몰아내고 샘을 살린 이가 있다고.",
     txt_castle_town_first: "넓은 길이 끝나는 곳, 언덕 위에 돌로 쌓은 성이 보인다. 성 아래로 지붕들이 빼곡히 모여 있다. 영주의 성읍이다.",
@@ -3788,6 +3822,8 @@ export const worldData = {
     lbl_rumor_rum_ending_held: "변경은 스스로 무리를 막아 냈다",
     lbl_rumor_rum_ending_lord: "변경은 영주의 깃발 아래 무리를 막아 냈다",
     lbl_rumor_rum_ending_fell: "무리가 내려온 밤 마을이 무너졌다",
+    lbl_rumor_rum_fate_word_north: "변경의 일이 상단 편에 북쪽으로 올라갔다",
+    lbl_rumor_rum_remnants_regrouped: "숲 너머에 무리의 잔당이 다시 모였다. 길목에 사례금이 다시 걸렸다",
     lbl_rumor_rum_ferryman_watches: "뱃사공이 무리가 건너오면 마을에 알려 주기로 했다",
     lbl_rumor_rum_crown_writ: "왕궁이 변경에 민병을 세울 글을 내렸다",
     lbl_rumor_rum_band_stores_burnt: "숲 너머 무리의 식량 더미가 불탔다",
@@ -3818,6 +3854,7 @@ export const worldData = {
     lbl_rumor_rum_caravan_took_flour: "상단이 변경의 밀가루를 싣고 북으로 갔다",
     lbl_rumor_rum_town_flour_caravan_bought: "상단이 방앗간 밀가루를 사 갔으니 성읍이 찾는 모양이다",
     txt_ferryman_town_wants: "\"지난번 상단이 그러는데, 성읍 상인이 강 남쪽 밀가루를 찾는다더군.\"",
+    txt_ferryman_fate_north: "\"변경 이야기는 상단 편에 북으로 올라갔소. 이제 성읍에서도, 왕도에서도 그 일을 들었을 거요.\"",
     txt_ferryman_town_enough: "\"지난번 상단 말로는 성읍엔 밀가루가 넉넉하다더군. 지금도 그런지는 나도 모르오.\"",
     txt_ferryman_caravan_took: "\"그 상단이 돌아가는 길에 방앗간 밀가루를 한 자루 싣고 건넜소.\"",
     txt_ferryman_doubts_notes: "\"상인 짐표는 당분간 안 받소. 다음 상단 편에 그 양반 대답을 들어 봐야겠소.\"",
