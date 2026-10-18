@@ -361,22 +361,38 @@ function toward(name) {
   return `${name}${final === 0 || final === 8 ? "로" : "으로"}`;
 }
 
-// what I can do first; what I cannot do yet after it, quietly
+// what I can do first; what I cannot do yet after it, quietly. V2-Core-155 (D-133): something happening here comes first --
+// one card per encounter (the actions sharing an `encounter` scene): the scene, then its ways; a way I lack the means
+// for is shown under it, disabled, with what it needs (ui/stakes.js -- a way behind something not mine stays hidden)
+function actionButton(actionId, available) {
+  const def = worldData.actions?.[actionId];
+  const label = def?.name ?? actionId;
+  return markStakes(
+    makeButton(available ? label : `${label} (지금은 할 수 없다)`, () => dispatch({ type: "perform", actionId }), { disabled: !available }),
+    def ? stakesOf(def, state, worldData) : null
+  );
+}
 function renderActions(actions, pendingActive) {
   clearChildren(el.actions);
   if (pendingActive) return;
-  [...actions.filter((a) => a.available), ...actions.filter((a) => !a.available)].forEach(({ actionId, available }) => {
-    const def = worldData.actions?.[actionId];
-    const label = def?.name ?? actionId;
-    el.actions.appendChild(
-      markStakes(
-        makeButton(available ? label : `${label} (지금은 할 수 없다)`, () => dispatch({ type: "perform", actionId }), {
-          disabled: !available
-        }),
-        def ? stakesOf(def, state, worldData) : null
-      )
-    );
+  const sceneOf = (actionId) => worldData.actions?.[actionId]?.encounter;
+  const scenes = [...new Set(actions.filter((a) => a.available && sceneOf(a.actionId)).map((a) => sceneOf(a.actionId)))];
+  scenes.forEach((scene) => {
+    const card = document.createElement("div");
+    card.className = "encounter";
+    card.dataset.encounter = scene;
+    const p = document.createElement("p");
+    p.textContent = word(scene, "");
+    card.appendChild(p);
+    const shown = new Set(actions.filter((a) => a.available && sceneOf(a.actionId) === scene).map((a) => a.actionId));
+    shown.forEach((id) => card.appendChild(actionButton(id, true)));
+    Object.entries(worldData.actions ?? {})
+      .filter(([id, def]) => def.encounter === scene && !shown.has(id) && stakesOf(def, state, worldData)?.locked)
+      .forEach(([id]) => card.appendChild(actionButton(id, false)));
+    el.actions.appendChild(card);
   });
+  [...actions.filter((a) => a.available && !sceneOf(a.actionId)), ...actions.filter((a) => !a.available && !sceneOf(a.actionId))]
+    .forEach(({ actionId, available }) => el.actions.appendChild(actionButton(actionId, available)));
 }
 
 function renderStatus(actor) {

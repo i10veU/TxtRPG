@@ -123,6 +123,11 @@
   button[data-risk="hard"]::after, button[data-risk="desperate"]::after { color: var(--news-ink) !important; }
   #moves button[data-note]::after { content: " · " attr(data-note); color: var(--muted); font-size: 0.82rem; }
   #choice { display: grid; gap: 0.6rem; }
+  /* V2-Core-155: something happening here -- its scene, then the way in */
+  .encounter { display: grid; gap: 0.5rem; padding: 0.8rem 0.9rem 0.9rem; border: 1px solid var(--news-rule); background: var(--news-bg); border-radius: 6px; }
+  .encounter > button { background: var(--page); }
+  .encounter > p { margin: 0; font-family: var(--serif); font-size: 1rem; line-height: 1.8; }
+  .encounter > p::before { content: "이곳에서 벌어지는 일"; display: block; font: 600 0.72rem/1.6 var(--sans); letter-spacing: 0.1em; color: var(--news-ink); }
   #choice[hidden], #menu[hidden], #game[hidden], #storySection[hidden], #news[hidden] { display: none; }
   .roads { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; padding-top: 0.2rem; }
   #moves { display: contents; }
