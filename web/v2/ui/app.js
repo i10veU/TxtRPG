@@ -21,6 +21,7 @@ import { actorResource, evaluateCondition } from "../core/rules.js";
 import * as storage from "../storage/idb.js";
 import { worldData } from "../data/world.js";
 import { waitDay } from "./wait.js";
+import { currentGoals } from "./goals.js";
 
 const DAY_MINUTES = 1440;
 
@@ -32,6 +33,8 @@ let intentVersion = 0;
 let slotListVersion = 0;
 const logEntries = [];
 const MAX_LOG_ENTRIES = 200;
+// V2-Core-151 (J3): the scene -- what the last thing I did brought, in prose. The record (logEntries) keeps every line
+let sceneLines = [];
 
 // V2-Core-126 (#309, Road News step 1b): no internal id on screen. The pack's ids are shown by the words its `texts` give them
 // (`lbl_*`); the engine's own ids (a check's tier, a rejection's code) by the UI's words here
@@ -61,6 +64,9 @@ const el = {
   choice: document.getElementById("choice"),
   choiceOptions: document.getElementById("choiceOptions"),
   log: document.getElementById("log"),
+  scene: document.getElementById("scene"),
+  goalText: document.getElementById("goalText"),
+  vitals: document.getElementById("vitals"),
   knowledge: document.getElementById("knowledge"),
   storySection: document.getElementById("storySection"),
   story: document.getElementById("story"),
@@ -116,12 +122,39 @@ function applyEvents(events) {
   });
 }
 
+// V2-Core-151: the scene shows the world's words and what could not be done; the time, the dice and the bookkeeping stay
+// in the record. A step with nothing to say shows the place I am in
+const SCENE_TYPES = new Set(["narration", "action.rejected", "actor.died"]);
+function setScene(events) {
+  const lines = events.filter((e) => SCENE_TYPES.has(e.type)).map(describeEvent).filter(Boolean);
+  sceneLines = lines.length > 0 ? lines : placeLines();
+}
+function placeLines() {
+  const actor = state?.actors?.[state.player.actorId];
+  const text = actor && worldData.texts?.[`txt_place_${actor.locationId}`];
+  return text ? [text] : [];
+}
+function prologueLines(templateId) {
+  const ids = worldData.world.prologue?.[templateId] ?? [];
+  return ids.map((id) => worldData.texts?.[id]).filter(Boolean);
+}
+
 function formatTime(minute) {
   const day = Math.floor(minute / DAY_MINUTES) + 1;
   const ofDay = minute % DAY_MINUTES;
-  const hh = String(Math.floor(ofDay / 60)).padStart(2, "0");
+  const hour = Math.floor(ofDay / 60);
+  const hh = String(hour).padStart(2, "0");
   const mm = String(ofDay % 60).padStart(2, "0");
-  return `${day}일차 ${hh}:${mm}`;
+  return `${day}일째 ${partOfDay(hour)} ${hh}:${mm}`;
+}
+function partOfDay(hour) {
+  if (hour < 5) return "깊은 밤";
+  if (hour < 7) return "새벽";
+  if (hour < 11) return "아침";
+  if (hour < 14) return "한낮";
+  if (hour < 17) return "오후";
+  if (hour < 20) return "저녁";
+  return "밤";
 }
 
 function locationName(locationId) {
@@ -154,6 +187,11 @@ function dispatch(action) {
     const result = step(state, action, worldData);
     state = result.state;
     applyEvents(result.events);
+    setScene(result.events);
+    // a new life opens with its own prologue
+    if (action.type === "startCharacter" && !result.events.some((e) => e.type === "action.rejected")) {
+      sceneLines = prologueLines(action.templateId);
+    }
   } catch (err) {
     showError(`처리 중 오류: ${err.message}`);
   } finally {
@@ -174,6 +212,10 @@ function waitADay() {
     applyEvents(result.events.filter((e) => e.type !== "time.advanced"));
     if (result.stop === null) pushLog("하루가 지났다.");
     else if (result.minutes > 0) pushLog(`${formatDuration(result.minutes)}을 기다리다 멈췄다.`);
+    setScene(result.events);
+    if (!result.events.some((e) => SCENE_TYPES.has(e.type))) {
+      sceneLines = [result.stop === null ? "하루가 지났다. 별다른 일은 없었다." : `${formatDuration(result.minutes)}을 기다렸다.`];
+    }
   } catch (err) {
     showError(`처리 중 오류: ${err.message}`);
   } finally {
@@ -215,7 +257,7 @@ function renderNewCharacter(pending) {
     .sort()
     .forEach((templateId) => {
       el.choiceOptions.appendChild(
-        makeButton(`새 캐릭터로 시작 (${templateName(templateId)})`, () => dispatch({ type: "startCharacter", templateId }))
+        makeButton(`새로 시작한다 (${templateName(templateId)})`, () => dispatch({ type: "startCharacter", templateId }))
       );
     });
   return true;
@@ -230,18 +272,26 @@ function renderMoves(actorLocationId, pendingActive) {
     if (!link || typeof link.to !== "string") return;
     const available = link.requires === undefined || evaluateCondition(link.requires, requiresCtx("player"));
     if (!available) return;
-    el.moves.appendChild(makeButton(`${locationName(link.to)}(으)로 이동`, () => dispatch({ type: "move", to: link.to })));
+    el.moves.appendChild(makeButton(`${toward(locationName(link.to))} 간다`, () => dispatch({ type: "move", to: link.to })));
   });
 }
 
+// "시장으로", "마을로": the particle a Korean place name takes
+function toward(name) {
+  const code = name.charCodeAt(name.length - 1) - 0xac00;
+  const final = code >= 0 && code < 11172 ? code % 28 : 0;
+  return `${name}${final === 0 || final === 8 ? "로" : "으로"}`;
+}
+
+// what I can do first; what I cannot do yet after it, quietly
 function renderActions(actions, pendingActive) {
   clearChildren(el.actions);
   if (pendingActive) return;
-  actions.forEach(({ actionId, available }) => {
+  [...actions.filter((a) => a.available), ...actions.filter((a) => !a.available)].forEach(({ actionId, available }) => {
     const def = worldData.actions?.[actionId];
     const label = def?.name ?? actionId;
     el.actions.appendChild(
-      makeButton(available ? label : `${label} (잠김)`, () => dispatch({ type: "perform", actionId }), {
+      makeButton(available ? label : `${label} (지금은 할 수 없다)`, () => dispatch({ type: "perform", actionId }), {
         disabled: !available
       })
     );
@@ -400,6 +450,37 @@ function renderKnowledge(knowledge, pending) {
   });
 }
 
+function renderScene() {
+  if (!el.scene) return;
+  clearChildren(el.scene);
+  sceneLines.forEach((text) => {
+    const p = document.createElement("p");
+    p.textContent = text;
+    el.scene.appendChild(p);
+  });
+}
+
+// V2-Core-151: what I mean to do now (ui/goals.js), the main thread first
+function renderGoal() {
+  if (!el.goalText) return;
+  clearChildren(el.goalText);
+  currentGoals(state, worldData).forEach((goal, i) => {
+    const span = document.createElement("span");
+    span.dataset.track = goal.track;
+    if (i > 0) span.className = "side";
+    span.textContent = word(goal.textId, "");
+    el.goalText.appendChild(span);
+  });
+}
+
+function renderVitals(actor) {
+  if (!el.vitals) return;
+  const stamina = actorResource(actor, worldData, "stamina");
+  el.vitals.textContent = [`체력 ${actor.hp.current}/${actor.hp.max}`, stamina && `기력 ${stamina.current}/${stamina.max}`, `은화 ${actor.money}`]
+    .filter(Boolean)
+    .join(" · ");
+}
+
 function renderLog() {
   clearChildren(el.log);
   logEntries
@@ -427,8 +508,9 @@ function render() {
     return;
   }
 
-  el.location.textContent = `${locationName(playerView.actor.locationId)} — ${formatTime(state.time.minute)}`;
+  el.location.textContent = `${locationName(playerView.actor.locationId)} · ${formatTime(state.time.minute)}`;
   renderStatus(playerView.actor);
+  renderVitals(playerView.actor);
 
   const pendingActive = Boolean(playerView.pending);
   renderMoves(playerView.actor.locationId, pendingActive);
@@ -446,6 +528,8 @@ function render() {
   renderStory(playerView.knowledge);
   renderKnowledge(playerView.knowledge, playerView.pending);
   renderLog();
+  renderScene();
+  renderGoal();
 }
 
 async function refreshSlotList() {
@@ -497,6 +581,7 @@ function newGame(seed, templateId = el.backgroundSelect?.value || undefined) {
   currentSlot = null;
   logEntries.length = 0;
   applyEvents(result.events);
+  sceneLines = prologueLines(state.actors[state.player.actorId]?.templateId ?? templateId ?? worldData.world.startTemplateId);
   showError("");
   render();
 }
@@ -538,6 +623,7 @@ async function loadGame(slot) {
     currentSlot = slot;
     logEntries.length = 0;
     pushLog(`"${slot}"에서 불러왔다.`);
+    sceneLines = placeLines();
     showError("");
     render();
   } catch (err) {
@@ -558,6 +644,14 @@ el.newGameBtn?.addEventListener("click", () => newGame());
 el.waitBtn?.addEventListener("click", () => dispatch({ type: "wait", minutes: 30 }));
 el.waitDayBtn?.addEventListener("click", waitADay);
 el.backToMenuBtn?.addEventListener("click", backToMenu);
+// the notebook folds away; what is in it stays in the page
+const notebookBtn = document.getElementById("notebookBtn");
+const notes = document.getElementById("notes");
+notebookBtn?.addEventListener("click", () => {
+  notes.hidden = !notes.hidden;
+  notebookBtn.setAttribute("aria-expanded", String(!notes.hidden));
+  notebookBtn.textContent = `${notes.hidden ? "수첩 펼치기" : "수첩 접기"} · 몸 상태, 이야기, 아는 것, 기록`;
+});
 el.saveBtn?.addEventListener("click", () => {
   const slot = (el.saveSlotInput?.value || "").trim();
   if (!slot) {

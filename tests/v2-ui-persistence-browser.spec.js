@@ -43,7 +43,7 @@ async function startCanonicalGame(page) {
 
 // talk to the elder and pick one of the options
 async function talkAndChoose(page, optionLabel) {
-  await act(page, "원로와 대화");
+  await act(page, "원로를 찾아간다");
   await expect(page.locator("#choice")).toBeVisible();
   await choiceButton(page, optionLabel).click();
   await expect(page.locator("#choice")).toBeHidden();
@@ -52,16 +52,16 @@ async function talkAndChoose(page, optionLabel) {
 // observe x2, the elder's rumor, the lantern, the ruins, the investigation, and
 // back to the village to rest -- the information is confirmed, HP is recovered
 async function playToConfirmedVillage(page) {
-  await act(page, "마을 살피기");
-  await act(page, "마을 살피기");
-  await talkAndChoose(page, "폐허에 대해 묻기");
+  await act(page, "마을 사람들 사이에 섞여 귀를 기울인다");
+  await act(page, "마을 사람들 사이에 섞여 귀를 기울인다");
+  await talkAndChoose(page, "폐허에 대해 묻는다");
   await move(page, "시장");
-  await act(page, "등불 구입");
+  await act(page, "등불을 산다");
   await move(page, "변경 마을");
   await move(page, "폐허");
-  await act(page, "폐허 조사");
+  await act(page, "폐허 안을 살핀다");
   await move(page, "변경 마을");
-  await act(page, "마을에서 쉬기");
+  await act(page, "마을 어귀에서 쉬며 상처를 돌본다");
 }
 
 async function reloadAndLoad(page, slot) {
@@ -86,9 +86,9 @@ test.describe("V2 persistent consequence (an earlier decision, a later place)", 
     await startCanonicalGame(page);
     await playToConfirmedVillage(page);
     await talkAndChoose(page, REPORT);
-    await act(page, "도적 두목과 대면");
+    await act(page, "도적 두목 앞에 나선다");
     // 4. the decision that leaves a mark
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await choiceButton(page, FATE).click();
     await expect(page.locator("#choice")).toBeHidden();
     const decided = await getState(page);
@@ -137,7 +137,7 @@ test.describe("V2 persistent consequence (an earlier decision, a later place)", 
 
     // branch X: report, confront, decide, then the market
     await talkAndChoose(page, REPORT);
-    await act(page, "도적 두목과 대면");
+    await act(page, "도적 두목 앞에 나선다");
     await talkAndChoose(page, FATE);
     await move(page, "시장");
     const stateX = await getState(page);
@@ -150,7 +150,7 @@ test.describe("V2 persistent consequence (an earlier decision, a later place)", 
     await reloadAndLoad(page, "slot_decision");
     expect(await getState(page)).toEqual(atDecision);
     await talkAndChoose(page, REPORT);
-    await act(page, "도적 두목과 대면");
+    await act(page, "도적 두목 앞에 나선다");
     await move(page, "시장");
     const stateY = await getState(page);
     expect(moneyOf(stateY)).toBe(moneyOf(atDecision));
@@ -159,8 +159,8 @@ test.describe("V2 persistent consequence (an earlier decision, a later place)", 
 
     // branch Z: no backing at all -- and the decision is rejected behind the UI's back (10)
     await reloadAndLoad(page, "slot_decision");
-    await act(page, "도적 두목과 대면");
-    await act(page, "원로와 대화");
+    await act(page, "도적 두목 앞에 나선다");
+    await act(page, "원로를 찾아간다");
     await expect(choiceButton(page, FATE)).toHaveCount(0);
     const pendingBefore = (await getState(page)).pending;
     const unchanged = await page.evaluate(() => {
@@ -170,7 +170,7 @@ test.describe("V2 persistent consequence (an earlier decision, a later place)", 
     });
     expect(unchanged).toBe(true);
     expect((await getState(page)).pending).toEqual(pendingBefore);
-    await choiceButton(page, "안부만 묻기").click();
+    await choiceButton(page, "안부만 묻는다").click();
     await expect(page.locator("#choice")).toBeHidden();
     await move(page, "시장");
     const stateZ = await getState(page);
@@ -181,7 +181,7 @@ test.describe("V2 persistent consequence (an earlier decision, a later place)", 
     // 9. branch X again from the saved moment: identical to the first time
     await reloadAndLoad(page, "slot_decision");
     await talkAndChoose(page, REPORT);
-    await act(page, "도적 두목과 대면");
+    await act(page, "도적 두목 앞에 나선다");
     await talkAndChoose(page, FATE);
     await move(page, "시장");
     expect(await getState(page)).toEqual(stateX);

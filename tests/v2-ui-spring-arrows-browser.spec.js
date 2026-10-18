@@ -31,7 +31,7 @@ const move = (page, label) => page.locator("#moves button", { hasText: label }).
 const option = (page, label) => page.locator("#choiceOptions button", { hasText: label });
 const getState = (page) => page.evaluate(() => window.__v2App.getState());
 const elder = async (page, label) => {
-  await act(page, "원로와 대화");
+  await act(page, "원로를 찾아간다");
   await option(page, label).click();
 };
 
@@ -42,12 +42,12 @@ test.describe("V2 spring arrows (Slice 3: the two stories meet)", () => {
     await expect(page.locator("#game")).toBeVisible();
 
     // the hideout, from the elder
-    await elder(page, "폐허에 대해 묻기");
-    await expect(page.locator("#log")).toContainText("마을 외곽의 폐허에 대해 이야기한다.");
+    await elder(page, "폐허에 대해 묻는다");
+    await expect(page.locator("#log")).toContainText("마을 바깥 폐허에 사람이 드나드네");
     await page.evaluate((list) => list.forEach((a) => window.__v2App.dispatch(a)), TO_SPRING);
 
     // the search reads the arrows
-    await act(page, "샘 조사");
+    await act(page, "샘 주변을 뒤져 본다");
     await expect(page.locator("#log")).toContainText("도적단의 화살이다.");
     expect((await getState(page)).facts.fact_spring_fouler.value).toBe("bandits");
 
@@ -71,12 +71,12 @@ test.describe("V2 spring arrows (Slice 3: the two stories meet)", () => {
     expect(await getState(page)).toEqual(saved);
 
     // the village's account: the elder about the ruins, the herbalist about the sickness
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await expect(option(page, TELL)).toHaveCount(0);
-    await option(page, "폐허에 대해 묻기").click();
+    await option(page, "폐허에 대해 묻는다").click();
     await expect(page.locator("#log")).toContainText("숲속 샘까지 흐려 놓았다는 이야기도 잊지 않고 덧붙인다.");
     await move(page, "시장");
-    await act(page, "약초꾼과 대화");
+    await act(page, "약초꾼에게 말을 건다");
     await option(page, "마을의 배앓이에 대해 묻는다").click();
     await expect(page.locator("#log")).toContainText("이야기가 시장에도 돈다고 한다.");
     expect((await getState(page)).relations["npc_elder:player_1"].score).toBe(before + 5);

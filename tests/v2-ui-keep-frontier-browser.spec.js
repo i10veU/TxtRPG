@@ -76,9 +76,9 @@ test.describe("V2 the main thread, chapter 3 (M5): keeping the frontier", () => 
     await expect(page.locator("#log")).toContainText(/모닥불 두엇|마른 가지가 부러진다/);
 
     await dispatch(page, [M("loc_far_bank"), M("loc_river_ford"), M("loc_crossroads"), M("loc_village")]);
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await option(page, "강 건너 소문을 나눈다").click();
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     const money = (await getState(page)).actors.player_1.money;
     await option(page, "마을의 대비에 은화 10을 보탠다").click();
     await expect(page.locator("#log")).toContainText("창과 등불");

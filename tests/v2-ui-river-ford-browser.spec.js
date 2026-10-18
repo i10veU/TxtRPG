@@ -57,7 +57,7 @@ test.describe("V2 river ford (Slice 4: the outside world)", () => {
     // the elder's letter of passage
     await move(page, "옛 갈림길");
     await move(page, "변경 마을");
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await option(page, "강을 건널 통행 편지를 청한다").click();
     await expect(page.locator("#status")).toContainText("원로의 통행 편지 x1");
 

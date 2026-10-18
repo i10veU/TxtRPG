@@ -69,7 +69,7 @@ test.describe("V2 the main thread, chapters 4 and 5 (M6): the band crosses; the 
     await option(page, "물러서서 마을로 달아난다").click();
     expect((await getState(page)).actors.player_1.locationId).toBe("loc_village");
 
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await option(page, "건너온 무리에 대해 묻는다").click();
     await expect(page.locator("#log")).toContainText("사흘이면 마을로 내려올 걸세");
     await expect(page.locator("#log")).toContainText("마을이 가진 것이 모자라네");
@@ -77,7 +77,7 @@ test.describe("V2 the main thread, chapters 4 and 5 (M6): the band crosses; the 
     await dispatch(page, [{ type: "wait", minutes: 1440 }, { type: "wait", minutes: 1440 }, { type: "wait", minutes: 1440 }]);
     const after = await getState(page);
     expect(after.signals.frontier_fate).toBe(4);
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await option(page, "그날의 일을 듣는다").click();
     await expect(page.locator("#log")).toContainText("그날 밤 마을이 무너졌네");
     await expect(story(page).filter({ hasText: CH5 })).toHaveCount(1);
@@ -111,14 +111,14 @@ test.describe("V2 the main thread, chapters 4 and 5 (M6): the band crosses; the 
       await idb.save("slot_mourning", s, { savedAt: 1 });
     });
     await loadSlot(page, "slot_mourning");
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await expect(option(page, "그날의 일을 듣는다")).toHaveCount(0);
-    await option(page, "안부만 묻기").click();
+    await option(page, "안부만 묻는다").click();
     for (let i = 0; i < 6 && !(await getState(page)).flags.guard_fall_word_south; i += 1) await dispatch(page, [{ type: "wait", minutes: 1440 }]);
     const heard = await getState(page);
     expect(heard.flags.guard_fall_word_south).toBe(true);
     expect(heard.signals.frontier_fate).toBe(4);
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await option(page, "그날의 일을 듣는다").click();
     await expect(page.locator("#log")).toContainText("그날 밤 마을이 무너졌네");
     await expect(page.locator("#log")).toContainText("그 길에서 돌아오지 못한 호위도 있었지");

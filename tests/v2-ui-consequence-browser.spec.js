@@ -12,7 +12,7 @@ const ENTRY_URL = "http://127.0.0.1:4173/v2/index.html";
 // picked in V2-Core-22 so both real check() calls land on a non-fail tier
 const CANONICAL_SEED = "frontier-canonical-4";
 const REPORT = "조사에서 알아낸 것을 전한다";
-const BACKED_TEXT = "마을 사람들이 당신 뒤에 서 있다";
+const BACKED_TEXT = "내 뒤에 마을 사람들이 서 있다";
 
 async function gotoApp(page) {
   const pageErrors = [];
@@ -40,7 +40,7 @@ async function startCanonicalGame(page) {
 
 // talk to the elder and pick one of the options
 async function talkAndChoose(page, optionLabel) {
-  await act(page, "원로와 대화");
+  await act(page, "원로를 찾아간다");
   await expect(page.locator("#choice")).toBeVisible();
   await choiceButton(page, optionLabel).click();
   await expect(page.locator("#choice")).toBeHidden();
@@ -49,16 +49,16 @@ async function talkAndChoose(page, optionLabel) {
 // observe x2, the elder's rumor, the lantern, the ruins, the investigation, and
 // back to the village to rest -- the information is confirmed, HP is recovered
 async function playToConfirmedVillage(page) {
-  await act(page, "마을 살피기");
-  await act(page, "마을 살피기");
-  await talkAndChoose(page, "폐허에 대해 묻기");
+  await act(page, "마을 사람들 사이에 섞여 귀를 기울인다");
+  await act(page, "마을 사람들 사이에 섞여 귀를 기울인다");
+  await talkAndChoose(page, "폐허에 대해 묻는다");
   await move(page, "시장");
-  await act(page, "등불 구입");
+  await act(page, "등불을 산다");
   await move(page, "변경 마을");
   await move(page, "폐허");
-  await act(page, "폐허 조사");
+  await act(page, "폐허 안을 살핀다");
   await move(page, "변경 마을");
-  await act(page, "마을에서 쉬기");
+  await act(page, "마을 어귀에서 쉬며 상처를 돌본다");
 }
 
 async function reloadAndLoad(page, slot) {
@@ -75,15 +75,15 @@ test.describe("V2 consequence loop (confirmed information -> elder -> confrontat
 
     // 1. new game
     await startCanonicalGame(page);
-    await act(page, "마을 살피기");
-    await act(page, "마을 살피기");
+    await act(page, "마을 사람들 사이에 섞여 귀를 기울인다");
+    await act(page, "마을 사람들 사이에 섞여 귀를 기울인다");
 
     // 9. nothing confirmed yet: the report option is not offered, and choosing it
     // behind the UI's back is rejected while the choice stays pending
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await expect(page.locator("#choice")).toBeVisible();
-    await expect(choiceButton(page, "폐허에 대해 묻기")).toHaveCount(1);
-    await expect(choiceButton(page, "안부만 묻기")).toHaveCount(1);
+    await expect(choiceButton(page, "폐허에 대해 묻는다")).toHaveCount(1);
+    await expect(choiceButton(page, "안부만 묻는다")).toHaveCount(1);
     await expect(choiceButton(page, REPORT)).toHaveCount(0);
     const before = await getState(page);
     const unchanged = await page.evaluate(() => {
@@ -98,12 +98,12 @@ test.describe("V2 consequence loop (confirmed information -> elder -> confrontat
     await expect(page.locator("#error")).toBeHidden();
 
     // 2. the elder's rumor (the choice was still answerable)
-    await choiceButton(page, "폐허에 대해 묻기").click();
+    await choiceButton(page, "폐허에 대해 묻는다").click();
     await expect(page.locator("#choice")).toBeHidden();
     expect(edge(await getState(page), "npc_elder:player_1").score).toBe(5);
 
     // knowing the rumor is still not enough: the option waits for the confirmation
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await expect(choiceButton(page, REPORT)).toHaveCount(0);
     const rumorOnly = await page.evaluate(() => {
       const snapshot = JSON.stringify(window.__v2App.getState());
@@ -111,28 +111,28 @@ test.describe("V2 consequence loop (confirmed information -> elder -> confrontat
       return snapshot === JSON.stringify(window.__v2App.getState());
     });
     expect(rumorOnly).toBe(true);
-    await choiceButton(page, "안부만 묻기").click();
+    await choiceButton(page, "안부만 묻는다").click();
     await expect(page.locator("#choice")).toBeHidden();
 
     // 3. the investigation confirms the information (fact + flag, as in V2-Core-30)
     await move(page, "시장");
-    await act(page, "등불 구입");
+    await act(page, "등불을 산다");
     await move(page, "변경 마을");
     await move(page, "폐허");
-    await act(page, "폐허 조사");
+    await act(page, "폐허 안을 살핀다");
     const confirmed = await getState(page);
     expect(confirmed.facts.fact_ruins_secret.value).toBe("bandit_hideout");
     expect(confirmed.flags.ruins_secret_confirmed).toBe(true);
     await move(page, "변경 마을");
-    await act(page, "마을에서 쉬기");
+    await act(page, "마을 어귀에서 쉬며 상처를 돌본다");
 
     // 4. with the information in hand the elder offers a relationship choice
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await expect(page.locator("#choice")).toBeVisible();
     await expect(choiceButton(page, REPORT)).toHaveCount(1);
     await choiceButton(page, REPORT).click();
     await expect(page.locator("#choice")).toBeHidden();
-    await expect(page.locator("#log")).toContainText("원로는 오래 침묵하다");
+    await expect(page.locator("#log")).toContainText("원로는 오래 말이 없다가");
     const reported = await getState(page);
     // asked (+5), reported (+10); small talk while closing the earlier dialogue earns nothing since V2-Core-55 (D-84)
     expect(edge(reported, "npc_elder:player_1")).toEqual({
@@ -140,8 +140,8 @@ test.describe("V2 consequence loop (confirmed information -> elder -> confrontat
     });
 
     // 5/6. the confrontation is the same check and result, with a different consequence
-    await expect(actionButton(page, "도적 두목과 대면")).toBeEnabled();
-    await act(page, "도적 두목과 대면");
+    await expect(actionButton(page, "도적 두목 앞에 나선다")).toBeEnabled();
+    await act(page, "도적 두목 앞에 나선다");
     await expect(page.locator("#log")).toContainText(BACKED_TEXT);
     const final = await getState(page);
     expect(final.cases.case_ruins_mystery.stage).toBe("resolved");
@@ -169,7 +169,7 @@ test.describe("V2 consequence loop (confirmed information -> elder -> confrontat
 
     // branch A: report, then confront
     await talkAndChoose(page, REPORT);
-    await act(page, "도적 두목과 대면");
+    await act(page, "도적 두목 앞에 나선다");
     const stateA = await getState(page);
     expect(edge(stateA, "npc_bandit_leader:player_1").score).toBe(-20);
     await expect(page.locator("#log")).toContainText(BACKED_TEXT);
@@ -177,7 +177,7 @@ test.describe("V2 consequence loop (confirmed information -> elder -> confrontat
     // branch B, from the same saved moment: confront without reporting
     await reloadAndLoad(page, "slot_decision");
     expect(await getState(page)).toEqual(atDecision);
-    await act(page, "도적 두목과 대면");
+    await act(page, "도적 두목 앞에 나선다");
     const stateB = await getState(page);
     expect(edge(stateB, "npc_bandit_leader:player_1").score).toBe(-10);
     expect(edge(stateB, "npc_elder:player_1").tags).toEqual([]);
@@ -188,7 +188,7 @@ test.describe("V2 consequence loop (confirmed information -> elder -> confrontat
     // 8. branch A again from the saved moment: identical to the first time
     await reloadAndLoad(page, "slot_decision");
     await talkAndChoose(page, REPORT);
-    await act(page, "도적 두목과 대면");
+    await act(page, "도적 두목 앞에 나선다");
     expect(await getState(page)).toEqual(stateA);
     await expect(page.locator("#log")).toContainText(BACKED_TEXT);
 

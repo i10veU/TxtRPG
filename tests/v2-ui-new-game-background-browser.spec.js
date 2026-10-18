@@ -38,8 +38,8 @@ test.describe("V2 new game background (the first character chooses too)", () => 
     expect(started.actors.npc_bandit_leader.kind).toBe("npc");
 
     // no lantern: the rumor, then straight into the dark ruins
-    await page.locator("#actions button", { hasText: "원로와 대화" }).click();
-    await page.locator("#choiceOptions button", { hasText: "폐허에 대해 묻기" }).click();
+    await page.locator("#actions button", { hasText: "원로를 찾아간다" }).click();
+    await page.locator("#choiceOptions button", { hasText: "폐허에 대해 묻는다" }).click();
     await page.locator("#moves button", { hasText: "폐허" }).click();
     await expect(page.locator("#location")).toContainText("폐허");
 

@@ -57,10 +57,10 @@ test.describe("V2 minimal browser UI (real entry point)", () => {
     // action buttons rendered from view().actions
     await expect(page.locator("#actions button")).not.toHaveCount(0);
     // act_confront_leader is showWhenLocked -- visible but disabled, no reason shown
-    const confrontBtn = page.locator("#actions button", { hasText: "도적 두목과 대면" });
+    const confrontBtn = page.locator("#actions button", { hasText: "도적 두목 앞에 나선다" });
     await expect(confrontBtn).toBeVisible();
     await expect(confrontBtn).toBeDisabled();
-    await expect(confrontBtn).toHaveText(/\(잠김\)/);
+    await expect(confrontBtn).toHaveText(/\(지금은 할 수 없다\)/);
 
     expect(pageErrors).toEqual([]);
     expect(consoleErrors).toEqual([]);
@@ -80,39 +80,39 @@ test.describe("V2 minimal browser UI (real entry point)", () => {
       await page.locator("#moves button", { hasText: label }).click();
     };
 
-    await clickAction("마을 살피기");
-    await clickAction("마을 살피기");
+    await clickAction("마을 사람들 사이에 섞여 귀를 기울인다");
+    await clickAction("마을 사람들 사이에 섞여 귀를 기울인다");
 
     // talk to the elder -> real pending choice UI. V2-Core-30: this comes before
     // the ruins now -- the investigation needs the rumor the elder teaches
-    await clickAction("원로와 대화");
+    await clickAction("원로를 찾아간다");
     await expect(page.locator("#choice")).toBeVisible();
     await expect(page.locator("#actions")).toBeEmpty();
     await expect(page.locator("#moves")).toBeEmpty();
-    await page.locator("#choiceOptions button", { hasText: "폐허에 대해 묻기" }).click();
+    await page.locator("#choiceOptions button", { hasText: "폐허에 대해 묻는다" }).click();
     await expect(page.locator("#choice")).toBeHidden();
 
     // V2-Core-29: the lantern is bought at the market, the ruins are visited
     // (location-gated), and the village rest heals what the hazard took
     await clickMove("시장");
-    await clickAction("등불 구입");
+    await clickAction("등불을 산다");
     await clickMove("변경 마을");
     await clickMove("폐허");
 
     // investigate: a real check() decides the outcome; canonical seed lands
     // on a non-fail tier (verified in tests/v2/data-world.test.js)
-    await clickAction("폐허 조사");
+    await clickAction("폐허 안을 살핀다");
     const afterInvestigate = await page.evaluate(() => window.__v2App.getLog());
     expect(afterInvestigate.some((line) => line.includes("판정:"))).toBe(true);
 
     await clickMove("변경 마을");
-    await clickAction("마을에서 쉬기");
+    await clickAction("마을 어귀에서 쉬며 상처를 돌본다");
 
     // growth-gate: investigation proficiency (15+15+30=60) crossed the 50
     // threshold during the investigate action, unlocking unl_keen_eye; the
     // investigate success also set the ruins_secret_confirmed flag -- so
     // act_confront_leader should now be enabled
-    const confrontBtn = page.locator("#actions button", { hasText: "도적 두목과 대면" });
+    const confrontBtn = page.locator("#actions button", { hasText: "도적 두목 앞에 나선다" });
     await expect(confrontBtn).toBeEnabled();
 
     await confrontBtn.click();
@@ -144,7 +144,7 @@ test.describe("V2 minimal browser UI (real entry point)", () => {
     const { pageErrors, consoleErrors } = await gotoApp(page);
 
     await page.evaluate((seed) => window.__v2App.newGame(seed), CANONICAL_SEED);
-    await page.locator("#actions button", { hasText: "마을 살피기" }).click();
+    await page.locator("#actions button", { hasText: "마을 사람들 사이에 섞여 귀를 기울인다" }).click();
 
     const beforeSave = await page.evaluate(() => window.__v2App.getState());
 

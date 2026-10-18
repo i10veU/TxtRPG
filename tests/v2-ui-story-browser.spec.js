@@ -64,13 +64,15 @@ test.describe("V2 the main thread, chapter 2 (M4): across the river", () => {
     await act(page, "뱃사공과 대화");
     await option(page, "강 건너 무리에 대해 묻는다").click();
     await expect(page.locator("#log")).toContainText("무장한 사내들");
+    // V2-Core-151: the story is in the notebook, which a player opens
+    await page.locator("#notebookBtn").click();
     await expect(page.locator("#storySection")).toBeVisible();
     await expect(story(page).filter({ hasText: CH2 })).toHaveCount(1);
     await expect(story(page).filter({ hasText: RECRUITS })).toHaveAttribute("data-chapter", "2");
     await expect(story(page).filter({ hasText: SCARRED })).toHaveAttribute("data-chapter", "2");
 
     await dispatch(page, [M("loc_crossroads"), M("loc_village")]);
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await option(page, "강 건너 소문을 나눈다").click();
     await expect(page.locator("#log")).toContainText("그 버릇을 아는 이는 많지 않네");
     await expect(story(page).filter({ hasText: WARNED })).toHaveCount(1);

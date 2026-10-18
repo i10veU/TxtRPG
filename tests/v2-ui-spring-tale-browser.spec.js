@@ -36,7 +36,7 @@ const move = (page, label) => page.locator("#moves button", { hasText: label }).
 const option = (page, label) => page.locator("#choiceOptions button", { hasText: label });
 const getState = (page) => page.evaluate(() => window.__v2App.getState());
 const herbalist = async (page, label) => {
-  await act(page, "약초꾼과 대화");
+  await act(page, "약초꾼에게 말을 건다");
   await option(page, label).click();
 };
 
@@ -57,7 +57,7 @@ test.describe("V2 spring tale (Slice 3: the purification becomes history)", () =
     await herbalist(page, ASK);
     await expect(page.locator("#log")).toContainText("노한 샘의 정령이 누그러졌다는 것이다.");
     expect((await getState(page)).knowledge.player_1.rum_well_legend.claim).toBe("spirit_appeased");
-    await act(page, "약초꾼과 대화");
+    await act(page, "약초꾼에게 말을 건다");
     await expect(option(page, CORRECT)).toHaveCount(0);
     await option(page, "약초 이야기만 나눈다").click();
 
@@ -75,7 +75,7 @@ test.describe("V2 spring tale (Slice 3: the purification becomes history)", () =
     // the purified spring, first-hand: the legend corrected
     await move(page, "변경 마을");
     await move(page, "숲속 샘");
-    await act(page, "샘 조사");
+    await act(page, "샘 주변을 뒤져 본다");
     await expect(page.locator("#log")).toContainText("누군가 이곳을 손수 정화했음을 말해 준다.");
     expect((await getState(page)).knowledge.player_1.rum_well_legend.claim).toBe("purified");
 
@@ -87,7 +87,7 @@ test.describe("V2 spring tale (Slice 3: the purification becomes history)", () =
     expect((await getState(page)).flags.well_tale_corrected).toBe(true);
     await herbalist(page, ASK);
     await expect(page.locator("#log")).toContainText("직접 본 사람이 있다고 한다.");
-    await act(page, "약초꾼과 대화");
+    await act(page, "약초꾼에게 말을 건다");
     await expect(option(page, CORRECT)).toHaveCount(0);
 
     expect(pageErrors).toEqual([]);

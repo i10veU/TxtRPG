@@ -44,7 +44,13 @@ function player(page) {
     page.evaluate(([k, i, c]) => {
       const d = window.__v2App.worldData;
       if (k === "action") return d.actions[i].name;
-      if (k === "move") return `${d.locations[i].name}(으)로 이동`;
+      if (k === "move") {
+        // the particle the place name takes ("시장으로", "마을로"), as ui/app.js writes it
+        const n = d.locations[i].name;
+        const code = n.charCodeAt(n.length - 1) - 0xac00;
+        const final = code >= 0 && code < 11172 ? code % 28 : 0;
+        return `${n}${final === 0 || final === 8 ? "로" : "으로"} 간다`;
+      }
       return d.choices[c].options.find((o) => o.id === i).name;
     }, [kind, id, choice]);
   const press = async (locator) => {
@@ -60,7 +66,7 @@ function player(page) {
     choose: async (choice, id) => press(page.locator("#choiceOptions button", { hasText: exact(await name("option", id, choice)) })),
     offered: async (choice, id) => (await page.locator("#choiceOptions button", { hasText: exact(await name("option", id, choice)) }).count()) === 1,
     waitDay: async () => press(page.locator("#waitDayBtn")),
-    startOver: async () => press(page.locator("#choiceOptions button", { hasText: /^새 캐릭터로 시작/ }).first())
+    startOver: async () => press(page.locator("#choiceOptions button", { hasText: /^새로 시작한다/ }).first())
   };
 }
 

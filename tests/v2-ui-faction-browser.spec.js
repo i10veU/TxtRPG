@@ -40,7 +40,7 @@ async function startCanonicalGame(page) {
 
 // talk to the elder and pick one of the options
 async function talkAndChoose(page, optionLabel) {
-  await act(page, "원로와 대화");
+  await act(page, "원로를 찾아간다");
   await expect(page.locator("#choice")).toBeVisible();
   await choiceButton(page, optionLabel).click();
   await expect(page.locator("#choice")).toBeHidden();
@@ -49,16 +49,16 @@ async function talkAndChoose(page, optionLabel) {
 // observe x2, the elder's rumor, the lantern, the ruins, the investigation, and
 // back to the village to rest -- the information is confirmed, HP is recovered
 async function playToConfirmedVillage(page) {
-  await act(page, "마을 살피기");
-  await act(page, "마을 살피기");
-  await talkAndChoose(page, "폐허에 대해 묻기");
+  await act(page, "마을 사람들 사이에 섞여 귀를 기울인다");
+  await act(page, "마을 사람들 사이에 섞여 귀를 기울인다");
+  await talkAndChoose(page, "폐허에 대해 묻는다");
   await move(page, "시장");
-  await act(page, "등불 구입");
+  await act(page, "등불을 산다");
   await move(page, "변경 마을");
   await move(page, "폐허");
-  await act(page, "폐허 조사");
+  await act(page, "폐허 안을 살핀다");
   await move(page, "변경 마을");
-  await act(page, "마을에서 쉬기");
+  await act(page, "마을 어귀에서 쉬며 상처를 돌본다");
 }
 
 async function reloadAndLoad(page, slot) {
@@ -93,15 +93,15 @@ test.describe("V2 faction loop (relationship -> organisation -> elder choice)", 
     expect(edge(await getState(page), "npc_elder:player_1").tags).toEqual(["confidant"]);
 
     // the organisation has not reacted yet: no fate option after the report alone
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await expect(choiceButton(page, REPORT)).toHaveCount(1);
     await expect(choiceButton(page, FATE)).toHaveCount(0);
     expect(await dispatchFateUnchanged(page)).toBe(true);
-    await choiceButton(page, "안부만 묻기").click();
+    await choiceButton(page, "안부만 묻는다").click();
     await expect(page.locator("#choice")).toBeHidden();
 
     // 7. the confrontation -- the same check and result -- also cows the organisation
-    await act(page, "도적 두목과 대면");
+    await act(page, "도적 두목 앞에 나선다");
     const confronted = await getState(page);
     expect(confronted.cases.case_ruins_mystery.stage).toBe("resolved");
     expect(edge(confronted, "org_bandits:player_1")).toEqual({
@@ -113,7 +113,7 @@ test.describe("V2 faction loop (relationship -> organisation -> elder choice)", 
     expect(relations["npc_bandit_leader:org_bandits"]).toBeUndefined();
 
     // 4. the faction-related choice is now offered
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await expect(page.locator("#choice")).toBeVisible();
     await expect(choiceButton(page, FATE)).toHaveCount(1);
     await choiceButton(page, FATE).click();
@@ -125,7 +125,7 @@ test.describe("V2 faction loop (relationship -> organisation -> elder choice)", 
     expect(edge(after, "org_bandits:player_1")).toEqual(edge(confronted, "org_bandits:player_1"));
 
     // 10. the option closes itself: the leader is no longer a member
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await expect(page.locator("#choice")).toBeVisible();
     await expect(choiceButton(page, FATE)).toHaveCount(0);
     expect(await dispatchFateUnchanged(page)).toBe(true);
@@ -149,8 +149,8 @@ test.describe("V2 faction loop (relationship -> organisation -> elder choice)", 
 
     // branch A: report, confront, and the fate option is there
     await talkAndChoose(page, REPORT);
-    await act(page, "도적 두목과 대면");
-    await act(page, "원로와 대화");
+    await act(page, "도적 두목 앞에 나선다");
+    await act(page, "원로를 찾아간다");
     await expect(choiceButton(page, FATE)).toHaveCount(1);
     const stateA = await getState(page);
     expect(edge(stateA, "org_bandits:player_1").tags).toEqual(["cowed"]);
@@ -159,12 +159,12 @@ test.describe("V2 faction loop (relationship -> organisation -> elder choice)", 
     // place and action, but no organisation edge and no fate option
     await reloadAndLoad(page, "slot_faction");
     expect(await getState(page)).toEqual(atDecision);
-    await act(page, "도적 두목과 대면");
+    await act(page, "도적 두목 앞에 나선다");
     const confrontedB = await getState(page);
     expect(confrontedB.cases.case_ruins_mystery.stage).toBe("resolved");
     expect(edge(confrontedB, "org_bandits:player_1")).toBeUndefined();
     expect(edge(confrontedB, "npc_bandit_leader:org_bandits").tags).toEqual(["member"]);
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await expect(page.locator("#choice")).toBeVisible();
     await expect(choiceButton(page, FATE)).toHaveCount(0);
     // 10. the option is rejected behind the UI's back; the choice stays pending and answerable
@@ -172,15 +172,15 @@ test.describe("V2 faction loop (relationship -> organisation -> elder choice)", 
     expect(await dispatchFateUnchanged(page)).toBe(true);
     expect((await getState(page)).pending).toEqual(pendingBefore);
     await expect(page.locator("#log")).toContainText("할 수 없다");
-    await choiceButton(page, "안부만 묻기").click();
+    await choiceButton(page, "안부만 묻는다").click();
     await expect(page.locator("#choice")).toBeHidden();
     expect(edge(await getState(page), "org_bandits:player_1")).toBeUndefined();
 
     // 9. branch A again from the saved moment: identical to the first time
     await reloadAndLoad(page, "slot_faction");
     await talkAndChoose(page, REPORT);
-    await act(page, "도적 두목과 대면");
-    await act(page, "원로와 대화");
+    await act(page, "도적 두목 앞에 나선다");
+    await act(page, "원로를 찾아간다");
     await expect(choiceButton(page, FATE)).toHaveCount(1);
     expect(await getState(page)).toEqual(stateA);
 

@@ -82,7 +82,7 @@ test.describe("V2 the frontier comes to the centre (Slice 8 integrated)", () => 
     await move(page, "강나루");
     await move(page, "옛 갈림길");
     await move(page, "변경 마을");
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await option(page, "도적단의 소식을 묻는다").click();
     await expect(page.locator("#log")).toContainText("모두 쓰러졌다는 전설이다.");
 

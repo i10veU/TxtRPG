@@ -35,18 +35,18 @@ test("the herbalist brews shared salves while the player is away and keeps them 
   });
   await loadSlot(page, "slot_service_ui");
 
-  await act(page, "약초꾼과 대화");
+  await act(page, "약초꾼에게 말을 건다");
   await option(page, "약초꾼의 마을 연고 일을 돕는다").click();
   let state = await getState(page);
   expect(state.flags.herbalist_stock_established).toBe(true);
   expect(state.actors[state.player.actorId].inventory.item_flour_sack).toBeUndefined();
   expect(state.knowledge[state.player.actorId].rum_herbalist_stock.claim).toBe("established");
   await expect(page.locator("#log")).toContainText("마을에 남아 연고를 만들겠다고 한다");
-  await act(page, "약초꾼과 대화");
+  await act(page, "약초꾼에게 말을 건다");
   await option(page, "약초꾼이 맡은 연고 일에 대해 묻는다").click();
   await expect(page.locator("#log")).toContainText("정화초 두 묶음을 맡기면 다시 만들 수 있다");
 
-  await act(page, "약초꾼과 대화");
+  await act(page, "약초꾼에게 말을 건다");
   await option(page, "정화초 두 묶음을 약초꾼의 연고 일에 맡긴다").click();
   state = await getState(page);
   expect(state.signals.herbalist_brew_due).toBe(2);
@@ -75,20 +75,20 @@ test("the herbalist brews shared salves while the player is away and keeps them 
   expect(state.actors[state.player.actorId].locationId).toBe("loc_village");
 
   await page.locator("#moves button", { hasText: "시장" }).click();
-  await act(page, "약초꾼과 대화");
+  await act(page, "약초꾼에게 말을 건다");
   await option(page, "약초꾼이 맡은 연고 일에 대해 묻는다").click();
   await expect(page.locator("#log")).toContainText("만들어 둔 연고가 있다");
-  await act(page, "약초꾼과 대화");
+  await act(page, "약초꾼에게 말을 건다");
   await option(page, "약초꾼이 만든 연고를 찾아간다").click();
   state = await getState(page);
   expect(state.signals.herbalist_salve_stock).toBe(1);
   expect(state.actors[state.player.actorId].inventory.item_herbal_salve).toBe(1);
-  await act(page, "약초꾼과 대화");
+  await act(page, "약초꾼에게 말을 건다");
   await option(page, "약초꾼이 만든 연고를 찾아간다").click();
   state = await getState(page);
   expect(state.signals.herbalist_salve_stock).toBe(0);
   expect(state.actors[state.player.actorId].inventory.item_herbal_salve).toBe(2);
-  await act(page, "약초꾼과 대화");
+  await act(page, "약초꾼에게 말을 건다");
   await expect(option(page, "약초꾼이 만든 연고를 찾아간다")).toHaveCount(0);
   expect(pageErrors).toEqual([]);
   expect(consoleErrors).toEqual([]);

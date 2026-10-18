@@ -53,7 +53,7 @@ const act = (page, label) => page.locator("#actions button", { hasText: label })
 const option = (page, label) => page.locator("#choiceOptions button", { hasText: label });
 const getState = (page) => page.evaluate(() => window.__v2App.getState());
 
-const talk = (page) => act(page, "원로와 대화").then(() => option(page, "안부만 묻기").click());
+const talk = (page) => act(page, "원로를 찾아간다").then(() => option(page, "안부만 묻는다").click());
 
 
 test.describe("V2 the memory reaches a choice (RPG Depth 3)", () => {
@@ -92,7 +92,7 @@ test.describe("V2 the memory reaches a choice (RPG Depth 3)", () => {
     await page.evaluate((list) => list.forEach((a) => window.__v2App.dispatch(a)), [DAY, DAY, DAY]);
     await act(page, "상단 조합의 서기와 대화");
     await option(page, "상단 호위를 맡는다").click();
-    await option(page, "새 캐릭터로 시작 (떠돌이)").click();
+    await option(page, "새로 시작한다 (떠돌이)").click();
     expect((await getState(page)).signals.guards_fallen).toBe(1);
 
     // to the town and a convoy to guard

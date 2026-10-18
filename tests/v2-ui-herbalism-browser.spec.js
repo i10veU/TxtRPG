@@ -32,7 +32,7 @@ const getState = (page) => page.evaluate(() => window.__v2App.getState());
 async function gather(page) {
   const count = async () => ((await page.locator("#log").innerText()).match(/판정:/g) ?? []).length;
   const before = await count();
-  await act(page, "정화초 채집");
+  await act(page, "물가에서 정화초를 찾는다");
   await expect.poll(count).toBe(before + 2);
 }
 
@@ -44,12 +44,12 @@ test.describe("V2 herbalism (Slice 2: the remedy)", () => {
     await page.evaluate((actions) => actions.forEach((a) => window.__v2App.dispatch(a)), [P("act_inspect_well"), M("loc_market"), P("act_talk_herbalist"), C("opt_herbalist_ask_sickness")]);
 
     // the lesson: 2 silver, herbalism practice 20 = rank 1 (Novice), once
-    await act(page, "약초꾼과 대화");
+    await act(page, "약초꾼에게 말을 건다");
     await option(page, "약초 고르는 법을 배운다").click();
     await expect(page.locator("#log")).toContainText("정화초를 가려내는 법을 차근차근 일러 준다.");
     await expect(status(page)).toContainText("소지금 6");
     await expect(status(page)).toContainText("약초학 1 (초심)");
-    await act(page, "약초꾼과 대화");
+    await act(page, "약초꾼에게 말을 건다");
     await expect(option(page, "약초 고르는 법을 배운다")).toHaveCount(0);
     await option(page, "약초 이야기만 나눈다").click();
 
@@ -79,13 +79,13 @@ test.describe("V2 herbalism (Slice 2: the remedy)", () => {
     await gather(page);
     await expect(page.locator("#log")).toContainText("정화초는 찾지 못했다.");
     await expect(status(page)).toContainText("자원: 기력 0/6");
-    await expect(page.locator("#actions button", { hasText: "정화초 채집" })).toHaveCount(0); // a closed action is not listed
+    await expect(page.locator("#actions button", { hasText: "물가에서 정화초를 찾는다" })).toHaveCount(0); // a closed action is not listed
     await expect(status(page)).toContainText("약초학 2 (초심)");
 
     // the remedy: two herbs at her stall
     await move(page, "변경 마을");
     await move(page, "시장");
-    await act(page, "약초꾼과 대화");
+    await act(page, "약초꾼에게 말을 건다");
     await option(page, "정화제를 달여 달라고 한다").click();
     await expect(page.locator("#log")).toContainText("맑은 정화제 한 병을 만들어 준다.");
     await expect(status(page)).toContainText("샘 정화제 x1");

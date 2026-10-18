@@ -9,11 +9,11 @@ const ENTRY_URL = "http://127.0.0.1:4173/v2/index.html";
 // on this seed the investigation succeeds and four frontal exchanges fell the leader
 // (tests/v2/data-world-combat.test.js runs the same path over many seeds)
 const SEED = "history-0";
-const FIGHT = "도적 두목과 싸운다";
+const FIGHT = "칼을 뽑아 두목과 맞선다";
 const STRIKE = "정면으로 맞붙는다";
 const FLEE = "물러서서 달아난다";
 const START_TEXT = "그가 칼을 뽑는다";
-const VICTORY_TEXT = "도적 두목이 쓰러진다";
+const VICTORY_TEXT = "두목이 쓰러진다. 두목을 잃은 도적들이";
 const FLEE_TEXT = "마을로 달아난다";
 const MARKET_TEXT = "상인들이 안도하며";
 

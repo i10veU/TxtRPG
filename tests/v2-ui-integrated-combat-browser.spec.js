@@ -57,13 +57,13 @@ test.describe("V2 integrated combat (every capability in one fight)", () => {
     await expect(status(page)).toContainText("특성: 조사의 재능, 밤눈");
 
     // talent -> practice -> skill / unlock
-    for (let i = 0; i < 3; i += 1) await act(page, "마을 살피기");
+    for (let i = 0; i < 3; i += 1) await act(page, "마을 사람들 사이에 섞여 귀를 기울인다");
     await expect(status(page)).toContainText("숙련도: 조사 51");
     await expect(status(page)).toContainText("해금: 예리한 눈");
 
     // equipment
     await page.locator("#moves button", { hasText: "시장" }).click();
-    await act(page, "철검 구입");
+    await act(page, "철검을 산다");
     await act(page, "철검을 든다");
     await expect(status(page)).toContainText("장비: 손 철검");
 
@@ -101,7 +101,7 @@ test.describe("V2 integrated combat (every capability in one fight)", () => {
     await exchange(page, CUT);
     await exchange(page, CUT);
     await expect(page.locator("#choice")).toBeHidden();
-    await expect(page.locator("#log")).toContainText("도적 두목이 쓰러진다.");
+    await expect(page.locator("#log")).toContainText("두목이 쓰러진다. 두목을 잃은 도적들이");
     await expect(status(page)).toContainText("기술: 조사 4 (수련), 검술 1 (초심)");
     const end = await getState(page);
     expect(end.actors.npc_bandit_leader.alive).toBe(false);

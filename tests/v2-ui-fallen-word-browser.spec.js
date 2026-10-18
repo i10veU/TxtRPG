@@ -3,7 +3,7 @@
 // play. The honoured scout's Slice 3, the road north and two good escorts are dispatched; the state is staged for the
 // fall (the last point of hp, no strength, a bad roll found on the staged state), saved through the real storage
 // adapter and loaded with the app's button (data-world-fallen-word.test.js does the same). The rest is real buttons:
-// the escort that ends her, the new life in the village asking the elder "안부만 묻기" -- he has not heard -- three days
+// the escort that ends her, the new life in the village asking the elder "안부만 묻는다" -- he has not heard -- three days
 // of waiting, and the elder says a guard did not come back; then saved -> reloaded -> loaded, the same end as a pure
 // replay.
 const { test, expect } = require("@playwright/test");
@@ -52,7 +52,7 @@ const act = (page, label) => page.locator("#actions button", { hasText: label })
 const option = (page, label) => page.locator("#choiceOptions button", { hasText: label });
 const getState = (page) => page.evaluate(() => window.__v2App.getState());
 
-const talk = (page) => act(page, "원로와 대화").then(() => option(page, "안부만 묻기").click());
+const talk = (page) => act(page, "원로를 찾아간다").then(() => option(page, "안부만 묻는다").click());
 
 test.describe("V2 the village hears (World Memory 1)", () => {
   test("a fall, the new life asks the elder: not yet; three days on: a guard did not come back -- save/load -- the same end as a pure replay", async ({ page }) => {
@@ -90,7 +90,7 @@ test.describe("V2 the village hears (World Memory 1)", () => {
     await page.evaluate((list) => list.forEach((a) => window.__v2App.dispatch(a)), [DAY, DAY, DAY]);
     await act(page, "상단 조합의 서기와 대화");
     await option(page, "상단 호위를 맡는다").click();
-    await option(page, "새 캐릭터로 시작 (떠돌이)").click();
+    await option(page, "새로 시작한다 (떠돌이)").click();
     const lived = await getState(page);
     expect(lived.signals.guards_fallen).toBe(1);
     expect(lived.actors.player_2.locationId).toBe("loc_village");

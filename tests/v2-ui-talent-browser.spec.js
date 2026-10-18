@@ -1,7 +1,7 @@
 // V2-Core-57 browser scenario (Issue #148, #147 Phase A, D-86): the real entry point
 // (web/v2/index.html + ui/app.js) in real Chromium with real IndexedDB, against the real world data
 // pack. The scout chosen at New Game has the investigation talent beside night vision; each real
-// "마을 살피기" gives the scout 17 investigation practice (the wanderer 15), so the third observation
+// "마을 사람들 사이에 섞여 귀를 기울인다" gives the scout 17 investigation practice (the wanderer 15), so the third observation
 // reaches the keen eye (51) where the wanderer's does not (45). The talent and the practice survive
 // save -> reload -> load; a scout saved before the talent (planted) has none and practises 15.
 const { test, expect } = require("@playwright/test");
@@ -20,7 +20,7 @@ async function gotoApp(page) {
   return { pageErrors, consoleErrors };
 }
 const status = (page) => page.locator("#status");
-const observe = (page) => page.locator("#actions button", { hasText: "마을 살피기" }).click();
+const observe = (page) => page.locator("#actions button", { hasText: "마을 사람들 사이에 섞여 귀를 기울인다" }).click();
 const getState = (page) => page.evaluate(() => window.__v2App.getState());
 async function newGameAs(page, templateId) {
   await page.locator("#backgroundSelect").selectOption(templateId);

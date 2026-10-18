@@ -67,9 +67,9 @@ test.describe("V2 the echo (Slice 6: the town's talk comes back south)", () => {
     // the village corrects it; up north they still tell the legend
     await move(page, "옛 갈림길");
     await move(page, "변경 마을");
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await option(page, "폐허에서 본 것을 바로잡아 전한다").click();
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await option(page, "도적단의 소식을 묻는다").click();
     await expect(page.locator("#log")).toContainText("고친 이야기가 그곳까지 가려면 아직 멀었다고 한다.");
     const end = await getState(page);

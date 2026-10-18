@@ -16,7 +16,7 @@ const NEWS = "도적단의 소식을 묻는다";
 const NEWS_TEXT = "도적단이 흩어졌다는 소식";
 const LEGEND_TEXT = "마을 사람들 손에 모두 쓰러졌다는 전설";
 const ABANDONED_TEXT = "도적단은 쓰러진 것이 아니라 흩어졌다";
-const NEW_CHARACTER = "새 캐릭터로 시작 (떠돌이)"; // V2-Core-53: one button per background
+const NEW_CHARACTER = "새로 시작한다 (떠돌이)"; // V2-Core-53: one button per background
 const CORRECT = "폐허에서 본 것을 바로잡아 전한다";
 const CORRECT_TEXT = "앞으로는 있었던 그대로 전하겠다";
 const CORRECTED_NEWS_TEXT = "누군가 폐허에서 그것을 직접 보았다고 한다";
@@ -51,7 +51,7 @@ const dispatchAll = (page, actions) => page.evaluate((list) => list.forEach((a) 
 const knows = (state, actorId, rumorId) => state.knowledge?.[actorId]?.[rumorId];
 
 async function askNews(page) {
-  await act(page, "원로와 대화");
+  await act(page, "원로를 찾아간다");
   await expect(page.locator("#choice")).toBeVisible();
   await choiceButton(page, NEWS).click();
   await expect(page.locator("#choice")).toBeHidden();
@@ -97,10 +97,10 @@ test.describe("V2 world tale (the dispersal becomes history, and a later life fi
     expect(knows(await getState(page), "player_1", "rum_bandits_legend").claim).toBe("slain");
 
     // the ruins: the hideout was abandoned, not fought over; the legend is corrected
-    await act(page, "마을에서 쉬기");
-    await act(page, "마을에서 쉬기");
+    await act(page, "마을 어귀에서 쉬며 상처를 돌본다");
+    await act(page, "마을 어귀에서 쉬며 상처를 돌본다");
     await move(page, "폐허");
-    await act(page, "폐허 조사");
+    await act(page, "폐허 안을 살핀다");
     await expect(page.locator("#log")).toContainText(ABANDONED_TEXT);
     const searched = await getState(page);
     expect(knows(searched, "player_1", "rum_bandits_fate").claim).toBe("dispersed");
@@ -132,13 +132,13 @@ test.describe("V2 world tale (the dispersal becomes history, and a later life fi
     expect(knows(await getState(page), "player_2", "rum_bandits_legend").claim).toBe("slain");
 
     // their own way to the ruins and their own search
-    await act(page, "원로와 대화");
-    await choiceButton(page, "폐허에 대해 묻기").click();
+    await act(page, "원로를 찾아간다");
+    await choiceButton(page, "폐허에 대해 묻는다").click();
     await move(page, "시장");
-    await act(page, "등불 구입");
+    await act(page, "등불을 산다");
     await move(page, "변경 마을");
     await move(page, "폐허");
-    await act(page, "폐허 조사");
+    await act(page, "폐허 안을 살핀다");
     await expect(page.locator("#log")).toContainText(ABANDONED_TEXT);
     const found = await getState(page);
     expect(knows(found, "player_2", "rum_bandits_legend").claim).toBe("dispersed");
@@ -154,28 +154,28 @@ test.describe("V2 world tale (the dispersal becomes history, and a later life fi
     await dispatchAll(page, TWO_DAYS);
 
     // the legend: heard, but nothing to correct yet (the option is not offered)
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await expect(page.locator("#choice")).toBeVisible();
     await expect(choiceButton(page, CORRECT)).toHaveCount(0);
     await choiceButton(page, NEWS).click();
     await expect(page.locator("#log")).toContainText(LEGEND_TEXT);
 
     // the ruins show the truth
-    await act(page, "마을에서 쉬기");
-    await act(page, "마을에서 쉬기");
+    await act(page, "마을 어귀에서 쉬며 상처를 돌본다");
+    await act(page, "마을 어귀에서 쉬며 상처를 돌본다");
     await move(page, "폐허");
-    await act(page, "폐허 조사");
+    await act(page, "폐허 안을 살핀다");
     await expect(page.locator("#log")).toContainText(ABANDONED_TEXT);
     await move(page, "변경 마을");
 
     // the correction, through the elder's real choice; it is offered once
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await expect(choiceButton(page, CORRECT)).toHaveCount(1);
     await choiceButton(page, CORRECT).click();
     await expect(page.locator("#choice")).toBeHidden();
     await expect(page.locator("#log")).toContainText(CORRECT_TEXT);
     expect((await getState(page)).flags.bandits_tale_corrected).toBe(true);
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await expect(choiceButton(page, CORRECT)).toHaveCount(0);
     await choiceButton(page, NEWS).click();
     await expect(page.locator("#log")).toContainText(CORRECTED_NEWS_TEXT);

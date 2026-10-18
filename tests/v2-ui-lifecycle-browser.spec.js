@@ -30,7 +30,7 @@ const act = (page, label) => page.locator("#actions button", { hasText: label })
 // Reaches the ruins with the lantern through the real buttons.
 async function walkToRuins(page) {
   await move(page, "시장");
-  await act(page, "등불 구입");
+  await act(page, "등불을 산다");
   await move(page, "변경 마을");
   await move(page, "폐허");
 }
@@ -41,21 +41,21 @@ test.describe("V2 UI lifecycle (time / location / event / death / succession)", 
     await page.locator("#newGameBtn").click();
 
     await expect(page.locator("#location")).toContainText("변경 마을");
-    await expect(page.locator("#location")).toContainText("1일차 00:00");
-    await expect(page.locator("#actions button", { hasText: "마을 살피기" })).toBeEnabled();
-    await expect(page.locator("#actions button", { hasText: "원로와 대화" })).toBeEnabled();
+    await expect(page.locator("#location")).toContainText("1일째 깊은 밤 00:00");
+    await expect(page.locator("#actions button", { hasText: "마을 사람들 사이에 섞여 귀를 기울인다" })).toBeEnabled();
+    await expect(page.locator("#actions button", { hasText: "원로를 찾아간다" })).toBeEnabled();
 
     // moving costs the link's minutes (existing `minutes` semantics)
     await move(page, "시장");
     await expect(page.locator("#location")).toContainText("시장");
-    await expect(page.locator("#location")).toContainText("1일차 00:15");
+    await expect(page.locator("#location")).toContainText("1일째 깊은 밤 00:15");
 
     // showWhenLocked:true -> shown but disabled, with NO reason text (D-06/D-15);
     // no showWhenLocked -> not listed at all
-    const talk = page.locator("#actions button", { hasText: "원로와 대화" });
+    const talk = page.locator("#actions button", { hasText: "원로를 찾아간다" });
     await expect(talk).toBeDisabled();
-    await expect(talk).toHaveText("원로와 대화 (잠김)");
-    await expect(page.locator("#actions button", { hasText: "마을 살피기" })).toHaveCount(0);
+    await expect(talk).toHaveText("원로를 찾아간다 (지금은 할 수 없다)");
+    await expect(page.locator("#actions button", { hasText: "마을 사람들 사이에 섞여 귀를 기울인다" })).toHaveCount(0);
     await expect(page.locator("#error")).toBeHidden();
     await expect(page.locator("#game")).not.toContainText("requirements_not_met");
 
@@ -68,14 +68,14 @@ test.describe("V2 UI lifecycle (time / location / event / death / succession)", 
     expect(unchanged).toBe(true);
 
     // an ungated action still works here
-    await expect(page.locator("#actions button", { hasText: "등불 구입" })).toBeEnabled();
+    await expect(page.locator("#actions button", { hasText: "등불을 산다" })).toBeEnabled();
 
     // back in the village the gated actions are offered and executable again
     await move(page, "변경 마을");
-    await expect(page.locator("#location")).toContainText("1일차 00:30");
-    await expect(page.locator("#actions button", { hasText: "마을 살피기" })).toBeEnabled();
-    await expect(page.locator("#actions button", { hasText: "원로와 대화" })).toBeEnabled();
-    await act(page, "원로와 대화");
+    await expect(page.locator("#location")).toContainText("1일째 깊은 밤 00:30");
+    await expect(page.locator("#actions button", { hasText: "마을 사람들 사이에 섞여 귀를 기울인다" })).toBeEnabled();
+    await expect(page.locator("#actions button", { hasText: "원로를 찾아간다" })).toBeEnabled();
+    await act(page, "원로를 찾아간다");
     await expect(page.locator("#choice")).toBeVisible();
 
     expect(pageErrors).toEqual([]);
@@ -90,7 +90,7 @@ test.describe("V2 UI lifecycle (time / location / event / death / succession)", 
     // arrival: 15 + 15 + 45 minutes; the event trigger runs in the same step
     await walkToRuins(page);
     await expect(page.locator("#location")).toContainText("폐허");
-    await expect(page.locator("#location")).toContainText("1일차 01:15");
+    await expect(page.locator("#location")).toContainText("1일째 깊은 밤 01:15");
     await expect(page.locator("#status")).toContainText("HP 6/10");
     await expect(page.locator("#log")).toContainText("무너진 벽돌");
     const fired = await page.evaluate(() => window.__v2App.getState().fired);
@@ -98,7 +98,7 @@ test.describe("V2 UI lifecycle (time / location / event / death / succession)", 
 
     // waiting 30 minutes elapses the cooldown -> second hit
     await page.locator("#waitBtn").click();
-    await expect(page.locator("#location")).toContainText("1일차 01:45");
+    await expect(page.locator("#location")).toContainText("1일째 깊은 밤 01:45");
     await expect(page.locator("#status")).toContainText("HP 2/10");
 
     // third hit kills the wanderer
@@ -108,7 +108,7 @@ test.describe("V2 UI lifecycle (time / location / event / death / succession)", 
 
     // the previously-unexecuted newCharacter UI branch
     await expect(page.locator("#choice")).toBeVisible();
-    const startButton = page.locator("#choiceOptions button", { hasText: "새 캐릭터로 시작 (떠돌이)" });
+    const startButton = page.locator("#choiceOptions button", { hasText: "새로 시작한다 (떠돌이)" });
     await expect(startButton).toHaveCount(1);
     await expect(page.locator("#actions")).toBeEmpty();
     await expect(page.locator("#moves")).toBeEmpty();
@@ -127,7 +127,7 @@ test.describe("V2 UI lifecycle (time / location / event / death / succession)", 
     await expect(page.locator("#status")).toContainText("소지금 11");
     await expect(page.locator("#log")).toContainText("쓰러진 이가 남긴");
     await expect(page.locator("#waitBtn")).toBeEnabled();
-    await expect(page.locator("#actions button", { hasText: "마을 살피기" })).toBeEnabled();
+    await expect(page.locator("#actions button", { hasText: "마을 사람들 사이에 섞여 귀를 기울인다" })).toBeEnabled();
 
     const after = await page.evaluate(() => {
       const s = window.__v2App.getState();
@@ -184,7 +184,7 @@ test.describe("V2 UI lifecycle (time / location / event / death / succession)", 
     expect(await page.evaluate(() => window.__v2App.getState())).toEqual(deadState);
     await expect(page.locator("#actions")).toBeEmpty();
 
-    await page.locator("#choiceOptions button", { hasText: "새 캐릭터로 시작 (떠돌이)" }).click();
+    await page.locator("#choiceOptions button", { hasText: "새로 시작한다 (떠돌이)" }).click();
     await expect(page.locator("#choice")).toBeHidden();
     await expect(page.locator("#status")).toContainText("소지금 11");
     const aliveState = await page.evaluate(() => window.__v2App.getState());
@@ -200,7 +200,7 @@ test.describe("V2 UI lifecycle (time / location / event / death / succession)", 
     await expect(page.locator("#game")).toBeVisible();
     await expect(page.locator("#choice")).toBeHidden();
     expect(await page.evaluate(() => window.__v2App.getState())).toEqual(aliveState);
-    await expect(page.locator("#actions button", { hasText: "마을 살피기" })).toBeEnabled();
+    await expect(page.locator("#actions button", { hasText: "마을 사람들 사이에 섞여 귀를 기울인다" })).toBeEnabled();
 
     expect(pageErrors).toEqual([]);
     expect(consoleErrors).toEqual([]);

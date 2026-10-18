@@ -86,7 +86,7 @@ test.describe("V2 the caravans keep coming (World Simulation 1)", () => {
 
     // a rest in the village refills it: there and back by the roads
     for (const label of ["강 건너 길목", "강나루", "옛 갈림길", "변경 마을"]) await move(page, label);
-    await act(page, "마을에서 쉬기");
+    await act(page, "마을 어귀에서 쉬며 상처를 돌본다");
     for (const label of ["옛 갈림길", "강나루"]) await move(page, label);
     await act(page, "뱃사공과 대화");
     await option(page, "강을 건넌다 (뱃삯 은화 3)").click();

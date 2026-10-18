@@ -42,7 +42,7 @@ async function exchange(page, label) {
   return (await margins(page))[0];
 }
 async function ask(page, label) {
-  await act(page, "원로와 대화");
+  await act(page, "원로를 찾아간다");
   await choiceButton(page, label).click();
   await expect(page.locator("#choice")).toBeHidden();
 }
@@ -52,18 +52,18 @@ test.describe("V2 reputation (the elder's trust, earned once, opens the leader's
     const { pageErrors, consoleErrors } = await gotoApp(page);
     await page.evaluate((seed) => window.__v2App.newGame(seed), SEED);
     await expect(page.locator("#game")).toBeVisible();
-    await act(page, "마을 살피기");
-    await act(page, "마을 살피기");
+    await act(page, "마을 사람들 사이에 섞여 귀를 기울인다");
+    await act(page, "마을 사람들 사이에 섞여 귀를 기울인다");
 
     // small talk, three times: dialogue only
-    for (let i = 0; i < 3; i += 1) await ask(page, "안부만 묻기");
+    for (let i = 0; i < 3; i += 1) await ask(page, "안부만 묻는다");
     expect(await elderScore(page)).toBeUndefined();
     // the ruins: +5 the first time, nothing after
-    await ask(page, "폐허에 대해 묻기");
+    await ask(page, "폐허에 대해 묻는다");
     expect(await elderScore(page)).toBe(5);
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await expect(choiceButton(page, "두목에 대해 더 묻는다")).toHaveCount(0); // not trusted yet
-    await choiceButton(page, "폐허에 대해 묻기").click();
+    await choiceButton(page, "폐허에 대해 묻는다").click();
     await expect(page.locator("#choice")).toBeHidden();
     expect(await elderScore(page)).toBe(5);
 
@@ -75,7 +75,7 @@ test.describe("V2 reputation (the elder's trust, earned once, opens the leader's
     await ask(page, "조사에서 알아낸 것을 전한다"); // again: nothing more
     expect(await elderScore(page)).toBe(15);
 
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await expect(choiceButton(page, "두목에 대해 더 묻는다")).toHaveCount(1);
     await choiceButton(page, "두목에 대해 더 묻는다").click();
     await expect(page.locator("#log")).toContainText("왼쪽 옆구리");
@@ -94,7 +94,7 @@ test.describe("V2 reputation (the elder's trust, earned once, opens the leader's
 
     // the fight: the weak spot is there, at difficulty 9
     await page.locator("#moves button", { hasText: "폐허" }).click();
-    await act(page, "도적 두목과 싸운다");
+    await act(page, "칼을 뽑아 두목과 맞선다");
     await expect(choiceButton(page, "정면으로 맞붙는다")).toHaveCount(1);
     await expect(choiceButton(page, "그의 오래된 상처를 노린다")).toHaveCount(1);
     await page.locator("#saveSlotInput").fill("slot_fight");
@@ -118,12 +118,12 @@ test.describe("V2 reputation (the elder's trust, earned once, opens the leader's
     const { pageErrors, consoleErrors } = await gotoApp(page);
     await page.evaluate((seed) => window.__v2App.newGame(seed), SEED);
     await expect(page.locator("#game")).toBeVisible();
-    await act(page, "마을 살피기");
-    await act(page, "마을 살피기");
-    await ask(page, "폐허에 대해 묻기");
+    await act(page, "마을 사람들 사이에 섞여 귀를 기울인다");
+    await act(page, "마을 사람들 사이에 섞여 귀를 기울인다");
+    await ask(page, "폐허에 대해 묻는다");
     await page.evaluate((actions) => actions.forEach((a) => window.__v2App.dispatch(a)), TO_RELIC_AND_REST);
     await page.locator("#moves button", { hasText: "폐허" }).click();
-    await act(page, "도적 두목과 싸운다");
+    await act(page, "칼을 뽑아 두목과 맞선다");
     await expect(choiceButton(page, "정면으로 맞붙는다")).toHaveCount(1);
     await expect(choiceButton(page, "그의 오래된 상처를 노린다")).toHaveCount(0);
 

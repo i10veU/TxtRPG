@@ -38,8 +38,8 @@ async function startCanonicalGame(page) {
 
 // V2-Core-30: the investigation needs the elder's rumor, so the loop starts here
 async function askElder(page) {
-  await act(page, "원로와 대화");
-  await page.locator("#choiceOptions button", { hasText: "폐허에 대해 묻기" }).click();
+  await act(page, "원로를 찾아간다");
+  await page.locator("#choiceOptions button", { hasText: "폐허에 대해 묻는다" }).click();
   await expect(page.locator("#choice")).toBeHidden();
 }
 
@@ -53,10 +53,10 @@ test.describe("V2 canonical loop (location gates / hazard / recovery)", () => {
     await expect(page.locator("#status")).toContainText("HP 10/10");
     await expect(page.locator("#status")).toContainText("소지금 8");
     // in the village neither gated action is offered
-    await expect(actionButton(page, "등불 구입")).toHaveCount(0);
-    await expect(actionButton(page, "폐허 조사")).toHaveCount(0);
-    await act(page, "마을 살피기");
-    await act(page, "마을 살피기");
+    await expect(actionButton(page, "등불을 산다")).toHaveCount(0);
+    await expect(actionButton(page, "폐허 안을 살핀다")).toHaveCount(0);
+    await act(page, "마을 사람들 사이에 섞여 귀를 기울인다");
+    await act(page, "마을 사람들 사이에 섞여 귀를 기울인다");
     await askElder(page);
 
     // 2. village -> market
@@ -64,12 +64,12 @@ test.describe("V2 canonical loop (location gates / hazard / recovery)", () => {
     await expect(page.locator("#location")).toContainText("시장");
 
     // 3. buy the lantern at the market
-    await expect(actionButton(page, "등불 구입")).toBeEnabled();
-    await act(page, "등불 구입");
+    await expect(actionButton(page, "등불을 산다")).toBeEnabled();
+    await act(page, "등불을 산다");
     await expect(page.locator("#status")).toContainText("소지금 3");
     expect((await getState(page)).actors.player_1.inventory.item_lantern).toBe(1);
     // the ruins action is still not offered outside the ruins, lantern or not
-    await expect(actionButton(page, "폐허 조사")).toHaveCount(0);
+    await expect(actionButton(page, "폐허 안을 살핀다")).toHaveCount(0);
 
     // 4. move to the ruins (village first; the link needs the lantern)
     await move(page, "변경 마을");
@@ -81,8 +81,8 @@ test.describe("V2 canonical loop (location gates / hazard / recovery)", () => {
     await expect(page.locator("#log")).toContainText("무너진 벽돌");
 
     // 5. investigate at the ruins (a real check())
-    await expect(actionButton(page, "폐허 조사")).toBeEnabled();
-    await act(page, "폐허 조사");
+    await expect(actionButton(page, "폐허 안을 살핀다")).toBeEnabled();
+    await act(page, "폐허 안을 살핀다");
     const log = await page.evaluate(() => window.__v2App.getLog());
     expect(log.some((line) => line.includes("판정:"))).toBe(true);
     // 6b. investigating takes 60 minutes; the hazard hit again while staying
@@ -91,7 +91,7 @@ test.describe("V2 canonical loop (location gates / hazard / recovery)", () => {
     // 7. back in the village the rest action recovers HP through the hp Effect
     await move(page, "변경 마을");
     await expect(page.locator("#status")).toContainText("HP 2/10");
-    await act(page, "마을에서 쉬기");
+    await act(page, "마을 어귀에서 쉬며 상처를 돌본다");
     await expect(page.locator("#status")).toContainText("HP 6/10");
     const state = await getState(page);
     expect(state.actors.player_1.hp).toEqual({ current: 6, max: 10 });
@@ -99,8 +99,8 @@ test.describe("V2 canonical loop (location gates / hazard / recovery)", () => {
     await expect(page.locator("#log")).toContainText("상처를 돌본다");
 
     // the recovered player continues with the existing progression path
-    await expect(actionButton(page, "도적 두목과 대면")).toBeEnabled();
-    await act(page, "도적 두목과 대면");
+    await expect(actionButton(page, "도적 두목 앞에 나선다")).toBeEnabled();
+    await act(page, "도적 두목 앞에 나선다");
     const final = await getState(page);
     expect(final.cases.case_ruins_mystery.stage).toBe("resolved");
     expect(final.time.minute).toBe(270);
@@ -128,12 +128,12 @@ test.describe("V2 canonical loop (location gates / hazard / recovery)", () => {
     // rest away from the village
     await move(page, "시장");
     expect(await dispatchAndCompare({ type: "perform", actionId: "act_rest_village" })).toBe(true);
-    await expect(actionButton(page, "마을에서 쉬기")).toHaveCount(0);
+    await expect(actionButton(page, "마을 어귀에서 쉬며 상처를 돌본다")).toHaveCount(0);
 
     // holding the lantern at the market is still not enough to investigate
-    await act(page, "등불 구입");
+    await act(page, "등불을 산다");
     expect(await dispatchAndCompare({ type: "perform", actionId: "act_investigate_ruins" })).toBe(true);
-    await expect(actionButton(page, "폐허 조사")).toHaveCount(0);
+    await expect(actionButton(page, "폐허 안을 살핀다")).toHaveCount(0);
     // the rejection is reported through the existing log line, not a crash
     await expect(page.locator("#error")).toBeHidden();
     await expect(page.locator("#log")).toContainText("할 수 없다");
@@ -147,7 +147,7 @@ test.describe("V2 canonical loop (location gates / hazard / recovery)", () => {
     await startCanonicalGame(page);
 
     await move(page, "시장");
-    await act(page, "등불 구입");
+    await act(page, "등불을 산다");
     await move(page, "변경 마을");
     await move(page, "폐허");
     await page.locator("#waitBtn").click();
@@ -170,7 +170,7 @@ test.describe("V2 canonical loop (location gates / hazard / recovery)", () => {
     expect(stillDead.actors.player_1.alive).toBe(false);
 
     // succession is intact
-    await page.locator("#choiceOptions button", { hasText: "새 캐릭터로 시작 (떠돌이)" }).click();
+    await page.locator("#choiceOptions button", { hasText: "새로 시작한다 (떠돌이)" }).click();
     await expect(page.locator("#choice")).toBeHidden();
     await expect(page.locator("#status")).toContainText("HP 10/10");
     await expect(page.locator("#status")).toContainText("소지금 11");
@@ -189,7 +189,7 @@ test.describe("V2 canonical loop (location gates / hazard / recovery)", () => {
 
     await askElder(page);
     await move(page, "시장");
-    await act(page, "등불 구입");
+    await act(page, "등불을 산다");
     await move(page, "변경 마을");
     await move(page, "폐허");
     const beforeInvestigate = await getState(page);
@@ -199,7 +199,7 @@ test.describe("V2 canonical loop (location gates / hazard / recovery)", () => {
     await expect.poll(() => page.locator("#slotList li").count()).toBe(1);
 
     // the next action on the live game
-    await act(page, "폐허 조사");
+    await act(page, "폐허 안을 살핀다");
     const resultLive = await getState(page);
     const logLive = await page.evaluate(() => window.__v2App.getLog());
     expect(resultLive).not.toEqual(beforeInvestigate);
@@ -213,9 +213,9 @@ test.describe("V2 canonical loop (location gates / hazard / recovery)", () => {
     expect(await getState(page)).toEqual(beforeInvestigate);
     await expect(page.locator("#location")).toContainText("폐허");
     await expect(page.locator("#status")).toContainText("HP 6/10");
-    await expect(actionButton(page, "폐허 조사")).toBeEnabled();
+    await expect(actionButton(page, "폐허 안을 살핀다")).toBeEnabled();
 
-    await act(page, "폐허 조사");
+    await act(page, "폐허 안을 살핀다");
     expect(await getState(page)).toEqual(resultLive);
     const logLoaded = await page.evaluate(() => window.__v2App.getLog());
     expect(logLoaded.filter((line) => line.includes("판정:"))).toEqual(logLive.filter((line) => line.includes("판정:")));

@@ -35,7 +35,7 @@ const move = (page, label) => page.locator("#moves button", { hasText: label }).
 const option = (page, label) => page.locator("#choiceOptions button", { hasText: label });
 const getState = (page) => page.evaluate(() => window.__v2App.getState());
 const elder = async (page, label) => {
-  await act(page, "원로와 대화");
+  await act(page, "원로를 찾아간다");
   await option(page, label).click();
 };
 
@@ -49,10 +49,10 @@ test.describe("V2 the corrected word goes north (Slice 6: news in motion)", () =
     // the legend heard; the truth seen at the ruins; the village's correction
     await elder(page, "도적단의 소식을 묻는다");
     await expect(page.locator("#log")).toContainText("마을 사람들 손에 모두 쓰러졌다는 전설");
-    await act(page, "마을에서 쉬기");
-    await act(page, "마을에서 쉬기");
+    await act(page, "마을 어귀에서 쉬며 상처를 돌본다");
+    await act(page, "마을 어귀에서 쉬며 상처를 돌본다");
     await move(page, "폐허");
-    await act(page, "폐허 조사");
+    await act(page, "폐허 안을 살핀다");
     await move(page, "변경 마을");
     await elder(page, "폐허에서 본 것을 바로잡아 전한다");
     expect((await getState(page)).flags.bandits_tale_corrected).toBe(true);

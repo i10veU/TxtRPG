@@ -32,18 +32,18 @@ test.describe("V2 fouled well (Slice 2: discovery)", () => {
     await expect(page.locator("#moves button", { hasText: "숲속 샘" })).toHaveCount(0);
 
     // the well (PER): the water comes from the forest spring
-    await act(page, "우물 살피기");
+    await act(page, "우물물을 길어 냄새를 맡아 본다");
     await expect(page.locator("#log")).toContainText("이 물은 숲속 샘에서 온다.");
     await expect(page.locator("#moves button", { hasText: "숲속 샘" })).toHaveCount(1);
     expect((await getState(page)).facts.fact_well_source.value).toBe("forest_spring");
 
     // the herbalist at the market: the same account, +5 once
-    await expect(page.locator("#actions button", { hasText: "약초꾼과 대화" })).toHaveCount(0);
+    await expect(page.locator("#actions button", { hasText: "약초꾼에게 말을 건다" })).toHaveCount(0);
     await move(page, "시장");
-    await act(page, "약초꾼과 대화");
+    await act(page, "약초꾼에게 말을 건다");
     await page.locator("#choiceOptions button", { hasText: "마을의 배앓이에 대해 묻는다" }).click();
     await expect(page.locator("#log")).toContainText("그 샘이 탈이 난 게 틀림없다고 한다.");
-    await act(page, "약초꾼과 대화");
+    await act(page, "약초꾼에게 말을 건다");
     await page.locator("#choiceOptions button", { hasText: "마을의 배앓이에 대해 묻는다" }).click();
     expect((await getState(page)).relations["npc_herbalist:player_1"]).toMatchObject({ score: 5, tags: ["consulted"] });
 
@@ -66,7 +66,7 @@ test.describe("V2 fouled well (Slice 2: discovery)", () => {
     expect(await getState(page)).toEqual(saved);
 
     // the search (PER) finds the carcass; the next miasma is resisted
-    await act(page, "샘 조사");
+    await act(page, "샘 주변을 뒤져 본다");
     await expect(page.locator("#log")).toContainText("샘물을 흐리는 것은 이것이다.");
     await expect(page.locator("#log")).toContainText("숨을 고르며 버텨 낸다.");
     await expect(page.locator("#status")).toContainText("HP 8/10");

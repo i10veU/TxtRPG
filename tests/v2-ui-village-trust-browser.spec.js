@@ -54,13 +54,13 @@ test.describe("V2 village trust (Slice 3: the two stories add up)", () => {
     await expect(page.locator("#status")).toContainText("HP 6/10");
 
     // the village's thanks, once
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await option(page, HONOR).click();
-    await expect(page.locator("#log")).toContainText("이제 이 마을은 당신의 편이라고 말한다.");
+    await expect(page.locator("#log")).toContainText("이제 이 마을은 내 편이라고 한다.");
     expect((await getState(page)).relations["org_village:player_1"]).toMatchObject({ score: 20, tags: ["trusted"] });
-    await act(page, "원로와 대화");
+    await act(page, "원로를 찾아간다");
     await expect(option(page, HONOR)).toHaveCount(0);
-    await option(page, "안부만 묻기").click();
+    await option(page, "안부만 묻는다").click();
 
     // save -> reload -> load
     await page.locator("#saveSlotInput").fill("slot_honoured");
@@ -75,7 +75,7 @@ test.describe("V2 village trust (Slice 3: the two stories add up)", () => {
 
     // the herbalist's salve at the honoured price -- the ordinary price is not offered
     await move(page, "시장");
-    await act(page, "약초꾼과 대화");
+    await act(page, "약초꾼에게 말을 건다");
     await expect(option(page, "약초 연고를 산다 (은화 3)")).toHaveCount(0);
     await option(page, "약초 연고를 산다 (마을의 호의, 은화 1)").click();
     await expect(page.locator("#log")).toContainText("마을이 감사한 사람에게서 더 받을 수는 없다고 한다.");
