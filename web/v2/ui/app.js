@@ -515,8 +515,22 @@ function renderActions(actions, pendingActive) {
       .forEach(([id]) => card.appendChild(actionButton(id, false)));
     el.actions.appendChild(card);
   });
-  [...actions.filter((a) => a.available && !sceneOf(a.actionId)), ...actions.filter((a) => !a.available && !sceneOf(a.actionId))]
-    .forEach(({ actionId, available }) => el.actions.appendChild(actionButton(actionId, available)));
+  actions.filter((a) => a.available && !sceneOf(a.actionId))
+    .forEach(({ actionId }) => el.actions.appendChild(actionButton(actionId, true)));
+  // Keep the View's locked buttons discoverable without giving them the weight of a choice I can make now.
+  const later = actions.filter((a) => !a.available && !sceneOf(a.actionId));
+  if (later.length > 0) {
+    const group = document.createElement("div");
+    group.className = "later-actions";
+    group.setAttribute("role", "group");
+    group.setAttribute("aria-label", "지금은 할 수 없는 일");
+    const label = document.createElement("p");
+    label.className = "later-label";
+    label.textContent = "지금은 할 수 없는 일";
+    group.appendChild(label);
+    later.forEach(({ actionId }) => group.appendChild(actionButton(actionId, false)));
+    el.actions.appendChild(group);
+  }
 }
 
 function renderStatus(actor) {

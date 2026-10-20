@@ -171,6 +171,14 @@
   button[data-risk="hard"]::after, button[data-risk="desperate"]::after { color: var(--news-ink) !important; }
   #moves button[data-note]::after { content: " · " attr(data-note); color: var(--muted); font-size: 0.82rem; }
   #choice { display: grid; gap: 0.6rem; }
+  /* Secondary possibilities remain visible, with a lighter rhythm than the numbered choices. */
+  .later-actions { display: grid; gap: 0.35rem; margin-top: 0.45rem; padding-top: 0.65rem; border-top: 1px solid var(--rule); }
+  .later-label { margin: 0; color: var(--muted); font-size: 0.76rem; letter-spacing: 0.06em; }
+  #actions .later-actions button:disabled {
+    min-height: 2rem; padding: 0.3rem 0.65rem; border: 0; border-left: 2px solid var(--rule);
+    border-radius: 0; font-size: 0.85rem; opacity: 0.7;
+  }
+
   /* V2-Core-155: something happening here -- its scene, then the way in */
   .encounter { display: grid; gap: 0.5rem; padding: 0.8rem 0.9rem 0.9rem; border: 1px solid var(--news-rule); background: var(--news-bg); border-radius: 6px; }
   .encounter > button { background: var(--page); }
