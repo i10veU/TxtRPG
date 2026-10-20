@@ -1,0 +1,37 @@
+import assert from "node:assert/strict";
+import { createInitialState, step } from "../../web/v2/core/engine.js";
+import { worldData } from "../../web/v2/data/world.js";
+import { currentGoals } from "../../web/v2/ui/goals.js";
+
+const main = (state) => currentGoals(state, worldData).find((g) => g.track === "main")?.textId;
+const walk = (state, actions) => actions.reduce((before, action) => {
+  const result = step(before, action, worldData);
+  assert.ok(!result.events.some((e) => e.type === "action.rejected"), JSON.stringify(action));
+  return result.state;
+}, state);
+const ask = [{ type: "perform", actionId: "act_talk_elder" }, { type: "choose", optionId: "opt_ask_ruins" }];
+const move = (to) => ({ type: "move", to });
+let state = createInitialState({ worldSeed: "history-41", data: worldData }).state;
+state = walk(state, ask);
+assert.equal(main(state), "goal_search_ruins");
+state = walk(state, [move("loc_market"), { type: "perform", actionId: "act_buy_lantern" }]);
+assert.equal(main(state), "goal_leave_market", "buying the lantern completes the preparation hint");
+const before = JSON.stringify(state);
+assert.equal(main(JSON.parse(before)), "goal_leave_market", "save round trip preserves preparation");
+currentGoals(state, worldData);
+assert.equal(JSON.stringify(state), before, "reading guidance does not alter the world");
+state = walk(state, [move("loc_village")]);
+assert.equal(main(state), "goal_search_ruins_ready", "a prepared traveler is sent to the ruins");
+state = walk(state, [move("loc_ruins")]);
+assert.equal(main(state), "goal_search_ruins_here", "arrival changes the goal to investigation");
+state = walk(state, [{ type: "perform", actionId: "act_investigate_ruins" }]);
+assert.equal(main(state), "goal_settle_bandits", "the established next stage takes precedence");
+const unknown = createInitialState({ worldSeed: "history-41", data: worldData }).state;
+unknown.actors[unknown.player.actorId].inventory.item_lantern = 1;
+assert.equal(main(unknown), "goal_meet_elder", "a possession does not reveal an unheard lead");
+let scout = createInitialState({ worldSeed: "history-41", data: worldData, templateId: "start_scout" }).state;
+scout = walk(scout, ask);
+assert.equal(main(scout), "goal_search_ruins_night", "night vision bypasses the purchase");
+scout = walk(scout, [move("loc_ruins")]);
+assert.equal(main(scout), "goal_search_ruins_here", "night vision also completes arrival preparation");
+console.log("first-play guidance: preparation, arrival, known information, scouting and save continuity passed");
