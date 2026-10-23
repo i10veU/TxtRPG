@@ -1,0 +1,3079 @@
+{
+  "schema": "world-node-drafts/v1",
+  "status": "Draft",
+  "runtime": false,
+  "scope": {
+    "id": "motif_science_fiction",
+    "label": "SF",
+    "kind": "genre-or-structure proposal; not a world definition"
+  },
+  "canonImpact": "none; no Draft item is accepted game setting",
+  "sourceRefs": [
+    "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+    "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+    "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft"
+  ],
+  "fronts": [
+    {
+      "id": "draft_science_fiction_01",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A sensor calibration hides falling oxygen production",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A sensor calibration hides falling oxygen production",
+      "authoredIntervention": "Recalibrate sensors and ration gel by measured yield",
+      "initialReport": "The board reports normal output",
+      "verificationCandidate": "Manual gas samples show a declining trend",
+      "alternativeInterventions": "Switch to manual oxygen checks and restrict nonessential load",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L63",
+        "docs/v2/world-node-drafts/companion-a.txt#L52"
+      ],
+      "semanticSignature": "a sensor calibration hides falling oxygen production recalibrate sensors and ration gel by measured yield nutrient gel the board reports normal output manual gas samples show a declining trend",
+      "nodeIds": [
+        "draft_science_fiction_01_entity",
+        "draft_science_fiction_01_location",
+        "draft_science_fiction_01_resource",
+        "draft_science_fiction_01_pressure",
+        "draft_science_fiction_01_response",
+        "draft_science_fiction_01_report",
+        "draft_science_fiction_01_evidence",
+        "draft_science_fiction_01_counterparty",
+        "draft_science_fiction_01_belief_holder",
+        "draft_science_fiction_01_evidence_site",
+        "draft_science_fiction_01_alternative",
+        "draft_science_fiction_01_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Research modules lose power and crews work extra shifts",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_science_fiction_01_counterparty",
+        "evidenceSiteId": "draft_science_fiction_01_evidence_site",
+        "alternativeEventId": "draft_science_fiction_01_alternative",
+        "additionalBeliefId": "draft_science_fiction_01_additional_belief",
+        "beliefHolderId": "draft_science_fiction_01_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L52"
+      }
+    },
+    {
+      "id": "draft_science_fiction_02",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A maintenance queue favors research over life support",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A maintenance queue favors research over life support",
+      "authoredIntervention": "Publish failure risk and reprioritize the coils",
+      "initialReport": "Management says life support has redundant parts",
+      "verificationCandidate": "The second pump's wear log contradicts redundancy",
+      "alternativeInterventions": "Borrow a research coil for the failing second pump",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L64",
+        "docs/v2/world-node-drafts/companion-a.txt#L53"
+      ],
+      "semanticSignature": "a maintenance queue favors research over life support publish failure risk and reprioritize the coils replacement coils management says life support has redundant parts the second pump s wear log contradicts redundancy",
+      "nodeIds": [
+        "draft_science_fiction_02_entity",
+        "draft_science_fiction_02_location",
+        "draft_science_fiction_02_resource",
+        "draft_science_fiction_02_pressure",
+        "draft_science_fiction_02_response",
+        "draft_science_fiction_02_report",
+        "draft_science_fiction_02_evidence",
+        "draft_science_fiction_02_counterparty",
+        "draft_science_fiction_02_belief_holder",
+        "draft_science_fiction_02_evidence_site",
+        "draft_science_fiction_02_alternative",
+        "draft_science_fiction_02_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Experiments stop and the borrowed coil may not fit later",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_science_fiction_02_counterparty",
+        "evidenceSiteId": "draft_science_fiction_02_evidence_site",
+        "alternativeEventId": "draft_science_fiction_02_alternative",
+        "additionalBeliefId": "draft_science_fiction_02_additional_belief",
+        "beliefHolderId": "draft_science_fiction_02_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L53"
+      }
+    },
+    {
+      "id": "draft_science_fiction_03",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A probe route contaminates an isolated watershed",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A probe route contaminates an isolated watershed",
+      "authoredIntervention": "Recall the probe and map a sterile observation route",
+      "initialReport": "The survey says no probe entered the watershed",
+      "verificationCandidate": "Telemetry includes an unreported landing",
+      "alternativeInterventions": "Sterilize the watershed edge and suspend further probes",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L65",
+        "docs/v2/world-node-drafts/companion-a.txt#L54"
+      ],
+      "semanticSignature": "a probe route contaminates an isolated watershed recall the probe and map a sterile observation route remote probes the survey says no probe entered the watershed telemetry includes an unreported landing",
+      "nodeIds": [
+        "draft_science_fiction_03_entity",
+        "draft_science_fiction_03_location",
+        "draft_science_fiction_03_resource",
+        "draft_science_fiction_03_pressure",
+        "draft_science_fiction_03_response",
+        "draft_science_fiction_03_report",
+        "draft_science_fiction_03_evidence",
+        "draft_science_fiction_03_counterparty",
+        "draft_science_fiction_03_belief_holder",
+        "draft_science_fiction_03_evidence_site",
+        "draft_science_fiction_03_alternative",
+        "draft_science_fiction_03_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Survey data is lost and cleanup risks wider contact",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_science_fiction_03_counterparty",
+        "evidenceSiteId": "draft_science_fiction_03_evidence_site",
+        "alternativeEventId": "draft_science_fiction_03_alternative",
+        "additionalBeliefId": "draft_science_fiction_03_additional_belief",
+        "beliefHolderId": "draft_science_fiction_03_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L54"
+      }
+    },
+    {
+      "id": "draft_science_fiction_04",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "One faulty beacon shifts every vessel's route estimate",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "One faulty beacon shifts every vessel's route estimate",
+      "authoredIntervention": "Cross-check independent clocks before changing the beacon",
+      "initialReport": "A pilot claims the ships each made separate errors",
+      "verificationCandidate": "Shared timing offsets point to the beacon",
+      "alternativeInterventions": "Issue a temporary route correction with independent clocks",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L66",
+        "docs/v2/world-node-drafts/companion-a.txt#L55"
+      ],
+      "semanticSignature": "one faulty beacon shifts every vessel s route estimate cross check independent clocks before changing the beacon timing crystals a pilot claims the ships each made separate errors shared timing offsets point to the beacon",
+      "nodeIds": [
+        "draft_science_fiction_04_entity",
+        "draft_science_fiction_04_location",
+        "draft_science_fiction_04_resource",
+        "draft_science_fiction_04_pressure",
+        "draft_science_fiction_04_response",
+        "draft_science_fiction_04_report",
+        "draft_science_fiction_04_evidence",
+        "draft_science_fiction_04_counterparty",
+        "draft_science_fiction_04_belief_holder",
+        "draft_science_fiction_04_evidence_site",
+        "draft_science_fiction_04_alternative",
+        "draft_science_fiction_04_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Traffic slows and pilots must retest routes",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_science_fiction_04_counterparty",
+        "evidenceSiteId": "draft_science_fiction_04_evidence_site",
+        "alternativeEventId": "draft_science_fiction_04_alternative",
+        "additionalBeliefId": "draft_science_fiction_04_additional_belief",
+        "beliefHolderId": "draft_science_fiction_04_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L55"
+      }
+    },
+    {
+      "id": "draft_science_fiction_05",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A water auction moves irrigation from crops to luxury pools",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A water auction moves irrigation from crops to luxury pools",
+      "authoredIntervention": "Set a transparent emergency floor for food gardens",
+      "initialReport": "Buyers say the market preserved total water",
+      "verificationCandidate": "Meter histories show food plots dried first",
+      "alternativeInterventions": "Guarantee a minimum irrigation allotment before auction",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L67",
+        "docs/v2/world-node-drafts/companion-a.txt#L56"
+      ],
+      "semanticSignature": "a water auction moves irrigation from crops to luxury pools set a transparent emergency floor for food gardens water credits buyers say the market preserved total water meter histories show food plots dried first",
+      "nodeIds": [
+        "draft_science_fiction_05_entity",
+        "draft_science_fiction_05_location",
+        "draft_science_fiction_05_resource",
+        "draft_science_fiction_05_pressure",
+        "draft_science_fiction_05_response",
+        "draft_science_fiction_05_report",
+        "draft_science_fiction_05_evidence",
+        "draft_science_fiction_05_counterparty",
+        "draft_science_fiction_05_belief_holder",
+        "draft_science_fiction_05_evidence_site",
+        "draft_science_fiction_05_alternative",
+        "draft_science_fiction_05_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Pool owners lose prepaid water and council faces claims",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_science_fiction_05_counterparty",
+        "evidenceSiteId": "draft_science_fiction_05_evidence_site",
+        "alternativeEventId": "draft_science_fiction_05_alternative",
+        "additionalBeliefId": "draft_science_fiction_05_additional_belief",
+        "beliefHolderId": "draft_science_fiction_05_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L56"
+      }
+    }
+  ],
+  "nodes": [
+    {
+      "id": "draft_science_fiction_01_entity",
+      "kind": "Entity",
+      "label": "orbital ecology board",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_01",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L63"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L63"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep nutrient gel usable at habitat algae deck",
+        "stakes": "A sensor calibration hides falling oxygen production",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_science_fiction_01_edge_01",
+        "draft_science_fiction_01_edge_04",
+        "draft_science_fiction_01_edge_07"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_01_location",
+      "kind": "Location",
+      "label": "habitat algae deck",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_01",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L63"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L63"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_science_fiction_01_resource",
+        "conflict": "A sensor calibration hides falling oxygen production",
+        "risk": "A sensor calibration hides falling oxygen production"
+      },
+      "relations": [
+        "draft_science_fiction_01_edge_01",
+        "draft_science_fiction_01_edge_02",
+        "draft_science_fiction_01_edge_03",
+        "draft_science_fiction_01_edge_06"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_01_resource",
+      "kind": "Resource",
+      "label": "nutrient gel",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_01",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L63"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L63"
+      ],
+      "proposal": {
+        "sourceId": "draft_science_fiction_01_location",
+        "scarcity": "A sensor calibration hides falling oxygen production",
+        "proposedUse": "Recalibrate sensors and ration gel by measured yield",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_science_fiction_01_edge_02",
+        "draft_science_fiction_01_edge_05",
+        "draft_science_fiction_01_edge_08"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_01_pressure",
+      "kind": "Event",
+      "label": "A sensor calibration hides falling oxygen production",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_01",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L63"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L63"
+      ],
+      "proposal": {
+        "trigger": "A sensor calibration hides falling oxygen production",
+        "proposedEffect": "Changes access to nutrient gel",
+        "effectTargetId": "draft_science_fiction_01_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_science_fiction_01_edge_03",
+        "draft_science_fiction_01_edge_04",
+        "draft_science_fiction_01_edge_05",
+        "draft_science_fiction_01_edge_09",
+        "draft_science_fiction_01_edge_10",
+        "draft_science_fiction_01_companion_edge_01",
+        "draft_science_fiction_01_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_01_response",
+      "kind": "Event",
+      "label": "Recalibrate sensors and ration gel by measured yield",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_01",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L63"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L63"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Recalibrate sensors and ration gel by measured yield",
+        "proposedEffect": "Recalibrate sensors and ration gel by measured yield",
+        "effectTargetId": "draft_science_fiction_01_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_science_fiction_01_edge_06",
+        "draft_science_fiction_01_edge_07",
+        "draft_science_fiction_01_edge_08",
+        "draft_science_fiction_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_01_report",
+      "kind": "Knowledge",
+      "label": "The board reports normal output",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_01",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L63"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L63"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The board reports normal output",
+        "aboutId": "draft_science_fiction_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_science_fiction_01_edge_09"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_01_evidence",
+      "kind": "Knowledge",
+      "label": "Manual gas samples show a declining trend",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L63"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L63"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Manual gas samples show a declining trend",
+        "aboutId": "draft_science_fiction_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_science_fiction_01_edge_10",
+        "draft_science_fiction_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_02_entity",
+      "kind": "Entity",
+      "label": "repair union",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_02",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L64"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L64"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep replacement coils usable at reactor service bay",
+        "stakes": "A maintenance queue favors research over life support",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_science_fiction_02_edge_01",
+        "draft_science_fiction_02_edge_04",
+        "draft_science_fiction_02_edge_07"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_02_location",
+      "kind": "Location",
+      "label": "reactor service bay",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_02",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L64"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L64"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_science_fiction_02_resource",
+        "conflict": "A maintenance queue favors research over life support",
+        "risk": "A maintenance queue favors research over life support"
+      },
+      "relations": [
+        "draft_science_fiction_02_edge_01",
+        "draft_science_fiction_02_edge_02",
+        "draft_science_fiction_02_edge_03",
+        "draft_science_fiction_02_edge_06"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_02_resource",
+      "kind": "Resource",
+      "label": "replacement coils",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_02",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L64"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L64"
+      ],
+      "proposal": {
+        "sourceId": "draft_science_fiction_02_location",
+        "scarcity": "A maintenance queue favors research over life support",
+        "proposedUse": "Publish failure risk and reprioritize the coils",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_science_fiction_02_edge_02",
+        "draft_science_fiction_02_edge_05",
+        "draft_science_fiction_02_edge_08"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_02_pressure",
+      "kind": "Event",
+      "label": "A maintenance queue favors research over life support",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_02",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L64"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L64"
+      ],
+      "proposal": {
+        "trigger": "A maintenance queue favors research over life support",
+        "proposedEffect": "Changes access to replacement coils",
+        "effectTargetId": "draft_science_fiction_02_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_science_fiction_02_edge_03",
+        "draft_science_fiction_02_edge_04",
+        "draft_science_fiction_02_edge_05",
+        "draft_science_fiction_02_edge_09",
+        "draft_science_fiction_02_edge_10",
+        "draft_science_fiction_02_companion_edge_01",
+        "draft_science_fiction_02_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_02_response",
+      "kind": "Event",
+      "label": "Publish failure risk and reprioritize the coils",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_02",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L64"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L64"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Publish failure risk and reprioritize the coils",
+        "proposedEffect": "Publish failure risk and reprioritize the coils",
+        "effectTargetId": "draft_science_fiction_02_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_science_fiction_02_edge_06",
+        "draft_science_fiction_02_edge_07",
+        "draft_science_fiction_02_edge_08",
+        "draft_science_fiction_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_02_report",
+      "kind": "Knowledge",
+      "label": "Management says life support has redundant parts",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_02",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L64"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L64"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Management says life support has redundant parts",
+        "aboutId": "draft_science_fiction_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_science_fiction_02_edge_09"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_02_evidence",
+      "kind": "Knowledge",
+      "label": "The second pump's wear log contradicts redundancy",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L64"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L64"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "The second pump's wear log contradicts redundancy",
+        "aboutId": "draft_science_fiction_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_science_fiction_02_edge_10",
+        "draft_science_fiction_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_03_entity",
+      "kind": "Entity",
+      "label": "survey ethicists",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_03",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L65"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L65"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep remote probes usable at uncontacted valley station",
+        "stakes": "A probe route contaminates an isolated watershed",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_science_fiction_03_edge_01",
+        "draft_science_fiction_03_edge_04",
+        "draft_science_fiction_03_edge_07"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_03_location",
+      "kind": "Location",
+      "label": "uncontacted valley station",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_03",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L65"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L65"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_science_fiction_03_resource",
+        "conflict": "A probe route contaminates an isolated watershed",
+        "risk": "A probe route contaminates an isolated watershed"
+      },
+      "relations": [
+        "draft_science_fiction_03_edge_01",
+        "draft_science_fiction_03_edge_02",
+        "draft_science_fiction_03_edge_03",
+        "draft_science_fiction_03_edge_06"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_03_resource",
+      "kind": "Resource",
+      "label": "remote probes",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_03",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L65"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L65"
+      ],
+      "proposal": {
+        "sourceId": "draft_science_fiction_03_location",
+        "scarcity": "A probe route contaminates an isolated watershed",
+        "proposedUse": "Recall the probe and map a sterile observation route",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_science_fiction_03_edge_02",
+        "draft_science_fiction_03_edge_05",
+        "draft_science_fiction_03_edge_08"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_03_pressure",
+      "kind": "Event",
+      "label": "A probe route contaminates an isolated watershed",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_03",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L65"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L65"
+      ],
+      "proposal": {
+        "trigger": "A probe route contaminates an isolated watershed",
+        "proposedEffect": "Changes access to remote probes",
+        "effectTargetId": "draft_science_fiction_03_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_science_fiction_03_edge_03",
+        "draft_science_fiction_03_edge_04",
+        "draft_science_fiction_03_edge_05",
+        "draft_science_fiction_03_edge_09",
+        "draft_science_fiction_03_edge_10",
+        "draft_science_fiction_03_companion_edge_01",
+        "draft_science_fiction_03_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_03_response",
+      "kind": "Event",
+      "label": "Recall the probe and map a sterile observation route",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_03",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L65"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L65"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Recall the probe and map a sterile observation route",
+        "proposedEffect": "Recall the probe and map a sterile observation route",
+        "effectTargetId": "draft_science_fiction_03_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_science_fiction_03_edge_06",
+        "draft_science_fiction_03_edge_07",
+        "draft_science_fiction_03_edge_08",
+        "draft_science_fiction_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_03_report",
+      "kind": "Knowledge",
+      "label": "The survey says no probe entered the watershed",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_03",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L65"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L65"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The survey says no probe entered the watershed",
+        "aboutId": "draft_science_fiction_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_science_fiction_03_edge_09"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_03_evidence",
+      "kind": "Knowledge",
+      "label": "Telemetry includes an unreported landing",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L65"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L65"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Telemetry includes an unreported landing",
+        "aboutId": "draft_science_fiction_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_science_fiction_03_edge_10",
+        "draft_science_fiction_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_04_entity",
+      "kind": "Entity",
+      "label": "navigation commons",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_04",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L66"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L66"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep timing crystals usable at deep-range beacon",
+        "stakes": "One faulty beacon shifts every vessel's route estimate",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_science_fiction_04_edge_01",
+        "draft_science_fiction_04_edge_04",
+        "draft_science_fiction_04_edge_07"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_04_location",
+      "kind": "Location",
+      "label": "deep-range beacon",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_04",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L66"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L66"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_science_fiction_04_resource",
+        "conflict": "One faulty beacon shifts every vessel's route estimate",
+        "risk": "One faulty beacon shifts every vessel's route estimate"
+      },
+      "relations": [
+        "draft_science_fiction_04_edge_01",
+        "draft_science_fiction_04_edge_02",
+        "draft_science_fiction_04_edge_03",
+        "draft_science_fiction_04_edge_06"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_04_resource",
+      "kind": "Resource",
+      "label": "timing crystals",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_04",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L66"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L66"
+      ],
+      "proposal": {
+        "sourceId": "draft_science_fiction_04_location",
+        "scarcity": "One faulty beacon shifts every vessel's route estimate",
+        "proposedUse": "Cross-check independent clocks before changing the beacon",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_science_fiction_04_edge_02",
+        "draft_science_fiction_04_edge_05",
+        "draft_science_fiction_04_edge_08"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_04_pressure",
+      "kind": "Event",
+      "label": "One faulty beacon shifts every vessel's route estimate",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_04",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L66"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L66"
+      ],
+      "proposal": {
+        "trigger": "One faulty beacon shifts every vessel's route estimate",
+        "proposedEffect": "Changes access to timing crystals",
+        "effectTargetId": "draft_science_fiction_04_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_science_fiction_04_edge_03",
+        "draft_science_fiction_04_edge_04",
+        "draft_science_fiction_04_edge_05",
+        "draft_science_fiction_04_edge_09",
+        "draft_science_fiction_04_edge_10",
+        "draft_science_fiction_04_companion_edge_01",
+        "draft_science_fiction_04_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_04_response",
+      "kind": "Event",
+      "label": "Cross-check independent clocks before changing the beacon",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_04",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L66"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L66"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Cross-check independent clocks before changing the beacon",
+        "proposedEffect": "Cross-check independent clocks before changing the beacon",
+        "effectTargetId": "draft_science_fiction_04_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_science_fiction_04_edge_06",
+        "draft_science_fiction_04_edge_07",
+        "draft_science_fiction_04_edge_08",
+        "draft_science_fiction_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_04_report",
+      "kind": "Knowledge",
+      "label": "A pilot claims the ships each made separate errors",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_04",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L66"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L66"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A pilot claims the ships each made separate errors",
+        "aboutId": "draft_science_fiction_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_science_fiction_04_edge_09"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_04_evidence",
+      "kind": "Knowledge",
+      "label": "Shared timing offsets point to the beacon",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L66"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L66"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Shared timing offsets point to the beacon",
+        "aboutId": "draft_science_fiction_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_science_fiction_04_edge_10",
+        "draft_science_fiction_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_05_entity",
+      "kind": "Entity",
+      "label": "habitat council",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_05",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L67"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L67"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep water credits usable at spin-ring garden",
+        "stakes": "A water auction moves irrigation from crops to luxury pools",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_science_fiction_05_edge_01",
+        "draft_science_fiction_05_edge_04",
+        "draft_science_fiction_05_edge_07"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_05_location",
+      "kind": "Location",
+      "label": "spin-ring garden",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_05",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L67"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L67"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_science_fiction_05_resource",
+        "conflict": "A water auction moves irrigation from crops to luxury pools",
+        "risk": "A water auction moves irrigation from crops to luxury pools"
+      },
+      "relations": [
+        "draft_science_fiction_05_edge_01",
+        "draft_science_fiction_05_edge_02",
+        "draft_science_fiction_05_edge_03",
+        "draft_science_fiction_05_edge_06"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_05_resource",
+      "kind": "Resource",
+      "label": "water credits",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_05",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L67"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L67"
+      ],
+      "proposal": {
+        "sourceId": "draft_science_fiction_05_location",
+        "scarcity": "A water auction moves irrigation from crops to luxury pools",
+        "proposedUse": "Set a transparent emergency floor for food gardens",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_science_fiction_05_edge_02",
+        "draft_science_fiction_05_edge_05",
+        "draft_science_fiction_05_edge_08"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_05_pressure",
+      "kind": "Event",
+      "label": "A water auction moves irrigation from crops to luxury pools",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_05",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L67"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L67"
+      ],
+      "proposal": {
+        "trigger": "A water auction moves irrigation from crops to luxury pools",
+        "proposedEffect": "Changes access to water credits",
+        "effectTargetId": "draft_science_fiction_05_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_science_fiction_05_edge_03",
+        "draft_science_fiction_05_edge_04",
+        "draft_science_fiction_05_edge_05",
+        "draft_science_fiction_05_edge_09",
+        "draft_science_fiction_05_edge_10",
+        "draft_science_fiction_05_companion_edge_01",
+        "draft_science_fiction_05_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_05_response",
+      "kind": "Event",
+      "label": "Set a transparent emergency floor for food gardens",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_05",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L67"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L67"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Set a transparent emergency floor for food gardens",
+        "proposedEffect": "Set a transparent emergency floor for food gardens",
+        "effectTargetId": "draft_science_fiction_05_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_science_fiction_05_edge_06",
+        "draft_science_fiction_05_edge_07",
+        "draft_science_fiction_05_edge_08",
+        "draft_science_fiction_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_05_report",
+      "kind": "Knowledge",
+      "label": "Buyers say the market preserved total water",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_05",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L67"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L67"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Buyers say the market preserved total water",
+        "aboutId": "draft_science_fiction_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_science_fiction_05_edge_09"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_05_evidence",
+      "kind": "Knowledge",
+      "label": "Meter histories show food plots dried first",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L67"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L67"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Meter histories show food plots dried first",
+        "aboutId": "draft_science_fiction_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_science_fiction_05_edge_10",
+        "draft_science_fiction_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_01_counterparty",
+      "kind": "Entity",
+      "label": "sensor calibration vendor",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_01",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L52"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L52"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Protect calibration contracts by calling low output normal",
+        "stakes": "A sensor calibration hides falling oxygen production",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_science_fiction_01_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_01_belief_holder",
+      "kind": "Entity",
+      "label": "habitat managers",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_01",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L52"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L52"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Green dashboards prove oxygen is stable",
+        "stakes": "A sensor calibration hides falling oxygen production",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_science_fiction_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_01_evidence_site",
+      "kind": "Location",
+      "label": "independent gas assay locker",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L52"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L52"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A sensor calibration hides falling oxygen production",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_science_fiction_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_01_alternative",
+      "kind": "Event",
+      "label": "Switch to manual oxygen checks and restrict nonessential load",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_01",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L52"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L52"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Switch to manual oxygen checks and restrict nonessential load",
+        "costAndConsequence": "Research modules lose power and crews work extra shifts",
+        "alternativeToId": "draft_science_fiction_01_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_science_fiction_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_01_additional_belief",
+      "kind": "Knowledge",
+      "label": "Green dashboards prove oxygen is stable",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_01",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L52"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L52"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Green dashboards prove oxygen is stable",
+        "aboutId": "draft_science_fiction_01_pressure",
+        "holderId": "draft_science_fiction_01_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_science_fiction_01_companion_edge_02",
+        "draft_science_fiction_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_02_counterparty",
+      "kind": "Entity",
+      "label": "research maintenance scheduler",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_02",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L53"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L53"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Keep priority coils for experiments despite pump wear",
+        "stakes": "A maintenance queue favors research over life support",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_science_fiction_02_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_02_belief_holder",
+      "kind": "Entity",
+      "label": "research staff",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_02",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L53"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L53"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Two pumps guarantee redundancy without maintenance",
+        "stakes": "A maintenance queue favors research over life support",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_science_fiction_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_02_evidence_site",
+      "kind": "Location",
+      "label": "life-support wear-log console",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L53"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L53"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A maintenance queue favors research over life support",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_science_fiction_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_02_alternative",
+      "kind": "Event",
+      "label": "Borrow a research coil for the failing second pump",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_02",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L53"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L53"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Borrow a research coil for the failing second pump",
+        "costAndConsequence": "Experiments stop and the borrowed coil may not fit later",
+        "alternativeToId": "draft_science_fiction_02_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_science_fiction_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_02_additional_belief",
+      "kind": "Knowledge",
+      "label": "Two pumps guarantee redundancy without maintenance",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_02",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L53"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L53"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Two pumps guarantee redundancy without maintenance",
+        "aboutId": "draft_science_fiction_02_pressure",
+        "holderId": "draft_science_fiction_02_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_science_fiction_02_companion_edge_02",
+        "draft_science_fiction_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_03_counterparty",
+      "kind": "Entity",
+      "label": "probe pilot",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_03",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L54"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L54"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Conceal an unauthorized landing near isolated water",
+        "stakes": "A probe route contaminates an isolated watershed",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_science_fiction_03_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_03_belief_holder",
+      "kind": "Entity",
+      "label": "contractor analysts",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_03",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L54"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L54"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Telemetry blips cannot prove a landing",
+        "stakes": "A probe route contaminates an isolated watershed",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_science_fiction_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_03_evidence_site",
+      "kind": "Location",
+      "label": "probe landing quarantine pad",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L54"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L54"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A probe route contaminates an isolated watershed",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_science_fiction_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_03_alternative",
+      "kind": "Event",
+      "label": "Sterilize the watershed edge and suspend further probes",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_03",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L54"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L54"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Sterilize the watershed edge and suspend further probes",
+        "costAndConsequence": "Survey data is lost and cleanup risks wider contact",
+        "alternativeToId": "draft_science_fiction_03_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_science_fiction_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_03_additional_belief",
+      "kind": "Knowledge",
+      "label": "Telemetry blips cannot prove a landing",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_03",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L54"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L54"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Telemetry blips cannot prove a landing",
+        "aboutId": "draft_science_fiction_03_pressure",
+        "holderId": "draft_science_fiction_03_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_science_fiction_03_companion_edge_02",
+        "draft_science_fiction_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_04_counterparty",
+      "kind": "Entity",
+      "label": "beacon technician",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_04",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L55"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L55"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Avoid a system-wide recall of timing crystals",
+        "stakes": "One faulty beacon shifts every vessel's route estimate",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_science_fiction_04_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_04_belief_holder",
+      "kind": "Entity",
+      "label": "port controllers",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_04",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L55"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L55"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Each pilot made an unrelated navigation mistake",
+        "stakes": "One faulty beacon shifts every vessel's route estimate",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_science_fiction_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_04_evidence_site",
+      "kind": "Location",
+      "label": "clock crosscheck array",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L55"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L55"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "One faulty beacon shifts every vessel's route estimate",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_science_fiction_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_04_alternative",
+      "kind": "Event",
+      "label": "Issue a temporary route correction with independent clocks",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_04",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L55"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L55"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Issue a temporary route correction with independent clocks",
+        "costAndConsequence": "Traffic slows and pilots must retest routes",
+        "alternativeToId": "draft_science_fiction_04_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_science_fiction_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_04_additional_belief",
+      "kind": "Knowledge",
+      "label": "Each pilot made an unrelated navigation mistake",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_04",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L55"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L55"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Each pilot made an unrelated navigation mistake",
+        "aboutId": "draft_science_fiction_04_pressure",
+        "holderId": "draft_science_fiction_04_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_science_fiction_04_companion_edge_02",
+        "draft_science_fiction_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_05_counterparty",
+      "kind": "Entity",
+      "label": "pool auctioneer",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_05",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L56"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L56"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Protect auctioned water rights over staple crops",
+        "stakes": "A water auction moves irrigation from crops to luxury pools",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_science_fiction_05_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_05_belief_holder",
+      "kind": "Entity",
+      "label": "auction bidders",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_05",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L56"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L56"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: An efficient auction cannot starve food plots",
+        "stakes": "A water auction moves irrigation from crops to luxury pools",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_science_fiction_05_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_05_evidence_site",
+      "kind": "Location",
+      "label": "garden meter audit kiosk",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L56"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L56"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A water auction moves irrigation from crops to luxury pools",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_science_fiction_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_05_alternative",
+      "kind": "Event",
+      "label": "Guarantee a minimum irrigation allotment before auction",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_05",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L56"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L56"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Guarantee a minimum irrigation allotment before auction",
+        "costAndConsequence": "Pool owners lose prepaid water and council faces claims",
+        "alternativeToId": "draft_science_fiction_05_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_science_fiction_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_science_fiction_05_additional_belief",
+      "kind": "Knowledge",
+      "label": "An efficient auction cannot starve food plots",
+      "scopeId": "motif_science_fiction",
+      "motifId": "science_fiction",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_science_fiction_05",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L56"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L56"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "An efficient auction cannot starve food plots",
+        "aboutId": "draft_science_fiction_05_pressure",
+        "holderId": "draft_science_fiction_05_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_science_fiction_05_companion_edge_02",
+        "draft_science_fiction_05_companion_edge_03"
+      ]
+    }
+  ],
+  "structuralEdges": [
+    {
+      "id": "draft_science_fiction_01_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_science_fiction_01_entity",
+      "toId": "draft_science_fiction_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_01:entity>location"
+    },
+    {
+      "id": "draft_science_fiction_01_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_science_fiction_01_location",
+      "toId": "draft_science_fiction_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_01:location>resource"
+    },
+    {
+      "id": "draft_science_fiction_01_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_science_fiction_01_pressure",
+      "toId": "draft_science_fiction_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_01:pressure>location"
+    },
+    {
+      "id": "draft_science_fiction_01_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_science_fiction_01_pressure",
+      "toId": "draft_science_fiction_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_01:pressure>entity"
+    },
+    {
+      "id": "draft_science_fiction_01_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_science_fiction_01_pressure",
+      "toId": "draft_science_fiction_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_01:pressure>resource"
+    },
+    {
+      "id": "draft_science_fiction_01_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_science_fiction_01_response",
+      "toId": "draft_science_fiction_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_01:response>location"
+    },
+    {
+      "id": "draft_science_fiction_01_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_science_fiction_01_response",
+      "toId": "draft_science_fiction_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_01:response>entity"
+    },
+    {
+      "id": "draft_science_fiction_01_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_science_fiction_01_response",
+      "toId": "draft_science_fiction_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_01:response>resource"
+    },
+    {
+      "id": "draft_science_fiction_01_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_science_fiction_01_report",
+      "toId": "draft_science_fiction_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_01:report>pressure"
+    },
+    {
+      "id": "draft_science_fiction_01_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_science_fiction_01_evidence",
+      "toId": "draft_science_fiction_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_01:evidence>pressure"
+    },
+    {
+      "id": "draft_science_fiction_02_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_science_fiction_02_entity",
+      "toId": "draft_science_fiction_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_02:entity>location"
+    },
+    {
+      "id": "draft_science_fiction_02_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_science_fiction_02_location",
+      "toId": "draft_science_fiction_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_02:location>resource"
+    },
+    {
+      "id": "draft_science_fiction_02_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_science_fiction_02_pressure",
+      "toId": "draft_science_fiction_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_02:pressure>location"
+    },
+    {
+      "id": "draft_science_fiction_02_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_science_fiction_02_pressure",
+      "toId": "draft_science_fiction_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_02:pressure>entity"
+    },
+    {
+      "id": "draft_science_fiction_02_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_science_fiction_02_pressure",
+      "toId": "draft_science_fiction_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_02:pressure>resource"
+    },
+    {
+      "id": "draft_science_fiction_02_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_science_fiction_02_response",
+      "toId": "draft_science_fiction_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_02:response>location"
+    },
+    {
+      "id": "draft_science_fiction_02_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_science_fiction_02_response",
+      "toId": "draft_science_fiction_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_02:response>entity"
+    },
+    {
+      "id": "draft_science_fiction_02_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_science_fiction_02_response",
+      "toId": "draft_science_fiction_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_02:response>resource"
+    },
+    {
+      "id": "draft_science_fiction_02_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_science_fiction_02_report",
+      "toId": "draft_science_fiction_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_02:report>pressure"
+    },
+    {
+      "id": "draft_science_fiction_02_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_science_fiction_02_evidence",
+      "toId": "draft_science_fiction_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_02:evidence>pressure"
+    },
+    {
+      "id": "draft_science_fiction_03_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_science_fiction_03_entity",
+      "toId": "draft_science_fiction_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_03:entity>location"
+    },
+    {
+      "id": "draft_science_fiction_03_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_science_fiction_03_location",
+      "toId": "draft_science_fiction_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_03:location>resource"
+    },
+    {
+      "id": "draft_science_fiction_03_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_science_fiction_03_pressure",
+      "toId": "draft_science_fiction_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_03:pressure>location"
+    },
+    {
+      "id": "draft_science_fiction_03_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_science_fiction_03_pressure",
+      "toId": "draft_science_fiction_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_03:pressure>entity"
+    },
+    {
+      "id": "draft_science_fiction_03_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_science_fiction_03_pressure",
+      "toId": "draft_science_fiction_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_03:pressure>resource"
+    },
+    {
+      "id": "draft_science_fiction_03_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_science_fiction_03_response",
+      "toId": "draft_science_fiction_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_03:response>location"
+    },
+    {
+      "id": "draft_science_fiction_03_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_science_fiction_03_response",
+      "toId": "draft_science_fiction_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_03:response>entity"
+    },
+    {
+      "id": "draft_science_fiction_03_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_science_fiction_03_response",
+      "toId": "draft_science_fiction_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_03:response>resource"
+    },
+    {
+      "id": "draft_science_fiction_03_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_science_fiction_03_report",
+      "toId": "draft_science_fiction_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_03:report>pressure"
+    },
+    {
+      "id": "draft_science_fiction_03_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_science_fiction_03_evidence",
+      "toId": "draft_science_fiction_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_03:evidence>pressure"
+    },
+    {
+      "id": "draft_science_fiction_04_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_science_fiction_04_entity",
+      "toId": "draft_science_fiction_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_04:entity>location"
+    },
+    {
+      "id": "draft_science_fiction_04_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_science_fiction_04_location",
+      "toId": "draft_science_fiction_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_04:location>resource"
+    },
+    {
+      "id": "draft_science_fiction_04_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_science_fiction_04_pressure",
+      "toId": "draft_science_fiction_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_04:pressure>location"
+    },
+    {
+      "id": "draft_science_fiction_04_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_science_fiction_04_pressure",
+      "toId": "draft_science_fiction_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_04:pressure>entity"
+    },
+    {
+      "id": "draft_science_fiction_04_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_science_fiction_04_pressure",
+      "toId": "draft_science_fiction_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_04:pressure>resource"
+    },
+    {
+      "id": "draft_science_fiction_04_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_science_fiction_04_response",
+      "toId": "draft_science_fiction_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_04:response>location"
+    },
+    {
+      "id": "draft_science_fiction_04_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_science_fiction_04_response",
+      "toId": "draft_science_fiction_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_04:response>entity"
+    },
+    {
+      "id": "draft_science_fiction_04_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_science_fiction_04_response",
+      "toId": "draft_science_fiction_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_04:response>resource"
+    },
+    {
+      "id": "draft_science_fiction_04_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_science_fiction_04_report",
+      "toId": "draft_science_fiction_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_04:report>pressure"
+    },
+    {
+      "id": "draft_science_fiction_04_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_science_fiction_04_evidence",
+      "toId": "draft_science_fiction_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_04:evidence>pressure"
+    },
+    {
+      "id": "draft_science_fiction_05_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_science_fiction_05_entity",
+      "toId": "draft_science_fiction_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_05:entity>location"
+    },
+    {
+      "id": "draft_science_fiction_05_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_science_fiction_05_location",
+      "toId": "draft_science_fiction_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_05:location>resource"
+    },
+    {
+      "id": "draft_science_fiction_05_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_science_fiction_05_pressure",
+      "toId": "draft_science_fiction_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_05:pressure>location"
+    },
+    {
+      "id": "draft_science_fiction_05_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_science_fiction_05_pressure",
+      "toId": "draft_science_fiction_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_05:pressure>entity"
+    },
+    {
+      "id": "draft_science_fiction_05_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_science_fiction_05_pressure",
+      "toId": "draft_science_fiction_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_05:pressure>resource"
+    },
+    {
+      "id": "draft_science_fiction_05_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_science_fiction_05_response",
+      "toId": "draft_science_fiction_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_05:response>location"
+    },
+    {
+      "id": "draft_science_fiction_05_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_science_fiction_05_response",
+      "toId": "draft_science_fiction_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_05:response>entity"
+    },
+    {
+      "id": "draft_science_fiction_05_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_science_fiction_05_response",
+      "toId": "draft_science_fiction_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_05:response>resource"
+    },
+    {
+      "id": "draft_science_fiction_05_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_science_fiction_05_report",
+      "toId": "draft_science_fiction_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_05:report>pressure"
+    },
+    {
+      "id": "draft_science_fiction_05_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_science_fiction_05_evidence",
+      "toId": "draft_science_fiction_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_science_fiction_05:evidence>pressure"
+    },
+    {
+      "id": "draft_science_fiction_01_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_science_fiction_01_pressure",
+      "toId": "draft_science_fiction_01_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L52"
+    },
+    {
+      "id": "draft_science_fiction_01_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_science_fiction_01_additional_belief",
+      "toId": "draft_science_fiction_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L52"
+    },
+    {
+      "id": "draft_science_fiction_01_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_science_fiction_01_additional_belief",
+      "toId": "draft_science_fiction_01_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L52"
+    },
+    {
+      "id": "draft_science_fiction_01_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_science_fiction_01_evidence_site",
+      "toId": "draft_science_fiction_01_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L52"
+    },
+    {
+      "id": "draft_science_fiction_01_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_science_fiction_01_alternative",
+      "toId": "draft_science_fiction_01_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L52"
+    },
+    {
+      "id": "draft_science_fiction_02_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_science_fiction_02_pressure",
+      "toId": "draft_science_fiction_02_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L53"
+    },
+    {
+      "id": "draft_science_fiction_02_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_science_fiction_02_additional_belief",
+      "toId": "draft_science_fiction_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L53"
+    },
+    {
+      "id": "draft_science_fiction_02_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_science_fiction_02_additional_belief",
+      "toId": "draft_science_fiction_02_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L53"
+    },
+    {
+      "id": "draft_science_fiction_02_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_science_fiction_02_evidence_site",
+      "toId": "draft_science_fiction_02_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L53"
+    },
+    {
+      "id": "draft_science_fiction_02_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_science_fiction_02_alternative",
+      "toId": "draft_science_fiction_02_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L53"
+    },
+    {
+      "id": "draft_science_fiction_03_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_science_fiction_03_pressure",
+      "toId": "draft_science_fiction_03_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L54"
+    },
+    {
+      "id": "draft_science_fiction_03_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_science_fiction_03_additional_belief",
+      "toId": "draft_science_fiction_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L54"
+    },
+    {
+      "id": "draft_science_fiction_03_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_science_fiction_03_additional_belief",
+      "toId": "draft_science_fiction_03_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L54"
+    },
+    {
+      "id": "draft_science_fiction_03_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_science_fiction_03_evidence_site",
+      "toId": "draft_science_fiction_03_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L54"
+    },
+    {
+      "id": "draft_science_fiction_03_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_science_fiction_03_alternative",
+      "toId": "draft_science_fiction_03_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L54"
+    },
+    {
+      "id": "draft_science_fiction_04_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_science_fiction_04_pressure",
+      "toId": "draft_science_fiction_04_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L55"
+    },
+    {
+      "id": "draft_science_fiction_04_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_science_fiction_04_additional_belief",
+      "toId": "draft_science_fiction_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L55"
+    },
+    {
+      "id": "draft_science_fiction_04_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_science_fiction_04_additional_belief",
+      "toId": "draft_science_fiction_04_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L55"
+    },
+    {
+      "id": "draft_science_fiction_04_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_science_fiction_04_evidence_site",
+      "toId": "draft_science_fiction_04_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L55"
+    },
+    {
+      "id": "draft_science_fiction_04_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_science_fiction_04_alternative",
+      "toId": "draft_science_fiction_04_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L55"
+    },
+    {
+      "id": "draft_science_fiction_05_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_science_fiction_05_pressure",
+      "toId": "draft_science_fiction_05_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L56"
+    },
+    {
+      "id": "draft_science_fiction_05_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_science_fiction_05_additional_belief",
+      "toId": "draft_science_fiction_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L56"
+    },
+    {
+      "id": "draft_science_fiction_05_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_science_fiction_05_additional_belief",
+      "toId": "draft_science_fiction_05_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L56"
+    },
+    {
+      "id": "draft_science_fiction_05_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_science_fiction_05_evidence_site",
+      "toId": "draft_science_fiction_05_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L56"
+    },
+    {
+      "id": "draft_science_fiction_05_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_science_fiction_05_alternative",
+      "toId": "draft_science_fiction_05_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L56"
+    }
+  ],
+  "proposedCausalLinks": [
+    {
+      "id": "draft_science_fiction_01_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_science_fiction_01_pressure",
+      "toId": "draft_science_fiction_01_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_science_fiction_01_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_science_fiction_01_evidence",
+      "toId": "draft_science_fiction_01_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_science_fiction_02_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_science_fiction_02_pressure",
+      "toId": "draft_science_fiction_02_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_science_fiction_02_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_science_fiction_02_evidence",
+      "toId": "draft_science_fiction_02_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_science_fiction_03_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_science_fiction_03_pressure",
+      "toId": "draft_science_fiction_03_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_science_fiction_03_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_science_fiction_03_evidence",
+      "toId": "draft_science_fiction_03_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_science_fiction_04_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_science_fiction_04_pressure",
+      "toId": "draft_science_fiction_04_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_science_fiction_04_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_science_fiction_04_evidence",
+      "toId": "draft_science_fiction_04_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_science_fiction_05_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_science_fiction_05_pressure",
+      "toId": "draft_science_fiction_05_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_science_fiction_05_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_science_fiction_05_evidence",
+      "toId": "draft_science_fiction_05_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    }
+  ]
+}

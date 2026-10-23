@@ -1,0 +1,3079 @@
+{
+  "schema": "world-node-drafts/v1",
+  "status": "Draft",
+  "runtime": false,
+  "scope": {
+    "id": "motif_medieval_fantasy",
+    "label": "중세 판타지",
+    "kind": "genre-or-structure proposal; not a world definition"
+  },
+  "canonImpact": "none; no Draft item is accepted game setting",
+  "sourceRefs": [
+    "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+    "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+    "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft"
+  ],
+  "fronts": [
+    {
+      "id": "draft_medieval_fantasy_01",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "An upstream gate leaves tenant fields dry",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "An upstream gate leaves tenant fields dry",
+      "authoredIntervention": "Mediate gate hours and record each harvest share",
+      "initialReport": "The reeve says the river is naturally low",
+      "verificationCandidate": "Mill marks show the gate was shut at dawn",
+      "alternativeInterventions": "Open the gate for timed tenant irrigation turns",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L33",
+        "docs/v2/world-node-drafts/companion-a.txt#L27"
+      ],
+      "semanticSignature": "an upstream gate leaves tenant fields dry mediate gate hours and record each harvest share grain stones the reeve says the river is naturally low mill marks show the gate was shut at dawn",
+      "nodeIds": [
+        "draft_medieval_fantasy_01_entity",
+        "draft_medieval_fantasy_01_location",
+        "draft_medieval_fantasy_01_resource",
+        "draft_medieval_fantasy_01_pressure",
+        "draft_medieval_fantasy_01_response",
+        "draft_medieval_fantasy_01_report",
+        "draft_medieval_fantasy_01_evidence",
+        "draft_medieval_fantasy_01_counterparty",
+        "draft_medieval_fantasy_01_belief_holder",
+        "draft_medieval_fantasy_01_evidence_site",
+        "draft_medieval_fantasy_01_alternative",
+        "draft_medieval_fantasy_01_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "The mill grinds less flour this week",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_medieval_fantasy_01_counterparty",
+        "evidenceSiteId": "draft_medieval_fantasy_01_evidence_site",
+        "alternativeEventId": "draft_medieval_fantasy_01_alternative",
+        "additionalBeliefId": "draft_medieval_fantasy_01_additional_belief",
+        "beliefHolderId": "draft_medieval_fantasy_01_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L27"
+      }
+    },
+    {
+      "id": "draft_medieval_fantasy_02",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A false watch signal pulls guards from the grain road",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A false watch signal pulls guards from the grain road",
+      "authoredIntervention": "Trace the signal and restore a rotating guard",
+      "initialReport": "The messenger blames a torch in the wind",
+      "verificationCandidate": "Signal ash is found at an unused post",
+      "alternativeInterventions": "Repost guards along the grain road and verify signals by paired torches",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L34",
+        "docs/v2/world-node-drafts/companion-a.txt#L28"
+      ],
+      "semanticSignature": "a false watch signal pulls guards from the grain road trace the signal and restore a rotating guard arrow bundles the messenger blames a torch in the wind signal ash is found at an unused post",
+      "nodeIds": [
+        "draft_medieval_fantasy_02_entity",
+        "draft_medieval_fantasy_02_location",
+        "draft_medieval_fantasy_02_resource",
+        "draft_medieval_fantasy_02_pressure",
+        "draft_medieval_fantasy_02_response",
+        "draft_medieval_fantasy_02_report",
+        "draft_medieval_fantasy_02_evidence",
+        "draft_medieval_fantasy_02_counterparty",
+        "draft_medieval_fantasy_02_belief_holder",
+        "draft_medieval_fantasy_02_evidence_site",
+        "draft_medieval_fantasy_02_alternative",
+        "draft_medieval_fantasy_02_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "The border line has fewer guards until relief arrives",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_medieval_fantasy_02_counterparty",
+        "evidenceSiteId": "draft_medieval_fantasy_02_evidence_site",
+        "alternativeEventId": "draft_medieval_fantasy_02_alternative",
+        "additionalBeliefId": "draft_medieval_fantasy_02_additional_belief",
+        "beliefHolderId": "draft_medieval_fantasy_02_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L28"
+      }
+    },
+    {
+      "id": "draft_medieval_fantasy_03",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A winter fever reaches the outlying crofts before the abbey",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A winter fever reaches the outlying crofts before the abbey",
+      "authoredIntervention": "Send a measured herb supply and train local carers",
+      "initialReport": "The abbey hears that only one croft is sick",
+      "verificationCandidate": "Carriers list fevers across three hamlets",
+      "alternativeInterventions": "Send separate herb parcels to the three sick hamlets",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L35",
+        "docs/v2/world-node-drafts/companion-a.txt#L29"
+      ],
+      "semanticSignature": "a winter fever reaches the outlying crofts before the abbey send a measured herb supply and train local carers drying herbs the abbey hears that only one croft is sick carriers list fevers across three hamlets",
+      "nodeIds": [
+        "draft_medieval_fantasy_03_entity",
+        "draft_medieval_fantasy_03_location",
+        "draft_medieval_fantasy_03_resource",
+        "draft_medieval_fantasy_03_pressure",
+        "draft_medieval_fantasy_03_response",
+        "draft_medieval_fantasy_03_report",
+        "draft_medieval_fantasy_03_evidence",
+        "draft_medieval_fantasy_03_counterparty",
+        "draft_medieval_fantasy_03_belief_holder",
+        "draft_medieval_fantasy_03_evidence_site",
+        "draft_medieval_fantasy_03_alternative",
+        "draft_medieval_fantasy_03_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "The abbey spends its winter stock early",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_medieval_fantasy_03_counterparty",
+        "evidenceSiteId": "draft_medieval_fantasy_03_evidence_site",
+        "alternativeEventId": "draft_medieval_fantasy_03_alternative",
+        "additionalBeliefId": "draft_medieval_fantasy_03_additional_belief",
+        "beliefHolderId": "draft_medieval_fantasy_03_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L29"
+      }
+    },
+    {
+      "id": "draft_medieval_fantasy_04",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "Duplicate tolls stall carts bound for a hungry town",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "Duplicate tolls stall carts bound for a hungry town",
+      "authoredIntervention": "Compare charters and refund the duplicate levy",
+      "initialReport": "The collector calls the second toll a bridge fee",
+      "verificationCandidate": "A charter copy names one levy for both crossings",
+      "alternativeInterventions": "Suspend the second levy pending a public charter reading",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L36",
+        "docs/v2/world-node-drafts/companion-a.txt#L30"
+      ],
+      "semanticSignature": "duplicate tolls stall carts bound for a hungry town compare charters and refund the duplicate levy wax tablets the collector calls the second toll a bridge fee a charter copy names one levy for both crossings",
+      "nodeIds": [
+        "draft_medieval_fantasy_04_entity",
+        "draft_medieval_fantasy_04_location",
+        "draft_medieval_fantasy_04_resource",
+        "draft_medieval_fantasy_04_pressure",
+        "draft_medieval_fantasy_04_response",
+        "draft_medieval_fantasy_04_report",
+        "draft_medieval_fantasy_04_evidence",
+        "draft_medieval_fantasy_04_counterparty",
+        "draft_medieval_fantasy_04_belief_holder",
+        "draft_medieval_fantasy_04_evidence_site",
+        "draft_medieval_fantasy_04_alternative",
+        "draft_medieval_fantasy_04_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "The hungry town receives carts but bridge repairs lose a fee",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_medieval_fantasy_04_counterparty",
+        "evidenceSiteId": "draft_medieval_fantasy_04_evidence_site",
+        "alternativeEventId": "draft_medieval_fantasy_04_alternative",
+        "additionalBeliefId": "draft_medieval_fantasy_04_additional_belief",
+        "beliefHolderId": "draft_medieval_fantasy_04_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L30"
+      }
+    },
+    {
+      "id": "draft_medieval_fantasy_05",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A lord's herd exhausts shared winter fodder",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A lord's herd exhausts shared winter fodder",
+      "authoredIntervention": "Set a herd limit and move surplus feed to lambing pens",
+      "initialReport": "The steward says villagers used the hay",
+      "verificationCandidate": "Stack marks show the lord's wagons left first",
+      "alternativeInterventions": "Divide the remaining hay by winter head count",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L37",
+        "docs/v2/world-node-drafts/companion-a.txt#L31"
+      ],
+      "semanticSignature": "a lord s herd exhausts shared winter fodder set a herd limit and move surplus feed to lambing pens hay bales the steward says villagers used the hay stack marks show the lord s wagons left first",
+      "nodeIds": [
+        "draft_medieval_fantasy_05_entity",
+        "draft_medieval_fantasy_05_location",
+        "draft_medieval_fantasy_05_resource",
+        "draft_medieval_fantasy_05_pressure",
+        "draft_medieval_fantasy_05_response",
+        "draft_medieval_fantasy_05_report",
+        "draft_medieval_fantasy_05_evidence",
+        "draft_medieval_fantasy_05_counterparty",
+        "draft_medieval_fantasy_05_belief_holder",
+        "draft_medieval_fantasy_05_evidence_site",
+        "draft_medieval_fantasy_05_alternative",
+        "draft_medieval_fantasy_05_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "The lord's cattle lose feed and stewards need guards",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_medieval_fantasy_05_counterparty",
+        "evidenceSiteId": "draft_medieval_fantasy_05_evidence_site",
+        "alternativeEventId": "draft_medieval_fantasy_05_alternative",
+        "additionalBeliefId": "draft_medieval_fantasy_05_additional_belief",
+        "beliefHolderId": "draft_medieval_fantasy_05_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L31"
+      }
+    }
+  ],
+  "nodes": [
+    {
+      "id": "draft_medieval_fantasy_01_entity",
+      "kind": "Entity",
+      "label": "mill court",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_01",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L33"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L33"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep grain stones usable at lower watermill",
+        "stakes": "An upstream gate leaves tenant fields dry",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_medieval_fantasy_01_edge_01",
+        "draft_medieval_fantasy_01_edge_04",
+        "draft_medieval_fantasy_01_edge_07"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_01_location",
+      "kind": "Location",
+      "label": "lower watermill",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_01",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L33"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L33"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_medieval_fantasy_01_resource",
+        "conflict": "An upstream gate leaves tenant fields dry",
+        "risk": "An upstream gate leaves tenant fields dry"
+      },
+      "relations": [
+        "draft_medieval_fantasy_01_edge_01",
+        "draft_medieval_fantasy_01_edge_02",
+        "draft_medieval_fantasy_01_edge_03",
+        "draft_medieval_fantasy_01_edge_06"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_01_resource",
+      "kind": "Resource",
+      "label": "grain stones",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_01",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L33"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L33"
+      ],
+      "proposal": {
+        "sourceId": "draft_medieval_fantasy_01_location",
+        "scarcity": "An upstream gate leaves tenant fields dry",
+        "proposedUse": "Mediate gate hours and record each harvest share",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_medieval_fantasy_01_edge_02",
+        "draft_medieval_fantasy_01_edge_05",
+        "draft_medieval_fantasy_01_edge_08"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_01_pressure",
+      "kind": "Event",
+      "label": "An upstream gate leaves tenant fields dry",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_01",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L33"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L33"
+      ],
+      "proposal": {
+        "trigger": "An upstream gate leaves tenant fields dry",
+        "proposedEffect": "Changes access to grain stones",
+        "effectTargetId": "draft_medieval_fantasy_01_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_medieval_fantasy_01_edge_03",
+        "draft_medieval_fantasy_01_edge_04",
+        "draft_medieval_fantasy_01_edge_05",
+        "draft_medieval_fantasy_01_edge_09",
+        "draft_medieval_fantasy_01_edge_10",
+        "draft_medieval_fantasy_01_companion_edge_01",
+        "draft_medieval_fantasy_01_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_01_response",
+      "kind": "Event",
+      "label": "Mediate gate hours and record each harvest share",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_01",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L33"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L33"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Mediate gate hours and record each harvest share",
+        "proposedEffect": "Mediate gate hours and record each harvest share",
+        "effectTargetId": "draft_medieval_fantasy_01_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_medieval_fantasy_01_edge_06",
+        "draft_medieval_fantasy_01_edge_07",
+        "draft_medieval_fantasy_01_edge_08",
+        "draft_medieval_fantasy_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_01_report",
+      "kind": "Knowledge",
+      "label": "The reeve says the river is naturally low",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_01",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L33"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L33"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The reeve says the river is naturally low",
+        "aboutId": "draft_medieval_fantasy_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_medieval_fantasy_01_edge_09"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_01_evidence",
+      "kind": "Knowledge",
+      "label": "Mill marks show the gate was shut at dawn",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L33"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L33"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Mill marks show the gate was shut at dawn",
+        "aboutId": "draft_medieval_fantasy_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_medieval_fantasy_01_edge_10",
+        "draft_medieval_fantasy_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_02_entity",
+      "kind": "Entity",
+      "label": "border reeve's riders",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_02",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L34"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L34"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep arrow bundles usable at ridge palisade",
+        "stakes": "A false watch signal pulls guards from the grain road",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_medieval_fantasy_02_edge_01",
+        "draft_medieval_fantasy_02_edge_04",
+        "draft_medieval_fantasy_02_edge_07"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_02_location",
+      "kind": "Location",
+      "label": "ridge palisade",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_02",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L34"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L34"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_medieval_fantasy_02_resource",
+        "conflict": "A false watch signal pulls guards from the grain road",
+        "risk": "A false watch signal pulls guards from the grain road"
+      },
+      "relations": [
+        "draft_medieval_fantasy_02_edge_01",
+        "draft_medieval_fantasy_02_edge_02",
+        "draft_medieval_fantasy_02_edge_03",
+        "draft_medieval_fantasy_02_edge_06"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_02_resource",
+      "kind": "Resource",
+      "label": "arrow bundles",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_02",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L34"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L34"
+      ],
+      "proposal": {
+        "sourceId": "draft_medieval_fantasy_02_location",
+        "scarcity": "A false watch signal pulls guards from the grain road",
+        "proposedUse": "Trace the signal and restore a rotating guard",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_medieval_fantasy_02_edge_02",
+        "draft_medieval_fantasy_02_edge_05",
+        "draft_medieval_fantasy_02_edge_08"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_02_pressure",
+      "kind": "Event",
+      "label": "A false watch signal pulls guards from the grain road",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_02",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L34"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L34"
+      ],
+      "proposal": {
+        "trigger": "A false watch signal pulls guards from the grain road",
+        "proposedEffect": "Changes access to arrow bundles",
+        "effectTargetId": "draft_medieval_fantasy_02_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_medieval_fantasy_02_edge_03",
+        "draft_medieval_fantasy_02_edge_04",
+        "draft_medieval_fantasy_02_edge_05",
+        "draft_medieval_fantasy_02_edge_09",
+        "draft_medieval_fantasy_02_edge_10",
+        "draft_medieval_fantasy_02_companion_edge_01",
+        "draft_medieval_fantasy_02_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_02_response",
+      "kind": "Event",
+      "label": "Trace the signal and restore a rotating guard",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_02",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L34"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L34"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Trace the signal and restore a rotating guard",
+        "proposedEffect": "Trace the signal and restore a rotating guard",
+        "effectTargetId": "draft_medieval_fantasy_02_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_medieval_fantasy_02_edge_06",
+        "draft_medieval_fantasy_02_edge_07",
+        "draft_medieval_fantasy_02_edge_08",
+        "draft_medieval_fantasy_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_02_report",
+      "kind": "Knowledge",
+      "label": "The messenger blames a torch in the wind",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_02",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L34"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L34"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The messenger blames a torch in the wind",
+        "aboutId": "draft_medieval_fantasy_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_medieval_fantasy_02_edge_09"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_02_evidence",
+      "kind": "Knowledge",
+      "label": "Signal ash is found at an unused post",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L34"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L34"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Signal ash is found at an unused post",
+        "aboutId": "draft_medieval_fantasy_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_medieval_fantasy_02_edge_10",
+        "draft_medieval_fantasy_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_03_entity",
+      "kind": "Entity",
+      "label": "abbey infirmers",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_03",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L35"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L35"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep drying herbs usable at cloister herb plot",
+        "stakes": "A winter fever reaches the outlying crofts before the abbey",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_medieval_fantasy_03_edge_01",
+        "draft_medieval_fantasy_03_edge_04",
+        "draft_medieval_fantasy_03_edge_07"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_03_location",
+      "kind": "Location",
+      "label": "cloister herb plot",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_03",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L35"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L35"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_medieval_fantasy_03_resource",
+        "conflict": "A winter fever reaches the outlying crofts before the abbey",
+        "risk": "A winter fever reaches the outlying crofts before the abbey"
+      },
+      "relations": [
+        "draft_medieval_fantasy_03_edge_01",
+        "draft_medieval_fantasy_03_edge_02",
+        "draft_medieval_fantasy_03_edge_03",
+        "draft_medieval_fantasy_03_edge_06"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_03_resource",
+      "kind": "Resource",
+      "label": "drying herbs",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_03",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L35"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L35"
+      ],
+      "proposal": {
+        "sourceId": "draft_medieval_fantasy_03_location",
+        "scarcity": "A winter fever reaches the outlying crofts before the abbey",
+        "proposedUse": "Send a measured herb supply and train local carers",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_medieval_fantasy_03_edge_02",
+        "draft_medieval_fantasy_03_edge_05",
+        "draft_medieval_fantasy_03_edge_08"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_03_pressure",
+      "kind": "Event",
+      "label": "A winter fever reaches the outlying crofts before the abbey",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_03",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L35"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L35"
+      ],
+      "proposal": {
+        "trigger": "A winter fever reaches the outlying crofts before the abbey",
+        "proposedEffect": "Changes access to drying herbs",
+        "effectTargetId": "draft_medieval_fantasy_03_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_medieval_fantasy_03_edge_03",
+        "draft_medieval_fantasy_03_edge_04",
+        "draft_medieval_fantasy_03_edge_05",
+        "draft_medieval_fantasy_03_edge_09",
+        "draft_medieval_fantasy_03_edge_10",
+        "draft_medieval_fantasy_03_companion_edge_01",
+        "draft_medieval_fantasy_03_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_03_response",
+      "kind": "Event",
+      "label": "Send a measured herb supply and train local carers",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_03",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L35"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L35"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Send a measured herb supply and train local carers",
+        "proposedEffect": "Send a measured herb supply and train local carers",
+        "effectTargetId": "draft_medieval_fantasy_03_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_medieval_fantasy_03_edge_06",
+        "draft_medieval_fantasy_03_edge_07",
+        "draft_medieval_fantasy_03_edge_08",
+        "draft_medieval_fantasy_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_03_report",
+      "kind": "Knowledge",
+      "label": "The abbey hears that only one croft is sick",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_03",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L35"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L35"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The abbey hears that only one croft is sick",
+        "aboutId": "draft_medieval_fantasy_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_medieval_fantasy_03_edge_09"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_03_evidence",
+      "kind": "Knowledge",
+      "label": "Carriers list fevers across three hamlets",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L35"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L35"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Carriers list fevers across three hamlets",
+        "aboutId": "draft_medieval_fantasy_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_medieval_fantasy_03_edge_10",
+        "draft_medieval_fantasy_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_04_entity",
+      "kind": "Entity",
+      "label": "charter scribes",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_04",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L36"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L36"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep wax tablets usable at gate tollhouse",
+        "stakes": "Duplicate tolls stall carts bound for a hungry town",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_medieval_fantasy_04_edge_01",
+        "draft_medieval_fantasy_04_edge_04",
+        "draft_medieval_fantasy_04_edge_07"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_04_location",
+      "kind": "Location",
+      "label": "gate tollhouse",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_04",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L36"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L36"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_medieval_fantasy_04_resource",
+        "conflict": "Duplicate tolls stall carts bound for a hungry town",
+        "risk": "Duplicate tolls stall carts bound for a hungry town"
+      },
+      "relations": [
+        "draft_medieval_fantasy_04_edge_01",
+        "draft_medieval_fantasy_04_edge_02",
+        "draft_medieval_fantasy_04_edge_03",
+        "draft_medieval_fantasy_04_edge_06"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_04_resource",
+      "kind": "Resource",
+      "label": "wax tablets",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_04",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L36"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L36"
+      ],
+      "proposal": {
+        "sourceId": "draft_medieval_fantasy_04_location",
+        "scarcity": "Duplicate tolls stall carts bound for a hungry town",
+        "proposedUse": "Compare charters and refund the duplicate levy",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_medieval_fantasy_04_edge_02",
+        "draft_medieval_fantasy_04_edge_05",
+        "draft_medieval_fantasy_04_edge_08"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_04_pressure",
+      "kind": "Event",
+      "label": "Duplicate tolls stall carts bound for a hungry town",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_04",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L36"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L36"
+      ],
+      "proposal": {
+        "trigger": "Duplicate tolls stall carts bound for a hungry town",
+        "proposedEffect": "Changes access to wax tablets",
+        "effectTargetId": "draft_medieval_fantasy_04_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_medieval_fantasy_04_edge_03",
+        "draft_medieval_fantasy_04_edge_04",
+        "draft_medieval_fantasy_04_edge_05",
+        "draft_medieval_fantasy_04_edge_09",
+        "draft_medieval_fantasy_04_edge_10",
+        "draft_medieval_fantasy_04_companion_edge_01",
+        "draft_medieval_fantasy_04_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_04_response",
+      "kind": "Event",
+      "label": "Compare charters and refund the duplicate levy",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_04",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L36"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L36"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Compare charters and refund the duplicate levy",
+        "proposedEffect": "Compare charters and refund the duplicate levy",
+        "effectTargetId": "draft_medieval_fantasy_04_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_medieval_fantasy_04_edge_06",
+        "draft_medieval_fantasy_04_edge_07",
+        "draft_medieval_fantasy_04_edge_08",
+        "draft_medieval_fantasy_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_04_report",
+      "kind": "Knowledge",
+      "label": "The collector calls the second toll a bridge fee",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_04",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L36"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L36"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The collector calls the second toll a bridge fee",
+        "aboutId": "draft_medieval_fantasy_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_medieval_fantasy_04_edge_09"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_04_evidence",
+      "kind": "Knowledge",
+      "label": "A charter copy names one levy for both crossings",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L36"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L36"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "A charter copy names one levy for both crossings",
+        "aboutId": "draft_medieval_fantasy_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_medieval_fantasy_04_edge_10",
+        "draft_medieval_fantasy_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_05_entity",
+      "kind": "Entity",
+      "label": "common grazing council",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_05",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L37"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L37"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep hay bales usable at frost pasture",
+        "stakes": "A lord's herd exhausts shared winter fodder",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_medieval_fantasy_05_edge_01",
+        "draft_medieval_fantasy_05_edge_04",
+        "draft_medieval_fantasy_05_edge_07"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_05_location",
+      "kind": "Location",
+      "label": "frost pasture",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_05",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L37"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L37"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_medieval_fantasy_05_resource",
+        "conflict": "A lord's herd exhausts shared winter fodder",
+        "risk": "A lord's herd exhausts shared winter fodder"
+      },
+      "relations": [
+        "draft_medieval_fantasy_05_edge_01",
+        "draft_medieval_fantasy_05_edge_02",
+        "draft_medieval_fantasy_05_edge_03",
+        "draft_medieval_fantasy_05_edge_06"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_05_resource",
+      "kind": "Resource",
+      "label": "hay bales",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_05",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L37"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L37"
+      ],
+      "proposal": {
+        "sourceId": "draft_medieval_fantasy_05_location",
+        "scarcity": "A lord's herd exhausts shared winter fodder",
+        "proposedUse": "Set a herd limit and move surplus feed to lambing pens",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_medieval_fantasy_05_edge_02",
+        "draft_medieval_fantasy_05_edge_05",
+        "draft_medieval_fantasy_05_edge_08"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_05_pressure",
+      "kind": "Event",
+      "label": "A lord's herd exhausts shared winter fodder",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_05",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L37"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L37"
+      ],
+      "proposal": {
+        "trigger": "A lord's herd exhausts shared winter fodder",
+        "proposedEffect": "Changes access to hay bales",
+        "effectTargetId": "draft_medieval_fantasy_05_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_medieval_fantasy_05_edge_03",
+        "draft_medieval_fantasy_05_edge_04",
+        "draft_medieval_fantasy_05_edge_05",
+        "draft_medieval_fantasy_05_edge_09",
+        "draft_medieval_fantasy_05_edge_10",
+        "draft_medieval_fantasy_05_companion_edge_01",
+        "draft_medieval_fantasy_05_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_05_response",
+      "kind": "Event",
+      "label": "Set a herd limit and move surplus feed to lambing pens",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_05",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L37"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L37"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Set a herd limit and move surplus feed to lambing pens",
+        "proposedEffect": "Set a herd limit and move surplus feed to lambing pens",
+        "effectTargetId": "draft_medieval_fantasy_05_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_medieval_fantasy_05_edge_06",
+        "draft_medieval_fantasy_05_edge_07",
+        "draft_medieval_fantasy_05_edge_08",
+        "draft_medieval_fantasy_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_05_report",
+      "kind": "Knowledge",
+      "label": "The steward says villagers used the hay",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_05",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L37"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L37"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The steward says villagers used the hay",
+        "aboutId": "draft_medieval_fantasy_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_medieval_fantasy_05_edge_09"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_05_evidence",
+      "kind": "Knowledge",
+      "label": "Stack marks show the lord's wagons left first",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L37"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L37"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Stack marks show the lord's wagons left first",
+        "aboutId": "draft_medieval_fantasy_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_medieval_fantasy_05_edge_10",
+        "draft_medieval_fantasy_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_01_counterparty",
+      "kind": "Entity",
+      "label": "upstream gatekeeper",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_01",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L27"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L27"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Reserve river flow for the manor's mill",
+        "stakes": "An upstream gate leaves tenant fields dry",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_medieval_fantasy_01_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_01_belief_holder",
+      "kind": "Entity",
+      "label": "manor steward",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_01",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L27"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L27"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: The river fell before anyone touched the gate",
+        "stakes": "An upstream gate leaves tenant fields dry",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_medieval_fantasy_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_01_evidence_site",
+      "kind": "Location",
+      "label": "gate chain house",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L27"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L27"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "An upstream gate leaves tenant fields dry",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_medieval_fantasy_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_01_alternative",
+      "kind": "Event",
+      "label": "Open the gate for timed tenant irrigation turns",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_01",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L27"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L27"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Open the gate for timed tenant irrigation turns",
+        "costAndConsequence": "The mill grinds less flour this week",
+        "alternativeToId": "draft_medieval_fantasy_01_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_medieval_fantasy_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_01_additional_belief",
+      "kind": "Knowledge",
+      "label": "The river fell before anyone touched the gate",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_01",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L27"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L27"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The river fell before anyone touched the gate",
+        "aboutId": "draft_medieval_fantasy_01_pressure",
+        "holderId": "draft_medieval_fantasy_01_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_medieval_fantasy_01_companion_edge_02",
+        "draft_medieval_fantasy_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_02_counterparty",
+      "kind": "Entity",
+      "label": "false-signal messenger",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_02",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L28"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L28"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Protect a paid false alarm from inquiry",
+        "stakes": "A false watch signal pulls guards from the grain road",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_medieval_fantasy_02_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_02_belief_holder",
+      "kind": "Entity",
+      "label": "junior riders",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_02",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L28"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L28"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: One torch blown by wind can summon the whole watch",
+        "stakes": "A false watch signal pulls guards from the grain road",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_medieval_fantasy_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_02_evidence_site",
+      "kind": "Location",
+      "label": "unused watch-post brazier",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L28"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L28"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A false watch signal pulls guards from the grain road",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_medieval_fantasy_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_02_alternative",
+      "kind": "Event",
+      "label": "Repost guards along the grain road and verify signals by paired torches",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_02",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L28"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L28"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Repost guards along the grain road and verify signals by paired torches",
+        "costAndConsequence": "The border line has fewer guards until relief arrives",
+        "alternativeToId": "draft_medieval_fantasy_02_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_medieval_fantasy_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_02_additional_belief",
+      "kind": "Knowledge",
+      "label": "One torch blown by wind can summon the whole watch",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_02",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L28"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L28"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "One torch blown by wind can summon the whole watch",
+        "aboutId": "draft_medieval_fantasy_02_pressure",
+        "holderId": "draft_medieval_fantasy_02_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_medieval_fantasy_02_companion_edge_02",
+        "draft_medieval_fantasy_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_03_counterparty",
+      "kind": "Entity",
+      "label": "croft carrier",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_03",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L29"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L29"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Obtain infirmary help before fever reaches the abbey",
+        "stakes": "A winter fever reaches the outlying crofts before the abbey",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_medieval_fantasy_03_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_03_belief_holder",
+      "kind": "Entity",
+      "label": "abbey bursar",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_03",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L29"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L29"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Only the first croft reported illness",
+        "stakes": "A winter fever reaches the outlying crofts before the abbey",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_medieval_fantasy_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_03_evidence_site",
+      "kind": "Location",
+      "label": "carrier rest shelter",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L29"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L29"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A winter fever reaches the outlying crofts before the abbey",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_medieval_fantasy_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_03_alternative",
+      "kind": "Event",
+      "label": "Send separate herb parcels to the three sick hamlets",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_03",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L29"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L29"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Send separate herb parcels to the three sick hamlets",
+        "costAndConsequence": "The abbey spends its winter stock early",
+        "alternativeToId": "draft_medieval_fantasy_03_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_medieval_fantasy_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_03_additional_belief",
+      "kind": "Knowledge",
+      "label": "Only the first croft reported illness",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_03",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L29"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L29"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Only the first croft reported illness",
+        "aboutId": "draft_medieval_fantasy_03_pressure",
+        "holderId": "draft_medieval_fantasy_03_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_medieval_fantasy_03_companion_edge_02",
+        "draft_medieval_fantasy_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_04_counterparty",
+      "kind": "Entity",
+      "label": "bridge toll keeper",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_04",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L30"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L30"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Keep the duplicate fee as private revenue",
+        "stakes": "Duplicate tolls stall carts bound for a hungry town",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_medieval_fantasy_04_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_04_belief_holder",
+      "kind": "Entity",
+      "label": "cart owners",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_04",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L30"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L30"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: A bridge fee is outside the old charter",
+        "stakes": "Duplicate tolls stall carts bound for a hungry town",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_medieval_fantasy_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_04_evidence_site",
+      "kind": "Location",
+      "label": "charter seal chest",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L30"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L30"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "Duplicate tolls stall carts bound for a hungry town",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_medieval_fantasy_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_04_alternative",
+      "kind": "Event",
+      "label": "Suspend the second levy pending a public charter reading",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_04",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L30"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L30"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Suspend the second levy pending a public charter reading",
+        "costAndConsequence": "The hungry town receives carts but bridge repairs lose a fee",
+        "alternativeToId": "draft_medieval_fantasy_04_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_medieval_fantasy_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_04_additional_belief",
+      "kind": "Knowledge",
+      "label": "A bridge fee is outside the old charter",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_04",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L30"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L30"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A bridge fee is outside the old charter",
+        "aboutId": "draft_medieval_fantasy_04_pressure",
+        "holderId": "draft_medieval_fantasy_04_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_medieval_fantasy_04_companion_edge_02",
+        "draft_medieval_fantasy_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_05_counterparty",
+      "kind": "Entity",
+      "label": "manor hay steward",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_05",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L31"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L31"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Feed the manor herd ahead of common livestock",
+        "stakes": "A lord's herd exhausts shared winter fodder",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_medieval_fantasy_05_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_05_belief_holder",
+      "kind": "Entity",
+      "label": "manor tenants",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_05",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L31"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L31"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Villagers consumed the missing stack",
+        "stakes": "A lord's herd exhausts shared winter fodder",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_medieval_fantasy_05_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_05_evidence_site",
+      "kind": "Location",
+      "label": "wagon track by hay barn",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L31"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L31"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A lord's herd exhausts shared winter fodder",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_medieval_fantasy_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_05_alternative",
+      "kind": "Event",
+      "label": "Divide the remaining hay by winter head count",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_05",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L31"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L31"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Divide the remaining hay by winter head count",
+        "costAndConsequence": "The lord's cattle lose feed and stewards need guards",
+        "alternativeToId": "draft_medieval_fantasy_05_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_medieval_fantasy_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_medieval_fantasy_05_additional_belief",
+      "kind": "Knowledge",
+      "label": "Villagers consumed the missing stack",
+      "scopeId": "motif_medieval_fantasy",
+      "motifId": "medieval_fantasy",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_medieval_fantasy_05",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L31"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L31"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Villagers consumed the missing stack",
+        "aboutId": "draft_medieval_fantasy_05_pressure",
+        "holderId": "draft_medieval_fantasy_05_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_medieval_fantasy_05_companion_edge_02",
+        "draft_medieval_fantasy_05_companion_edge_03"
+      ]
+    }
+  ],
+  "structuralEdges": [
+    {
+      "id": "draft_medieval_fantasy_01_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_medieval_fantasy_01_entity",
+      "toId": "draft_medieval_fantasy_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_01:entity>location"
+    },
+    {
+      "id": "draft_medieval_fantasy_01_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_medieval_fantasy_01_location",
+      "toId": "draft_medieval_fantasy_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_01:location>resource"
+    },
+    {
+      "id": "draft_medieval_fantasy_01_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_medieval_fantasy_01_pressure",
+      "toId": "draft_medieval_fantasy_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_01:pressure>location"
+    },
+    {
+      "id": "draft_medieval_fantasy_01_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_medieval_fantasy_01_pressure",
+      "toId": "draft_medieval_fantasy_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_01:pressure>entity"
+    },
+    {
+      "id": "draft_medieval_fantasy_01_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_medieval_fantasy_01_pressure",
+      "toId": "draft_medieval_fantasy_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_01:pressure>resource"
+    },
+    {
+      "id": "draft_medieval_fantasy_01_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_medieval_fantasy_01_response",
+      "toId": "draft_medieval_fantasy_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_01:response>location"
+    },
+    {
+      "id": "draft_medieval_fantasy_01_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_medieval_fantasy_01_response",
+      "toId": "draft_medieval_fantasy_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_01:response>entity"
+    },
+    {
+      "id": "draft_medieval_fantasy_01_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_medieval_fantasy_01_response",
+      "toId": "draft_medieval_fantasy_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_01:response>resource"
+    },
+    {
+      "id": "draft_medieval_fantasy_01_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_medieval_fantasy_01_report",
+      "toId": "draft_medieval_fantasy_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_01:report>pressure"
+    },
+    {
+      "id": "draft_medieval_fantasy_01_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_medieval_fantasy_01_evidence",
+      "toId": "draft_medieval_fantasy_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_01:evidence>pressure"
+    },
+    {
+      "id": "draft_medieval_fantasy_02_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_medieval_fantasy_02_entity",
+      "toId": "draft_medieval_fantasy_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_02:entity>location"
+    },
+    {
+      "id": "draft_medieval_fantasy_02_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_medieval_fantasy_02_location",
+      "toId": "draft_medieval_fantasy_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_02:location>resource"
+    },
+    {
+      "id": "draft_medieval_fantasy_02_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_medieval_fantasy_02_pressure",
+      "toId": "draft_medieval_fantasy_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_02:pressure>location"
+    },
+    {
+      "id": "draft_medieval_fantasy_02_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_medieval_fantasy_02_pressure",
+      "toId": "draft_medieval_fantasy_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_02:pressure>entity"
+    },
+    {
+      "id": "draft_medieval_fantasy_02_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_medieval_fantasy_02_pressure",
+      "toId": "draft_medieval_fantasy_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_02:pressure>resource"
+    },
+    {
+      "id": "draft_medieval_fantasy_02_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_medieval_fantasy_02_response",
+      "toId": "draft_medieval_fantasy_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_02:response>location"
+    },
+    {
+      "id": "draft_medieval_fantasy_02_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_medieval_fantasy_02_response",
+      "toId": "draft_medieval_fantasy_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_02:response>entity"
+    },
+    {
+      "id": "draft_medieval_fantasy_02_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_medieval_fantasy_02_response",
+      "toId": "draft_medieval_fantasy_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_02:response>resource"
+    },
+    {
+      "id": "draft_medieval_fantasy_02_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_medieval_fantasy_02_report",
+      "toId": "draft_medieval_fantasy_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_02:report>pressure"
+    },
+    {
+      "id": "draft_medieval_fantasy_02_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_medieval_fantasy_02_evidence",
+      "toId": "draft_medieval_fantasy_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_02:evidence>pressure"
+    },
+    {
+      "id": "draft_medieval_fantasy_03_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_medieval_fantasy_03_entity",
+      "toId": "draft_medieval_fantasy_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_03:entity>location"
+    },
+    {
+      "id": "draft_medieval_fantasy_03_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_medieval_fantasy_03_location",
+      "toId": "draft_medieval_fantasy_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_03:location>resource"
+    },
+    {
+      "id": "draft_medieval_fantasy_03_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_medieval_fantasy_03_pressure",
+      "toId": "draft_medieval_fantasy_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_03:pressure>location"
+    },
+    {
+      "id": "draft_medieval_fantasy_03_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_medieval_fantasy_03_pressure",
+      "toId": "draft_medieval_fantasy_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_03:pressure>entity"
+    },
+    {
+      "id": "draft_medieval_fantasy_03_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_medieval_fantasy_03_pressure",
+      "toId": "draft_medieval_fantasy_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_03:pressure>resource"
+    },
+    {
+      "id": "draft_medieval_fantasy_03_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_medieval_fantasy_03_response",
+      "toId": "draft_medieval_fantasy_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_03:response>location"
+    },
+    {
+      "id": "draft_medieval_fantasy_03_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_medieval_fantasy_03_response",
+      "toId": "draft_medieval_fantasy_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_03:response>entity"
+    },
+    {
+      "id": "draft_medieval_fantasy_03_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_medieval_fantasy_03_response",
+      "toId": "draft_medieval_fantasy_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_03:response>resource"
+    },
+    {
+      "id": "draft_medieval_fantasy_03_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_medieval_fantasy_03_report",
+      "toId": "draft_medieval_fantasy_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_03:report>pressure"
+    },
+    {
+      "id": "draft_medieval_fantasy_03_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_medieval_fantasy_03_evidence",
+      "toId": "draft_medieval_fantasy_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_03:evidence>pressure"
+    },
+    {
+      "id": "draft_medieval_fantasy_04_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_medieval_fantasy_04_entity",
+      "toId": "draft_medieval_fantasy_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_04:entity>location"
+    },
+    {
+      "id": "draft_medieval_fantasy_04_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_medieval_fantasy_04_location",
+      "toId": "draft_medieval_fantasy_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_04:location>resource"
+    },
+    {
+      "id": "draft_medieval_fantasy_04_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_medieval_fantasy_04_pressure",
+      "toId": "draft_medieval_fantasy_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_04:pressure>location"
+    },
+    {
+      "id": "draft_medieval_fantasy_04_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_medieval_fantasy_04_pressure",
+      "toId": "draft_medieval_fantasy_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_04:pressure>entity"
+    },
+    {
+      "id": "draft_medieval_fantasy_04_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_medieval_fantasy_04_pressure",
+      "toId": "draft_medieval_fantasy_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_04:pressure>resource"
+    },
+    {
+      "id": "draft_medieval_fantasy_04_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_medieval_fantasy_04_response",
+      "toId": "draft_medieval_fantasy_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_04:response>location"
+    },
+    {
+      "id": "draft_medieval_fantasy_04_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_medieval_fantasy_04_response",
+      "toId": "draft_medieval_fantasy_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_04:response>entity"
+    },
+    {
+      "id": "draft_medieval_fantasy_04_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_medieval_fantasy_04_response",
+      "toId": "draft_medieval_fantasy_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_04:response>resource"
+    },
+    {
+      "id": "draft_medieval_fantasy_04_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_medieval_fantasy_04_report",
+      "toId": "draft_medieval_fantasy_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_04:report>pressure"
+    },
+    {
+      "id": "draft_medieval_fantasy_04_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_medieval_fantasy_04_evidence",
+      "toId": "draft_medieval_fantasy_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_04:evidence>pressure"
+    },
+    {
+      "id": "draft_medieval_fantasy_05_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_medieval_fantasy_05_entity",
+      "toId": "draft_medieval_fantasy_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_05:entity>location"
+    },
+    {
+      "id": "draft_medieval_fantasy_05_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_medieval_fantasy_05_location",
+      "toId": "draft_medieval_fantasy_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_05:location>resource"
+    },
+    {
+      "id": "draft_medieval_fantasy_05_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_medieval_fantasy_05_pressure",
+      "toId": "draft_medieval_fantasy_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_05:pressure>location"
+    },
+    {
+      "id": "draft_medieval_fantasy_05_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_medieval_fantasy_05_pressure",
+      "toId": "draft_medieval_fantasy_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_05:pressure>entity"
+    },
+    {
+      "id": "draft_medieval_fantasy_05_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_medieval_fantasy_05_pressure",
+      "toId": "draft_medieval_fantasy_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_05:pressure>resource"
+    },
+    {
+      "id": "draft_medieval_fantasy_05_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_medieval_fantasy_05_response",
+      "toId": "draft_medieval_fantasy_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_05:response>location"
+    },
+    {
+      "id": "draft_medieval_fantasy_05_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_medieval_fantasy_05_response",
+      "toId": "draft_medieval_fantasy_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_05:response>entity"
+    },
+    {
+      "id": "draft_medieval_fantasy_05_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_medieval_fantasy_05_response",
+      "toId": "draft_medieval_fantasy_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_05:response>resource"
+    },
+    {
+      "id": "draft_medieval_fantasy_05_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_medieval_fantasy_05_report",
+      "toId": "draft_medieval_fantasy_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_05:report>pressure"
+    },
+    {
+      "id": "draft_medieval_fantasy_05_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_medieval_fantasy_05_evidence",
+      "toId": "draft_medieval_fantasy_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_medieval_fantasy_05:evidence>pressure"
+    },
+    {
+      "id": "draft_medieval_fantasy_01_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_medieval_fantasy_01_pressure",
+      "toId": "draft_medieval_fantasy_01_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L27"
+    },
+    {
+      "id": "draft_medieval_fantasy_01_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_medieval_fantasy_01_additional_belief",
+      "toId": "draft_medieval_fantasy_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L27"
+    },
+    {
+      "id": "draft_medieval_fantasy_01_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_medieval_fantasy_01_additional_belief",
+      "toId": "draft_medieval_fantasy_01_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L27"
+    },
+    {
+      "id": "draft_medieval_fantasy_01_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_medieval_fantasy_01_evidence_site",
+      "toId": "draft_medieval_fantasy_01_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L27"
+    },
+    {
+      "id": "draft_medieval_fantasy_01_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_medieval_fantasy_01_alternative",
+      "toId": "draft_medieval_fantasy_01_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L27"
+    },
+    {
+      "id": "draft_medieval_fantasy_02_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_medieval_fantasy_02_pressure",
+      "toId": "draft_medieval_fantasy_02_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L28"
+    },
+    {
+      "id": "draft_medieval_fantasy_02_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_medieval_fantasy_02_additional_belief",
+      "toId": "draft_medieval_fantasy_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L28"
+    },
+    {
+      "id": "draft_medieval_fantasy_02_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_medieval_fantasy_02_additional_belief",
+      "toId": "draft_medieval_fantasy_02_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L28"
+    },
+    {
+      "id": "draft_medieval_fantasy_02_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_medieval_fantasy_02_evidence_site",
+      "toId": "draft_medieval_fantasy_02_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L28"
+    },
+    {
+      "id": "draft_medieval_fantasy_02_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_medieval_fantasy_02_alternative",
+      "toId": "draft_medieval_fantasy_02_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L28"
+    },
+    {
+      "id": "draft_medieval_fantasy_03_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_medieval_fantasy_03_pressure",
+      "toId": "draft_medieval_fantasy_03_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L29"
+    },
+    {
+      "id": "draft_medieval_fantasy_03_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_medieval_fantasy_03_additional_belief",
+      "toId": "draft_medieval_fantasy_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L29"
+    },
+    {
+      "id": "draft_medieval_fantasy_03_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_medieval_fantasy_03_additional_belief",
+      "toId": "draft_medieval_fantasy_03_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L29"
+    },
+    {
+      "id": "draft_medieval_fantasy_03_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_medieval_fantasy_03_evidence_site",
+      "toId": "draft_medieval_fantasy_03_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L29"
+    },
+    {
+      "id": "draft_medieval_fantasy_03_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_medieval_fantasy_03_alternative",
+      "toId": "draft_medieval_fantasy_03_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L29"
+    },
+    {
+      "id": "draft_medieval_fantasy_04_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_medieval_fantasy_04_pressure",
+      "toId": "draft_medieval_fantasy_04_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L30"
+    },
+    {
+      "id": "draft_medieval_fantasy_04_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_medieval_fantasy_04_additional_belief",
+      "toId": "draft_medieval_fantasy_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L30"
+    },
+    {
+      "id": "draft_medieval_fantasy_04_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_medieval_fantasy_04_additional_belief",
+      "toId": "draft_medieval_fantasy_04_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L30"
+    },
+    {
+      "id": "draft_medieval_fantasy_04_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_medieval_fantasy_04_evidence_site",
+      "toId": "draft_medieval_fantasy_04_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L30"
+    },
+    {
+      "id": "draft_medieval_fantasy_04_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_medieval_fantasy_04_alternative",
+      "toId": "draft_medieval_fantasy_04_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L30"
+    },
+    {
+      "id": "draft_medieval_fantasy_05_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_medieval_fantasy_05_pressure",
+      "toId": "draft_medieval_fantasy_05_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L31"
+    },
+    {
+      "id": "draft_medieval_fantasy_05_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_medieval_fantasy_05_additional_belief",
+      "toId": "draft_medieval_fantasy_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L31"
+    },
+    {
+      "id": "draft_medieval_fantasy_05_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_medieval_fantasy_05_additional_belief",
+      "toId": "draft_medieval_fantasy_05_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L31"
+    },
+    {
+      "id": "draft_medieval_fantasy_05_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_medieval_fantasy_05_evidence_site",
+      "toId": "draft_medieval_fantasy_05_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L31"
+    },
+    {
+      "id": "draft_medieval_fantasy_05_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_medieval_fantasy_05_alternative",
+      "toId": "draft_medieval_fantasy_05_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L31"
+    }
+  ],
+  "proposedCausalLinks": [
+    {
+      "id": "draft_medieval_fantasy_01_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_medieval_fantasy_01_pressure",
+      "toId": "draft_medieval_fantasy_01_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_medieval_fantasy_01_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_medieval_fantasy_01_evidence",
+      "toId": "draft_medieval_fantasy_01_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_medieval_fantasy_02_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_medieval_fantasy_02_pressure",
+      "toId": "draft_medieval_fantasy_02_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_medieval_fantasy_02_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_medieval_fantasy_02_evidence",
+      "toId": "draft_medieval_fantasy_02_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_medieval_fantasy_03_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_medieval_fantasy_03_pressure",
+      "toId": "draft_medieval_fantasy_03_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_medieval_fantasy_03_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_medieval_fantasy_03_evidence",
+      "toId": "draft_medieval_fantasy_03_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_medieval_fantasy_04_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_medieval_fantasy_04_pressure",
+      "toId": "draft_medieval_fantasy_04_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_medieval_fantasy_04_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_medieval_fantasy_04_evidence",
+      "toId": "draft_medieval_fantasy_04_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_medieval_fantasy_05_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_medieval_fantasy_05_pressure",
+      "toId": "draft_medieval_fantasy_05_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_medieval_fantasy_05_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_medieval_fantasy_05_evidence",
+      "toId": "draft_medieval_fantasy_05_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    }
+  ]
+}

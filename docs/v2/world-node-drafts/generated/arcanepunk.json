@@ -1,0 +1,3079 @@
+{
+  "schema": "world-node-drafts/v1",
+  "status": "Draft",
+  "runtime": false,
+  "scope": {
+    "id": "motif_arcanepunk",
+    "label": "아케인펑크",
+    "kind": "genre-or-structure proposal; not a world definition"
+  },
+  "canonImpact": "none; no Draft item is accepted game setting",
+  "sourceRefs": [
+    "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+    "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+    "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft"
+  ],
+  "fronts": [
+    {
+      "id": "draft_arcanepunk_01",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A cracked seal drains the canal engine's charge",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A cracked seal drains the canal engine's charge",
+      "authoredIntervention": "Trade a spare sigil for repairs before irrigation stops",
+      "initialReport": "The circle calls the voltage dip seasonal",
+      "verificationCandidate": "A calibrated crystal preserves the crack's pulse",
+      "alternativeInterventions": "Throttle the engine and rotate water turns during seal replacement",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L9",
+        "docs/v2/world-node-drafts/companion-a.txt#L7"
+      ],
+      "semanticSignature": "a cracked seal drains the canal engine s charge trade a spare sigil for repairs before irrigation stops insulation sigils the circle calls the voltage dip seasonal a calibrated crystal preserves the crack s pulse",
+      "nodeIds": [
+        "draft_arcanepunk_01_entity",
+        "draft_arcanepunk_01_location",
+        "draft_arcanepunk_01_resource",
+        "draft_arcanepunk_01_pressure",
+        "draft_arcanepunk_01_response",
+        "draft_arcanepunk_01_report",
+        "draft_arcanepunk_01_evidence",
+        "draft_arcanepunk_01_counterparty",
+        "draft_arcanepunk_01_belief_holder",
+        "draft_arcanepunk_01_evidence_site",
+        "draft_arcanepunk_01_alternative",
+        "draft_arcanepunk_01_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Each terrace receives less water for two days",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_arcanepunk_01_counterparty",
+        "evidenceSiteId": "draft_arcanepunk_01_evidence_site",
+        "alternativeEventId": "draft_arcanepunk_01_alternative",
+        "additionalBeliefId": "draft_arcanepunk_01_additional_belief",
+        "beliefHolderId": "draft_arcanepunk_01_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L7"
+      }
+    },
+    {
+      "id": "draft_arcanepunk_02",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "Unregistered lamps draw power from the public ward",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "Unregistered lamps draw power from the public ward",
+      "authoredIntervention": "Inspect the hidden feed and reassign the debt",
+      "initialReport": "The office says households caused the deficit",
+      "verificationCandidate": "Private feed marks appear in the meter stone",
+      "alternativeInterventions": "Meter and disconnect only unmatched private feeds",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L10",
+        "docs/v2/world-node-drafts/companion-a.txt#L8"
+      ],
+      "semanticSignature": "unregistered lamps draw power from the public ward inspect the hidden feed and reassign the debt meter stones the office says households caused the deficit private feed marks appear in the meter stone",
+      "nodeIds": [
+        "draft_arcanepunk_02_entity",
+        "draft_arcanepunk_02_location",
+        "draft_arcanepunk_02_resource",
+        "draft_arcanepunk_02_pressure",
+        "draft_arcanepunk_02_response",
+        "draft_arcanepunk_02_report",
+        "draft_arcanepunk_02_evidence",
+        "draft_arcanepunk_02_counterparty",
+        "draft_arcanepunk_02_belief_holder",
+        "draft_arcanepunk_02_evidence_site",
+        "draft_arcanepunk_02_alternative",
+        "draft_arcanepunk_02_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Night shops lose illumination until they register",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_arcanepunk_02_counterparty",
+        "evidenceSiteId": "draft_arcanepunk_02_evidence_site",
+        "alternativeEventId": "draft_arcanepunk_02_alternative",
+        "additionalBeliefId": "draft_arcanepunk_02_additional_belief",
+        "beliefHolderId": "draft_arcanepunk_02_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L8"
+      }
+    },
+    {
+      "id": "draft_arcanepunk_03",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A guild monopoly blocks a brace needed after a collapse",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A guild monopoly blocks a brace needed after a collapse",
+      "authoredIntervention": "Teach a safe brace design and document its limits",
+      "initialReport": "The guild says the design cannot bear weight",
+      "verificationCandidate": "Load tests show which spans the brace supports",
+      "alternativeInterventions": "Rent guild braces while the artificers certify their own design",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L11",
+        "docs/v2/world-node-drafts/companion-a.txt#L9"
+      ],
+      "semanticSignature": "a guild monopoly blocks a brace needed after a collapse teach a safe brace design and document its limits binding wire the guild says the design cannot bear weight load tests show which spans the brace supports",
+      "nodeIds": [
+        "draft_arcanepunk_03_entity",
+        "draft_arcanepunk_03_location",
+        "draft_arcanepunk_03_resource",
+        "draft_arcanepunk_03_pressure",
+        "draft_arcanepunk_03_response",
+        "draft_arcanepunk_03_report",
+        "draft_arcanepunk_03_evidence",
+        "draft_arcanepunk_03_counterparty",
+        "draft_arcanepunk_03_belief_holder",
+        "draft_arcanepunk_03_evidence_site",
+        "draft_arcanepunk_03_alternative",
+        "draft_arcanepunk_03_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Rescue funds go to the guild and testing is delayed",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_arcanepunk_03_counterparty",
+        "evidenceSiteId": "draft_arcanepunk_03_evidence_site",
+        "alternativeEventId": "draft_arcanepunk_03_alternative",
+        "additionalBeliefId": "draft_arcanepunk_03_additional_belief",
+        "beliefHolderId": "draft_arcanepunk_03_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L9"
+      }
+    },
+    {
+      "id": "draft_arcanepunk_04",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A prism shortage strands medicine on the far bank",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A prism shortage strands medicine on the far bank",
+      "authoredIntervention": "Lend a prism under a return bond to move medicine",
+      "initialReport": "The ferrymages blame a hostile current",
+      "verificationCandidate": "The freight log records unused prisms in storage",
+      "alternativeInterventions": "Borrow the unused ceremonial prisms against a replacement bond",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L12",
+        "docs/v2/world-node-drafts/companion-a.txt#L10"
+      ],
+      "semanticSignature": "a prism shortage strands medicine on the far bank lend a prism under a return bond to move medicine focusing prisms the ferrymages blame a hostile current the freight log records unused prisms in storage",
+      "nodeIds": [
+        "draft_arcanepunk_04_entity",
+        "draft_arcanepunk_04_location",
+        "draft_arcanepunk_04_resource",
+        "draft_arcanepunk_04_pressure",
+        "draft_arcanepunk_04_response",
+        "draft_arcanepunk_04_report",
+        "draft_arcanepunk_04_evidence",
+        "draft_arcanepunk_04_counterparty",
+        "draft_arcanepunk_04_belief_holder",
+        "draft_arcanepunk_04_evidence_site",
+        "draft_arcanepunk_04_alternative",
+        "draft_arcanepunk_04_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Future rites lose their reserve if replacement fails",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_arcanepunk_04_counterparty",
+        "evidenceSiteId": "draft_arcanepunk_04_evidence_site",
+        "alternativeEventId": "draft_arcanepunk_04_alternative",
+        "additionalBeliefId": "draft_arcanepunk_04_additional_belief",
+        "beliefHolderId": "draft_arcanepunk_04_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L10"
+      }
+    },
+    {
+      "id": "draft_arcanepunk_05",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "Excess ward discharge scorches a food terrace",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "Excess ward discharge scorches a food terrace",
+      "authoredIntervention": "Vent the discharge through a tested idle conduit",
+      "initialReport": "The estate calls the loss crop disease",
+      "verificationCandidate": "Soil marks trace the discharge to the estate conduit",
+      "alternativeInterventions": "Divert excess charge into an empty ward basin",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L13",
+        "docs/v2/world-node-drafts/companion-a.txt#L11"
+      ],
+      "semanticSignature": "excess ward discharge scorches a food terrace vent the discharge through a tested idle conduit soil charms the estate calls the loss crop disease soil marks trace the discharge to the estate conduit",
+      "nodeIds": [
+        "draft_arcanepunk_05_entity",
+        "draft_arcanepunk_05_location",
+        "draft_arcanepunk_05_resource",
+        "draft_arcanepunk_05_pressure",
+        "draft_arcanepunk_05_response",
+        "draft_arcanepunk_05_report",
+        "draft_arcanepunk_05_evidence",
+        "draft_arcanepunk_05_counterparty",
+        "draft_arcanepunk_05_belief_holder",
+        "draft_arcanepunk_05_evidence_site",
+        "draft_arcanepunk_05_alternative",
+        "draft_arcanepunk_05_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "The estate loses protection while its conduit is repaired",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_arcanepunk_05_counterparty",
+        "evidenceSiteId": "draft_arcanepunk_05_evidence_site",
+        "alternativeEventId": "draft_arcanepunk_05_alternative",
+        "additionalBeliefId": "draft_arcanepunk_05_additional_belief",
+        "beliefHolderId": "draft_arcanepunk_05_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L11"
+      }
+    }
+  ],
+  "nodes": [
+    {
+      "id": "draft_arcanepunk_01_entity",
+      "kind": "Entity",
+      "label": "coilwright circle",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_01",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L9"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L9"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep insulation sigils usable at spark canal engine",
+        "stakes": "A cracked seal drains the canal engine's charge",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_arcanepunk_01_edge_01",
+        "draft_arcanepunk_01_edge_04",
+        "draft_arcanepunk_01_edge_07"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_01_location",
+      "kind": "Location",
+      "label": "spark canal engine",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_01",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L9"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L9"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_arcanepunk_01_resource",
+        "conflict": "A cracked seal drains the canal engine's charge",
+        "risk": "A cracked seal drains the canal engine's charge"
+      },
+      "relations": [
+        "draft_arcanepunk_01_edge_01",
+        "draft_arcanepunk_01_edge_02",
+        "draft_arcanepunk_01_edge_03",
+        "draft_arcanepunk_01_edge_06"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_01_resource",
+      "kind": "Resource",
+      "label": "insulation sigils",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_01",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L9"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L9"
+      ],
+      "proposal": {
+        "sourceId": "draft_arcanepunk_01_location",
+        "scarcity": "A cracked seal drains the canal engine's charge",
+        "proposedUse": "Trade a spare sigil for repairs before irrigation stops",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_arcanepunk_01_edge_02",
+        "draft_arcanepunk_01_edge_05",
+        "draft_arcanepunk_01_edge_08"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_01_pressure",
+      "kind": "Event",
+      "label": "A cracked seal drains the canal engine's charge",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_01",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L9"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L9"
+      ],
+      "proposal": {
+        "trigger": "A cracked seal drains the canal engine's charge",
+        "proposedEffect": "Changes access to insulation sigils",
+        "effectTargetId": "draft_arcanepunk_01_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_arcanepunk_01_edge_03",
+        "draft_arcanepunk_01_edge_04",
+        "draft_arcanepunk_01_edge_05",
+        "draft_arcanepunk_01_edge_09",
+        "draft_arcanepunk_01_edge_10",
+        "draft_arcanepunk_01_companion_edge_01",
+        "draft_arcanepunk_01_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_01_response",
+      "kind": "Event",
+      "label": "Trade a spare sigil for repairs before irrigation stops",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_01",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L9"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L9"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Trade a spare sigil for repairs before irrigation stops",
+        "proposedEffect": "Trade a spare sigil for repairs before irrigation stops",
+        "effectTargetId": "draft_arcanepunk_01_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_arcanepunk_01_edge_06",
+        "draft_arcanepunk_01_edge_07",
+        "draft_arcanepunk_01_edge_08",
+        "draft_arcanepunk_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_01_report",
+      "kind": "Knowledge",
+      "label": "The circle calls the voltage dip seasonal",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_01",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L9"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L9"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The circle calls the voltage dip seasonal",
+        "aboutId": "draft_arcanepunk_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_arcanepunk_01_edge_09"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_01_evidence",
+      "kind": "Knowledge",
+      "label": "A calibrated crystal preserves the crack's pulse",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L9"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L9"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "A calibrated crystal preserves the crack's pulse",
+        "aboutId": "draft_arcanepunk_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_arcanepunk_01_edge_10",
+        "draft_arcanepunk_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_02_entity",
+      "kind": "Entity",
+      "label": "aether meter office",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_02",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L10"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L10"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep meter stones usable at lamp registry hall",
+        "stakes": "Unregistered lamps draw power from the public ward",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_arcanepunk_02_edge_01",
+        "draft_arcanepunk_02_edge_04",
+        "draft_arcanepunk_02_edge_07"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_02_location",
+      "kind": "Location",
+      "label": "lamp registry hall",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_02",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L10"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L10"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_arcanepunk_02_resource",
+        "conflict": "Unregistered lamps draw power from the public ward",
+        "risk": "Unregistered lamps draw power from the public ward"
+      },
+      "relations": [
+        "draft_arcanepunk_02_edge_01",
+        "draft_arcanepunk_02_edge_02",
+        "draft_arcanepunk_02_edge_03",
+        "draft_arcanepunk_02_edge_06"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_02_resource",
+      "kind": "Resource",
+      "label": "meter stones",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_02",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L10"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L10"
+      ],
+      "proposal": {
+        "sourceId": "draft_arcanepunk_02_location",
+        "scarcity": "Unregistered lamps draw power from the public ward",
+        "proposedUse": "Inspect the hidden feed and reassign the debt",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_arcanepunk_02_edge_02",
+        "draft_arcanepunk_02_edge_05",
+        "draft_arcanepunk_02_edge_08"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_02_pressure",
+      "kind": "Event",
+      "label": "Unregistered lamps draw power from the public ward",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_02",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L10"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L10"
+      ],
+      "proposal": {
+        "trigger": "Unregistered lamps draw power from the public ward",
+        "proposedEffect": "Changes access to meter stones",
+        "effectTargetId": "draft_arcanepunk_02_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_arcanepunk_02_edge_03",
+        "draft_arcanepunk_02_edge_04",
+        "draft_arcanepunk_02_edge_05",
+        "draft_arcanepunk_02_edge_09",
+        "draft_arcanepunk_02_edge_10",
+        "draft_arcanepunk_02_companion_edge_01",
+        "draft_arcanepunk_02_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_02_response",
+      "kind": "Event",
+      "label": "Inspect the hidden feed and reassign the debt",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_02",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L10"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L10"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Inspect the hidden feed and reassign the debt",
+        "proposedEffect": "Inspect the hidden feed and reassign the debt",
+        "effectTargetId": "draft_arcanepunk_02_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_arcanepunk_02_edge_06",
+        "draft_arcanepunk_02_edge_07",
+        "draft_arcanepunk_02_edge_08",
+        "draft_arcanepunk_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_02_report",
+      "kind": "Knowledge",
+      "label": "The office says households caused the deficit",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_02",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L10"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L10"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The office says households caused the deficit",
+        "aboutId": "draft_arcanepunk_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_arcanepunk_02_edge_09"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_02_evidence",
+      "kind": "Knowledge",
+      "label": "Private feed marks appear in the meter stone",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L10"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L10"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Private feed marks appear in the meter stone",
+        "aboutId": "draft_arcanepunk_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_arcanepunk_02_edge_10",
+        "draft_arcanepunk_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_03_entity",
+      "kind": "Entity",
+      "label": "street artificers",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_03",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L11"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L11"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep binding wire usable at rivet bazaar",
+        "stakes": "A guild monopoly blocks a brace needed after a collapse",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_arcanepunk_03_edge_01",
+        "draft_arcanepunk_03_edge_04",
+        "draft_arcanepunk_03_edge_07"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_03_location",
+      "kind": "Location",
+      "label": "rivet bazaar",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_03",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L11"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L11"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_arcanepunk_03_resource",
+        "conflict": "A guild monopoly blocks a brace needed after a collapse",
+        "risk": "A guild monopoly blocks a brace needed after a collapse"
+      },
+      "relations": [
+        "draft_arcanepunk_03_edge_01",
+        "draft_arcanepunk_03_edge_02",
+        "draft_arcanepunk_03_edge_03",
+        "draft_arcanepunk_03_edge_06"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_03_resource",
+      "kind": "Resource",
+      "label": "binding wire",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_03",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L11"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L11"
+      ],
+      "proposal": {
+        "sourceId": "draft_arcanepunk_03_location",
+        "scarcity": "A guild monopoly blocks a brace needed after a collapse",
+        "proposedUse": "Teach a safe brace design and document its limits",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_arcanepunk_03_edge_02",
+        "draft_arcanepunk_03_edge_05",
+        "draft_arcanepunk_03_edge_08"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_03_pressure",
+      "kind": "Event",
+      "label": "A guild monopoly blocks a brace needed after a collapse",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_03",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L11"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L11"
+      ],
+      "proposal": {
+        "trigger": "A guild monopoly blocks a brace needed after a collapse",
+        "proposedEffect": "Changes access to binding wire",
+        "effectTargetId": "draft_arcanepunk_03_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_arcanepunk_03_edge_03",
+        "draft_arcanepunk_03_edge_04",
+        "draft_arcanepunk_03_edge_05",
+        "draft_arcanepunk_03_edge_09",
+        "draft_arcanepunk_03_edge_10",
+        "draft_arcanepunk_03_companion_edge_01",
+        "draft_arcanepunk_03_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_03_response",
+      "kind": "Event",
+      "label": "Teach a safe brace design and document its limits",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_03",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L11"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L11"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Teach a safe brace design and document its limits",
+        "proposedEffect": "Teach a safe brace design and document its limits",
+        "effectTargetId": "draft_arcanepunk_03_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_arcanepunk_03_edge_06",
+        "draft_arcanepunk_03_edge_07",
+        "draft_arcanepunk_03_edge_08",
+        "draft_arcanepunk_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_03_report",
+      "kind": "Knowledge",
+      "label": "The guild says the design cannot bear weight",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_03",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L11"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L11"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The guild says the design cannot bear weight",
+        "aboutId": "draft_arcanepunk_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_arcanepunk_03_edge_09"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_03_evidence",
+      "kind": "Knowledge",
+      "label": "Load tests show which spans the brace supports",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L11"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L11"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Load tests show which spans the brace supports",
+        "aboutId": "draft_arcanepunk_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_arcanepunk_03_edge_10",
+        "draft_arcanepunk_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_04_entity",
+      "kind": "Entity",
+      "label": "canal ferrymages",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_04",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L12"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L12"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep focusing prisms usable at lock of mirrored water",
+        "stakes": "A prism shortage strands medicine on the far bank",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_arcanepunk_04_edge_01",
+        "draft_arcanepunk_04_edge_04",
+        "draft_arcanepunk_04_edge_07"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_04_location",
+      "kind": "Location",
+      "label": "lock of mirrored water",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_04",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L12"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L12"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_arcanepunk_04_resource",
+        "conflict": "A prism shortage strands medicine on the far bank",
+        "risk": "A prism shortage strands medicine on the far bank"
+      },
+      "relations": [
+        "draft_arcanepunk_04_edge_01",
+        "draft_arcanepunk_04_edge_02",
+        "draft_arcanepunk_04_edge_03",
+        "draft_arcanepunk_04_edge_06"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_04_resource",
+      "kind": "Resource",
+      "label": "focusing prisms",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_04",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L12"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L12"
+      ],
+      "proposal": {
+        "sourceId": "draft_arcanepunk_04_location",
+        "scarcity": "A prism shortage strands medicine on the far bank",
+        "proposedUse": "Lend a prism under a return bond to move medicine",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_arcanepunk_04_edge_02",
+        "draft_arcanepunk_04_edge_05",
+        "draft_arcanepunk_04_edge_08"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_04_pressure",
+      "kind": "Event",
+      "label": "A prism shortage strands medicine on the far bank",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_04",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L12"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L12"
+      ],
+      "proposal": {
+        "trigger": "A prism shortage strands medicine on the far bank",
+        "proposedEffect": "Changes access to focusing prisms",
+        "effectTargetId": "draft_arcanepunk_04_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_arcanepunk_04_edge_03",
+        "draft_arcanepunk_04_edge_04",
+        "draft_arcanepunk_04_edge_05",
+        "draft_arcanepunk_04_edge_09",
+        "draft_arcanepunk_04_edge_10",
+        "draft_arcanepunk_04_companion_edge_01",
+        "draft_arcanepunk_04_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_04_response",
+      "kind": "Event",
+      "label": "Lend a prism under a return bond to move medicine",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_04",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L12"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L12"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Lend a prism under a return bond to move medicine",
+        "proposedEffect": "Lend a prism under a return bond to move medicine",
+        "effectTargetId": "draft_arcanepunk_04_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_arcanepunk_04_edge_06",
+        "draft_arcanepunk_04_edge_07",
+        "draft_arcanepunk_04_edge_08",
+        "draft_arcanepunk_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_04_report",
+      "kind": "Knowledge",
+      "label": "The ferrymages blame a hostile current",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_04",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L12"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L12"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The ferrymages blame a hostile current",
+        "aboutId": "draft_arcanepunk_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_arcanepunk_04_edge_09"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_04_evidence",
+      "kind": "Knowledge",
+      "label": "The freight log records unused prisms in storage",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L12"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L12"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "The freight log records unused prisms in storage",
+        "aboutId": "draft_arcanepunk_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_arcanepunk_04_edge_10",
+        "draft_arcanepunk_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_05_entity",
+      "kind": "Entity",
+      "label": "ward gardeners",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_05",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L13"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L13"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep soil charms usable at glass-root terrace",
+        "stakes": "Excess ward discharge scorches a food terrace",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_arcanepunk_05_edge_01",
+        "draft_arcanepunk_05_edge_04",
+        "draft_arcanepunk_05_edge_07"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_05_location",
+      "kind": "Location",
+      "label": "glass-root terrace",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_05",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L13"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L13"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_arcanepunk_05_resource",
+        "conflict": "Excess ward discharge scorches a food terrace",
+        "risk": "Excess ward discharge scorches a food terrace"
+      },
+      "relations": [
+        "draft_arcanepunk_05_edge_01",
+        "draft_arcanepunk_05_edge_02",
+        "draft_arcanepunk_05_edge_03",
+        "draft_arcanepunk_05_edge_06"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_05_resource",
+      "kind": "Resource",
+      "label": "soil charms",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_05",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L13"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L13"
+      ],
+      "proposal": {
+        "sourceId": "draft_arcanepunk_05_location",
+        "scarcity": "Excess ward discharge scorches a food terrace",
+        "proposedUse": "Vent the discharge through a tested idle conduit",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_arcanepunk_05_edge_02",
+        "draft_arcanepunk_05_edge_05",
+        "draft_arcanepunk_05_edge_08"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_05_pressure",
+      "kind": "Event",
+      "label": "Excess ward discharge scorches a food terrace",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_05",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L13"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L13"
+      ],
+      "proposal": {
+        "trigger": "Excess ward discharge scorches a food terrace",
+        "proposedEffect": "Changes access to soil charms",
+        "effectTargetId": "draft_arcanepunk_05_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_arcanepunk_05_edge_03",
+        "draft_arcanepunk_05_edge_04",
+        "draft_arcanepunk_05_edge_05",
+        "draft_arcanepunk_05_edge_09",
+        "draft_arcanepunk_05_edge_10",
+        "draft_arcanepunk_05_companion_edge_01",
+        "draft_arcanepunk_05_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_05_response",
+      "kind": "Event",
+      "label": "Vent the discharge through a tested idle conduit",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_05",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L13"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L13"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Vent the discharge through a tested idle conduit",
+        "proposedEffect": "Vent the discharge through a tested idle conduit",
+        "effectTargetId": "draft_arcanepunk_05_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_arcanepunk_05_edge_06",
+        "draft_arcanepunk_05_edge_07",
+        "draft_arcanepunk_05_edge_08",
+        "draft_arcanepunk_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_05_report",
+      "kind": "Knowledge",
+      "label": "The estate calls the loss crop disease",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_05",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L13"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L13"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The estate calls the loss crop disease",
+        "aboutId": "draft_arcanepunk_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_arcanepunk_05_edge_09"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_05_evidence",
+      "kind": "Knowledge",
+      "label": "Soil marks trace the discharge to the estate conduit",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L13"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L13"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Soil marks trace the discharge to the estate conduit",
+        "aboutId": "draft_arcanepunk_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_arcanepunk_05_edge_10",
+        "draft_arcanepunk_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_01_counterparty",
+      "kind": "Entity",
+      "label": "canal seal engineer",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_01",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L7"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L7"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Keep irrigation powered even if the engine must be throttled",
+        "stakes": "A cracked seal drains the canal engine's charge",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_arcanepunk_01_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_01_belief_holder",
+      "kind": "Entity",
+      "label": "canal apprentices",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_01",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L7"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L7"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: A slower engine cannot hold the wards",
+        "stakes": "A cracked seal drains the canal engine's charge",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_arcanepunk_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_01_evidence_site",
+      "kind": "Location",
+      "label": "tenant sluice gauge",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L7"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L7"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A cracked seal drains the canal engine's charge",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_arcanepunk_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_01_alternative",
+      "kind": "Event",
+      "label": "Throttle the engine and rotate water turns during seal replacement",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_01",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L7"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L7"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Throttle the engine and rotate water turns during seal replacement",
+        "costAndConsequence": "Each terrace receives less water for two days",
+        "alternativeToId": "draft_arcanepunk_01_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_arcanepunk_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_01_additional_belief",
+      "kind": "Knowledge",
+      "label": "A slower engine cannot hold the wards",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_01",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L7"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L7"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A slower engine cannot hold the wards",
+        "aboutId": "draft_arcanepunk_01_pressure",
+        "holderId": "draft_arcanepunk_01_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_arcanepunk_01_companion_edge_02",
+        "draft_arcanepunk_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_02_counterparty",
+      "kind": "Entity",
+      "label": "unregistered lamp installer",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_02",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L8"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L8"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Hide private taps on the ward while charging public users",
+        "stakes": "Unregistered lamps draw power from the public ward",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_arcanepunk_02_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_02_belief_holder",
+      "kind": "Entity",
+      "label": "shopkeepers",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_02",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L8"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L8"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Public lamps caused the deficit through misuse",
+        "stakes": "Unregistered lamps draw power from the public ward",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_arcanepunk_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_02_evidence_site",
+      "kind": "Location",
+      "label": "concession feed niche",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L8"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L8"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "Unregistered lamps draw power from the public ward",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_arcanepunk_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_02_alternative",
+      "kind": "Event",
+      "label": "Meter and disconnect only unmatched private feeds",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_02",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L8"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L8"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Meter and disconnect only unmatched private feeds",
+        "costAndConsequence": "Night shops lose illumination until they register",
+        "alternativeToId": "draft_arcanepunk_02_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_arcanepunk_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_02_additional_belief",
+      "kind": "Knowledge",
+      "label": "Public lamps caused the deficit through misuse",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_02",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L8"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L8"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Public lamps caused the deficit through misuse",
+        "aboutId": "draft_arcanepunk_02_pressure",
+        "holderId": "draft_arcanepunk_02_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_arcanepunk_02_companion_edge_02",
+        "draft_arcanepunk_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_03_counterparty",
+      "kind": "Entity",
+      "label": "guild brace examiner",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_03",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L9"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L9"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Preserve exclusive designs and rescue contracts",
+        "stakes": "A guild monopoly blocks a brace needed after a collapse",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_arcanepunk_03_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_03_belief_holder",
+      "kind": "Entity",
+      "label": "guild foreman",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_03",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L9"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L9"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Only a guild brace can hold the whole arch",
+        "stakes": "A guild monopoly blocks a brace needed after a collapse",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_arcanepunk_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_03_evidence_site",
+      "kind": "Location",
+      "label": "collapsed arch test rig",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L9"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L9"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A guild monopoly blocks a brace needed after a collapse",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_arcanepunk_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_03_alternative",
+      "kind": "Event",
+      "label": "Rent guild braces while the artificers certify their own design",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_03",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L9"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L9"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Rent guild braces while the artificers certify their own design",
+        "costAndConsequence": "Rescue funds go to the guild and testing is delayed",
+        "alternativeToId": "draft_arcanepunk_03_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_arcanepunk_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_03_additional_belief",
+      "kind": "Knowledge",
+      "label": "Only a guild brace can hold the whole arch",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_03",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L9"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L9"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Only a guild brace can hold the whole arch",
+        "aboutId": "draft_arcanepunk_03_pressure",
+        "holderId": "draft_arcanepunk_03_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_arcanepunk_03_companion_edge_02",
+        "draft_arcanepunk_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_04_counterparty",
+      "kind": "Entity",
+      "label": "prism store custodian",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_04",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L10"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L10"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Preserve a reserve for ceremonial crossings over medicine",
+        "stakes": "A prism shortage strands medicine on the far bank",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_arcanepunk_04_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_04_belief_holder",
+      "kind": "Entity",
+      "label": "temple stewards",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_04",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L10"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L10"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: The far current makes any crossing unsafe",
+        "stakes": "A prism shortage strands medicine on the far bank",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_arcanepunk_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_04_evidence_site",
+      "kind": "Location",
+      "label": "sealed prism cabinet",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L10"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L10"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A prism shortage strands medicine on the far bank",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_arcanepunk_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_04_alternative",
+      "kind": "Event",
+      "label": "Borrow the unused ceremonial prisms against a replacement bond",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_04",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L10"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L10"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Borrow the unused ceremonial prisms against a replacement bond",
+        "costAndConsequence": "Future rites lose their reserve if replacement fails",
+        "alternativeToId": "draft_arcanepunk_04_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_arcanepunk_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_04_additional_belief",
+      "kind": "Knowledge",
+      "label": "The far current makes any crossing unsafe",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_04",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L10"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L10"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The far current makes any crossing unsafe",
+        "aboutId": "draft_arcanepunk_04_pressure",
+        "holderId": "draft_arcanepunk_04_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_arcanepunk_04_companion_edge_02",
+        "draft_arcanepunk_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_05_counterparty",
+      "kind": "Entity",
+      "label": "estate conduit keeper",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_05",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L11"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L11"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Conceal a conduit fault to avoid repairing private wards",
+        "stakes": "Excess ward discharge scorches a food terrace",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_arcanepunk_05_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_05_belief_holder",
+      "kind": "Entity",
+      "label": "estate tenants",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_05",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L11"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L11"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: The terrace was blighted before the ward discharged",
+        "stakes": "Excess ward discharge scorches a food terrace",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_arcanepunk_05_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_05_evidence_site",
+      "kind": "Location",
+      "label": "estate discharge inspection pit",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L11"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L11"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "Excess ward discharge scorches a food terrace",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_arcanepunk_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_05_alternative",
+      "kind": "Event",
+      "label": "Divert excess charge into an empty ward basin",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_05",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L11"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L11"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Divert excess charge into an empty ward basin",
+        "costAndConsequence": "The estate loses protection while its conduit is repaired",
+        "alternativeToId": "draft_arcanepunk_05_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_arcanepunk_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_arcanepunk_05_additional_belief",
+      "kind": "Knowledge",
+      "label": "The terrace was blighted before the ward discharged",
+      "scopeId": "motif_arcanepunk",
+      "motifId": "arcanepunk",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_arcanepunk_05",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L11"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L11"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The terrace was blighted before the ward discharged",
+        "aboutId": "draft_arcanepunk_05_pressure",
+        "holderId": "draft_arcanepunk_05_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_arcanepunk_05_companion_edge_02",
+        "draft_arcanepunk_05_companion_edge_03"
+      ]
+    }
+  ],
+  "structuralEdges": [
+    {
+      "id": "draft_arcanepunk_01_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_arcanepunk_01_entity",
+      "toId": "draft_arcanepunk_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_01:entity>location"
+    },
+    {
+      "id": "draft_arcanepunk_01_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_arcanepunk_01_location",
+      "toId": "draft_arcanepunk_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_01:location>resource"
+    },
+    {
+      "id": "draft_arcanepunk_01_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_arcanepunk_01_pressure",
+      "toId": "draft_arcanepunk_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_01:pressure>location"
+    },
+    {
+      "id": "draft_arcanepunk_01_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_arcanepunk_01_pressure",
+      "toId": "draft_arcanepunk_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_01:pressure>entity"
+    },
+    {
+      "id": "draft_arcanepunk_01_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_arcanepunk_01_pressure",
+      "toId": "draft_arcanepunk_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_01:pressure>resource"
+    },
+    {
+      "id": "draft_arcanepunk_01_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_arcanepunk_01_response",
+      "toId": "draft_arcanepunk_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_01:response>location"
+    },
+    {
+      "id": "draft_arcanepunk_01_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_arcanepunk_01_response",
+      "toId": "draft_arcanepunk_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_01:response>entity"
+    },
+    {
+      "id": "draft_arcanepunk_01_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_arcanepunk_01_response",
+      "toId": "draft_arcanepunk_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_01:response>resource"
+    },
+    {
+      "id": "draft_arcanepunk_01_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_arcanepunk_01_report",
+      "toId": "draft_arcanepunk_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_01:report>pressure"
+    },
+    {
+      "id": "draft_arcanepunk_01_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_arcanepunk_01_evidence",
+      "toId": "draft_arcanepunk_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_01:evidence>pressure"
+    },
+    {
+      "id": "draft_arcanepunk_02_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_arcanepunk_02_entity",
+      "toId": "draft_arcanepunk_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_02:entity>location"
+    },
+    {
+      "id": "draft_arcanepunk_02_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_arcanepunk_02_location",
+      "toId": "draft_arcanepunk_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_02:location>resource"
+    },
+    {
+      "id": "draft_arcanepunk_02_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_arcanepunk_02_pressure",
+      "toId": "draft_arcanepunk_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_02:pressure>location"
+    },
+    {
+      "id": "draft_arcanepunk_02_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_arcanepunk_02_pressure",
+      "toId": "draft_arcanepunk_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_02:pressure>entity"
+    },
+    {
+      "id": "draft_arcanepunk_02_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_arcanepunk_02_pressure",
+      "toId": "draft_arcanepunk_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_02:pressure>resource"
+    },
+    {
+      "id": "draft_arcanepunk_02_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_arcanepunk_02_response",
+      "toId": "draft_arcanepunk_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_02:response>location"
+    },
+    {
+      "id": "draft_arcanepunk_02_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_arcanepunk_02_response",
+      "toId": "draft_arcanepunk_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_02:response>entity"
+    },
+    {
+      "id": "draft_arcanepunk_02_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_arcanepunk_02_response",
+      "toId": "draft_arcanepunk_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_02:response>resource"
+    },
+    {
+      "id": "draft_arcanepunk_02_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_arcanepunk_02_report",
+      "toId": "draft_arcanepunk_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_02:report>pressure"
+    },
+    {
+      "id": "draft_arcanepunk_02_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_arcanepunk_02_evidence",
+      "toId": "draft_arcanepunk_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_02:evidence>pressure"
+    },
+    {
+      "id": "draft_arcanepunk_03_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_arcanepunk_03_entity",
+      "toId": "draft_arcanepunk_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_03:entity>location"
+    },
+    {
+      "id": "draft_arcanepunk_03_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_arcanepunk_03_location",
+      "toId": "draft_arcanepunk_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_03:location>resource"
+    },
+    {
+      "id": "draft_arcanepunk_03_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_arcanepunk_03_pressure",
+      "toId": "draft_arcanepunk_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_03:pressure>location"
+    },
+    {
+      "id": "draft_arcanepunk_03_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_arcanepunk_03_pressure",
+      "toId": "draft_arcanepunk_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_03:pressure>entity"
+    },
+    {
+      "id": "draft_arcanepunk_03_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_arcanepunk_03_pressure",
+      "toId": "draft_arcanepunk_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_03:pressure>resource"
+    },
+    {
+      "id": "draft_arcanepunk_03_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_arcanepunk_03_response",
+      "toId": "draft_arcanepunk_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_03:response>location"
+    },
+    {
+      "id": "draft_arcanepunk_03_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_arcanepunk_03_response",
+      "toId": "draft_arcanepunk_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_03:response>entity"
+    },
+    {
+      "id": "draft_arcanepunk_03_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_arcanepunk_03_response",
+      "toId": "draft_arcanepunk_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_03:response>resource"
+    },
+    {
+      "id": "draft_arcanepunk_03_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_arcanepunk_03_report",
+      "toId": "draft_arcanepunk_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_03:report>pressure"
+    },
+    {
+      "id": "draft_arcanepunk_03_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_arcanepunk_03_evidence",
+      "toId": "draft_arcanepunk_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_03:evidence>pressure"
+    },
+    {
+      "id": "draft_arcanepunk_04_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_arcanepunk_04_entity",
+      "toId": "draft_arcanepunk_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_04:entity>location"
+    },
+    {
+      "id": "draft_arcanepunk_04_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_arcanepunk_04_location",
+      "toId": "draft_arcanepunk_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_04:location>resource"
+    },
+    {
+      "id": "draft_arcanepunk_04_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_arcanepunk_04_pressure",
+      "toId": "draft_arcanepunk_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_04:pressure>location"
+    },
+    {
+      "id": "draft_arcanepunk_04_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_arcanepunk_04_pressure",
+      "toId": "draft_arcanepunk_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_04:pressure>entity"
+    },
+    {
+      "id": "draft_arcanepunk_04_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_arcanepunk_04_pressure",
+      "toId": "draft_arcanepunk_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_04:pressure>resource"
+    },
+    {
+      "id": "draft_arcanepunk_04_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_arcanepunk_04_response",
+      "toId": "draft_arcanepunk_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_04:response>location"
+    },
+    {
+      "id": "draft_arcanepunk_04_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_arcanepunk_04_response",
+      "toId": "draft_arcanepunk_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_04:response>entity"
+    },
+    {
+      "id": "draft_arcanepunk_04_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_arcanepunk_04_response",
+      "toId": "draft_arcanepunk_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_04:response>resource"
+    },
+    {
+      "id": "draft_arcanepunk_04_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_arcanepunk_04_report",
+      "toId": "draft_arcanepunk_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_04:report>pressure"
+    },
+    {
+      "id": "draft_arcanepunk_04_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_arcanepunk_04_evidence",
+      "toId": "draft_arcanepunk_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_04:evidence>pressure"
+    },
+    {
+      "id": "draft_arcanepunk_05_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_arcanepunk_05_entity",
+      "toId": "draft_arcanepunk_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_05:entity>location"
+    },
+    {
+      "id": "draft_arcanepunk_05_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_arcanepunk_05_location",
+      "toId": "draft_arcanepunk_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_05:location>resource"
+    },
+    {
+      "id": "draft_arcanepunk_05_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_arcanepunk_05_pressure",
+      "toId": "draft_arcanepunk_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_05:pressure>location"
+    },
+    {
+      "id": "draft_arcanepunk_05_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_arcanepunk_05_pressure",
+      "toId": "draft_arcanepunk_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_05:pressure>entity"
+    },
+    {
+      "id": "draft_arcanepunk_05_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_arcanepunk_05_pressure",
+      "toId": "draft_arcanepunk_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_05:pressure>resource"
+    },
+    {
+      "id": "draft_arcanepunk_05_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_arcanepunk_05_response",
+      "toId": "draft_arcanepunk_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_05:response>location"
+    },
+    {
+      "id": "draft_arcanepunk_05_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_arcanepunk_05_response",
+      "toId": "draft_arcanepunk_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_05:response>entity"
+    },
+    {
+      "id": "draft_arcanepunk_05_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_arcanepunk_05_response",
+      "toId": "draft_arcanepunk_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_05:response>resource"
+    },
+    {
+      "id": "draft_arcanepunk_05_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_arcanepunk_05_report",
+      "toId": "draft_arcanepunk_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_05:report>pressure"
+    },
+    {
+      "id": "draft_arcanepunk_05_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_arcanepunk_05_evidence",
+      "toId": "draft_arcanepunk_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_arcanepunk_05:evidence>pressure"
+    },
+    {
+      "id": "draft_arcanepunk_01_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_arcanepunk_01_pressure",
+      "toId": "draft_arcanepunk_01_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L7"
+    },
+    {
+      "id": "draft_arcanepunk_01_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_arcanepunk_01_additional_belief",
+      "toId": "draft_arcanepunk_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L7"
+    },
+    {
+      "id": "draft_arcanepunk_01_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_arcanepunk_01_additional_belief",
+      "toId": "draft_arcanepunk_01_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L7"
+    },
+    {
+      "id": "draft_arcanepunk_01_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_arcanepunk_01_evidence_site",
+      "toId": "draft_arcanepunk_01_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L7"
+    },
+    {
+      "id": "draft_arcanepunk_01_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_arcanepunk_01_alternative",
+      "toId": "draft_arcanepunk_01_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L7"
+    },
+    {
+      "id": "draft_arcanepunk_02_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_arcanepunk_02_pressure",
+      "toId": "draft_arcanepunk_02_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L8"
+    },
+    {
+      "id": "draft_arcanepunk_02_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_arcanepunk_02_additional_belief",
+      "toId": "draft_arcanepunk_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L8"
+    },
+    {
+      "id": "draft_arcanepunk_02_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_arcanepunk_02_additional_belief",
+      "toId": "draft_arcanepunk_02_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L8"
+    },
+    {
+      "id": "draft_arcanepunk_02_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_arcanepunk_02_evidence_site",
+      "toId": "draft_arcanepunk_02_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L8"
+    },
+    {
+      "id": "draft_arcanepunk_02_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_arcanepunk_02_alternative",
+      "toId": "draft_arcanepunk_02_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L8"
+    },
+    {
+      "id": "draft_arcanepunk_03_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_arcanepunk_03_pressure",
+      "toId": "draft_arcanepunk_03_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L9"
+    },
+    {
+      "id": "draft_arcanepunk_03_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_arcanepunk_03_additional_belief",
+      "toId": "draft_arcanepunk_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L9"
+    },
+    {
+      "id": "draft_arcanepunk_03_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_arcanepunk_03_additional_belief",
+      "toId": "draft_arcanepunk_03_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L9"
+    },
+    {
+      "id": "draft_arcanepunk_03_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_arcanepunk_03_evidence_site",
+      "toId": "draft_arcanepunk_03_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L9"
+    },
+    {
+      "id": "draft_arcanepunk_03_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_arcanepunk_03_alternative",
+      "toId": "draft_arcanepunk_03_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L9"
+    },
+    {
+      "id": "draft_arcanepunk_04_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_arcanepunk_04_pressure",
+      "toId": "draft_arcanepunk_04_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L10"
+    },
+    {
+      "id": "draft_arcanepunk_04_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_arcanepunk_04_additional_belief",
+      "toId": "draft_arcanepunk_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L10"
+    },
+    {
+      "id": "draft_arcanepunk_04_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_arcanepunk_04_additional_belief",
+      "toId": "draft_arcanepunk_04_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L10"
+    },
+    {
+      "id": "draft_arcanepunk_04_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_arcanepunk_04_evidence_site",
+      "toId": "draft_arcanepunk_04_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L10"
+    },
+    {
+      "id": "draft_arcanepunk_04_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_arcanepunk_04_alternative",
+      "toId": "draft_arcanepunk_04_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L10"
+    },
+    {
+      "id": "draft_arcanepunk_05_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_arcanepunk_05_pressure",
+      "toId": "draft_arcanepunk_05_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L11"
+    },
+    {
+      "id": "draft_arcanepunk_05_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_arcanepunk_05_additional_belief",
+      "toId": "draft_arcanepunk_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L11"
+    },
+    {
+      "id": "draft_arcanepunk_05_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_arcanepunk_05_additional_belief",
+      "toId": "draft_arcanepunk_05_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L11"
+    },
+    {
+      "id": "draft_arcanepunk_05_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_arcanepunk_05_evidence_site",
+      "toId": "draft_arcanepunk_05_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L11"
+    },
+    {
+      "id": "draft_arcanepunk_05_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_arcanepunk_05_alternative",
+      "toId": "draft_arcanepunk_05_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L11"
+    }
+  ],
+  "proposedCausalLinks": [
+    {
+      "id": "draft_arcanepunk_01_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_arcanepunk_01_pressure",
+      "toId": "draft_arcanepunk_01_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_arcanepunk_01_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_arcanepunk_01_evidence",
+      "toId": "draft_arcanepunk_01_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_arcanepunk_02_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_arcanepunk_02_pressure",
+      "toId": "draft_arcanepunk_02_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_arcanepunk_02_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_arcanepunk_02_evidence",
+      "toId": "draft_arcanepunk_02_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_arcanepunk_03_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_arcanepunk_03_pressure",
+      "toId": "draft_arcanepunk_03_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_arcanepunk_03_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_arcanepunk_03_evidence",
+      "toId": "draft_arcanepunk_03_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_arcanepunk_04_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_arcanepunk_04_pressure",
+      "toId": "draft_arcanepunk_04_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_arcanepunk_04_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_arcanepunk_04_evidence",
+      "toId": "draft_arcanepunk_04_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_arcanepunk_05_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_arcanepunk_05_pressure",
+      "toId": "draft_arcanepunk_05_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_arcanepunk_05_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_arcanepunk_05_evidence",
+      "toId": "draft_arcanepunk_05_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    }
+  ]
+}

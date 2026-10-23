@@ -1,0 +1,3094 @@
+{
+  "schema": "world-node-drafts/v1",
+  "status": "Draft",
+  "runtime": false,
+  "scope": {
+    "id": "motif_regression",
+    "label": "회귀",
+    "kind": "genre-or-structure proposal; not a world definition"
+  },
+  "canonImpact": "none; no Draft item is accepted game setting",
+  "sourceRefs": [
+    "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+    "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+    "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft"
+  ],
+  "fronts": [
+    {
+      "id": "draft_regression_01",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A recurring market fire shifts location after each reset",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A recurring market fire shifts location after each reset",
+      "authoredIntervention": "Record invariant clues and redirect the next watch",
+      "initialReport": "Witnesses say the fire always starts at one stall",
+      "verificationCandidate": "Cross-cycle ledgers preserve a moving ignition point",
+      "alternativeInterventions": "Move the firebreak with the newly observed ignition point",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied",
+        "Reset/branch law unresolved",
+        "Prior recorded history is immutable",
+        "Remembered prediction is not a current fact"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L45",
+        "docs/v2/world-node-drafts/companion-a.txt#L37"
+      ],
+      "semanticSignature": "a recurring market fire shifts location after each reset record invariant clues and redirect the next watch dated ledgers witnesses say the fire always starts at one stall cross cycle ledgers preserve a moving ignition point",
+      "nodeIds": [
+        "draft_regression_01_entity",
+        "draft_regression_01_location",
+        "draft_regression_01_resource",
+        "draft_regression_01_pressure",
+        "draft_regression_01_response",
+        "draft_regression_01_report",
+        "draft_regression_01_evidence",
+        "draft_regression_01_counterparty",
+        "draft_regression_01_belief_holder",
+        "draft_regression_01_evidence_site",
+        "draft_regression_01_alternative",
+        "draft_regression_01_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Previously protected stalls lose cover",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_regression_01_counterparty",
+        "evidenceSiteId": "draft_regression_01_evidence_site",
+        "alternativeEventId": "draft_regression_01_alternative",
+        "additionalBeliefId": "draft_regression_01_additional_belief",
+        "beliefHolderId": "draft_regression_01_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L37"
+      }
+    },
+    {
+      "id": "draft_regression_02",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A courier repeats deliveries that were already answered",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A courier repeats deliveries that were already answered",
+      "authoredIntervention": "Give recipients a verifiable token that survives retelling",
+      "initialReport": "The postmaster thinks letters were lost",
+      "verificationCandidate": "Receipt sequences reveal duplicated deliveries",
+      "alternativeInterventions": "Mark answers against cross-cycle receipt numbers",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied",
+        "Reset/branch law unresolved",
+        "Prior recorded history is immutable",
+        "Remembered prediction is not a current fact"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L46",
+        "docs/v2/world-node-drafts/companion-a.txt#L38"
+      ],
+      "semanticSignature": "a courier repeats deliveries that were already answered give recipients a verifiable token that survives retelling sealed letters the postmaster thinks letters were lost receipt sequences reveal duplicated deliveries",
+      "nodeIds": [
+        "draft_regression_02_entity",
+        "draft_regression_02_location",
+        "draft_regression_02_resource",
+        "draft_regression_02_pressure",
+        "draft_regression_02_response",
+        "draft_regression_02_report",
+        "draft_regression_02_evidence",
+        "draft_regression_02_counterparty",
+        "draft_regression_02_belief_holder",
+        "draft_regression_02_evidence_site",
+        "draft_regression_02_alternative",
+        "draft_regression_02_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "The office must expose duplicated fees",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_regression_02_counterparty",
+        "evidenceSiteId": "draft_regression_02_evidence_site",
+        "alternativeEventId": "draft_regression_02_alternative",
+        "additionalBeliefId": "draft_regression_02_additional_belief",
+        "beliefHolderId": "draft_regression_02_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L38"
+      }
+    },
+    {
+      "id": "draft_regression_03",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "Repairs made before a reset create an unseen later failure",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "Repairs made before a reset create an unseen later failure",
+      "authoredIntervention": "Test the repaired bell in each known branch",
+      "initialReport": "The circle assumes a reset undoes every repair",
+      "verificationCandidate": "One spring scar persists in the next cycle",
+      "alternativeInterventions": "Track each repaired spring across the next reset",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied",
+        "Reset/branch law unresolved",
+        "Prior recorded history is immutable",
+        "Remembered prediction is not a current fact"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L47",
+        "docs/v2/world-node-drafts/companion-a.txt#L39"
+      ],
+      "semanticSignature": "repairs made before a reset create an unseen later failure test the repaired bell in each known branch spring assemblies the circle assumes a reset undoes every repair one spring scar persists in the next cycle",
+      "nodeIds": [
+        "draft_regression_03_entity",
+        "draft_regression_03_location",
+        "draft_regression_03_resource",
+        "draft_regression_03_pressure",
+        "draft_regression_03_response",
+        "draft_regression_03_report",
+        "draft_regression_03_evidence",
+        "draft_regression_03_counterparty",
+        "draft_regression_03_belief_holder",
+        "draft_regression_03_evidence_site",
+        "draft_regression_03_alternative",
+        "draft_regression_03_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Repairs are delayed until a cycle confirms them",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_regression_03_counterparty",
+        "evidenceSiteId": "draft_regression_03_evidence_site",
+        "alternativeEventId": "draft_regression_03_alternative",
+        "additionalBeliefId": "draft_regression_03_additional_belief",
+        "beliefHolderId": "draft_regression_03_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L39"
+      }
+    },
+    {
+      "id": "draft_regression_04",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A debt is paid in one cycle but collected again in another",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A debt is paid in one cycle but collected again in another",
+      "authoredIntervention": "Secure independent witnesses before paying once more",
+      "initialReport": "The lender says no payment occurred",
+      "verificationCandidate": "A copied note bears the later cycle's mark",
+      "alternativeInterventions": "Place payment copies with two independent witnesses",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied",
+        "Reset/branch law unresolved",
+        "Prior recorded history is immutable",
+        "Remembered prediction is not a current fact"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L48",
+        "docs/v2/world-node-drafts/companion-a.txt#L40"
+      ],
+      "semanticSignature": "a debt is paid in one cycle but collected again in another secure independent witnesses before paying once more debt notes the lender says no payment occurred a copied note bears the later cycle s mark",
+      "nodeIds": [
+        "draft_regression_04_entity",
+        "draft_regression_04_location",
+        "draft_regression_04_resource",
+        "draft_regression_04_pressure",
+        "draft_regression_04_response",
+        "draft_regression_04_report",
+        "draft_regression_04_evidence",
+        "draft_regression_04_counterparty",
+        "draft_regression_04_belief_holder",
+        "draft_regression_04_evidence_site",
+        "draft_regression_04_alternative",
+        "draft_regression_04_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "The debtor gives up privacy and pays witness fees",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_regression_04_counterparty",
+        "evidenceSiteId": "draft_regression_04_evidence_site",
+        "alternativeEventId": "draft_regression_04_alternative",
+        "additionalBeliefId": "draft_regression_04_additional_belief",
+        "beliefHolderId": "draft_regression_04_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L40"
+      }
+    },
+    {
+      "id": "draft_regression_05",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "Foreknowledge of a storm causes boats to leave earlier and meet a new hazard",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "Foreknowledge of a storm causes boats to leave earlier and meet a new hazard",
+      "authoredIntervention": "Publish the changed route risk as well as the storm warning",
+      "initialReport": "Sailors believe the warning alone guarantees safety",
+      "verificationCandidate": "Voyage logs show the new sandbar collision",
+      "alternativeInterventions": "Stage departures after a fresh channel survey",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied",
+        "Reset/branch law unresolved",
+        "Prior recorded history is immutable",
+        "Remembered prediction is not a current fact"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L49",
+        "docs/v2/world-node-drafts/companion-a.txt#L41"
+      ],
+      "semanticSignature": "foreknowledge of a storm causes boats to leave earlier and meet a new hazard publish the changed route risk as well as the storm warning tide charts sailors believe the warning alone guarantees safety voyage logs show the new sandbar collision",
+      "nodeIds": [
+        "draft_regression_05_entity",
+        "draft_regression_05_location",
+        "draft_regression_05_resource",
+        "draft_regression_05_pressure",
+        "draft_regression_05_response",
+        "draft_regression_05_report",
+        "draft_regression_05_evidence",
+        "draft_regression_05_counterparty",
+        "draft_regression_05_belief_holder",
+        "draft_regression_05_evidence_site",
+        "draft_regression_05_alternative",
+        "draft_regression_05_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Ships miss favorable wind and merchants lose time",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_regression_05_counterparty",
+        "evidenceSiteId": "draft_regression_05_evidence_site",
+        "alternativeEventId": "draft_regression_05_alternative",
+        "additionalBeliefId": "draft_regression_05_additional_belief",
+        "beliefHolderId": "draft_regression_05_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L41"
+      }
+    }
+  ],
+  "nodes": [
+    {
+      "id": "draft_regression_01_entity",
+      "kind": "Entity",
+      "label": "municipal chronologists",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_01",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L45"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L45"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep dated ledgers usable at same-day archive",
+        "stakes": "A recurring market fire shifts location after each reset",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_regression_01_edge_01",
+        "draft_regression_01_edge_04",
+        "draft_regression_01_edge_07"
+      ]
+    },
+    {
+      "id": "draft_regression_01_location",
+      "kind": "Location",
+      "label": "same-day archive",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_01",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L45"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L45"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_regression_01_resource",
+        "conflict": "A recurring market fire shifts location after each reset",
+        "risk": "A recurring market fire shifts location after each reset"
+      },
+      "relations": [
+        "draft_regression_01_edge_01",
+        "draft_regression_01_edge_02",
+        "draft_regression_01_edge_03",
+        "draft_regression_01_edge_06"
+      ]
+    },
+    {
+      "id": "draft_regression_01_resource",
+      "kind": "Resource",
+      "label": "dated ledgers",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_01",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L45"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L45"
+      ],
+      "proposal": {
+        "sourceId": "draft_regression_01_location",
+        "scarcity": "A recurring market fire shifts location after each reset",
+        "proposedUse": "Record invariant clues and redirect the next watch",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_regression_01_edge_02",
+        "draft_regression_01_edge_05",
+        "draft_regression_01_edge_08"
+      ]
+    },
+    {
+      "id": "draft_regression_01_pressure",
+      "kind": "Event",
+      "label": "A recurring market fire shifts location after each reset",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_01",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L45"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L45"
+      ],
+      "proposal": {
+        "trigger": "A recurring market fire shifts location after each reset",
+        "proposedEffect": "Changes access to dated ledgers",
+        "effectTargetId": "draft_regression_01_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_regression_01_edge_03",
+        "draft_regression_01_edge_04",
+        "draft_regression_01_edge_05",
+        "draft_regression_01_edge_09",
+        "draft_regression_01_edge_10",
+        "draft_regression_01_companion_edge_01",
+        "draft_regression_01_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_regression_01_response",
+      "kind": "Event",
+      "label": "Record invariant clues and redirect the next watch",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_01",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L45"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L45"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Record invariant clues and redirect the next watch",
+        "proposedEffect": "Record invariant clues and redirect the next watch",
+        "effectTargetId": "draft_regression_01_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_regression_01_edge_06",
+        "draft_regression_01_edge_07",
+        "draft_regression_01_edge_08",
+        "draft_regression_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_regression_01_report",
+      "kind": "Knowledge",
+      "label": "Witnesses say the fire always starts at one stall",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_01",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L45"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L45"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Witnesses say the fire always starts at one stall",
+        "aboutId": "draft_regression_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_regression_01_edge_09"
+      ]
+    },
+    {
+      "id": "draft_regression_01_evidence",
+      "kind": "Knowledge",
+      "label": "Cross-cycle ledgers preserve a moving ignition point",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L45"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L45"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Cross-cycle ledgers preserve a moving ignition point",
+        "aboutId": "draft_regression_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_regression_01_edge_10",
+        "draft_regression_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_regression_02_entity",
+      "kind": "Entity",
+      "label": "loop-bound messenger",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_02",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L46"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L46"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep sealed letters usable at dawn courier post",
+        "stakes": "A courier repeats deliveries that were already answered",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_regression_02_edge_01",
+        "draft_regression_02_edge_04",
+        "draft_regression_02_edge_07"
+      ]
+    },
+    {
+      "id": "draft_regression_02_location",
+      "kind": "Location",
+      "label": "dawn courier post",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_02",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L46"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L46"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_regression_02_resource",
+        "conflict": "A courier repeats deliveries that were already answered",
+        "risk": "A courier repeats deliveries that were already answered"
+      },
+      "relations": [
+        "draft_regression_02_edge_01",
+        "draft_regression_02_edge_02",
+        "draft_regression_02_edge_03",
+        "draft_regression_02_edge_06"
+      ]
+    },
+    {
+      "id": "draft_regression_02_resource",
+      "kind": "Resource",
+      "label": "sealed letters",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_02",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L46"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L46"
+      ],
+      "proposal": {
+        "sourceId": "draft_regression_02_location",
+        "scarcity": "A courier repeats deliveries that were already answered",
+        "proposedUse": "Give recipients a verifiable token that survives retelling",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_regression_02_edge_02",
+        "draft_regression_02_edge_05",
+        "draft_regression_02_edge_08"
+      ]
+    },
+    {
+      "id": "draft_regression_02_pressure",
+      "kind": "Event",
+      "label": "A courier repeats deliveries that were already answered",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_02",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L46"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L46"
+      ],
+      "proposal": {
+        "trigger": "A courier repeats deliveries that were already answered",
+        "proposedEffect": "Changes access to sealed letters",
+        "effectTargetId": "draft_regression_02_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_regression_02_edge_03",
+        "draft_regression_02_edge_04",
+        "draft_regression_02_edge_05",
+        "draft_regression_02_edge_09",
+        "draft_regression_02_edge_10",
+        "draft_regression_02_companion_edge_01",
+        "draft_regression_02_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_regression_02_response",
+      "kind": "Event",
+      "label": "Give recipients a verifiable token that survives retelling",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_02",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L46"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L46"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Give recipients a verifiable token that survives retelling",
+        "proposedEffect": "Give recipients a verifiable token that survives retelling",
+        "effectTargetId": "draft_regression_02_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_regression_02_edge_06",
+        "draft_regression_02_edge_07",
+        "draft_regression_02_edge_08",
+        "draft_regression_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_regression_02_report",
+      "kind": "Knowledge",
+      "label": "The postmaster thinks letters were lost",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_02",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L46"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L46"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The postmaster thinks letters were lost",
+        "aboutId": "draft_regression_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_regression_02_edge_09"
+      ]
+    },
+    {
+      "id": "draft_regression_02_evidence",
+      "kind": "Knowledge",
+      "label": "Receipt sequences reveal duplicated deliveries",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L46"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L46"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Receipt sequences reveal duplicated deliveries",
+        "aboutId": "draft_regression_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_regression_02_edge_10",
+        "draft_regression_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_regression_03_entity",
+      "kind": "Entity",
+      "label": "clock repair circle",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_03",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L47"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L47"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep spring assemblies usable at bell tower",
+        "stakes": "Repairs made before a reset create an unseen later failure",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_regression_03_edge_01",
+        "draft_regression_03_edge_04",
+        "draft_regression_03_edge_07"
+      ]
+    },
+    {
+      "id": "draft_regression_03_location",
+      "kind": "Location",
+      "label": "bell tower",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_03",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L47"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L47"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_regression_03_resource",
+        "conflict": "Repairs made before a reset create an unseen later failure",
+        "risk": "Repairs made before a reset create an unseen later failure"
+      },
+      "relations": [
+        "draft_regression_03_edge_01",
+        "draft_regression_03_edge_02",
+        "draft_regression_03_edge_03",
+        "draft_regression_03_edge_06"
+      ]
+    },
+    {
+      "id": "draft_regression_03_resource",
+      "kind": "Resource",
+      "label": "spring assemblies",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_03",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L47"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L47"
+      ],
+      "proposal": {
+        "sourceId": "draft_regression_03_location",
+        "scarcity": "Repairs made before a reset create an unseen later failure",
+        "proposedUse": "Test the repaired bell in each known branch",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_regression_03_edge_02",
+        "draft_regression_03_edge_05",
+        "draft_regression_03_edge_08"
+      ]
+    },
+    {
+      "id": "draft_regression_03_pressure",
+      "kind": "Event",
+      "label": "Repairs made before a reset create an unseen later failure",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_03",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L47"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L47"
+      ],
+      "proposal": {
+        "trigger": "Repairs made before a reset create an unseen later failure",
+        "proposedEffect": "Changes access to spring assemblies",
+        "effectTargetId": "draft_regression_03_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_regression_03_edge_03",
+        "draft_regression_03_edge_04",
+        "draft_regression_03_edge_05",
+        "draft_regression_03_edge_09",
+        "draft_regression_03_edge_10",
+        "draft_regression_03_companion_edge_01",
+        "draft_regression_03_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_regression_03_response",
+      "kind": "Event",
+      "label": "Test the repaired bell in each known branch",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_03",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L47"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L47"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Test the repaired bell in each known branch",
+        "proposedEffect": "Test the repaired bell in each known branch",
+        "effectTargetId": "draft_regression_03_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_regression_03_edge_06",
+        "draft_regression_03_edge_07",
+        "draft_regression_03_edge_08",
+        "draft_regression_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_regression_03_report",
+      "kind": "Knowledge",
+      "label": "The circle assumes a reset undoes every repair",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_03",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L47"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L47"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The circle assumes a reset undoes every repair",
+        "aboutId": "draft_regression_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_regression_03_edge_09"
+      ]
+    },
+    {
+      "id": "draft_regression_03_evidence",
+      "kind": "Knowledge",
+      "label": "One spring scar persists in the next cycle",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L47"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L47"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "One spring scar persists in the next cycle",
+        "aboutId": "draft_regression_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_regression_03_edge_10",
+        "draft_regression_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_regression_04_entity",
+      "kind": "Entity",
+      "label": "market debt mediator",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_04",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L48"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L48"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep debt notes usable at auction square",
+        "stakes": "A debt is paid in one cycle but collected again in another",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_regression_04_edge_01",
+        "draft_regression_04_edge_04",
+        "draft_regression_04_edge_07"
+      ]
+    },
+    {
+      "id": "draft_regression_04_location",
+      "kind": "Location",
+      "label": "auction square",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_04",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L48"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L48"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_regression_04_resource",
+        "conflict": "A debt is paid in one cycle but collected again in another",
+        "risk": "A debt is paid in one cycle but collected again in another"
+      },
+      "relations": [
+        "draft_regression_04_edge_01",
+        "draft_regression_04_edge_02",
+        "draft_regression_04_edge_03",
+        "draft_regression_04_edge_06"
+      ]
+    },
+    {
+      "id": "draft_regression_04_resource",
+      "kind": "Resource",
+      "label": "debt notes",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_04",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L48"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L48"
+      ],
+      "proposal": {
+        "sourceId": "draft_regression_04_location",
+        "scarcity": "A debt is paid in one cycle but collected again in another",
+        "proposedUse": "Secure independent witnesses before paying once more",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_regression_04_edge_02",
+        "draft_regression_04_edge_05",
+        "draft_regression_04_edge_08"
+      ]
+    },
+    {
+      "id": "draft_regression_04_pressure",
+      "kind": "Event",
+      "label": "A debt is paid in one cycle but collected again in another",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_04",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L48"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L48"
+      ],
+      "proposal": {
+        "trigger": "A debt is paid in one cycle but collected again in another",
+        "proposedEffect": "Changes access to debt notes",
+        "effectTargetId": "draft_regression_04_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_regression_04_edge_03",
+        "draft_regression_04_edge_04",
+        "draft_regression_04_edge_05",
+        "draft_regression_04_edge_09",
+        "draft_regression_04_edge_10",
+        "draft_regression_04_companion_edge_01",
+        "draft_regression_04_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_regression_04_response",
+      "kind": "Event",
+      "label": "Secure independent witnesses before paying once more",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_04",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L48"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L48"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Secure independent witnesses before paying once more",
+        "proposedEffect": "Secure independent witnesses before paying once more",
+        "effectTargetId": "draft_regression_04_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_regression_04_edge_06",
+        "draft_regression_04_edge_07",
+        "draft_regression_04_edge_08",
+        "draft_regression_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_regression_04_report",
+      "kind": "Knowledge",
+      "label": "The lender says no payment occurred",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_04",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L48"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L48"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The lender says no payment occurred",
+        "aboutId": "draft_regression_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_regression_04_edge_09"
+      ]
+    },
+    {
+      "id": "draft_regression_04_evidence",
+      "kind": "Knowledge",
+      "label": "A copied note bears the later cycle's mark",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L48"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L48"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "A copied note bears the later cycle's mark",
+        "aboutId": "draft_regression_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_regression_04_edge_10",
+        "draft_regression_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_regression_05_entity",
+      "kind": "Entity",
+      "label": "harbor forecast guild",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_05",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L49"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L49"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep tide charts usable at tidal stair",
+        "stakes": "Foreknowledge of a storm causes boats to leave earlier and meet a new hazard",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_regression_05_edge_01",
+        "draft_regression_05_edge_04",
+        "draft_regression_05_edge_07"
+      ]
+    },
+    {
+      "id": "draft_regression_05_location",
+      "kind": "Location",
+      "label": "tidal stair",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_05",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L49"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L49"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_regression_05_resource",
+        "conflict": "Foreknowledge of a storm causes boats to leave earlier and meet a new hazard",
+        "risk": "Foreknowledge of a storm causes boats to leave earlier and meet a new hazard"
+      },
+      "relations": [
+        "draft_regression_05_edge_01",
+        "draft_regression_05_edge_02",
+        "draft_regression_05_edge_03",
+        "draft_regression_05_edge_06"
+      ]
+    },
+    {
+      "id": "draft_regression_05_resource",
+      "kind": "Resource",
+      "label": "tide charts",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_05",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L49"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L49"
+      ],
+      "proposal": {
+        "sourceId": "draft_regression_05_location",
+        "scarcity": "Foreknowledge of a storm causes boats to leave earlier and meet a new hazard",
+        "proposedUse": "Publish the changed route risk as well as the storm warning",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_regression_05_edge_02",
+        "draft_regression_05_edge_05",
+        "draft_regression_05_edge_08"
+      ]
+    },
+    {
+      "id": "draft_regression_05_pressure",
+      "kind": "Event",
+      "label": "Foreknowledge of a storm causes boats to leave earlier and meet a new hazard",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_05",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L49"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L49"
+      ],
+      "proposal": {
+        "trigger": "Foreknowledge of a storm causes boats to leave earlier and meet a new hazard",
+        "proposedEffect": "Changes access to tide charts",
+        "effectTargetId": "draft_regression_05_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_regression_05_edge_03",
+        "draft_regression_05_edge_04",
+        "draft_regression_05_edge_05",
+        "draft_regression_05_edge_09",
+        "draft_regression_05_edge_10",
+        "draft_regression_05_companion_edge_01",
+        "draft_regression_05_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_regression_05_response",
+      "kind": "Event",
+      "label": "Publish the changed route risk as well as the storm warning",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_05",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L49"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L49"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Publish the changed route risk as well as the storm warning",
+        "proposedEffect": "Publish the changed route risk as well as the storm warning",
+        "effectTargetId": "draft_regression_05_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_regression_05_edge_06",
+        "draft_regression_05_edge_07",
+        "draft_regression_05_edge_08",
+        "draft_regression_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_regression_05_report",
+      "kind": "Knowledge",
+      "label": "Sailors believe the warning alone guarantees safety",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_05",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L49"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L49"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Sailors believe the warning alone guarantees safety",
+        "aboutId": "draft_regression_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_regression_05_edge_09"
+      ]
+    },
+    {
+      "id": "draft_regression_05_evidence",
+      "kind": "Knowledge",
+      "label": "Voyage logs show the new sandbar collision",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L49"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L49"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Voyage logs show the new sandbar collision",
+        "aboutId": "draft_regression_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_regression_05_edge_10",
+        "draft_regression_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_regression_01_counterparty",
+      "kind": "Entity",
+      "label": "fire insurer",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_01",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L37"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L37"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Fix blame on one stall across every reset",
+        "stakes": "A recurring market fire shifts location after each reset",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_regression_01_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_regression_01_belief_holder",
+      "kind": "Entity",
+      "label": "insurance assessors",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_01",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L37"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L37"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: The first stall remains the origin in every cycle",
+        "stakes": "A recurring market fire shifts location after each reset",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_regression_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_regression_01_evidence_site",
+      "kind": "Location",
+      "label": "cross-cycle ash sample vault",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L37"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L37"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A recurring market fire shifts location after each reset",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_regression_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_regression_01_alternative",
+      "kind": "Event",
+      "label": "Move the firebreak with the newly observed ignition point",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_01",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L37"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L37"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Move the firebreak with the newly observed ignition point",
+        "costAndConsequence": "Previously protected stalls lose cover",
+        "alternativeToId": "draft_regression_01_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_regression_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_regression_01_additional_belief",
+      "kind": "Knowledge",
+      "label": "The first stall remains the origin in every cycle",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_01",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L37"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L37"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The first stall remains the origin in every cycle",
+        "aboutId": "draft_regression_01_pressure",
+        "holderId": "draft_regression_01_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_regression_01_companion_edge_02",
+        "draft_regression_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_regression_02_counterparty",
+      "kind": "Entity",
+      "label": "postal receipt clerk",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_02",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L38"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L38"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Treat repeated letters as lost deliveries and charge again",
+        "stakes": "A courier repeats deliveries that were already answered",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_regression_02_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_regression_02_belief_holder",
+      "kind": "Entity",
+      "label": "postmaster's clerks",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_02",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L38"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L38"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: No answer survives a reset",
+        "stakes": "A courier repeats deliveries that were already answered",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_regression_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_regression_02_evidence_site",
+      "kind": "Location",
+      "label": "courier receipt sorting room",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L38"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L38"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A courier repeats deliveries that were already answered",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_regression_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_regression_02_alternative",
+      "kind": "Event",
+      "label": "Mark answers against cross-cycle receipt numbers",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_02",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L38"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L38"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Mark answers against cross-cycle receipt numbers",
+        "costAndConsequence": "The office must expose duplicated fees",
+        "alternativeToId": "draft_regression_02_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_regression_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_regression_02_additional_belief",
+      "kind": "Knowledge",
+      "label": "No answer survives a reset",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_02",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L38"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L38"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "No answer survives a reset",
+        "aboutId": "draft_regression_02_pressure",
+        "holderId": "draft_regression_02_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_regression_02_companion_edge_02",
+        "draft_regression_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_regression_03_counterparty",
+      "kind": "Entity",
+      "label": "reset-proof parts seller",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_03",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L39"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L39"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Sell replacements for damage it claims vanished",
+        "stakes": "Repairs made before a reset create an unseen later failure",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_regression_03_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_regression_03_belief_holder",
+      "kind": "Entity",
+      "label": "repair apprentices",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_03",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L39"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L39"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: A reset restores every repaired part",
+        "stakes": "Repairs made before a reset create an unseen later failure",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_regression_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_regression_03_evidence_site",
+      "kind": "Location",
+      "label": "spring scar inspection bench",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L39"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L39"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "Repairs made before a reset create an unseen later failure",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_regression_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_regression_03_alternative",
+      "kind": "Event",
+      "label": "Track each repaired spring across the next reset",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_03",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L39"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L39"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Track each repaired spring across the next reset",
+        "costAndConsequence": "Repairs are delayed until a cycle confirms them",
+        "alternativeToId": "draft_regression_03_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_regression_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_regression_03_additional_belief",
+      "kind": "Knowledge",
+      "label": "A reset restores every repaired part",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_03",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L39"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L39"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A reset restores every repaired part",
+        "aboutId": "draft_regression_03_pressure",
+        "holderId": "draft_regression_03_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_regression_03_companion_edge_02",
+        "draft_regression_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_regression_04_counterparty",
+      "kind": "Entity",
+      "label": "debt note holder",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_04",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L40"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L40"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Collect a debt again after the payer's evidence resets",
+        "stakes": "A debt is paid in one cycle but collected again in another",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_regression_04_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_regression_04_belief_holder",
+      "kind": "Entity",
+      "label": "lender's agents",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_04",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L40"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L40"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: A payment made in another cycle cannot bind this one",
+        "stakes": "A debt is paid in one cycle but collected again in another",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_regression_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_regression_04_evidence_site",
+      "kind": "Location",
+      "label": "notary cycle-mark cabinet",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L40"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L40"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A debt is paid in one cycle but collected again in another",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_regression_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_regression_04_alternative",
+      "kind": "Event",
+      "label": "Place payment copies with two independent witnesses",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_04",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L40"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L40"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Place payment copies with two independent witnesses",
+        "costAndConsequence": "The debtor gives up privacy and pays witness fees",
+        "alternativeToId": "draft_regression_04_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_regression_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_regression_04_additional_belief",
+      "kind": "Knowledge",
+      "label": "A payment made in another cycle cannot bind this one",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_04",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L40"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L40"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A payment made in another cycle cannot bind this one",
+        "aboutId": "draft_regression_04_pressure",
+        "holderId": "draft_regression_04_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_regression_04_companion_edge_02",
+        "draft_regression_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_regression_05_counterparty",
+      "kind": "Entity",
+      "label": "departure captain",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_05",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L41"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L41"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Sail early to avoid the known storm and preserve cargo",
+        "stakes": "Foreknowledge of a storm causes boats to leave earlier and meet a new hazard",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_regression_05_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_regression_05_belief_holder",
+      "kind": "Entity",
+      "label": "warned sailors",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_05",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L41"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L41"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Avoiding the storm removes all route risk",
+        "stakes": "Foreknowledge of a storm causes boats to leave earlier and meet a new hazard",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_regression_05_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_regression_05_evidence_site",
+      "kind": "Location",
+      "label": "new sandbar sounding skiff",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L41"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L41"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "Foreknowledge of a storm causes boats to leave earlier and meet a new hazard",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_regression_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_regression_05_alternative",
+      "kind": "Event",
+      "label": "Stage departures after a fresh channel survey",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_05",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L41"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L41"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Stage departures after a fresh channel survey",
+        "costAndConsequence": "Ships miss favorable wind and merchants lose time",
+        "alternativeToId": "draft_regression_05_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_regression_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_regression_05_additional_belief",
+      "kind": "Knowledge",
+      "label": "Avoiding the storm removes all route risk",
+      "scopeId": "motif_regression",
+      "motifId": "regression",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_regression_05",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L41"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L41"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Avoiding the storm removes all route risk",
+        "aboutId": "draft_regression_05_pressure",
+        "holderId": "draft_regression_05_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_regression_05_companion_edge_02",
+        "draft_regression_05_companion_edge_03"
+      ]
+    }
+  ],
+  "structuralEdges": [
+    {
+      "id": "draft_regression_01_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_regression_01_entity",
+      "toId": "draft_regression_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_01:entity>location"
+    },
+    {
+      "id": "draft_regression_01_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_regression_01_location",
+      "toId": "draft_regression_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_01:location>resource"
+    },
+    {
+      "id": "draft_regression_01_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_regression_01_pressure",
+      "toId": "draft_regression_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_01:pressure>location"
+    },
+    {
+      "id": "draft_regression_01_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_regression_01_pressure",
+      "toId": "draft_regression_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_01:pressure>entity"
+    },
+    {
+      "id": "draft_regression_01_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_regression_01_pressure",
+      "toId": "draft_regression_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_01:pressure>resource"
+    },
+    {
+      "id": "draft_regression_01_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_regression_01_response",
+      "toId": "draft_regression_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_01:response>location"
+    },
+    {
+      "id": "draft_regression_01_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_regression_01_response",
+      "toId": "draft_regression_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_01:response>entity"
+    },
+    {
+      "id": "draft_regression_01_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_regression_01_response",
+      "toId": "draft_regression_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_01:response>resource"
+    },
+    {
+      "id": "draft_regression_01_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_regression_01_report",
+      "toId": "draft_regression_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_01:report>pressure"
+    },
+    {
+      "id": "draft_regression_01_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_regression_01_evidence",
+      "toId": "draft_regression_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_01:evidence>pressure"
+    },
+    {
+      "id": "draft_regression_02_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_regression_02_entity",
+      "toId": "draft_regression_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_02:entity>location"
+    },
+    {
+      "id": "draft_regression_02_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_regression_02_location",
+      "toId": "draft_regression_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_02:location>resource"
+    },
+    {
+      "id": "draft_regression_02_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_regression_02_pressure",
+      "toId": "draft_regression_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_02:pressure>location"
+    },
+    {
+      "id": "draft_regression_02_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_regression_02_pressure",
+      "toId": "draft_regression_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_02:pressure>entity"
+    },
+    {
+      "id": "draft_regression_02_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_regression_02_pressure",
+      "toId": "draft_regression_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_02:pressure>resource"
+    },
+    {
+      "id": "draft_regression_02_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_regression_02_response",
+      "toId": "draft_regression_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_02:response>location"
+    },
+    {
+      "id": "draft_regression_02_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_regression_02_response",
+      "toId": "draft_regression_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_02:response>entity"
+    },
+    {
+      "id": "draft_regression_02_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_regression_02_response",
+      "toId": "draft_regression_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_02:response>resource"
+    },
+    {
+      "id": "draft_regression_02_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_regression_02_report",
+      "toId": "draft_regression_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_02:report>pressure"
+    },
+    {
+      "id": "draft_regression_02_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_regression_02_evidence",
+      "toId": "draft_regression_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_02:evidence>pressure"
+    },
+    {
+      "id": "draft_regression_03_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_regression_03_entity",
+      "toId": "draft_regression_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_03:entity>location"
+    },
+    {
+      "id": "draft_regression_03_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_regression_03_location",
+      "toId": "draft_regression_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_03:location>resource"
+    },
+    {
+      "id": "draft_regression_03_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_regression_03_pressure",
+      "toId": "draft_regression_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_03:pressure>location"
+    },
+    {
+      "id": "draft_regression_03_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_regression_03_pressure",
+      "toId": "draft_regression_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_03:pressure>entity"
+    },
+    {
+      "id": "draft_regression_03_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_regression_03_pressure",
+      "toId": "draft_regression_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_03:pressure>resource"
+    },
+    {
+      "id": "draft_regression_03_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_regression_03_response",
+      "toId": "draft_regression_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_03:response>location"
+    },
+    {
+      "id": "draft_regression_03_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_regression_03_response",
+      "toId": "draft_regression_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_03:response>entity"
+    },
+    {
+      "id": "draft_regression_03_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_regression_03_response",
+      "toId": "draft_regression_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_03:response>resource"
+    },
+    {
+      "id": "draft_regression_03_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_regression_03_report",
+      "toId": "draft_regression_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_03:report>pressure"
+    },
+    {
+      "id": "draft_regression_03_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_regression_03_evidence",
+      "toId": "draft_regression_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_03:evidence>pressure"
+    },
+    {
+      "id": "draft_regression_04_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_regression_04_entity",
+      "toId": "draft_regression_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_04:entity>location"
+    },
+    {
+      "id": "draft_regression_04_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_regression_04_location",
+      "toId": "draft_regression_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_04:location>resource"
+    },
+    {
+      "id": "draft_regression_04_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_regression_04_pressure",
+      "toId": "draft_regression_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_04:pressure>location"
+    },
+    {
+      "id": "draft_regression_04_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_regression_04_pressure",
+      "toId": "draft_regression_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_04:pressure>entity"
+    },
+    {
+      "id": "draft_regression_04_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_regression_04_pressure",
+      "toId": "draft_regression_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_04:pressure>resource"
+    },
+    {
+      "id": "draft_regression_04_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_regression_04_response",
+      "toId": "draft_regression_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_04:response>location"
+    },
+    {
+      "id": "draft_regression_04_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_regression_04_response",
+      "toId": "draft_regression_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_04:response>entity"
+    },
+    {
+      "id": "draft_regression_04_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_regression_04_response",
+      "toId": "draft_regression_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_04:response>resource"
+    },
+    {
+      "id": "draft_regression_04_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_regression_04_report",
+      "toId": "draft_regression_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_04:report>pressure"
+    },
+    {
+      "id": "draft_regression_04_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_regression_04_evidence",
+      "toId": "draft_regression_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_04:evidence>pressure"
+    },
+    {
+      "id": "draft_regression_05_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_regression_05_entity",
+      "toId": "draft_regression_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_05:entity>location"
+    },
+    {
+      "id": "draft_regression_05_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_regression_05_location",
+      "toId": "draft_regression_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_05:location>resource"
+    },
+    {
+      "id": "draft_regression_05_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_regression_05_pressure",
+      "toId": "draft_regression_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_05:pressure>location"
+    },
+    {
+      "id": "draft_regression_05_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_regression_05_pressure",
+      "toId": "draft_regression_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_05:pressure>entity"
+    },
+    {
+      "id": "draft_regression_05_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_regression_05_pressure",
+      "toId": "draft_regression_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_05:pressure>resource"
+    },
+    {
+      "id": "draft_regression_05_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_regression_05_response",
+      "toId": "draft_regression_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_05:response>location"
+    },
+    {
+      "id": "draft_regression_05_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_regression_05_response",
+      "toId": "draft_regression_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_05:response>entity"
+    },
+    {
+      "id": "draft_regression_05_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_regression_05_response",
+      "toId": "draft_regression_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_05:response>resource"
+    },
+    {
+      "id": "draft_regression_05_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_regression_05_report",
+      "toId": "draft_regression_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_05:report>pressure"
+    },
+    {
+      "id": "draft_regression_05_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_regression_05_evidence",
+      "toId": "draft_regression_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_regression_05:evidence>pressure"
+    },
+    {
+      "id": "draft_regression_01_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_regression_01_pressure",
+      "toId": "draft_regression_01_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L37"
+    },
+    {
+      "id": "draft_regression_01_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_regression_01_additional_belief",
+      "toId": "draft_regression_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L37"
+    },
+    {
+      "id": "draft_regression_01_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_regression_01_additional_belief",
+      "toId": "draft_regression_01_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L37"
+    },
+    {
+      "id": "draft_regression_01_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_regression_01_evidence_site",
+      "toId": "draft_regression_01_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L37"
+    },
+    {
+      "id": "draft_regression_01_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_regression_01_alternative",
+      "toId": "draft_regression_01_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L37"
+    },
+    {
+      "id": "draft_regression_02_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_regression_02_pressure",
+      "toId": "draft_regression_02_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L38"
+    },
+    {
+      "id": "draft_regression_02_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_regression_02_additional_belief",
+      "toId": "draft_regression_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L38"
+    },
+    {
+      "id": "draft_regression_02_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_regression_02_additional_belief",
+      "toId": "draft_regression_02_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L38"
+    },
+    {
+      "id": "draft_regression_02_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_regression_02_evidence_site",
+      "toId": "draft_regression_02_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L38"
+    },
+    {
+      "id": "draft_regression_02_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_regression_02_alternative",
+      "toId": "draft_regression_02_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L38"
+    },
+    {
+      "id": "draft_regression_03_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_regression_03_pressure",
+      "toId": "draft_regression_03_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L39"
+    },
+    {
+      "id": "draft_regression_03_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_regression_03_additional_belief",
+      "toId": "draft_regression_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L39"
+    },
+    {
+      "id": "draft_regression_03_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_regression_03_additional_belief",
+      "toId": "draft_regression_03_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L39"
+    },
+    {
+      "id": "draft_regression_03_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_regression_03_evidence_site",
+      "toId": "draft_regression_03_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L39"
+    },
+    {
+      "id": "draft_regression_03_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_regression_03_alternative",
+      "toId": "draft_regression_03_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L39"
+    },
+    {
+      "id": "draft_regression_04_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_regression_04_pressure",
+      "toId": "draft_regression_04_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L40"
+    },
+    {
+      "id": "draft_regression_04_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_regression_04_additional_belief",
+      "toId": "draft_regression_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L40"
+    },
+    {
+      "id": "draft_regression_04_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_regression_04_additional_belief",
+      "toId": "draft_regression_04_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L40"
+    },
+    {
+      "id": "draft_regression_04_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_regression_04_evidence_site",
+      "toId": "draft_regression_04_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L40"
+    },
+    {
+      "id": "draft_regression_04_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_regression_04_alternative",
+      "toId": "draft_regression_04_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L40"
+    },
+    {
+      "id": "draft_regression_05_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_regression_05_pressure",
+      "toId": "draft_regression_05_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L41"
+    },
+    {
+      "id": "draft_regression_05_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_regression_05_additional_belief",
+      "toId": "draft_regression_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L41"
+    },
+    {
+      "id": "draft_regression_05_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_regression_05_additional_belief",
+      "toId": "draft_regression_05_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L41"
+    },
+    {
+      "id": "draft_regression_05_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_regression_05_evidence_site",
+      "toId": "draft_regression_05_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L41"
+    },
+    {
+      "id": "draft_regression_05_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_regression_05_alternative",
+      "toId": "draft_regression_05_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L41"
+    }
+  ],
+  "proposedCausalLinks": [
+    {
+      "id": "draft_regression_01_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_regression_01_pressure",
+      "toId": "draft_regression_01_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_regression_01_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_regression_01_evidence",
+      "toId": "draft_regression_01_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_regression_02_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_regression_02_pressure",
+      "toId": "draft_regression_02_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_regression_02_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_regression_02_evidence",
+      "toId": "draft_regression_02_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_regression_03_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_regression_03_pressure",
+      "toId": "draft_regression_03_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_regression_03_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_regression_03_evidence",
+      "toId": "draft_regression_03_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_regression_04_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_regression_04_pressure",
+      "toId": "draft_regression_04_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_regression_04_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_regression_04_evidence",
+      "toId": "draft_regression_04_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_regression_05_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_regression_05_pressure",
+      "toId": "draft_regression_05_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_regression_05_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_regression_05_evidence",
+      "toId": "draft_regression_05_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    }
+  ]
+}

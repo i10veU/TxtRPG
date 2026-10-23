@@ -1,0 +1,3079 @@
+{
+  "schema": "world-node-drafts/v1",
+  "status": "Draft",
+  "runtime": false,
+  "scope": {
+    "id": "motif_apocalypse",
+    "label": "아포칼립스",
+    "kind": "genre-or-structure proposal; not a world definition"
+  },
+  "canonImpact": "none; no Draft item is accepted game setting",
+  "sourceRefs": [
+    "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+    "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+    "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft"
+  ],
+  "fronts": [
+    {
+      "id": "draft_apocalypse_01",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A cracked roof contaminates the last measured water reserve",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A cracked roof contaminates the last measured water reserve",
+      "authoredIntervention": "Spend filter cloth now to reopen one safe tap",
+      "initialReport": "A guard says the whole cistern is poisoned",
+      "verificationCandidate": "Separate depth samples show one chamber is clean",
+      "alternativeInterventions": "Seal the cracked roof and issue water from sampled chambers only",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L15",
+        "docs/v2/world-node-drafts/companion-a.txt#L12"
+      ],
+      "semanticSignature": "a cracked roof contaminates the last measured water reserve spend filter cloth now to reopen one safe tap filter cloth a guard says the whole cistern is poisoned separate depth samples show one chamber is clean",
+      "nodeIds": [
+        "draft_apocalypse_01_entity",
+        "draft_apocalypse_01_location",
+        "draft_apocalypse_01_resource",
+        "draft_apocalypse_01_pressure",
+        "draft_apocalypse_01_response",
+        "draft_apocalypse_01_report",
+        "draft_apocalypse_01_evidence",
+        "draft_apocalypse_01_counterparty",
+        "draft_apocalypse_01_belief_holder",
+        "draft_apocalypse_01_evidence_site",
+        "draft_apocalypse_01_alternative",
+        "draft_apocalypse_01_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Repair labor and cloth filters consume scarce supplies",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_apocalypse_01_counterparty",
+        "evidenceSiteId": "draft_apocalypse_01_evidence_site",
+        "alternativeEventId": "draft_apocalypse_01_alternative",
+        "additionalBeliefId": "draft_apocalypse_01_additional_belief",
+        "beliefHolderId": "draft_apocalypse_01_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L12"
+      }
+    },
+    {
+      "id": "draft_apocalypse_02",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "Raiders alter a manifest and redirect a planting convoy",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "Raiders alter a manifest and redirect a planting convoy",
+      "authoredIntervention": "Escort the true shipment using seed seals as proof",
+      "initialReport": "A forged manifest calls the grain animal feed",
+      "verificationCandidate": "Seed seals match the farms' planting ledger",
+      "alternativeInterventions": "Escort the diverted carts back under farm ledger custody",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L16",
+        "docs/v2/world-node-drafts/companion-a.txt#L13"
+      ],
+      "semanticSignature": "raiders alter a manifest and redirect a planting convoy escort the true shipment using seed seals as proof sealed grain a forged manifest calls the grain animal feed seed seals match the farms planting ledger",
+      "nodeIds": [
+        "draft_apocalypse_02_entity",
+        "draft_apocalypse_02_location",
+        "draft_apocalypse_02_resource",
+        "draft_apocalypse_02_pressure",
+        "draft_apocalypse_02_response",
+        "draft_apocalypse_02_report",
+        "draft_apocalypse_02_evidence",
+        "draft_apocalypse_02_counterparty",
+        "draft_apocalypse_02_belief_holder",
+        "draft_apocalypse_02_evidence_site",
+        "draft_apocalypse_02_alternative",
+        "draft_apocalypse_02_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "The return trip exposes escorts and delays sowing",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_apocalypse_02_counterparty",
+        "evidenceSiteId": "draft_apocalypse_02_evidence_site",
+        "alternativeEventId": "draft_apocalypse_02_alternative",
+        "additionalBeliefId": "draft_apocalypse_02_additional_belief",
+        "beliefHolderId": "draft_apocalypse_02_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L13"
+      }
+    },
+    {
+      "id": "draft_apocalypse_03",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A false evacuation call draws families into a dust storm",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A false evacuation call draws families into a dust storm",
+      "authoredIntervention": "Verify the weather and broadcast a corrected route",
+      "initialReport": "The voice claims the southern shelter is open",
+      "verificationCandidate": "Tower logs show the signal was replayed",
+      "alternativeInterventions": "Suspend radio evacuation calls until two shelters countersign them",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L17",
+        "docs/v2/world-node-drafts/companion-a.txt#L14"
+      ],
+      "semanticSignature": "a false evacuation call draws families into a dust storm verify the weather and broadcast a corrected route hand crank capacitors the voice claims the southern shelter is open tower logs show the signal was replayed",
+      "nodeIds": [
+        "draft_apocalypse_03_entity",
+        "draft_apocalypse_03_location",
+        "draft_apocalypse_03_resource",
+        "draft_apocalypse_03_pressure",
+        "draft_apocalypse_03_response",
+        "draft_apocalypse_03_report",
+        "draft_apocalypse_03_evidence",
+        "draft_apocalypse_03_counterparty",
+        "draft_apocalypse_03_belief_holder",
+        "draft_apocalypse_03_evidence_site",
+        "draft_apocalypse_03_alternative",
+        "draft_apocalypse_03_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Real urgent warnings travel slower",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_apocalypse_03_counterparty",
+        "evidenceSiteId": "draft_apocalypse_03_evidence_site",
+        "alternativeEventId": "draft_apocalypse_03_alternative",
+        "additionalBeliefId": "draft_apocalypse_03_additional_belief",
+        "beliefHolderId": "draft_apocalypse_03_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L14"
+      }
+    },
+    {
+      "id": "draft_apocalypse_04",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "Scavengers strip the infirmary before an injury wave",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "Scavengers strip the infirmary before an injury wave",
+      "authoredIntervention": "Reserve packs by triage rule and return surplus",
+      "initialReport": "A trader says no patients are due",
+      "verificationCandidate": "Shift records predict the quarry crews' return",
+      "alternativeInterventions": "Exchange repair labor for the stripped supplies",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L18",
+        "docs/v2/world-node-drafts/companion-a.txt#L15"
+      ],
+      "semanticSignature": "scavengers strip the infirmary before an injury wave reserve packs by triage rule and return surplus antiseptic packs a trader says no patients are due shift records predict the quarry crews return",
+      "nodeIds": [
+        "draft_apocalypse_04_entity",
+        "draft_apocalypse_04_location",
+        "draft_apocalypse_04_resource",
+        "draft_apocalypse_04_pressure",
+        "draft_apocalypse_04_response",
+        "draft_apocalypse_04_report",
+        "draft_apocalypse_04_evidence",
+        "draft_apocalypse_04_counterparty",
+        "draft_apocalypse_04_belief_holder",
+        "draft_apocalypse_04_evidence_site",
+        "draft_apocalypse_04_alternative",
+        "draft_apocalypse_04_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "The medics surrender tools and delay other repairs",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_apocalypse_04_counterparty",
+        "evidenceSiteId": "draft_apocalypse_04_evidence_site",
+        "alternativeEventId": "draft_apocalypse_04_alternative",
+        "additionalBeliefId": "draft_apocalypse_04_additional_belief",
+        "beliefHolderId": "draft_apocalypse_04_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L15"
+      }
+    },
+    {
+      "id": "draft_apocalypse_05",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "The only bridge can carry either refugees or fuel today",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "The only bridge can carry either refugees or fuel today",
+      "authoredIntervention": "Reinforce a pedestrian lane and negotiate fuel later",
+      "initialReport": "A driver insists the span can take both loads",
+      "verificationCandidate": "Stress markers show a second heavy load would fail",
+      "alternativeInterventions": "Split fuel into handcarts after refugee passage",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L19",
+        "docs/v2/world-node-drafts/companion-a.txt#L16"
+      ],
+      "semanticSignature": "the only bridge can carry either refugees or fuel today reinforce a pedestrian lane and negotiate fuel later cable spools a driver insists the span can take both loads stress markers show a second heavy load would fail",
+      "nodeIds": [
+        "draft_apocalypse_05_entity",
+        "draft_apocalypse_05_location",
+        "draft_apocalypse_05_resource",
+        "draft_apocalypse_05_pressure",
+        "draft_apocalypse_05_response",
+        "draft_apocalypse_05_report",
+        "draft_apocalypse_05_evidence",
+        "draft_apocalypse_05_counterparty",
+        "draft_apocalypse_05_belief_holder",
+        "draft_apocalypse_05_evidence_site",
+        "draft_apocalypse_05_alternative",
+        "draft_apocalypse_05_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Fuel arrives late and exposed workers carry it",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_apocalypse_05_counterparty",
+        "evidenceSiteId": "draft_apocalypse_05_evidence_site",
+        "alternativeEventId": "draft_apocalypse_05_alternative",
+        "additionalBeliefId": "draft_apocalypse_05_additional_belief",
+        "beliefHolderId": "draft_apocalypse_05_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-a.txt#L16"
+      }
+    }
+  ],
+  "nodes": [
+    {
+      "id": "draft_apocalypse_01_entity",
+      "kind": "Entity",
+      "label": "cistern keepers",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_01",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L15"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L15"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep filter cloth usable at dry reservoir",
+        "stakes": "A cracked roof contaminates the last measured water reserve",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_apocalypse_01_edge_01",
+        "draft_apocalypse_01_edge_04",
+        "draft_apocalypse_01_edge_07"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_01_location",
+      "kind": "Location",
+      "label": "dry reservoir",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_01",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L15"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L15"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_apocalypse_01_resource",
+        "conflict": "A cracked roof contaminates the last measured water reserve",
+        "risk": "A cracked roof contaminates the last measured water reserve"
+      },
+      "relations": [
+        "draft_apocalypse_01_edge_01",
+        "draft_apocalypse_01_edge_02",
+        "draft_apocalypse_01_edge_03",
+        "draft_apocalypse_01_edge_06"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_01_resource",
+      "kind": "Resource",
+      "label": "filter cloth",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_01",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L15"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L15"
+      ],
+      "proposal": {
+        "sourceId": "draft_apocalypse_01_location",
+        "scarcity": "A cracked roof contaminates the last measured water reserve",
+        "proposedUse": "Spend filter cloth now to reopen one safe tap",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_apocalypse_01_edge_02",
+        "draft_apocalypse_01_edge_05",
+        "draft_apocalypse_01_edge_08"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_01_pressure",
+      "kind": "Event",
+      "label": "A cracked roof contaminates the last measured water reserve",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_01",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L15"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L15"
+      ],
+      "proposal": {
+        "trigger": "A cracked roof contaminates the last measured water reserve",
+        "proposedEffect": "Changes access to filter cloth",
+        "effectTargetId": "draft_apocalypse_01_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_apocalypse_01_edge_03",
+        "draft_apocalypse_01_edge_04",
+        "draft_apocalypse_01_edge_05",
+        "draft_apocalypse_01_edge_09",
+        "draft_apocalypse_01_edge_10",
+        "draft_apocalypse_01_companion_edge_01",
+        "draft_apocalypse_01_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_01_response",
+      "kind": "Event",
+      "label": "Spend filter cloth now to reopen one safe tap",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_01",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L15"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L15"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Spend filter cloth now to reopen one safe tap",
+        "proposedEffect": "Spend filter cloth now to reopen one safe tap",
+        "effectTargetId": "draft_apocalypse_01_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_apocalypse_01_edge_06",
+        "draft_apocalypse_01_edge_07",
+        "draft_apocalypse_01_edge_08",
+        "draft_apocalypse_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_01_report",
+      "kind": "Knowledge",
+      "label": "A guard says the whole cistern is poisoned",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_01",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L15"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L15"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A guard says the whole cistern is poisoned",
+        "aboutId": "draft_apocalypse_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_apocalypse_01_edge_09"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_01_evidence",
+      "kind": "Knowledge",
+      "label": "Separate depth samples show one chamber is clean",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L15"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L15"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Separate depth samples show one chamber is clean",
+        "aboutId": "draft_apocalypse_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_apocalypse_01_edge_10",
+        "draft_apocalypse_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_02_entity",
+      "kind": "Entity",
+      "label": "seed convoy",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_02",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L16"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L16"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep sealed grain usable at ash-road depot",
+        "stakes": "Raiders alter a manifest and redirect a planting convoy",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_apocalypse_02_edge_01",
+        "draft_apocalypse_02_edge_04",
+        "draft_apocalypse_02_edge_07"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_02_location",
+      "kind": "Location",
+      "label": "ash-road depot",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_02",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L16"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L16"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_apocalypse_02_resource",
+        "conflict": "Raiders alter a manifest and redirect a planting convoy",
+        "risk": "Raiders alter a manifest and redirect a planting convoy"
+      },
+      "relations": [
+        "draft_apocalypse_02_edge_01",
+        "draft_apocalypse_02_edge_02",
+        "draft_apocalypse_02_edge_03",
+        "draft_apocalypse_02_edge_06"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_02_resource",
+      "kind": "Resource",
+      "label": "sealed grain",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_02",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L16"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L16"
+      ],
+      "proposal": {
+        "sourceId": "draft_apocalypse_02_location",
+        "scarcity": "Raiders alter a manifest and redirect a planting convoy",
+        "proposedUse": "Escort the true shipment using seed seals as proof",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_apocalypse_02_edge_02",
+        "draft_apocalypse_02_edge_05",
+        "draft_apocalypse_02_edge_08"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_02_pressure",
+      "kind": "Event",
+      "label": "Raiders alter a manifest and redirect a planting convoy",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_02",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L16"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L16"
+      ],
+      "proposal": {
+        "trigger": "Raiders alter a manifest and redirect a planting convoy",
+        "proposedEffect": "Changes access to sealed grain",
+        "effectTargetId": "draft_apocalypse_02_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_apocalypse_02_edge_03",
+        "draft_apocalypse_02_edge_04",
+        "draft_apocalypse_02_edge_05",
+        "draft_apocalypse_02_edge_09",
+        "draft_apocalypse_02_edge_10",
+        "draft_apocalypse_02_companion_edge_01",
+        "draft_apocalypse_02_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_02_response",
+      "kind": "Event",
+      "label": "Escort the true shipment using seed seals as proof",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_02",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L16"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L16"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Escort the true shipment using seed seals as proof",
+        "proposedEffect": "Escort the true shipment using seed seals as proof",
+        "effectTargetId": "draft_apocalypse_02_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_apocalypse_02_edge_06",
+        "draft_apocalypse_02_edge_07",
+        "draft_apocalypse_02_edge_08",
+        "draft_apocalypse_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_02_report",
+      "kind": "Knowledge",
+      "label": "A forged manifest calls the grain animal feed",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_02",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L16"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L16"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A forged manifest calls the grain animal feed",
+        "aboutId": "draft_apocalypse_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_apocalypse_02_edge_09"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_02_evidence",
+      "kind": "Knowledge",
+      "label": "Seed seals match the farms' planting ledger",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L16"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L16"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Seed seals match the farms' planting ledger",
+        "aboutId": "draft_apocalypse_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_apocalypse_02_edge_10",
+        "draft_apocalypse_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_03_entity",
+      "kind": "Entity",
+      "label": "radio watch",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_03",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L17"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L17"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep hand-crank capacitors usable at collapsed tower",
+        "stakes": "A false evacuation call draws families into a dust storm",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_apocalypse_03_edge_01",
+        "draft_apocalypse_03_edge_04",
+        "draft_apocalypse_03_edge_07"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_03_location",
+      "kind": "Location",
+      "label": "collapsed tower",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_03",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L17"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L17"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_apocalypse_03_resource",
+        "conflict": "A false evacuation call draws families into a dust storm",
+        "risk": "A false evacuation call draws families into a dust storm"
+      },
+      "relations": [
+        "draft_apocalypse_03_edge_01",
+        "draft_apocalypse_03_edge_02",
+        "draft_apocalypse_03_edge_03",
+        "draft_apocalypse_03_edge_06"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_03_resource",
+      "kind": "Resource",
+      "label": "hand-crank capacitors",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_03",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L17"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L17"
+      ],
+      "proposal": {
+        "sourceId": "draft_apocalypse_03_location",
+        "scarcity": "A false evacuation call draws families into a dust storm",
+        "proposedUse": "Verify the weather and broadcast a corrected route",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_apocalypse_03_edge_02",
+        "draft_apocalypse_03_edge_05",
+        "draft_apocalypse_03_edge_08"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_03_pressure",
+      "kind": "Event",
+      "label": "A false evacuation call draws families into a dust storm",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_03",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L17"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L17"
+      ],
+      "proposal": {
+        "trigger": "A false evacuation call draws families into a dust storm",
+        "proposedEffect": "Changes access to hand-crank capacitors",
+        "effectTargetId": "draft_apocalypse_03_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_apocalypse_03_edge_03",
+        "draft_apocalypse_03_edge_04",
+        "draft_apocalypse_03_edge_05",
+        "draft_apocalypse_03_edge_09",
+        "draft_apocalypse_03_edge_10",
+        "draft_apocalypse_03_companion_edge_01",
+        "draft_apocalypse_03_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_03_response",
+      "kind": "Event",
+      "label": "Verify the weather and broadcast a corrected route",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_03",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L17"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L17"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Verify the weather and broadcast a corrected route",
+        "proposedEffect": "Verify the weather and broadcast a corrected route",
+        "effectTargetId": "draft_apocalypse_03_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_apocalypse_03_edge_06",
+        "draft_apocalypse_03_edge_07",
+        "draft_apocalypse_03_edge_08",
+        "draft_apocalypse_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_03_report",
+      "kind": "Knowledge",
+      "label": "The voice claims the southern shelter is open",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_03",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L17"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L17"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The voice claims the southern shelter is open",
+        "aboutId": "draft_apocalypse_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_apocalypse_03_edge_09"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_03_evidence",
+      "kind": "Knowledge",
+      "label": "Tower logs show the signal was replayed",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L17"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L17"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Tower logs show the signal was replayed",
+        "aboutId": "draft_apocalypse_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_apocalypse_03_edge_10",
+        "draft_apocalypse_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_04_entity",
+      "kind": "Entity",
+      "label": "salvage medics",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_04",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L18"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L18"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep antiseptic packs usable at quarry infirmary",
+        "stakes": "Scavengers strip the infirmary before an injury wave",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_apocalypse_04_edge_01",
+        "draft_apocalypse_04_edge_04",
+        "draft_apocalypse_04_edge_07"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_04_location",
+      "kind": "Location",
+      "label": "quarry infirmary",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_04",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L18"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L18"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_apocalypse_04_resource",
+        "conflict": "Scavengers strip the infirmary before an injury wave",
+        "risk": "Scavengers strip the infirmary before an injury wave"
+      },
+      "relations": [
+        "draft_apocalypse_04_edge_01",
+        "draft_apocalypse_04_edge_02",
+        "draft_apocalypse_04_edge_03",
+        "draft_apocalypse_04_edge_06"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_04_resource",
+      "kind": "Resource",
+      "label": "antiseptic packs",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_04",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L18"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L18"
+      ],
+      "proposal": {
+        "sourceId": "draft_apocalypse_04_location",
+        "scarcity": "Scavengers strip the infirmary before an injury wave",
+        "proposedUse": "Reserve packs by triage rule and return surplus",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_apocalypse_04_edge_02",
+        "draft_apocalypse_04_edge_05",
+        "draft_apocalypse_04_edge_08"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_04_pressure",
+      "kind": "Event",
+      "label": "Scavengers strip the infirmary before an injury wave",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_04",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L18"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L18"
+      ],
+      "proposal": {
+        "trigger": "Scavengers strip the infirmary before an injury wave",
+        "proposedEffect": "Changes access to antiseptic packs",
+        "effectTargetId": "draft_apocalypse_04_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_apocalypse_04_edge_03",
+        "draft_apocalypse_04_edge_04",
+        "draft_apocalypse_04_edge_05",
+        "draft_apocalypse_04_edge_09",
+        "draft_apocalypse_04_edge_10",
+        "draft_apocalypse_04_companion_edge_01",
+        "draft_apocalypse_04_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_04_response",
+      "kind": "Event",
+      "label": "Reserve packs by triage rule and return surplus",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_04",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L18"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L18"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Reserve packs by triage rule and return surplus",
+        "proposedEffect": "Reserve packs by triage rule and return surplus",
+        "effectTargetId": "draft_apocalypse_04_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_apocalypse_04_edge_06",
+        "draft_apocalypse_04_edge_07",
+        "draft_apocalypse_04_edge_08",
+        "draft_apocalypse_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_04_report",
+      "kind": "Knowledge",
+      "label": "A trader says no patients are due",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_04",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L18"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L18"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A trader says no patients are due",
+        "aboutId": "draft_apocalypse_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_apocalypse_04_edge_09"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_04_evidence",
+      "kind": "Knowledge",
+      "label": "Shift records predict the quarry crews' return",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L18"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L18"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Shift records predict the quarry crews' return",
+        "aboutId": "draft_apocalypse_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_apocalypse_04_edge_10",
+        "draft_apocalypse_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_05_entity",
+      "kind": "Entity",
+      "label": "bridge wardens",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_05",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L19"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L19"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep cable spools usable at broken-span crossing",
+        "stakes": "The only bridge can carry either refugees or fuel today",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_apocalypse_05_edge_01",
+        "draft_apocalypse_05_edge_04",
+        "draft_apocalypse_05_edge_07"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_05_location",
+      "kind": "Location",
+      "label": "broken-span crossing",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_05",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L19"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L19"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_apocalypse_05_resource",
+        "conflict": "The only bridge can carry either refugees or fuel today",
+        "risk": "The only bridge can carry either refugees or fuel today"
+      },
+      "relations": [
+        "draft_apocalypse_05_edge_01",
+        "draft_apocalypse_05_edge_02",
+        "draft_apocalypse_05_edge_03",
+        "draft_apocalypse_05_edge_06"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_05_resource",
+      "kind": "Resource",
+      "label": "cable spools",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_05",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L19"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L19"
+      ],
+      "proposal": {
+        "sourceId": "draft_apocalypse_05_location",
+        "scarcity": "The only bridge can carry either refugees or fuel today",
+        "proposedUse": "Reinforce a pedestrian lane and negotiate fuel later",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_apocalypse_05_edge_02",
+        "draft_apocalypse_05_edge_05",
+        "draft_apocalypse_05_edge_08"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_05_pressure",
+      "kind": "Event",
+      "label": "The only bridge can carry either refugees or fuel today",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_05",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L19"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L19"
+      ],
+      "proposal": {
+        "trigger": "The only bridge can carry either refugees or fuel today",
+        "proposedEffect": "Changes access to cable spools",
+        "effectTargetId": "draft_apocalypse_05_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_apocalypse_05_edge_03",
+        "draft_apocalypse_05_edge_04",
+        "draft_apocalypse_05_edge_05",
+        "draft_apocalypse_05_edge_09",
+        "draft_apocalypse_05_edge_10",
+        "draft_apocalypse_05_companion_edge_01",
+        "draft_apocalypse_05_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_05_response",
+      "kind": "Event",
+      "label": "Reinforce a pedestrian lane and negotiate fuel later",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_05",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L19"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L19"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Reinforce a pedestrian lane and negotiate fuel later",
+        "proposedEffect": "Reinforce a pedestrian lane and negotiate fuel later",
+        "effectTargetId": "draft_apocalypse_05_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_apocalypse_05_edge_06",
+        "draft_apocalypse_05_edge_07",
+        "draft_apocalypse_05_edge_08",
+        "draft_apocalypse_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_05_report",
+      "kind": "Knowledge",
+      "label": "A driver insists the span can take both loads",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_05",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L19"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L19"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A driver insists the span can take both loads",
+        "aboutId": "draft_apocalypse_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_apocalypse_05_edge_09"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_05_evidence",
+      "kind": "Knowledge",
+      "label": "Stress markers show a second heavy load would fail",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-a.txt#L19"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-a.txt#L19"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Stress markers show a second heavy load would fail",
+        "aboutId": "draft_apocalypse_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_apocalypse_05_edge_10",
+        "draft_apocalypse_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_01_counterparty",
+      "kind": "Entity",
+      "label": "cistern watch sergeant",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_01",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L12"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L12"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Prevent a panic draw that could empty the clean chamber",
+        "stakes": "A cracked roof contaminates the last measured water reserve",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_apocalypse_01_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_01_belief_holder",
+      "kind": "Entity",
+      "label": "queued families",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_01",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L12"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L12"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Every chamber is equally spoiled",
+        "stakes": "A cracked roof contaminates the last measured water reserve",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_apocalypse_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_01_evidence_site",
+      "kind": "Location",
+      "label": "roof runoff collection trough",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L12"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L12"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A cracked roof contaminates the last measured water reserve",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_apocalypse_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_01_alternative",
+      "kind": "Event",
+      "label": "Seal the cracked roof and issue water from sampled chambers only",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_01",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L12"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L12"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Seal the cracked roof and issue water from sampled chambers only",
+        "costAndConsequence": "Repair labor and cloth filters consume scarce supplies",
+        "alternativeToId": "draft_apocalypse_01_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_apocalypse_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_01_additional_belief",
+      "kind": "Knowledge",
+      "label": "Every chamber is equally spoiled",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_01",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L12"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L12"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Every chamber is equally spoiled",
+        "aboutId": "draft_apocalypse_01_pressure",
+        "holderId": "draft_apocalypse_01_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_apocalypse_01_companion_edge_02",
+        "draft_apocalypse_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_02_counterparty",
+      "kind": "Entity",
+      "label": "manifest forger",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_02",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L13"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L13"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Redirect planting seed into barter stock",
+        "stakes": "Raiders alter a manifest and redirect a planting convoy",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_apocalypse_02_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_02_belief_holder",
+      "kind": "Entity",
+      "label": "raider buyers",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_02",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L13"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L13"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Feed grain is interchangeable with planting seed",
+        "stakes": "Raiders alter a manifest and redirect a planting convoy",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_apocalypse_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_02_evidence_site",
+      "kind": "Location",
+      "label": "roadside seal station",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L13"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L13"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "Raiders alter a manifest and redirect a planting convoy",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_apocalypse_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_02_alternative",
+      "kind": "Event",
+      "label": "Escort the diverted carts back under farm ledger custody",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_02",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L13"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L13"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Escort the diverted carts back under farm ledger custody",
+        "costAndConsequence": "The return trip exposes escorts and delays sowing",
+        "alternativeToId": "draft_apocalypse_02_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_apocalypse_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_02_additional_belief",
+      "kind": "Knowledge",
+      "label": "Feed grain is interchangeable with planting seed",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_02",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L13"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L13"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Feed grain is interchangeable with planting seed",
+        "aboutId": "draft_apocalypse_02_pressure",
+        "holderId": "draft_apocalypse_02_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_apocalypse_02_companion_edge_02",
+        "draft_apocalypse_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_03_counterparty",
+      "kind": "Entity",
+      "label": "replay-tower technician",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_03",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L14"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L14"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Draw rival families away from northern stores",
+        "stakes": "A false evacuation call draws families into a dust storm",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_apocalypse_03_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_03_belief_holder",
+      "kind": "Entity",
+      "label": "radio listeners",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_03",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L14"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L14"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: A familiar voice guarantees a live warning",
+        "stakes": "A false evacuation call draws families into a dust storm",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_apocalypse_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_03_evidence_site",
+      "kind": "Location",
+      "label": "relay tower replay rack",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L14"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L14"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A false evacuation call draws families into a dust storm",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_apocalypse_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_03_alternative",
+      "kind": "Event",
+      "label": "Suspend radio evacuation calls until two shelters countersign them",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_03",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L14"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L14"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Suspend radio evacuation calls until two shelters countersign them",
+        "costAndConsequence": "Real urgent warnings travel slower",
+        "alternativeToId": "draft_apocalypse_03_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_apocalypse_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_03_additional_belief",
+      "kind": "Knowledge",
+      "label": "A familiar voice guarantees a live warning",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_03",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L14"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L14"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A familiar voice guarantees a live warning",
+        "aboutId": "draft_apocalypse_03_pressure",
+        "holderId": "draft_apocalypse_03_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_apocalypse_03_companion_edge_02",
+        "draft_apocalypse_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_04_counterparty",
+      "kind": "Entity",
+      "label": "infirmary salvage buyer",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_04",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L15"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L15"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Sell medical salvage before returning crews need it",
+        "stakes": "Scavengers strip the infirmary before an injury wave",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_apocalypse_04_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_04_belief_holder",
+      "kind": "Entity",
+      "label": "salvage traders",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_04",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L15"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L15"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Quarry injuries can wait until the next convoy",
+        "stakes": "Scavengers strip the infirmary before an injury wave",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_apocalypse_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_04_evidence_site",
+      "kind": "Location",
+      "label": "quarry shift muster board",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L15"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L15"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "Scavengers strip the infirmary before an injury wave",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_apocalypse_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_04_alternative",
+      "kind": "Event",
+      "label": "Exchange repair labor for the stripped supplies",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_04",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L15"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L15"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Exchange repair labor for the stripped supplies",
+        "costAndConsequence": "The medics surrender tools and delay other repairs",
+        "alternativeToId": "draft_apocalypse_04_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_apocalypse_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_04_additional_belief",
+      "kind": "Knowledge",
+      "label": "Quarry injuries can wait until the next convoy",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_04",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L15"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L15"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Quarry injuries can wait until the next convoy",
+        "aboutId": "draft_apocalypse_04_pressure",
+        "holderId": "draft_apocalypse_04_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_apocalypse_04_companion_edge_02",
+        "draft_apocalypse_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_05_counterparty",
+      "kind": "Entity",
+      "label": "fuel convoy captain",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_05",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L16"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L16"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Cross the bridge today before fuel spoils in the heat",
+        "stakes": "The only bridge can carry either refugees or fuel today",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_apocalypse_05_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_05_belief_holder",
+      "kind": "Entity",
+      "label": "convoy drivers",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_05",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L16"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L16"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Both full loads fit if drivers cross quickly",
+        "stakes": "The only bridge can carry either refugees or fuel today",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_apocalypse_05_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_05_evidence_site",
+      "kind": "Location",
+      "label": "bridge stress inspection pier",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L16"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L16"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "The only bridge can carry either refugees or fuel today",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_apocalypse_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_05_alternative",
+      "kind": "Event",
+      "label": "Split fuel into handcarts after refugee passage",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_05",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L16"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L16"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Split fuel into handcarts after refugee passage",
+        "costAndConsequence": "Fuel arrives late and exposed workers carry it",
+        "alternativeToId": "draft_apocalypse_05_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_apocalypse_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_apocalypse_05_additional_belief",
+      "kind": "Knowledge",
+      "label": "Both full loads fit if drivers cross quickly",
+      "scopeId": "motif_apocalypse",
+      "motifId": "apocalypse",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_apocalypse_05",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-a.txt#L16"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-a.txt#L16"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Both full loads fit if drivers cross quickly",
+        "aboutId": "draft_apocalypse_05_pressure",
+        "holderId": "draft_apocalypse_05_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_apocalypse_05_companion_edge_02",
+        "draft_apocalypse_05_companion_edge_03"
+      ]
+    }
+  ],
+  "structuralEdges": [
+    {
+      "id": "draft_apocalypse_01_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_apocalypse_01_entity",
+      "toId": "draft_apocalypse_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_01:entity>location"
+    },
+    {
+      "id": "draft_apocalypse_01_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_apocalypse_01_location",
+      "toId": "draft_apocalypse_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_01:location>resource"
+    },
+    {
+      "id": "draft_apocalypse_01_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_apocalypse_01_pressure",
+      "toId": "draft_apocalypse_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_01:pressure>location"
+    },
+    {
+      "id": "draft_apocalypse_01_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_apocalypse_01_pressure",
+      "toId": "draft_apocalypse_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_01:pressure>entity"
+    },
+    {
+      "id": "draft_apocalypse_01_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_apocalypse_01_pressure",
+      "toId": "draft_apocalypse_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_01:pressure>resource"
+    },
+    {
+      "id": "draft_apocalypse_01_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_apocalypse_01_response",
+      "toId": "draft_apocalypse_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_01:response>location"
+    },
+    {
+      "id": "draft_apocalypse_01_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_apocalypse_01_response",
+      "toId": "draft_apocalypse_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_01:response>entity"
+    },
+    {
+      "id": "draft_apocalypse_01_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_apocalypse_01_response",
+      "toId": "draft_apocalypse_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_01:response>resource"
+    },
+    {
+      "id": "draft_apocalypse_01_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_apocalypse_01_report",
+      "toId": "draft_apocalypse_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_01:report>pressure"
+    },
+    {
+      "id": "draft_apocalypse_01_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_apocalypse_01_evidence",
+      "toId": "draft_apocalypse_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_01:evidence>pressure"
+    },
+    {
+      "id": "draft_apocalypse_02_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_apocalypse_02_entity",
+      "toId": "draft_apocalypse_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_02:entity>location"
+    },
+    {
+      "id": "draft_apocalypse_02_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_apocalypse_02_location",
+      "toId": "draft_apocalypse_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_02:location>resource"
+    },
+    {
+      "id": "draft_apocalypse_02_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_apocalypse_02_pressure",
+      "toId": "draft_apocalypse_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_02:pressure>location"
+    },
+    {
+      "id": "draft_apocalypse_02_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_apocalypse_02_pressure",
+      "toId": "draft_apocalypse_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_02:pressure>entity"
+    },
+    {
+      "id": "draft_apocalypse_02_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_apocalypse_02_pressure",
+      "toId": "draft_apocalypse_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_02:pressure>resource"
+    },
+    {
+      "id": "draft_apocalypse_02_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_apocalypse_02_response",
+      "toId": "draft_apocalypse_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_02:response>location"
+    },
+    {
+      "id": "draft_apocalypse_02_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_apocalypse_02_response",
+      "toId": "draft_apocalypse_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_02:response>entity"
+    },
+    {
+      "id": "draft_apocalypse_02_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_apocalypse_02_response",
+      "toId": "draft_apocalypse_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_02:response>resource"
+    },
+    {
+      "id": "draft_apocalypse_02_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_apocalypse_02_report",
+      "toId": "draft_apocalypse_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_02:report>pressure"
+    },
+    {
+      "id": "draft_apocalypse_02_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_apocalypse_02_evidence",
+      "toId": "draft_apocalypse_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_02:evidence>pressure"
+    },
+    {
+      "id": "draft_apocalypse_03_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_apocalypse_03_entity",
+      "toId": "draft_apocalypse_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_03:entity>location"
+    },
+    {
+      "id": "draft_apocalypse_03_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_apocalypse_03_location",
+      "toId": "draft_apocalypse_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_03:location>resource"
+    },
+    {
+      "id": "draft_apocalypse_03_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_apocalypse_03_pressure",
+      "toId": "draft_apocalypse_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_03:pressure>location"
+    },
+    {
+      "id": "draft_apocalypse_03_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_apocalypse_03_pressure",
+      "toId": "draft_apocalypse_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_03:pressure>entity"
+    },
+    {
+      "id": "draft_apocalypse_03_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_apocalypse_03_pressure",
+      "toId": "draft_apocalypse_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_03:pressure>resource"
+    },
+    {
+      "id": "draft_apocalypse_03_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_apocalypse_03_response",
+      "toId": "draft_apocalypse_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_03:response>location"
+    },
+    {
+      "id": "draft_apocalypse_03_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_apocalypse_03_response",
+      "toId": "draft_apocalypse_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_03:response>entity"
+    },
+    {
+      "id": "draft_apocalypse_03_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_apocalypse_03_response",
+      "toId": "draft_apocalypse_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_03:response>resource"
+    },
+    {
+      "id": "draft_apocalypse_03_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_apocalypse_03_report",
+      "toId": "draft_apocalypse_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_03:report>pressure"
+    },
+    {
+      "id": "draft_apocalypse_03_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_apocalypse_03_evidence",
+      "toId": "draft_apocalypse_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_03:evidence>pressure"
+    },
+    {
+      "id": "draft_apocalypse_04_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_apocalypse_04_entity",
+      "toId": "draft_apocalypse_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_04:entity>location"
+    },
+    {
+      "id": "draft_apocalypse_04_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_apocalypse_04_location",
+      "toId": "draft_apocalypse_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_04:location>resource"
+    },
+    {
+      "id": "draft_apocalypse_04_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_apocalypse_04_pressure",
+      "toId": "draft_apocalypse_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_04:pressure>location"
+    },
+    {
+      "id": "draft_apocalypse_04_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_apocalypse_04_pressure",
+      "toId": "draft_apocalypse_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_04:pressure>entity"
+    },
+    {
+      "id": "draft_apocalypse_04_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_apocalypse_04_pressure",
+      "toId": "draft_apocalypse_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_04:pressure>resource"
+    },
+    {
+      "id": "draft_apocalypse_04_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_apocalypse_04_response",
+      "toId": "draft_apocalypse_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_04:response>location"
+    },
+    {
+      "id": "draft_apocalypse_04_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_apocalypse_04_response",
+      "toId": "draft_apocalypse_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_04:response>entity"
+    },
+    {
+      "id": "draft_apocalypse_04_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_apocalypse_04_response",
+      "toId": "draft_apocalypse_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_04:response>resource"
+    },
+    {
+      "id": "draft_apocalypse_04_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_apocalypse_04_report",
+      "toId": "draft_apocalypse_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_04:report>pressure"
+    },
+    {
+      "id": "draft_apocalypse_04_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_apocalypse_04_evidence",
+      "toId": "draft_apocalypse_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_04:evidence>pressure"
+    },
+    {
+      "id": "draft_apocalypse_05_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_apocalypse_05_entity",
+      "toId": "draft_apocalypse_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_05:entity>location"
+    },
+    {
+      "id": "draft_apocalypse_05_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_apocalypse_05_location",
+      "toId": "draft_apocalypse_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_05:location>resource"
+    },
+    {
+      "id": "draft_apocalypse_05_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_apocalypse_05_pressure",
+      "toId": "draft_apocalypse_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_05:pressure>location"
+    },
+    {
+      "id": "draft_apocalypse_05_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_apocalypse_05_pressure",
+      "toId": "draft_apocalypse_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_05:pressure>entity"
+    },
+    {
+      "id": "draft_apocalypse_05_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_apocalypse_05_pressure",
+      "toId": "draft_apocalypse_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_05:pressure>resource"
+    },
+    {
+      "id": "draft_apocalypse_05_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_apocalypse_05_response",
+      "toId": "draft_apocalypse_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_05:response>location"
+    },
+    {
+      "id": "draft_apocalypse_05_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_apocalypse_05_response",
+      "toId": "draft_apocalypse_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_05:response>entity"
+    },
+    {
+      "id": "draft_apocalypse_05_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_apocalypse_05_response",
+      "toId": "draft_apocalypse_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_05:response>resource"
+    },
+    {
+      "id": "draft_apocalypse_05_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_apocalypse_05_report",
+      "toId": "draft_apocalypse_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_05:report>pressure"
+    },
+    {
+      "id": "draft_apocalypse_05_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_apocalypse_05_evidence",
+      "toId": "draft_apocalypse_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_apocalypse_05:evidence>pressure"
+    },
+    {
+      "id": "draft_apocalypse_01_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_apocalypse_01_pressure",
+      "toId": "draft_apocalypse_01_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L12"
+    },
+    {
+      "id": "draft_apocalypse_01_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_apocalypse_01_additional_belief",
+      "toId": "draft_apocalypse_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L12"
+    },
+    {
+      "id": "draft_apocalypse_01_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_apocalypse_01_additional_belief",
+      "toId": "draft_apocalypse_01_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L12"
+    },
+    {
+      "id": "draft_apocalypse_01_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_apocalypse_01_evidence_site",
+      "toId": "draft_apocalypse_01_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L12"
+    },
+    {
+      "id": "draft_apocalypse_01_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_apocalypse_01_alternative",
+      "toId": "draft_apocalypse_01_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L12"
+    },
+    {
+      "id": "draft_apocalypse_02_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_apocalypse_02_pressure",
+      "toId": "draft_apocalypse_02_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L13"
+    },
+    {
+      "id": "draft_apocalypse_02_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_apocalypse_02_additional_belief",
+      "toId": "draft_apocalypse_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L13"
+    },
+    {
+      "id": "draft_apocalypse_02_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_apocalypse_02_additional_belief",
+      "toId": "draft_apocalypse_02_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L13"
+    },
+    {
+      "id": "draft_apocalypse_02_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_apocalypse_02_evidence_site",
+      "toId": "draft_apocalypse_02_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L13"
+    },
+    {
+      "id": "draft_apocalypse_02_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_apocalypse_02_alternative",
+      "toId": "draft_apocalypse_02_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L13"
+    },
+    {
+      "id": "draft_apocalypse_03_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_apocalypse_03_pressure",
+      "toId": "draft_apocalypse_03_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L14"
+    },
+    {
+      "id": "draft_apocalypse_03_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_apocalypse_03_additional_belief",
+      "toId": "draft_apocalypse_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L14"
+    },
+    {
+      "id": "draft_apocalypse_03_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_apocalypse_03_additional_belief",
+      "toId": "draft_apocalypse_03_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L14"
+    },
+    {
+      "id": "draft_apocalypse_03_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_apocalypse_03_evidence_site",
+      "toId": "draft_apocalypse_03_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L14"
+    },
+    {
+      "id": "draft_apocalypse_03_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_apocalypse_03_alternative",
+      "toId": "draft_apocalypse_03_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L14"
+    },
+    {
+      "id": "draft_apocalypse_04_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_apocalypse_04_pressure",
+      "toId": "draft_apocalypse_04_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L15"
+    },
+    {
+      "id": "draft_apocalypse_04_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_apocalypse_04_additional_belief",
+      "toId": "draft_apocalypse_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L15"
+    },
+    {
+      "id": "draft_apocalypse_04_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_apocalypse_04_additional_belief",
+      "toId": "draft_apocalypse_04_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L15"
+    },
+    {
+      "id": "draft_apocalypse_04_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_apocalypse_04_evidence_site",
+      "toId": "draft_apocalypse_04_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L15"
+    },
+    {
+      "id": "draft_apocalypse_04_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_apocalypse_04_alternative",
+      "toId": "draft_apocalypse_04_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L15"
+    },
+    {
+      "id": "draft_apocalypse_05_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_apocalypse_05_pressure",
+      "toId": "draft_apocalypse_05_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L16"
+    },
+    {
+      "id": "draft_apocalypse_05_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_apocalypse_05_additional_belief",
+      "toId": "draft_apocalypse_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L16"
+    },
+    {
+      "id": "draft_apocalypse_05_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_apocalypse_05_additional_belief",
+      "toId": "draft_apocalypse_05_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L16"
+    },
+    {
+      "id": "draft_apocalypse_05_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_apocalypse_05_evidence_site",
+      "toId": "draft_apocalypse_05_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L16"
+    },
+    {
+      "id": "draft_apocalypse_05_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_apocalypse_05_alternative",
+      "toId": "draft_apocalypse_05_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-a.txt#L16"
+    }
+  ],
+  "proposedCausalLinks": [
+    {
+      "id": "draft_apocalypse_01_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_apocalypse_01_pressure",
+      "toId": "draft_apocalypse_01_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_apocalypse_01_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_apocalypse_01_evidence",
+      "toId": "draft_apocalypse_01_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_apocalypse_02_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_apocalypse_02_pressure",
+      "toId": "draft_apocalypse_02_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_apocalypse_02_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_apocalypse_02_evidence",
+      "toId": "draft_apocalypse_02_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_apocalypse_03_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_apocalypse_03_pressure",
+      "toId": "draft_apocalypse_03_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_apocalypse_03_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_apocalypse_03_evidence",
+      "toId": "draft_apocalypse_03_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_apocalypse_04_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_apocalypse_04_pressure",
+      "toId": "draft_apocalypse_04_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_apocalypse_04_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_apocalypse_04_evidence",
+      "toId": "draft_apocalypse_04_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_apocalypse_05_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_apocalypse_05_pressure",
+      "toId": "draft_apocalypse_05_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_apocalypse_05_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_apocalypse_05_evidence",
+      "toId": "draft_apocalypse_05_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    }
+  ]
+}

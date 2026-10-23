@@ -1,0 +1,3084 @@
+{
+  "schema": "world-node-drafts/v1",
+  "status": "Draft",
+  "runtime": false,
+  "scope": {
+    "id": "motif_gate",
+    "label": "게이트",
+    "kind": "genre-or-structure proposal; not a world definition"
+  },
+  "canonImpact": "none; no Draft item is accepted game setting",
+  "sourceRefs": [
+    "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+    "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+    "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft"
+  ],
+  "fronts": [
+    {
+      "id": "draft_gate_01",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A gate flickers while traders are still being admitted",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A gate flickers while traders are still being admitted",
+      "authoredIntervention": "Close entry and publish a measured reopening threshold",
+      "initialReport": "The authority calls flicker harmless weather",
+      "verificationCandidate": "Meter traces show widening gaps",
+      "alternativeInterventions": "Pause admissions for a measured stability window",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied",
+        "Threshold connection law unresolved"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L33",
+        "docs/v2/world-node-drafts/companion-b.txt#L27"
+      ],
+      "semanticSignature": "a gate flickers while traders are still being admitted close entry and publish a measured reopening threshold stability meters the authority calls flicker harmless weather meter traces show widening gaps",
+      "nodeIds": [
+        "draft_gate_01_entity",
+        "draft_gate_01_location",
+        "draft_gate_01_resource",
+        "draft_gate_01_pressure",
+        "draft_gate_01_response",
+        "draft_gate_01_report",
+        "draft_gate_01_evidence",
+        "draft_gate_01_counterparty",
+        "draft_gate_01_belief_holder",
+        "draft_gate_01_evidence_site",
+        "draft_gate_01_alternative",
+        "draft_gate_01_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Perishables queue and traders lose sales",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_gate_01_counterparty",
+        "evidenceSiteId": "draft_gate_01_evidence_site",
+        "alternativeEventId": "draft_gate_01_alternative",
+        "additionalBeliefId": "draft_gate_01_additional_belief",
+        "beliefHolderId": "draft_gate_01_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L27"
+      }
+    },
+    {
+      "id": "draft_gate_02",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "Empty crates fail to return and food cannot cross",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "Empty crates fail to return and food cannot cross",
+      "authoredIntervention": "Track crate ownership and reward returns",
+      "initialReport": "The depot blames porters for losses",
+      "verificationCandidate": "Gate logs show crates held beyond the crossing",
+      "alternativeInterventions": "Issue numbered return tokens for each crate",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied",
+        "Threshold connection law unresolved"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L34",
+        "docs/v2/world-node-drafts/companion-b.txt#L28"
+      ],
+      "semanticSignature": "empty crates fail to return and food cannot cross track crate ownership and reward returns return crates the depot blames porters for losses gate logs show crates held beyond the crossing",
+      "nodeIds": [
+        "draft_gate_02_entity",
+        "draft_gate_02_location",
+        "draft_gate_02_resource",
+        "draft_gate_02_pressure",
+        "draft_gate_02_response",
+        "draft_gate_02_report",
+        "draft_gate_02_evidence",
+        "draft_gate_02_counterparty",
+        "draft_gate_02_belief_holder",
+        "draft_gate_02_evidence_site",
+        "draft_gate_02_alternative",
+        "draft_gate_02_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Crossings slow and the depot must audit tokens",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_gate_02_counterparty",
+        "evidenceSiteId": "draft_gate_02_evidence_site",
+        "alternativeEventId": "draft_gate_02_alternative",
+        "additionalBeliefId": "draft_gate_02_additional_belief",
+        "beliefHolderId": "draft_gate_02_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L28"
+      }
+    },
+    {
+      "id": "draft_gate_03",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "A traveler carries spores that bloom only after crossing",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "A traveler carries spores that bloom only after crossing",
+      "authoredIntervention": "Isolate the cargo while preserving the traveler's account",
+      "initialReport": "Guards say every arrival is contaminated",
+      "verificationCandidate": "Sealed samples isolate one shipment",
+      "alternativeInterventions": "Quarantine the matched shipment and monitor contacts",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied",
+        "Threshold connection law unresolved"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L35",
+        "docs/v2/world-node-drafts/companion-b.txt#L29"
+      ],
+      "semanticSignature": "a traveler carries spores that bloom only after crossing isolate the cargo while preserving the traveler s account sample seals guards say every arrival is contaminated sealed samples isolate one shipment",
+      "nodeIds": [
+        "draft_gate_03_entity",
+        "draft_gate_03_location",
+        "draft_gate_03_resource",
+        "draft_gate_03_pressure",
+        "draft_gate_03_response",
+        "draft_gate_03_report",
+        "draft_gate_03_evidence",
+        "draft_gate_03_counterparty",
+        "draft_gate_03_belief_holder",
+        "draft_gate_03_evidence_site",
+        "draft_gate_03_alternative",
+        "draft_gate_03_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Some travelers remain waiting and observers expend supplies",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_gate_03_counterparty",
+        "evidenceSiteId": "draft_gate_03_evidence_site",
+        "alternativeEventId": "draft_gate_03_alternative",
+        "additionalBeliefId": "draft_gate_03_additional_belief",
+        "beliefHolderId": "draft_gate_03_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L29"
+      }
+    },
+    {
+      "id": "draft_gate_04",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "The exit path shifts after each gate surge",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "The exit path shifts after each gate surge",
+      "authoredIntervention": "Mark surge times and guide only within a stable window",
+      "initialReport": "Old maps say the exit never shifts",
+      "verificationCandidate": "Paired surveys show the post-surge offset",
+      "alternativeInterventions": "Post temporary route markers after each surge",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied",
+        "Threshold connection law unresolved"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L36",
+        "docs/v2/world-node-drafts/companion-b.txt#L30"
+      ],
+      "semanticSignature": "the exit path shifts after each gate surge mark surge times and guide only within a stable window survey flags old maps say the exit never shifts paired surveys show the post surge offset",
+      "nodeIds": [
+        "draft_gate_04_entity",
+        "draft_gate_04_location",
+        "draft_gate_04_resource",
+        "draft_gate_04_pressure",
+        "draft_gate_04_response",
+        "draft_gate_04_report",
+        "draft_gate_04_evidence",
+        "draft_gate_04_counterparty",
+        "draft_gate_04_belief_holder",
+        "draft_gate_04_evidence_site",
+        "draft_gate_04_alternative",
+        "draft_gate_04_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Surveyors risk repeated crossings and maps age quickly",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_gate_04_counterparty",
+        "evidenceSiteId": "draft_gate_04_evidence_site",
+        "alternativeEventId": "draft_gate_04_alternative",
+        "additionalBeliefId": "draft_gate_04_additional_belief",
+        "beliefHolderId": "draft_gate_04_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L30"
+      }
+    },
+    {
+      "id": "draft_gate_05",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "pressure": "One side treats a transit stamp as a land claim",
+        "priorWorldHistory": "unasserted"
+      },
+      "pressure": "One side treats a transit stamp as a land claim",
+      "authoredIntervention": "Suspend stamping and rewrite the permitted use",
+      "initialReport": "The other side calls it harmless paperwork",
+      "verificationCandidate": "A border order cites the stamp as title",
+      "alternativeInterventions": "Replace ambiguous stamps with a non-title transit receipt",
+      "costAndDurableOutcome": "unassigned; not counted as authored",
+      "assumptionFlags": [
+        "No new Canon",
+        "No runtime rule or world travel is implied",
+        "Threshold connection law unresolved"
+      ],
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L37",
+        "docs/v2/world-node-drafts/companion-b.txt#L31"
+      ],
+      "semanticSignature": "one side treats a transit stamp as a land claim suspend stamping and rewrite the permitted use passage stamps the other side calls it harmless paperwork a border order cites the stamp as title",
+      "nodeIds": [
+        "draft_gate_05_entity",
+        "draft_gate_05_location",
+        "draft_gate_05_resource",
+        "draft_gate_05_pressure",
+        "draft_gate_05_response",
+        "draft_gate_05_report",
+        "draft_gate_05_evidence",
+        "draft_gate_05_counterparty",
+        "draft_gate_05_belief_holder",
+        "draft_gate_05_evidence_site",
+        "draft_gate_05_alternative",
+        "draft_gate_05_additional_belief"
+      ],
+      "authoredAlternativeTradeoff": "Crossings pause while both authorities agree on wording",
+      "durableOutcomeStatus": "unassigned",
+      "companion": {
+        "counterpartyId": "draft_gate_05_counterparty",
+        "evidenceSiteId": "draft_gate_05_evidence_site",
+        "alternativeEventId": "draft_gate_05_alternative",
+        "additionalBeliefId": "draft_gate_05_additional_belief",
+        "beliefHolderId": "draft_gate_05_belief_holder",
+        "sourceRef": "docs/v2/world-node-drafts/companion-b.txt#L31"
+      }
+    }
+  ],
+  "nodes": [
+    {
+      "id": "draft_gate_01_entity",
+      "kind": "Entity",
+      "label": "crossing authority",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_01",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L33"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L33"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep stability meters usable at gate customs ring",
+        "stakes": "A gate flickers while traders are still being admitted",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_gate_01_edge_01",
+        "draft_gate_01_edge_04",
+        "draft_gate_01_edge_07"
+      ]
+    },
+    {
+      "id": "draft_gate_01_location",
+      "kind": "Location",
+      "label": "gate customs ring",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_01",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L33"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L33"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_gate_01_resource",
+        "conflict": "A gate flickers while traders are still being admitted",
+        "risk": "A gate flickers while traders are still being admitted"
+      },
+      "relations": [
+        "draft_gate_01_edge_01",
+        "draft_gate_01_edge_02",
+        "draft_gate_01_edge_03",
+        "draft_gate_01_edge_06"
+      ]
+    },
+    {
+      "id": "draft_gate_01_resource",
+      "kind": "Resource",
+      "label": "stability meters",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_01",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L33"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L33"
+      ],
+      "proposal": {
+        "sourceId": "draft_gate_01_location",
+        "scarcity": "A gate flickers while traders are still being admitted",
+        "proposedUse": "Close entry and publish a measured reopening threshold",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_gate_01_edge_02",
+        "draft_gate_01_edge_05",
+        "draft_gate_01_edge_08"
+      ]
+    },
+    {
+      "id": "draft_gate_01_pressure",
+      "kind": "Event",
+      "label": "A gate flickers while traders are still being admitted",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_01",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L33"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L33"
+      ],
+      "proposal": {
+        "trigger": "A gate flickers while traders are still being admitted",
+        "proposedEffect": "Changes access to stability meters",
+        "effectTargetId": "draft_gate_01_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_gate_01_edge_03",
+        "draft_gate_01_edge_04",
+        "draft_gate_01_edge_05",
+        "draft_gate_01_edge_09",
+        "draft_gate_01_edge_10",
+        "draft_gate_01_companion_edge_01",
+        "draft_gate_01_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_gate_01_response",
+      "kind": "Event",
+      "label": "Close entry and publish a measured reopening threshold",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_01",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L33"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L33"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Close entry and publish a measured reopening threshold",
+        "proposedEffect": "Close entry and publish a measured reopening threshold",
+        "effectTargetId": "draft_gate_01_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_gate_01_edge_06",
+        "draft_gate_01_edge_07",
+        "draft_gate_01_edge_08",
+        "draft_gate_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_gate_01_report",
+      "kind": "Knowledge",
+      "label": "The authority calls flicker harmless weather",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_01",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L33"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L33"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The authority calls flicker harmless weather",
+        "aboutId": "draft_gate_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_gate_01_edge_09"
+      ]
+    },
+    {
+      "id": "draft_gate_01_evidence",
+      "kind": "Knowledge",
+      "label": "Meter traces show widening gaps",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L33"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L33"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Meter traces show widening gaps",
+        "aboutId": "draft_gate_01_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_gate_01_edge_10",
+        "draft_gate_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_gate_02_entity",
+      "kind": "Entity",
+      "label": "supply porters",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_02",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L34"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L34"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep return crates usable at gate-side depot",
+        "stakes": "Empty crates fail to return and food cannot cross",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_gate_02_edge_01",
+        "draft_gate_02_edge_04",
+        "draft_gate_02_edge_07"
+      ]
+    },
+    {
+      "id": "draft_gate_02_location",
+      "kind": "Location",
+      "label": "gate-side depot",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_02",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L34"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L34"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_gate_02_resource",
+        "conflict": "Empty crates fail to return and food cannot cross",
+        "risk": "Empty crates fail to return and food cannot cross"
+      },
+      "relations": [
+        "draft_gate_02_edge_01",
+        "draft_gate_02_edge_02",
+        "draft_gate_02_edge_03",
+        "draft_gate_02_edge_06"
+      ]
+    },
+    {
+      "id": "draft_gate_02_resource",
+      "kind": "Resource",
+      "label": "return crates",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_02",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L34"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L34"
+      ],
+      "proposal": {
+        "sourceId": "draft_gate_02_location",
+        "scarcity": "Empty crates fail to return and food cannot cross",
+        "proposedUse": "Track crate ownership and reward returns",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_gate_02_edge_02",
+        "draft_gate_02_edge_05",
+        "draft_gate_02_edge_08"
+      ]
+    },
+    {
+      "id": "draft_gate_02_pressure",
+      "kind": "Event",
+      "label": "Empty crates fail to return and food cannot cross",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_02",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L34"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L34"
+      ],
+      "proposal": {
+        "trigger": "Empty crates fail to return and food cannot cross",
+        "proposedEffect": "Changes access to return crates",
+        "effectTargetId": "draft_gate_02_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_gate_02_edge_03",
+        "draft_gate_02_edge_04",
+        "draft_gate_02_edge_05",
+        "draft_gate_02_edge_09",
+        "draft_gate_02_edge_10",
+        "draft_gate_02_companion_edge_01",
+        "draft_gate_02_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_gate_02_response",
+      "kind": "Event",
+      "label": "Track crate ownership and reward returns",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_02",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L34"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L34"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Track crate ownership and reward returns",
+        "proposedEffect": "Track crate ownership and reward returns",
+        "effectTargetId": "draft_gate_02_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_gate_02_edge_06",
+        "draft_gate_02_edge_07",
+        "draft_gate_02_edge_08",
+        "draft_gate_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_gate_02_report",
+      "kind": "Knowledge",
+      "label": "The depot blames porters for losses",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_02",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L34"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L34"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The depot blames porters for losses",
+        "aboutId": "draft_gate_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_gate_02_edge_09"
+      ]
+    },
+    {
+      "id": "draft_gate_02_evidence",
+      "kind": "Knowledge",
+      "label": "Gate logs show crates held beyond the crossing",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L34"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L34"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Gate logs show crates held beyond the crossing",
+        "aboutId": "draft_gate_02_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_gate_02_edge_10",
+        "draft_gate_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_gate_03_entity",
+      "kind": "Entity",
+      "label": "quarantine observers",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_03",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L35"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L35"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep sample seals usable at arrival chamber",
+        "stakes": "A traveler carries spores that bloom only after crossing",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_gate_03_edge_01",
+        "draft_gate_03_edge_04",
+        "draft_gate_03_edge_07"
+      ]
+    },
+    {
+      "id": "draft_gate_03_location",
+      "kind": "Location",
+      "label": "arrival chamber",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_03",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L35"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L35"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_gate_03_resource",
+        "conflict": "A traveler carries spores that bloom only after crossing",
+        "risk": "A traveler carries spores that bloom only after crossing"
+      },
+      "relations": [
+        "draft_gate_03_edge_01",
+        "draft_gate_03_edge_02",
+        "draft_gate_03_edge_03",
+        "draft_gate_03_edge_06"
+      ]
+    },
+    {
+      "id": "draft_gate_03_resource",
+      "kind": "Resource",
+      "label": "sample seals",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_03",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L35"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L35"
+      ],
+      "proposal": {
+        "sourceId": "draft_gate_03_location",
+        "scarcity": "A traveler carries spores that bloom only after crossing",
+        "proposedUse": "Isolate the cargo while preserving the traveler's account",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_gate_03_edge_02",
+        "draft_gate_03_edge_05",
+        "draft_gate_03_edge_08"
+      ]
+    },
+    {
+      "id": "draft_gate_03_pressure",
+      "kind": "Event",
+      "label": "A traveler carries spores that bloom only after crossing",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_03",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L35"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L35"
+      ],
+      "proposal": {
+        "trigger": "A traveler carries spores that bloom only after crossing",
+        "proposedEffect": "Changes access to sample seals",
+        "effectTargetId": "draft_gate_03_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_gate_03_edge_03",
+        "draft_gate_03_edge_04",
+        "draft_gate_03_edge_05",
+        "draft_gate_03_edge_09",
+        "draft_gate_03_edge_10",
+        "draft_gate_03_companion_edge_01",
+        "draft_gate_03_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_gate_03_response",
+      "kind": "Event",
+      "label": "Isolate the cargo while preserving the traveler's account",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_03",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L35"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L35"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Isolate the cargo while preserving the traveler's account",
+        "proposedEffect": "Isolate the cargo while preserving the traveler's account",
+        "effectTargetId": "draft_gate_03_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_gate_03_edge_06",
+        "draft_gate_03_edge_07",
+        "draft_gate_03_edge_08",
+        "draft_gate_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_gate_03_report",
+      "kind": "Knowledge",
+      "label": "Guards say every arrival is contaminated",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_03",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L35"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L35"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Guards say every arrival is contaminated",
+        "aboutId": "draft_gate_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_gate_03_edge_09"
+      ]
+    },
+    {
+      "id": "draft_gate_03_evidence",
+      "kind": "Knowledge",
+      "label": "Sealed samples isolate one shipment",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L35"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L35"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Sealed samples isolate one shipment",
+        "aboutId": "draft_gate_03_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_gate_03_edge_10",
+        "draft_gate_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_gate_04_entity",
+      "kind": "Entity",
+      "label": "mapping collective",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_04",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L36"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L36"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep survey flags usable at threshold marker field",
+        "stakes": "The exit path shifts after each gate surge",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_gate_04_edge_01",
+        "draft_gate_04_edge_04",
+        "draft_gate_04_edge_07"
+      ]
+    },
+    {
+      "id": "draft_gate_04_location",
+      "kind": "Location",
+      "label": "threshold marker field",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_04",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L36"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L36"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_gate_04_resource",
+        "conflict": "The exit path shifts after each gate surge",
+        "risk": "The exit path shifts after each gate surge"
+      },
+      "relations": [
+        "draft_gate_04_edge_01",
+        "draft_gate_04_edge_02",
+        "draft_gate_04_edge_03",
+        "draft_gate_04_edge_06"
+      ]
+    },
+    {
+      "id": "draft_gate_04_resource",
+      "kind": "Resource",
+      "label": "survey flags",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_04",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L36"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L36"
+      ],
+      "proposal": {
+        "sourceId": "draft_gate_04_location",
+        "scarcity": "The exit path shifts after each gate surge",
+        "proposedUse": "Mark surge times and guide only within a stable window",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_gate_04_edge_02",
+        "draft_gate_04_edge_05",
+        "draft_gate_04_edge_08"
+      ]
+    },
+    {
+      "id": "draft_gate_04_pressure",
+      "kind": "Event",
+      "label": "The exit path shifts after each gate surge",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_04",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L36"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L36"
+      ],
+      "proposal": {
+        "trigger": "The exit path shifts after each gate surge",
+        "proposedEffect": "Changes access to survey flags",
+        "effectTargetId": "draft_gate_04_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_gate_04_edge_03",
+        "draft_gate_04_edge_04",
+        "draft_gate_04_edge_05",
+        "draft_gate_04_edge_09",
+        "draft_gate_04_edge_10",
+        "draft_gate_04_companion_edge_01",
+        "draft_gate_04_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_gate_04_response",
+      "kind": "Event",
+      "label": "Mark surge times and guide only within a stable window",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_04",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L36"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L36"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Mark surge times and guide only within a stable window",
+        "proposedEffect": "Mark surge times and guide only within a stable window",
+        "effectTargetId": "draft_gate_04_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_gate_04_edge_06",
+        "draft_gate_04_edge_07",
+        "draft_gate_04_edge_08",
+        "draft_gate_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_gate_04_report",
+      "kind": "Knowledge",
+      "label": "Old maps say the exit never shifts",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_04",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L36"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L36"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Old maps say the exit never shifts",
+        "aboutId": "draft_gate_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_gate_04_edge_09"
+      ]
+    },
+    {
+      "id": "draft_gate_04_evidence",
+      "kind": "Knowledge",
+      "label": "Paired surveys show the post-surge offset",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L36"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L36"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "Paired surveys show the post-surge offset",
+        "aboutId": "draft_gate_04_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_gate_04_edge_10",
+        "draft_gate_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_gate_05_entity",
+      "kind": "Entity",
+      "label": "treaty clerks",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_05",
+        "stage": "participant",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L37"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L37"
+      ],
+      "proposal": {
+        "subtype": "proposed_actor_or_collective",
+        "identityKind": "unassigned",
+        "goal": "Keep passage stamps usable at two-side parley booth",
+        "stakes": "One side treats a transit stamp as a land claim",
+        "agency": "proposed; individual members not instantiated"
+      },
+      "relations": [
+        "draft_gate_05_edge_01",
+        "draft_gate_05_edge_04",
+        "draft_gate_05_edge_07"
+      ]
+    },
+    {
+      "id": "draft_gate_05_location",
+      "kind": "Location",
+      "label": "two-side parley booth",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_05",
+        "stage": "setting",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L37"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L37"
+      ],
+      "proposal": {
+        "access": "unassigned; requires world-specific design",
+        "resourceId": "draft_gate_05_resource",
+        "conflict": "One side treats a transit stamp as a land claim",
+        "risk": "One side treats a transit stamp as a land claim"
+      },
+      "relations": [
+        "draft_gate_05_edge_01",
+        "draft_gate_05_edge_02",
+        "draft_gate_05_edge_03",
+        "draft_gate_05_edge_06"
+      ]
+    },
+    {
+      "id": "draft_gate_05_resource",
+      "kind": "Resource",
+      "label": "passage stamps",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_05",
+        "stage": "material",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L37"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L37"
+      ],
+      "proposal": {
+        "sourceId": "draft_gate_05_location",
+        "scarcity": "One side treats a transit stamp as a land claim",
+        "proposedUse": "Suspend stamping and rewrite the permitted use",
+        "unit": "unassigned",
+        "renewal": "unassigned"
+      },
+      "relations": [
+        "draft_gate_05_edge_02",
+        "draft_gate_05_edge_05",
+        "draft_gate_05_edge_08"
+      ]
+    },
+    {
+      "id": "draft_gate_05_pressure",
+      "kind": "Event",
+      "label": "One side treats a transit stamp as a land claim",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_05",
+        "stage": "pressure",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L37"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L37"
+      ],
+      "proposal": {
+        "trigger": "One side treats a transit stamp as a land claim",
+        "proposedEffect": "Changes access to passage stamps",
+        "effectTargetId": "draft_gate_05_resource",
+        "magnitude": "unassigned",
+        "autonomous": "possible; not implemented"
+      },
+      "relations": [
+        "draft_gate_05_edge_03",
+        "draft_gate_05_edge_04",
+        "draft_gate_05_edge_05",
+        "draft_gate_05_edge_09",
+        "draft_gate_05_edge_10",
+        "draft_gate_05_companion_edge_01",
+        "draft_gate_05_companion_edge_02"
+      ]
+    },
+    {
+      "id": "draft_gate_05_response",
+      "kind": "Event",
+      "label": "Suspend stamping and rewrite the permitted use",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_05",
+        "stage": "intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L37"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L37"
+      ],
+      "proposal": {
+        "trigger": "Player chooses: Suspend stamping and rewrite the permitted use",
+        "proposedEffect": "Suspend stamping and rewrite the permitted use",
+        "effectTargetId": "draft_gate_05_resource",
+        "cost": "unassigned",
+        "durableOutcome": "unassigned",
+        "alternatives": "unassigned; one authored intervention in seed"
+      },
+      "relations": [
+        "draft_gate_05_edge_06",
+        "draft_gate_05_edge_07",
+        "draft_gate_05_edge_08",
+        "draft_gate_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_gate_05_report",
+      "kind": "Knowledge",
+      "label": "The other side calls it harmless paperwork",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_05",
+        "stage": "initial_report",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L37"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L37"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "The other side calls it harmless paperwork",
+        "aboutId": "draft_gate_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_gate_05_edge_09"
+      ]
+    },
+    {
+      "id": "draft_gate_05_evidence",
+      "kind": "Knowledge",
+      "label": "A border order cites the stamp as title",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/catalog-b.txt#L37"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/catalog-b.txt#L37"
+      ],
+      "proposal": {
+        "subtype": "evidence_candidate",
+        "truthStatus": "proposed_observation",
+        "claim": "A border order cites the stamp as title",
+        "aboutId": "draft_gate_05_pressure",
+        "holderId": null,
+        "sourceId": null,
+        "observedAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_gate_05_edge_10",
+        "draft_gate_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_gate_01_counterparty",
+      "kind": "Entity",
+      "label": "gate admittance clerk",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_01",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L27"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L27"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Keep traders flowing to preserve crossing fees",
+        "stakes": "A gate flickers while traders are still being admitted",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_gate_01_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_gate_01_belief_holder",
+      "kind": "Entity",
+      "label": "waiting merchants",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_01",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L27"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L27"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Flicker is harmless weather at the gate",
+        "stakes": "A gate flickers while traders are still being admitted",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_gate_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_gate_01_evidence_site",
+      "kind": "Location",
+      "label": "flicker meter cabinet",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_01",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L27"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L27"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A gate flickers while traders are still being admitted",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_gate_01_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_gate_01_alternative",
+      "kind": "Event",
+      "label": "Pause admissions for a measured stability window",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_01",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L27"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L27"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Pause admissions for a measured stability window",
+        "costAndConsequence": "Perishables queue and traders lose sales",
+        "alternativeToId": "draft_gate_01_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_gate_01_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_gate_01_additional_belief",
+      "kind": "Knowledge",
+      "label": "Flicker is harmless weather at the gate",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_01",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L27"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L27"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Flicker is harmless weather at the gate",
+        "aboutId": "draft_gate_01_pressure",
+        "holderId": "draft_gate_01_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_gate_01_companion_edge_02",
+        "draft_gate_01_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_gate_02_counterparty",
+      "kind": "Entity",
+      "label": "crate return broker",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_02",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L28"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L28"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Hide empty crates held past the crossing",
+        "stakes": "Empty crates fail to return and food cannot cross",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_gate_02_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_gate_02_belief_holder",
+      "kind": "Entity",
+      "label": "depot managers",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_02",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L28"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L28"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Porters simply lost every empty crate",
+        "stakes": "Empty crates fail to return and food cannot cross",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_gate_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_gate_02_evidence_site",
+      "kind": "Location",
+      "label": "far-side crate tally yard",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_02",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L28"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L28"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "Empty crates fail to return and food cannot cross",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_gate_02_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_gate_02_alternative",
+      "kind": "Event",
+      "label": "Issue numbered return tokens for each crate",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_02",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L28"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L28"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Issue numbered return tokens for each crate",
+        "costAndConsequence": "Crossings slow and the depot must audit tokens",
+        "alternativeToId": "draft_gate_02_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_gate_02_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_gate_02_additional_belief",
+      "kind": "Knowledge",
+      "label": "Porters simply lost every empty crate",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_02",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L28"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L28"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Porters simply lost every empty crate",
+        "aboutId": "draft_gate_02_pressure",
+        "holderId": "draft_gate_02_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_gate_02_companion_edge_02",
+        "draft_gate_02_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_gate_03_counterparty",
+      "kind": "Entity",
+      "label": "quarantine guard",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_03",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L29"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L29"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Apply blanket isolation rather than trace one spore shipment",
+        "stakes": "A traveler carries spores that bloom only after crossing",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_gate_03_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_gate_03_belief_holder",
+      "kind": "Entity",
+      "label": "border families",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_03",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L29"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L29"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: Every arrival carries the same spores",
+        "stakes": "A traveler carries spores that bloom only after crossing",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_gate_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_gate_03_evidence_site",
+      "kind": "Location",
+      "label": "sealed sample incubator",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_03",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L29"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L29"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "A traveler carries spores that bloom only after crossing",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_gate_03_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_gate_03_alternative",
+      "kind": "Event",
+      "label": "Quarantine the matched shipment and monitor contacts",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_03",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L29"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L29"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Quarantine the matched shipment and monitor contacts",
+        "costAndConsequence": "Some travelers remain waiting and observers expend supplies",
+        "alternativeToId": "draft_gate_03_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_gate_03_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_gate_03_additional_belief",
+      "kind": "Knowledge",
+      "label": "Every arrival carries the same spores",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_03",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L29"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L29"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "Every arrival carries the same spores",
+        "aboutId": "draft_gate_03_pressure",
+        "holderId": "draft_gate_03_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_gate_03_companion_edge_02",
+        "draft_gate_03_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_gate_04_counterparty",
+      "kind": "Entity",
+      "label": "old-map publisher",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_04",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L30"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L30"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Sell a familiar exit chart after surges shift the path",
+        "stakes": "The exit path shifts after each gate surge",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_gate_04_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_gate_04_belief_holder",
+      "kind": "Entity",
+      "label": "new guides",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_04",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L30"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L30"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: A drawn exit remains fixed after a surge",
+        "stakes": "The exit path shifts after each gate surge",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_gate_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_gate_04_evidence_site",
+      "kind": "Location",
+      "label": "post-surge survey cairn",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_04",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L30"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L30"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "The exit path shifts after each gate surge",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_gate_04_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_gate_04_alternative",
+      "kind": "Event",
+      "label": "Post temporary route markers after each surge",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_04",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L30"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L30"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Post temporary route markers after each surge",
+        "costAndConsequence": "Surveyors risk repeated crossings and maps age quickly",
+        "alternativeToId": "draft_gate_04_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_gate_04_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_gate_04_additional_belief",
+      "kind": "Knowledge",
+      "label": "A drawn exit remains fixed after a surge",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_04",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L30"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L30"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A drawn exit remains fixed after a surge",
+        "aboutId": "draft_gate_04_pressure",
+        "holderId": "draft_gate_04_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_gate_04_companion_edge_02",
+        "draft_gate_04_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_gate_05_counterparty",
+      "kind": "Entity",
+      "label": "transit stamp clerk",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_05",
+        "stage": "counterparty",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L31"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L31"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Treat a stamp as harmless to avoid revising forms",
+        "stakes": "One side treats a transit stamp as a land claim",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_gate_05_companion_edge_01"
+      ]
+    },
+    {
+      "id": "draft_gate_05_belief_holder",
+      "kind": "Entity",
+      "label": "crossing agents",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_05",
+        "stage": "belief_holder",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L31"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L31"
+      ],
+      "proposal": {
+        "subtype": "proposed_role",
+        "goal": "Assess or act on: A transit stamp can never support land title",
+        "stakes": "One side treats a transit stamp as a land claim",
+        "individualOrCollective": "unresolved"
+      },
+      "relations": [
+        "draft_gate_05_companion_edge_03"
+      ]
+    },
+    {
+      "id": "draft_gate_05_evidence_site",
+      "kind": "Location",
+      "label": "border title order desk",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_05",
+        "stage": "verification_candidate",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L31"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L31"
+      ],
+      "proposal": {
+        "access": "unassigned",
+        "resourceId": null,
+        "conflict": "One side treats a transit stamp as a land claim",
+        "verificationStatus": "candidate; not visited or observed"
+      },
+      "relations": [
+        "draft_gate_05_companion_edge_04"
+      ]
+    },
+    {
+      "id": "draft_gate_05_alternative",
+      "kind": "Event",
+      "label": "Replace ambiguous stamps with a non-title transit receipt",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_05",
+        "stage": "alternative_intervention",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L31"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L31"
+      ],
+      "proposal": {
+        "trigger": "Player may choose: Replace ambiguous stamps with a non-title transit receipt",
+        "costAndConsequence": "Crossings pause while both authorities agree on wording",
+        "alternativeToId": "draft_gate_05_response",
+        "effectTargetId": null,
+        "implementation": "unassigned"
+      },
+      "relations": [
+        "draft_gate_05_companion_edge_05"
+      ]
+    },
+    {
+      "id": "draft_gate_05_additional_belief",
+      "kind": "Knowledge",
+      "label": "A transit stamp can never support land title",
+      "scopeId": "motif_gate",
+      "motifId": "gate",
+      "status": "Draft",
+      "runtime": false,
+      "lifecycle": "candidate",
+      "historySeed": {
+        "frontId": "draft_gate_05",
+        "stage": "additional_belief",
+        "temporalScope": "scenario-relative",
+        "catalogRef": "docs/v2/world-node-drafts/companion-b.txt#L31"
+      },
+      "sourceRefs": [
+        "docs/v2/world-node-expansion-research.md@3bf3ce9704266e9c048d3d06a44514f6fcaedd7e#6",
+        "docs/world-bible/01-foundations/master-direction.md@b2a4998df281088decec4e4236e42fe334bb748a#wb-0014",
+        "docs/world-bible/00-governance/canon-policy.md@b2a4998df281088decec4e4236e42fe334bb748a#draft",
+        "docs/v2/world-node-drafts/companion-b.txt#L31"
+      ],
+      "proposal": {
+        "subtype": "belief",
+        "truthStatus": "unverified",
+        "claim": "A transit stamp can never support land title",
+        "aboutId": "draft_gate_05_pressure",
+        "holderId": "draft_gate_05_belief_holder",
+        "sourceId": null,
+        "heardAt": "scenario-relative; unassigned"
+      },
+      "relations": [
+        "draft_gate_05_companion_edge_02",
+        "draft_gate_05_companion_edge_03"
+      ]
+    }
+  ],
+  "structuralEdges": [
+    {
+      "id": "draft_gate_01_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_gate_01_entity",
+      "toId": "draft_gate_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_01:entity>location"
+    },
+    {
+      "id": "draft_gate_01_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_gate_01_location",
+      "toId": "draft_gate_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_01:location>resource"
+    },
+    {
+      "id": "draft_gate_01_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_gate_01_pressure",
+      "toId": "draft_gate_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_01:pressure>location"
+    },
+    {
+      "id": "draft_gate_01_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_gate_01_pressure",
+      "toId": "draft_gate_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_01:pressure>entity"
+    },
+    {
+      "id": "draft_gate_01_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_gate_01_pressure",
+      "toId": "draft_gate_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_01:pressure>resource"
+    },
+    {
+      "id": "draft_gate_01_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_gate_01_response",
+      "toId": "draft_gate_01_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_01:response>location"
+    },
+    {
+      "id": "draft_gate_01_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_gate_01_response",
+      "toId": "draft_gate_01_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_01:response>entity"
+    },
+    {
+      "id": "draft_gate_01_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_gate_01_response",
+      "toId": "draft_gate_01_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_01:response>resource"
+    },
+    {
+      "id": "draft_gate_01_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_gate_01_report",
+      "toId": "draft_gate_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_01:report>pressure"
+    },
+    {
+      "id": "draft_gate_01_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_gate_01_evidence",
+      "toId": "draft_gate_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_01:evidence>pressure"
+    },
+    {
+      "id": "draft_gate_02_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_gate_02_entity",
+      "toId": "draft_gate_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_02:entity>location"
+    },
+    {
+      "id": "draft_gate_02_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_gate_02_location",
+      "toId": "draft_gate_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_02:location>resource"
+    },
+    {
+      "id": "draft_gate_02_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_gate_02_pressure",
+      "toId": "draft_gate_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_02:pressure>location"
+    },
+    {
+      "id": "draft_gate_02_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_gate_02_pressure",
+      "toId": "draft_gate_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_02:pressure>entity"
+    },
+    {
+      "id": "draft_gate_02_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_gate_02_pressure",
+      "toId": "draft_gate_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_02:pressure>resource"
+    },
+    {
+      "id": "draft_gate_02_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_gate_02_response",
+      "toId": "draft_gate_02_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_02:response>location"
+    },
+    {
+      "id": "draft_gate_02_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_gate_02_response",
+      "toId": "draft_gate_02_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_02:response>entity"
+    },
+    {
+      "id": "draft_gate_02_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_gate_02_response",
+      "toId": "draft_gate_02_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_02:response>resource"
+    },
+    {
+      "id": "draft_gate_02_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_gate_02_report",
+      "toId": "draft_gate_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_02:report>pressure"
+    },
+    {
+      "id": "draft_gate_02_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_gate_02_evidence",
+      "toId": "draft_gate_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_02:evidence>pressure"
+    },
+    {
+      "id": "draft_gate_03_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_gate_03_entity",
+      "toId": "draft_gate_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_03:entity>location"
+    },
+    {
+      "id": "draft_gate_03_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_gate_03_location",
+      "toId": "draft_gate_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_03:location>resource"
+    },
+    {
+      "id": "draft_gate_03_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_gate_03_pressure",
+      "toId": "draft_gate_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_03:pressure>location"
+    },
+    {
+      "id": "draft_gate_03_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_gate_03_pressure",
+      "toId": "draft_gate_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_03:pressure>entity"
+    },
+    {
+      "id": "draft_gate_03_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_gate_03_pressure",
+      "toId": "draft_gate_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_03:pressure>resource"
+    },
+    {
+      "id": "draft_gate_03_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_gate_03_response",
+      "toId": "draft_gate_03_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_03:response>location"
+    },
+    {
+      "id": "draft_gate_03_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_gate_03_response",
+      "toId": "draft_gate_03_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_03:response>entity"
+    },
+    {
+      "id": "draft_gate_03_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_gate_03_response",
+      "toId": "draft_gate_03_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_03:response>resource"
+    },
+    {
+      "id": "draft_gate_03_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_gate_03_report",
+      "toId": "draft_gate_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_03:report>pressure"
+    },
+    {
+      "id": "draft_gate_03_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_gate_03_evidence",
+      "toId": "draft_gate_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_03:evidence>pressure"
+    },
+    {
+      "id": "draft_gate_04_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_gate_04_entity",
+      "toId": "draft_gate_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_04:entity>location"
+    },
+    {
+      "id": "draft_gate_04_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_gate_04_location",
+      "toId": "draft_gate_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_04:location>resource"
+    },
+    {
+      "id": "draft_gate_04_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_gate_04_pressure",
+      "toId": "draft_gate_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_04:pressure>location"
+    },
+    {
+      "id": "draft_gate_04_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_gate_04_pressure",
+      "toId": "draft_gate_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_04:pressure>entity"
+    },
+    {
+      "id": "draft_gate_04_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_gate_04_pressure",
+      "toId": "draft_gate_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_04:pressure>resource"
+    },
+    {
+      "id": "draft_gate_04_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_gate_04_response",
+      "toId": "draft_gate_04_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_04:response>location"
+    },
+    {
+      "id": "draft_gate_04_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_gate_04_response",
+      "toId": "draft_gate_04_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_04:response>entity"
+    },
+    {
+      "id": "draft_gate_04_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_gate_04_response",
+      "toId": "draft_gate_04_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_04:response>resource"
+    },
+    {
+      "id": "draft_gate_04_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_gate_04_report",
+      "toId": "draft_gate_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_04:report>pressure"
+    },
+    {
+      "id": "draft_gate_04_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_gate_04_evidence",
+      "toId": "draft_gate_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_04:evidence>pressure"
+    },
+    {
+      "id": "draft_gate_05_edge_01",
+      "type": "LOCATED_AT",
+      "fromId": "draft_gate_05_entity",
+      "toId": "draft_gate_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_05:entity>location"
+    },
+    {
+      "id": "draft_gate_05_edge_02",
+      "type": "HAS_RESOURCE",
+      "fromId": "draft_gate_05_location",
+      "toId": "draft_gate_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_05:location>resource"
+    },
+    {
+      "id": "draft_gate_05_edge_03",
+      "type": "OCCURS_AT",
+      "fromId": "draft_gate_05_pressure",
+      "toId": "draft_gate_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_05:pressure>location"
+    },
+    {
+      "id": "draft_gate_05_edge_04",
+      "type": "INVOLVES",
+      "fromId": "draft_gate_05_pressure",
+      "toId": "draft_gate_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_05:pressure>entity"
+    },
+    {
+      "id": "draft_gate_05_edge_05",
+      "type": "AFFECTS",
+      "fromId": "draft_gate_05_pressure",
+      "toId": "draft_gate_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_05:pressure>resource"
+    },
+    {
+      "id": "draft_gate_05_edge_06",
+      "type": "OCCURS_AT",
+      "fromId": "draft_gate_05_response",
+      "toId": "draft_gate_05_location",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_05:response>location"
+    },
+    {
+      "id": "draft_gate_05_edge_07",
+      "type": "INVOLVES",
+      "fromId": "draft_gate_05_response",
+      "toId": "draft_gate_05_entity",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_05:response>entity"
+    },
+    {
+      "id": "draft_gate_05_edge_08",
+      "type": "AFFECTS",
+      "fromId": "draft_gate_05_response",
+      "toId": "draft_gate_05_resource",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_05:response>resource"
+    },
+    {
+      "id": "draft_gate_05_edge_09",
+      "type": "ABOUT",
+      "fromId": "draft_gate_05_report",
+      "toId": "draft_gate_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_05:report>pressure"
+    },
+    {
+      "id": "draft_gate_05_edge_10",
+      "type": "ABOUT",
+      "fromId": "draft_gate_05_evidence",
+      "toId": "draft_gate_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "draft_gate_05:evidence>pressure"
+    },
+    {
+      "id": "draft_gate_01_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_gate_01_pressure",
+      "toId": "draft_gate_01_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L27"
+    },
+    {
+      "id": "draft_gate_01_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_gate_01_additional_belief",
+      "toId": "draft_gate_01_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L27"
+    },
+    {
+      "id": "draft_gate_01_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_gate_01_additional_belief",
+      "toId": "draft_gate_01_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L27"
+    },
+    {
+      "id": "draft_gate_01_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_gate_01_evidence_site",
+      "toId": "draft_gate_01_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L27"
+    },
+    {
+      "id": "draft_gate_01_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_gate_01_alternative",
+      "toId": "draft_gate_01_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L27"
+    },
+    {
+      "id": "draft_gate_02_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_gate_02_pressure",
+      "toId": "draft_gate_02_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L28"
+    },
+    {
+      "id": "draft_gate_02_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_gate_02_additional_belief",
+      "toId": "draft_gate_02_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L28"
+    },
+    {
+      "id": "draft_gate_02_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_gate_02_additional_belief",
+      "toId": "draft_gate_02_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L28"
+    },
+    {
+      "id": "draft_gate_02_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_gate_02_evidence_site",
+      "toId": "draft_gate_02_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L28"
+    },
+    {
+      "id": "draft_gate_02_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_gate_02_alternative",
+      "toId": "draft_gate_02_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L28"
+    },
+    {
+      "id": "draft_gate_03_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_gate_03_pressure",
+      "toId": "draft_gate_03_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L29"
+    },
+    {
+      "id": "draft_gate_03_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_gate_03_additional_belief",
+      "toId": "draft_gate_03_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L29"
+    },
+    {
+      "id": "draft_gate_03_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_gate_03_additional_belief",
+      "toId": "draft_gate_03_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L29"
+    },
+    {
+      "id": "draft_gate_03_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_gate_03_evidence_site",
+      "toId": "draft_gate_03_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L29"
+    },
+    {
+      "id": "draft_gate_03_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_gate_03_alternative",
+      "toId": "draft_gate_03_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L29"
+    },
+    {
+      "id": "draft_gate_04_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_gate_04_pressure",
+      "toId": "draft_gate_04_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L30"
+    },
+    {
+      "id": "draft_gate_04_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_gate_04_additional_belief",
+      "toId": "draft_gate_04_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L30"
+    },
+    {
+      "id": "draft_gate_04_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_gate_04_additional_belief",
+      "toId": "draft_gate_04_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L30"
+    },
+    {
+      "id": "draft_gate_04_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_gate_04_evidence_site",
+      "toId": "draft_gate_04_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L30"
+    },
+    {
+      "id": "draft_gate_04_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_gate_04_alternative",
+      "toId": "draft_gate_04_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L30"
+    },
+    {
+      "id": "draft_gate_05_companion_edge_01",
+      "type": "INVOLVES",
+      "fromId": "draft_gate_05_pressure",
+      "toId": "draft_gate_05_counterparty",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L31"
+    },
+    {
+      "id": "draft_gate_05_companion_edge_02",
+      "type": "ABOUT",
+      "fromId": "draft_gate_05_additional_belief",
+      "toId": "draft_gate_05_pressure",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L31"
+    },
+    {
+      "id": "draft_gate_05_companion_edge_03",
+      "type": "HELD_BY",
+      "fromId": "draft_gate_05_additional_belief",
+      "toId": "draft_gate_05_belief_holder",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L31"
+    },
+    {
+      "id": "draft_gate_05_companion_edge_04",
+      "type": "VERIFICATION_SITE_FOR",
+      "fromId": "draft_gate_05_evidence_site",
+      "toId": "draft_gate_05_evidence",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L31"
+    },
+    {
+      "id": "draft_gate_05_companion_edge_05",
+      "type": "ALTERNATIVE_TO",
+      "fromId": "draft_gate_05_alternative",
+      "toId": "draft_gate_05_response",
+      "status": "Draft",
+      "runtime": false,
+      "provenance": "docs/v2/world-node-drafts/companion-b.txt#L31"
+    }
+  ],
+  "proposedCausalLinks": [
+    {
+      "id": "draft_gate_01_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_gate_01_pressure",
+      "toId": "draft_gate_01_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_gate_01_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_gate_01_evidence",
+      "toId": "draft_gate_01_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_gate_02_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_gate_02_pressure",
+      "toId": "draft_gate_02_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_gate_02_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_gate_02_evidence",
+      "toId": "draft_gate_02_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_gate_03_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_gate_03_pressure",
+      "toId": "draft_gate_03_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_gate_03_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_gate_03_evidence",
+      "toId": "draft_gate_03_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_gate_04_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_gate_04_pressure",
+      "toId": "draft_gate_04_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_gate_04_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_gate_04_evidence",
+      "toId": "draft_gate_04_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_gate_05_causal_01",
+      "type": "MOTIVATES",
+      "fromId": "draft_gate_05_pressure",
+      "toId": "draft_gate_05_response",
+      "condition": "Player discovers pressure and chooses intervention",
+      "status": "Draft",
+      "runtime": false
+    },
+    {
+      "id": "draft_gate_05_causal_02",
+      "type": "MAY_INFORM",
+      "fromId": "draft_gate_05_evidence",
+      "toId": "draft_gate_05_response",
+      "condition": "Evidence is observed and interpreted; no automatic truth transfer",
+      "status": "Draft",
+      "runtime": false
+    }
+  ]
+}

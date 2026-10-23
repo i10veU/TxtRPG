@@ -1,0 +1,67 @@
+# Draft-only authored scenario seed catalog B. Fields: actor|site|scarce resource|pressure event|player intervention|initial report|verification. Each line is a distinct proposal, not Canon.
+@space_opera|스페이스 오페라
+border convoy council|nebula shipping lane|escort fuel|A patrol redeployment exposes grain ships to raiders|Pool fuel for a rotating civilian escort|The fleet announces the lane is secure|Merchant distress times cluster after redeployment
+system envoy corps|treaty dock|translation matrices|A treaty term means tribute in one language and aid in another|Suspend enforcement and reconcile both originals|Each envoy claims the other signed tribute|Parallel originals use different terms
+moon miners union|ice moon elevator|oxygen canisters|An elevator monopoly delays emergency oxygen|Open a supervised rescue lift and audit fees|The operator blames storms for every delay|Dock manifests show empty lifts departed
+archive fleet|drifting memorial ship|memory cores|A damaged memorial record names the wrong war victim|Recover independent logs before public correction|Families hear the old record as settled truth|Two intact cores identify the convoy instead
+refugee navigators|outer-system shelter|survey maps|A changed exclusion zone closes the shelter's supply route|Negotiate a safe corridor using updated hazard maps|The capital says ships can use the old corridor|Beacon losses mark the corridor unsafe
+@occult|괴이·오컬트
+threshold caretakers|sealed stairwell|salt lines|A copied warning invites people past a dangerous threshold|Trace the copy and close the stair until tested|The notice says the stair is safe at noon|Witnesses record the threshold opening at noon
+sleep clinic|shared-dream ward|sleep diaries|Several patients repeat a dream with conflicting exits|Map differences before following any exit|A popular account claims one exit works for all|Dated diaries show the exit moves by dreamer
+oral-history circle|abandoned radio room|wax recordings|A dead caller's voice asks for a message that harms a living witness|Authenticate the voice and protect the named witness|Listeners assume the caller knows the whole story|An earlier recording contradicts the accusation
+lantern watch|fog cemetery path|blue lanterns|A path bends toward a grave only when a name is spoken|Use unnamed markers and document the route|Locals claim the fog alone moves travelers|Paired walkers find the spoken-name difference
+household archivists|attic of borrowed faces|portrait plates|A portrait gains a face before the subject disappears|Hide the plate and check who handled it|Neighbors say the subject left willingly|Door records show no departure
+@martial_arts|무협
+river escort bureau|mountain ferry road|pack horses|A rival bureau blocks medicine deliveries under a false warrant|Challenge the warrant publicly and carry medicine together|A magistrate's seal is cited as authority|The seal copy omits the magistrate's date
+herbal school|bamboo medicine court|root bundles|A master withholds antidote training from outer disciples|Teach a safe first step and test it under supervision|The school says outsiders cannot learn the method|Training notes show the step was once common
+martial registry|bridge duel ground|repair timber|A feud destroys a bridge used by noncombatants|Offer a neutral duel site and repair the crossing|Both schools say the bridge is their boundary|Village toll records predate either claim
+traveling physicians|wind pass hostel|needle cases|A wounded rival hides a fever among caravan passengers|Treat the fever without requiring a faction oath|Passengers hear the illness is a combat injury|Temperature records show it spread before the fight
+clan elders|ancestral training hall|practice blades|A stolen manual sparks accusations between junior branches|Compare copying marks before punishment|An elder names one branch from memory|Ink dates show the manual moved later
+@immortal_cultivation|선협
+spirit-field cooperative|terraced cloud field|spirit seeds|A sect diverts rain from common terraces to its inner garden|Bind a seasonal water allotment witnessed by both sides|The sect says the clouds chose its garden|Rain stones show an artificial diversion
+alchemical safety court|furnace valley|purification ash|Refinement waste poisons a downstream medicine spring|Halt the furnace and test a closed ash cycle|The court is told the spring has natural bitterness|Upstream samples are clean
+wandering mentor pact|stone stair monastery|breath manuals|A master trades unsafe shortcuts for apprentices' years|Publish the cost and allow pupils to leave|Students hear the shortcut is harmless|Former pupils show the same early exhaustion
+sky-route ferrymen|floating bridge|anchor talismans|A sect monopolizes anchors and strands ordinary travelers|Share inspected anchors under a common schedule|The sect calls public anchors unstable|Measured crossings show the anchors hold
+inheritance stewards|sealed cave treasury|vow tablets|Two successors claim a relic before its old vow expires|Read the vow publicly and defer transfer|Each successor cites a private promise|The tablet records a third obligation to the valley
+@hunter|헌터
+hazard claims board|beast-track office|tracking tags|A bounty pays for kills while breeding grounds remain open|Reward verified habitat closure instead|The board reports fewer tags as fewer beasts|Nest surveys show new tracks
+field medic guild|hunt camp infirmary|antivenom ampoules|Elite teams reserve antivenom before a public hunt|Set exposure-based triage and disclose stock|Teams claim every dose is already assigned|Vial log shows unused reserves
+scout cooperative|ridge observation blind|wind gauges|A hunting route ignores seasonal migration and endangers farms|Publish route timing and move the chase away from fields|Sponsors say farms are outside the route|Scouts record tracks through planted land
+salvage arbitration board|carcass clearing|bone permits|A kill claim excludes villagers who bore the risk|Record the rescue effort before allocating salvage|The team says villagers stayed home|Signal logs show villagers led evacuation
+watch captain|night lookout line|flare kits|A false trophy report causes watch posts to stand down|Verify remains and restore the watch until confirmed|A hunter declares the threat ended|Fresh spoor crosses the line
+@gate|게이트
+crossing authority|gate customs ring|stability meters|A gate flickers while traders are still being admitted|Close entry and publish a measured reopening threshold|The authority calls flicker harmless weather|Meter traces show widening gaps
+supply porters|gate-side depot|return crates|Empty crates fail to return and food cannot cross|Track crate ownership and reward returns|The depot blames porters for losses|Gate logs show crates held beyond the crossing
+quarantine observers|arrival chamber|sample seals|A traveler carries spores that bloom only after crossing|Isolate the cargo while preserving the traveler's account|Guards say every arrival is contaminated|Sealed samples isolate one shipment
+mapping collective|threshold marker field|survey flags|The exit path shifts after each gate surge|Mark surge times and guide only within a stable window|Old maps say the exit never shifts|Paired surveys show the post-surge offset
+treaty clerks|two-side parley booth|passage stamps|One side treats a transit stamp as a land claim|Suspend stamping and rewrite the permitted use|The other side calls it harmless paperwork|A border order cites the stamp as title
+@tower|탑
+foundation wardens|tower lower vault|support braces|A sealed upper floor adds load to a cracked foundation|Brace the vault and measure load before reopening|The custodian says the tower has always leaned|Fresh cracks follow the last opening
+floor archivists|record stair|floor ledgers|Floor numbers change after an unrecorded closure|Reconcile ledgers with physical stair markers|Climbers believe a floor vanished|Old maintenance notes describe a hidden landing
+provision keepers|midlevel kitchen|water jars|Residents above a blocked lift run short of water|Open a safe hand chain before repair begins|The lift crew says supplies are ample|Jar tallies show only one day remains
+signal wardens|roof beacon|reflector plates|A rotating beacon sends rescue crews to the wrong side|Fix the reflector alignment and broadcast a correction|Observers blame the weather for the false bearing|A ground compass records the shifted angle
+tenant council|outer stair dwellings|heating coal|A new toll cuts heat deliveries to lower residents|Challenge the toll with shared delivery receipts|The collector says only climbers pay|Coal carts are charged at the stair
+@tower_climb|탑 등반
+rope team registry|first ascent shelf|safety ropes|A sponsor hides rope wear before a timed ascent|Inspect ropes and accept a slower climb|The sponsor says the rope is new|Frayed core fibers show repeated use
+route cartographers|wind-step ledge|chalk markers|A shortcut marker survives after the ledge breaks|Remove the marker and map a longer safe route|A veteran claims the ledge still holds|New sketches show the gap
+camp quartermasters|high rest alcove|heat flasks|A climber hoards flasks while a storm traps the next team|Set a shared emergency reserve by group size|The climber says the next team turned back|Signal notes confirm they are still above
+rescue callers|echo shaft|signal whistles|An echo repeats a rescue call from the wrong branch|Use timed call-and-response to locate the source|A hurried team follows the loudest echo|Response intervals identify the real branch
+summit witnesses|last landing|ascent seals|A claimed summit leaves no record of the descent|Verify the route without erasing the climber's effort|The sponsor calls the seal conclusive|A lower landing record shows an interrupted return
+@maze_dungeon|미궁·던전
+delvers' map house|turning antechamber|ink maps|An old map routes crews through a newly flooded gallery|Annotate water depth and post a fresh safe path|The map house calls the flood temporary|Water marks show it has risen for weeks
+torch guild|airless corridor|breath lamps|Cheap lamps consume oxygen in a sealed wing|Replace them with tested low-air lamps|The vendor says every lamp burns alike|Flame tests reveal oxygen loss
+salvage custodians|collapsed reliquary|lift jacks|A relic removal shifts debris toward trapped workers|Secure the debris before moving the relic|A buyer says the chamber is empty|Knock signals answer from behind the wall
+wayfinding monks|forked echo hall|thread reels|A chant masks the sound used to find an exit|Lay physical return thread and record the chant timing|A guide says the sound has always changed|Route threads show the change follows chanting
+well surveyors|subterranean cistern|water gauges|A lower passage drains the only potable pool|Seal the leak while keeping an escape route|An explorer calls the drained water stagnant|Gauge and sample records show it was drinkable
+@battle_arena|배틀 아레나
+healers' bench|arena infirmary|splint kits|A promoter schedules another bout before wounds heal|Require a medical clearance before entry|The promoter says the fighter asked to return|Treatment notes show movement remains unsafe
+rules stewards|weigh-in gallery|rule slates|A late rule change favors one team after bets close|Freeze the announced rules and refund affected bets|Officials claim the rule was posted earlier|Time-stamped slates show it appeared late
+equipment inspectors|gear tunnel|shield rivets|A borrowed shield has hidden loose rivets|Replace it and record the chain of custody|A supplier blames impact damage|Inspection marks show the rivets were loose before the bout
+crowd marshals|east exit|barrier ropes|A blocked exit traps spectators during a fire drill|Clear the route and cap entry until inspected|The manager calls the barrier temporary|Ticket counts exceed the safe exit capacity
+fighters' council|training court|practice pads|A sponsor withholds training space from unbranded fighters|Reserve common hours under a public schedule|The sponsor claims the court is private|Old maintenance dues were paid by all fighters
+@dimension_wander|차원 유랑
+border diarists|unmarked transit stop|route journals|A traveler returns by a path that no longer reaches home|Compare landmarks before attempting the route again|The traveler says the path is unchanged|Paired sketches show a missing junction
+translation caravan|meeting shore|word tokens|A familiar bargain phrase means surrender across the boundary|Test a small exchange before signing a larger pact|Both groups think they agreed on trade|A token exchange exposes the mismatch
+shelter network|between-world refuge|supply chests|A new crossing diverts supplies away from stranded families|Trace each chest and reserve a local floor|Porters believe all chests reached the refuge|Receipt marks stop at the crossing
+boundary ecologists|seam garden|sample jars|Seeds brought home alter soil around a crossing|Contain the plot and compare untreated soil|Gardeners call the change ordinary growth|Control jars show only imported seeds spread
+return-route council|last known gate|anchor markers|A route opens outward but its return condition is unknown|Record test returns before inviting others through|Recruiters promise a certain return|No dated return marker supports the promise
