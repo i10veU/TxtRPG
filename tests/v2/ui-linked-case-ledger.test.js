@@ -1,6 +1,6 @@
 // J3: combining two independently learned rumors must not become a hidden-truth oracle.
 import assert from "node:assert/strict";
-import { linkedCaseLedger, linkedCaseElderAction, linkedCaseReported, linkedCaseSupport } from "../../web/v2/ui/linked-case-ledger.js";
+import { linkedCaseLedger, linkedCaseElderAction, linkedCaseReported, linkedCaseSupport, linkedCasePatrolAction } from "../../web/v2/ui/linked-case-ledger.js";
 import { worldData } from "../../web/v2/data/world.js";
 
 const known = (id, source = "npc_elder") => ({
@@ -75,6 +75,26 @@ assert.equal(linkedCaseReported(confirmed, { ...readyView, relations: { "npc_eld
   "another character's report is not this life’s knowledge");
 assert.equal(linkedCaseElderAction(confirmed, { ...readyView, relations: {}, hiddenFacts: { spring_bandits_told: true } }),
   "act_talk_elder", "a hidden world flag must never disclose a predecessor's report");
+
+// The notebook must not invent a patrol from the world's hidden state.
+// The existing action is offered only after *this life* reports first-hand
+// evidence and the engine's PlayerView marks it available.
+const patrolReady = { ...reported, actions: [{ actionId: "act_help_mark_spring_route", available: true }] };
+const patrolSnapshot = JSON.stringify(patrolReady);
+assert.equal(linkedCasePatrolAction(confirmed, patrolReady), "act_help_mark_spring_route");
+assert.equal(JSON.stringify(patrolReady), patrolSnapshot, "patrol projection does not mutate PlayerView");
+assert.equal(linkedCasePatrolAction(first, patrolReady), null, "heard clues alone cannot unlock patrol");
+assert.equal(linkedCasePatrolAction(confirmed, { ...readyView, actions: patrolReady.actions }), null,
+  "field evidence without a personal report does not offer the action");
+assert.equal(linkedCasePatrolAction(confirmed, { ...patrolReady, pending: { kind: "choice" } }), null);
+assert.equal(linkedCasePatrolAction(confirmed, { ...patrolReady, actor: { ...patrolReady.actor, locationId: "loc_market" } }), null);
+assert.equal(linkedCasePatrolAction(confirmed, { ...patrolReady, actions: [] }), null);
+assert.equal(linkedCasePatrolAction(confirmed, { ...patrolReady, actions: [{ actionId: "act_help_mark_spring_route", available: false }] }), null,
+  "completed work or insufficient stamina is enforced by the engine");
+assert.equal(linkedCasePatrolAction(confirmed, { ...patrolReady, actor: { ...patrolReady.actor, id: "player_2" } }), null,
+  "a successor cannot use the previous life’s report");
+assert.equal(linkedCasePatrolAction(confirmed, { ...patrolReady, hiddenFacts: { spring_patrol_deployed: true }, signals: { spring_patrol_progress: 2 } }),
+  "act_help_mark_spring_route", "hidden world state cannot alter a view-authorized action");
 
 // An actual village decision, not a transient guess or hidden world flag,
 // offers a route to the existing NPC support conversation.

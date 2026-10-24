@@ -25,7 +25,7 @@ import { currentGoals } from "./goals.js";
 import { stakesOf, duration } from "./stakes.js";
 import { knowledgeClock } from "./knowledge-clock.js";
 import { hypothesisLedger } from "./hypothesis-ledger.js";
-import { linkedCaseLedger, linkedCaseElderAction, linkedCaseReported, linkedCaseDecision, linkedCaseDecisionAction, linkedCaseSupport } from "./linked-case-ledger.js";
+import { linkedCaseLedger, linkedCaseElderAction, linkedCaseReported, linkedCaseDecision, linkedCaseDecisionAction, linkedCaseSupport, linkedCasePatrolAction } from "./linked-case-ledger.js";
 import { greetingFor } from "./people.js";
 import { deedsTrue, endingLearned } from "./deeds.js";
 import * as chronicle from "../storage/chronicle.js";
@@ -799,6 +799,11 @@ function renderLinkedCaseLedger(playerView) {
       : "현장에서 도적단의 화살을 확인했다. 두 사건을 잇는 근거가 생겼다.";
     if (linkedCaseReported(ledger, playerView)) {
       el.linkedCaseNext.textContent = "이 단서는 이미 원로에게 전했다. 마을의 이야기가 달라졌다.";
+      const patrolAction = linkedCasePatrolAction(ledger, playerView);
+      if (patrolAction) {
+        el.linkedCaseNext.appendChild(makeButton("마을 사람들과 샘길 표식을 놓는다 (2시간, 기력 2)", () =>
+          dispatch({ type: "perform", actionId: patrolAction })));
+      }
       return;
     }
     const elderAction = linkedCaseElderAction(ledger, playerView);

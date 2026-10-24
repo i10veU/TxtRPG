@@ -87,6 +87,17 @@ export function linkedCaseReported(ledger, playerView) {
   return Array.isArray(tags) && tags.includes("spring_arrows_reported");
 }
 
+// After this life's field report, offer the existing costed patrol action
+// directly from the notebook. The engine's *visible* action availability is
+// authoritative: do not inspect public/hidden flags, signals or another life.
+export function linkedCasePatrolAction(ledger, playerView) {
+  if (!ledger?.observed || !linkedCaseReported(ledger, playerView) ||
+      playerView?.pending || playerView?.actor?.locationId !== "loc_village") return null;
+  return Array.isArray(playerView?.actions) && playerView.actions.some(
+    (action) => action.actionId === "act_help_mark_spring_route" && action.available === true
+  ) ? "act_help_mark_spring_route" : null;
+}
+
 // A verified clue should lead to a real existing dialogue, not a dead-end
 // instruction. The engine still decides which elder dialogue options are legal.
 export function linkedCaseElderAction(ledger, playerView) {
