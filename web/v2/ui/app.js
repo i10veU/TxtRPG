@@ -854,15 +854,17 @@ function renderLinkedCaseLedger(playerView) {
   const support = linkedCaseSupport(ledger, playerView);
   if (support) {
     const note = document.createElement("p");
+    const withNpc = support.npcName === "원로" ? "원로와" : "약초꾼과";
+    const findNpc = support.npcName === "원로" ? "원로를" : "약초꾼을";
     note.textContent = support.received
       ? support.npcName + "에게서 " + support.itemName + " 지원을 받았다."
       : support.prepared
         ? "등불을 이미 갖고 있어 원로의 추가 지원은 필요하지 않다."
         : playerView.pending
-          ? "진행 중인 선택을 마친 뒤 " + support.npcName + "와 준비를 상의하자."
+          ? "진행 중인 선택을 마친 뒤 " + withNpc + " 준비를 상의하자."
           : support.atLocation
-            ? support.npcName + "와 " + support.itemName + " 준비를 상의할 수 있다."
-            : support.locationName + "의 " + support.npcName + "를 찾아가 준비를 상의하자.";
+            ? withNpc + " " + support.itemName + " 준비를 상의할 수 있다."
+            : support.locationName + "의 " + findNpc + " 찾아가 준비를 상의하자.";
     el.linkedCaseNext.appendChild(note);
     if (support.actionId) {
       el.linkedCaseNext.appendChild(makeButton(support.npcName + "에게 준비를 상의한다", () =>
