@@ -68,6 +68,15 @@ for (const scenario of [
   assert.deepEqual(checkDataCompatibility(told, worldData), []);
   assert.deepEqual(saveLoad(told), told);
 
+  // A player who purifies the spring before the patrol arrives has already
+  // removed the hazard. The village must not fabricate a late deployment.
+  const purified = structuredClone(told);
+  applyEffectList([{ op: "case", case: "case_fouled_well", stage: "resolved" }],
+    purified, [], { state: purified, data: worldData, actorId: purified.player.actorId });
+  const cancelled = run(purified, Array.from({ length: 25 }, () => P("act_rest_village"))).state;
+  assert.equal(cancelled.signals.spring_patrol_progress, 1);
+  assert.equal(cancelled.flags.spring_patrol_deployed, undefined);
+
   const early = run(told, Array.from({ length: 23 }, () => P("act_rest_village"))).state;
   assert.equal(early.flags.spring_patrol_deployed, undefined,
     "patrol cannot arrive before a full day");
