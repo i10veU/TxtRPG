@@ -48,7 +48,8 @@ for (const [scene, ids] of groups) {
 // fabricating a later discovery. It must never write that flag: encounter
 // outcomes alone own encounter closure.
 for (const [id, ev] of Object.entries(worldData.events)) {
-  assert.ok(!walkOps(ev.effects).some((n) => n.op === "flag" && /^enc_/.test(n.key ?? "")),
+  assert.ok(!walkOps(ev.effects).some((n) => n.op === "flag" &&
+    /^enc_/.test(n.key ?? "") && Object.hasOwn(n, "value")),
     `${id} does not open or close an encounter`);
 }
 
