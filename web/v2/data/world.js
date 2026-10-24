@@ -2195,7 +2195,13 @@ export const worldData = {
             { op: "if", when: { op: "and", of: [{ op: "flag", key: "spring_watch_requested" }, { op: "not", of: ARROWS_TOLD }] },
               then: [say("txt_spring_watch_followup")] },
             { op: "if", when: { op: "and", of: [{ op: "flag", key: "spring_inquiry_requested" }, { op: "not", of: ARROWS_TOLD }] },
-              then: [say("txt_spring_inquiry_followup")] }
+              then: [say("txt_spring_inquiry_followup")] },
+            // Reappraisal is personal: another life hears the public arrows account,
+            // but not this teller's earlier guess or the elder's private response.
+            { op: "if", when: { op: "relation", from: "npc_elder", to: "self", tag: "spring_watch_vindicated" },
+              then: [say("txt_spring_watch_afterproof")] },
+            { op: "if", when: { op: "relation", from: "npc_elder", to: "self", tag: "spring_inquiry_revised" },
+              then: [say("txt_spring_inquiry_afterproof")] }
           ]
         },
         // J3: the village's watch now helps the player prepare, without claiming the rumor is true.
@@ -2505,6 +2511,16 @@ export const worldData = {
             // Successors cannot inherit it, and the UI need not read world flags.
             { op: "relation", from: "npc_elder", add: 5, tag: "spring_arrows_reported" },
             say("txt_tell_spring_arrows"),
+            // J3: only the reporting character's earlier committed judgment can
+            // be re-evaluated. A bare world flag or another life's choice cannot
+            // award either consequence. The report is world-once; both branches
+            // use existing relation effects and consume no additional RNG.
+            { op: "if", when: { op: "relation", from: "npc_elder", to: "self", tag: "spring_watch_requested" },
+              then: [{ op: "relation", from: "npc_elder", add: 2, tag: "spring_watch_vindicated" },
+                say("txt_spring_watch_vindicated")] },
+            { op: "if", when: { op: "relation", from: "npc_elder", to: "self", tag: "spring_inquiry_requested" },
+              then: [{ op: "relation", from: "npc_elder", add: -1, tag: "spring_inquiry_revised" },
+                say("txt_spring_inquiry_revised")] },
             ARROWS_IN_THE_ACCOUNT
           ]
         },
@@ -4063,6 +4079,10 @@ export const worldData = {
     txt_spring_inquiry_requested: "두 사건을 섣불리 하나로 엮지 말자고 말하자 원로는 고개를 끄덕인다. 마을에 소문을 퍼뜨리기 전에 샘을 직접 살펴보라고 한다.",
     txt_spring_watch_followup: "원로는 샘으로 향하는 길을 지켜보고 있지만, 도적의 흔적을 직접 확인한 이는 아직 없다고 한다.",
     txt_spring_inquiry_followup: "원로는 샘의 흔적을 확인하기 전까지 폐허와 우물을 같은 사건으로 단정하지 않겠다고 한다.",
+    txt_spring_watch_vindicated: "원로는 화살을 확인하고 고개를 숙인다. \"그때 경계를 청한 말을 흘려듣지 말았어야 했네.\" 마을의 신뢰가 조금 돌아온다.",
+    txt_spring_inquiry_revised: "원로는 화살을 한참 살핀다. \"섣불리 단정하지 말자던 말도 옳았지만, 이제는 샘길 경계를 늦출 수 없겠군.\" 늦어진 대응의 부담이 남는다.",
+    txt_spring_watch_afterproof: "원로는 처음 샘길을 경계하자던 말과 직접 가져온 화살을 함께 기억한다.",
+    txt_spring_inquiry_afterproof: "원로는 처음 두 사건을 나누어 보자던 말을 새 증거에 맞춰 고쳐 받아들였다고 말한다.",
     txt_prologue_levy: "영주의 징집령이 성읍 게시판에 붙던 날 밤, 나는 강을 건넜다. 뱃사공은 뱃삯을 받고 아무것도 묻지 않았다.",
     txt_prologue_scout_levy: "나는 영주의 척후였다. 숲길과 밤길을 읽는 일로 먹고살았다. 징집령이 성읍 게시판에 붙던 날, 그 장부에 내 이름도 있었다. 그날 밤 나는 강을 건넜다.",
     txt_prologue_south: "강 남쪽은 영주의 땅이 아니라고들 한다. 왕국의 지도에는 있지만, 영주의 사람들은 강을 건너오지 않는다고.",
