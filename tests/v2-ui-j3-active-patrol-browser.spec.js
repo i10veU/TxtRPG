@@ -38,6 +38,7 @@ test("J3 player accelerates village patrol with a real cost", async ({ page }) =
     name: "샘의 짐승에 박힌 도적단의 화살을 전한다"
   }).click();
   await expect.poll(() => page.evaluate(() => window.__v2App.getState().signals.spring_patrol_progress)).toBe(1);
+  await expect(page.locator("#linkedCaseNext").getByRole("button", { name: HELP })).toBeVisible();
   await page.locator("#actions button", { hasText: "원로를 찾아간다" }).click();
   await page.locator("#choiceOptions").getByRole("button", { name: "폐허에 대해 묻는다" }).click();
   await expect(page.locator("#log")).toContainText("두 시간 안에 마칠 수 있다");
@@ -51,7 +52,7 @@ test("J3 player accelerates village patrol with a real cost", async ({ page }) =
       stamina: actorResource(state.actors[state.player.actorId], app.getData?.() ?? (await import("./data/world.js")).worldData, "stamina").current
     };
   });
-  const button = page.locator("#actions button", { hasText: HELP });
+  const button = page.locator("#linkedCaseNext").getByRole("button", { name: HELP });
   await expect(button).toBeVisible();
   await button.click();
   await expect.poll(() => page.evaluate(() => window.__v2App.getState().flags.spring_patrol_deployed)).toBe(true);
@@ -82,6 +83,7 @@ test("J3 player accelerates village patrol with a real cost", async ({ page }) =
   await page.locator("#slotList li", { hasText: slot })
     .getByRole("button", { name: "불러오기" }).click();
   await expect.poll(() => page.evaluate(() => window.__v2App.getState()?.flags?.spring_patrol_helped)).toBe(true);
+  await expect(page.locator("#linkedCaseNext").getByRole("button", { name: HELP })).toHaveCount(0);
   await page.locator("#actions button", { hasText: "원로를 찾아간다" }).click();
   await page.locator("#choiceOptions").getByRole("button", { name: "폐허에 대해 묻는다" }).click();
   await expect(page.locator("#log")).toContainText("두 시간 만에 표시");
