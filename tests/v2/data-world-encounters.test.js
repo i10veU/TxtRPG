@@ -44,8 +44,13 @@ for (const [scene, ids] of groups) {
     assert.equal(a.showWhenLocked, undefined, `${id} does not show where it cannot happen`);
   }
 }
+// A world event may *read* an encounter's completion flag to avoid
+// fabricating a later discovery. It must never write that flag: encounter
+// outcomes alone own encounter closure.
 for (const [id, ev] of Object.entries(worldData.events)) {
-  assert.ok(!walkOps(ev).some((n) => n.op === "flag" && /^enc_/.test(n.key ?? "")), `${id} does not open or close an encounter`);
+  assert.ok(!walkOps(ev.effects).some((n) => n.op === "flag" &&
+    /^enc_/.test(n.key ?? "") && Object.hasOwn(n, "value")),
+    `${id} does not open or close an encounter`);
 }
 
 // 2. not taking them changes nothing
