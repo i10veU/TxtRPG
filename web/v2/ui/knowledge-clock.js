@@ -20,8 +20,9 @@ export function knowledgeClock(knowledge, data, minute) {
   const today = Number.isFinite(minute) ? Math.floor(minute / 1440) : 0;
   const reports = Object.values(knowledge ?? {}).flatMap((known) => {
     if (!known || typeof known.rumorId !== "string") return [];
+    if (!Object.hasOwn(REPORTS, known.rumorId) || !Object.hasOwn(data?.rumors ?? {}, known.rumorId)) return [];
     const report = REPORTS[known.rumorId];
-    const def = data?.rumors?.[known.rumorId];
+    const def = data.rumors[known.rumorId];
     // The player's entry must describe this pack's rumor, not a fabricated claim.
     if (!report || !def || def.factId !== known.factId || def.claim !== known.claim) return [];
     const aboutDay = Number.isInteger(known.aboutDay) ? known.aboutDay :
