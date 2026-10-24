@@ -625,8 +625,14 @@ function sourceName(source) {
   if (source.startsWith("obs_loc_") && worldData.locations?.[source.slice(4)]) return `직접 봄 (${locationName(source.slice(4))})`;
   return "어디서 들었는지 모름";
 }
-function certainty(confidence) {
-  if (confidence >= 90) return "직접 확인함";
+function certainty(confidence, sources = []) {
+  // A highly trusted second-hand account is still not a first-hand observation.
+  // The score alone must never promote hearsay into field verification.
+  if (confidence >= 90) {
+    const entries = Array.isArray(sources) ? sources : [sources];
+    return entries.some((source) => typeof source === "string" && source.startsWith("obs_loc_"))
+      ? "직접 확인함" : "확신 높은 전언";
+  }
   if (confidence >= 70) return "믿을 만함";
   if (confidence >= 50) return "그럴듯함";
   return "뜬소문";
@@ -682,7 +688,7 @@ function renderKnowledge(knowledge, pending) {
     const parts = [
       word(`lbl_rumor_${k.rumorId}`, "알 수 없는 이야기"),
       (k.sources ?? [k.source]).map(sourceName).join(", "),
-      certainty(k.confidence),
+      certainty(k.confidence, k.sources ?? [k.source]),
       told
     ];
     if (stale) parts.push("더 새 소식이 있음");
@@ -722,7 +728,7 @@ function renderHypothesisLedger(playerView) {
   const heard = heardAge !== null && heardAge !== age ?
     ` · ${heardAge === 0 ? "오늘" : `${heardAge}일 전`} 들음` : "";
   el.hypothesisEvidence.textContent =
-    `들은 근거 · ${word(`lbl_rumor_${ledger.rumorId}`, "폐허에 관한 소문")} · ${from} · ${certainty(ledger.confidence ?? 0)} · ${when}${heard}`;
+    `들은 근거 · ${word(`lbl_rumor_${ledger.rumorId}`, "폐허에 관한 소문")} · ${from} · ${certainty(ledger.confidence ?? 0, ledger.sources)} · ${when}${heard}`;
   clearChildren(el.hypothesisChoices);
   clearChildren(el.hypothesisNext);
   if (ledger.observed) {
@@ -776,7 +782,7 @@ function renderDangerClock(knowledge) {
   const heard = report.heardAgeDays === report.ageDays ? "" :
     ` · ${report.heardAgeDays === 0 ? "오늘" : `${report.heardAgeDays}일 전`} 들음`;
   const uncertain = report.stale ? " · 지금은 달라졌을 수 있음" : "";
-  el.dangerClockEvidence.textContent = `${from} · ${certainty(report.confidence)} · ${about}${heard}${uncertain}`;
+  el.dangerClockEvidence.textContent = `${from} · ${certainty(report.confidence, sources)} · ${about}${heard}${uncertain}`;
 }
 
 // V2-Core-157 (D-135): the lines come in one after another -- by CSS alone (--i is a line's place), so every word is on
