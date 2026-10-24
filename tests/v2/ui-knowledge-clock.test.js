@@ -60,6 +60,7 @@ assert.equal(project(tie).stage, 2, "equal-day reports prefer the stronger known
 
 const hidden = structuredClone(crossing);
 hidden.facts.fact_band_crossed = { value: "crossed", since: 1 };
+hidden.signals ??= {};
 hidden.signals.band_crossed = 999;
 hidden.rng = { ...hidden.rng, state: 123, cursor: 987 };
 const before = JSON.stringify(hidden);
