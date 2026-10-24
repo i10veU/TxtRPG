@@ -260,6 +260,17 @@
   @media (max-width: 420px) {
     #scene { font-size: 1.08rem; }
   }
+  /* J3: deduction must be reachable without opening the notebook. */
+  #hypothesisLedger { border: 1px solid var(--rule); border-left: 3px solid var(--accent); background: var(--page); padding: 1rem; border-radius: 5px; display: grid; gap: 0.55rem; }
+  #hypothesisLedger[hidden] { display: none; }
+  #hypothesisLedger h2 { margin: 0; font: 700 1rem/1.35 var(--serif); }
+  #hypothesisLedger h2 small { color: var(--muted); font: 400 0.75rem var(--sans); }
+  #hypothesisLedger p { margin: 0; line-height: 1.55; }
+  #hypothesisEvidence, #hypothesisVerdict { font-size: 0.86rem; color: var(--muted); }
+  #hypothesisChoices { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: 0.5rem; }
+  #hypothesisChoices button { text-align: left; min-height: 2.75rem; white-space: normal; }
+  #hypothesisChoices button[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); font-weight: 700; }
+  #hypothesisNext button { width: 100%; }
 </style>
 </head>
 <body>
@@ -318,6 +329,14 @@
     <div class="clock-track" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
     <p id="dangerClockText"></p>
     <p id="dangerClockEvidence"></p>
+  </section>
+  <section id="hypothesisLedger" hidden aria-label="1장 짐작 장부">
+    <h2>짐작 장부 <small>· 소문을 걸고 확인한다</small></h2>
+    <p id="hypothesisQuestion"></p>
+    <p id="hypothesisEvidence"></p>
+    <div id="hypothesisChoices" role="group" aria-label="짐작 고르기"></div>
+    <p id="hypothesisVerdict" aria-live="polite"></p>
+    <div id="hypothesisNext"></div>
   </section>
   <div class="play">
     <section id="choice" hidden>
