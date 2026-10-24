@@ -2425,7 +2425,9 @@ export const worldData = {
           requires: { op: "and", of: [{ op: "rumor", rumor: "rum_spring_bandits" }, { op: "not", of: ARROWS_TOLD }] },
           effects: [
             { op: "flag", key: "spring_bandits_told", value: true },
-            { op: "relation", from: "npc_elder", add: 5 },
+            // The teller remembers this public act on their own relationship edge.
+            // Successors cannot inherit it, and the UI need not read world flags.
+            { op: "relation", from: "npc_elder", add: 5, tag: "spring_arrows_reported" },
             say("txt_tell_spring_arrows"),
             ARROWS_IN_THE_ACCOUNT
           ]

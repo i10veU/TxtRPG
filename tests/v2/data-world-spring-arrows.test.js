@@ -92,6 +92,8 @@ function testTellingTheElder(read) {
   assert.deepStrictEqual(texts(log[1]), ["txt_tell_spring_arrows", "txt_spring_bandits_leader_lives"], "the leader still lives on this path");
   assert.strictEqual(state.flags.spring_bandits_told, true);
   assert.strictEqual(elderScore(state), before + 5);
+  assert.ok(state.relations[`npc_elder:${state.player.actorId}`].tags.includes("spring_arrows_reported"),
+    "the teller's relationship edge records the public act");
   assert.strictEqual(offered(state, "opt_tell_spring_arrows"), false, "once for the world");
   // the account, told to anyone from now on: the elder about the ruins, the herbalist about the sickness
   const ruins = run(state, E("opt_ask_ruins")).log[1];
@@ -140,6 +142,8 @@ function testSuccessor(told) {
   const next = run(s, [{ type: "startCharacter", templateId: "start_wanderer" }]).state;
   assert.strictEqual(knows(next, "rum_spring_bandits"), false, "knowledge is not inherited");
   assert.strictEqual(next.flags.spring_bandits_told, true, "the world's account stays");
+  assert.ok(!next.relations[`npc_elder:${next.player.actorId}`]?.tags?.includes("spring_arrows_reported"),
+    "the predecessor's personal report tag is not inherited");
   assert.deepStrictEqual(texts(run(next, E("opt_ask_ruins")).log[1]), ["txt_ask_ruins", "txt_ask_ruins_spring"]);
   const heard = run(next, E("opt_ask_ruins")).state;
   assert.strictEqual(elderScore(heard), 5, "the successor's own first telling, nothing of the predecessor's");
@@ -156,6 +160,8 @@ function testSaveAndDeterminism() {
   const loaded = parseLoadedRecord(JSON.parse(JSON.stringify(buildSaveRecord("slot_arrows", mid, { savedAt: 1 }))));
   assert.deepStrictEqual(loaded, mid);
   assert.deepStrictEqual(run(loaded, path.slice(-3)).state, end, "loaded, the same end");
+  const restored = parseLoadedRecord(JSON.parse(JSON.stringify(buildSaveRecord("slot_reported", end, { savedAt: 2 }))));
+  assert.deepStrictEqual(restored, end, "the existing relation tag survives Save without migration");
   assert.deepStrictEqual(run(start(), path).state, end, "the same input, the same result");
 }
 

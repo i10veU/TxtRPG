@@ -1,6 +1,6 @@
 // J3: combining two independently learned rumors must not become a hidden-truth oracle.
 import assert from "node:assert/strict";
-import { linkedCaseLedger, linkedCaseElderAction } from "../../web/v2/ui/linked-case-ledger.js";
+import { linkedCaseLedger, linkedCaseElderAction, linkedCaseReported } from "../../web/v2/ui/linked-case-ledger.js";
 import { worldData } from "../../web/v2/data/world.js";
 
 const known = (id, source = "npc_elder") => ({
@@ -52,7 +52,8 @@ assert.equal(JSON.stringify(linkedCaseLedger(hidden, worldData)), snapshot,
 
 // A verified deduction can now open the *existing* elder conversation from
 // the ledger itself. Availability comes exclusively from the player View.
-const readyView = { actor: { locationId: "loc_village" }, pending: null,
+const readyView = { actor: { id: "player_1", locationId: "loc_village" }, pending: null,
+  relations: { "npc_elder:player_1": { tags: [] } },
   actions: [{ actionId: "act_talk_elder", available: true }] };
 assert.equal(linkedCaseElderAction(first, readyView), null, "unverified hearsay cannot open the shortcut");
 assert.equal(linkedCaseElderAction(confirmed, readyView), "act_talk_elder", "verified clue enables elder dialogue");
@@ -65,5 +66,14 @@ assert.equal(linkedCaseElderAction(confirmed, { ...readyView, actions: [{ action
 assert.equal(linkedCaseElderAction(confirmed, { ...readyView, actions: [] }), null);
 assert.equal(linkedCaseElderAction(confirmed, { ...readyView, hiddenFacts: { spring_bandits_told: true } }),
   "act_talk_elder", "hidden world state cannot alter the shortcut");
+const reported = { ...readyView, relations: { "npc_elder:player_1": { tags: ["spring_arrows_reported"] } } };
+assert.equal(linkedCaseReported(confirmed, readyView), false);
+assert.equal(linkedCaseReported(confirmed, reported), true, "the teller's visible relation records the report");
+assert.equal(linkedCaseElderAction(confirmed, reported), null, "a completed report cannot offer a stale shortcut");
+assert.equal(linkedCaseReported(first, reported), false, "a report tag alone cannot reveal unknown evidence");
+assert.equal(linkedCaseReported(confirmed, { ...readyView, relations: { "npc_elder:player_2": { tags: ["spring_arrows_reported"] } } }), false,
+  "another character's report is not this life’s knowledge");
+assert.equal(linkedCaseElderAction(confirmed, { ...readyView, relations: {}, hiddenFacts: { spring_bandits_told: true } }),
+  "act_talk_elder", "a hidden world flag must never disclose a predecessor's report");
 
 console.log("J3 cross-case deduction projection: PASS");
