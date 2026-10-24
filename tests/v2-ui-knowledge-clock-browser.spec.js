@@ -37,7 +37,7 @@ test("J3 danger clock: no opening spoiler, known report only, freshness and save
     s.knowledge[s.player.actorId].rum_band_crossing_soon = {
       rumorId: "rum_band_crossing_soon", factId: def.factId, claim: def.claim,
       source: "npc_ferryman", sources: ["npc_ferryman"],
-      confidence: 70, confirmations: 1, firstSeenDay: day, lastSeenDay: day, aboutDay: day
+      confidence: 95, confirmations: 1, firstSeenDay: day, lastSeenDay: day, aboutDay: day
     };
     await idb.save("j3-clock-known", s, { savedAt: 1 });
   });
@@ -47,6 +47,8 @@ test("J3 danger clock: no opening spoiler, known report only, freshness and save
   await expect(clock).toHaveAttribute("data-stage", "2");
   await expect(clock.locator("#dangerClockText")).toHaveText("곧 강을 건너올 거라는 소식");
   await expect(clock.locator("#dangerClockEvidence")).toContainText("뱃사공에게 들음");
+  await expect(clock.locator("#dangerClockEvidence")).toContainText("확신 높은 전언");
+  await expect(clock.locator("#dangerClockEvidence")).not.toContainText("직접 확인함");
   await expect(clock.locator("#dangerClockEvidence")).toContainText("오늘의 소식");
   await expect(clock.locator("#dangerClockEvidence")).not.toContainText("지금은 달라졌을 수 있음");
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
