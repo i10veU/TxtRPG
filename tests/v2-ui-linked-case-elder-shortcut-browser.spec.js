@@ -53,6 +53,10 @@ test("J3 ledger shortcut opens real elder dialogue and changes village relation 
   await expect(page.locator("#log")).toContainText("샘을 흐린 것도 도적들이었다는 말이 곧 마을에 퍼질 것이다.");
   const afterReport = await page.evaluate(() => window.__v2App.getState().relations["npc_elder:player_1"].score);
   expect(afterReport).toBe(before + 5);
+  await expect(shortcut).toHaveCount(0);
+  await expect(next).toContainText("이 단서는 이미 원로에게 전했다");
+  const reportTag = await page.evaluate(() => window.__v2App.getState().relations["npc_elder:player_1"].tags);
+  expect(reportTag).toContain("spring_arrows_reported");
 
   // Reopening the elder must not offer the already-consumed consequence.
   await page.locator("#actions button", { hasText: "원로를 찾아간다" }).click();
