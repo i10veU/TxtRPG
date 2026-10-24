@@ -24,6 +24,7 @@ import { waitDay } from "./wait.js";
 import { currentGoals } from "./goals.js";
 import { stakesOf, duration } from "./stakes.js";
 import { knowledgeClock } from "./knowledge-clock.js";
+import { hypothesisLedger } from "./hypothesis-ledger.js";
 import { greetingFor } from "./people.js";
 import { deedsTrue, endingLearned } from "./deeds.js";
 import * as chronicle from "../storage/chronicle.js";
@@ -45,6 +46,9 @@ let sceneLines = [];
 // V2-Core-152: what the last step taught or gave me (rumours, items, silver, wounds), and whether my goal moved
 let newsItems = [];
 let goalChanged = false;
+// The guess is an ephemeral UI choice, never a fact or inherited Save field.
+let hypothesisSelection = null;
+let hypothesisLifeKey = null;
 // V2-Core-156 (D-134): the life being played, as the chronicle keeps it (storage/chronicle.js), and the ending shown
 let life = null;
 let endingCard = null;
@@ -94,6 +98,12 @@ const el = {
   dangerClock: document.getElementById("dangerClock"),
   dangerClockText: document.getElementById("dangerClockText"),
   dangerClockEvidence: document.getElementById("dangerClockEvidence"),
+  hypothesisLedger: document.getElementById("hypothesisLedger"),
+  hypothesisQuestion: document.getElementById("hypothesisQuestion"),
+  hypothesisEvidence: document.getElementById("hypothesisEvidence"),
+  hypothesisChoices: document.getElementById("hypothesisChoices"),
+  hypothesisVerdict: document.getElementById("hypothesisVerdict"),
+  hypothesisNext: document.getElementById("hypothesisNext"),
   storySection: document.getElementById("storySection"),
   story: document.getElementById("story"),
   slotList: document.getElementById("slotList"),
@@ -690,6 +700,59 @@ function renderKnowledge(knowledge, pending) {
   });
 }
 
+// J3 RC1: the player must commit to a guess before the existing engine's
+// field investigation can test it. No hidden facts, RNG or flags are read.
+function renderHypothesisLedger(playerView) {
+  if (!el.hypothesisLedger) return;
+  const key = `${state.worldId}:${state.player.actorId}`;
+  if (hypothesisLifeKey !== key) {
+    hypothesisLifeKey = key;
+    hypothesisSelection = null;
+  }
+  const ledger = hypothesisLedger(playerView.knowledge, worldData);
+  el.hypothesisLedger.hidden = !ledger;
+  if (!ledger) return;
+  el.hypothesisQuestion.textContent = ledger.question;
+  const from = ledger.sources.length ? ledger.sources.map(sourceName).join(", ") : "출처 불명";
+  el.hypothesisEvidence.textContent =
+    `들은 근거 · ${word(`lbl_rumor_${ledger.rumorId}`, "폐허에 관한 소문")} · ${from}`;
+  clearChildren(el.hypothesisChoices);
+  clearChildren(el.hypothesisNext);
+  if (ledger.observed) {
+    el.hypothesisVerdict.textContent = hypothesisSelection === "hideout"
+      ? "현장에서 확인했다. 짐작이 근거를 얻었다."
+      : hypothesisSelection === "empty"
+        ? "현장에서 반증되었다. 소문을 다시 살펴볼 때다."
+        : "현장에서 직접 확인한 기록이 있다.";
+    return;
+  }
+  el.hypothesisVerdict.textContent = hypothesisSelection
+    ? "아직은 짐작이다. 현장을 확인하기 전에는 참·거짓을 알 수 없다."
+    : "원로의 말만으로는 알 수 없다. 어느 쪽이라고 생각하는가?";
+  for (const option of ledger.options) {
+    const button = makeButton(option.label, () => {
+      hypothesisSelection = option.id;
+      renderHypothesisLedger(playerView);
+      el.hypothesisChoices.querySelector('[data-hypothesis="' + option.id + '"]')?.focus();
+    }, { disabled: Boolean(playerView.pending) });
+    button.dataset.hypothesis = option.id;
+    button.setAttribute("aria-pressed", String(hypothesisSelection === option.id));
+    el.hypothesisChoices.appendChild(button);
+  }
+  if (!hypothesisSelection) return;
+  const canInvestigate = !playerView.pending && playerView.actions.some(
+    (action) => action.actionId === ledger.actionId && action.available
+  );
+  if (canInvestigate) {
+    el.hypothesisNext.appendChild(makeButton("이 짐작을 현장에서 검증한다", () =>
+      dispatch({ type: "perform", actionId: ledger.actionId })));
+  } else {
+    el.hypothesisNext.textContent = playerView.actor.locationId === ledger.locationId
+      ? "조사할 준비가 더 필요하다. 등불을 갖추거나 밤눈이 밝아야 한다."
+      : "등불을 준비하고 폐허로 가서 직접 조사해야 한다.";
+  }
+}
+
 // J3 RC1: this is a clock of *reported* danger, not the hidden world timer.
 // It receives only the current life’s knowledge from view(); never facts or signals.
 function renderDangerClock(knowledge) {
@@ -942,6 +1005,7 @@ function render() {
   renderStory(playerView.knowledge);
   renderKnowledge(playerView.knowledge, playerView.pending);
   renderDangerClock(playerView.knowledge);
+  renderHypothesisLedger(playerView);
   renderLog();
   renderEnding();
   renderPictures();
@@ -1012,6 +1076,8 @@ function newGame(seed, templateId = el.backgroundSelect?.value || undefined) {
   const result = createInitialState({ worldSeed, data: worldData, templateId });
   ++intentVersion;
   state = result.state;
+  hypothesisSelection = null;
+  hypothesisLifeKey = null;
   currentSlot = null;
   logEntries.length = 0;
   applyEvents(result.events);
@@ -1057,6 +1123,8 @@ async function loadGame(slot) {
     }
     // D-115 (WB-0030 Q6): an actor this pack defines but the save predates is seeded as a new game would have it
     state = adoptNewActors(loaded, worldData).state;
+    hypothesisSelection = null;
+    hypothesisLifeKey = null;
     currentSlot = slot;
     logEntries.length = 0;
     pushLog(`"${slot}"에서 불러왔다.`);
@@ -1073,6 +1141,8 @@ async function loadGame(slot) {
 
 function backToMenu() {
   ++intentVersion;
+  hypothesisSelection = null;
+  hypothesisLifeKey = null;
   state = null;
   currentSlot = null;
   showError("");
