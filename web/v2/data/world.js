@@ -361,6 +361,16 @@ const WELL_RESOLVED = { op: "case", case: "case_fouled_well", stage: "resolved" 
 // V2-Core-68 (#170): handling the carcass records whose arrows killed it (the world's truth); a
 // character who knows the bandits' hideout reads them, once
 const ARROWS_TOLD = { op: "flag", key: "spring_bandits_told" };
+// J3: an unverified two-rumor judgment becomes one irreversible village response.
+// The world remembers the response; the teller's own relation tag records authorship.
+const SPRING_DECISION_OPEN = { op: "and", of: [
+  { op: "rumor", rumor: "rum_ruins_secret" },
+  { op: "rumor", rumor: "rum_well_source" },
+  { op: "not", of: { op: "rumor", rumor: "rum_spring_bandits" } },
+  { op: "not", of: ARROWS_TOLD },
+  { op: "not", of: { op: "flag", key: "spring_watch_requested" } },
+  { op: "not", of: { op: "flag", key: "spring_inquiry_requested" } }
+] };
 const EXAMINE_CARCASS = [
   { op: "fact", fact: "fact_spring_fouler", set: "bandits" },
   {
@@ -1354,6 +1364,29 @@ export const worldData = {
         }
       ]
     },
+    // J3 post-RC1: a *real* decision before proof, not a saved UI guess.
+    // Both actions use the ordinary engine, are mutually exclusive for the world,
+    // and have different elder trust and later dialogue. Neither declares the truth.
+    act_request_spring_watch: {
+      name: "폐허와 샘의 연관성을 의심하며 원로에게 경계를 청한다",
+      requires: { op: "and", of: [{ op: "location", at: "loc_village" }, SPRING_DECISION_OPEN] },
+      minutes: 10,
+      effects: [
+        { op: "flag", key: "spring_watch_requested", value: true },
+        { op: "relation", from: "npc_elder", add: -2, tag: "spring_watch_requested" },
+        say("txt_spring_watch_requested")
+      ]
+    },
+    act_request_spring_inquiry: {
+      name: "두 사건을 단정하지 말고 조사하자고 원로에게 말한다",
+      requires: { op: "and", of: [{ op: "location", at: "loc_village" }, SPRING_DECISION_OPEN] },
+      minutes: 10,
+      effects: [
+        { op: "flag", key: "spring_inquiry_requested", value: true },
+        { op: "relation", from: "npc_elder", add: 2, tag: "spring_inquiry_requested" },
+        say("txt_spring_inquiry_requested")
+      ]
+    },
     // V2-Core-64 (#160): the well -- PER (what one notices) with the investigation skill. A success
     // records where the water comes from (the world's fact) and the character sees it first-hand
     act_inspect_well: {
@@ -2139,7 +2172,13 @@ export const worldData = {
             { op: "rumor", rumor: "rum_ruins_secret", source: "npc_elder", confidence: 60 },
             { op: "narrate", textId: "txt_ask_ruins" },
             // V2-Core-68: once he has heard of the arrows, the ruins and the spring are one story to him
-            { op: "if", when: ARROWS_TOLD, then: [say("txt_ask_ruins_spring")] }
+            { op: "if", when: ARROWS_TOLD, then: [say("txt_ask_ruins_spring")] },
+            // The elder's later account changes with the public response, without
+            // disclosing the unseen spring cause or an earlier life’s private knowledge.
+            { op: "if", when: { op: "and", of: [{ op: "flag", key: "spring_watch_requested" }, { op: "not", of: ARROWS_TOLD }] },
+              then: [say("txt_spring_watch_followup")] },
+            { op: "if", when: { op: "and", of: [{ op: "flag", key: "spring_inquiry_requested" }, { op: "not", of: ARROWS_TOLD }] },
+              then: [say("txt_spring_inquiry_followup")] }
           ]
         },
         {
@@ -3961,6 +4000,10 @@ export const worldData = {
     txt_rest_deep_wound_stays: "깊은 상처는 쉬어도 더디게 아문다. 약초 연고가 있으면 한결 빠를 것 같다.",
     txt_rest_deep_wound_closes: "며칠을 쉰 끝에 깊은 상처가 마침내 아물었다.",
     txt_treat_deep_wound: "깊은 상처에 약초 연고를 두텁게 바르고 천으로 단단히 감는다. 쑤시던 것이 가라앉는다.",
+    txt_spring_watch_requested: "두 이야기가 이어진다고 말하자 원로는 증거 없이 마을을 놀라게 해서는 안 된다고 나무란다. 그래도 샘으로 향하는 길을 주의 깊게 살펴보겠다고 한다.",
+    txt_spring_inquiry_requested: "두 사건을 섣불리 하나로 엮지 말자고 말하자 원로는 고개를 끄덕인다. 마을에 소문을 퍼뜨리기 전에 샘을 직접 살펴보라고 한다.",
+    txt_spring_watch_followup: "원로는 샘으로 향하는 길을 지켜보고 있지만, 도적의 흔적을 직접 확인한 이는 아직 없다고 한다.",
+    txt_spring_inquiry_followup: "원로는 샘의 흔적을 확인하기 전까지 폐허와 우물을 같은 사건으로 단정하지 않겠다고 한다.",
     txt_prologue_levy: "영주의 징집령이 성읍 게시판에 붙던 날 밤, 나는 강을 건넜다. 뱃사공은 뱃삯을 받고 아무것도 묻지 않았다.",
     txt_prologue_scout_levy: "나는 영주의 척후였다. 숲길과 밤길을 읽는 일로 먹고살았다. 징집령이 성읍 게시판에 붙던 날, 그 장부에 내 이름도 있었다. 그날 밤 나는 강을 건넜다.",
     txt_prologue_south: "강 남쪽은 영주의 땅이 아니라고들 한다. 왕국의 지도에는 있지만, 영주의 사람들은 강을 건너오지 않는다고.",
