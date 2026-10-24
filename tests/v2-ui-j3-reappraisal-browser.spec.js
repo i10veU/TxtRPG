@@ -141,7 +141,10 @@ for (const scenario of [
       return s.actors[s.player.actorId].hp.current;
     });
     await page.evaluate(() => window.__v2App.dispatch({ type: "move", to: "loc_forest_spring" }));
-    await expect.poll(() => page.evaluate(() => window.__v2App.getState().player.locationId)).toBe("loc_forest_spring");
+    await expect.poll(() => page.evaluate(() => {
+      const s = window.__v2App.getState();
+      return s.actors[s.player.actorId].locationId;
+    })).toBe("loc_forest_spring");
     const hpAfter = await page.evaluate(() => {
       const s = window.__v2App.getState();
       return s.actors[s.player.actorId].hp.current;
