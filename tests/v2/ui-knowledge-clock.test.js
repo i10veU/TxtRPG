@@ -56,7 +56,27 @@ mixed.time.minute = 3 * 1440;
 assert.equal(project(mixed).stage, 1, "most recent observation takes precedence over an older, more dramatic report");
 assert.equal(project(mixed).rumorId, "rum_band_recruits");
 const tie = add(add(fresh(), "rum_band_recruits", { day: 1, heard: 1 }), "rum_band_crossing_soon", { day: 1, heard: 1 });
+tie.time.minute = 1440; // Both same-day reports have actually been heard.
 assert.equal(project(tie).stage, 2, "equal-day reports prefer the stronger known warning");
+
+// An entry filed under another rumor's key is not a report this character
+// knows. Nor may a future-dated entry replace an already heard warning.
+const validWarning = add(fresh(), "rum_band_recruits");
+const owner = validWarning.player.actorId;
+const mismatched = structuredClone(validWarning);
+const raidDef = worldData.rumors.rum_raid_coming;
+mismatched.knowledge[owner].wrong_key = {
+  rumorId: "rum_raid_coming", factId: raidDef.factId, claim: raidDef.claim,
+  source: "npc_elder", sources: ["npc_elder"], confidence: 95,
+  firstSeenDay: 0, lastSeenDay: 0, aboutDay: 0
+};
+assert.equal(project(mismatched).stage, 1, "mis-keyed report cannot invent a raid warning");
+const futureObserved = add(structuredClone(validWarning), "rum_raid_coming", { day: 7, heard: 0 });
+assert.equal(project(futureObserved).stage, 1, "future observation cannot outrank current knowledge");
+const futureHeard = add(structuredClone(validWarning), "rum_raid_coming", { day: 0, heard: 7 });
+assert.equal(project(futureHeard).stage, 1, "unreceived future report cannot outrank current knowledge");
+assert.equal(knowledgeClock({ wrong_key: mismatched.knowledge[owner].wrong_key }, worldData, 0), null,
+  "mis-keyed rumor alone must not reveal a danger clock");
 
 const hidden = structuredClone(crossing);
 hidden.facts.fact_band_crossed = { value: "crossed", since: 1 };
