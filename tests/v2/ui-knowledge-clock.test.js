@@ -56,6 +56,7 @@ mixed.time.minute = 3 * 1440;
 assert.equal(project(mixed).stage, 1, "most recent observation takes precedence over an older, more dramatic report");
 assert.equal(project(mixed).rumorId, "rum_band_recruits");
 const tie = add(add(fresh(), "rum_band_recruits", { day: 1, heard: 1 }), "rum_band_crossing_soon", { day: 1, heard: 1 });
+tie.time.minute = 1440; // Both same-day reports have actually been heard.
 assert.equal(project(tie).stage, 2, "equal-day reports prefer the stronger known warning");
 
 // An entry filed under another rumor's key is not a report this character
