@@ -937,6 +937,25 @@ export const worldData = {
   // three hits take the 10-HP wanderer to 0, which is the existing `hp`
   // Effect's own death trigger (D-34), not a new mechanic.
   events: {
+    // J3 (#426): the elder needs a full day after hearing first-hand arrows
+    // before villagers can mark the worst miasma pockets. This is a public,
+    // world-owned follow-up, not an inherited personal guess. One tick begins
+    // on the report step; a second tick 1440 minutes later deploys the patrol.
+    // Purifying the spring first cancels the remaining work. No extra RNG.
+    evt_spring_a_patrol_progress: {
+      trigger: { op: "and", of: [
+        ARROWS_TOLD,
+        { op: "not", of: WELL_RESOLVED },
+        { op: "signal", key: "spring_patrol_progress", max: 1 }
+      ] },
+      cooldown: 1440,
+      catchUp: true,
+      effects: [
+        { op: "signal", key: "spring_patrol_progress", add: 1 },
+        { op: "if", when: { op: "signal", key: "spring_patrol_progress", eq: 2 },
+          then: [{ op: "flag", key: "spring_patrol_deployed", value: true }] }
+      ]
+    },
     // V2-Core-45 (#66 slice): the dispersal becomes history. Once the bandits are dispersed (the
     // case is resolved and the leader is no longer a member -- not reversible since V2-Core-44),
     // this records the objective fact and counts the days: 1 on the dispersal step, then +1 at the
@@ -1167,7 +1186,15 @@ export const worldData = {
             { op: "item", item: "item_purifying_herb", min: 1 }
           ] },
           then: [{ op: "hp", add: -1 }, say("txt_spring_miasma_prepared")],
-          else: [{ op: "hp", add: -2 }, say("txt_spring_miasma")]
+          // After a full day the village patrol's marked path gives the
+          // same bounded mitigation to anyone, including a successor. A
+          // personal herbalist gift takes precedence; the two do not stack.
+          else: [{
+            op: "if",
+            when: { op: "flag", key: "spring_patrol_deployed" },
+            then: [{ op: "hp", add: -1 }, say("txt_spring_miasma_patrol")],
+            else: [{ op: "hp", add: -2 }, say("txt_spring_miasma")]
+          }]
         }]
       }
     },
@@ -2190,6 +2217,12 @@ export const worldData = {
             { op: "narrate", textId: "txt_ask_ruins" },
             // V2-Core-68: once he has heard of the arrows, the ruins and the spring are one story to him
             { op: "if", when: ARROWS_TOLD, then: [say("txt_ask_ruins_spring")] },
+            // The marked route is a public consequence of the report, not
+            // the earlier teller's private hypothesis. A successor may hear it.
+            { op: "if", when: { op: "and", of: [
+              { op: "flag", key: "spring_patrol_deployed" },
+              { op: "not", of: WELL_RESOLVED }
+            ] }, then: [say("txt_spring_patrol_deployed")] },
             // The elder's later account changes with the public response, without
             // disclosing the unseen spring cause or an earlier life’s private knowledge.
             { op: "if", when: { op: "and", of: [{ op: "flag", key: "spring_watch_requested" }, { op: "not", of: ARROWS_TOLD }] },
@@ -4083,6 +4116,8 @@ export const worldData = {
     txt_spring_inquiry_revised: "원로는 화살을 한참 살핀다. \"섣불리 단정하지 말자던 말도 옳았지만, 이제는 샘길 경계를 늦출 수 없겠군.\" 늦어진 대응의 부담이 남는다.",
     txt_spring_watch_afterproof: "원로는 처음 샘길을 경계하자던 말과 직접 가져온 화살을 함께 기억한다.",
     txt_spring_inquiry_afterproof: "원로는 처음 두 사건을 나누어 보자던 말을 새 증거에 맞춰 고쳐 받아들였다고 말한다.",
+    txt_spring_patrol_deployed: "원로는 화살 이야기를 들은 뒤 하루 동안 샘길을 살피게 했다고 한다. 마을 사람들은 독기가 짙은 자리에 표식을 남겨 길을 지나는 이들이 피해 가게 했다.",
+    txt_spring_miasma_patrol: "샘길에 남겨진 표식을 따라 독기가 짙은 자리를 비켜 간다. 숨이 조금 막히지만 더 깊은 곳으로 들지는 않았다.",
     txt_prologue_levy: "영주의 징집령이 성읍 게시판에 붙던 날 밤, 나는 강을 건넜다. 뱃사공은 뱃삯을 받고 아무것도 묻지 않았다.",
     txt_prologue_scout_levy: "나는 영주의 척후였다. 숲길과 밤길을 읽는 일로 먹고살았다. 징집령이 성읍 게시판에 붙던 날, 그 장부에 내 이름도 있었다. 그날 밤 나는 강을 건넜다.",
     txt_prologue_south: "강 남쪽은 영주의 땅이 아니라고들 한다. 왕국의 지도에는 있지만, 영주의 사람들은 강을 건너오지 않는다고.",
