@@ -26,6 +26,8 @@ export function hypothesisLedger(knowledge, data) {
     sources,
     confidence: Number.isFinite(known.confidence) ? known.confidence : null,
     lastSeenDay: Number.isInteger(known.lastSeenDay) ? known.lastSeenDay : null,
+    aboutDay: Number.isInteger(known.aboutDay) ? known.aboutDay :
+      Number.isInteger(known.lastSeenDay) ? known.lastSeenDay : null,
     observed,
     locationId: RUINS.locationId,
     actionId: RUINS.actionId,
