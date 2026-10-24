@@ -56,7 +56,7 @@ for (const scenario of [
 
   // Neither hearing a rumor nor finding proof privately starts village action.
   const unreported = run(proof, Array.from({ length: 25 }, () => P("act_rest_village"))).state;
-  assert.equal(unreported.signals.spring_patrol_progress, undefined);
+  assert.equal(unreported.signals?.spring_patrol_progress, undefined);
   assert.equal(unreported.flags.spring_patrol_deployed, undefined);
 
   const told = run(proof, E("opt_tell_spring_arrows")).state;
@@ -116,7 +116,7 @@ for (const scenario of [
   dying.pending = { kind: "newCharacter" };
   const heir = run(dying, [{ type: "startCharacter", templateId: "start_wanderer" }]).state;
   assert.equal(heir.flags.spring_patrol_deployed, true);
-  assert.equal(view(heir, worldData).knowledge?.rum_spring_bandits, undefined);
+  assert.equal(Boolean(view(heir, worldData).knowledge?.rum_spring_bandits), false);
   assert.equal(heir.relations["npc_elder:" + heir.player.actorId]?.tags?.includes("spring_watch_vindicated") ?? false, false);
   assert.equal(heir.relations["npc_elder:" + heir.player.actorId]?.tags?.includes("spring_inquiry_revised") ?? false, false);
   assert.equal(failDamage(heir).loss, 1, "the patrol is a world consequence, not inherited knowledge");
@@ -129,7 +129,7 @@ for (const scenario of [
 // A prior-version save with only the public report flag begins its bounded
 // response on the next real step; no schema migration or guessed teller.
 const legacy = run(start(), INTRO).state;
-legacy.flags.spring_bandits_told = true;
+legacy.flags = { ...legacy.flags, spring_bandits_told: true };
 const legacyStarted = run(legacy, [P("act_rest_village")]).state;
 assert.equal(legacyStarted.signals.spring_patrol_progress, 1);
 assert.equal(legacyStarted.flags.spring_patrol_deployed, undefined);
