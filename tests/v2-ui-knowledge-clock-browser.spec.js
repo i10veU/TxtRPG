@@ -118,6 +118,7 @@ test("J3 danger clock ignores mis-keyed and future reports after IndexedDB resto
     const idb = await import("/v2/storage/idb.js");
     const app = window.__v2App;
     const state = structuredClone(app.getState());
+    state.knowledge ??= {};
     const knowledge = state.knowledge[state.player.actorId] ??= {};
     const data = app.worldData;
     const today = Math.floor(state.time.minute / 1440);
