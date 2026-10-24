@@ -92,7 +92,7 @@ test.describe("V2 the ford and the town (MG-045/046)", () => {
     await ferryman(page, "강 건너 소식을 묻는다");
     await expect(log(page)).toContainText("성읍 상인이 강 남쪽 밀가루를 찾는다더군");
     await expect(word(page, WANTS)).toHaveText(`${WANTS} · 뱃사공에게 들음 · 믿을 만함 · 1일 전의 일 (오늘 들음)`);
-    await expect(word(page, TOOK)).toHaveText(`${TOOK} · 뱃사공에게 들음 · 직접 확인함 · 1일 전의 일 (오늘 들음)`);
+    await expect(word(page, TOOK)).toHaveText(`${TOOK} · 뱃사공에게 들음 · 확신 높은 전언 · 1일 전의 일 (오늘 들음)`);
 
     // the fare, and the town
     const before = await getState(page);
