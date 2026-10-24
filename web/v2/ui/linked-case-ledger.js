@@ -95,3 +95,39 @@ export function linkedCaseElderAction(ledger, playerView) {
     playerView.actions.some((action) => action.actionId === "act_talk_elder" && action.available === true)
     ? "act_talk_elder" : null;
 }
+
+// A committed judgment can lead to *existing* NPC help without inspecting world
+// flags or inventing a parallel quest. Only this life's visible relations,
+// inventory, location and legal actions may affect the shortcut.
+const SUPPORT = Object.freeze({
+  linked: Object.freeze({
+    npcId: "npc_elder", npcName: "원로", itemName: "등불",
+    locationId: "loc_village", locationName: "마을",
+    actionId: "act_talk_elder", tag: "spring_watch_lantern_loaned"
+  }),
+  separate: Object.freeze({
+    npcId: "npc_herbalist", npcName: "약초꾼", itemName: "정화초",
+    locationId: "loc_market", locationName: "장터",
+    actionId: "act_talk_herbalist", tag: "spring_inquiry_herb_given"
+  })
+});
+
+export function linkedCaseSupport(ledger, playerView) {
+  const decision = linkedCaseDecision(ledger, playerView);
+  if (!decision || ledger?.observed) return null;
+  const actor = playerView?.actor;
+  const support = SUPPORT[decision];
+  const tags = playerView?.relations?.[`${support.npcId}:${actor.id}`]?.tags;
+  const received = Array.isArray(tags) && tags.includes(support.tag);
+  // The elder's lantern option is intentionally unavailable if one is owned.
+  const prepared = decision === "linked" && (actor.inventory?.item_lantern ?? 0) > 0;
+  const atLocation = actor.locationId === support.locationId;
+  const available = !received && !prepared && atLocation && !playerView?.pending &&
+    Array.isArray(playerView?.actions) &&
+    playerView.actions.some((action) => action.actionId === support.actionId && action.available === true);
+  return {
+    npcName: support.npcName, itemName: support.itemName,
+    locationName: support.locationName, received, prepared, atLocation,
+    actionId: available ? support.actionId : null
+  };
+}
