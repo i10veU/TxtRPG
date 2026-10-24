@@ -71,6 +71,10 @@ const corrupted = structuredClone(crossing);
 corrupted.knowledge[corrupted.player.actorId].rum_band_crossing_soon.claim = "invented";
 assert.equal(project(corrupted), null, "unmatched claim is not a legitimate observed report");
 
+const poisoned = fresh();
+poisoned.knowledge = { [poisoned.player.actorId]: JSON.parse('{"__proto__":{"rumorId":"__proto__","confidence":70,"lastSeenDay":0}}') };
+assert.equal(project(poisoned), null, "inherited Object keys must never become valid reports");
+
 const loaded = parseLoadedRecord(JSON.parse(JSON.stringify(buildSaveRecord("j3-clock", crossing, { savedAt: 1 }))));
 assert.deepEqual(project(loaded), project(crossing), "save/load retains the exact same knowledge clock");
 assert.deepEqual(loaded, crossing, "the UI-only clock requires no Save migration");
