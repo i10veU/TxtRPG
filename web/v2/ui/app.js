@@ -25,7 +25,7 @@ import { currentGoals } from "./goals.js";
 import { stakesOf, duration } from "./stakes.js";
 import { knowledgeClock } from "./knowledge-clock.js";
 import { hypothesisLedger } from "./hypothesis-ledger.js";
-import { linkedCaseLedger } from "./linked-case-ledger.js";
+import { linkedCaseLedger, linkedCaseElderAction } from "./linked-case-ledger.js";
 import { greetingFor } from "./people.js";
 import { deedsTrue, endingLearned } from "./deeds.js";
 import * as chronicle from "../storage/chronicle.js";
@@ -795,7 +795,15 @@ function renderLinkedCaseLedger(playerView) {
     el.linkedCaseVerdict.textContent = linkedCaseSelection === "separate"
       ? "현장에서 반증되었다. 사체의 화살은 도적단의 것이었다."
       : "현장에서 도적단의 화살을 확인했다. 두 사건을 잇는 근거가 생겼다.";
-    el.linkedCaseNext.textContent = "이제 마을 원로에게 화살 이야기를 전할 수 있다.";
+    const elderAction = linkedCaseElderAction(ledger, playerView);
+    if (elderAction) {
+      el.linkedCaseNext.appendChild(makeButton("확인한 단서를 원로에게 이야기한다", () =>
+        dispatch({ type: "perform", actionId: elderAction })));
+    } else {
+      el.linkedCaseNext.textContent = playerView.actor.locationId === "loc_village"
+        ? "원로와 이야기하려면 현재 행동을 마쳐야 한다."
+        : "확인한 단서를 전하려면 마을의 원로를 찾아가자.";
+    }
     return;
   }
   el.linkedCaseVerdict.textContent = ledger.springSeen
