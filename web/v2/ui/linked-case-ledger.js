@@ -6,6 +6,10 @@ const OPTIONS = Object.freeze([
   Object.freeze({ id: "linked", label: "폐허의 무리가 샘을 더럽혔을 것이다." }),
   Object.freeze({ id: "separate", label: "폐허와 샘은 별개의 사건일 것이다." })
 ]);
+const DECISION_ACTIONS = Object.freeze({
+  linked: "act_request_spring_watch",
+  separate: "act_request_spring_inquiry"
+});
 
 function matchingKnowledge(knowledge, data, rumorId) {
   const known = knowledge?.[rumorId];
@@ -48,6 +52,29 @@ export function linkedCaseLedger(knowledge, data) {
     locationId: "loc_forest_spring",
     options: OPTIONS
   };
+}
+
+// Only an actual action, never a transient guess, becomes persistent. Read the
+// current teller's visible relation edge; world flags and predecessor edges are
+// intentionally not an input to the notebook.
+export function linkedCaseDecision(ledger, playerView) {
+  const actorId = playerView?.actor?.id;
+  if (!ledger || typeof actorId !== "string") return null;
+  const tags = playerView?.relations?.[`npc_elder:${actorId}`]?.tags;
+  if (!Array.isArray(tags)) return null;
+  if (tags.includes("spring_watch_requested")) return "linked";
+  if (tags.includes("spring_inquiry_requested")) return "separate";
+  return null;
+}
+
+export function linkedCaseDecisionAction(ledger, playerView, selection) {
+  if (!ledger || ledger.observed || linkedCaseDecision(ledger, playerView) ||
+      !Object.hasOwn(DECISION_ACTIONS, selection) || playerView?.pending ||
+      playerView?.actor?.locationId !== "loc_village") return null;
+  const actionId = DECISION_ACTIONS[selection];
+  return Array.isArray(playerView?.actions) &&
+    playerView.actions.some((action) => action.actionId === actionId && action.available === true)
+    ? actionId : null;
 }
 
 // A report is a *player-visible act* recorded on this teller's relationship

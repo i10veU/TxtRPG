@@ -25,7 +25,7 @@ import { currentGoals } from "./goals.js";
 import { stakesOf, duration } from "./stakes.js";
 import { knowledgeClock } from "./knowledge-clock.js";
 import { hypothesisLedger } from "./hypothesis-ledger.js";
-import { linkedCaseLedger, linkedCaseElderAction, linkedCaseReported } from "./linked-case-ledger.js";
+import { linkedCaseLedger, linkedCaseElderAction, linkedCaseReported, linkedCaseDecision, linkedCaseDecisionAction } from "./linked-case-ledger.js";
 import { greetingFor } from "./people.js";
 import { deedsTrue, endingLearned } from "./deeds.js";
 import * as chronicle from "../storage/chronicle.js";
@@ -780,6 +780,8 @@ function renderLinkedCaseLedger(playerView) {
   const ledger = linkedCaseLedger(playerView.knowledge, worldData);
   el.linkedCaseLedger.hidden = !ledger;
   if (!ledger) return;
+  const decision = linkedCaseDecision(ledger, playerView);
+  const judgment = decision ?? linkedCaseSelection;
   el.linkedCaseQuestion.textContent = ledger.question;
   const today = Math.floor(state.time.minute / DAY_MINUTES);
   el.linkedCaseEvidence.textContent = "함께 읽은 단서 · " + ledger.clues.map((clue) => {
@@ -792,7 +794,7 @@ function renderLinkedCaseLedger(playerView) {
   clearChildren(el.linkedCaseChoices);
   clearChildren(el.linkedCaseNext);
   if (ledger.observed) {
-    el.linkedCaseVerdict.textContent = linkedCaseSelection === "separate"
+    el.linkedCaseVerdict.textContent = judgment === "separate"
       ? "현장에서 반증되었다. 사체의 화살은 도적단의 것이었다."
       : "현장에서 도적단의 화살을 확인했다. 두 사건을 잇는 근거가 생겼다.";
     if (linkedCaseReported(ledger, playerView)) {
@@ -810,12 +812,16 @@ function renderLinkedCaseLedger(playerView) {
     }
     return;
   }
-  el.linkedCaseVerdict.textContent = ledger.springSeen
-    ? "샘의 사체는 확인했지만, 도적단과의 연결은 아직 확인되지 않았다."
-    : linkedCaseSelection
-      ? "두 소문을 엮은 짐작이다. 샘에서 흔적을 찾아야 확인할 수 있다."
-      : "폐허 이야기와 우물의 물길을 함께 놓고 생각해 보자.";
-  for (const option of ledger.options) {
+  el.linkedCaseVerdict.textContent = decision === "linked"
+    ? "원로에게 샘 경계를 요청했다. 아직은 가설이다. 직접 확인하자."
+    : decision === "separate"
+      ? "원로에게 먼저 조사하자고 제안했다. 아직은 가설이다. 직접 확인하자."
+      : ledger.springSeen
+        ? "샘의 사체는 확인했지만, 도적단과의 연결은 아직 확인되지 않았다."
+        : linkedCaseSelection
+          ? "두 소문을 엮은 짐작이다. 샘에서 흔적을 찾아야 확인할 수 있다."
+          : "폐허 이야기와 우물의 물길을 함께 놓고 생각해 보자.";
+  if (!decision) for (const option of ledger.options) {
     const button = makeButton(option.label, () => {
       linkedCaseSelection = option.id;
       renderLinkedCaseLedger(playerView);
@@ -825,7 +831,13 @@ function renderLinkedCaseLedger(playerView) {
     button.setAttribute("aria-pressed", String(linkedCaseSelection === option.id));
     el.linkedCaseChoices.appendChild(button);
   }
-  if (!linkedCaseSelection) return;
+  if (!linkedCaseSelection && !decision) return;
+  const decisionAction = linkedCaseDecisionAction(ledger, playerView, linkedCaseSelection);
+  if (decisionAction) {
+    el.linkedCaseNext.appendChild(makeButton("이 판단을 원로에게 전한다", () =>
+      dispatch({ type: "perform", actionId: decisionAction })));
+    return;
+  }
   const canSearch = !playerView.pending && playerView.actions.some(
     (action) => action.actionId === ledger.actionId && action.available
   );
