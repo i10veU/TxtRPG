@@ -47,6 +47,8 @@ for (const scenario of [
 
     await page.locator("#saveSlotInput").fill("j3-judgment-" + scenario.flag);
     await page.locator("#saveBtn").click();
+    // Saving is asynchronous; wait for the successful write before reloading.
+    await expect(page.locator("#log")).toContainText("j3-judgment-" + scenario.flag);
     await page.reload({ waitUntil: "networkidle" });
     await expect.poll(() => page.evaluate(() => Boolean(window.__v2App))).toBe(true);
     await page.locator("#slotList li", { hasText: "j3-judgment-" + scenario.flag })
