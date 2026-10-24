@@ -49,3 +49,13 @@ export function linkedCaseLedger(knowledge, data) {
     options: OPTIONS
   };
 }
+
+// A verified clue should lead to a real existing dialogue, not a dead-end
+// instruction. This is a UI affordance only: the engine still decides which
+// elder dialogue options are legal. Do not consult flags or world truth.
+export function linkedCaseElderAction(ledger, playerView) {
+  if (!ledger?.observed || playerView?.pending || playerView?.actor?.locationId !== "loc_village") return null;
+  return Array.isArray(playerView?.actions) &&
+    playerView.actions.some((action) => action.actionId === "act_talk_elder" && action.available === true)
+    ? "act_talk_elder" : null;
+}
