@@ -50,11 +50,20 @@ export function linkedCaseLedger(knowledge, data) {
   };
 }
 
+// A report is a *player-visible act* recorded on this teller's relationship
+// edge. The world flag is intentionally not consulted: successors must not
+// learn what a predecessor did from omniscient world state.
+export function linkedCaseReported(ledger, playerView) {
+  const actorId = playerView?.actor?.id;
+  if (!ledger?.observed || typeof actorId !== "string") return false;
+  const tags = playerView?.relations?.[`npc_elder:${actorId}`]?.tags;
+  return Array.isArray(tags) && tags.includes("spring_arrows_reported");
+}
+
 // A verified clue should lead to a real existing dialogue, not a dead-end
-// instruction. This is a UI affordance only: the engine still decides which
-// elder dialogue options are legal. Do not consult flags or world truth.
+// instruction. The engine still decides which elder dialogue options are legal.
 export function linkedCaseElderAction(ledger, playerView) {
-  if (!ledger?.observed || playerView?.pending || playerView?.actor?.locationId !== "loc_village") return null;
+  if (!ledger?.observed || linkedCaseReported(ledger, playerView) || playerView?.pending || playerView?.actor?.locationId !== "loc_village") return null;
   return Array.isArray(playerView?.actions) &&
     playerView.actions.some((action) => action.actionId === "act_talk_elder" && action.available === true)
     ? "act_talk_elder" : null;
