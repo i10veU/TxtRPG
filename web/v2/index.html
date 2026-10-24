@@ -271,6 +271,16 @@
   #hypothesisChoices button { text-align: left; min-height: 2.75rem; white-space: normal; }
   #hypothesisChoices button[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); font-weight: 700; }
   #hypothesisNext button { width: 100%; }
+  #linkedCaseLedger { border: 1px solid var(--rule); border-left: 3px solid var(--accent); background: var(--page); padding: 1rem; border-radius: 5px; display: grid; gap: 0.55rem; }
+  #linkedCaseLedger[hidden] { display: none; }
+  #linkedCaseLedger h2 { margin: 0; font: 700 1rem/1.35 var(--serif); }
+  #linkedCaseLedger h2 small { color: var(--muted); font: 400 0.75rem var(--sans); }
+  #linkedCaseLedger p { margin: 0; line-height: 1.55; }
+  #linkedCaseEvidence, #linkedCaseVerdict { font-size: 0.86rem; color: var(--muted); overflow-wrap: anywhere; }
+  #linkedCaseChoices { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: 0.5rem; }
+  #linkedCaseChoices button { text-align: left; min-height: 2.75rem; white-space: normal; }
+  #linkedCaseChoices button[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); font-weight: 700; }
+  #linkedCaseNext button { width: 100%; }
 </style>
 </head>
 <body>
@@ -337,6 +347,14 @@
     <div id="hypothesisChoices" role="group" aria-label="짐작 고르기"></div>
     <p id="hypothesisVerdict" aria-live="polite"></p>
     <div id="hypothesisNext"></div>
+  </section>
+  <section id="linkedCaseLedger" hidden aria-label="1장 연결 짐작">
+    <h2>이어지는 짐작 <small>· 두 소문을 연결한다</small></h2>
+    <p id="linkedCaseQuestion"></p>
+    <p id="linkedCaseEvidence"></p>
+    <div id="linkedCaseChoices" role="group" aria-label="연결 짐작 고르기"></div>
+    <p id="linkedCaseVerdict" aria-live="polite"></p>
+    <div id="linkedCaseNext"></div>
   </section>
   <div class="play">
     <section id="choice" hidden>
