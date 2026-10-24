@@ -109,3 +109,38 @@ test("J3 notebook and danger clock preserve firsthand provenance in the same loa
   await expect(page.locator("#hypothesisVerdict")).toContainText("알 수 없다");
   expect(errors).toEqual([]);
 });
+
+
+test("J3 danger clock ignores mis-keyed and future reports after IndexedDB restore", async ({ page }) => {
+  const errors = await open(page);
+  await page.evaluate(() => window.__v2App.newGame("j3-clock-chronology"));
+  await page.evaluate(async () => {
+    const idb = await import("/v2/storage/idb.js");
+    const app = window.__v2App;
+    const state = structuredClone(app.getState());
+    const knowledge = state.knowledge[state.player.actorId] ??= {};
+    const data = app.worldData;
+    const today = Math.floor(state.time.minute / 1440);
+    const report = (rumorId, aboutDay, heardDay) => ({
+      rumorId, factId: data.rumors[rumorId].factId, claim: data.rumors[rumorId].claim,
+      source: "npc_elder", sources: ["npc_elder"], confidence: 90,
+      confirmations: 1, firstSeenDay: heardDay, lastSeenDay: heardDay, aboutDay
+    });
+    knowledge.rum_band_recruits = report("rum_band_recruits", today, today);
+    knowledge.wrong_key = report("rum_raid_coming", today, today);
+    knowledge.rum_band_crossed = report("rum_band_crossed", today + 5, today);
+    knowledge.rum_raid_coming = report("rum_raid_coming", today, today + 5);
+    await idb.save("j3-clock-chronology-save", state, { savedAt: 1 });
+  });
+  await load(page, "j3-clock-chronology-save");
+  const clock = page.locator("#dangerClock");
+  await expect(clock).toBeVisible();
+  await expect(clock).toHaveAttribute("data-stage", "1");
+  await expect(clock.locator("#dangerClockText")).toHaveText("강 건너에서 사람을 모은다는 소식");
+  await page.locator("#saveSlotInput").fill("j3-clock-chronology-restored");
+  await page.locator("#saveBtn").click();
+  await expect(page.locator("#log")).toContainText("j3-clock-chronology-restored");
+  await load(page, "j3-clock-chronology-restored");
+  await expect(clock).toHaveAttribute("data-stage", "1");
+  expect(errors).toEqual([]);
+});
