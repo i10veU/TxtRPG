@@ -44,8 +44,8 @@ assert.deepEqual(validateData(worldData), []);
 assert.deepEqual(checkDataCompatibility(base, worldData), []);
 assert.equal(offered(base, WATCH), false, "no help before a real village decision");
 assert.equal(offered(base, INQUIRY), false, "no help before a real village decision");
-assert.equal(start().flags.spring_watch_requested, undefined, "new game must not seed the decision");
-assert.equal(start().flags.spring_inquiry_requested, undefined);
+assert.equal(start().flags?.spring_watch_requested, undefined, "new game must not seed the decision");
+assert.equal(start().flags?.spring_inquiry_requested, undefined);
 
 for (const [action, id, npc, grant, tag, text] of [
   ["act_request_spring_watch", WATCH, "npc_elder", "item_lantern", "spring_watch_lantern_loaned", "txt_spring_watch_lantern"],
