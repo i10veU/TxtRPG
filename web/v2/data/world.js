@@ -2181,6 +2181,26 @@ export const worldData = {
               then: [say("txt_spring_inquiry_followup")] }
           ]
         },
+        // J3: the village's watch now helps the player prepare, without claiming the rumor is true.
+        // The grant is personal (relation tag), while the decision remains world-owned.
+        {
+          id: "opt_elder_spring_watch_lantern",
+          name: "샘길을 지키던 마을의 등불을 받는다",
+          requires: { op: "and", of: [
+            { op: "flag", key: "spring_watch_requested" },
+            { op: "rumor", rumor: "rum_ruins_secret" },
+            KNOWS_WELL_SOURCE,
+            { op: "not", of: WELL_RESOLVED },
+            { op: "not", of: { op: "item", item: "item_lantern", min: 1 } },
+            { op: "not", of: { op: "relation", from: "npc_elder", to: "self", tag: "spring_watch_lantern_loaned" } }
+          ] },
+          minutes: 10,
+          effects: [
+            { op: "item", item: "item_lantern", add: 1 },
+            { op: "relation", from: "npc_elder", tag: "spring_watch_lantern_loaned" },
+            say("txt_spring_watch_lantern")
+          ]
+        },
         {
           id: "opt_small_talk",
           name: "안부만 묻는다",
@@ -3053,6 +3073,24 @@ export const worldData = {
             },
             // V2-Core-68: the village's account reaches her stall too
             { op: "if", when: ARROWS_TOLD, then: [say("txt_herbalist_bandit_rumor")] }
+          ]
+        },
+        // J3: evidence-first inquiry changes the herbalist's actual help, not the hidden spring truth.
+        {
+          id: "opt_herbalist_spring_inquiry_herb",
+          name: "샘 조사에 쓸 정화초를 받는다",
+          requires: { op: "and", of: [
+            { op: "flag", key: "spring_inquiry_requested" },
+            { op: "rumor", rumor: "rum_ruins_secret" },
+            KNOWS_WELL_SOURCE,
+            { op: "not", of: WELL_RESOLVED },
+            { op: "not", of: { op: "relation", from: "npc_herbalist", to: "self", tag: "spring_inquiry_herb_given" } }
+          ] },
+          minutes: 10,
+          effects: [
+            { op: "item", item: "item_purifying_herb", add: 1 },
+            { op: "relation", from: "npc_herbalist", tag: "spring_inquiry_herb_given" },
+            say("txt_spring_inquiry_herb")
           ]
         },
         {
@@ -4000,6 +4038,8 @@ export const worldData = {
     txt_rest_deep_wound_stays: "깊은 상처는 쉬어도 더디게 아문다. 약초 연고가 있으면 한결 빠를 것 같다.",
     txt_rest_deep_wound_closes: "며칠을 쉰 끝에 깊은 상처가 마침내 아물었다.",
     txt_treat_deep_wound: "깊은 상처에 약초 연고를 두텁게 바르고 천으로 단단히 감는다. 쑤시던 것이 가라앉는다.",
+    txt_spring_watch_lantern: "원로는 샘길을 살피던 마을 사람에게서 낡은 등불을 받아 건넨다. \"눈으로 확인하기 전에는 소문을 사실이라 말하지 말게.\"",
+    txt_spring_inquiry_herb: "약초꾼은 원로에게서 샘을 살펴보자는 이야기를 들었다며 정화초 한 줌을 내민다. \"어디가 더러운지는 직접 살펴야 알 수 있지.\"",
     txt_spring_watch_requested: "두 이야기가 이어진다고 말하자 원로는 증거 없이 마을을 놀라게 해서는 안 된다고 나무란다. 그래도 샘으로 향하는 길을 주의 깊게 살펴보겠다고 한다.",
     txt_spring_inquiry_requested: "두 사건을 섣불리 하나로 엮지 말자고 말하자 원로는 고개를 끄덕인다. 마을에 소문을 퍼뜨리기 전에 샘을 직접 살펴보라고 한다.",
     txt_spring_watch_followup: "원로는 샘으로 향하는 길을 지켜보고 있지만, 도적의 흔적을 직접 확인한 이는 아직 없다고 한다.",
