@@ -25,7 +25,7 @@ import { currentGoals } from "./goals.js";
 import { stakesOf, duration } from "./stakes.js";
 import { knowledgeClock } from "./knowledge-clock.js";
 import { hypothesisLedger } from "./hypothesis-ledger.js";
-import { linkedCaseLedger, linkedCaseElderAction, linkedCaseReported, linkedCaseDecision, linkedCaseDecisionAction } from "./linked-case-ledger.js";
+import { linkedCaseLedger, linkedCaseElderAction, linkedCaseReported, linkedCaseDecision, linkedCaseDecisionAction, linkedCaseSupport } from "./linked-case-ledger.js";
 import { greetingFor } from "./people.js";
 import { deedsTrue, endingLearned } from "./deeds.js";
 import * as chronicle from "../storage/chronicle.js";
@@ -848,6 +848,28 @@ function renderLinkedCaseLedger(playerView) {
     el.linkedCaseNext.textContent = playerView.actor.locationId === ledger.locationId
       ? "지금은 조사할 수 없다. 다른 행동을 마친 뒤 다시 살펴보자."
       : "우물의 물길을 따라 숲속 샘으로 가서 흔적을 찾아보자.";
+  }
+  // The support is an existing dialogue, never a direct item grant from UI.
+  // Keep field verification available regardless of the player's judgment.
+  const support = linkedCaseSupport(ledger, playerView);
+  if (support) {
+    const note = document.createElement("p");
+    const withNpc = support.npcName === "원로" ? "원로와" : "약초꾼과";
+    const findNpc = support.npcName === "원로" ? "원로를" : "약초꾼을";
+    note.textContent = support.received
+      ? support.npcName + "에게서 " + support.itemName + " 지원을 받았다."
+      : support.prepared
+        ? "등불을 이미 갖고 있어 원로의 추가 지원은 필요하지 않다."
+        : playerView.pending
+          ? "진행 중인 선택을 마친 뒤 " + withNpc + " 준비를 상의하자."
+          : support.atLocation
+            ? withNpc + " " + support.itemName + " 준비를 상의할 수 있다."
+            : support.locationName + "의 " + findNpc + " 찾아가 준비를 상의하자.";
+    el.linkedCaseNext.appendChild(note);
+    if (support.actionId) {
+      el.linkedCaseNext.appendChild(makeButton(support.npcName + "에게 준비를 상의한다", () =>
+        dispatch({ type: "perform", actionId: support.actionId })));
+    }
   }
 }
 

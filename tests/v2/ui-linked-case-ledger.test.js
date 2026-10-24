@@ -1,6 +1,6 @@
 // J3: combining two independently learned rumors must not become a hidden-truth oracle.
 import assert from "node:assert/strict";
-import { linkedCaseLedger, linkedCaseElderAction, linkedCaseReported } from "../../web/v2/ui/linked-case-ledger.js";
+import { linkedCaseLedger, linkedCaseElderAction, linkedCaseReported, linkedCaseSupport } from "../../web/v2/ui/linked-case-ledger.js";
 import { worldData } from "../../web/v2/data/world.js";
 
 const known = (id, source = "npc_elder") => ({
@@ -75,5 +75,60 @@ assert.equal(linkedCaseReported(confirmed, { ...readyView, relations: { "npc_eld
   "another character's report is not this life’s knowledge");
 assert.equal(linkedCaseElderAction(confirmed, { ...readyView, relations: {}, hiddenFacts: { spring_bandits_told: true } }),
   "act_talk_elder", "a hidden world flag must never disclose a predecessor's report");
+
+// An actual village decision, not a transient guess or hidden world flag,
+// offers a route to the existing NPC support conversation.
+assert.equal(linkedCaseSupport(first, readyView), null, "rumors alone do not unlock help");
+const watchView = { ...readyView,
+  actor: { ...readyView.actor, inventory: {} },
+  relations: { "npc_elder:player_1": { tags: ["spring_watch_requested"] } } };
+const watchBefore = JSON.stringify(watchView);
+const watchSupport = linkedCaseSupport(first, watchView);
+assert.deepEqual(watchSupport, {
+  npcName: "원로", itemName: "등불", locationName: "마을",
+  received: false, prepared: false, atLocation: true, actionId: "act_talk_elder"
+});
+assert.equal(JSON.stringify(watchView), watchBefore, "support projection never mutates the View");
+assert.equal(linkedCaseSupport(first, { ...watchView, pending: { kind: "choice" } }).actionId, null);
+assert.equal(linkedCaseSupport(first, { ...watchView, actions: [] }).actionId, null);
+assert.equal(linkedCaseSupport(first, { ...watchView, actor: { ...watchView.actor, locationId: "loc_market" } }).actionId, null);
+assert.equal(linkedCaseSupport(first, { ...watchView, actor: { ...watchView.actor, inventory: { item_lantern: 1 } } }).prepared, true);
+assert.equal(linkedCaseSupport(first, { ...watchView, actor: { ...watchView.actor, inventory: { item_lantern: 1 } } }).actionId, null,
+  "an owned lantern must not promise a redundant elder grant");
+const watchGranted = { ...watchView,
+  relations: { "npc_elder:player_1": { tags: ["spring_watch_requested", "spring_watch_lantern_loaned"] } } };
+assert.equal(linkedCaseSupport(first, watchGranted).received, true);
+assert.equal(linkedCaseSupport(first, watchGranted).actionId, null, "received help cannot be offered again");
+assert.equal(linkedCaseSupport(confirmed, watchView), null, "after direct proof the support preparation prompt ends");
+assert.equal(linkedCaseSupport(first, { ...readyView, hiddenFacts: { spring_watch_requested: true } }), null,
+  "hidden world flags cannot unlock a personal NPC reward");
+assert.equal(linkedCaseSupport(first, { ...watchGranted, actor: { ...watchGranted.actor, id: "player_2" } }), null,
+  "a successor cannot see the predecessor's grant");
+
+const inquiryView = {
+  actor: { id: "player_1", locationId: "loc_market", inventory: {} },
+  pending: null,
+  relations: {
+    "npc_elder:player_1": { tags: ["spring_inquiry_requested"] },
+    "npc_herbalist:player_1": { tags: [] }
+  },
+  actions: [{ actionId: "act_talk_herbalist", available: true }]
+};
+assert.deepEqual(linkedCaseSupport(first, inquiryView), {
+  npcName: "약초꾼", itemName: "정화초", locationName: "장터",
+  received: false, prepared: false, atLocation: true, actionId: "act_talk_herbalist"
+});
+assert.equal(linkedCaseSupport(first, {
+  ...inquiryView, relations: {
+    ...inquiryView.relations,
+    "npc_herbalist:player_1": { tags: ["spring_inquiry_herb_given"] }
+  }
+}).received, true);
+assert.equal(linkedCaseSupport(first, {
+  ...inquiryView, relations: {
+    ...inquiryView.relations,
+    "npc_herbalist:player_1": { tags: ["spring_inquiry_herb_given"] }
+  }
+}).actionId, null);
 
 console.log("J3 cross-case deduction projection: PASS");

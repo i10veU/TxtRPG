@@ -44,10 +44,18 @@ for (const scenario of [
     await expect(ledger).toBeVisible();
     await ledger.getByRole("button", { name: scenario.guess }).click();
     await page.locator("#linkedCaseNext").getByRole("button", { name: "이 판단을 원로에게 전한다" }).click();
+    const support = page.locator("#linkedCaseNext");
     if (scenario.travelMarket) {
+      await expect(support).toContainText("장터");
+      await expect(support.getByRole("button", { name: "약초꾼에게 준비를 상의한다" })).toHaveCount(0);
       await page.evaluate(() => window.__v2App.dispatch({ type: "move", to: "loc_market" }));
     }
-    await page.locator("#actions button", { hasText: scenario.npcAction }).click();
+    // Use the notebook's real-action shortcut, not a direct UI item grant.
+    const supportButton = support.getByRole("button", {
+      name: scenario.travelMarket ? "약초꾼에게 준비를 상의한다" : "원로에게 준비를 상의한다"
+    });
+    await expect(supportButton).toBeVisible();
+    await supportButton.click();
     const choices = page.locator("#choiceOptions");
     await expect(choices.getByRole("button", { name: scenario.npcOption })).toBeVisible();
     await expect(choices.getByRole("button", { name: scenario.opposite })).toHaveCount(0);
@@ -65,6 +73,8 @@ for (const scenario of [
     expect(first.itemCount).toBe(1);
     expect(first.tags).toContain(scenario.tag);
     expect(first.flag).toBe(true);
+    await expect(support).toContainText("지원");
+    await expect(supportButton).toHaveCount(0);
 
     await page.locator("#actions button", { hasText: scenario.npcAction }).click();
     await expect(page.locator("#choiceOptions").getByRole("button", { name: scenario.npcOption })).toHaveCount(0);
