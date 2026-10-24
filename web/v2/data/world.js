@@ -1158,16 +1158,33 @@ export const worldData = {
       check: { stat: "con", tags: ["endurance"], difficulty: "normal" },
       outcomes: {
         success: [say("txt_spring_miasma_resisted")],
-        fail: [{ op: "hp", add: -2 }, say("txt_spring_miasma")]
+        // The herbalist's own gift and a still-carried herb soften a failed
+        // exposure, not the CON roll itself. Other characters still take 2 HP.
+        fail: [{
+          op: "if",
+          when: { op: "and", of: [
+            { op: "relation", from: "npc_herbalist", to: "self", tag: "spring_inquiry_herb_given" },
+            { op: "item", item: "item_purifying_herb", min: 1 }
+          ] },
+          then: [{ op: "hp", add: -1 }, say("txt_spring_miasma_prepared")],
+          else: [{ op: "hp", add: -2 }, say("txt_spring_miasma")]
+        }]
       }
     },
     evt_ruins_hazard: {
       trigger: { op: "location", at: "loc_ruins" },
       cooldown: 30,
-      effects: [
-        { op: "hp", add: -4 },
-        { op: "narrate", textId: "txt_ruins_hazard" }
-      ]
+      // The watch's loan includes advice about a safer approach to the
+      // unstable walls. A purchased lantern alone does not imply that advice.
+      effects: [{
+        op: "if",
+        when: { op: "and", of: [
+          { op: "relation", from: "npc_elder", to: "self", tag: "spring_watch_lantern_loaned" },
+          { op: "item", item: "item_lantern", min: 1 }
+        ] },
+        then: [{ op: "hp", add: -2 }, say("txt_ruins_watch_safe_path")],
+        else: [{ op: "hp", add: -4 }, say("txt_ruins_hazard")]
+      }]
     },
     // V2-Core-138 (M4): act one over, the realm's unrest heard (the third caravan) -- across the river a band gathers. Its id
     // sorts after evt_caravan, so it fires in the very step the third caravan brings the unrest (D-51 order)
@@ -3751,6 +3768,7 @@ export const worldData = {
     txt_market_reopens: "도적단이 흩어졌다는 소식에 상인들이 안도하며 은화 몇 닢을 사례한다.",
     txt_rest_village: "마을 어귀의 평상에 앉아 숨을 고르고 상처를 돌본다.",
     txt_ruins_hazard: "무너진 벽돌이 머리 위로 쏟아져 내린다.",
+    txt_ruins_watch_safe_path: "원로가 등불과 함께 일러 준 안전한 발판을 따라 비켜선다. 무너진 돌에 스쳤지만 큰 낙석은 피했다.",
     txt_succession: "쓰러진 이가 남긴 은화 몇 닢이 새 방랑자의 손에 들어온다.",
     txt_inspect_well_success: "두레박으로 길어 올린 물에서 썩은 풀 냄새가 난다. 우물 벽의 물때가 숲 쪽에서 흘러드는 물길을 가리킨다. 이 물은 숲속 샘에서 온다.",
     txt_inspect_well_fail: "우물물이 조금 탁해 보인다. 무엇이 문제인지는 알 수 없다.",
@@ -3759,6 +3777,7 @@ export const worldData = {
     txt_search_spring_success: "샘 위쪽 바위 틈에 짐승의 사체가 걸려 썩어 가고 있다. 샘물을 흐리는 것은 이것이다.",
     txt_search_spring_fail: "샘가는 안개와 악취로 가득하다. 까닭을 찾지 못했다.",
     txt_spring_miasma: "샘에서 피어오르는 독한 기운에 숨이 막히고 속이 뒤집힌다.",
+    txt_spring_miasma_prepared: "약초꾼이 준 정화초를 코에 대고 독한 기운을 견딘다. 완전히 막지는 못했지만 피해가 줄었다.",
     txt_spring_miasma_resisted: "샘의 독한 기운이 밀려오지만, 숨을 고르며 버텨 낸다.",
     txt_gather_herbs_great: "물가 바위 그늘에서 싱싱한 정화초 무더기를 찾아 두 묶음을 거둔다.",
     txt_gather_herbs_success: "독한 풀들 사이에서 정화초 한 묶음을 가려 거둔다.",

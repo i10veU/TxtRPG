@@ -93,6 +93,49 @@ for (const scenario of [
       const s = window.__v2App.getState();
       return s?.actors?.[s.player.actorId]?.inventory?.[item] ?? 0;
     }, scenario.item)).toBe(1);
+    // The supplied item has a measurable consequence in the *real* browser
+    // engine after a persisted reload; neither path changes the CON roll.
+    if (!scenario.travelMarket) {
+      const hpBefore = await page.evaluate(() => {
+        const s = window.__v2App.getState();
+        return s.actors[s.player.actorId].hp.current;
+      });
+      await page.evaluate(() => window.__v2App.dispatch({ type: "move", to: "loc_ruins" }));
+      await expect.poll(() => page.evaluate(() => {
+        const s = window.__v2App.getState();
+        return s.actors[s.player.actorId].locationId;
+      })).toBe("loc_ruins");
+      await expect.poll(() => page.evaluate(() => {
+        const s = window.__v2App.getState();
+        return s.actors[s.player.actorId].hp.current;
+      })).toBe(hpBefore - 2);
+      await expect(page.locator("#log")).toContainText("안전한 발판");
+    } else {
+      await page.evaluate(() => window.__v2App.dispatch({ type: "move", to: "loc_village" }));
+      await expect.poll(() => page.evaluate(() => {
+        const s = window.__v2App.getState();
+        return s.actors[s.player.actorId].locationId;
+      })).toBe("loc_village");
+      const hpBefore = await page.evaluate(() => {
+        const s = window.__v2App.getState();
+        return s.actors[s.player.actorId].hp.current;
+      });
+      await page.evaluate(() => window.__v2App.dispatch({ type: "move", to: "loc_forest_spring" }));
+      await expect.poll(() => page.evaluate(() => {
+        const s = window.__v2App.getState();
+        return s.actors[s.player.actorId].locationId;
+      })).toBe("loc_forest_spring");
+      const hpAfter = await page.evaluate(() => {
+        const s = window.__v2App.getState();
+        return s.actors[s.player.actorId].hp.current;
+      });
+      // The spring's CON check may succeed; on failure preparation limits
+      // the loss to one HP, never the old two-HP outcome.
+      expect([hpBefore, hpBefore - 1]).toContain(hpAfter);
+      if (hpAfter === hpBefore - 1) {
+        await expect(page.locator("#log")).toContainText("정화초를 코에");
+      }
+    }
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     expect(errors).toEqual([]);
   });
