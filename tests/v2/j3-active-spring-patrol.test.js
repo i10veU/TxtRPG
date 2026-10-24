@@ -116,6 +116,7 @@ assert.deepEqual(saveLoad(oldHelp), oldHelp);
 
 // An exhausted player must rest before they can help; no free completion.
 const exhausted = structuredClone(legacy);
-exhausted.actors[exhausted.player.actorId].growth[worldData.world.growthSystemId].resources.stamina = { current: 1, max: 6 };
+applyEffectList([{ op: "resource", resource: "stamina", add: -6 }], exhausted, [],
+  { state: exhausted, data: worldData, actorId: exhausted.player.actorId });
 assert.ok(step(exhausted, HELP, worldData).events.some((e) => e.type === "action.rejected"));
 console.log("J3 costed help vs delayed patrol, saves, successor and cancellation: PASS");
