@@ -144,6 +144,20 @@
   #goalText span[data-track="main"] { font-weight: 700; }
   #goalText span.side { color: var(--muted); font-size: 0.95rem; }
   #goal[data-changed="true"] .band-label::after { content: " · 새 목표"; color: var(--accent); font-weight: 700; }
+  /* J3: a report about danger, not the world's hidden clock. Only visible once heard. */
+  #dangerClock { display: grid; gap: 0.3rem; border-left: 3px solid var(--news-ink); padding: 0.55rem 0.8rem; background: var(--news-bg); border-radius: 0 5px 5px 0; }
+  #dangerClock[hidden] { display: none; }
+  #dangerClock h2 { margin: 0; color: var(--news-ink); }
+  #dangerClock h2 small { font-weight: 400; letter-spacing: 0; }
+  #dangerClock .clock-track { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; max-width: 12rem; }
+  #dangerClock .clock-track i { height: 4px; border-radius: 2px; background: var(--rule); }
+  #dangerClock[data-stage="1"] .clock-track i:nth-child(1),
+  #dangerClock[data-stage="2"] .clock-track i:nth-child(-n+2),
+  #dangerClock[data-stage="3"] .clock-track i:nth-child(-n+3),
+  #dangerClock[data-stage="4"] .clock-track i { background: var(--news-ink); }
+  #dangerClock[data-stale="true"] .clock-track i { opacity: 0.55; }
+  #dangerClockText { font: 600 0.98rem/1.6 var(--serif); margin: 0; }
+  #dangerClockEvidence { font: 0.8rem/1.5 var(--sans); color: var(--muted); margin: 0; }
   /* what I can do */
   .play { display: grid; gap: 1.1rem; }
   .doing { display: grid; gap: 0.6rem; }
@@ -298,6 +312,12 @@
   <section id="goal" data-changed="false">
     <h2 class="band-label">지금 할 일</h2>
     <p id="goalText"></p>
+  </section>
+  <section id="dangerClock" hidden aria-live="polite">
+    <h2>강 너머의 소식 <small>· 내가 들은 징후</small></h2>
+    <div class="clock-track" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    <p id="dangerClockText"></p>
+    <p id="dangerClockEvidence"></p>
   </section>
   <div class="play">
     <section id="choice" hidden>
