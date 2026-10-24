@@ -111,10 +111,10 @@ const worldWordExtension = Number(Boolean(worldData.facts.fact_fate_word && worl
 // V2-Core-155 (D-133): the trap by the spring teaches its own word (one fact, one rumor, one ABOUT edge)
 const springTrapExtension = Number(Boolean(worldData.facts.fact_spring_trap));
 assert.deepEqual(Object.fromEntries(Object.entries(actual.fiveKinds).map(([kind, row]) => [kind, row.count])), {
-  Entity: 11, Location: 11, Resource: 14, Event: 27 + herbalistExtension,
+  Entity: 11, Location: 11, Resource: 14, Event: 28 + herbalistExtension,
   Knowledge: 96 + 2 * herbalistExtension + 4 * worldWordExtension + 2 * springTrapExtension
 });
-assert.equal(actual.totalUniqueNodes, 159 + 3 * herbalistExtension + 4 * worldWordExtension + 2 * springTrapExtension);
+assert.equal(actual.totalUniqueNodes, 160 + 3 * herbalistExtension + 4 * worldWordExtension + 2 * springTrapExtension);
 assert.equal(actual.definitions.orgs, 3);
 assert.equal(actual.definitions.growthResources, 1);
 assert.equal(actual.extractedEdges, 75 + herbalistExtension + 2 * worldWordExtension + springTrapExtension, "authored NPC starts and each declared rumor are structural");
