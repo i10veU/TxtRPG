@@ -77,6 +77,9 @@ for (const scenario of [
   assert.equal(failDamage(waited), 1, "waiting yields the same public mitigation");
   const unmarked = structuredClone(active);
   delete unmarked.flags.spring_patrol_deployed;
+  // Remove the personal herb too: otherwise that independent mitigation
+  // would hide the patrol's effect in the inquiry branch.
+  delete me(unmarked).inventory.item_purifying_herb;
   assert.equal(failDamage(unmarked), 2);
   const later = run(active, Array.from({ length: 26 }, () => P("act_rest_village")));
   assert.equal(later.signals.spring_patrol_progress, 2, "no second patrol deployment");
