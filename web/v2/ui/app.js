@@ -25,6 +25,7 @@ import { currentGoals } from "./goals.js";
 import { stakesOf, duration } from "./stakes.js";
 import { knowledgeClock } from "./knowledge-clock.js";
 import { hypothesisLedger } from "./hypothesis-ledger.js";
+import { linkedCaseLedger } from "./linked-case-ledger.js";
 import { greetingFor } from "./people.js";
 import { deedsTrue, endingLearned } from "./deeds.js";
 import * as chronicle from "../storage/chronicle.js";
@@ -49,6 +50,8 @@ let goalChanged = false;
 // The guess is an ephemeral UI choice, never a fact or inherited Save field.
 let hypothesisSelection = null;
 let hypothesisLifeKey = null;
+let linkedCaseSelection = null;
+let linkedCaseLifeKey = null;
 // V2-Core-156 (D-134): the life being played, as the chronicle keeps it (storage/chronicle.js), and the ending shown
 let life = null;
 let endingCard = null;
@@ -104,6 +107,12 @@ const el = {
   hypothesisChoices: document.getElementById("hypothesisChoices"),
   hypothesisVerdict: document.getElementById("hypothesisVerdict"),
   hypothesisNext: document.getElementById("hypothesisNext"),
+  linkedCaseLedger: document.getElementById("linkedCaseLedger"),
+  linkedCaseQuestion: document.getElementById("linkedCaseQuestion"),
+  linkedCaseEvidence: document.getElementById("linkedCaseEvidence"),
+  linkedCaseChoices: document.getElementById("linkedCaseChoices"),
+  linkedCaseVerdict: document.getElementById("linkedCaseVerdict"),
+  linkedCaseNext: document.getElementById("linkedCaseNext"),
   storySection: document.getElementById("storySection"),
   story: document.getElementById("story"),
   slotList: document.getElementById("slotList"),
@@ -760,6 +769,64 @@ function renderHypothesisLedger(playerView) {
   }
 }
 
+// Optional second deduction: two rumors learned in this life, not a hidden fact oracle.
+function renderLinkedCaseLedger(playerView) {
+  if (!el.linkedCaseLedger) return;
+  const key = state.worldId + ":" + state.player.actorId;
+  if (linkedCaseLifeKey !== key) {
+    linkedCaseLifeKey = key;
+    linkedCaseSelection = null;
+  }
+  const ledger = linkedCaseLedger(playerView.knowledge, worldData);
+  el.linkedCaseLedger.hidden = !ledger;
+  if (!ledger) return;
+  el.linkedCaseQuestion.textContent = ledger.question;
+  const today = Math.floor(state.time.minute / DAY_MINUTES);
+  el.linkedCaseEvidence.textContent = "함께 읽은 단서 · " + ledger.clues.map((clue) => {
+    const from = clue.sources.length ? clue.sources.map(sourceName).join(", ") : "출처 불명";
+    const when = Number.isInteger(clue.aboutDay)
+      ? Math.max(0, today - clue.aboutDay) + "일 전의 소식" : "시점 미상";
+    return word("lbl_rumor_" + clue.rumorId, "소문") +
+      " (" + from + ", " + certainty(clue.confidence ?? 0) + ", " + when + ")";
+  }).join(" + ");
+  clearChildren(el.linkedCaseChoices);
+  clearChildren(el.linkedCaseNext);
+  if (ledger.observed) {
+    el.linkedCaseVerdict.textContent = linkedCaseSelection === "separate"
+      ? "현장에서 반증되었다. 사체의 화살은 도적단의 것이었다."
+      : "현장에서 도적단의 화살을 확인했다. 두 사건을 잇는 근거가 생겼다.";
+    el.linkedCaseNext.textContent = "이제 마을 원로에게 화살 이야기를 전할 수 있다.";
+    return;
+  }
+  el.linkedCaseVerdict.textContent = ledger.springSeen
+    ? "샘의 사체는 확인했지만, 도적단과의 연결은 아직 확인되지 않았다."
+    : linkedCaseSelection
+      ? "두 소문을 엮은 짐작이다. 샘에서 흔적을 찾아야 확인할 수 있다."
+      : "폐허 이야기와 우물의 물길을 함께 놓고 생각해 보자.";
+  for (const option of ledger.options) {
+    const button = makeButton(option.label, () => {
+      linkedCaseSelection = option.id;
+      renderLinkedCaseLedger(playerView);
+      el.linkedCaseChoices.querySelector('[data-linked-guess="' + option.id + '"]')?.focus();
+    }, { disabled: Boolean(playerView.pending) });
+    button.dataset.linkedGuess = option.id;
+    button.setAttribute("aria-pressed", String(linkedCaseSelection === option.id));
+    el.linkedCaseChoices.appendChild(button);
+  }
+  if (!linkedCaseSelection) return;
+  const canSearch = !playerView.pending && playerView.actions.some(
+    (action) => action.actionId === ledger.actionId && action.available
+  );
+  if (canSearch) {
+    el.linkedCaseNext.appendChild(makeButton("이 짐작을 샘에서 검증한다", () =>
+      dispatch({ type: "perform", actionId: ledger.actionId })));
+  } else {
+    el.linkedCaseNext.textContent = playerView.actor.locationId === ledger.locationId
+      ? "지금은 조사할 수 없다. 다른 행동을 마친 뒤 다시 살펴보자."
+      : "우물의 물길을 따라 숲속 샘으로 가서 흔적을 찾아보자.";
+  }
+}
+
 // J3 RC1: this is a clock of *reported* danger, not the hidden world timer.
 // It receives only the current life’s knowledge from view(); never facts or signals.
 function renderDangerClock(knowledge) {
@@ -1013,6 +1080,7 @@ function render() {
   renderKnowledge(playerView.knowledge, playerView.pending);
   renderDangerClock(playerView.knowledge);
   renderHypothesisLedger(playerView);
+  renderLinkedCaseLedger(playerView);
   renderLog();
   renderEnding();
   renderPictures();
@@ -1085,6 +1153,8 @@ function newGame(seed, templateId = el.backgroundSelect?.value || undefined) {
   state = result.state;
   hypothesisSelection = null;
   hypothesisLifeKey = null;
+  linkedCaseSelection = null;
+  linkedCaseLifeKey = null;
   currentSlot = null;
   logEntries.length = 0;
   applyEvents(result.events);
@@ -1132,6 +1202,8 @@ async function loadGame(slot) {
     state = adoptNewActors(loaded, worldData).state;
     hypothesisSelection = null;
     hypothesisLifeKey = null;
+    linkedCaseSelection = null;
+    linkedCaseLifeKey = null;
     currentSlot = slot;
     logEntries.length = 0;
     pushLog(`"${slot}"에서 불러왔다.`);
@@ -1150,6 +1222,8 @@ function backToMenu() {
   ++intentVersion;
   hypothesisSelection = null;
   hypothesisLifeKey = null;
+  linkedCaseSelection = null;
+  linkedCaseLifeKey = null;
   state = null;
   currentSlot = null;
   showError("");
