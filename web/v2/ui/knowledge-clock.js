@@ -18,8 +18,10 @@ const REPORTS = Object.freeze({
 
 export function knowledgeClock(knowledge, data, minute) {
   const today = Number.isFinite(minute) ? Math.floor(minute / 1440) : 0;
-  const reports = Object.values(knowledge ?? {}).flatMap((known) => {
-    if (!known || typeof known.rumorId !== "string") return [];
+  const reports = Object.entries(knowledge ?? {}).flatMap(([rumorId, known]) => {
+    // A report must belong to its own knowledge key; malformed saves cannot
+    // smuggle an unrelated warning into the character's visible history.
+    if (!known || typeof known.rumorId !== "string" || rumorId !== known.rumorId) return [];
     if (!Object.hasOwn(REPORTS, known.rumorId) || !Object.hasOwn(data?.rumors ?? {}, known.rumorId)) return [];
     const report = REPORTS[known.rumorId];
     const def = data.rumors[known.rumorId];
@@ -28,6 +30,9 @@ export function knowledgeClock(knowledge, data, minute) {
     const aboutDay = Number.isInteger(known.aboutDay) ? known.aboutDay :
       Number.isInteger(known.lastSeenDay) ? known.lastSeenDay : today;
     const heardDay = Number.isInteger(known.lastSeenDay) ? known.lastSeenDay : aboutDay;
+    // A future observation or a report not yet received is not knowledge.
+    // Do not let either supersede a legitimately heard, older warning.
+    if (aboutDay > today || heardDay > today) return [];
     return [{
       rumorId: known.rumorId,
       stage: report[0],
