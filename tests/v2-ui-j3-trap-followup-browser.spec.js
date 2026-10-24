@@ -56,6 +56,8 @@ for (const option of OPTIONS) {
       .toBe(option.value);
     await page.locator("#saveSlotInput").fill("j3-trap-choice-" + option.value);
     await page.locator("#saveBtn").click();
+    // Persistence is asynchronous: wait for the confirmed save before reload.
+    await expect(page.locator("#log")).toContainText("j3-trap-choice-" + option.value);
     await page.reload({ waitUntil: "networkidle" });
     await expect.poll(() => page.evaluate(() => Boolean(window.__v2App))).toBe(true);
     await page.locator("#slotList li", { hasText: "j3-trap-choice-" + option.value })
