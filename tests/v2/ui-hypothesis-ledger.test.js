@@ -23,6 +23,12 @@ assert.equal(first.observed, false, "elder testimony is not first-hand proof");
 assert.equal(first.options.length, 2);
 assert.equal(first.actionId, "act_investigate_ruins");
 assert.deepEqual(first.sources, ["npc_elder"]);
+assert.equal(first.aboutDay, 0, "the hypothesis reports only the known event date");
+const delayed = heard();
+delayed.rum_ruins_secret.aboutDay = 1;
+delayed.rum_ruins_secret.lastSeenDay = 4;
+assert.equal(hypothesisLedger(delayed, worldData).aboutDay, 1, "event date must not be replaced by hearsay date");
+assert.equal(hypothesisLedger(delayed, worldData).lastSeenDay, 4, "hearing date stays distinct");
 assert.equal(JSON.stringify(original), snapshot, "projection must not mutate knowledge");
 
 const observed = heard();
