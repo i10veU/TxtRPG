@@ -1,6 +1,6 @@
 // J3: combining two independently learned rumors must not become a hidden-truth oracle.
 import assert from "node:assert/strict";
-import { linkedCaseLedger } from "../../web/v2/ui/linked-case-ledger.js";
+import { linkedCaseLedger, linkedCaseElderAction } from "../../web/v2/ui/linked-case-ledger.js";
 import { worldData } from "../../web/v2/data/world.js";
 
 const known = (id, source = "npc_elder") => ({
@@ -49,4 +49,21 @@ hidden.events = [{ type: "future.raid" }];
 hidden.chronicle = [{ oldLifeKnows: "rum_spring_bandits" }];
 assert.equal(JSON.stringify(linkedCaseLedger(hidden, worldData)), snapshot,
   "hidden truth, RNG, future events and past lives must not affect the ledger");
+
+// A verified deduction can now open the *existing* elder conversation from
+// the ledger itself. Availability comes exclusively from the player View.
+const readyView = { actor: { locationId: "loc_village" }, pending: null,
+  actions: [{ actionId: "act_talk_elder", available: true }] };
+assert.equal(linkedCaseElderAction(first, readyView), null, "unverified hearsay cannot open the shortcut");
+assert.equal(linkedCaseElderAction(confirmed, readyView), "act_talk_elder", "verified clue enables elder dialogue");
+assert.equal(linkedCaseElderAction(confirmed, { ...readyView, actor: { locationId: "loc_forest_spring" } }), null,
+  "no remote elder dialogue");
+assert.equal(linkedCaseElderAction(confirmed, { ...readyView, pending: { kind: "choice" } }), null,
+  "no shortcut while a choice is pending");
+assert.equal(linkedCaseElderAction(confirmed, { ...readyView, actions: [{ actionId: "act_talk_elder", available: false }] }), null,
+  "the View, not the ledger, controls availability");
+assert.equal(linkedCaseElderAction(confirmed, { ...readyView, actions: [] }), null);
+assert.equal(linkedCaseElderAction(confirmed, { ...readyView, hiddenFacts: { spring_bandits_told: true } }),
+  "act_talk_elder", "hidden world state cannot alter the shortcut");
+
 console.log("J3 cross-case deduction projection: PASS");
