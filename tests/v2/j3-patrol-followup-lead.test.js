@@ -1,7 +1,7 @@
 // J3 #439: NPC patrol consequences return a *reported*, testable lead.
 import assert from "node:assert/strict";
 import { createInitialState, step, view, validateState, checkDataCompatibility } from "../../web/v2/core/engine.js";
-import { applyEffectList, validateData } from "../../web/v2/core/rules.js";
+import { validateData } from "../../web/v2/core/rules.js";
 import { buildSaveRecord, parseLoadedRecord } from "../../web/v2/storage/idb.js";
 import { worldData } from "../../web/v2/data/world.js";
 
@@ -64,11 +64,14 @@ for (const mode of ["wait", "help"]) {
   assert.ok(!news(repeated.last).includes("txt_spring_patrol_trap_news"), "one news item per life");
   assert.deepEqual(clue(repeated.state).sources, ["npc_elder"]);
 
-  const witnessed = structuredClone(deployed);
-  applyEffectList([{ op: "rumor", rumor: "rum_spring_trap_mark", observe: true,
-    source: "obs_loc_forest_spring", confidence: 90 }], witnessed, [],
-  { state: witnessed, data: worldData, actorId: witnessed.player.actorId });
-  const firsthand = run(witnessed, E("opt_ask_ruins"));
+  // The reported lead can be checked by an actual field action, not by
+  // injecting a synthetic rumor into the player's state.
+  const verified = run(elder.state, [M("loc_forest_spring"), P("act_enc_spring_trap_mark")]);
+  assert.ok(clue(verified.state).sources.includes("obs_loc_forest_spring"),
+    "field inspection upgrades testimony to firsthand evidence");
+  assert.ok(clue(verified.state).sources.includes("npc_elder"),
+    "verification retains the earlier source");
+  const firsthand = run(verified.state, [M("loc_village"), ...E("opt_ask_ruins")]);
   assert.ok(clue(firsthand.state).sources.includes("obs_loc_forest_spring"),
     "later NPC dialogue cannot downgrade firsthand evidence");
   assert.ok(!news(firsthand.last).includes("txt_spring_patrol_trap_news"));
