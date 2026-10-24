@@ -23,6 +23,7 @@ import { worldData } from "../data/world.js";
 import { waitDay } from "./wait.js";
 import { currentGoals } from "./goals.js";
 import { stakesOf, duration } from "./stakes.js";
+import { knowledgeClock } from "./knowledge-clock.js";
 import { greetingFor } from "./people.js";
 import { deedsTrue, endingLearned } from "./deeds.js";
 import * as chronicle from "../storage/chronicle.js";
@@ -90,6 +91,9 @@ const el = {
   notebookBtn: document.getElementById("notebookBtn"),
   vitals: document.getElementById("vitals"),
   knowledge: document.getElementById("knowledge"),
+  dangerClock: document.getElementById("dangerClock"),
+  dangerClockText: document.getElementById("dangerClockText"),
+  dangerClockEvidence: document.getElementById("dangerClockEvidence"),
   storySection: document.getElementById("storySection"),
   story: document.getElementById("story"),
   slotList: document.getElementById("slotList"),
@@ -686,6 +690,25 @@ function renderKnowledge(knowledge, pending) {
   });
 }
 
+// J3 RC1: this is a clock of *reported* danger, not the hidden world timer.
+// It receives only the current life’s knowledge from view(); never facts or signals.
+function renderDangerClock(knowledge) {
+  if (!el.dangerClock) return;
+  const report = knowledgeClock(knowledge, worldData, state.time.minute);
+  el.dangerClock.hidden = !report;
+  if (!report) return;
+  el.dangerClock.dataset.stage = String(report.stage);
+  el.dangerClock.dataset.stale = String(report.stale);
+  el.dangerClockText.textContent = report.text;
+  const sources = report.sources.length ? report.sources : report.source ? [report.source] : [];
+  const from = sources.length ? sources.map(sourceName).join(", ") : "출처 불명";
+  const about = report.ageDays === 0 ? "오늘의 소식" : `${report.ageDays}일 전의 소식`;
+  const heard = report.heardAgeDays === report.ageDays ? "" :
+    ` · ${report.heardAgeDays === 0 ? "오늘" : `${report.heardAgeDays}일 전`} 들음`;
+  const uncertain = report.stale ? " · 지금은 달라졌을 수 있음" : "";
+  el.dangerClockEvidence.textContent = `${from} · ${certainty(report.confidence)} · ${about}${heard}${uncertain}`;
+}
+
 // V2-Core-157 (D-135): the lines come in one after another -- by CSS alone (--i is a line's place), so every word is on
 // the page from the first moment, for a reader, a screen reader and a test alike; no motion when motion is not wanted
 let sceneShown = null;
@@ -918,6 +941,7 @@ function render() {
   el.waitDayBtn.disabled = pendingActive;
   renderStory(playerView.knowledge);
   renderKnowledge(playerView.knowledge, playerView.pending);
+  renderDangerClock(playerView.knowledge);
   renderLog();
   renderEnding();
   renderPictures();
