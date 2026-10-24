@@ -62,7 +62,7 @@ const firstMinute = town.fired.evt_caravan.lastMinute;
 function testWhich() {
   assert.deepStrictEqual(validateData(worldData), []);
   const on = Object.keys(worldData.events).filter((id) => worldData.events[id].catchUp === true).sort();
-  assert.deepStrictEqual(on, ["evt_bandits_tale", "evt_bandits_word_north", "evt_caravan", "evt_fallen_word_south", "evt_herbalist_brews", "evt_road_north", "evt_unrest_band_grows", "evt_unrest_raid_day", "evt_unrest_remnants_regroup", "evt_unrest_word_north", "evt_well_tale", "evt_well_word_north"]); // V2-Core-125: the road's condition, at the caravans' cadence; V2-Core-139: the band's growth; V2-Core-140: the band's days at the crossroads; V2-Core-142: the remnants' quiet week and the fate's word north
+  assert.deepStrictEqual(on, ["evt_bandits_tale", "evt_bandits_word_north", "evt_caravan", "evt_fallen_word_south", "evt_herbalist_brews", "evt_road_north", "evt_spring_a_patrol_progress", "evt_unrest_band_grows", "evt_unrest_raid_day", "evt_unrest_remnants_regroup", "evt_unrest_word_north", "evt_well_tale", "evt_well_word_north"]); // V2-Core-125: the road's condition, at the caravans' cadence; V2-Core-139: the band's growth; V2-Core-140: the band's days at the crossroads; V2-Core-142: the remnants' quiet week and the fate's word north
   for (const id of on) assert.ok(Number.isInteger(worldData.events[id].cooldown), `${id} has a cooldown to count`);
   for (const id of ["evt_town_flour_demand", "evt_mill_flour_stock", "evt_spring_miasma", "evt_ruins_hazard"]) {
     assert.strictEqual(worldData.events[id].catchUp, undefined, `${id} does not catch up`);
