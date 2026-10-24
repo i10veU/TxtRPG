@@ -78,6 +78,7 @@ for (const [action, id, npc, grant, tag, text] of [
   assert.deepEqual(run(start(), [...INTRO, P(action), ...(id === INQUIRY ? [M("loc_market")] : []),
     P(talkAction), C(id)]).state, received, "same seed and actions are deterministic");
   const resolved = structuredClone(received);
+  resolved.cases ??= {};
   resolved.cases.case_fouled_well = { stage: "resolved", since: resolved.time.minute };
   assert.equal(offered(resolved, id), false, "a resolved spring does not hand out old preparation");
 
