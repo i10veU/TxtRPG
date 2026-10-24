@@ -371,6 +371,16 @@ const SPRING_DECISION_OPEN = { op: "and", of: [
   { op: "not", of: { op: "flag", key: "spring_watch_requested" } },
   { op: "not", of: { op: "flag", key: "spring_inquiry_requested" } }
 ] };
+// J3 #443: a source-scoped, character-owned observation gates the second
+// decision. Neither the public patrol nor NPC testimony is firsthand proof.
+const TRAP_MARK_FIRSTHAND = { op: "and", of: [
+  ARROWS_TOLD,
+  { op: "flag", key: "spring_patrol_trap_found" },
+  { op: "rumor", rumor: "rum_spring_trap_mark", source: "obs_loc_forest_spring" },
+  { op: "eq", left: { rumor: "rum_spring_trap_mark" }, right: "bandit_mark" },
+  { op: "signal", key: "spring_trap_followup", max: 0 },
+  { op: "not", of: WELL_RESOLVED }
+] };
 const EXAMINE_CARCASS = [
   { op: "fact", fact: "fact_spring_fouler", set: "bandits" },
   {
@@ -1202,7 +1212,9 @@ export const worldData = {
           else: [{
             op: "if",
             when: { op: "flag", key: "spring_patrol_deployed" },
-            then: [{ op: "hp", add: -1 }, say("txt_spring_miasma_patrol")],
+            then: [{ op: "if", when: { op: "signal", key: "spring_trap_followup", eq: 1 },
+              then: [say("txt_spring_miasma_route_reinforced")],
+              else: [{ op: "hp", add: -1 }, say("txt_spring_miasma_patrol")] }],
             else: [{ op: "hp", add: -2 }, say("txt_spring_miasma")]
           }]
         }]
@@ -2280,9 +2292,16 @@ export const worldData = {
               { op: "flag", key: "spring_patrol_trap_found" },
               { op: "not", of: { op: "rumor", rumor: "rum_spring_trap_mark" } }
             ] }, then: [
-              { op: "rumor", rumor: "rum_spring_trap_mark", source: "npc_elder", confidence: 55 },
+              // A public notice improves hearsay, never converts it to an observation.
+              { op: "if", when: { op: "signal", key: "spring_trap_followup", eq: 2 },
+                then: [{ op: "rumor", rumor: "rum_spring_trap_mark", source: "npc_elder", confidence: 80 }],
+                else: [{ op: "rumor", rumor: "rum_spring_trap_mark", source: "npc_elder", confidence: 55 }] },
               say("txt_spring_patrol_trap_news")
             ] },
+            { op: "if", when: { op: "signal", key: "spring_trap_followup", eq: 1 },
+              then: [say("txt_spring_trap_route_followup")] },
+            { op: "if", when: { op: "signal", key: "spring_trap_followup", eq: 2 },
+              then: [say("txt_spring_trap_notice_followup")] },
             // The elder's later account changes with the public response, without
             // disclosing the unseen spring cause or an earlier life’s private knowledge.
             { op: "if", when: { op: "and", of: [{ op: "flag", key: "spring_watch_requested" }, { op: "not", of: ARROWS_TOLD }] },
@@ -2295,6 +2314,31 @@ export const worldData = {
               then: [say("txt_spring_watch_afterproof")] },
             { op: "if", when: { op: "relation", from: "npc_elder", to: "self", tag: "spring_inquiry_revised" },
               then: [say("txt_spring_inquiry_afterproof")] }
+          ]
+        },
+        // J3 #443: two mutually exclusive decisions after firsthand verification.
+        // The world keeps one bounded signal; no private knowledge is inherited.
+        {
+          id: "opt_elder_trap_reinforce_route",
+          name: "확인한 덫 주변의 샘길 표식을 보강한다 (2시간, 기력 2)",
+          requires: { op: "and", of: [TRAP_MARK_FIRSTHAND, STAMINA_AT_LEAST(2)] },
+          minutes: 120,
+          effects: [
+            { op: "resource", resource: "stamina", add: -2 },
+            { op: "signal", key: "spring_trap_followup", add: 1 },
+            say("txt_spring_trap_route_reinforced")
+          ]
+        },
+        {
+          id: "opt_elder_trap_publish_warning",
+          name: "확인한 덫 표식을 마을 장부에 공고한다 (30분, 은화 1)",
+          requires: { op: "and", of: [TRAP_MARK_FIRSTHAND, { op: "money", min: 1 }] },
+          minutes: 30,
+          effects: [
+            { op: "money", add: -1 },
+            { op: "signal", key: "spring_trap_followup", add: 2 },
+            { op: "relation", from: "npc_elder", add: 4 },
+            say("txt_spring_trap_warning_published")
           ]
         },
         // J3: the village's watch now helps the player prepare, without claiming the rumor is true.
@@ -4181,6 +4225,11 @@ export const worldData = {
     txt_spring_patrol_helped: "마을 사람들과 샘길을 오르내리며 독기가 짙은 곳에 표식을 남긴다. 두 시간이 지나자 지나는 이들이 위험한 자리를 피해 갈 길이 생겼다.",
     txt_spring_patrol_helped_public: "원로는 마을 사람들이 힘을 보태 샘길의 위험한 자리를 두 시간 만에 표시했다고 한다. 이제 길을 지나는 이들은 독기가 짙은 곳을 비켜 갈 수 있다.",
     txt_spring_patrol_trap_news: "원로가 덧붙인다. 샘길을 표시하던 사람들이 덤불 속 덫에서 폐허 무리의 표식을 보았다고 한다. 직접 본 것은 아니니, 샘에 가서 고리를 살펴봐야겠다.",
+    txt_spring_trap_route_reinforced: "직접 확인한 덫의 위치를 원로에게 짚어 주고 샘길을 다시 오른다. 두 시간 동안 위험한 샛길까지 표시한다. 기력은 들었지만 이제 독기가 짙은 곳을 돌아갈 수 있다.",
+    txt_spring_trap_warning_published: "직접 본 덫의 고리와 표식을 원로의 장부에 자세히 적는다. 필사할 은화 한 닢을 내자 원로는 마을 사람들이 읽을 수 있게 경고문을 붙인다.",
+    txt_spring_trap_route_followup: "원로는 덫이 있던 샛길까지 표시해 두었다고 말한다. 독기가 짙은 곳을 지나는 사람은 이제 더 안전하게 돌아갈 수 있다.",
+    txt_spring_trap_notice_followup: "원로는 덫의 표식을 기록한 경고문을 보여 준다. 직접 확인한 사람이 남긴 기록이라 마을에 전하는 말도 이전보다 분명해졌다.",
+    txt_spring_miasma_route_reinforced: "덫의 위치까지 새겨 둔 표식을 따라 독기가 짙은 길목을 비켜 간다. 몸에 해로운 기운은 닿지 않았다.",
     txt_spring_miasma_patrol: "샘길에 남겨진 표식을 따라 독기가 짙은 자리를 비켜 간다. 숨이 조금 막히지만 더 깊은 곳으로 들지는 않았다.",
     txt_prologue_levy: "영주의 징집령이 성읍 게시판에 붙던 날 밤, 나는 강을 건넜다. 뱃사공은 뱃삯을 받고 아무것도 묻지 않았다.",
     txt_prologue_scout_levy: "나는 영주의 척후였다. 숲길과 밤길을 읽는 일로 먹고살았다. 징집령이 성읍 게시판에 붙던 날, 그 장부에 내 이름도 있었다. 그날 밤 나는 강을 건넜다.",

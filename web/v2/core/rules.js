@@ -355,9 +355,24 @@ function evaluateRumorCondition(condition, ctx) {
     return false;
   }
   if (!isPlainObject(entry)) return false;
-  if (condition.minConfidence !== undefined) {
-    return matchScalarArgs(entry.confidence, { min: condition.minConfidence });
+  // A source requirement is an observer-scoped read, not a truth check. In
+  // particular, a confident NPC report cannot stand in for firsthand proof.
+  // The legacy single-source entry is supported for older saves.
+  if (condition.source !== undefined) {
+    if (typeof condition.source !== "string" || !condition.source) return false;
+    const sources = Array.isArray(entry.sources) ? entry.sources : [entry.source];
+    if (!sources.includes(condition.source)) return false;
+    if (typeof condition.rumor === "string") {
+      const definition = ctx.data?.rumors?.[condition.rumor];
+      if (entry.rumorId !== condition.rumor || entry.factId !== definition?.factId ||
+          entry.claim !== definition?.claim) return false;
+    }
+    const day = Math.floor((ctx.state?.time?.minute ?? -1) / 1440);
+    if (day < 0 || [entry.firstSeenDay, entry.lastSeenDay, entry.aboutDay]
+      .some((seen) => Number.isInteger(seen) && seen > day)) return false;
   }
+  if (condition.minConfidence !== undefined &&
+      !matchScalarArgs(entry.confidence, { min: condition.minConfidence })) return false;
   return true;
 }
 
@@ -1973,8 +1988,13 @@ function checkConditionArgs(node, path, errors) {
     errors.push(`unlock Condition at ${path} requires a string \`id\``);
   } else if (op === "resource" && typeof node.resource !== "string") {
     errors.push(`resource Condition at ${path} requires a string \`resource\``);
-  } else if (op === "rumor" && typeof node.rumor !== "string" && typeof node.fact !== "string") {
-    errors.push(`rumor Condition at ${path} requires a string \`rumor\` or \`fact\``);
+  } else if (op === "rumor") {
+    if (typeof node.rumor !== "string" && typeof node.fact !== "string") {
+      errors.push(`rumor Condition at ${path} requires a string \`rumor\` or \`fact\``);
+    }
+    if (node.source !== undefined && (typeof node.source !== "string" || !node.source)) {
+      errors.push(`rumor Condition at ${path} requires a nonempty string \`source\``);
+    }
   } else if (op === "day") {
     const hasFrom = node.hourFrom !== undefined;
     const hasTo = node.hourTo !== undefined;
