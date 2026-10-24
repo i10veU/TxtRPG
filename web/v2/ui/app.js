@@ -714,8 +714,15 @@ function renderHypothesisLedger(playerView) {
   if (!ledger) return;
   el.hypothesisQuestion.textContent = ledger.question;
   const from = ledger.sources.length ? ledger.sources.map(sourceName).join(", ") : "출처 불명";
+  const today = Math.floor(state.time.minute / DAY_MINUTES);
+  const age = Number.isInteger(ledger.aboutDay) ? Math.max(0, today - ledger.aboutDay) : null;
+  const heardAge = Number.isInteger(ledger.lastSeenDay) ? Math.max(0, today - ledger.lastSeenDay) : null;
+  const when = age === null ? "언제의 소식인지 모름" :
+    age === 0 ? "오늘의 소식" : `${age}일 전의 소식`;
+  const heard = heardAge !== null && heardAge !== age ?
+    ` · ${heardAge === 0 ? "오늘" : `${heardAge}일 전`} 들음` : "";
   el.hypothesisEvidence.textContent =
-    `들은 근거 · ${word(`lbl_rumor_${ledger.rumorId}`, "폐허에 관한 소문")} · ${from}`;
+    `들은 근거 · ${word(`lbl_rumor_${ledger.rumorId}`, "폐허에 관한 소문")} · ${from} · ${certainty(ledger.confidence ?? 0)} · ${when}${heard}`;
   clearChildren(el.hypothesisChoices);
   clearChildren(el.hypothesisNext);
   if (ledger.observed) {
