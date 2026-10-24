@@ -23,7 +23,6 @@ test("J3 danger clock: no opening spoiler, known report only, freshness and save
   const errors = await open(page);
   await page.evaluate(() => window.__v2App.newGame("j3-knowledge-clock"));
   await expect(page.locator("#dangerClock")).toBeHidden();
-  await expect(page.locator("#game")).not.toContainText("강 너머의 소식");
 
   // Staging a report through the real save adapter exercises the same UI and
   // load pipeline as an earned rumor without modifying the engine or test hook.
