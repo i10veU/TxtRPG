@@ -11,7 +11,7 @@ for (const scenario of [
     helpOption: "샘길을 지키던 마을의 등불을 받는다",
     outcomeTag: "spring_watch_vindicated",
     proofText: "그때 경계를 청한 말을",
-    memoryText: "첫 판단과 직접 가져온 화살",
+    memoryText: "경계하자던 말과 직접 가져온 화살",
     delta: 7, item: "item_lantern"
   },
   {
@@ -20,7 +20,7 @@ for (const scenario of [
     helpOption: "샘 조사에 쓸 정화초를 받는다",
     outcomeTag: "spring_inquiry_revised",
     proofText: "샘길 경계를 늦출 수 없겠군",
-    memoryText: "첫 판단을 새 증거로",
+    memoryText: "말을 새 증거에 맞춰",
     delta: 4, item: "item_purifying_herb",
     market: true
   }
