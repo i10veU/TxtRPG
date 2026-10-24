@@ -11,6 +11,8 @@ const add = (state, rumorId, { day = Math.floor(state.time.minute / 1440), heard
   const def = worldData.rumors[rumorId];
   assert.ok(def, rumorId);
   const actorId = state.player.actorId;
+  state.knowledge ??= {};
+  state.knowledge[actorId] ??= {};
   state.knowledge[actorId][rumorId] = {
     rumorId, factId: def.factId, claim: def.claim,
     source: "npc_elder", sources: ["npc_elder"],
