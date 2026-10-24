@@ -109,6 +109,48 @@ for (const scenario of [
     await expect(page.locator("#choiceOptions").getByRole("button", { name: REPORT })).toHaveCount(0);
     await page.locator("#choiceOptions").getByRole("button", { name: "폐허에 대해 묻는다" }).click();
     await expect(page.locator("#log")).toContainText(scenario.memoryText);
+
+    // The report starts a world clock. The village must actually spend a
+    // day marking the dangerous spring route; it is not an instant UI reward.
+    const minute = await page.evaluate(() => window.__v2App.getState().time.minute);
+    await page.evaluate(() => {
+      for (let i = 0; i < 23; i++) {
+        window.__v2App.dispatch({ type: "perform", actionId: "act_rest_village" });
+      }
+    });
+    await expect.poll(() => page.evaluate(() => window.__v2App.getState().time.minute)).toBe(minute + 23 * 60);
+    expect(await page.evaluate(() => window.__v2App.getState().flags.spring_patrol_deployed)).toBeUndefined();
+    await page.evaluate(() => window.__v2App.dispatch({ type: "perform", actionId: "act_rest_village" }));
+    await expect.poll(() => page.evaluate(() => window.__v2App.getState().flags.spring_patrol_deployed)).toBe(true);
+    expect(await page.evaluate(() => window.__v2App.getState().signals.spring_patrol_progress)).toBe(2);
+    await page.evaluate(() => {
+      for (let i = 0; i < 3; i++) {
+        window.__v2App.dispatch({ type: "perform", actionId: "act_rest_village" });
+      }
+    });
+    await expect.poll(() => page.evaluate(() => window.__v2App.getState().time.minute)).toBe(minute + 27 * 60);
+    expect(await page.evaluate(() => window.__v2App.getState().signals.spring_patrol_progress)).toBe(2);
+
+    // The consequence is discoverable in-world, and a failed spring exposure
+    // now costs at most one HP (the original CON check is unchanged).
+    await page.locator("#actions button", { hasText: "원로를 찾아간다" }).click();
+    await page.locator("#choiceOptions").getByRole("button", { name: "폐허에 대해 묻는다" }).click();
+    await expect(page.locator("#log")).toContainText("독기가 짙은 자리에 표식");
+    const hpBefore = await page.evaluate(() => {
+      const s = window.__v2App.getState();
+      return s.actors[s.player.actorId].hp.current;
+    });
+    await page.evaluate(() => window.__v2App.dispatch({ type: "move", to: "loc_forest_spring" }));
+    await expect.poll(() => page.evaluate(() => {
+      const s = window.__v2App.getState();
+      return s.actors[s.player.actorId].locationId;
+    })).toBe("loc_forest_spring");
+    const hpAfter = await page.evaluate(() => {
+      const s = window.__v2App.getState();
+      return s.actors[s.player.actorId].hp.current;
+    });
+    expect(hpBefore - hpAfter).toBeGreaterThanOrEqual(0);
+    expect(hpBefore - hpAfter).toBeLessThanOrEqual(1);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     expect(errors).toEqual([]);
   });
