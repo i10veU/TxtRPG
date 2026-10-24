@@ -62,7 +62,9 @@ for (const option of OPTIONS) {
     await expect.poll(() => page.evaluate(() => Boolean(window.__v2App))).toBe(true);
     await page.locator("#slotList li", { hasText: "j3-trap-choice-" + option.value })
       .getByRole("button", { name: "불러오기" }).click();
-    await expect.poll(() => page.evaluate(() => window.__v2App.getState().signals.spring_trap_followup))
+    // After a reload, loading a slot resolves asynchronously; null state is
+    // an expected transient state, not a reason to fail the polling callback.
+    await expect.poll(() => page.evaluate(() => window.__v2App.getState()?.signals?.spring_trap_followup ?? null))
       .toBe(option.value);
     await page.locator("#actions button", { hasText: "원로를 찾아간다" }).click();
     for (const candidate of OPTIONS) {
