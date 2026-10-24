@@ -145,7 +145,9 @@ function testSuccessor(told) {
   assert.strictEqual(next.flags.spring_bandits_told, true, "the world's account stays");
   assert.ok(!next.relations[`npc_elder:${next.player.actorId}`]?.tags?.includes("spring_arrows_reported"),
     "the predecessor's personal report tag is not inherited");
-  assert.deepStrictEqual(texts(run(next, E("opt_ask_ruins")).log[1]), ["txt_ask_ruins", "txt_ask_ruins_spring"]);
+  assert.deepStrictEqual(texts(run(next, E("opt_ask_ruins")).log[1]),
+    ["txt_ask_ruins", "txt_ask_ruins_spring", "txt_spring_patrol_pending"],
+    "the successor can hear public unfinished work without inheriting private evidence");
   const heard = run(next, E("opt_ask_ruins")).state;
   assert.strictEqual(elderScore(heard), 5, "the successor's own first telling, nothing of the predecessor's");
   assert.strictEqual(offered(heard, "opt_tell_spring_arrows"), false);
