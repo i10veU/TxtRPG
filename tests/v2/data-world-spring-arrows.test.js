@@ -97,7 +97,8 @@ function testTellingTheElder(read) {
   assert.strictEqual(offered(state, "opt_tell_spring_arrows"), false, "once for the world");
   // the account, told to anyone from now on: the elder about the ruins, the herbalist about the sickness
   const ruins = run(state, E("opt_ask_ruins")).log[1];
-  assert.deepStrictEqual(texts(ruins), ["txt_ask_ruins", "txt_ask_ruins_spring"]);
+  assert.deepStrictEqual(texts(ruins), ["txt_ask_ruins", "txt_ask_ruins_spring", "txt_spring_patrol_pending"],
+    "after a witnessed report the elder also describes the unfinished route work");
   assert.strictEqual(elderScore(run(state, E("opt_ask_ruins")).state), before + 5, "asking again earns nothing");
   const herbalist = run(state, [M("loc_market"), ...H("opt_herbalist_ask_sickness")]).log[2];
   assert.deepStrictEqual(texts(herbalist), ["txt_herbalist_sickness", "txt_herbalist_bandit_rumor"]);
@@ -144,7 +145,9 @@ function testSuccessor(told) {
   assert.strictEqual(next.flags.spring_bandits_told, true, "the world's account stays");
   assert.ok(!next.relations[`npc_elder:${next.player.actorId}`]?.tags?.includes("spring_arrows_reported"),
     "the predecessor's personal report tag is not inherited");
-  assert.deepStrictEqual(texts(run(next, E("opt_ask_ruins")).log[1]), ["txt_ask_ruins", "txt_ask_ruins_spring"]);
+  assert.deepStrictEqual(texts(run(next, E("opt_ask_ruins")).log[1]),
+    ["txt_ask_ruins", "txt_ask_ruins_spring", "txt_spring_patrol_pending"],
+    "the successor can hear public unfinished work without inheriting private evidence");
   const heard = run(next, E("opt_ask_ruins")).state;
   assert.strictEqual(elderScore(heard), 5, "the successor's own first telling, nothing of the predecessor's");
   assert.strictEqual(offered(heard, "opt_tell_spring_arrows"), false);

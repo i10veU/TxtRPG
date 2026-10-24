@@ -946,6 +946,7 @@ export const worldData = {
       trigger: { op: "and", of: [
         ARROWS_TOLD,
         { op: "not", of: WELL_RESOLVED },
+        { op: "not", of: { op: "flag", key: "spring_patrol_deployed" } },
         { op: "signal", key: "spring_patrol_progress", max: 1 }
       ] },
       cooldown: 1440,
@@ -1429,6 +1430,31 @@ export const worldData = {
         { op: "flag", key: "spring_inquiry_requested", value: true },
         { op: "relation", from: "npc_elder", add: 2, tag: "spring_inquiry_requested" },
         say("txt_spring_inquiry_requested")
+      ]
+    },
+    // J3 #428: the player may spend two hours and stamina helping the villagers
+    // mark the spring route now, instead of waiting a full day for the same
+    // world-owned mitigation. The event above will not fire again afterward.
+    // A legacy save with a public report but no progress signal also works.
+    act_help_mark_spring_route: {
+      name: "마을 사람들과 샘길 표식을 놓는다 (2시간, 기력 2)",
+      requires: { op: "and", of: [
+        { op: "location", at: "loc_village" }, ARROWS_TOLD,
+        { op: "not", of: WELL_RESOLVED },
+        { op: "not", of: { op: "flag", key: "spring_patrol_deployed" } },
+        STAMINA_AT_LEAST(2)
+      ] },
+      minutes: 120,
+      effects: [
+        { op: "resource", resource: "stamina", add: -2 },
+        // Both old and new saves finish with progress 2. This is a record
+        // of completed work, not a new independent scheduler.
+        { op: "if", when: { op: "signal", key: "spring_patrol_progress", max: 0 },
+          then: [{ op: "signal", key: "spring_patrol_progress", add: 2 }],
+          else: [{ op: "signal", key: "spring_patrol_progress", add: 1 }] },
+        { op: "flag", key: "spring_patrol_deployed", value: true },
+        { op: "flag", key: "spring_patrol_helped", value: true },
+        say("txt_spring_patrol_helped")
       ]
     },
     // V2-Core-64 (#160): the well -- PER (what one notices) with the investigation skill. A success
@@ -2220,9 +2246,18 @@ export const worldData = {
             // The marked route is a public consequence of the report, not
             // the earlier teller's private hypothesis. A successor may hear it.
             { op: "if", when: { op: "and", of: [
+              ARROWS_TOLD,
+              { op: "not", of: { op: "flag", key: "spring_patrol_deployed" } },
+              { op: "not", of: WELL_RESOLVED }
+            ] }, then: [say("txt_spring_patrol_pending")] },
+            { op: "if", when: { op: "and", of: [
               { op: "flag", key: "spring_patrol_deployed" },
               { op: "not", of: WELL_RESOLVED }
-            ] }, then: [say("txt_spring_patrol_deployed")] },
+            ] }, then: [
+              { op: "if", when: { op: "flag", key: "spring_patrol_helped" },
+                then: [say("txt_spring_patrol_helped_public")],
+                else: [say("txt_spring_patrol_deployed")] }
+            ] },
             // The elder's later account changes with the public response, without
             // disclosing the unseen spring cause or an earlier life’s private knowledge.
             { op: "if", when: { op: "and", of: [{ op: "flag", key: "spring_watch_requested" }, { op: "not", of: ARROWS_TOLD }] },
@@ -4117,6 +4152,9 @@ export const worldData = {
     txt_spring_watch_afterproof: "원로는 처음 샘길을 경계하자던 말과 직접 가져온 화살을 함께 기억한다.",
     txt_spring_inquiry_afterproof: "원로는 처음 두 사건을 나누어 보자던 말을 새 증거에 맞춰 고쳐 받아들였다고 말한다.",
     txt_spring_patrol_deployed: "원로는 화살 이야기를 들은 뒤 하루 동안 샘길을 살피게 했다고 한다. 마을 사람들은 독기가 짙은 자리에 표식을 남겨 길을 지나는 이들이 피해 가게 했다.",
+    txt_spring_patrol_pending: "원로는 샘길에 표식을 놓을 사람들을 모으고 있다고 한다. 하루는 걸릴 일이지만, 지금 마을 사람들과 함께 나서면 두 시간 안에 마칠 수 있다. 힘이 드는 일이다.",
+    txt_spring_patrol_helped: "마을 사람들과 샘길을 오르내리며 독기가 짙은 곳에 표식을 남긴다. 두 시간이 지나자 지나는 이들이 위험한 자리를 피해 갈 길이 생겼다.",
+    txt_spring_patrol_helped_public: "원로는 마을 사람들이 힘을 보태 샘길의 위험한 자리를 두 시간 만에 표시했다고 한다. 이제 길을 지나는 이들은 독기가 짙은 곳을 비켜 갈 수 있다.",
     txt_spring_miasma_patrol: "샘길에 남겨진 표식을 따라 독기가 짙은 자리를 비켜 간다. 숨이 조금 막히지만 더 깊은 곳으로 들지는 않았다.",
     txt_prologue_levy: "영주의 징집령이 성읍 게시판에 붙던 날 밤, 나는 강을 건넜다. 뱃사공은 뱃삯을 받고 아무것도 묻지 않았다.",
     txt_prologue_scout_levy: "나는 영주의 척후였다. 숲길과 밤길을 읽는 일로 먹고살았다. 징집령이 성읍 게시판에 붙던 날, 그 장부에 내 이름도 있었다. 그날 밤 나는 강을 건넜다.",
