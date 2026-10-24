@@ -24,6 +24,7 @@ import { waitDay } from "./wait.js";
 import { currentGoals } from "./goals.js";
 import { stakesOf, duration } from "./stakes.js";
 import { knowledgeClock } from "./knowledge-clock.js";
+import { knowledgeNewsChange } from "./knowledge-news.js";
 import { hypothesisLedger } from "./hypothesis-ledger.js";
 import { greetingFor } from "./people.js";
 import { deedsTrue, endingLearned } from "./deeds.js";
@@ -193,7 +194,10 @@ function diffNews(before, after) {
     const chapter = worldData.rumors?.[rumorId]?.story?.chapter;
     const from = (k.sources ?? [k.source]).map(sourceName).join(", ");
     if (!old) items.push({ kind: Number.isInteger(chapter) ? "story" : "learned", text: label, note: from, rumorId });
-    else if (old.confidence < 90 && k.confidence >= 90) items.push({ kind: "confirmed", text: label, note: "직접 확인함", rumorId });
+    else {
+      const update = knowledgeNewsChange(old, k);
+      if (update) items.push({ ...update, text: label, rumorId });
+    }
   }
   const inv = (a) => a.inventory ?? {};
   const itemIds = new Set([...Object.keys(inv(before.actor)), ...Object.keys(inv(after.actor))]);
