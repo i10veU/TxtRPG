@@ -18,6 +18,8 @@ test("J3 hypothesis: rumor unlocks guess, no instant oracle, actual action and S
   await page.evaluate(() => window.__v2App.dispatch({ type: "choose", optionId: "opt_ask_ruins" }));
   await expect(ledger).toBeVisible();
   await expect(page.locator("#hypothesisEvidence")).toContainText("원로");
+  await expect(page.locator("#hypothesisEvidence")).toContainText("오늘의 소식");
+  await expect(page.locator("#hypothesisEvidence")).toContainText(/뜬소문|그럴듯함|믿을 만함|직접 확인함/);
   await expect(page.locator("#hypothesisVerdict")).toContainText("알 수 없다");
   const guess = ledger.getByRole("button", { name: "폐허에는 아무도 없을 것이다." });
   await guess.focus();
@@ -52,6 +54,15 @@ test("J3 hypothesis: rumor unlocks guess, no instant oracle, actual action and S
   await verify.click();
   const after = await page.evaluate(() => window.__v2App.getState().time.minute);
   expect(after).toBeGreaterThan(before); // actual engine action, not UI quiz
+  const observed = await page.evaluate(() => {
+    const state = window.__v2App.getState();
+    return state.knowledge?.[state.player.actorId]?.rum_ruins_secret?.sources?.includes("obs_loc_ruins") === true;
+  });
+  if (observed) {
+    await expect(page.locator("#hypothesisVerdict")).toContainText("현장에서 반증되었다");
+  } else {
+    await expect(page.locator("#hypothesisVerdict")).toContainText("아직은 짐작");
+  }
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   expect(errors).toEqual([]);
 });
