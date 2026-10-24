@@ -142,3 +142,23 @@ export function linkedCaseSupport(ledger, playerView) {
     actionId: available ? support.actionId : null
   };
 }
+
+// A patrol's discovered trap becomes a *personal* lead only after the elder
+// tells this life about it. The notebook does not read the patrol's hidden
+// discovery flag, the encounter state or any predecessor's chronicle.
+export function linkedCasePatrolLead(ledger, playerView, data, today = Number.MAX_SAFE_INTEGER) {
+  if (!ledger?.observed || !linkedCaseReported(ledger, playerView)) return null;
+  const known = matchingKnowledge(playerView?.knowledge, data, "rum_spring_trap_mark");
+  if (!known || !firstHand(known, "npc_elder")) return null;
+  // A future-dated record is not knowledge yet (same rule as the danger clock).
+  if (["aboutDay", "firstSeenDay", "lastSeenDay"].some(
+    (field) => Number.isInteger(known[field]) && known[field] > today
+  )) return null;
+  const verified = firstHand(known, "obs_loc_forest_spring");
+  const atLocation = playerView?.actor?.locationId === "loc_forest_spring";
+  const available = !verified && atLocation && !playerView?.pending &&
+    Array.isArray(playerView?.actions) && playerView.actions.some(
+      (action) => action.actionId === "act_enc_spring_trap_mark" && action.available === true
+    );
+  return { verified: Boolean(verified), atLocation, actionId: available ? "act_enc_spring_trap_mark" : null };
+}
