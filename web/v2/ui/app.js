@@ -26,7 +26,7 @@ import { stakesOf, duration } from "./stakes.js";
 import { knowledgeClock } from "./knowledge-clock.js";
 import { knowledgeNewsChange } from "./knowledge-news.js";
 import { hypothesisLedger } from "./hypothesis-ledger.js";
-import { linkedCaseLedger, linkedCaseElderAction, linkedCaseReported, linkedCaseDecision, linkedCaseDecisionAction, linkedCaseSupport, linkedCasePatrolAction } from "./linked-case-ledger.js";
+import { linkedCaseLedger, linkedCaseElderAction, linkedCaseReported, linkedCaseDecision, linkedCaseDecisionAction, linkedCaseSupport, linkedCasePatrolAction, linkedCasePatrolLead } from "./linked-case-ledger.js";
 import { greetingFor } from "./people.js";
 import { deedsTrue, endingLearned } from "./deeds.js";
 import * as chronicle from "../storage/chronicle.js";
@@ -813,6 +813,21 @@ function renderLinkedCaseLedger(playerView) {
       if (patrolAction) {
         el.linkedCaseNext.appendChild(makeButton("마을 사람들과 샘길 표식을 놓는다 (2시간, 기력 2)", () =>
           dispatch({ type: "perform", actionId: patrolAction })));
+      }
+      // The elder's *new* account is a lead, not verified world truth.
+      const followup = linkedCasePatrolLead(ledger, playerView, worldData, today);
+      if (followup) {
+        const note = document.createElement("p");
+        note.textContent = followup.verified
+          ? "원로에게 들은 덫 표식을 샘에서 직접 확인했다."
+          : followup.atLocation
+            ? "원로에게 들은 덫 표식은 아직 전언이다. 샘에서 직접 확인하자."
+            : "원로가 전한 덫 표식은 아직 전언이다. 숲속 샘에서 확인하자.";
+        el.linkedCaseNext.appendChild(note);
+        if (followup.actionId) {
+          el.linkedCaseNext.appendChild(makeButton("전해 들은 덫 표식을 현장에서 확인한다", () =>
+            dispatch({ type: "perform", actionId: followup.actionId })));
+        }
       }
       return;
     }
