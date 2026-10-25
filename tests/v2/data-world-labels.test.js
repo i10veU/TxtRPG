@@ -42,7 +42,7 @@ function testGrowthAndMenus() {
     ...[...new Set(Object.values(worldData.items).map((i) => i.slot).filter(Boolean))].map((slot) => `lbl_slot_${slot}`),
     ...Object.keys(worldData.characterTemplates).map((t) => `lbl_tmpl_${t}`)
   ];
-  assert.strictEqual(want.length, 29, "6 stats, 3 practices, 3 skills, 4 tiers, 4 traits, 4 unlocks (post-J3 defensive stance; V2-Core-142: the realm's name), a resource, 2 slots, 2 backgrounds");
+  assert.strictEqual(want.length, 31, "6 stats, 3 practices, 3 skills, 4 tiers, 4 traits, 6 unlocks (including defensive/offensive sword arts and trailcraft), a resource, 2 slots, 2 backgrounds");
   for (const key of want) assert.ok(has(key), `${key} has a word`);
 }
 

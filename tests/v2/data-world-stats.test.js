@@ -106,6 +106,7 @@ function testEveryCheckNamesADefinedStat() {
     act_search_spring: ["per", null],
     evt_spring_miasma: ["con", null],
     act_gather_herbs: ["wis", null], // V2-Core-65: knowing the herbs
+    act_survey_trailcraft: ["per", null],
     act_read_milestone: ["int", null], // V2-Core-72: the worn letters
     act_search_crossroads: ["per", null],
     act_watch_band_camp: ["per", null], // V2-Core-139: watching the band
