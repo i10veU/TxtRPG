@@ -663,6 +663,19 @@ const NORTH_ROAD_CONVOY_READY = { op: "and", of: [
   { op: "money", min: 3 },
   { op: "item", item: "item_mill_bread", min: 1 }
 ] };
+// A personal trailcraft survey reveals a choice, not an omniscient world map.
+// Guiding the supply route benefits all future travellers; salvaging its stores
+// yields immediate food and silver but forecloses that improvement permanently.
+const NORTH_ROAD_SURVEY_UNSET = { op: "and", of: [
+  { op: "not", of: { op: "flag", key: "north_road_guided" } },
+  { op: "not", of: { op: "flag", key: "north_road_cache_taken" } }
+] };
+const NORTH_ROAD_GUIDED_READY = { op: "and", of: [
+  { op: "flag", key: "waystation_supply_delivered" },
+  { op: "flag", key: "north_road_guided" },
+  { op: "money", min: 2 },
+  { op: "item", item: "item_mill_bread", min: 1 }
+] };
 const NORTH_ROAD_MARCH_READY = { op: "and", of: [
   { op: "resource", resource: "stamina", min: 4 },
   { op: "gte", left: { hp: "current" }, right: 3 }
@@ -2092,13 +2105,89 @@ export const worldData = {
         say("txt_buy_waystation_bread")
       ]
     },
+    // Exploration specialisation: learn the far-bank road's visible tracks.
+    // The survey unlock belongs to this character, not to world memory.
+    act_survey_north_road: {
+      name: "길목 북부 도로를 정찰한다 (기력 2, 90분)",
+      requires: { op: "and", of: [
+        { op: "location", at: "loc_far_bank" },
+        { op: "flag", key: "waystation_supply_delivered" },
+        { op: "unlock", id: "unl_trailcraft" },
+        { op: "not", of: { op: "unlock", id: "unl_north_road_survey" } },
+        NORTH_ROAD_SURVEY_UNSET, STAMINA_AT_LEAST(2)
+      ] },
+      check: { stat: "per", skill: "investigation", tags: ["investigation"], difficulty: "normal" },
+      minutes: 90,
+      outcomes: {
+        great: [{ op: "resource", resource: "stamina", add: -2 }, { op: "proficiency", id: "investigation", add: 15 }, { op: "unlock", id: "unl_north_road_survey" }, say("txt_north_survey_found")],
+        success: [{ op: "resource", resource: "stamina", add: -2 }, { op: "proficiency", id: "investigation", add: 10 }, { op: "unlock", id: "unl_north_road_survey" }, say("txt_north_survey_found")],
+        partial: [{ op: "resource", resource: "stamina", add: -2 }, { op: "proficiency", id: "investigation", add: 5 }, say("txt_north_survey_retry")],
+        fail: [{ op: "resource", resource: "stamina", add: -2 }, { op: "proficiency", id: "investigation", add: 5 }, { op: "hp", add: -1 }, say("txt_north_survey_retry")]
+      }
+    },
+    // One survey, two exclusive consequences: a lasting public road improvement
+    // or an immediate private cache. The world flag survives succession.
+    act_mark_north_road_pass: {
+      name: "보급 마차에 안전한 우회로를 표시한다 (기력 2, 90분)",
+      requires: { op: "and", of: [
+        { op: "location", at: "loc_far_bank" },
+        { op: "flag", key: "waystation_supply_delivered" },
+        { op: "unlock", id: "unl_north_road_survey" },
+        NORTH_ROAD_SURVEY_UNSET, STAMINA_AT_LEAST(2)
+      ] },
+      minutes: 90,
+      effects: [
+        { op: "resource", resource: "stamina", add: -2 },
+        { op: "flag", key: "north_road_guided", value: true },
+        say("txt_north_road_guided")
+      ]
+    },
+    act_salvage_north_road_cache: {
+      name: "도로 옆 버려진 보급품을 회수한다 (기력 2, 60분)",
+      requires: { op: "and", of: [
+        { op: "location", at: "loc_far_bank" },
+        { op: "flag", key: "waystation_supply_delivered" },
+        { op: "unlock", id: "unl_north_road_survey" },
+        NORTH_ROAD_SURVEY_UNSET, STAMINA_AT_LEAST(2)
+      ] },
+      minutes: 60,
+      effects: [
+        { op: "resource", resource: "stamina", add: -2 },
+        { op: "money", add: 5 },
+        { op: "item", item: "item_mill_bread", add: 2 },
+        { op: "flag", key: "north_road_cache_taken", value: true },
+        say("txt_north_road_cache_taken")
+      ]
+    },
+    // The improved route replaces, rather than duplicates, the old convoy.
+    // It saves one hour and one silver each way; bread is still required.
+    act_north_road_guided_convoy: {
+      name: "안전한 보급 마차로 성읍에 간다 (빵 1개, 은화 2, 9시간)",
+      requires: { op: "and", of: [{ op: "location", at: "loc_far_bank" }, NORTH_ROAD_GUIDED_READY] },
+      minutes: 540,
+      effects: [
+        { op: "money", add: -2 }, { op: "item", item: "item_mill_bread", add: -1 },
+        { op: "resource", resource: "stamina", add: 3 },
+        { op: "move", to: "loc_castle_town" }, say("txt_north_road_guided_convoy")
+      ]
+    },
+    act_south_road_guided_convoy: {
+      name: "안전한 보급 마차로 길목에 돌아간다 (빵 1개, 은화 2, 9시간)",
+      requires: { op: "and", of: [{ op: "location", at: "loc_castle_town" }, NORTH_ROAD_GUIDED_READY] },
+      minutes: 540,
+      effects: [
+        { op: "money", add: -2 }, { op: "item", item: "item_mill_bread", add: -1 },
+        { op: "resource", resource: "stamina", add: 3 },
+        { op: "move", to: "loc_far_bank" }, say("txt_south_road_guided_convoy")
+      ]
+    },
     // Long-road expedition tactics: four explicit actions, so the player can
     // compare the existing 720-minute free road with paid convoy (600 min,
     // restores stamina) and a damaging forced march (480 min). The convoy is
     // a lasting consequence of the delivered waystation supply contract.
     act_north_road_convoy: {
       name: "보급 마차로 성읍에 간다 (빵 1개, 은화 3, 10시간)",
-      requires: { op: "and", of: [{ op: "location", at: "loc_far_bank" }, NORTH_ROAD_CONVOY_READY] },
+      requires: { op: "and", of: [{ op: "location", at: "loc_far_bank" }, NORTH_ROAD_CONVOY_READY, { op: "not", of: { op: "flag", key: "north_road_guided" } }] },
       minutes: 600,
       effects: [
         { op: "money", add: -3 },
@@ -2110,7 +2199,7 @@ export const worldData = {
     },
     act_south_road_convoy: {
       name: "보급 마차로 길목에 돌아간다 (빵 1개, 은화 3, 10시간)",
-      requires: { op: "and", of: [{ op: "location", at: "loc_castle_town" }, NORTH_ROAD_CONVOY_READY] },
+      requires: { op: "and", of: [{ op: "location", at: "loc_castle_town" }, NORTH_ROAD_CONVOY_READY, { op: "not", of: { op: "flag", key: "north_road_guided" } }] },
       minutes: 600,
       effects: [
         { op: "money", add: -3 },
@@ -3964,7 +4053,7 @@ export const worldData = {
         { minRank: 5, label: "Adept" }
       ],
       // V2-Core-142 (M7): the realm's name -- the apex (a title: it opens nothing, the world answers it)
-      unlocks: [{ id: "unl_trailcraft", kind: "action" }, { id: "unl_keen_eye", kind: "action" }, { id: "unl_road_lead", kind: "action" }, { id: "unl_guarded_stance", kind: "action" }, { id: "unl_breakthrough_cut", kind: "action" }, { id: "unl_realm_renown", kind: "title" }],
+      unlocks: [{ id: "unl_north_road_survey", kind: "action" }, { id: "unl_trailcraft", kind: "action" }, { id: "unl_keen_eye", kind: "action" }, { id: "unl_road_lead", kind: "action" }, { id: "unl_guarded_stance", kind: "action" }, { id: "unl_breakthrough_cut", kind: "action" }, { id: "unl_realm_renown", kind: "title" }],
       // V2-Core-56 (Gate 4 = C, D-85): resources belong to the growth system. Stamina pays for the
       // fight's techniques (the counter 3, the old wound 2); a character without the entry is full
       resources: [{ id: "stamina", max: 6 }]
@@ -4379,6 +4468,12 @@ export const worldData = {
     txt_waystation_supply_delivered: "길목의 빈 창고에 보급 상자를 내려놓자 담당자가 장부에 첫 납품을 적는다. 은화 여섯 닢과 돌아갈 길에 먹을 빵 한 덩이를 건네받는다. 이제 이곳에서는 여행자 누구나 값비싼 빵을 살 수 있다.",
     txt_waystation_supply_opened: "봉인을 뜯자 물레방아 빵 두 덩이가 나온다. 당장의 배고픔을 피할 수 있지만 길목으로 가야 할 첫 보급품은 사라졌다. 보급소가 열리기를 기다리는 사람들에게는 아직 아무 소식도 없다.",
     txt_buy_waystation_bread: "강 건너 길목의 보급소에서 은화 두 닢을 내고 빵 한 덩이를 산다. 먼 길에 비싼 값이지만 야영할 식량을 마련했다.",
+    txt_north_survey_found: "길목에서 북쪽으로 난 수레바퀴 자국을 따라가자 허물어진 돌담과 비어 있는 보급 꾸러미가 보인다. 우회로를 표시해 앞으로 다닐 상단을 돕거나, 남은 물자를 당장 회수할 수 있다. 두 길을 모두 택할 수는 없다.",
+    txt_north_survey_retry: "수레바퀴 자국이 갈라지는 곳에서 길을 놓쳤다. 서두르다 발목을 헛디뎠지만, 다시 조사하면 흔적을 따라갈 수 있을 것이다.",
+    txt_north_road_guided: "비어 있는 보급품을 손대지 않고 안전한 바퀴 자국을 길목 사람들에게 표시해 준다. 이후 보급 마차는 위험한 돌길을 피하며 한 시간 빨리 움직이고 뱃삯만큼의 은화도 아낀다. 뒤따를 여행자들도 이 길을 쓸 수 있다.",
+    txt_north_road_cache_taken: "낡은 꾸러미에서 은화 다섯 닢과 빵 두 덩이를 건졌다. 당장 원정에 도움이 되지만 우회로를 표시할 자취는 흩어졌다. 마차는 예전 길을 계속 달릴 것이다.",
+    txt_north_road_guided_convoy: "표시해 둔 우회로를 따라 마차가 빠르게 북상한다. 보급품을 나누어 먹고 쉬는 사이 아홉 시간 만에 성읍이 나타난다.",
+    txt_south_road_guided_convoy: "상단은 돌담을 돌아 안전한 우회로로 길목에 내려간다. 아홉 시간 만에 강 건너 길목에 닿았다.",
     txt_trailcraft_success: "이정표가 아닌 흙의 굳기와 물길을 따라 걸음을 옮겨 본다. 발이 닿을 자리를 읽는 법을 익혔다. 다만 어느 길이 어디로 이어지는지는 직접 알아내야 한다.",
     txt_trailcraft_retry: "길을 잘못 읽어 같은 자리를 맴돌았다. 발자국과 바람을 다시 살피면 다음에는 길을 찾아낼 수 있을 것이다.",
     txt_trailcraft_ford: "바위 사이로 난 작은 길을 따라 강나루와 갈림길 사이를 빠르게 지난다. 시간을 벌었지만 기력이 소모됐다.",
@@ -4513,6 +4608,7 @@ export const worldData = {
     lbl_trait_investigation_talent: "조사의 재능",
     lbl_trait_road_wound: "길에서 입은 상처",
     lbl_trait_road_wound_deep: "깊은 상처",
+    lbl_unlock_unl_north_road_survey: "북부 도로 정찰",
     lbl_unlock_unl_trailcraft: "길잡이 측량술",
     lbl_unlock_unl_keen_eye: "예리한 눈",
     lbl_unlock_unl_road_lead: "상단을 이끌 자격",
