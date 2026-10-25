@@ -21,7 +21,7 @@ const PATH = [
   { type: "perform", actionId: "act_talk_elder" },
   { type: "choose", optionId: "opt_ask_ruins" }
 ];
-const SHORTCUT = "확인한 덫 표식으로 원로와 후속 대응을 의논한다";
+const SHORTCUT = "원로에게 덫 표식 대응 상황을 확인한다";
 const OPTIONS = [
   { label: "확인한 덫 주변의 샘길 표식을 보강한다 (2시간, 기력 2)", recap: "샘길을 보강했다", value: 1 },
   { label: "확인한 덫 표식을 마을 장부에 공고한다 (30분, 은화 1)", recap: "마을 장부에 알렸다", value: 2 }
