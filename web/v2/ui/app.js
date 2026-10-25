@@ -787,13 +787,13 @@ function renderLinkedCaseLedger(playerView) {
     linkedCaseLifeKey = key;
     linkedCaseSelection = null;
   }
-  const ledger = linkedCaseLedger(playerView.knowledge, worldData);
+  const today = Math.floor(state.time.minute / DAY_MINUTES);
+  const ledger = linkedCaseLedger(playerView.knowledge, worldData, today);
   el.linkedCaseLedger.hidden = !ledger;
   if (!ledger) return;
   const decision = linkedCaseDecision(ledger, playerView);
   const judgment = decision ?? linkedCaseSelection;
   el.linkedCaseQuestion.textContent = ledger.question;
-  const today = Math.floor(state.time.minute / DAY_MINUTES);
   el.linkedCaseEvidence.textContent = "함께 읽은 단서 · " + ledger.clues.map((clue) => {
     const from = clue.sources.length ? clue.sources.map(sourceName).join(", ") : "출처 불명";
     const when = Number.isInteger(clue.aboutDay)
