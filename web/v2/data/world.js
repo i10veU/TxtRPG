@@ -689,6 +689,10 @@ const NORTH_SUPPLY_RELIEF = { op: "flag", key: "north_supply_relief_pact" };
 const NORTH_WAYSTATION_STOCK = { op: "signal", key: "north_waystation_stock", min: 1 };
 const NORTH_MILL_RELIEF_SPACE = { op: "signal", key: "north_mill_relief_stock", max: 1 };
 const NORTH_MILL_RELIEF_STOCK = { op: "signal", key: "north_mill_relief_stock", min: 1 };
+// A single real wagon may be held up by an unsafe road. Its cargo is no longer
+// at the origin and cannot be delivered or seized twice; the world remembers losses.
+const NORTH_RELIEF_STALLED = { op: "signal", key: "north_relief_stalled", min: 1 };
+const NORTH_RELIEF_CLEAR = { op: "signal", key: "north_relief_stalled", max: 0 };
 const NORTH_WAYSTATION_RELIABLE = { op: "signal", key: "north_waystation_reliability", min: 2 };
 const NORTH_WAYSTATION_BUNDLE_FUNDS = { op: "or", of: [
   { op: "money", min: 3 },
@@ -1151,10 +1155,25 @@ export const worldData = {
       cooldown: 1440,
       catchUp: true,
       effects: [
-        { op: "if", when: { op: "and", of: [NORTH_WAYSTATION_STOCK, NORTH_MILL_RELIEF_SPACE] },
+        // Exactly one wagon can be in transit. If it is already stalled,
+        // recover that same cargo on a safer day before dispatching more.
+        { op: "if", when: NORTH_RELIEF_STALLED,
           then: [
-            { op: "signal", key: "north_waystation_stock", add: -1 },
-            { op: "signal", key: "north_mill_relief_stock", add: 1 }
+            { op: "if", when: { op: "and", of: [
+              { op: "signal", key: "road_trouble", max: 1 }, NORTH_MILL_RELIEF_SPACE
+            ] }, then: [
+              { op: "signal", key: "north_relief_stalled", add: -1 },
+              { op: "signal", key: "north_mill_relief_stock", add: 1 }
+            ] }
+          ],
+          else: [
+            { op: "if", when: { op: "and", of: [NORTH_WAYSTATION_STOCK, NORTH_MILL_RELIEF_SPACE] },
+              then: [
+                { op: "signal", key: "north_waystation_stock", add: -1 },
+                { op: "if", when: { op: "signal", key: "road_trouble", min: 2 },
+                  then: [{ op: "signal", key: "north_relief_stalled", add: 1 }],
+                  else: [{ op: "signal", key: "north_mill_relief_stock", add: 1 }] }
+              ] }
           ] }
       ]
     },
@@ -2283,6 +2302,40 @@ export const worldData = {
     },
     // The shared store is accessible only at the mill. Rations cost a small
     // contribution, and cannot be bought from an empty warehouse.
+    // The delayed wagon is visible at the far-bank road. A player can spend
+    // stamina to bring its public cargo through, or divert it for private food.
+    // Both options consume the same single world-owned bundle.
+    act_escort_stalled_relief: {
+      name: "멈춰 선 구휼 마차를 호위해 마을로 보낸다 (기력 2, 2시간)",
+      requires: { op: "and", of: [
+        { op: "location", at: "loc_far_bank" }, NORTH_SUPPLY_RELIEF,
+        NORTH_RELIEF_STALLED, NORTH_MILL_RELIEF_SPACE, STAMINA_AT_LEAST(2)
+      ] },
+      minutes: 120,
+      effects: [
+        { op: "resource", resource: "stamina", add: -2 },
+        { op: "signal", key: "north_relief_stalled", add: -1 },
+        { op: "signal", key: "north_mill_relief_stock", add: 1 },
+        { op: "relation", from: "npc_miller", add: 3 },
+        say("txt_north_relief_stalled_escort")
+      ]
+    },
+    act_seize_stalled_relief: {
+      name: "멈춘 마차의 식량을 가져간다 (기력 1, 빵 3개, 1시간)",
+      requires: { op: "and", of: [
+        { op: "location", at: "loc_far_bank" }, NORTH_SUPPLY_RELIEF,
+        NORTH_RELIEF_STALLED, STAMINA_AT_LEAST(1)
+      ] },
+      minutes: 60,
+      effects: [
+        { op: "resource", resource: "stamina", add: -1 },
+        { op: "signal", key: "north_relief_stalled", add: -1 },
+        { op: "signal", key: "north_relief_losses", add: 1 },
+        { op: "item", item: "item_mill_bread", add: 3 },
+        { op: "relation", from: "npc_miller", add: -3 },
+        say("txt_north_relief_stalled_seized")
+      ]
+    },
     act_buy_mill_relief_rations: {
       name: "공동 창고에서 빵 2개를 배급받는다 (은화 1, 15분)",
       requires: { op: "and", of: [
@@ -3740,6 +3793,10 @@ export const worldData = {
             { op: "if", when: HAMLET_TRADES, then: [say("txt_miller_trade_running")] },
             { op: "if", when: NORTH_SUPPLY_RELIEF,
               then: [say("txt_miller_relief_arrives"),
+                { op: "if", when: NORTH_RELIEF_STALLED,
+                  then: [say("txt_miller_relief_stalled")] },
+                { op: "if", when: { op: "signal", key: "north_relief_losses", min: 1 },
+                  then: [say("txt_miller_relief_losses")] },
                 { op: "if", when: NORTH_MILL_RELIEF_STOCK,
                   then: [say("txt_miller_relief_stocked")],
                   else: [say("txt_miller_relief_empty")] }],
@@ -4646,6 +4703,10 @@ export const worldData = {
     txt_north_survey_retry: "수레바퀴 자국이 갈라지는 곳에서 길을 놓쳤다. 서두르다 발목을 헛디뎠지만, 다시 조사하면 흔적을 따라갈 수 있을 것이다.",
     txt_north_supply_relief_pact: "첫 보급 마차의 짐 한 묶음을 물레방아 마을 구휼 장부에 배정한다. 방앗간 사람들은 북부 길목에 공동 창고를 마련해 다음 날부터 하루 두 묶음씩 보급품을 모으기로 한다. 이 약속은 나뿐 아니라 뒤따르는 여행자에게도 남는다.",
     txt_north_relief_wagon_dispatch: "내 은화로 마부를 고용해 북부 길목의 보급품 한 묶음을 물레방아 마을 공동 창고로 먼저 보냈다. 방앗간 주인이 이 일을 기억한다.",
+    txt_north_relief_stalled_escort: "험한 길에 멈춰 선 마차를 끝까지 호위했다. 실려 있던 식량 한 묶음은 마을 공동 창고로 옮겨지고, 방앗간 주인은 이 일을 기억한다.",
+    txt_north_relief_stalled_seized: "멈춰 선 마차에서 빵 세 덩이를 챙겼다. 그 식량은 이제 마을에 도착하지 않는다. 방앗간 장부에는 사라진 짐 한 묶음이 남는다.",
+    txt_miller_relief_stalled: "북부 길목의 마차 한 대가 위험한 도로에 멈춰 있다. 그 짐이 오기 전까지는 공동 창고에 새 식량이 들어오지 않는다.",
+    txt_miller_relief_losses: "방앗간 주인은 길에서 사라진 구휼 식량의 장부를 보여 준다. 없어진 짐은 후대에도 마을의 기록으로 남는다.",
     txt_north_relief_rations: "방앗간 주인이 공동 창고의 짐 한 묶음을 풀어 빵 두 덩이를 내어 준다. 작은 기부금을 받고 장부에서 재고 한 칸을 지운다.",
     txt_miller_relief_stocked: "마을 공동 창고에 배급할 빵이 남아 있다. 하루마다 북부 길목에서 마차가 오지만 창고가 가득 차면 다음 짐은 기다려야 한다.",
     txt_miller_relief_empty: "마을 공동 창고의 배급분이 다 떨어졌다. 방앗간 주인은 북부 길목에서 다음 마차가 올 때까지 기다린다고 한다.",
