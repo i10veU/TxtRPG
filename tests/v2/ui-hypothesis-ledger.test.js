@@ -45,4 +45,28 @@ tainted.hiddenRng = { cursor: 900 };
 tainted.hiddenEvents = ["raid"];
 assert.equal(JSON.stringify(hypothesisLedger(tainted, worldData)), copy, "hidden truth must not affect projection");
 assert.equal(hypothesisLedger({ rum_ruins_secret: null }, worldData), null);
+// RC1 time boundary: a future-dated report is not knowledge the character
+// has received yet, even when its sources falsely claim field observation.
+// The clock already enforces this; the guess notebook must agree.
+const futureAbout = heard();
+futureAbout.rum_ruins_secret.aboutDay = 2;
+futureAbout.rum_ruins_secret.sources.push("obs_loc_ruins");
+assert.equal(hypothesisLedger(futureAbout, worldData, 1440), null,
+  "tomorrow's observation must not appear as today's verified hypothesis");
+const futureHeard = heard();
+futureHeard.rum_ruins_secret.lastSeenDay = 2;
+assert.equal(hypothesisLedger(futureHeard, worldData, 1440), null,
+  "a report received tomorrow cannot create a hypothesis today");
+const current = heard();
+current.rum_ruins_secret.aboutDay = 1;
+current.rum_ruins_secret.lastSeenDay = 1;
+assert.ok(hypothesisLedger(current, worldData, 1440),
+  "a same-day report remains available");
+const lateNews = heard();
+lateNews.rum_ruins_secret.aboutDay = 0;
+lateNews.rum_ruins_secret.lastSeenDay = 2;
+assert.ok(hypothesisLedger(lateNews, worldData, 2 * 1440),
+  "late but already received news remains a usable guess");
+assert.equal(hypothesisLedger({}, worldData, 0), null);
+
 console.log("J3 hypothesis ledger pure projection: PASS");

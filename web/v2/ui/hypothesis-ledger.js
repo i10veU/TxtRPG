@@ -12,11 +12,19 @@ const RUINS = Object.freeze({
   ])
 });
 
-export function hypothesisLedger(knowledge, data) {
+export function hypothesisLedger(knowledge, data, minute) {
   const known = knowledge?.[RUINS.rumorId];
   const definition = data?.rumors?.[RUINS.rumorId];
   if (!known || known.rumorId !== RUINS.rumorId || !definition ||
       known.factId !== definition.factId || known.claim !== definition.claim) return null;
+  // The UI's public clock bounds the character's own report dates. Future
+  // observations and reports not yet received are not usable evidence.
+  // Legacy callers without a clock retain the original pure projection.
+  if (Number.isFinite(minute)) {
+    const today = Math.floor(minute / 1440);
+    if ((Number.isInteger(known.aboutDay) && known.aboutDay > today) ||
+        (Number.isInteger(known.lastSeenDay) && known.lastSeenDay > today)) return null;
+  }
   const sources = Array.isArray(known.sources) ? known.sources.filter((s) => typeof s === "string") :
     typeof known.source === "string" ? [known.source] : [];
   const observed = sources.includes(RUINS.observedAt);
