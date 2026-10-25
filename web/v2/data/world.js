@@ -687,6 +687,8 @@ const NORTH_SUPPLY_PACT_OPEN = { op: "and", of: [
 ] };
 const NORTH_SUPPLY_RELIEF = { op: "flag", key: "north_supply_relief_pact" };
 const NORTH_WAYSTATION_STOCK = { op: "signal", key: "north_waystation_stock", min: 1 };
+const NORTH_MILL_RELIEF_SPACE = { op: "signal", key: "north_mill_relief_stock", max: 1 };
+const NORTH_MILL_RELIEF_STOCK = { op: "signal", key: "north_mill_relief_stock", min: 1 };
 const NORTH_WAYSTATION_RELIABLE = { op: "signal", key: "north_waystation_reliability", min: 2 };
 const NORTH_WAYSTATION_BUNDLE_FUNDS = { op: "or", of: [
   { op: "money", min: 3 },
@@ -1138,6 +1140,21 @@ export const worldData = {
             { op: "if", when: { op: "and", of: [NORTH_SUPPLY_RELIEF,
               { op: "signal", key: "north_waystation_stock", max: 2 }] },
               then: [{ op: "signal", key: "north_waystation_stock", add: 1 }] }
+          ] }
+      ]
+    },
+    // The village's miller organizes a real, bounded daily relief wagon, even
+    // when the player is elsewhere. It draws from public waystation inventory
+    // rather than conjuring food; full village storage halts deliveries.
+    evt_north_waystation_relief_delivery: {
+      trigger: NORTH_SUPPLY_RELIEF,
+      cooldown: 1440,
+      catchUp: true,
+      effects: [
+        { op: "if", when: { op: "and", of: [NORTH_WAYSTATION_STOCK, NORTH_MILL_RELIEF_SPACE] },
+          then: [
+            { op: "signal", key: "north_waystation_stock", add: -1 },
+            { op: "signal", key: "north_mill_relief_stock", add: 1 }
           ] }
       ]
     },
@@ -2245,6 +2262,39 @@ export const worldData = {
         { op: "flag", key: "north_supply_private_sale", value: true },
         { op: "relation", from: "npc_town_merchant", add: 4 },
         say("txt_north_supply_private_sale")
+      ]
+    },
+    // The player can pay for a wagon now instead of waiting for the miller's
+    // daily courier. The stock is transferred, never duplicated.
+    act_dispatch_north_relief_wagon: {
+      name: "구휼 마차를 마을로 먼저 보낸다 (보급 1, 은화 2, 1시간)",
+      requires: { op: "and", of: [
+        { op: "location", at: "loc_far_bank" }, NORTH_SUPPLY_RELIEF,
+        NORTH_WAYSTATION_STOCK, NORTH_MILL_RELIEF_SPACE, { op: "money", min: 2 }
+      ] },
+      minutes: 60,
+      effects: [
+        { op: "money", add: -2 },
+        { op: "signal", key: "north_waystation_stock", add: -1 },
+        { op: "signal", key: "north_mill_relief_stock", add: 1 },
+        { op: "relation", from: "npc_miller", add: 2 },
+        say("txt_north_relief_wagon_dispatch")
+      ]
+    },
+    // The shared store is accessible only at the mill. Rations cost a small
+    // contribution, and cannot be bought from an empty warehouse.
+    act_buy_mill_relief_rations: {
+      name: "공동 창고에서 빵 2개를 배급받는다 (은화 1, 15분)",
+      requires: { op: "and", of: [
+        { op: "location", at: "loc_mill_hamlet" }, NORTH_SUPPLY_RELIEF,
+        NORTH_MILL_RELIEF_STOCK, { op: "money", min: 1 }
+      ] },
+      minutes: 15,
+      effects: [
+        { op: "money", add: -1 },
+        { op: "signal", key: "north_mill_relief_stock", add: -1 },
+        { op: "item", item: "item_mill_bread", add: 2 },
+        say("txt_north_relief_rations")
       ]
     },
     act_escort_north_merchant: {
@@ -3689,7 +3739,10 @@ export const worldData = {
             },
             { op: "if", when: HAMLET_TRADES, then: [say("txt_miller_trade_running")] },
             { op: "if", when: NORTH_SUPPLY_RELIEF,
-              then: [say("txt_miller_relief_arrives")],
+              then: [say("txt_miller_relief_arrives"),
+                { op: "if", when: NORTH_MILL_RELIEF_STOCK,
+                  then: [say("txt_miller_relief_stocked")],
+                  else: [say("txt_miller_relief_empty")] }],
               else: [{ op: "if", when: { op: "flag", key: "north_supply_private_sale" },
                 then: [say("txt_miller_private_shortage")] }] },
             // V2-Core-141 (M2): the band across the river buys flour -- the miller hears who pays
@@ -4592,6 +4645,10 @@ export const worldData = {
     txt_north_survey_found: "길목에서 북쪽으로 난 수레바퀴 자국을 따라가자 허물어진 돌담과 비어 있는 보급 꾸러미가 보인다. 우회로를 표시해 앞으로 다닐 상단을 돕거나, 남은 물자를 당장 회수할 수 있다. 두 길을 모두 택할 수는 없다.",
     txt_north_survey_retry: "수레바퀴 자국이 갈라지는 곳에서 길을 놓쳤다. 서두르다 발목을 헛디뎠지만, 다시 조사하면 흔적을 따라갈 수 있을 것이다.",
     txt_north_supply_relief_pact: "첫 보급 마차의 짐 한 묶음을 물레방아 마을 구휼 장부에 배정한다. 방앗간 사람들은 북부 길목에 공동 창고를 마련해 다음 날부터 하루 두 묶음씩 보급품을 모으기로 한다. 이 약속은 나뿐 아니라 뒤따르는 여행자에게도 남는다.",
+    txt_north_relief_wagon_dispatch: "내 은화로 마부를 고용해 북부 길목의 보급품 한 묶음을 물레방아 마을 공동 창고로 먼저 보냈다. 방앗간 주인이 이 일을 기억한다.",
+    txt_north_relief_rations: "방앗간 주인이 공동 창고의 짐 한 묶음을 풀어 빵 두 덩이를 내어 준다. 작은 기부금을 받고 장부에서 재고 한 칸을 지운다.",
+    txt_miller_relief_stocked: "마을 공동 창고에 배급할 빵이 남아 있다. 하루마다 북부 길목에서 마차가 오지만 창고가 가득 차면 다음 짐은 기다려야 한다.",
+    txt_miller_relief_empty: "마을 공동 창고의 배급분이 다 떨어졌다. 방앗간 주인은 북부 길목에서 다음 마차가 올 때까지 기다린다고 한다.",
     txt_north_supply_private_sale: "첫 보급 마차의 짐 한 묶음을 성읍의 사설 계약에 넘기고 은화 여덟 닢을 받는다. 마을 공동 창고를 세울 기회는 사라졌고, 길목에는 기존대로 하루 한 묶음씩만 보급품이 도착한다.",
     txt_town_merchant_relief_pact: "상인은 방앗간 사람들이 북부 길목의 공동 창고를 운영한다고 말한다. 이제 하루 두 묶음의 보급이 오지만 창고가 가득 차면 마차는 되돌아간다.",
     txt_town_merchant_private_contract: "상인은 첫 보급품을 사들인 사설 계약이 끝났다고 말한다. 길목의 보급은 하루 한 묶음씩 이어지고, 마을 공동 창고는 열리지 않았다.",
