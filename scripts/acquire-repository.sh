@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Obtain a complete, SHA-verified TxtRPG working tree without GitHub Actions.
 set -Eeuo pipefail
-REPO_URL='https://github.com/i10veU/TxtRPG.git'
+REPO_URL="${SOURCE_REPO:-https://github.com/i10veU/TxtRPG.git}"
 HEAD_REF='policy/independent-commit-verification'
 HEAD_SHA="${EXPECTED_HEAD_SHA:?Set EXPECTED_HEAD_SHA to the exact PR head commit}"
 BASE_REF='feature/v2-core'
@@ -11,14 +11,17 @@ if [[ -e "$DEST" ]]; then echo "Refusing existing path: $DEST" >&2; exit 2; fi
 command -v git >/dev/null || { echo 'git is required' >&2; exit 2; }
 # Never interpret network or authentication failures as successful acquisition.
 if ! git clone --no-checkout --filter=blob:none --branch "$HEAD_REF" --single-branch "$REPO_URL" "$DEST"; then
-  echo 'GitHub clone failed; no verified repository was acquired.' >&2
+  echo 'Repository clone failed; no verified repository was acquired.' >&2
+  echo 'If github.com cannot be resolved in this sandbox, changing DNS alone may not help: outbound HTTPS can also be blocked.' >&2
+  echo 'Fallback: supply SOURCE_REPO=/path/to/complete/local/git-repository (or Git bundle) and retry.' >&2
+  echo 'Never treat a plain ZIP snapshot as SHA-verified Git history.' >&2
   exit 3
 fi
 cd "$DEST"
 # Fetch the base separately to verify the exact source baseline.
 git fetch --no-tags origin "$BASE_REF"
-git cat-file -e "$HEAD_SHA^{commit}"
-git cat-file -e "$BASE_SHA^{commit}"
+git cat-file -e "$HEAD_SHA^{commit}" 2>/dev/null || { echo "Requested HEAD commit not present: $HEAD_SHA" >&2; exit 4; }
+git cat-file -e "$BASE_SHA^{commit}" 2>/dev/null || { echo "Requested BASE commit not present: $BASE_SHA" >&2; exit 4; }
 git checkout --detach "$HEAD_SHA"
 [[ "$(git rev-parse HEAD)" == "$HEAD_SHA" ]] || { echo 'Head SHA mismatch' >&2; exit 4; }
 [[ "$(git rev-parse FETCH_HEAD)" == "$BASE_SHA" ]] || { echo 'Base SHA mismatch: base moved, re-review required' >&2; exit 4; }
