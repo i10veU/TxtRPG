@@ -11,11 +11,14 @@ const DECISION_ACTIONS = Object.freeze({
   separate: "act_request_spring_inquiry"
 });
 
-function matchingKnowledge(knowledge, data, rumorId) {
+function matchingKnowledge(knowledge, data, rumorId, today = Number.MAX_SAFE_INTEGER) {
   const known = knowledge?.[rumorId];
   const definition = data?.rumors?.[rumorId];
   if (!known || !definition || known.rumorId !== rumorId ||
-      known.factId !== definition.factId || known.claim !== definition.claim) return null;
+      known.factId !== definition.factId || known.claim !== definition.claim ||
+      ["aboutDay", "firstSeenDay", "lastSeenDay"].some(
+        (field) => Number.isInteger(known[field]) && known[field] > today
+      )) return null;
   return known;
 }
 
@@ -27,13 +30,13 @@ function firstHand(known, source) {
     : known?.source === source;
 }
 
-export function linkedCaseLedger(knowledge, data) {
+export function linkedCaseLedger(knowledge, data, today = Number.MAX_SAFE_INTEGER) {
   // Do not even reveal the existence of this deduction until *this character*
   // has both stories. Knowing the pack's definition is not player knowledge.
-  if (!REQUIRED.every((id) => matchingKnowledge(knowledge, data, id))) return null;
+  if (!REQUIRED.every((id) => matchingKnowledge(knowledge, data, id, today))) return null;
 
-  const spring = matchingKnowledge(knowledge, data, "rum_spring_cause");
-  const arrows = matchingKnowledge(knowledge, data, "rum_spring_bandits");
+  const spring = matchingKnowledge(knowledge, data, "rum_spring_cause", today);
+  const arrows = matchingKnowledge(knowledge, data, "rum_spring_bandits", today);
   const springSeen = firstHand(spring, "obs_loc_forest_spring");
   const observed = firstHand(arrows, "obs_loc_forest_spring");
   return {
