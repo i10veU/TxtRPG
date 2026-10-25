@@ -201,6 +201,11 @@
   #choice[hidden], #menu[hidden], #game[hidden], #storySection[hidden], #news[hidden] { display: none; }
   .roads { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; padding-top: 0.2rem; }
   #moves { display: contents; }
+  .road-sketch { flex: 1 0 100%; margin: 0 0 0.35rem; border: 1px solid var(--rule); border-radius: 5px; background: var(--page); overflow: hidden; }
+  .road-sketch[hidden] { display: none; }
+  .road-sketch canvas { display: block; width: 100%; height: 160px; }
+  .road-sketch figcaption { padding: 0 0.7rem 0.45rem; font: 0.76rem/1.5 var(--sans); color: var(--muted); }
+
   #moves button, .roads > button { font-size: 0.9rem; background: transparent; }
   #moves button::before { content: "→ "; color: var(--accent); }
   @media (prefers-reduced-motion: no-preference) {
@@ -366,6 +371,10 @@
       <h2 class="band-label" id="doingLabel">무엇을 할까</h2>
       <div id="actions"></div>
       <div class="roads">
+        <figure class="road-sketch" id="roadSketchFigure" hidden>
+          <canvas id="roadSketch" aria-hidden="true"></canvas>
+          <figcaption>지금 갈 수 있는 길 · 위치를 나타낸 약도</figcaption>
+        </figure>
         <div id="moves"></div>
         <button id="waitBtn">잠시 기다린다 (30분)</button>
         <button id="waitDayBtn">하루를 보낸다</button>

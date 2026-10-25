@@ -1,0 +1,11 @@
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+const html = readFileSync(new URL("../../web/v2/index.html", import.meta.url), "utf8");
+const app = readFileSync(new URL("../../web/v2/ui/app.js", import.meta.url), "utf8");
+assert.match(html, /id="roadSketchFigure"[^>]*hidden/, "the sketch starts hidden until visible exits exist");
+assert.match(html, /<canvas id="roadSketch" aria-hidden="true"/, "the picture never replaces accessible move buttons");
+assert.match(app, /visibleRoads\(/, "movement and sketch share one engine-authorized route projection");
+assert.match(app, /drawRoadSketch\(/, "the canvas is actually painted");
+assert.match(app, /renderRoadSketch\(\)/, "render/resize path repaints the sketch");
+assert.match(app, /el\.hypothesisNext\.appendChild\(makeButton\(label/, "known, reachable investigation sites gain a direct travel action");
+console.log("V2 road sketch UI integration: PASS");

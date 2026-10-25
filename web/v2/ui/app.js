@@ -32,6 +32,7 @@ import { deedsTrue, endingLearned } from "./deeds.js";
 import * as chronicle from "../storage/chronicle.js";
 import { sceneOf, endingScene, COVER } from "./art.js";
 import { paint } from "./paint.js";
+import { visibleRoads, drawRoadSketch } from "./road-sketch.js";
 
 const DAY_MINUTES = 1440;
 
@@ -81,6 +82,8 @@ const el = {
   location: document.getElementById("location"),
   status: document.getElementById("status"),
   moves: document.getElementById("moves"),
+  roadSketch: document.getElementById("roadSketch"),
+  roadSketchFigure: document.getElementById("roadSketchFigure"),
   actions: document.getElementById("actions"),
   choice: document.getElementById("choice"),
   choiceOptions: document.getElementById("choiceOptions"),
@@ -490,19 +493,54 @@ function renderNewCharacter(pending) {
   return true;
 }
 
-function renderMoves(actorLocationId, pendingActive) {
+// A route is drawn only after the same requirements check that grants its
+// movement button. No distant or locked links enter the picture.
+let roadSnapshot = null;
+let roadSketchKey = null;
+function renderRoadSketch() {
+  if (!el.roadSketch || !el.roadSketchFigure) return;
+  const snapshot = roadSnapshot;
+  if (!snapshot || snapshot.roads.length < 2) {
+    el.roadSketchFigure.hidden = true;
+    roadSketchKey = null;
+    return;
+  }
+  el.roadSketchFigure.hidden = false;
+  const styles = getComputedStyle(document.documentElement);
+  const colors = Object.fromEntries(["ink", "muted", "accent", "rule"].map((key) =>
+    [key, styles.getPropertyValue(`--${key}`).trim()]));
+  const key = JSON.stringify([snapshot, el.roadSketch.clientWidth, darkTheme(), colors]);
+  if (roadSketchKey === key) return;
+  const ok = drawRoadSketch(el.roadSketch, snapshot.origin, snapshot.roads,
+    { ...colors, target: snapshot.target });
+  el.roadSketchFigure.hidden = !ok;
+  if (!ok) return;
+  roadSketchKey = key;
+  el.roadSketchFigure.querySelector("figcaption").textContent = snapshot.target
+    ? "지금 갈 수 있는 길 · 강조된 길은 짐작 장부의 조사 장소"
+    : "지금 갈 수 있는 길 · 위치를 나타낸 약도";
+}
+function renderMoves(actorLocationId, pendingActive, playerView) {
   clearChildren(el.moves);
-  if (pendingActive) return;
-  const links = worldData.locations?.[actorLocationId]?.links;
-  if (!Array.isArray(links)) return;
-  links.forEach((link) => {
-    if (!link || typeof link.to !== "string") return;
-    const available = link.requires === undefined || evaluateCondition(link.requires, requiresCtx("player"));
-    if (!available) return;
-    const btn = makeButton(`${toward(locationName(link.to))} 간다`, () => dispatch({ type: "move", to: link.to }));
-    if (Number.isInteger(link.minutes)) btn.dataset.note = duration(link.minutes);
+  const roads = pendingActive ? [] : visibleRoads(worldData.locations?.[actorLocationId],
+    (requires) => evaluateCondition(requires, requiresCtx("player")));
+  roads.forEach((road) => {
+    const btn = makeButton(`${toward(locationName(road.to))} 간다`, () => dispatch({ type: "move", to: road.to }));
+    if (Number.isInteger(road.minutes)) btn.dataset.note = duration(road.minutes);
     el.moves.appendChild(btn);
   });
+  // A destination is highlighted only after this character has heard the
+  // corresponding rumor, and only if it is immediately reachable.
+  const hypothesis = hypothesisLedger(playerView.knowledge, worldData);
+  const linked = linkedCaseLedger(playerView.knowledge, worldData);
+  const target = hypothesis && !hypothesis.observed ? hypothesis.locationId :
+    linked && !linked.observed ? linked.locationId : null;
+  roadSnapshot = {
+    origin: locationName(actorLocationId),
+    roads: roads.map((road) => ({ ...road, name: locationName(road.to) })),
+    target: roads.some((road) => road.to === target) ? target : null
+  };
+  renderRoadSketch();
 }
 
 // "시장으로", "마을로": the particle a Korean place name takes
@@ -776,6 +814,18 @@ function renderHypothesisLedger(playerView) {
     el.hypothesisNext.textContent = playerView.actor.locationId === ledger.locationId
       ? "조사할 준비가 더 필요하다. 등불을 갖추거나 밤눈이 밝아야 한다."
       : "등불을 준비하고 폐허로 가서 직접 조사해야 한다.";
+    // When the heard-about place is already an authorized next step, let the
+    // player travel there from the notebook. No hidden pathfinding or free move.
+    if (!playerView.pending && playerView.actor.locationId !== ledger.locationId) {
+      const next = visibleRoads(worldData.locations?.[playerView.actor.locationId],
+        (requires) => evaluateCondition(requires, requiresCtx("player")))
+        .find((road) => road.to === ledger.locationId);
+      if (next) {
+        const label = `${toward(locationName(next.to))} 간다` +
+          (next.minutes === null ? "" : ` (${duration(next.minutes)})`);
+        el.hypothesisNext.appendChild(makeButton(label, () => dispatch({ type: "move", to: next.to })));
+      }
+    }
   }
 }
 
@@ -1159,7 +1209,7 @@ function render() {
   renderVitals(playerView.actor);
 
   const pendingActive = Boolean(playerView.pending);
-  renderMoves(playerView.actor.locationId, pendingActive);
+  renderMoves(playerView.actor.locationId, pendingActive, playerView);
   renderActions(playerView.actions, pendingActive);
 
   if (playerView.pending?.kind === "choice") {
@@ -1363,7 +1413,7 @@ el.saveBtn?.addEventListener("click", () => {
 });
 
 // the pictures follow the page's width and the theme
-const repaint = () => requestAnimationFrame(renderPictures);
+const repaint = () => requestAnimationFrame(() => { renderPictures(); renderRoadSketch(); });
 if (globalThis.ResizeObserver) new ResizeObserver(repaint).observe(document.getElementById("app"));
 globalThis.matchMedia?.("(prefers-color-scheme: dark)").addEventListener?.("change", repaint);
 new MutationObserver(repaint).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
