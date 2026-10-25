@@ -78,6 +78,7 @@ function testEveryCheckNamesADefinedStat() {
   const mapping = Object.fromEntries(checkSpecs(worldData).map(({ where, spec }) => [where, [spec.stat, spec.difficulty?.opposed?.stat ?? null]]));
   assert.deepStrictEqual(mapping, {
     act_investigate_ruins: ["int", null],
+    act_trace_ruins_cellar: ["per", null],
     act_confront_leader: ["wis", "wis"],
     act_castle_spar_trial: ["dex", null],
     act_castle_breakthrough_trial: ["str", null],

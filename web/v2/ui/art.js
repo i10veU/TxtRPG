@@ -169,6 +169,15 @@ const COMPOSE = {
     { op: "mist", y: 0.88, h: 0.12, when: ["dawn", "night"] },
     { op: "birds", y: 0.22, n: 3, seed: "ruins:crows", when: ["dusk"] }
   ],
+  // 매몰 창고: only the architecture visible to someone already inside; no secret cache marker.
+  loc_ruins_cellar: () => [
+    ...hills('ruins:cellar', { far: 0.42, mid: 0.56 }),
+    { op: 'ground', tone: 'near', y: 0.76, seed: 'cellar:floor' },
+    { op: 'arch', x: 0.31, base: 0.76, w: 0.2, h: 0.53, broken: true },
+    { op: 'arch', x: 0.66, base: 0.77, w: 0.24, h: 0.58, broken: true },
+    { op: 'rocks', x0: 0.06, x1: 0.94, base: 0.92, n: 13, seed: 'cellar:fallen-stone' },
+    { op: 'mist', y: 0.82, h: 0.12 }
+  ],
   // 숲속 샘: a pool under tall pines; murky while the well is fouled, clear once it is not
   loc_forest_spring: (m) => [
     { op: "ridge", tone: "far", base: 0.38, amp: 0.14, rough: 2.4, seed: "spring:far" },
