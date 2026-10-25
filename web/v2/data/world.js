@@ -860,6 +860,19 @@ function finalOptions(key, foe, leads) {
       outcomes: strike
     },
     {
+      id: `opt_final_${key}_guarded_stance`,
+      name: "방어 자세로 틈을 노린다 (기력 2)",
+      requires: leading({ op: "and", of: [{ op: "unlock", id: "unl_guarded_stance" }, STAMINA_AT_LEAST(2)] }),
+      check: check(11, "dex"),
+      minutes: 5,
+      outcomes: payStamina(2, {
+        great: exchange([hitFoe(-5), say("txt_guarded_stance_hit")]),
+        success: exchange([hitFoe(-3), say("txt_guarded_stance_hit")]),
+        partial: exchange([hitSelf(-1), say("txt_guarded_stance_block")]),
+        fail: exchange([hitSelf(-2), say("txt_guarded_stance_block")])
+      })
+    },
+    {
       id: `opt_final_${key}_counter`,
       name: "그의 공격을 읽고 받아친다",
       requires: leading({ op: "and", of: [{ op: "unlock", id: "unl_keen_eye" }, STAMINA_AT_LEAST(3)] }),
@@ -2053,6 +2066,40 @@ export const worldData = {
         { op: "move", to: "loc_far_bank" },
         say("txt_south_road_march")
       ]
+    },
+    // Post-J3 combat academy: safe, paid repetition raises swordsmanship through
+    // the existing combat proficiency. The higher-stakes spar is a one-time
+    // personal certification; it does not change world flags or Save schema.
+    act_castle_guard_drill: {
+      name: "성읍 검술 연습장에서 방어 훈련한다 (은화 2, 기력 2, 2시간)",
+      requires: { op: "and", of: [
+        { op: "location", at: "loc_castle_town" },
+        { op: "money", min: 2 }, STAMINA_AT_LEAST(2)
+      ] },
+      minutes: 120,
+      effects: [
+        { op: "money", add: -2 },
+        { op: "resource", resource: "stamina", add: -2 },
+        { op: "proficiency", id: "combat", add: 10 },
+        say("txt_castle_guard_drill")
+      ]
+    },
+    act_castle_spar_trial: {
+      name: "성읍 검술 사범과 실전 대련한다 (은화 3, 기력 2, 90분)",
+      requires: { op: "and", of: [
+        { op: "location", at: "loc_castle_town" },
+        { op: "skill", skill: "swordsmanship", min: 1 },
+        { op: "not", of: { op: "unlock", id: "unl_guarded_stance" } },
+        { op: "money", min: 3 }, STAMINA_AT_LEAST(2)
+      ] },
+      check: { stat: "dex", skill: "swordsmanship", tags: ["combat"], difficulty: "normal" },
+      minutes: 90,
+      outcomes: {
+        great: [{ op: "money", add: -3 }, { op: "resource", resource: "stamina", add: -2 }, { op: "proficiency", id: "combat", add: 15 }, { op: "unlock", id: "unl_guarded_stance" }, say("txt_castle_spar_pass")],
+        success: [{ op: "money", add: -3 }, { op: "resource", resource: "stamina", add: -2 }, { op: "proficiency", id: "combat", add: 10 }, { op: "unlock", id: "unl_guarded_stance" }, say("txt_castle_spar_pass")],
+        partial: [{ op: "money", add: -3 }, { op: "resource", resource: "stamina", add: -2 }, { op: "proficiency", id: "combat", add: 5 }, { op: "hp", add: -1 }, say("txt_castle_spar_retry")],
+        fail: [{ op: "money", add: -3 }, { op: "resource", resource: "stamina", add: -2 }, { op: "proficiency", id: "combat", add: 5 }, { op: "hp", add: -2 }, say("txt_castle_spar_retry")]
+      }
     },
     act_buy_lantern: {
       name: "등불을 산다",
@@ -3701,6 +3748,21 @@ export const worldData = {
           minutes: 5,
           outcomes: STRIKE_OUTCOMES
         },
+        // A personally learned defensive stance: lower damage than a strike,
+        // but avoids the leader's heavy-blow retaliation on a failed guard.
+        {
+          id: "opt_fight_guarded_stance",
+          name: "방어 자세로 틈을 노린다 (기력 2)",
+          requires: { op: "and", of: [{ op: "unlock", id: "unl_guarded_stance" }, STAMINA_AT_LEAST(2)] },
+          check: { stat: "dex", skill: "swordsmanship", tags: ["combat"], difficulty: FIGHT_DIFFICULTY(11, "dex") },
+          minutes: 5,
+          outcomes: payStamina(2, {
+            great: fightExchange([hitLeader(-5), say("txt_guarded_stance_hit")]),
+            success: fightExchange([hitLeader(-3), say("txt_guarded_stance_hit")]),
+            partial: fightExchange([hitSelf(-1), say("txt_guarded_stance_block")]),
+            fail: fightExchange([hitSelf(-2), say("txt_guarded_stance_block")])
+          })
+        },
         // the technique: only for a character whose keen eye reads the leader's attacks
         {
           id: "opt_fight_counter",
@@ -3792,7 +3854,7 @@ export const worldData = {
         { minRank: 5, label: "Adept" }
       ],
       // V2-Core-142 (M7): the realm's name -- the apex (a title: it opens nothing, the world answers it)
-      unlocks: [{ id: "unl_keen_eye", kind: "action" }, { id: "unl_road_lead", kind: "action" }, { id: "unl_realm_renown", kind: "title" }],
+      unlocks: [{ id: "unl_keen_eye", kind: "action" }, { id: "unl_road_lead", kind: "action" }, { id: "unl_guarded_stance", kind: "action" }, { id: "unl_realm_renown", kind: "title" }],
       // V2-Core-56 (Gate 4 = C, D-85): resources belong to the growth system. Stamina pays for the
       // fight's techniques (the counter 3, the old wound 2); a character without the entry is full
       resources: [{ id: "stamina", max: 6 }]
@@ -4207,6 +4269,11 @@ export const worldData = {
     txt_waystation_supply_delivered: "길목의 빈 창고에 보급 상자를 내려놓자 담당자가 장부에 첫 납품을 적는다. 은화 여섯 닢과 돌아갈 길에 먹을 빵 한 덩이를 건네받는다. 이제 이곳에서는 여행자 누구나 값비싼 빵을 살 수 있다.",
     txt_waystation_supply_opened: "봉인을 뜯자 물레방아 빵 두 덩이가 나온다. 당장의 배고픔을 피할 수 있지만 길목으로 가야 할 첫 보급품은 사라졌다. 보급소가 열리기를 기다리는 사람들에게는 아직 아무 소식도 없다.",
     txt_buy_waystation_bread: "강 건너 길목의 보급소에서 은화 두 닢을 내고 빵 한 덩이를 산다. 먼 길에 비싼 값이지만 야영할 식량을 마련했다.",
+    txt_castle_guard_drill: "성읍의 낡은 연습장에서 방패 없는 방어 자세와 발놀림을 반복한다. 은화를 낸 만큼 사범의 지도를 받고, 땀과 기력을 쏟아 검술의 기본을 다진다.",
+    txt_castle_spar_pass: "사범의 검끝을 흘려 보내고 빈틈에 검을 멈춰 세운다. 그는 방어 자세를 인정하며 실전에서도 쓸 수 있다고 고개를 끄덕인다.",
+    txt_castle_spar_retry: "대련에서 밀려 넘어졌다. 은화와 기력은 돌아오지 않지만 몸이 기억한 실수는 남는다. 다시 준비하면 도전할 수 있다.",
+    txt_guarded_stance_hit: "검을 가까이 붙여 공격을 흘리고 짧게 반격한다. 강한 일격은 아니지만 몸을 지키며 빈틈을 찔렀다.",
+    txt_guarded_stance_block: "상대의 검이 방어 자세를 흔든다. 반격에는 실패했지만 급소를 피하고 피해를 줄였다.",
     txt_north_road_convoy: "보급소의 마차가 북쪽으로 떠난다. 빵을 나눠 먹고 짐칸에서 몸을 쉬는 동안 길이 줄어든다. 열 시간 만에 영주의 성읍이 보인다.",
     txt_south_road_convoy: "성읍을 떠나는 보급 마차에 올라 길목으로 돌아온다. 짐을 싣고 쉬엄쉬엄 가도 혼자 걷는 것보다 빠르다.",
     txt_north_road_march: "잠도 먹을 것도 뒤로 미루고 성읍까지 달리듯 걷는다. 네 시간이 절약되지만 다리와 온몸에 무리가 간다.",
@@ -4329,6 +4396,7 @@ export const worldData = {
     lbl_trait_road_wound_deep: "깊은 상처",
     lbl_unlock_unl_keen_eye: "예리한 눈",
     lbl_unlock_unl_road_lead: "상단을 이끌 자격",
+    lbl_unlock_unl_guarded_stance: "방어 검술 자세",
     lbl_unlock_unl_realm_renown: "왕국이 아는 이름 (남쪽 변경의 수호자)",
     lbl_res_stamina: "기력",
     lbl_slot_hand: "손",

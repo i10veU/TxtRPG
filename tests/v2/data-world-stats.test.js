@@ -79,9 +79,11 @@ function testEveryCheckNamesADefinedStat() {
   assert.deepStrictEqual(mapping, {
     act_investigate_ruins: ["int", null],
     act_confront_leader: ["wis", "wis"],
+    act_castle_spar_trial: ["dex", null],
     "choice_fight_leader.opt_fight_strike": ["str", "str"],
     "choice_fight_leader.opt_fight_sword_cut": ["str", "str"], // V2-Core-58: the strike, with a blade
     "choice_fight_leader.opt_fight_counter": ["dex", "dex"],
+    "choice_fight_leader.opt_fight_guarded_stance": ["dex", "dex"],
     "choice_fight_leader.opt_fight_weak_spot": ["str", "str"], // V2-Core-55: the strike at an easier mark
     // V2-Core-140: the last fight, opposed by the chief's or his right hand's own stats
     "choice_final_battle.opt_final_chief_strike": ["str", "str"],
@@ -89,10 +91,12 @@ function testEveryCheckNamesADefinedStat() {
     "choice_final_battle.opt_final_chief_with_village": ["str", "str"],
     "choice_final_battle.opt_final_chief_sword_cut": ["str", "str"],
     "choice_final_battle.opt_final_chief_counter": ["dex", "dex"],
+    "choice_final_battle.opt_final_chief_guarded_stance": ["dex", "dex"],
     "choice_final_battle.opt_final_right_hand_strike": ["str", "str"],
     "choice_final_battle.opt_final_right_hand_with_village": ["str", "str"],
     "choice_final_battle.opt_final_right_hand_sword_cut": ["str", "str"],
     "choice_final_battle.opt_final_right_hand_counter": ["dex", "dex"],
+    "choice_final_battle.opt_final_right_hand_guarded_stance": ["dex", "dex"],
     // V2-Core-64 (#160): the fouled well -- the first checks to read PER and CON
     act_inspect_well: ["per", null],
     act_search_spring: ["per", null],
