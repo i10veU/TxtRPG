@@ -829,6 +829,9 @@ function renderLinkedCaseLedger(playerView) {
             dispatch({ type: "perform", actionId: followup.actionId })));
         }
         if (followup.verified) {
+          // Pre-#446 saves have no personal completion tag. An untagged view
+          // cannot prove that another response is available; use neutral
+          // wording while the engine retains authority over legal choices.
           const next = linkedCaseTrapFollowup(ledger, playerView, worldData, today);
           if (next) {
             const guidance = document.createElement("p");
@@ -837,11 +840,11 @@ function renderLinkedCaseLedger(playerView) {
               : next.status === "notice"
                 ? "확인한 덫 표식을 마을 장부에 알렸다. 이후 전언이 더 널리 퍼진다."
                 : next.atLocation
-                  ? "직접 확인한 덫 표식을 원로에게 전하고 다음 대응을 결정하자."
-                  : "덫 표식을 직접 확인했다. 변경 마을의 원로에게 돌아가 후속 대응을 의논하자.";
+                  ? "덫 표식에 관한 마을의 대응을 원로에게 확인하자. 추가 조치 여부는 대화에서 알 수 있다."
+                  : "덫 표식을 직접 확인했다. 변경 마을의 원로에게 돌아가 현재 대응 상황을 확인하자.";
             el.linkedCaseNext.appendChild(guidance);
             if (next.actionId) {
-              el.linkedCaseNext.appendChild(makeButton("확인한 덫 표식으로 원로와 후속 대응을 의논한다", () =>
+              el.linkedCaseNext.appendChild(makeButton("원로에게 덫 표식 대응 상황을 확인한다", () =>
                 dispatch({ type: "perform", actionId: next.actionId })));
             }
           }
