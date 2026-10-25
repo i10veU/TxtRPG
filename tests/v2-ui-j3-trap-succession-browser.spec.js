@@ -136,34 +136,28 @@ for (const scenario of OPTIONS) {
     await act(page, "약초꾼에게 말을 건다");
     await choice(page, "마을의 배앓이에 대해 묻는다");
     await move(page, "변경 마을");
-    await move(page, "숲속 샘");
-    expect((await state(page)).relations["npc_herbalist:player_2"]?.tags)
-      .not.toContain("spring_inquiry_herb_given");
-
-    // A resisted CON roll is not evidence of mitigation. Only assert damage
-    // after observing the actual failure narration; bounded waits protect CI.
-    let observedFailure = false;
-    for (let i = 0; i < 8; i++) {
+    // Count the arrival as an exposure too; assert HP before and after the
+    // actual failing action, not just a narration somewhere in the log.
+    async function observeExposure(action) {
       const before = await state(page);
       const logLength = await page.evaluate(() => window.__v2App.getLog().length);
-      if (i > 0) await page.locator("#waitBtn").click();
+      await action();
       const after = await state(page);
-      const newLines = await page.evaluate((length) =>
-        window.__v2App.getLog().slice(length).join("\n"), logLength);
-      if (newLines.includes(scenario.result)) {
-        expect(before.actors.player_2.hp.current - after.actors.player_2.hp.current)
-          .toBe(scenario.damage);
-        observedFailure = true;
-        break;
-      }
-      // The first arrival's miasma fires on the move, before this loop.
-      if (i === 0) {
-        const allLines = (await page.evaluate(() => window.__v2App.getLog())).join("\n");
-        if (allLines.includes(scenario.result)) {
-          observedFailure = true;
-          break;
-        }
-      }
+      const lines = await page.evaluate((length) =>
+        window.__v2App.getLog().slice(length).join("\\n"), logLength);
+      if (!lines.includes(scenario.result)) return false;
+      expect(before.actors.player_2.hp.current - after.actors.player_2.hp.current)
+        .toBe(scenario.damage);
+      return true;
+    }
+    let observedFailure = await observeExposure(() => move(page, "숲속 샘"));
+    expect((await state(page)).relations["npc_herbalist:player_2"]?.tags)
+      .not.toContain("spring_inquiry_herb_given");
+    // A resisted CON roll is not evidence of mitigation. The actual failed
+    // event must be seen within a bounded number of ordinary wait actions.
+    for (let i = 0; i < 8 && !observedFailure; i++) {
+      await expect(page.locator("#waitBtn")).toBeEnabled();
+      observedFailure = await observeExposure(() => page.locator("#waitBtn").click());
     }
     expect(observedFailure, "expected a real failed CON event, not only a world flag").toBe(true);
     expect((await state(page)).signals.spring_trap_followup).toBe(scenario.id);
