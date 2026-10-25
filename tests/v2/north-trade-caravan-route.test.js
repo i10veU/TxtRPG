@@ -81,4 +81,68 @@ const noRoadTick = run(noRoad, { type: 'wait', minutes: 1 });
 assert.equal(sig(noRoadTick, 'north_trade_stage'), 0);
 assert.equal(can(noRoadTick, 'act_sell_bread_to_north_caravan'), false);
 
+// The caravan is also an encounter: its driver can teach a route that belongs
+// to this character, not to world signals or a future successor.
+const safeRideSeed = structuredClone(first);
+safeRideSeed.signals.road_trouble = 1;
+assert.equal(can(safeRideSeed, 'act_ask_north_caravan_route'), true);
+assert.equal(can(safeRideSeed, 'act_ride_north_caravan'), false, 'unknown destination stays hidden');
+const taught = run(safeRideSeed, act('act_ask_north_caravan_route'));
+assert.equal(can(taught, 'act_ask_north_caravan_route'), false);
+assert.equal(can(taught, 'act_ride_north_caravan'), true);
+assert.equal(taught.knowledge[taught.player.actorId].rum_road_hamlet.source, 'npc_north_caravan_driver');
+const ridden = run(taught, act('act_ride_north_caravan'));
+assert.equal(actor(ridden).locationId, 'loc_mill_hamlet');
+assert.equal(actor(ridden).money, actor(taught).money - 2);
+assert.equal(sig(ridden, 'north_trade_stage'), 2);
+assert.equal(ridden.time.minute - taught.time.minute, 90);
+assert.deepEqual(ridden.rng, taught.rng);
+assert.deepEqual(save(ridden), ridden);
+
+// A trained investigator may instead lead a stalled caravan through danger.
+// Success moves both the player and the same finite cargo; failure moves neither.
+const scoutSeed = structuredClone(taught);
+scoutSeed.signals.road_trouble = 2;
+const skill = actor(scoutSeed).growth.growth_wanderer;
+skill.skills = { ...skill.skills, investigation: 1 };
+skill.unlocks = { ...skill.unlocks, unl_trailcraft: true };
+assert.equal(can(scoutSeed, 'act_ride_north_caravan'), false);
+assert.equal(can(scoutSeed, 'act_scout_north_caravan'), true);
+const noTraining = structuredClone(scoutSeed);
+delete actor(noTraining).growth.growth_wanderer.unlocks.unl_trailcraft;
+assert.equal(can(noTraining, 'act_scout_north_caravan'), false);
+let scoutingSuccess, scoutingFailure;
+for (let seed = 1; seed < 300 && (!scoutingSuccess || !scoutingFailure); seed++) {
+  const before = structuredClone(scoutSeed);
+  before.rng.seed = seed;
+  const result = step(before, act('act_scout_north_caravan'), worldData);
+  assert.equal(result.events.some(e => e.type === 'action.rejected'), false);
+  const tier = result.events.find(e => e.type === 'check.resolved')?.data.tier;
+  if (['great', 'success'].includes(tier)) scoutingSuccess ??= { before, after: result.state };
+  if (['partial', 'fail'].includes(tier)) scoutingFailure ??= { before, after: result.state };
+}
+assert.ok(scoutingSuccess && scoutingFailure);
+assert.equal(actor(scoutingSuccess.after).locationId, 'loc_mill_hamlet');
+assert.equal(sig(scoutingSuccess.after, 'north_trade_stage'), 2);
+assert.equal(sig(scoutingSuccess.after, 'road_trouble'), 1);
+assert.equal(actor(scoutingSuccess.after).growth.growth_wanderer.unlocks.unl_caravan_pathfinder, true);
+assert.equal(sig(scoutingFailure.after, 'north_trade_stage'), 1);
+assert.equal(sig(scoutingFailure.after, 'north_trade_stock'), 2);
+assert.equal(actor(scoutingFailure.after).locationId, 'loc_far_bank');
+assert.deepEqual(save(scoutingSuccess.after), scoutingSuccess.after);
+assert.deepEqual(save(scoutingFailure.after), scoutingFailure.after);
+assert.deepEqual(run(scoutingSuccess.before, act('act_scout_north_caravan')), scoutingSuccess.after);
+const discountedRide = structuredClone(scoutingSuccess.after);
+actor(discountedRide).locationId = 'loc_far_bank';
+discountedRide.signals.north_trade_stage = 1;
+actor(discountedRide).money = 1;
+const discounted = run(discountedRide, act('act_ride_north_caravan'));
+assert.equal(actor(discounted).money, 0, 'earned personal pathfinder credential halves future fares');
+const heirScout = structuredClone(scoutingSuccess.after);
+actor(heirScout).alive = false;
+heirScout.pending = { kind: 'newCharacter' };
+const newHeir = run(heirScout, { type: 'startCharacter', templateId: 'start_wanderer' });
+assert.equal(actor(newHeir).growth.growth_wanderer.unlocks?.unl_caravan_pathfinder, undefined);
+assert.equal(sig(newHeir, 'north_trade_stock'), sig(scoutingSuccess.after, 'north_trade_stock'));
+
 console.log('North merchant caravan: staged travel, road danger, trade, relief, RNG, Save, successor PASS');

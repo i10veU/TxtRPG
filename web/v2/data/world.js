@@ -713,6 +713,15 @@ const NORTH_TRADE_AT_MILL = { op: "and", of: [
   { op: "signal", key: "north_trade_stage", eq: 2 }
 ] };
 const NORTH_TRADE_HAS_CARGO = { op: "signal", key: "north_trade_stock", min: 1 };
+// A caravan driver can teach the hamlet route only while physically at the
+// far-bank stop. Knowing that road is character-owned, not a public signal.
+const NORTH_TRADE_ROUTE_KNOWN = { op: "rumor", rumor: "rum_road_hamlet" };
+const NORTH_TRADE_PATHFINDER = { op: "unlock", id: "unl_caravan_pathfinder" };
+const NORTH_TRADE_RIDE_FUNDS = { op: "or", of: [
+  { op: "money", min: 2 },
+  { op: "and", of: [NORTH_TRADE_PATHFINDER, { op: "money", min: 1 }] }
+] };
+
 // A merchant caravan may donate one of its own bundles to an actual village
 // shortage; it cannot manufacture public rations or overfill the mill.
 const NORTH_TRADE_RELIEF_TRANSFER = { op: "if", when: { op: "and", of: [
@@ -721,6 +730,17 @@ const NORTH_TRADE_RELIEF_TRANSFER = { op: "if", when: { op: "and", of: [
   { op: "signal", key: "north_trade_stock", add: -1 },
   { op: "signal", key: "north_mill_relief_stock", add: 1 }
 ] };
+
+// Successful exploration earns a personal pathfinder credential and takes the
+// actual caravan to the mill. Failure leaves its world position and cargo intact.
+const NORTH_TRADE_SCOUT_CROSSING = [
+  { op: "relation", from: "npc_north_caravan_driver", add: 3 },
+  { op: "signal", key: "road_trouble", add: -1 },
+  { op: "signal", key: "north_trade_stage", add: 1 },
+  NORTH_TRADE_RELIEF_TRANSFER,
+  { op: "unlock", id: "unl_caravan_pathfinder" },
+  { op: "move", to: "loc_mill_hamlet" }
+];
 
 const NORTH_WAYSTATION_RELIABLE = { op: "signal", key: "north_waystation_reliability", min: 2 };
 const NORTH_WAYSTATION_BUNDLE_FUNDS = { op: "or", of: [
@@ -2489,6 +2509,78 @@ export const worldData = {
         { op: "item", item: "item_mill_bread", add: 2 },
         say("txt_north_trade_caravan_bought")
       ]
+    },
+    // A meeting with a real, present caravan teaches a road without leaking
+    // its destination to travellers who have not spoken with the driver.
+    act_ask_north_caravan_route: {
+      name: "북부 상단 마부에게 운행 경로를 묻는다 (10분)",
+      requires: { op: "and", of: [
+        { op: "location", at: "loc_far_bank" }, NORTH_TRADE_AT_FAR_BANK,
+        { op: "not", of: NORTH_TRADE_ROUTE_KNOWN }
+      ] },
+      minutes: 10,
+      effects: [
+        { op: "rumor", rumor: "rum_road_hamlet", source: "npc_north_caravan_driver", confidence: 70 },
+        say("txt_north_caravan_route_learned")
+      ]
+    },
+    // The merchant's safe passage offers an actual one-way travel option.
+    // A character who personally earned the pathfinder credential pays half.
+    act_ride_north_caravan: {
+      name: "북부 상단 마차에 동행한다 (은화 2, 길잡이 1, 90분)",
+      requires: { op: "and", of: [
+        { op: "location", at: "loc_far_bank" }, NORTH_TRADE_AT_FAR_BANK,
+        NORTH_TRADE_ROUTE_KNOWN, { op: "signal", key: "road_trouble", max: 1 },
+        NORTH_TRADE_RIDE_FUNDS
+      ] },
+      minutes: 90,
+      effects: [
+        { op: "if", when: NORTH_TRADE_PATHFINDER,
+          then: [{ op: "money", add: -1 }],
+          else: [{ op: "money", add: -2 }] },
+        { op: "signal", key: "north_trade_stage", add: 1 },
+        NORTH_TRADE_RELIEF_TRANSFER,
+        { op: "move", to: "loc_mill_hamlet" },
+        say("txt_north_caravan_ride")
+      ]
+    },
+    // Exploration career alternative to the guaranteed but stationary escort:
+    // a PER+investigation check can guide the caravan AND player through a
+    // dangerous road. On a failed read neither cargo nor world route advances.
+    act_scout_north_caravan: {
+      name: "위험한 길에서 상단의 우회로를 정찰한다 (기력 2, 2시간)",
+      requires: { op: "and", of: [
+        { op: "location", at: "loc_far_bank" }, NORTH_TRADE_AT_FAR_BANK,
+        NORTH_TRADE_ROUTE_KNOWN, { op: "signal", key: "road_trouble", min: 2 },
+        { op: "unlock", id: "unl_trailcraft" },
+        { op: "skill", skill: "investigation", min: 1 }, STAMINA_AT_LEAST(2)
+      ] },
+      check: { stat: "per", skill: "investigation", tags: ["investigation"], difficulty: "normal" },
+      minutes: 120,
+      outcomes: {
+        great: [
+          { op: "resource", resource: "stamina", add: -2 },
+          { op: "proficiency", id: "investigation", add: 15 },
+          { op: "money", add: 3 }, ...NORTH_TRADE_SCOUT_CROSSING,
+          say("txt_north_caravan_scout_success")
+        ],
+        success: [
+          { op: "resource", resource: "stamina", add: -2 },
+          { op: "proficiency", id: "investigation", add: 10 },
+          { op: "money", add: 2 }, ...NORTH_TRADE_SCOUT_CROSSING,
+          say("txt_north_caravan_scout_success")
+        ],
+        partial: [
+          { op: "resource", resource: "stamina", add: -2 },
+          { op: "proficiency", id: "investigation", add: 5 },
+          { op: "hp", add: -1 }, say("txt_north_caravan_scout_retry")
+        ],
+        fail: [
+          { op: "resource", resource: "stamina", add: -2 },
+          { op: "proficiency", id: "investigation", add: 5 },
+          { op: "hp", add: -2 }, say("txt_north_caravan_scout_retry")
+        ]
+      }
     },
     act_escort_north_trade_caravan: {
       name: "위험한 길에서 북부 상단을 호위해 마을로 보낸다 (기력 2, 2시간, 은화 +4)",
@@ -4449,7 +4541,7 @@ export const worldData = {
         { minRank: 5, label: "Adept" }
       ],
       // V2-Core-142 (M7): the realm's name -- the apex (a title: it opens nothing, the world answers it)
-      unlocks: [{ id: "unl_north_road_survey", kind: "action" }, { id: "unl_trailcraft", kind: "action" }, { id: "unl_keen_eye", kind: "action" }, { id: "unl_road_lead", kind: "action" }, { id: "unl_guarded_stance", kind: "action" }, { id: "unl_breakthrough_cut", kind: "action" }, { id: "unl_realm_renown", kind: "title" }],
+      unlocks: [{ id: "unl_north_road_survey", kind: "action" }, { id: "unl_trailcraft", kind: "action" }, { id: "unl_caravan_pathfinder", kind: "action" }, { id: "unl_keen_eye", kind: "action" }, { id: "unl_road_lead", kind: "action" }, { id: "unl_guarded_stance", kind: "action" }, { id: "unl_breakthrough_cut", kind: "action" }, { id: "unl_realm_renown", kind: "title" }],
       // V2-Core-56 (Gate 4 = C, D-85): resources belong to the growth system. Stamina pays for the
       // fight's techniques (the counter 3, the old wound 2); a character without the entry is full
       resources: [{ id: "stamina", max: 6 }]
@@ -4644,6 +4736,7 @@ export const worldData = {
     npc_ferryman: { name: "뱃사공" },
     // V2-Core-77 (#189): dialogue only (no actor: D-92)
     npc_town_merchant: { name: "성읍의 상인" },
+    npc_north_caravan_driver: { name: "북부 상단 마부" },
     // V2-Core-78 (#189): dialogue only (no actor: D-92)
     npc_guild_clerk: { name: "상단 조합의 서기" },
     // V2-Core-47 (D-77): the leader is an actor -- the same record a player character is,
@@ -4876,6 +4969,10 @@ export const worldData = {
     txt_north_trade_caravan_sold: "길목을 지나던 북부 상단에 빵 두 덩이를 넘겼다. 은화 두 닢을 받았고 마차의 실제 식량 재고가 한 묶음 늘었다.",
     txt_north_trade_caravan_bought: "물레방아 마을에 도착한 상단의 마차에서 빵 두 덩이를 샀다. 상단의 짐 한 묶음이 줄었다.",
     txt_north_trade_caravan_escorted: "위험한 북부 도로에서 상단을 호위해 마을까지 데려왔다. 길의 위험이 줄었고, 식량난 중이라면 상단이 자신의 짐 한 묶음을 공동 창고에 내놓았다.",
+    txt_north_caravan_route_learned: "길목에서 마부에게 물었다. 그는 상단이 강을 건너 물레방아 마을로 내려가는 길을 설명했다. 직접 들은 경로를 수첩에 남겼다.",
+    txt_north_caravan_ride: "안전한 길을 따라 상단 마차에 올라 물레방아 마을까지 이동했다. 짐은 그대로 마차에 실려 있다. 길을 읽는 기술이 있다면 운임이 줄어든다.",
+    txt_north_caravan_scout_success: "길잡이로서 위험한 도로의 우회로를 찾아냈다. 상단과 함께 물레방아 마을까지 무사히 건넜고, 마부는 이후 운임을 낮춰 주겠다고 약속했다.",
+    txt_north_caravan_scout_retry: "길을 잘못 읽어 우회로가 막혔다. 상단은 아직 길목에 남아 있고, 다시 시도하려면 몸을 추슬러야 한다.",
     txt_north_relief_crisis_rations: "사라진 마차 두 대의 몫을 채우지 못해 구휼 배급이 줄었다. 은화 두 닢을 내고 남은 빵 한 덩이를 받아 든다. 창고의 짐 한 묶음은 줄어든다.",
     txt_north_relief_bread_donated: "내 식량 세 덩이를 공동 창고에 기부했다. 마을은 한 묶음의 구휼 재고를 되찾고, 배급을 정상화한다. 사라진 짐의 장부는 그대로 남는다.",
     txt_north_relief_caravan_funded: "성읍 상인에게 은화 여섯 닢을 맡겨 공동 창고로 보낼 보급 마차를 새로 마련했다. 마을 배급이 회복되지만 옛 손실 기록은 지워지지 않는다.",
@@ -5036,6 +5133,7 @@ export const worldData = {
     lbl_trait_road_wound_deep: "깊은 상처",
     lbl_unlock_unl_north_road_survey: "북부 도로 정찰",
     lbl_unlock_unl_trailcraft: "길잡이 측량술",
+    lbl_unlock_unl_caravan_pathfinder: "상단 길잡이",
     lbl_unlock_unl_keen_eye: "예리한 눈",
     lbl_unlock_unl_road_lead: "상단을 이끌 자격",
     lbl_unlock_unl_guarded_stance: "방어 검술 자세",
@@ -5238,6 +5336,7 @@ export const worldData = {
     lbl_rumor_rum_spring_trap_mark: "샘가의 덫에 폐허 도적들의 표식이 있다",
     lbl_src_src_well_folk: "우물가 사람들",
     lbl_src_src_ford_traveller: "나루의 나그네",
+    lbl_src_npc_north_caravan_driver: "북부 상단 마부",
     lbl_src_src_deserter: "무리에서 도망친 사내",
     enc_well_child_intro: "우물가에서 아이 하나가 배를 움켜쥐고 웅크려 있다. 곁에 선 어른은 빈 물동이만 들여다본다. 누구도 우물에 두레박을 내리지 않는다.",
     enc_well_child_carry: "아이를 업고 장터로 뛴다. 약초꾼은 아이의 배를 짚어 보고 혀를 찬다. \"우물물이에요. 그 물은 숲속 샘에서 내려오는데, 샘이 탈이 났나 봐요.\" 아이 어미가 내 소매를 붙잡고 고개를 숙인다.",

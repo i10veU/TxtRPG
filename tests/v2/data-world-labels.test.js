@@ -42,7 +42,7 @@ function testGrowthAndMenus() {
     ...[...new Set(Object.values(worldData.items).map((i) => i.slot).filter(Boolean))].map((slot) => `lbl_slot_${slot}`),
     ...Object.keys(worldData.characterTemplates).map((t) => `lbl_tmpl_${t}`)
   ];
-  assert.strictEqual(want.length, 32, "6 stats, 3 practices, 3 skills, 4 tiers, 4 traits, 7 unlocks (including north-road survey), a resource, 2 slots, 2 backgrounds");
+  assert.strictEqual(want.length, 33, "6 stats, 3 practices, 3 skills, 4 tiers, 4 traits, 8 unlocks (including caravan pathfinder), a resource, 2 slots, 2 backgrounds");
   for (const key of want) assert.ok(has(key), `${key} has a word`);
 }
 

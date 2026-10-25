@@ -102,6 +102,7 @@ function testChecksReadSkills() {
     evt_spring_miasma: [null, null],
     act_gather_herbs: ["herbalism", null], // V2-Core-65
     act_survey_north_road: ["investigation", null],
+    act_scout_north_caravan: ["investigation", null],
     act_survey_trailcraft: ["investigation", null],
     act_read_milestone: ["investigation", null], // V2-Core-72
     act_search_crossroads: ["investigation", null],
