@@ -1630,6 +1630,64 @@ export const worldData = {
         fail: [{ op: "proficiency", id: "herbalism", add: 5 }, say("txt_gather_herbs_fail")]
       })
     },
+    // Post-J3 exploration specialisation. A character learns to read tracks and
+    // terrain, then takes short routes ONLY after learning the ordinary roads.
+    // The unlock is personal; no hidden destination is exposed by the action view.
+    act_survey_trailcraft: {
+      name: "갈림길 주변을 측량해 샛길을 익힌다 (기력 2, 90분)",
+      requires: { op: "and", of: [
+        { op: "location", at: "loc_crossroads" },
+        { op: "skill", skill: "investigation", min: 1 },
+        { op: "not", of: { op: "unlock", id: "unl_trailcraft" } },
+        STAMINA_AT_LEAST(2)
+      ] },
+      check: { stat: "per", skill: "investigation", tags: ["investigation"], difficulty: "normal" },
+      minutes: 90,
+      outcomes: {
+        great: [{ op: "resource", resource: "stamina", add: -2 }, { op: "proficiency", id: "investigation", add: 15 }, { op: "unlock", id: "unl_trailcraft" }, say("txt_trailcraft_success")],
+        success: [{ op: "resource", resource: "stamina", add: -2 }, { op: "proficiency", id: "investigation", add: 10 }, { op: "unlock", id: "unl_trailcraft" }, say("txt_trailcraft_success")],
+        partial: [{ op: "resource", resource: "stamina", add: -2 }, { op: "proficiency", id: "investigation", add: 5 }, say("txt_trailcraft_retry")],
+        fail: [{ op: "resource", resource: "stamina", add: -2 }, { op: "proficiency", id: "investigation", add: 5 }, { op: "hp", add: -1 }, say("txt_trailcraft_retry")]
+      }
+    },
+    // Existing 50/40-minute road links remain available for cautious travellers.
+    // Shortcut actions trade one stamina for 20/15 minutes, in either direction.
+    act_trailcraft_ford_north: {
+      name: "발자국이 적은 강나루 샛길로 간다 (기력 1, 30분)",
+      requires: { op: "and", of: [
+        { op: "location", at: "loc_crossroads" }, { op: "unlock", id: "unl_trailcraft" },
+        { op: "rumor", rumor: "rum_road_ford" }, STAMINA_AT_LEAST(1)
+      ] },
+      minutes: 30,
+      effects: [{ op: "resource", resource: "stamina", add: -1 }, { op: "move", to: "loc_river_ford" }, say("txt_trailcraft_ford")]
+    },
+    act_trailcraft_ford_south: {
+      name: "강나루에서 숲의 샛길로 갈림길에 돌아간다 (기력 1, 30분)",
+      requires: { op: "and", of: [
+        { op: "location", at: "loc_river_ford" }, { op: "unlock", id: "unl_trailcraft" },
+        { op: "rumor", rumor: "rum_road_ford" }, STAMINA_AT_LEAST(1)
+      ] },
+      minutes: 30,
+      effects: [{ op: "resource", resource: "stamina", add: -1 }, { op: "move", to: "loc_crossroads" }, say("txt_trailcraft_ford")]
+    },
+    act_trailcraft_hamlet_east: {
+      name: "물레방아 물길을 따라 마을로 간다 (기력 1, 25분)",
+      requires: { op: "and", of: [
+        { op: "location", at: "loc_crossroads" }, { op: "unlock", id: "unl_trailcraft" },
+        { op: "rumor", rumor: "rum_road_hamlet" }, STAMINA_AT_LEAST(1)
+      ] },
+      minutes: 25,
+      effects: [{ op: "resource", resource: "stamina", add: -1 }, { op: "move", to: "loc_mill_hamlet" }, say("txt_trailcraft_hamlet")]
+    },
+    act_trailcraft_hamlet_west: {
+      name: "물레방아 물길을 거슬러 갈림길에 돌아간다 (기력 1, 25분)",
+      requires: { op: "and", of: [
+        { op: "location", at: "loc_mill_hamlet" }, { op: "unlock", id: "unl_trailcraft" },
+        { op: "rumor", rumor: "rum_road_hamlet" }, STAMINA_AT_LEAST(1)
+      ] },
+      minutes: 25,
+      effects: [{ op: "resource", resource: "stamina", add: -1 }, { op: "move", to: "loc_crossroads" }, say("txt_trailcraft_hamlet")]
+    },
     // V2-Core-72 (#180): the milestone -- INT (the worn letters) with the investigation skill. A success
     // records the region's roads (the world's truth) and the character reads them first-hand
     act_read_milestone: {
@@ -3906,7 +3964,7 @@ export const worldData = {
         { minRank: 5, label: "Adept" }
       ],
       // V2-Core-142 (M7): the realm's name -- the apex (a title: it opens nothing, the world answers it)
-      unlocks: [{ id: "unl_keen_eye", kind: "action" }, { id: "unl_road_lead", kind: "action" }, { id: "unl_guarded_stance", kind: "action" }, { id: "unl_breakthrough_cut", kind: "action" }, { id: "unl_realm_renown", kind: "title" }],
+      unlocks: [{ id: "unl_trailcraft", kind: "action" }, { id: "unl_keen_eye", kind: "action" }, { id: "unl_road_lead", kind: "action" }, { id: "unl_guarded_stance", kind: "action" }, { id: "unl_breakthrough_cut", kind: "action" }, { id: "unl_realm_renown", kind: "title" }],
       // V2-Core-56 (Gate 4 = C, D-85): resources belong to the growth system. Stamina pays for the
       // fight's techniques (the counter 3, the old wound 2); a character without the entry is full
       resources: [{ id: "stamina", max: 6 }]
@@ -4321,6 +4379,10 @@ export const worldData = {
     txt_waystation_supply_delivered: "길목의 빈 창고에 보급 상자를 내려놓자 담당자가 장부에 첫 납품을 적는다. 은화 여섯 닢과 돌아갈 길에 먹을 빵 한 덩이를 건네받는다. 이제 이곳에서는 여행자 누구나 값비싼 빵을 살 수 있다.",
     txt_waystation_supply_opened: "봉인을 뜯자 물레방아 빵 두 덩이가 나온다. 당장의 배고픔을 피할 수 있지만 길목으로 가야 할 첫 보급품은 사라졌다. 보급소가 열리기를 기다리는 사람들에게는 아직 아무 소식도 없다.",
     txt_buy_waystation_bread: "강 건너 길목의 보급소에서 은화 두 닢을 내고 빵 한 덩이를 산다. 먼 길에 비싼 값이지만 야영할 식량을 마련했다.",
+    txt_trailcraft_success: "이정표가 아닌 흙의 굳기와 물길을 따라 걸음을 옮겨 본다. 발이 닿을 자리를 읽는 법을 익혔다. 다만 어느 길이 어디로 이어지는지는 직접 알아내야 한다.",
+    txt_trailcraft_retry: "길을 잘못 읽어 같은 자리를 맴돌았다. 발자국과 바람을 다시 살피면 다음에는 길을 찾아낼 수 있을 것이다.",
+    txt_trailcraft_ford: "바위 사이로 난 작은 길을 따라 강나루와 갈림길 사이를 빠르게 지난다. 시간을 벌었지만 기력이 소모됐다.",
+    txt_trailcraft_hamlet: "물레방아로 흐르는 물소리를 따라 수레길 대신 좁은 둔덕을 지난다. 걸음은 빨랐지만 기력이 소모됐다.",
     txt_castle_guard_drill: "성읍의 낡은 연습장에서 방패 없는 방어 자세와 발놀림을 반복한다. 은화를 낸 만큼 사범의 지도를 받고, 땀과 기력을 쏟아 검술의 기본을 다진다.",
     txt_castle_spar_pass: "사범의 검끝을 흘려 보내고 빈틈에 검을 멈춰 세운다. 그는 방어 자세를 인정하며 실전에서도 쓸 수 있다고 고개를 끄덕인다.",
     txt_castle_spar_retry: "대련에서 밀려 넘어졌다. 은화와 기력은 돌아오지 않지만 몸이 기억한 실수는 남는다. 다시 준비하면 도전할 수 있다.",
@@ -4451,6 +4513,7 @@ export const worldData = {
     lbl_trait_investigation_talent: "조사의 재능",
     lbl_trait_road_wound: "길에서 입은 상처",
     lbl_trait_road_wound_deep: "깊은 상처",
+    lbl_unlock_unl_trailcraft: "길잡이 측량술",
     lbl_unlock_unl_keen_eye: "예리한 눈",
     lbl_unlock_unl_road_lead: "상단을 이끌 자격",
     lbl_unlock_unl_guarded_stance: "방어 검술 자세",
