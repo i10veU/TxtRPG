@@ -643,6 +643,16 @@ const FIELD_CAMP_SITES = { op: "or", of: [
   "loc_crossroads", "loc_river_ford", "loc_far_bank", "loc_mill_hamlet", "loc_royal_city"
 ].map((at) => ({ op: "location", at })) };
 const FIELD_CAMP_READY = { op: "and", of: [FIELD_CAMP_SITES, { op: "item", item: "item_mill_bread", min: 1 }] };
+// Post-J3 expedition contract: a crate belongs to its carrier, but a completed
+// supply route belongs to the world. No new state schema or hidden knowledge.
+const WAYSTATION_SUPPLY_UNSET = { op: "and", of: [
+  { op: "not", of: { op: "flag", key: "waystation_supply_delivered" } },
+  { op: "not", of: { op: "flag", key: "waystation_supply_diverted" } }
+] };
+const WAYSTATION_SUPPLY_CRATE = { op: "item", item: "item_waystation_supply_crate", min: 1 };
+const WAYSTATION_SUPPLY_OPEN_SITES = { op: "or", of: [
+  "loc_crossroads", "loc_river_ford", "loc_far_bank", "loc_castle_town", "loc_royal_city"
+].map((at) => ({ op: "location", at })) };
 const REST_WOUNDS = [
   {
     op: "if",
@@ -1917,6 +1927,67 @@ export const worldData = {
         { op: "hp", add: 4 },
         { op: "resource", resource: "stamina", add: 6 },
         say("txt_camp_full")
+      ]
+    },
+    // Post-J3 expedition loop: once the hamlet and village trade, the miller
+    // offers one sealed ration crate for the far-bank waystation. The carrier
+    // can establish a permanent resupply stop, or break the seal to survive.
+    // The crate is character-owned (not inherited); the outcome is world-owned.
+    act_accept_waystation_supply: {
+      name: "길목 보급 의뢰를 맡는다 (물레방아 마을)",
+      requires: { op: "and", of: [
+        { op: "location", at: "loc_mill_hamlet" }, HAMLET_TRADES,
+        WAYSTATION_SUPPLY_UNSET,
+        { op: "not", of: WAYSTATION_SUPPLY_CRATE }
+      ] },
+      minutes: 30,
+      effects: [
+        { op: "item", item: "item_waystation_supply_crate", add: 1 },
+        say("txt_waystation_supply_accepted")
+      ]
+    },
+    act_deliver_waystation_supply: {
+      name: "길목의 보급품을 전달한다 (은화 6, 빵 1개)",
+      requires: { op: "and", of: [
+        { op: "location", at: "loc_far_bank" }, WAYSTATION_SUPPLY_CRATE,
+        WAYSTATION_SUPPLY_UNSET
+      ] },
+      minutes: 45,
+      effects: [
+        { op: "item", item: "item_waystation_supply_crate", add: -1 },
+        { op: "flag", key: "waystation_supply_delivered", value: true },
+        { op: "money", add: 6 },
+        { op: "item", item: "item_mill_bread", add: 1 },
+        say("txt_waystation_supply_delivered")
+      ]
+    },
+    act_open_waystation_supply: {
+      name: "봉인을 뜯고 보급품을 식량으로 쓴다 (빵 2개)",
+      requires: { op: "and", of: [
+        WAYSTATION_SUPPLY_OPEN_SITES, WAYSTATION_SUPPLY_CRATE,
+        WAYSTATION_SUPPLY_UNSET
+      ] },
+      minutes: 15,
+      effects: [
+        { op: "item", item: "item_waystation_supply_crate", add: -1 },
+        { op: "item", item: "item_mill_bread", add: 2 },
+        { op: "flag", key: "waystation_supply_diverted", value: true },
+        say("txt_waystation_supply_opened")
+      ]
+    },
+    // A public, persistent market at the far bank exists only in the history
+    // where someone delivered the crate. Bread is dearer than in the village.
+    act_buy_waystation_bread: {
+      name: "길목 보급소에서 빵을 산다 (은화 2)",
+      requires: { op: "and", of: [
+        { op: "location", at: "loc_far_bank" },
+        { op: "flag", key: "waystation_supply_delivered" },
+        { op: "money", min: 2 }
+      ] },
+      effects: [
+        { op: "money", add: -2 },
+        { op: "item", item: "item_mill_bread", add: 1 },
+        say("txt_buy_waystation_bread")
       ]
     },
     act_buy_lantern: {
@@ -3686,6 +3757,7 @@ export const worldData = {
     // V2-Core-73 (#180): the hamlet's goods
     item_flour_sack: { name: "밀가루 자루" },
     item_mill_bread: { name: "물레방아 빵" },
+    item_waystation_supply_crate: { name: "길목 보급 상자 (봉인됨)" },
     // V2-Core-74 (#180): the elder's letter for the ferry (kept, not spent)
     item_passage_letter: { name: "원로의 통행 편지" },
     item_merchant_note: { name: "상인의 짐표" }
@@ -4067,6 +4139,10 @@ export const worldData = {
     txt_eat_mill_bread: "빵을 뜯어 먹자 허기가 가시고 몸에 힘이 돈다.",
     txt_camp_quick: "길가 돌담에 등을 기대고 빵을 나눠 먹는다. 해가 기울기 전에 다시 걸어야 한다. 두 시간쯤 눈을 붙이자 다리가 조금 가벼워진다.",
     txt_camp_full: "길목에서 마른 나뭇가지를 모아 작은 불을 피운다. 빵 한 덩이로 끼니를 때우고 여덟 시간을 쉰다. 먼 길의 피로가 풀렸지만, 다친 곳까지 낫지는 않았다.",
+    txt_waystation_supply_accepted: "방앗간 주인이 빵과 말린 식량을 나무 상자에 채우고 봉인을 누른다. 강 건너 길목의 보급소까지 온전히 가져다주면 뱃삯보다 넉넉한 품삯을 주겠다고 한다. 길 위에서 배가 고프면 봉인을 뜯어도 되지만, 그 길목에는 새 보급소가 열리지 않을 것이다.",
+    txt_waystation_supply_delivered: "길목의 빈 창고에 보급 상자를 내려놓자 담당자가 장부에 첫 납품을 적는다. 은화 여섯 닢과 돌아갈 길에 먹을 빵 한 덩이를 건네받는다. 이제 이곳에서는 여행자 누구나 값비싼 빵을 살 수 있다.",
+    txt_waystation_supply_opened: "봉인을 뜯자 물레방아 빵 두 덩이가 나온다. 당장의 배고픔을 피할 수 있지만 길목으로 가야 할 첫 보급품은 사라졌다. 보급소가 열리기를 기다리는 사람들에게는 아직 아무 소식도 없다.",
+    txt_buy_waystation_bread: "강 건너 길목의 보급소에서 은화 두 닢을 내고 빵 한 덩이를 산다. 먼 길에 비싼 값이지만 야영할 식량을 마련했다.",
     txt_ferryman_quiet: "뱃사공은 노를 손질하며 고개를 젓는다. 길이 막혀 있던 동안 강 건너 소식도 끊겼다고 한다.",
     txt_ferryman_levy: "뱃사공은 지난번 상단이 전한 소식을 들려준다. 영주가 징집령을 내려 강 건너 마을마다 젊은이들을 모으고 있다고 한다.",
     txt_ferryman_fair: "뱃사공은 새 소식을 들려준다. 왕도에서 큰 장이 열려 상단들이 앞다투어 북쪽으로 올라간다고 한다.",
