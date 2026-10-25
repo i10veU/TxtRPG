@@ -728,7 +728,7 @@ function renderHypothesisLedger(playerView) {
     hypothesisLifeKey = key;
     hypothesisSelection = null;
   }
-  const ledger = hypothesisLedger(playerView.knowledge, worldData);
+  const ledger = hypothesisLedger(playerView.knowledge, worldData, state.time.minute);
   el.hypothesisLedger.hidden = !ledger;
   if (!ledger) return;
   el.hypothesisQuestion.textContent = ledger.question;
