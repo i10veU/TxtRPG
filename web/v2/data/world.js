@@ -2326,6 +2326,7 @@ export const worldData = {
           effects: [
             { op: "resource", resource: "stamina", add: -2 },
             { op: "signal", key: "spring_trap_followup", add: 1 },
+            { op: "relation", from: "npc_elder", tag: "spring_trap_route_reinforced" },
             say("txt_spring_trap_route_reinforced")
           ]
         },
@@ -2337,7 +2338,7 @@ export const worldData = {
           effects: [
             { op: "money", add: -1 },
             { op: "signal", key: "spring_trap_followup", add: 2 },
-            { op: "relation", from: "npc_elder", add: 4 },
+            { op: "relation", from: "npc_elder", add: 4, tag: "spring_trap_notice_published" },
             say("txt_spring_trap_warning_published")
           ]
         },
