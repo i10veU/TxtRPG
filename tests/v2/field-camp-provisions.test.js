@@ -20,8 +20,8 @@ const offered = (s, id) => view(s, worldData).actions.some((a) => a.actionId ===
 const reload = (s) => parseLoadedRecord(JSON.parse(JSON.stringify(buildSaveRecord('field-camp', s, { savedAt: 1 }))));
 assert.deepEqual(validateData(worldData), []);
 for (const [id, minutes, hp, stamina, text] of [
-  ['act_camp_quick', 120, 1, 3, 'txt_camp_quick'],
-  ['act_camp_full', 480, 3, 6, 'txt_camp_full']
+  ['act_camp_quick', 120, 2, 5, 'txt_camp_quick'],
+  ['act_camp_full', 480, 4, 6, 'txt_camp_full']
 ]) {
   const before = fixture();
   assert.equal(offered(before, id), true);

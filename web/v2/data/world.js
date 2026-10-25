@@ -1903,8 +1903,8 @@ export const worldData = {
       minutes: 120,
       effects: [
         { op: "item", item: "item_mill_bread", add: -1 },
-        { op: "hp", add: 1 },
-        { op: "resource", resource: "stamina", add: 3 },
+        { op: "hp", add: 2 },
+        { op: "resource", resource: "stamina", add: 5 },
         say("txt_camp_quick")
       ]
     },
@@ -1914,7 +1914,7 @@ export const worldData = {
       minutes: 480,
       effects: [
         { op: "item", item: "item_mill_bread", add: -1 },
-        { op: "hp", add: 3 },
+        { op: "hp", add: 4 },
         { op: "resource", resource: "stamina", add: 6 },
         say("txt_camp_full")
       ]
