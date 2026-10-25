@@ -3243,7 +3243,12 @@ export const worldData = {
               else: [say("txt_herbalist_sickness")]
             },
             // V2-Core-68: the village's account reaches her stall too
-            { op: "if", when: ARROWS_TOLD, then: [say("txt_herbalist_bandit_rumor")] }
+            { op: "if", when: ARROWS_TOLD, then: [say("txt_herbalist_bandit_rumor")] },
+            // The market remembers concrete aid, not the player's private proof.
+            { op: "if", when: { op: "flag", key: "spring_trap_herbalist_route_supplied" },
+              then: [say("txt_herbalist_trap_safe_harvest_followup")] },
+            { op: "if", when: { op: "flag", key: "spring_trap_herbalist_notice_shared" },
+              then: [say("txt_herbalist_trap_share_notice_followup")] }
           ]
         },
         // J3: evidence-first inquiry changes the herbalist's actual help, not the hidden spring truth.
@@ -3262,6 +3267,45 @@ export const worldData = {
             { op: "item", item: "item_purifying_herb", add: 1 },
             { op: "relation", from: "npc_herbalist", tag: "spring_inquiry_herb_given" },
             say("txt_spring_inquiry_herb")
+          ]
+        },
+        // J3: the elder's verified trap decision changes what the herbalist
+        // can safely do. The rumor requirement is this character's own heard
+        // account; the public flags persist but do not grant private proof.
+        {
+          id: "opt_herbalist_trap_safe_harvest",
+          name: "보강된 샘길 표식을 따라 약초꾼의 채집을 돕는다 (90분, 기력 2)",
+          requires: { op: "and", of: [
+            { op: "signal", key: "spring_trap_followup", eq: 1 },
+            { op: "rumor", rumor: "rum_spring_trap_mark" },
+            KNOWS_WELL_SOURCE,
+            STAMINA_AT_LEAST(2),
+            { op: "not", of: { op: "flag", key: "spring_trap_herbalist_route_supplied" } }
+          ] },
+          minutes: 90,
+          effects: [
+            { op: "resource", resource: "stamina", add: -2 },
+            { op: "item", item: "item_purifying_herb", add: 2 },
+            { op: "flag", key: "spring_trap_herbalist_route_supplied", value: true },
+            { op: "relation", from: "npc_herbalist", add: 3, tag: "spring_trap_herbalist_route_supplied" },
+            say("txt_herbalist_trap_safe_harvest")
+          ]
+        },
+        {
+          id: "opt_herbalist_trap_share_notice",
+          name: "덫의 경고문을 장터 약초꾼에게 전달한다 (30분)",
+          requires: { op: "and", of: [
+            { op: "signal", key: "spring_trap_followup", eq: 2 },
+            { op: "rumor", rumor: "rum_spring_trap_mark" },
+            KNOWS_WELL_SOURCE,
+            { op: "not", of: { op: "flag", key: "spring_trap_herbalist_notice_shared" } }
+          ] },
+          minutes: 30,
+          effects: [
+            { op: "item", item: "item_herbal_salve", add: 1 },
+            { op: "flag", key: "spring_trap_herbalist_notice_shared", value: true },
+            { op: "relation", from: "npc_herbalist", add: 3, tag: "spring_trap_herbalist_notice_shared" },
+            say("txt_herbalist_trap_share_notice")
           ]
         },
         {
@@ -4230,6 +4274,10 @@ export const worldData = {
     txt_spring_trap_warning_published: "직접 본 덫의 고리와 표식을 원로의 장부에 자세히 적는다. 필사할 은화 한 닢을 내자 원로는 마을 사람들이 읽을 수 있게 경고문을 붙인다.",
     txt_spring_trap_route_followup: "원로는 덫이 있던 샛길까지 표시해 두었다고 말한다. 독기가 짙은 곳을 지나는 사람은 이제 더 안전하게 돌아갈 수 있다.",
     txt_spring_trap_notice_followup: "원로는 덫의 표식을 기록한 경고문을 보여 준다. 직접 확인한 사람이 남긴 기록이라 마을에 전하는 말도 이전보다 분명해졌다.",
+    txt_herbalist_trap_safe_harvest: "약초꾼과 함께 보강된 샘길 표식을 따라 안전한 풀밭을 찾는다. 한참을 걸으며 약초를 모은 뒤 정화초 두 묶음을 나누어 받는다. 약초꾼은 다음 채집 때도 표식을 따라가겠다고 한다.",
+    txt_herbalist_trap_safe_harvest_followup: "약초꾼은 샘길 표식 덕분에 사람들이 독기를 피하며 약초를 구할 수 있게 되었다고 말한다.",
+    txt_herbalist_trap_share_notice: "원로의 경고문을 약초꾼의 노점에도 옮겨 적는다. 약초꾼은 손님들에게 덫이 있는 샛길을 피하라고 알리며, 답례로 약초 연고 한 통을 건넨다.",
+    txt_herbalist_trap_share_notice_followup: "약초꾼의 노점에 덫 경고문이 붙었다. 장터를 오가는 사람들도 위험한 샛길을 피해 가게 되었다.",
     txt_spring_miasma_route_reinforced: "덫의 위치까지 새겨 둔 표식을 따라 독기가 짙은 길목을 비켜 간다. 몸에 해로운 기운은 닿지 않았다.",
     txt_spring_miasma_patrol: "샘길에 남겨진 표식을 따라 독기가 짙은 자리를 비켜 간다. 숨이 조금 막히지만 더 깊은 곳으로 들지는 않았다.",
     txt_prologue_levy: "영주의 징집령이 성읍 게시판에 붙던 날 밤, 나는 강을 건넜다. 뱃사공은 뱃삯을 받고 아무것도 묻지 않았다.",
