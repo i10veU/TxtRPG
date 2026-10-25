@@ -676,6 +676,15 @@ const NORTH_ROAD_GUIDED_READY = { op: "and", of: [
   { op: "money", min: 2 },
   { op: "item", item: "item_mill_bread", min: 1 }
 ] };
+// A world-owned merchant circuit begins only when the road has been marked safe.
+// Deliveries replenish one bundle per day, up to three. Two player escorts
+// establish a permanent public discount; personal merchant trust stays personal.
+const NORTH_WAYSTATION_STOCK = { op: "signal", key: "north_waystation_stock", min: 1 };
+const NORTH_WAYSTATION_RELIABLE = { op: "signal", key: "north_waystation_reliability", min: 2 };
+const NORTH_WAYSTATION_BUNDLE_FUNDS = { op: "or", of: [
+  { op: "money", min: 3 },
+  { op: "and", of: [NORTH_WAYSTATION_RELIABLE, { op: "money", min: 2 }] }
+] };
 const NORTH_ROAD_MARCH_READY = { op: "and", of: [
   { op: "resource", resource: "stamina", min: 4 },
   { op: "gte", left: { hp: "current" }, right: 3 }
@@ -1104,6 +1113,18 @@ export const worldData = {
         ...CLAMP_OWED,
         // V2-Core-132 (#328, D-113): what the caravan carries past the ford
         CARAVAN_AT_THE_FORD
+      ]
+    },
+    // Post-J3: merchants respond autonomously to the marked public road.
+    // The cadence keeps running at full capacity so an old backlog cannot
+    // refill the entire store instantly after a single purchase.
+    evt_north_waystation_merchant: {
+      trigger: { op: "flag", key: "north_road_guided" },
+      cooldown: 1440,
+      catchUp: true,
+      effects: [
+        { op: "if", when: { op: "signal", key: "north_waystation_stock", max: 2 },
+          then: [{ op: "signal", key: "north_waystation_stock", add: 1 }] }
       ]
     },
     // V2-Core-125 (#307, Road News step 1a): the road's condition moves with the caravans' cadence -- one turn per cycle,
@@ -2157,6 +2178,48 @@ export const worldData = {
         { op: "item", item: "item_mill_bread", add: 2 },
         { op: "flag", key: "north_road_cache_taken", value: true },
         say("txt_north_road_cache_taken")
+      ]
+    },
+    // A genuine repeatable economy loop: public convoy stock arrives with
+    // elapsed world time, can be bought at a bulk rate, or consumed by an
+    // escort job. Two escorts earn a lasting public discount for all lives.
+    act_buy_waystation_bulk_rations: {
+      name: "정기 보급 마차의 빵 3개를 산다 (은화 3, 교역 신뢰 시 2)",
+      requires: { op: "and", of: [
+        { op: "location", at: "loc_far_bank" },
+        { op: "flag", key: "north_road_guided" },
+        NORTH_WAYSTATION_STOCK, NORTH_WAYSTATION_BUNDLE_FUNDS
+      ] },
+      minutes: 15,
+      effects: [
+        { op: "signal", key: "north_waystation_stock", add: -1 },
+        { op: "if", when: NORTH_WAYSTATION_RELIABLE,
+          then: [{ op: "money", add: -2 }, say("txt_waystation_bulk_discount")],
+          else: [{ op: "money", add: -3 }, say("txt_waystation_bulk_standard")] },
+        { op: "item", item: "item_mill_bread", add: 3 }
+      ]
+    },
+    act_escort_north_merchant: {
+      name: "보급 마차의 길목 왕복 호위를 맡는다 (기력 2, 3시간, 은화 3)",
+      requires: { op: "and", of: [
+        { op: "location", at: "loc_far_bank" },
+        { op: "flag", key: "north_road_guided" },
+        NORTH_WAYSTATION_STOCK, STAMINA_AT_LEAST(2)
+      ] },
+      minutes: 180,
+      effects: [
+        { op: "signal", key: "north_waystation_stock", add: -1 },
+        { op: "resource", resource: "stamina", add: -2 },
+        { op: "money", add: 3 },
+        { op: "relation", from: "npc_town_merchant", add: 3 },
+        { op: "if", when: { op: "signal", key: "north_waystation_reliability", max: 1 },
+          then: [
+            { op: "signal", key: "north_waystation_reliability", add: 1 },
+            { op: "if", when: { op: "signal", key: "north_waystation_reliability", min: 2 },
+              then: [say("txt_waystation_merchants_trust")],
+              else: [say("txt_waystation_merchants_first")] }
+          ],
+          else: [say("txt_waystation_merchants_steady")] }
       ]
     },
     // The improved route replaces, rather than duplicates, the old convoy.
@@ -3264,6 +3327,8 @@ export const worldData = {
           name: "강 남쪽 물건에 대해 묻는다",
           effects: [
             say("txt_town_merchant_south_goods"),
+            { op: "if", when: NORTH_WAYSTATION_RELIABLE,
+              then: [say("txt_town_merchant_safe_route")] },
             // V2-Core-85 (#207): whether the town wants flour now
             {
               op: "if",
@@ -4470,6 +4535,12 @@ export const worldData = {
     txt_buy_waystation_bread: "강 건너 길목의 보급소에서 은화 두 닢을 내고 빵 한 덩이를 산다. 먼 길에 비싼 값이지만 야영할 식량을 마련했다.",
     txt_north_survey_found: "길목에서 북쪽으로 난 수레바퀴 자국을 따라가자 허물어진 돌담과 비어 있는 보급 꾸러미가 보인다. 우회로를 표시해 앞으로 다닐 상단을 돕거나, 남은 물자를 당장 회수할 수 있다. 두 길을 모두 택할 수는 없다.",
     txt_north_survey_retry: "수레바퀴 자국이 갈라지는 곳에서 길을 놓쳤다. 서두르다 발목을 헛디뎠지만, 다시 조사하면 흔적을 따라갈 수 있을 것이다.",
+    txt_waystation_bulk_standard: "북쪽에서 도착한 정기 보급 마차가 빵 세 덩이를 묶어 판다. 평소 길목에서 낱개로 살 때보다 값이 싸지만, 마차가 다시 오려면 시간이 걸린다.",
+    txt_waystation_bulk_discount: "호위를 맡아 안전해진 길 덕분에 상인들이 빵 세 덩이를 더 싼 값에 내놓는다. 이 값은 뒤따르는 여행자에게도 같다.",
+    txt_waystation_merchants_first: "마차를 길목까지 지켜 준 뒤 은화 세 닢을 받는다. 성읍 상인은 호위가 한 번 더 이어지면 정기 보급 값을 낮추겠다고 전한다.",
+    txt_waystation_merchants_trust: "두 번째 호위가 끝나자 상단은 이 길을 믿고 정기 보급 값을 낮춘다. 길목 사람들도 후대 여행자도 이 변화를 누릴 것이다.",
+    txt_waystation_merchants_steady: "상단의 마차를 다시 지켜 준다. 상인들은 이미 약속한 보급 값을 유지하며 호위 품삯을 건넨다.",
+    txt_town_merchant_safe_route: "상인은 북부 우회로의 호위가 안정되자 길목 보급품 가격을 낮췄다고 말한다. 이 변화는 특정 여행자에게만 주는 특혜가 아니다.",
     txt_north_road_guided: "비어 있는 보급품을 손대지 않고 안전한 바퀴 자국을 길목 사람들에게 표시해 준다. 이후 보급 마차는 위험한 돌길을 피하며 한 시간 빨리 움직이고 뱃삯만큼의 은화도 아낀다. 뒤따를 여행자들도 이 길을 쓸 수 있다.",
     txt_north_road_cache_taken: "낡은 꾸러미에서 은화 다섯 닢과 빵 두 덩이를 건졌다. 당장 원정에 도움이 되지만 우회로를 표시할 자취는 흩어졌다. 마차는 예전 길을 계속 달릴 것이다.",
     txt_north_road_guided_convoy: "표시해 둔 우회로를 따라 마차가 빠르게 북상한다. 보급품을 나누어 먹고 쉬는 사이 아홉 시간 만에 성읍이 나타난다.",
