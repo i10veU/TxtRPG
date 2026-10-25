@@ -998,6 +998,8 @@ function finalOptions(key, foe, leads) {
   return options;
 }
 
+import { ruinsExpedition } from './ruins-expedition.js';
+
 export const worldData = {
   formatVersion: 1,
   id: "frontier_village_pack",
@@ -1562,12 +1564,14 @@ export const worldData = {
   },
 
   locations: {
+    ...ruinsExpedition.locations,
     loc_village: {
       name: "변경 마을",
       links: [
         { to: "loc_market", minutes: 15 },
         // V2-Core-53 (D-82): a lantern, or night vision (the scout's trait)
         { to: "loc_ruins", minutes: 45, requires: LIGHT_OR_NIGHT_VISION },
+        { to: 'loc_ruins_cellar', minutes: 20, requires: { op: 'flag', key: 'ruins_cellar_refuge' } },
         // V2-Core-64 (#160): the spring the well's water comes from -- once the character knows it
         { to: "loc_forest_spring", minutes: 60, requires: KNOWS_WELL_SOURCE },
         // V2-Core-72 (#180): the road out, once the bandits who held it are gone
@@ -1580,7 +1584,12 @@ export const worldData = {
     },
     loc_ruins: {
       name: "폐허",
-      links: [{ to: "loc_village", minutes: 45 }]
+      links: [
+        { to: "loc_village", minutes: 45 },
+        { to: 'loc_ruins_cellar', minutes: 20, requires: {
+          op: 'and', of: [{ op: 'unlock', id: 'unl_ruins_cellar_route' }, LIGHT_OR_NIGHT_VISION]
+        } }
+      ]
     },
     loc_forest_spring: {
       name: "숲속 샘",
@@ -1638,6 +1647,7 @@ export const worldData = {
   },
 
   actions: {
+    ...ruinsExpedition.actions,
     act_observe_village: {
       name: "마을 사람들 사이에 섞여 귀를 기울인다",
       requires: { op: "location", at: "loc_village" },
@@ -4541,7 +4551,7 @@ export const worldData = {
         { minRank: 5, label: "Adept" }
       ],
       // V2-Core-142 (M7): the realm's name -- the apex (a title: it opens nothing, the world answers it)
-      unlocks: [{ id: "unl_north_road_survey", kind: "action" }, { id: "unl_trailcraft", kind: "action" }, { id: "unl_caravan_pathfinder", kind: "action" }, { id: "unl_keen_eye", kind: "action" }, { id: "unl_road_lead", kind: "action" }, { id: "unl_guarded_stance", kind: "action" }, { id: "unl_breakthrough_cut", kind: "action" }, { id: "unl_realm_renown", kind: "title" }],
+      unlocks: [{ id: "unl_north_road_survey", kind: "action" }, { id: "unl_trailcraft", kind: "action" }, { id: "unl_caravan_pathfinder", kind: "action" }, { id: "unl_ruins_cellar_route", kind: "action" }, { id: "unl_keen_eye", kind: "action" }, { id: "unl_road_lead", kind: "action" }, { id: "unl_guarded_stance", kind: "action" }, { id: "unl_breakthrough_cut", kind: "action" }, { id: "unl_realm_renown", kind: "title" }],
       // V2-Core-56 (Gate 4 = C, D-85): resources belong to the growth system. Stamina pays for the
       // fight's techniques (the counter 3, the old wound 2); a character without the entry is full
       resources: [{ id: "stamina", max: 6 }]
@@ -4773,6 +4783,7 @@ export const worldData = {
   },
 
   texts: {
+    ...ruinsExpedition.texts,
     txt_observe_village: "사람들 틈에 섞여 귀를 연다. 낯선 얼굴을 흘끔거리긴 해도 어디서 왔느냐고 묻는 이는 없다. 다들 제 걱정이 더 크다.",
     txt_buy_lantern: "상인에게 은화를 건네고 낡은 등불을 받는다. 심지는 짧아도 폐허 안을 비추기엔 충분하다.",
     txt_buy_iron_sword: "상인에게 은화 세 닢을 건네고 손때 묻은 철검을 받는다.",
@@ -5134,6 +5145,7 @@ export const worldData = {
     lbl_unlock_unl_north_road_survey: "북부 도로 정찰",
     lbl_unlock_unl_trailcraft: "길잡이 측량술",
     lbl_unlock_unl_caravan_pathfinder: "상단 길잡이",
+    lbl_unlock_unl_ruins_cellar_route: "매몰 창고 길잡이",
     lbl_unlock_unl_keen_eye: "예리한 눈",
     lbl_unlock_unl_road_lead: "상단을 이끌 자격",
     lbl_unlock_unl_guarded_stance: "방어 검술 자세",

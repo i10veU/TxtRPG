@@ -113,13 +113,13 @@ const springTrapExtension = Number(Boolean(worldData.facts.fact_spring_trap));
 // Post-J3: one authored, carrier-owned crate enables a new supply-route choice.
 const supplyCrateExtension = Number(Boolean(worldData.items.item_waystation_supply_crate));
 assert.deepEqual(Object.fromEntries(Object.entries(actual.fiveKinds).map(([kind, row]) => [kind, row.count])), {
-  Entity: 12, Location: 11, Resource: 14 + supplyCrateExtension, Event: 30 + herbalistExtension,
+  Entity: 12, Location: 12, Resource: 14 + supplyCrateExtension, Event: 30 + herbalistExtension,
   Knowledge: 96 + 2 * herbalistExtension + 4 * worldWordExtension + 2 * springTrapExtension
 });
-assert.equal(actual.totalUniqueNodes, 163 + 3 * herbalistExtension + 4 * worldWordExtension + 2 * springTrapExtension + supplyCrateExtension);
+assert.equal(actual.totalUniqueNodes, 164 + 3 * herbalistExtension + 4 * worldWordExtension + 2 * springTrapExtension + supplyCrateExtension);
 assert.equal(actual.definitions.orgs, 3);
 assert.equal(actual.definitions.growthResources, 1);
-assert.equal(actual.extractedEdges, 75 + herbalistExtension + 2 * worldWordExtension + springTrapExtension, "authored NPC starts and each declared rumor are structural");
+assert.equal(actual.extractedEdges, 79 + herbalistExtension + 2 * worldWordExtension + springTrapExtension, "authored NPC starts and each declared rumor are structural");
 assert.equal(actual.danglingCandidateReferences.length, 0);
 assert.equal(actual.wrongKindReferences.length, 0);
 assert.equal(actual.ambiguousCandidateReferences.length, 0);
