@@ -178,6 +178,14 @@ const COMPOSE = {
     { op: 'rocks', x0: 0.06, x1: 0.94, base: 0.92, n: 13, seed: 'cellar:fallen-stone' },
     { op: 'mist', y: 0.82, h: 0.12 }
   ],
+  // Lower chamber is drawn only after arrival. No hidden world flags are read.
+  loc_ruins_lower_vault: () => [
+    ...hills('ruins:lower', { far: 0.48, mid: 0.62 }),
+    { op: 'ground', tone: 'near', y: 0.81, seed: 'lower:floor' },
+    { op: 'arch', x: 0.48, base: 0.81, w: 0.35, h: 0.62, broken: true },
+    { op: 'rocks', x0: 0.12, x1: 0.9, base: 0.92, n: 12, seed: 'lower:stones' },
+    { op: 'mist', y: 0.87, h: 0.1 }
+  ],
   // 숲속 샘: a pool under tall pines; murky while the well is fouled, clear once it is not
   loc_forest_spring: (m) => [
     { op: "ridge", tone: "far", base: 0.38, amp: 0.14, rough: 2.4, seed: "spring:far" },

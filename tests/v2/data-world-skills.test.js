@@ -73,6 +73,8 @@ function testChecksReadSkills() {
   assert.deepStrictEqual(named, {
     act_investigate_ruins: ["investigation", null],
     act_trace_ruins_cellar: ["investigation", null],
+    act_ruins_lower_scout: ["investigation", null],
+    act_ruins_lower_breach: ["swordsmanship", null],
     act_confront_leader: [null, null],
     act_castle_spar_trial: ["swordsmanship", null],
     act_castle_breakthrough_trial: ["swordsmanship", null],

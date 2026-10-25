@@ -1572,6 +1572,7 @@ export const worldData = {
         // V2-Core-53 (D-82): a lantern, or night vision (the scout's trait)
         { to: "loc_ruins", minutes: 45, requires: LIGHT_OR_NIGHT_VISION },
         { to: 'loc_ruins_cellar', minutes: 20, requires: { op: 'flag', key: 'ruins_cellar_refuge' } },
+        { to: 'loc_ruins_lower_vault', minutes: 30, requires: { op: 'flag', key: 'ruins_lower_public' } },
         // V2-Core-64 (#160): the spring the well's water comes from -- once the character knows it
         { to: "loc_forest_spring", minutes: 60, requires: KNOWS_WELL_SOURCE },
         // V2-Core-72 (#180): the road out, once the bandits who held it are gone
@@ -4551,7 +4552,7 @@ export const worldData = {
         { minRank: 5, label: "Adept" }
       ],
       // V2-Core-142 (M7): the realm's name -- the apex (a title: it opens nothing, the world answers it)
-      unlocks: [{ id: "unl_north_road_survey", kind: "action" }, { id: "unl_trailcraft", kind: "action" }, { id: "unl_caravan_pathfinder", kind: "action" }, { id: "unl_ruins_cellar_route", kind: "action" }, { id: "unl_keen_eye", kind: "action" }, { id: "unl_road_lead", kind: "action" }, { id: "unl_guarded_stance", kind: "action" }, { id: "unl_breakthrough_cut", kind: "action" }, { id: "unl_realm_renown", kind: "title" }],
+      unlocks: [{ id: "unl_north_road_survey", kind: "action" }, { id: "unl_trailcraft", kind: "action" }, { id: "unl_caravan_pathfinder", kind: "action" }, { id: "unl_ruins_cellar_route", kind: "action" }, { id: "unl_ruins_lower_route", kind: "action" }, { id: "unl_keen_eye", kind: "action" }, { id: "unl_road_lead", kind: "action" }, { id: "unl_guarded_stance", kind: "action" }, { id: "unl_breakthrough_cut", kind: "action" }, { id: "unl_realm_renown", kind: "title" }],
       // V2-Core-56 (Gate 4 = C, D-85): resources belong to the growth system. Stamina pays for the
       // fight's techniques (the counter 3, the old wound 2); a character without the entry is full
       resources: [{ id: "stamina", max: 6 }]
@@ -5146,6 +5147,7 @@ export const worldData = {
     lbl_unlock_unl_trailcraft: "길잡이 측량술",
     lbl_unlock_unl_caravan_pathfinder: "상단 길잡이",
     lbl_unlock_unl_ruins_cellar_route: "매몰 창고 길잡이",
+    lbl_unlock_unl_ruins_lower_route: "지하 봉인실 길잡이",
     lbl_unlock_unl_keen_eye: "예리한 눈",
     lbl_unlock_unl_road_lead: "상단을 이끌 자격",
     lbl_unlock_unl_guarded_stance: "방어 검술 자세",
