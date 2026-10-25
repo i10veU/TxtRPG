@@ -75,6 +75,34 @@ const futureObserved = add(structuredClone(validWarning), "rum_raid_coming", { d
 assert.equal(project(futureObserved).stage, 1, "future observation cannot outrank current knowledge");
 const futureHeard = add(structuredClone(validWarning), "rum_raid_coming", { day: 0, heard: 7 });
 assert.equal(project(futureHeard).stage, 1, "unreceived future report cannot outrank current knowledge");
+
+// J3 clock must use the same first-observation time boundary as engine
+// source checks and the linked-case notebook. Contradictory restored entries
+// cannot reveal tomorrow's warning today, even with old lastSeenDay values.
+const futureFirstSeen = add(structuredClone(validWarning), "rum_raid_coming", { day: 0, heard: 0 });
+futureFirstSeen.knowledge[owner].rum_raid_coming.firstSeenDay = 5;
+assert.equal(project(futureFirstSeen).stage, 1,
+  "future first observation must not replace today's legitimate warning");
+const futureFirstSeenOnly = add(fresh(), "rum_raid_coming", { day: 0, heard: 0 });
+futureFirstSeenOnly.knowledge[futureFirstSeenOnly.player.actorId].rum_raid_coming.firstSeenDay = 5;
+assert.equal(project(futureFirstSeenOnly), null,
+  "an impossible first-seen date alone must not expose a hidden raid");
+
+// Canonical multi-source records supersede stale single-source Save fields.
+// The returned source must not contradict the authoritative sources[] list.
+const conflictingSources = structuredClone(validWarning);
+conflictingSources.knowledge[owner].rum_band_recruits.source = "obs_loc_ruins";
+assert.deepEqual(project(conflictingSources).sources, ["npc_elder"]);
+assert.equal(project(conflictingSources).source, "npc_elder",
+  "a stale legacy source cannot masquerade as firsthand provenance");
+const emptySources = structuredClone(conflictingSources);
+emptySources.knowledge[owner].rum_band_recruits.sources = [];
+assert.equal(project(emptySources).source, null,
+  "an authoritative empty source list must not revive stale legacy provenance");
+const oldSave = structuredClone(validWarning);
+delete oldSave.knowledge[owner].rum_band_recruits.sources;
+assert.equal(project(oldSave).source, "npc_elder", "legacy single-source saves remain supported");
+
 assert.equal(knowledgeClock({ wrong_key: mismatched.knowledge[owner].wrong_key }, worldData, 0), null,
   "mis-keyed rumor alone must not reveal a danger clock");
 

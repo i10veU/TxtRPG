@@ -32,7 +32,14 @@ export function knowledgeClock(knowledge, data, minute) {
     const heardDay = Number.isInteger(known.lastSeenDay) ? known.lastSeenDay : aboutDay;
     // A future observation or a report not yet received is not knowledge.
     // Do not let either supersede a legitimately heard, older warning.
-    if (aboutDay > today || heardDay > today) return [];
+    if (aboutDay > today || heardDay > today ||
+        (Number.isInteger(known.firstSeenDay) && known.firstSeenDay > today)) return [];
+    // A normalized sources[] list is authoritative over the legacy source.
+    // Keep the legacy field only when it agrees with that list, or when an
+    // older Save has no list at all. This is display provenance, not proof.
+    const sources = (Array.isArray(known.sources) ? known.sources : [known.source])
+      .filter((source) => typeof source === "string");
+    const source = sources.includes(known.source) ? known.source : sources[0] ?? null;
     return [{
       rumorId: known.rumorId,
       stage: report[0],
@@ -40,8 +47,8 @@ export function knowledgeClock(knowledge, data, minute) {
       aboutDay,
       heardDay,
       confidence: Number.isInteger(known.confidence) ? known.confidence : 0,
-      source: typeof known.source === "string" ? known.source : null,
-      sources: (Array.isArray(known.sources) ? known.sources : [known.source]).filter((s) => typeof s === "string"),
+      source,
+      sources,
       validDays: def.validDays
     }];
   });
