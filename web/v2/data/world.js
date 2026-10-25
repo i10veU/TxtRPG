@@ -679,6 +679,13 @@ const NORTH_ROAD_GUIDED_READY = { op: "and", of: [
 // A world-owned merchant circuit begins only when the road has been marked safe.
 // Deliveries replenish one bundle per day, up to three. Two player escorts
 // establish a permanent public discount; personal merchant trust stays personal.
+// The first shipment can be pledged to local relief or sold privately. Both
+// choices are public world history; neither is an inherited personal skill.
+const NORTH_SUPPLY_PACT_OPEN = { op: "and", of: [
+  { op: "not", of: { op: "flag", key: "north_supply_relief_pact" } },
+  { op: "not", of: { op: "flag", key: "north_supply_private_sale" } }
+] };
+const NORTH_SUPPLY_RELIEF = { op: "flag", key: "north_supply_relief_pact" };
 const NORTH_WAYSTATION_STOCK = { op: "signal", key: "north_waystation_stock", min: 1 };
 const NORTH_WAYSTATION_RELIABLE = { op: "signal", key: "north_waystation_reliability", min: 2 };
 const NORTH_WAYSTATION_BUNDLE_FUNDS = { op: "or", of: [
@@ -1123,8 +1130,15 @@ export const worldData = {
       cooldown: 1440,
       catchUp: true,
       effects: [
+        // The millers' public relief pact draws an additional shared ration
+        // shipment when space allows. The three-bundle warehouse cap remains.
         { op: "if", when: { op: "signal", key: "north_waystation_stock", max: 2 },
-          then: [{ op: "signal", key: "north_waystation_stock", add: 1 }] }
+          then: [
+            { op: "signal", key: "north_waystation_stock", add: 1 },
+            { op: "if", when: { op: "and", of: [NORTH_SUPPLY_RELIEF,
+              { op: "signal", key: "north_waystation_stock", max: 2 }] },
+              then: [{ op: "signal", key: "north_waystation_stock", add: 1 }] }
+          ] }
       ]
     },
     // V2-Core-125 (#307, Road News step 1a): the road's condition moves with the caravans' cadence -- one turn per cycle,
@@ -2197,6 +2211,40 @@ export const worldData = {
           then: [{ op: "money", add: -2 }, say("txt_waystation_bulk_discount")],
           else: [{ op: "money", add: -3 }, say("txt_waystation_bulk_standard")] },
         { op: "item", item: "item_mill_bread", add: 3 }
+      ]
+    },
+    // The first available shipment forces a lasting economic choice. Giving
+    // the millers a share establishes a second daily delivery, while a private
+    // sale funds the current expedition but keeps the public route at one.
+    act_pledge_north_relief: {
+      name: "첫 보급품을 물레방아 마을 구휼에 배정한다 (재고 1, 60분)",
+      requires: { op: "and", of: [
+        { op: "location", at: "loc_far_bank" },
+        { op: "flag", key: "north_road_guided" },
+        NORTH_WAYSTATION_STOCK, NORTH_SUPPLY_PACT_OPEN
+      ] },
+      minutes: 60,
+      effects: [
+        { op: "signal", key: "north_waystation_stock", add: -1 },
+        { op: "flag", key: "north_supply_relief_pact", value: true },
+        { op: "relation", from: "org_mill_hamlet", add: 4 },
+        say("txt_north_supply_relief_pact")
+      ]
+    },
+    act_sell_north_private_contract: {
+      name: "첫 보급품을 성읍의 사설 계약에 넘긴다 (재고 1, 은화 8, 60분)",
+      requires: { op: "and", of: [
+        { op: "location", at: "loc_far_bank" },
+        { op: "flag", key: "north_road_guided" },
+        NORTH_WAYSTATION_STOCK, NORTH_SUPPLY_PACT_OPEN
+      ] },
+      minutes: 60,
+      effects: [
+        { op: "signal", key: "north_waystation_stock", add: -1 },
+        { op: "money", add: 8 },
+        { op: "flag", key: "north_supply_private_sale", value: true },
+        { op: "relation", from: "npc_town_merchant", add: 4 },
+        say("txt_north_supply_private_sale")
       ]
     },
     act_escort_north_merchant: {
@@ -3329,6 +3377,10 @@ export const worldData = {
             say("txt_town_merchant_south_goods"),
             { op: "if", when: NORTH_WAYSTATION_RELIABLE,
               then: [say("txt_town_merchant_safe_route")] },
+            { op: "if", when: NORTH_SUPPLY_RELIEF,
+              then: [say("txt_town_merchant_relief_pact")],
+              else: [{ op: "if", when: { op: "flag", key: "north_supply_private_sale" },
+                then: [say("txt_town_merchant_private_contract")] }] },
             // V2-Core-85 (#207): whether the town wants flour now
             {
               op: "if",
@@ -3636,6 +3688,10 @@ export const worldData = {
               then: [{ op: "relation", from: "npc_miller", add: 5, tag: "welcomed" }, say("txt_miller_welcome")]
             },
             { op: "if", when: HAMLET_TRADES, then: [say("txt_miller_trade_running")] },
+            { op: "if", when: NORTH_SUPPLY_RELIEF,
+              then: [say("txt_miller_relief_arrives")],
+              else: [{ op: "if", when: { op: "flag", key: "north_supply_private_sale" },
+                then: [say("txt_miller_private_shortage")] }] },
             // V2-Core-141 (M2): the band across the river buys flour -- the miller hears who pays
             { op: "if", when: BAND_GATHERING, then: [{ op: "rumor", rumor: "rum_band_recruits", source: "npc_miller", confidence: 60, about: "now" }, say("txt_miller_band")] },
             // V2-Core-135 (D-114): what he made of the caravan's last purchase -- told as the day it happened (a seller's guess)
@@ -4535,6 +4591,12 @@ export const worldData = {
     txt_buy_waystation_bread: "강 건너 길목의 보급소에서 은화 두 닢을 내고 빵 한 덩이를 산다. 먼 길에 비싼 값이지만 야영할 식량을 마련했다.",
     txt_north_survey_found: "길목에서 북쪽으로 난 수레바퀴 자국을 따라가자 허물어진 돌담과 비어 있는 보급 꾸러미가 보인다. 우회로를 표시해 앞으로 다닐 상단을 돕거나, 남은 물자를 당장 회수할 수 있다. 두 길을 모두 택할 수는 없다.",
     txt_north_survey_retry: "수레바퀴 자국이 갈라지는 곳에서 길을 놓쳤다. 서두르다 발목을 헛디뎠지만, 다시 조사하면 흔적을 따라갈 수 있을 것이다.",
+    txt_north_supply_relief_pact: "첫 보급 마차의 짐 한 묶음을 물레방아 마을 구휼 장부에 배정한다. 방앗간 사람들은 북부 길목에 공동 창고를 마련해 다음 날부터 하루 두 묶음씩 보급품을 모으기로 한다. 이 약속은 나뿐 아니라 뒤따르는 여행자에게도 남는다.",
+    txt_north_supply_private_sale: "첫 보급 마차의 짐 한 묶음을 성읍의 사설 계약에 넘기고 은화 여덟 닢을 받는다. 마을 공동 창고를 세울 기회는 사라졌고, 길목에는 기존대로 하루 한 묶음씩만 보급품이 도착한다.",
+    txt_town_merchant_relief_pact: "상인은 방앗간 사람들이 북부 길목의 공동 창고를 운영한다고 말한다. 이제 하루 두 묶음의 보급이 오지만 창고가 가득 차면 마차는 되돌아간다.",
+    txt_town_merchant_private_contract: "상인은 첫 보급품을 사들인 사설 계약이 끝났다고 말한다. 길목의 보급은 하루 한 묶음씩 이어지고, 마을 공동 창고는 열리지 않았다.",
+    txt_miller_relief_arrives: "방앗간 주인은 길목에 구휼 창고를 세운 덕에 보급 마차가 하루 두 묶음씩 온다고 말한다. 누가 먼저 계약했는지보다 창고가 오래 버티는 일이 중요하다고 덧붙인다.",
+    txt_miller_private_shortage: "방앗간 주인은 길목의 첫 짐이 사설 계약으로 팔려 공동 창고를 마련하지 못했다고 말한다. 이제 길목에 도착하는 하루 한 묶음의 보급품을 서로 기다려야 한다.",
     txt_waystation_bulk_standard: "북쪽에서 도착한 정기 보급 마차가 빵 세 덩이를 묶어 판다. 평소 길목에서 낱개로 살 때보다 값이 싸지만, 마차가 다시 오려면 시간이 걸린다.",
     txt_waystation_bulk_discount: "호위를 맡아 안전해진 길 덕분에 상인들이 빵 세 덩이를 더 싼 값에 내놓는다. 이 값은 뒤따르는 여행자에게도 같다.",
     txt_waystation_merchants_first: "마차를 길목까지 지켜 준 뒤 은화 세 닢을 받는다. 성읍 상인은 호위가 한 번 더 이어지면 정기 보급 값을 낮추겠다고 전한다.",

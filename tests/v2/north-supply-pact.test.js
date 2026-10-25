@@ -1,0 +1,64 @@
+// A one-time choice changes autonomous shipments and both merchants' responses.
+import assert from 'node:assert/strict';
+import { createInitialState, step, view, validateState, checkDataCompatibility } from '../../web/v2/core/engine.js';
+import { buildSaveRecord, parseLoadedRecord } from '../../web/v2/storage/idb.js';
+import { worldData } from '../../web/v2/data/world.js';
+
+const actor = s => s.actors[s.player.actorId];
+const stock = s => s.signals?.north_waystation_stock ?? 0;
+const action = id => ({ type: 'perform', actionId: id });
+const wait = minutes => ({ type: 'wait', minutes });
+const can = (s, id) => view(s, worldData).actions.some(a => a.actionId === id && a.available);
+const run = (s, a) => {
+  const result = step(s, a, worldData);
+  assert.equal(result.events.some(e => e.type === 'action.rejected'), false, JSON.stringify(a));
+  assert.deepEqual(validateState(result.state), []);
+  assert.deepEqual(checkDataCompatibility(result.state, worldData), []);
+  return result.state;
+};
+const initial = createInitialState({ worldSeed: 'north-supply-pact-468', data: worldData }).state;
+actor(initial).locationId = 'loc_far_bank';
+actor(initial).money = 20;
+initial.flags ??= {};
+initial.flags.north_road_guided = true;
+initial.flags.waystation_supply_delivered = true;
+const ready = run(initial, wait(1));
+assert.equal(stock(ready), 1);
+assert.equal(can(ready, 'act_pledge_north_relief'), true);
+assert.equal(can(ready, 'act_sell_north_private_contract'), true);
+
+const relief = run(ready, action('act_pledge_north_relief'));
+assert.equal(stock(relief), 0);
+assert.equal(relief.flags.north_supply_relief_pact, true);
+assert.equal(can(relief, 'act_sell_north_private_contract'), false);
+assert.equal(actor(relief).money, 20);
+assert.deepEqual(relief.rng, ready.rng);
+const reliefDay = run(relief, wait(1440));
+assert.equal(stock(reliefDay), 2, 'community warehouse attracts two daily bundles');
+const reliefFull = run(reliefDay, wait(1440));
+assert.equal(stock(reliefFull), 3, 'warehouse capacity is still three');
+const reliefCapped = [1, 2, 3].reduce(s => run(s, wait(1440)), reliefFull);
+assert.equal(stock(reliefCapped), 3, 'no unbounded backlog after a full warehouse');
+
+const privateSale = run(ready, action('act_sell_north_private_contract'));
+assert.equal(stock(privateSale), 0);
+assert.equal(actor(privateSale).money, 28);
+assert.equal(privateSale.flags.north_supply_private_sale, true);
+assert.equal(can(privateSale, 'act_pledge_north_relief'), false);
+assert.deepEqual(privateSale.rng, ready.rng);
+const privateDay = run(privateSale, wait(1440));
+assert.equal(stock(privateDay), 1, 'private contract retains one daily shipment');
+assert.equal(stock(run(privateDay, wait(1440))), 2);
+assert.deepEqual(run(ready, action('act_pledge_north_relief')), relief);
+const roundtrip = s => parseLoadedRecord(JSON.parse(JSON.stringify(buildSaveRecord('north-pact', s, { savedAt: 1 }))));
+assert.deepEqual(roundtrip(reliefDay), reliefDay);
+assert.deepEqual(roundtrip(privateDay), privateDay);
+const heirSeed = structuredClone(reliefDay);
+actor(heirSeed).alive = false;
+heirSeed.pending = { kind: 'newCharacter' };
+const heir = run(heirSeed, { type: 'startCharacter', templateId: 'start_wanderer' });
+assert.equal(heir.flags.north_supply_relief_pact, true);
+assert.equal(stock(run(heir, wait(1440))), 3);
+assert.deepEqual(reliefDay.rng, relief.rng);
+assert.deepEqual(privateDay.rng, privateSale.rng);
+console.log('North supply pact: public relief/private contract, autonomous cadence, capacity, Save, succession, deterministic RNG PASS');
