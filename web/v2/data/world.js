@@ -701,6 +701,27 @@ const NORTH_RELIEF_SHORTAGE = { op: "and", of: [
   { op: "not", of: { op: "flag", key: "north_relief_shortage_recovered" } }
 ] };
 const NORTH_RELIEF_NORMAL = { op: "not", of: NORTH_RELIEF_SHORTAGE };
+// The public road hosts a separate merchant caravan with a world-owned
+// position (0 castle, 1 far bank, 2 mill) and finite cargo. Only travellers
+// physically present at a stop can trade with it; no global location hints.
+const NORTH_TRADE_AT_FAR_BANK = { op: "and", of: [
+  { op: "flag", key: "north_road_guided" },
+  { op: "signal", key: "north_trade_stage", eq: 1 }
+] };
+const NORTH_TRADE_AT_MILL = { op: "and", of: [
+  { op: "flag", key: "north_road_guided" },
+  { op: "signal", key: "north_trade_stage", eq: 2 }
+] };
+const NORTH_TRADE_HAS_CARGO = { op: "signal", key: "north_trade_stock", min: 1 };
+// A merchant caravan may donate one of its own bundles to an actual village
+// shortage; it cannot manufacture public rations or overfill the mill.
+const NORTH_TRADE_RELIEF_TRANSFER = { op: "if", when: { op: "and", of: [
+  NORTH_RELIEF_SHORTAGE, NORTH_MILL_RELIEF_SPACE, NORTH_TRADE_HAS_CARGO
+] }, then: [
+  { op: "signal", key: "north_trade_stock", add: -1 },
+  { op: "signal", key: "north_mill_relief_stock", add: 1 }
+] };
+
 const NORTH_WAYSTATION_RELIABLE = { op: "signal", key: "north_waystation_reliability", min: 2 };
 const NORTH_WAYSTATION_BUNDLE_FUNDS = { op: "or", of: [
   { op: "money", min: 3 },
@@ -1152,6 +1173,35 @@ export const worldData = {
             { op: "if", when: { op: "and", of: [NORTH_SUPPLY_RELIEF,
               { op: "signal", key: "north_waystation_stock", max: 2 }] },
               then: [{ op: "signal", key: "north_waystation_stock", add: 1 }] }
+          ] },
+        // A real three-stop merchant route, advanced by the same daily tick:
+        // castle -> far bank -> mill -> castle. Dangerous roads hold the wagon
+        // at the far bank until a player escorts it or the road clears.
+        { op: "if", when: { op: "signal", key: "north_trade_stage", eq: 0 },
+          then: [
+            { op: "signal", key: "north_trade_stage", add: 1 },
+            { op: "if", when: { op: "signal", key: "north_trade_stock", max: 0 },
+              then: [{ op: "signal", key: "north_trade_stock", add: 2 }] }
+          ], else: [
+            { op: "if", when: { op: "signal", key: "north_trade_stage", eq: 1 },
+              then: [
+                { op: "if", when: { op: "signal", key: "road_trouble", max: 1 },
+                  then: [
+                    { op: "signal", key: "north_trade_stage", add: 1 },
+                    NORTH_TRADE_RELIEF_TRANSFER
+                  ] }
+              ], else: [
+                { op: "if", when: { op: "signal", key: "north_trade_stage", eq: 2 },
+                  then: [
+                    { op: "signal", key: "north_trade_stage", add: -2 },
+                    { op: "if", when: { op: "signal", key: "north_trade_stock", max: 1 },
+                      then: [
+                        { op: "signal", key: "north_trade_stock", add: 1 },
+                        { op: "if", when: { op: "signal", key: "north_trade_stock", eq: 1 },
+                          then: [{ op: "signal", key: "north_trade_stock", add: 1 }] }
+                      ] }
+                  ] }
+              ] }
           ] }
       ]
     },
@@ -2406,6 +2456,55 @@ export const worldData = {
         { op: "flag", key: "north_relief_shortage_recovered", value: true },
         { op: "relation", from: "npc_town_merchant", add: 4 },
         say("txt_north_relief_caravan_funded")
+      ]
+    },
+    // Unlike the stationary waystation, this merchant can be met only where
+    // its scheduled wagon actually is. Buying and selling use the same finite
+    // cargo, so a player cannot buy and resell indefinitely for a profit.
+    act_sell_bread_to_north_caravan: {
+      name: "길목에 도착한 북부 상단에 빵 2개를 판다 (은화 +2, 20분)",
+      requires: { op: "and", of: [
+        { op: "location", at: "loc_far_bank" }, NORTH_TRADE_AT_FAR_BANK,
+        { op: "item", item: "item_mill_bread", min: 2 },
+        { op: "signal", key: "north_trade_stock", max: 2 }
+      ] },
+      minutes: 20,
+      effects: [
+        { op: "item", item: "item_mill_bread", add: -2 },
+        { op: "money", add: 2 },
+        { op: "signal", key: "north_trade_stock", add: 1 },
+        say("txt_north_trade_caravan_sold")
+      ]
+    },
+    act_buy_bread_from_north_caravan: {
+      name: "마을에 도착한 북부 상단에서 빵 2개를 산다 (은화 3, 20분)",
+      requires: { op: "and", of: [
+        { op: "location", at: "loc_mill_hamlet" }, NORTH_TRADE_AT_MILL,
+        NORTH_TRADE_HAS_CARGO, { op: "money", min: 3 }
+      ] },
+      minutes: 20,
+      effects: [
+        { op: "money", add: -3 },
+        { op: "signal", key: "north_trade_stock", add: -1 },
+        { op: "item", item: "item_mill_bread", add: 2 },
+        say("txt_north_trade_caravan_bought")
+      ]
+    },
+    act_escort_north_trade_caravan: {
+      name: "위험한 길에서 북부 상단을 호위해 마을로 보낸다 (기력 2, 2시간, 은화 +4)",
+      requires: { op: "and", of: [
+        { op: "location", at: "loc_far_bank" }, NORTH_TRADE_AT_FAR_BANK,
+        { op: "signal", key: "road_trouble", min: 2 }, STAMINA_AT_LEAST(2)
+      ] },
+      minutes: 120,
+      effects: [
+        { op: "resource", resource: "stamina", add: -2 },
+        { op: "money", add: 4 },
+        { op: "relation", from: "npc_town_merchant", add: 3 },
+        { op: "signal", key: "road_trouble", add: -1 },
+        { op: "signal", key: "north_trade_stage", add: 1 },
+        NORTH_TRADE_RELIEF_TRANSFER,
+        say("txt_north_trade_caravan_escorted")
       ]
     },
     act_escort_north_merchant: {
@@ -4774,6 +4873,9 @@ export const worldData = {
     txt_miller_relief_stalled: "북부 길목의 마차 한 대가 위험한 도로에 멈춰 있다. 그 짐이 오기 전까지는 공동 창고에 새 식량이 들어오지 않는다.",
     txt_miller_relief_losses: "방앗간 주인은 길에서 사라진 구휼 식량의 장부를 보여 준다. 없어진 짐은 후대에도 마을의 기록으로 남는다.",
     txt_north_relief_rations: "방앗간 주인이 공동 창고의 짐 한 묶음을 풀어 빵 두 덩이를 내어 준다. 작은 기부금을 받고 장부에서 재고 한 칸을 지운다.",
+    txt_north_trade_caravan_sold: "길목을 지나던 북부 상단에 빵 두 덩이를 넘겼다. 은화 두 닢을 받았고 마차의 실제 식량 재고가 한 묶음 늘었다.",
+    txt_north_trade_caravan_bought: "물레방아 마을에 도착한 상단의 마차에서 빵 두 덩이를 샀다. 상단의 짐 한 묶음이 줄었다.",
+    txt_north_trade_caravan_escorted: "위험한 북부 도로에서 상단을 호위해 마을까지 데려왔다. 길의 위험이 줄었고, 식량난 중이라면 상단이 자신의 짐 한 묶음을 공동 창고에 내놓았다.",
     txt_north_relief_crisis_rations: "사라진 마차 두 대의 몫을 채우지 못해 구휼 배급이 줄었다. 은화 두 닢을 내고 남은 빵 한 덩이를 받아 든다. 창고의 짐 한 묶음은 줄어든다.",
     txt_north_relief_bread_donated: "내 식량 세 덩이를 공동 창고에 기부했다. 마을은 한 묶음의 구휼 재고를 되찾고, 배급을 정상화한다. 사라진 짐의 장부는 그대로 남는다.",
     txt_north_relief_caravan_funded: "성읍 상인에게 은화 여섯 닢을 맡겨 공동 창고로 보낼 보급 마차를 새로 마련했다. 마을 배급이 회복되지만 옛 손실 기록은 지워지지 않는다.",
