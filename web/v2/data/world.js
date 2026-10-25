@@ -693,6 +693,14 @@ const NORTH_MILL_RELIEF_STOCK = { op: "signal", key: "north_mill_relief_stock", 
 // at the origin and cannot be delivered or seized twice; the world remembers losses.
 const NORTH_RELIEF_STALLED = { op: "signal", key: "north_relief_stalled", min: 1 };
 const NORTH_RELIEF_CLEAR = { op: "signal", key: "north_relief_stalled", max: 0 };
+// Two lost public convoys cause an observable village shortage. Repair is a
+// one-time world project, not erasure of the permanent historical loss count.
+const NORTH_RELIEF_SHORTAGE = { op: "and", of: [
+  NORTH_SUPPLY_RELIEF,
+  { op: "signal", key: "north_relief_losses", min: 2 },
+  { op: "not", of: { op: "flag", key: "north_relief_shortage_recovered" } }
+] };
+const NORTH_RELIEF_NORMAL = { op: "not", of: NORTH_RELIEF_SHORTAGE };
 const NORTH_WAYSTATION_RELIABLE = { op: "signal", key: "north_waystation_reliability", min: 2 };
 const NORTH_WAYSTATION_BUNDLE_FUNDS = { op: "or", of: [
   { op: "money", min: 3 },
@@ -2340,7 +2348,7 @@ export const worldData = {
       name: "공동 창고에서 빵 2개를 배급받는다 (은화 1, 15분)",
       requires: { op: "and", of: [
         { op: "location", at: "loc_mill_hamlet" }, NORTH_SUPPLY_RELIEF,
-        NORTH_MILL_RELIEF_STOCK, { op: "money", min: 1 }
+        NORTH_MILL_RELIEF_STOCK, NORTH_RELIEF_NORMAL, { op: "money", min: 1 }
       ] },
       minutes: 15,
       effects: [
@@ -2348,6 +2356,56 @@ export const worldData = {
         { op: "signal", key: "north_mill_relief_stock", add: -1 },
         { op: "item", item: "item_mill_bread", add: 2 },
         say("txt_north_relief_rations")
+      ]
+    },
+    // Repeated convoy losses reduce the village's available ration per bundle
+    // and double its price until the public warehouse is repaired.
+    act_buy_mill_relief_rations_crisis: {
+      name: "구휼 식량 부족분을 배급받는다 (은화 2, 빵 1개, 15분)",
+      requires: { op: "and", of: [
+        { op: "location", at: "loc_mill_hamlet" }, NORTH_RELIEF_SHORTAGE,
+        NORTH_MILL_RELIEF_STOCK, { op: "money", min: 2 }
+      ] },
+      minutes: 15,
+      effects: [
+        { op: "money", add: -2 },
+        { op: "signal", key: "north_mill_relief_stock", add: -1 },
+        { op: "item", item: "item_mill_bread", add: 1 },
+        say("txt_north_relief_crisis_rations")
+      ]
+    },
+    // Two distinct recovery routes: give up personal provisions at the mill,
+    // or pay the castle merchant to replace one lost public shipment.
+    // Neither erases the losses that caused the shortage. Both are one-time,
+    // world-owned outcomes that survive succession without new Save fields.
+    act_donate_north_relief_bread: {
+      name: "공동 창고에 빵 3개를 기부해 배급을 복구한다 (1시간)",
+      requires: { op: "and", of: [
+        { op: "location", at: "loc_mill_hamlet" }, NORTH_RELIEF_SHORTAGE,
+        NORTH_MILL_RELIEF_SPACE, { op: "item", item: "item_mill_bread", min: 3 }
+      ] },
+      minutes: 60,
+      effects: [
+        { op: "item", item: "item_mill_bread", add: -3 },
+        { op: "signal", key: "north_mill_relief_stock", add: 1 },
+        { op: "flag", key: "north_relief_shortage_recovered", value: true },
+        { op: "relation", from: "npc_miller", add: 4 },
+        say("txt_north_relief_bread_donated")
+      ]
+    },
+    act_fund_north_relief_caravan: {
+      name: "성읍 상인에게 구휼 마차 재조달을 맡긴다 (은화 6, 2시간)",
+      requires: { op: "and", of: [
+        { op: "location", at: "loc_castle_town" }, NORTH_RELIEF_SHORTAGE,
+        NORTH_MILL_RELIEF_SPACE, { op: "money", min: 6 }
+      ] },
+      minutes: 120,
+      effects: [
+        { op: "money", add: -6 },
+        { op: "signal", key: "north_mill_relief_stock", add: 1 },
+        { op: "flag", key: "north_relief_shortage_recovered", value: true },
+        { op: "relation", from: "npc_town_merchant", add: 4 },
+        say("txt_north_relief_caravan_funded")
       ]
     },
     act_escort_north_merchant: {
@@ -3481,7 +3539,11 @@ export const worldData = {
             { op: "if", when: NORTH_WAYSTATION_RELIABLE,
               then: [say("txt_town_merchant_safe_route")] },
             { op: "if", when: NORTH_SUPPLY_RELIEF,
-              then: [say("txt_town_merchant_relief_pact")],
+              then: [say("txt_town_merchant_relief_pact"),
+                { op: "if", when: NORTH_RELIEF_SHORTAGE,
+                  then: [say("txt_town_merchant_relief_shortage")],
+                  else: [{ op: "if", when: { op: "flag", key: "north_relief_shortage_recovered" },
+                    then: [say("txt_town_merchant_relief_recovered")] }] }],
               else: [{ op: "if", when: { op: "flag", key: "north_supply_private_sale" },
                 then: [say("txt_town_merchant_private_contract")] }] },
             // V2-Core-85 (#207): whether the town wants flour now
@@ -3797,6 +3859,10 @@ export const worldData = {
                   then: [say("txt_miller_relief_stalled")] },
                 { op: "if", when: { op: "signal", key: "north_relief_losses", min: 1 },
                   then: [say("txt_miller_relief_losses")] },
+                { op: "if", when: NORTH_RELIEF_SHORTAGE,
+                  then: [say("txt_miller_relief_shortage")],
+                  else: [{ op: "if", when: { op: "flag", key: "north_relief_shortage_recovered" },
+                    then: [say("txt_miller_relief_recovered")] }] },
                 { op: "if", when: NORTH_MILL_RELIEF_STOCK,
                   then: [say("txt_miller_relief_stocked")],
                   else: [say("txt_miller_relief_empty")] }],
@@ -4708,6 +4774,13 @@ export const worldData = {
     txt_miller_relief_stalled: "북부 길목의 마차 한 대가 위험한 도로에 멈춰 있다. 그 짐이 오기 전까지는 공동 창고에 새 식량이 들어오지 않는다.",
     txt_miller_relief_losses: "방앗간 주인은 길에서 사라진 구휼 식량의 장부를 보여 준다. 없어진 짐은 후대에도 마을의 기록으로 남는다.",
     txt_north_relief_rations: "방앗간 주인이 공동 창고의 짐 한 묶음을 풀어 빵 두 덩이를 내어 준다. 작은 기부금을 받고 장부에서 재고 한 칸을 지운다.",
+    txt_north_relief_crisis_rations: "사라진 마차 두 대의 몫을 채우지 못해 구휼 배급이 줄었다. 은화 두 닢을 내고 남은 빵 한 덩이를 받아 든다. 창고의 짐 한 묶음은 줄어든다.",
+    txt_north_relief_bread_donated: "내 식량 세 덩이를 공동 창고에 기부했다. 마을은 한 묶음의 구휼 재고를 되찾고, 배급을 정상화한다. 사라진 짐의 장부는 그대로 남는다.",
+    txt_north_relief_caravan_funded: "성읍 상인에게 은화 여섯 닢을 맡겨 공동 창고로 보낼 보급 마차를 새로 마련했다. 마을 배급이 회복되지만 옛 손실 기록은 지워지지 않는다.",
+    txt_miller_relief_shortage: "구휼 마차 두 대 이상이 사라진 뒤 배급이 줄고 값이 올랐다. 식량을 보태거나 성읍 상인의 재조달을 부탁해야 한다.",
+    txt_miller_relief_recovered: "사라진 마차의 장부는 남았지만 새 식량을 마련해 배급을 원래대로 돌렸다. 다음 세대도 공동 창고를 이용할 수 있다.",
+    txt_town_merchant_relief_shortage: "북부 구휼 마차가 거듭 사라져 마을 배급이 부족하다. 상인은 은화 여섯 닢이면 새 짐을 공동 창고로 보내겠다고 한다.",
+    txt_town_merchant_relief_recovered: "상인은 새 구휼 짐이 마을 창고에 도착했고 배급이 정상화되었다고 전한다. 지난 손실은 여전히 장부에 남아 있다.",
     txt_miller_relief_stocked: "마을 공동 창고에 배급할 빵이 남아 있다. 하루마다 북부 길목에서 마차가 오지만 창고가 가득 차면 다음 짐은 기다려야 한다.",
     txt_miller_relief_empty: "마을 공동 창고의 배급분이 다 떨어졌다. 방앗간 주인은 북부 길목에서 다음 마차가 올 때까지 기다린다고 한다.",
     txt_north_supply_private_sale: "첫 보급 마차의 짐 한 묶음을 성읍의 사설 계약에 넘기고 은화 여덟 닢을 받는다. 마을 공동 창고를 세울 기회는 사라졌고, 길목에는 기존대로 하루 한 묶음씩만 보급품이 도착한다.",
