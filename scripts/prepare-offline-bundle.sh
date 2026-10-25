@@ -13,7 +13,7 @@ git clone --quiet --mirror "$REMOTE" "$TMP/repository.git"
 git -C "$TMP/repository.git" show-ref --verify --quiet refs/heads/feature/v2-core || { echo 'Missing base branch' >&2; exit 3; }
 git -C "$TMP/repository.git" show-ref --verify --quiet refs/heads/policy/independent-commit-verification || { echo 'Missing PR branch' >&2; exit 3; }
 git -C "$TMP/repository.git" bundle create "$OUT" --all
-git bundle verify "$OUT"
+git -C "$TMP/repository.git" bundle verify "$OUT"
 printf 'Bundle SHA256: '
 sha256sum "$OUT"
 printf 'Base: '
