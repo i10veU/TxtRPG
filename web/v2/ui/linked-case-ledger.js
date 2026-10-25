@@ -20,8 +20,11 @@ function matchingKnowledge(knowledge, data, rumorId) {
 }
 
 function firstHand(known, source) {
-  return Array.isArray(known?.sources) && known.sources.includes(source) ||
-    known?.source === source;
+  // The normalized multi-source record is authoritative. Only old saves that
+  // have no sources array may fall back to their legacy single source.
+  return Array.isArray(known?.sources)
+    ? known.sources.includes(source)
+    : known?.source === source;
 }
 
 export function linkedCaseLedger(knowledge, data) {
