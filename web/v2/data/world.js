@@ -771,6 +771,10 @@ const STRIKE_CHECK = (base) => ({ stat: "str", skill: "swordsmanship", tags: ["c
 // V2-Core-56 (D-85, Gate 4 = C): a technique's stamina cost -- the option requires it, and every
 // outcome of its exchange pays it first (an option with a check runs only its tier's outcome)
 const STAMINA_AT_LEAST = (n) => ({ op: "resource", resource: "stamina", min: n });
+const HAS_DRAWN_SWORD = { op: "or", of: [
+  { op: "item", item: "item_iron_sword", equipped: true },
+  { op: "item", item: "item_steel_sword", equipped: true }
+] };
 // V2-Core-112 (#275): the hard convoy is open to a lead-holder wearing steel or mail
 const DANGER_OPEN = { op: "and", of: [GUARD_WANTED, { op: "unlock", id: "unl_road_lead" }, { op: "not", of: ROAD_WOUND_DEEP }, STAMINA_AT_LEAST(3),
   { op: "or", of: [{ op: "item", item: "item_steel_sword", equipped: true }, { op: "item", item: "item_mail_shirt", equipped: true }] }] };
@@ -870,6 +874,19 @@ function finalOptions(key, foe, leads) {
         success: exchange([hitFoe(-3), say("txt_guarded_stance_hit")]),
         partial: exchange([hitSelf(-1), say("txt_guarded_stance_block")]),
         fail: exchange([hitSelf(-2), say("txt_guarded_stance_block")])
+      })
+    },
+    {
+      id: `opt_final_${key}_breakthrough`,
+      name: "돌파 검술로 빈틈을 찌른다 (기력 3)",
+      requires: leading({ op: "and", of: [{ op: "unlock", id: "unl_breakthrough_cut" }, HAS_DRAWN_SWORD, STAMINA_AT_LEAST(3)] }),
+      check: check(13),
+      minutes: 5,
+      outcomes: payStamina(3, {
+        great: exchange([hitFoe(-11), say("txt_breakthrough_cut_hit")]),
+        success: exchange([hitFoe(-8), say("txt_breakthrough_cut_hit")]),
+        partial: exchange([hitFoe(-3), hitSelf(-3), say("txt_breakthrough_cut_trade")]),
+        fail: exchange([foeHits(5), say("txt_breakthrough_cut_fail")])
       })
     },
     {
@@ -2099,6 +2116,26 @@ export const worldData = {
         success: [{ op: "money", add: -3 }, { op: "resource", resource: "stamina", add: -2 }, { op: "proficiency", id: "combat", add: 10 }, { op: "unlock", id: "unl_guarded_stance" }, say("txt_castle_spar_pass")],
         partial: [{ op: "money", add: -3 }, { op: "resource", resource: "stamina", add: -2 }, { op: "proficiency", id: "combat", add: 5 }, { op: "hp", add: -1 }, say("txt_castle_spar_retry")],
         fail: [{ op: "money", add: -3 }, { op: "resource", resource: "stamina", add: -2 }, { op: "proficiency", id: "combat", add: 5 }, { op: "hp", add: -2 }, say("txt_castle_spar_retry")]
+      }
+    },
+    // A distinct offensive specialisation: the player must already have trained
+    // to rank 2 and wield a sword. Unlike the safe guard stance, this one risks
+    // a severe counterattack for a chance to end a fight sooner.
+    act_castle_breakthrough_trial: {
+      name: "성읍 사범에게 돌파 검술을 배운다 (은화 4, 기력 3, 2시간)",
+      requires: { op: "and", of: [
+        { op: "location", at: "loc_castle_town" },
+        { op: "skill", skill: "swordsmanship", min: 2 },
+        { op: "not", of: { op: "unlock", id: "unl_breakthrough_cut" } },
+        HAS_DRAWN_SWORD, { op: "money", min: 4 }, STAMINA_AT_LEAST(3)
+      ] },
+      check: { stat: "str", skill: "swordsmanship", tags: ["combat"], difficulty: "hard" },
+      minutes: 120,
+      outcomes: {
+        great: [{ op: "money", add: -4 }, { op: "resource", resource: "stamina", add: -3 }, { op: "proficiency", id: "combat", add: 15 }, { op: "unlock", id: "unl_breakthrough_cut" }, say("txt_castle_breakthrough_pass")],
+        success: [{ op: "money", add: -4 }, { op: "resource", resource: "stamina", add: -3 }, { op: "proficiency", id: "combat", add: 10 }, { op: "unlock", id: "unl_breakthrough_cut" }, say("txt_castle_breakthrough_pass")],
+        partial: [{ op: "money", add: -4 }, { op: "resource", resource: "stamina", add: -3 }, { op: "proficiency", id: "combat", add: 5 }, { op: "hp", add: -1 }, say("txt_castle_breakthrough_retry")],
+        fail: [{ op: "money", add: -4 }, { op: "resource", resource: "stamina", add: -3 }, { op: "proficiency", id: "combat", add: 5 }, { op: "hp", add: -2 }, say("txt_castle_breakthrough_retry")]
       }
     },
     act_buy_lantern: {
@@ -3763,6 +3800,21 @@ export const worldData = {
             fail: fightExchange([hitSelf(-2), say("txt_guarded_stance_block")])
           })
         },
+        // Offensive sword technique: stronger than a normal strike but expensive
+        // and dangerous on a missed opening. Personal unlock + equipped weapon.
+        {
+          id: "opt_fight_breakthrough",
+          name: "돌파 검술로 빈틈을 찌른다 (기력 3)",
+          requires: { op: "and", of: [{ op: "unlock", id: "unl_breakthrough_cut" }, HAS_DRAWN_SWORD, STAMINA_AT_LEAST(3)] },
+          check: STRIKE_CHECK(13),
+          minutes: 5,
+          outcomes: payStamina(3, {
+            great: fightExchange([hitLeader(-11), say("txt_breakthrough_cut_hit")]),
+            success: fightExchange([hitLeader(-8), say("txt_breakthrough_cut_hit")]),
+            partial: fightExchange([hitLeader(-3), hitSelf(-3), say("txt_breakthrough_cut_trade")]),
+            fail: fightExchange([leaderHits(5), say("txt_breakthrough_cut_fail")])
+          })
+        },
         // the technique: only for a character whose keen eye reads the leader's attacks
         {
           id: "opt_fight_counter",
@@ -3854,7 +3906,7 @@ export const worldData = {
         { minRank: 5, label: "Adept" }
       ],
       // V2-Core-142 (M7): the realm's name -- the apex (a title: it opens nothing, the world answers it)
-      unlocks: [{ id: "unl_keen_eye", kind: "action" }, { id: "unl_road_lead", kind: "action" }, { id: "unl_guarded_stance", kind: "action" }, { id: "unl_realm_renown", kind: "title" }],
+      unlocks: [{ id: "unl_keen_eye", kind: "action" }, { id: "unl_road_lead", kind: "action" }, { id: "unl_guarded_stance", kind: "action" }, { id: "unl_breakthrough_cut", kind: "action" }, { id: "unl_realm_renown", kind: "title" }],
       // V2-Core-56 (Gate 4 = C, D-85): resources belong to the growth system. Stamina pays for the
       // fight's techniques (the counter 3, the old wound 2); a character without the entry is full
       resources: [{ id: "stamina", max: 6 }]
@@ -4274,6 +4326,11 @@ export const worldData = {
     txt_castle_spar_retry: "대련에서 밀려 넘어졌다. 은화와 기력은 돌아오지 않지만 몸이 기억한 실수는 남는다. 다시 준비하면 도전할 수 있다.",
     txt_guarded_stance_hit: "검을 가까이 붙여 공격을 흘리고 짧게 반격한다. 강한 일격은 아니지만 몸을 지키며 빈틈을 찔렀다.",
     txt_guarded_stance_block: "상대의 검이 방어 자세를 흔든다. 반격에는 실패했지만 급소를 피하고 피해를 줄였다.",
+    txt_castle_breakthrough_pass: "사범의 검을 밀어내고 빈틈을 파고든다. 위험을 감수한 빠른 돌파를 인정받았다. 이 검술은 검을 쥔 채 기력을 쏟아야 한다.",
+    txt_castle_breakthrough_retry: "공격을 서두르다 반격을 허용했다. 비용과 기력은 돌아오지 않지만, 다음 대련에서 파고들 틈은 조금 더 보인다.",
+    txt_breakthrough_cut_hit: "검끝을 낮게 숨긴 채 순식간에 파고들어 깊은 상처를 남겼다. 기력을 크게 소모했지만 주도권을 잡았다.",
+    txt_breakthrough_cut_trade: "상대의 방어를 뚫었지만 빈틈을 내주어 나도 베였다. 공격적인 검술의 대가다.",
+    txt_breakthrough_cut_fail: "무리하게 파고든 순간 반격을 정면으로 받았다. 다음에는 공격과 방어의 균형을 다시 판단해야 한다.",
     txt_north_road_convoy: "보급소의 마차가 북쪽으로 떠난다. 빵을 나눠 먹고 짐칸에서 몸을 쉬는 동안 길이 줄어든다. 열 시간 만에 영주의 성읍이 보인다.",
     txt_south_road_convoy: "성읍을 떠나는 보급 마차에 올라 길목으로 돌아온다. 짐을 싣고 쉬엄쉬엄 가도 혼자 걷는 것보다 빠르다.",
     txt_north_road_march: "잠도 먹을 것도 뒤로 미루고 성읍까지 달리듯 걷는다. 네 시간이 절약되지만 다리와 온몸에 무리가 간다.",
@@ -4397,6 +4454,7 @@ export const worldData = {
     lbl_unlock_unl_keen_eye: "예리한 눈",
     lbl_unlock_unl_road_lead: "상단을 이끌 자격",
     lbl_unlock_unl_guarded_stance: "방어 검술 자세",
+    lbl_unlock_unl_breakthrough_cut: "돌파 검술",
     lbl_unlock_unl_realm_renown: "왕국이 아는 이름 (남쪽 변경의 수호자)",
     lbl_res_stamina: "기력",
     lbl_slot_hand: "손",
