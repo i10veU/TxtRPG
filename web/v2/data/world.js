@@ -637,6 +637,12 @@ const WOUND_ON_FAIL = [
 const REST_HEAL = [
   { op: "if", when: ROAD_WOUND_DEEP, then: [{ op: "hp", add: 2 }], else: [{ op: "hp", add: 4 }] }
 ];
+// Post-J3 travel: field camping is a resource/time decision, not a replacement for
+// safe village rest or paid castle lodging. Ruins and hostile camps are excluded.
+const FIELD_CAMP_SITES = { op: "or", of: [
+  "loc_crossroads", "loc_river_ford", "loc_far_bank", "loc_mill_hamlet", "loc_royal_city"
+].map((at) => ({ op: "location", at })) };
+const FIELD_CAMP_READY = { op: "and", of: [FIELD_CAMP_SITES, { op: "item", item: "item_mill_bread", min: 1 }] };
 const REST_WOUNDS = [
   {
     op: "if",
@@ -1886,6 +1892,31 @@ export const worldData = {
         { op: "hp", add: 2 },
         { op: "resource", resource: "stamina", add: 3 },
         say("txt_eat_mill_bread")
+      ]
+    },
+    // Post-J3 survival choice: pack a bread ration for the road. A quick halt
+    // preserves daylight but restores less than a full night. Neither removes
+    // road wounds; hazards and world events still advance with elapsed time.
+    act_camp_quick: {
+      name: "길가에서 짧게 야영한다 (빵 1개, 2시간)",
+      requires: FIELD_CAMP_READY,
+      minutes: 120,
+      effects: [
+        { op: "item", item: "item_mill_bread", add: -1 },
+        { op: "hp", add: 1 },
+        { op: "resource", resource: "stamina", add: 3 },
+        say("txt_camp_quick")
+      ]
+    },
+    act_camp_full: {
+      name: "길가에서 밤을 지새운다 (빵 1개, 8시간)",
+      requires: FIELD_CAMP_READY,
+      minutes: 480,
+      effects: [
+        { op: "item", item: "item_mill_bread", add: -1 },
+        { op: "hp", add: 3 },
+        { op: "resource", resource: "stamina", add: 6 },
+        say("txt_camp_full")
       ]
     },
     act_buy_lantern: {
@@ -4034,6 +4065,8 @@ export const worldData = {
     txt_hamlet_carts: "장터에 물레방아 마을의 수레가 들어와 있다. 갓 구운 빵 냄새가 장터에 퍼진다.",
     txt_buy_mill_bread: "상인에게 은화 한 닢을 건네고 물레방아 마을의 빵을 받는다.",
     txt_eat_mill_bread: "빵을 뜯어 먹자 허기가 가시고 몸에 힘이 돈다.",
+    txt_camp_quick: "길가 돌담에 등을 기대고 빵을 나눠 먹는다. 해가 기울기 전에 다시 걸어야 한다. 두 시간쯤 눈을 붙이자 다리가 조금 가벼워진다.",
+    txt_camp_full: "길목에서 마른 나뭇가지를 모아 작은 불을 피운다. 빵 한 덩이로 끼니를 때우고 여덟 시간을 쉰다. 먼 길의 피로가 풀렸지만, 다친 곳까지 낫지는 않았다.",
     txt_ferryman_quiet: "뱃사공은 노를 손질하며 고개를 젓는다. 길이 막혀 있던 동안 강 건너 소식도 끊겼다고 한다.",
     txt_ferryman_levy: "뱃사공은 지난번 상단이 전한 소식을 들려준다. 영주가 징집령을 내려 강 건너 마을마다 젊은이들을 모으고 있다고 한다.",
     txt_ferryman_fair: "뱃사공은 새 소식을 들려준다. 왕도에서 큰 장이 열려 상단들이 앞다투어 북쪽으로 올라간다고 한다.",
