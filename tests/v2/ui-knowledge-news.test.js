@@ -26,4 +26,29 @@ assert.equal(knowledgeNewsChange(heard(90, ["npc_elder"]), heard(90, ["npc_elder
 assert.deepEqual(knowledgeNewsChange({ confidence: 60, source: "npc_elder" },
   { confidence: 95, source: "obs_loc_ruins" }),
   { kind: "confirmed", note: "직접 확인함" }, "legacy single-source saves still work");
+
+// A knowledge entry can be replaced during a legacy Save normalization or
+// malformed restore. The news feed must not present a *different* claim as
+// firsthand confirmation of the original claim, even if the new entry has an
+// observation source. The engine's facts and other lives remain out of scope.
+const same = (confidence, sources = ["npc_elder"]) => ({
+  rumorId: "rum_ruins_secret", factId: "fact_ruins_secret",
+  claim: "bandit_hideout", confidence, sources
+});
+const report = same(60);
+const observedSame = { ...same(95, ["npc_elder", "obs_loc_ruins"]) };
+assert.deepEqual(knowledgeNewsChange(report, observedSame),
+  { kind: "confirmed", note: "직접 확인함" },
+  "a matching rumor and claim still earns field confirmation");
+assert.equal(knowledgeNewsChange(report, {
+  ...observedSame, rumorId: "rum_spring_bandits", factId: "fact_spring_fouler", claim: "bandits"
+}), null, "an unrelated rumor cannot confirm the prior rumor");
+assert.equal(knowledgeNewsChange(report, { ...observedSame, claim: "empty" }), null,
+  "an incompatible claim cannot be presented as confirming the previous claim");
+assert.equal(knowledgeNewsChange(report, { ...observedSame, factId: "fact_other" }), null,
+  "a different fact cannot be presented as confirming the previous fact");
+assert.deepEqual(knowledgeNewsChange(report, { ...same(95) }),
+  { kind: "learned", note: "확신 높은 전언" },
+  "the identity guard must preserve confidence-only news");
+
 console.log("J3 knowledge news provenance and repeat suppression: PASS");

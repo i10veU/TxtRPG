@@ -11,6 +11,13 @@ function firsthand(entry) {
 // rising confidence in second-hand testimony is *not* field verification.
 export function knowledgeNewsChange(previous, current) {
   if (!previous || !current) return null;
+  // An observation of a different rumor, fact or claim is not evidence for
+  // the earlier account. Legacy entries can omit identity fields: compare
+  // only fields present on both sides, without consulting hidden world state.
+  for (const key of ["rumorId", "factId", "claim"]) {
+    if (typeof previous[key] === "string" && typeof current[key] === "string" &&
+        previous[key] !== current[key]) return null;
+  }
   const wasObserved = firsthand(previous);
   const nowObserved = firsthand(current);
   if (!wasObserved && nowObserved) return { kind: "confirmed", note: "직접 확인함" };
