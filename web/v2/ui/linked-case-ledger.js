@@ -98,6 +98,32 @@ export function linkedCasePatrolAction(ledger, playerView) {
   ) ? "act_help_mark_spring_route" : null;
 }
 
+
+// After this life has both heard and verified the patrol's new clue, guide
+// the player to the *existing* elder dialogue. Completion is recorded on
+// this character's visible relation edge; never consult world signals.
+// Older single-source knowledge entries are handled by linkedCasePatrolLead.
+export function linkedCaseTrapFollowup(ledger, playerView, data, today) {
+  const lead = linkedCasePatrolLead(ledger, playerView, data, today);
+  if (!lead?.verified) return null;
+  const actor = playerView?.actor;
+  if (typeof actor?.id !== "string") return null;
+  const tags = playerView?.relations?.[`npc_elder:${actor.id}`]?.tags;
+  const ownTags = Array.isArray(tags) ? tags : [];
+  if (ownTags.includes("spring_trap_route_reinforced")) {
+    return { status: "route", atLocation: actor.locationId === "loc_village", actionId: null };
+  }
+  if (ownTags.includes("spring_trap_notice_published")) {
+    return { status: "notice", atLocation: actor.locationId === "loc_village", actionId: null };
+  }
+  const atLocation = actor.locationId === "loc_village";
+  const available = atLocation && !playerView.pending &&
+    Array.isArray(playerView.actions) && playerView.actions.some(
+      (action) => action.actionId === "act_talk_elder" && action.available === true
+    );
+  return { status: "open", atLocation, actionId: available ? "act_talk_elder" : null };
+}
+
 // A verified clue should lead to a real existing dialogue, not a dead-end
 // instruction. The engine still decides which elder dialogue options are legal.
 export function linkedCaseElderAction(ledger, playerView) {

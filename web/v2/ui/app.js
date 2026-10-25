@@ -26,7 +26,7 @@ import { stakesOf, duration } from "./stakes.js";
 import { knowledgeClock } from "./knowledge-clock.js";
 import { knowledgeNewsChange } from "./knowledge-news.js";
 import { hypothesisLedger } from "./hypothesis-ledger.js";
-import { linkedCaseLedger, linkedCaseElderAction, linkedCaseReported, linkedCaseDecision, linkedCaseDecisionAction, linkedCaseSupport, linkedCasePatrolAction, linkedCasePatrolLead } from "./linked-case-ledger.js";
+import { linkedCaseLedger, linkedCaseElderAction, linkedCaseReported, linkedCaseDecision, linkedCaseDecisionAction, linkedCaseSupport, linkedCasePatrolAction, linkedCasePatrolLead, linkedCaseTrapFollowup } from "./linked-case-ledger.js";
 import { greetingFor } from "./people.js";
 import { deedsTrue, endingLearned } from "./deeds.js";
 import * as chronicle from "../storage/chronicle.js";
@@ -827,6 +827,24 @@ function renderLinkedCaseLedger(playerView) {
         if (followup.actionId) {
           el.linkedCaseNext.appendChild(makeButton("전해 들은 덫 표식을 현장에서 확인한다", () =>
             dispatch({ type: "perform", actionId: followup.actionId })));
+        }
+        if (followup.verified) {
+          const next = linkedCaseTrapFollowup(ledger, playerView, worldData, today);
+          if (next) {
+            const guidance = document.createElement("p");
+            guidance.textContent = next.status === "route"
+              ? "덫 주변 샘길을 보강했다. 경계 길의 위험이 줄었다."
+              : next.status === "notice"
+                ? "확인한 덫 표식을 마을 장부에 알렸다. 이후 전언이 더 널리 퍼진다."
+                : next.atLocation
+                  ? "직접 확인한 덫 표식을 원로에게 전하고 다음 대응을 결정하자."
+                  : "덫 표식을 직접 확인했다. 변경 마을의 원로에게 돌아가 후속 대응을 의논하자.";
+            el.linkedCaseNext.appendChild(guidance);
+            if (next.actionId) {
+              el.linkedCaseNext.appendChild(makeButton("확인한 덫 표식으로 원로와 후속 대응을 의논한다", () =>
+                dispatch({ type: "perform", actionId: next.actionId })));
+            }
+          }
         }
       }
       return;
