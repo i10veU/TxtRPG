@@ -94,7 +94,7 @@ for (const scenario of OPTIONS) {
     }).click();
     await move(page, "변경 마을");
     await page.locator(NEXT).getByRole("button", {
-      name: "확인한 덫 표식으로 원로와 후속 대응을 의논한다"
+      name: "원로에게 덫 표식 대응 상황을 확인한다"
     }).click();
     await choice(page, scenario.label);
     const chosen = await state(page);
@@ -110,7 +110,7 @@ for (const scenario of OPTIONS) {
     expect(heir.knowledge.player_2?.rum_spring_trap_mark).toBeUndefined();
     expect((await visible(page)).knowledge?.rum_spring_trap_mark).toBeUndefined();
     await expect(page.locator(NEXT).getByRole("button", {
-      name: "확인한 덫 표식으로 원로와 후속 대응을 의논한다"
+      name: "원로에게 덫 표식 대응 상황을 확인한다"
     })).toHaveCount(0);
 
     // A successor must hear the public account for themselves. Published
