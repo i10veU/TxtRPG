@@ -107,6 +107,7 @@ function testEveryCheckNamesADefinedStat() {
     evt_spring_miasma: ["con", null],
     act_gather_herbs: ["wis", null], // V2-Core-65: knowing the herbs
     act_survey_north_road: ["per", null],
+    act_scout_north_caravan: ["per", null],
     act_survey_trailcraft: ["per", null],
     act_read_milestone: ["int", null], // V2-Core-72: the worn letters
     act_search_crossroads: ["per", null],
