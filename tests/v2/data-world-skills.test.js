@@ -73,9 +73,11 @@ function testChecksReadSkills() {
   assert.deepStrictEqual(named, {
     act_investigate_ruins: ["investigation", null],
     act_confront_leader: [null, null],
+    act_castle_spar_trial: ["swordsmanship", null],
     "choice_fight_leader.opt_fight_strike": ["swordsmanship", null],
     "choice_fight_leader.opt_fight_sword_cut": ["swordsmanship", null], // V2-Core-58
     "choice_fight_leader.opt_fight_counter": ["swordsmanship", null],
+    "choice_fight_leader.opt_fight_guarded_stance": ["swordsmanship", null],
     "choice_fight_leader.opt_fight_weak_spot": ["swordsmanship", null], // V2-Core-55
     // V2-Core-140: the last fight, against the chief or his right hand -- the first fight's exchanges
     "choice_final_battle.opt_final_chief_strike": ["swordsmanship", null],
@@ -83,10 +85,12 @@ function testChecksReadSkills() {
     "choice_final_battle.opt_final_chief_with_village": ["swordsmanship", null],
     "choice_final_battle.opt_final_chief_sword_cut": ["swordsmanship", null],
     "choice_final_battle.opt_final_chief_counter": ["swordsmanship", null],
+    "choice_final_battle.opt_final_chief_guarded_stance": ["swordsmanship", null],
     "choice_final_battle.opt_final_right_hand_strike": ["swordsmanship", null],
     "choice_final_battle.opt_final_right_hand_with_village": ["swordsmanship", null],
     "choice_final_battle.opt_final_right_hand_sword_cut": ["swordsmanship", null],
     "choice_final_battle.opt_final_right_hand_counter": ["swordsmanship", null],
+    "choice_final_battle.opt_final_right_hand_guarded_stance": ["swordsmanship", null],
     // V2-Core-64 (#160): the well and the spring are searched with the investigation skill; the
     // miasma is endured with CON alone
     act_inspect_well: ["investigation", null],
