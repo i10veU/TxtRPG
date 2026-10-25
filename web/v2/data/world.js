@@ -653,6 +653,20 @@ const WAYSTATION_SUPPLY_CRATE = { op: "item", item: "item_waystation_supply_crat
 const WAYSTATION_SUPPLY_OPEN_SITES = { op: "or", of: [
   "loc_crossroads", "loc_river_ford", "loc_far_bank", "loc_castle_town", "loc_royal_city"
 ].map((at) => ({ op: "location", at })) };
+// The first delivered crate establishes a staffed route between the far bank
+// and the lord's town. Travel remains possible without it by the normal road;
+// the paid convoy trades silver and food for time and rest. A forced march is
+// available independently but costs health and stamina. Neither option reveals
+// unknown routes or introduces new RNG/Save fields.
+const NORTH_ROAD_CONVOY_READY = { op: "and", of: [
+  { op: "flag", key: "waystation_supply_delivered" },
+  { op: "money", min: 3 },
+  { op: "item", item: "item_mill_bread", min: 1 }
+] };
+const NORTH_ROAD_MARCH_READY = { op: "and", of: [
+  { op: "resource", resource: "stamina", min: 4 },
+  { op: "gte", left: { hp: "current" }, right: 3 }
+] };
 const REST_WOUNDS = [
   {
     op: "if",
@@ -1988,6 +2002,56 @@ export const worldData = {
         { op: "money", add: -2 },
         { op: "item", item: "item_mill_bread", add: 1 },
         say("txt_buy_waystation_bread")
+      ]
+    },
+    // Long-road expedition tactics: four explicit actions, so the player can
+    // compare the existing 720-minute free road with paid convoy (600 min,
+    // restores stamina) and a damaging forced march (480 min). The convoy is
+    // a lasting consequence of the delivered waystation supply contract.
+    act_north_road_convoy: {
+      name: "보급 마차로 성읍에 간다 (빵 1개, 은화 3, 10시간)",
+      requires: { op: "and", of: [{ op: "location", at: "loc_far_bank" }, NORTH_ROAD_CONVOY_READY] },
+      minutes: 600,
+      effects: [
+        { op: "money", add: -3 },
+        { op: "item", item: "item_mill_bread", add: -1 },
+        { op: "resource", resource: "stamina", add: 3 },
+        { op: "move", to: "loc_castle_town" },
+        say("txt_north_road_convoy")
+      ]
+    },
+    act_south_road_convoy: {
+      name: "보급 마차로 길목에 돌아간다 (빵 1개, 은화 3, 10시간)",
+      requires: { op: "and", of: [{ op: "location", at: "loc_castle_town" }, NORTH_ROAD_CONVOY_READY] },
+      minutes: 600,
+      effects: [
+        { op: "money", add: -3 },
+        { op: "item", item: "item_mill_bread", add: -1 },
+        { op: "resource", resource: "stamina", add: 3 },
+        { op: "move", to: "loc_far_bank" },
+        say("txt_south_road_convoy")
+      ]
+    },
+    act_north_road_march: {
+      name: "성읍까지 강행군한다 (기력 4, 체력 2, 8시간)",
+      requires: { op: "and", of: [{ op: "location", at: "loc_far_bank" }, NORTH_ROAD_MARCH_READY] },
+      minutes: 480,
+      effects: [
+        { op: "resource", resource: "stamina", add: -4 },
+        { op: "hp", add: -2 },
+        { op: "move", to: "loc_castle_town" },
+        say("txt_north_road_march")
+      ]
+    },
+    act_south_road_march: {
+      name: "길목까지 강행군한다 (기력 4, 체력 2, 8시간)",
+      requires: { op: "and", of: [{ op: "location", at: "loc_castle_town" }, NORTH_ROAD_MARCH_READY] },
+      minutes: 480,
+      effects: [
+        { op: "resource", resource: "stamina", add: -4 },
+        { op: "hp", add: -2 },
+        { op: "move", to: "loc_far_bank" },
+        say("txt_south_road_march")
       ]
     },
     act_buy_lantern: {
@@ -4143,6 +4207,10 @@ export const worldData = {
     txt_waystation_supply_delivered: "길목의 빈 창고에 보급 상자를 내려놓자 담당자가 장부에 첫 납품을 적는다. 은화 여섯 닢과 돌아갈 길에 먹을 빵 한 덩이를 건네받는다. 이제 이곳에서는 여행자 누구나 값비싼 빵을 살 수 있다.",
     txt_waystation_supply_opened: "봉인을 뜯자 물레방아 빵 두 덩이가 나온다. 당장의 배고픔을 피할 수 있지만 길목으로 가야 할 첫 보급품은 사라졌다. 보급소가 열리기를 기다리는 사람들에게는 아직 아무 소식도 없다.",
     txt_buy_waystation_bread: "강 건너 길목의 보급소에서 은화 두 닢을 내고 빵 한 덩이를 산다. 먼 길에 비싼 값이지만 야영할 식량을 마련했다.",
+    txt_north_road_convoy: "보급소의 마차가 북쪽으로 떠난다. 빵을 나눠 먹고 짐칸에서 몸을 쉬는 동안 길이 줄어든다. 열 시간 만에 영주의 성읍이 보인다.",
+    txt_south_road_convoy: "성읍을 떠나는 보급 마차에 올라 길목으로 돌아온다. 짐을 싣고 쉬엄쉬엄 가도 혼자 걷는 것보다 빠르다.",
+    txt_north_road_march: "잠도 먹을 것도 뒤로 미루고 성읍까지 달리듯 걷는다. 네 시간이 절약되지만 다리와 온몸에 무리가 간다.",
+    txt_south_road_march: "성읍을 뒤로하고 강 건너 길목까지 강행군한다. 시간을 벌었지만 발바닥이 쓰리고 숨이 거칠다.",
     txt_ferryman_quiet: "뱃사공은 노를 손질하며 고개를 젓는다. 길이 막혀 있던 동안 강 건너 소식도 끊겼다고 한다.",
     txt_ferryman_levy: "뱃사공은 지난번 상단이 전한 소식을 들려준다. 영주가 징집령을 내려 강 건너 마을마다 젊은이들을 모으고 있다고 한다.",
     txt_ferryman_fair: "뱃사공은 새 소식을 들려준다. 왕도에서 큰 장이 열려 상단들이 앞다투어 북쪽으로 올라간다고 한다.",
