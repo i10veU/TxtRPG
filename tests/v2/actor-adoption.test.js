@@ -83,9 +83,9 @@ assert.deepEqual(playedLonger.actors.npc_new, adopted.actors.npc_new);
 const fixture = JSON.parse(readFileSync(new URL("./fixtures/save-before-ford-and-town.json", import.meta.url), "utf8"));
 const realOld = parseLoadedRecord(fixture);
 const real = adoptNewActors(realOld, worldData);
-assert.deepEqual(real.added, ["npc_band_lieutenant"]);
+assert.deepEqual(real.added, ["npc_band_lieutenant", "npc_ruins_raider"]);
 assert.deepEqual(real.state.actors.npc_band_lieutenant, createInitialState({ worldSeed: "any", data: worldData }).state.actors.npc_band_lieutenant);
-const { npc_band_lieutenant: _lieutenant, ...realActors } = real.state.actors;
+const { npc_band_lieutenant: _lieutenant, npc_ruins_raider: _raider, ...realActors } = real.state.actors;
 assert.deepEqual({ ...real.state, actors: realActors }, realOld);
 assert.deepEqual(adoptNewActors(real.state, worldData).added, [], "once");
 
