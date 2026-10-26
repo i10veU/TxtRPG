@@ -22,6 +22,20 @@ const guardedDamage = (guarded, unguarded) => ({
   then: [{ op: 'hp', add: guarded }], else: [{ op: 'hp', add: unguarded }]
 });
 const say = (textId) => ({ op: 'narrate', textId });
+// The patrol has three finite world milestones. Failure adds alarm but never
+// grants loot; completing the third sortie permanently secures this room.
+const patrolOpen = and(flag('ruins_lower_resolved'),
+  not(flag('ruins_lower_patrol_safe')), { op: 'signal', key: 'ruins_lower_patrol_progress', max: 2 });
+const raiseAlarm = { op: 'if', when: { op: 'signal', key: 'ruins_lower_alarm', max: 1 },
+  then: [{ op: 'signal', key: 'ruins_lower_alarm', add: 1 }] };
+const easeAlarm = { op: 'if', when: { op: 'signal', key: 'ruins_lower_alarm', min: 1 },
+  then: [{ op: 'signal', key: 'ruins_lower_alarm', add: -1 }] };
+const finishPatrol = [
+  { op: 'signal', key: 'ruins_lower_patrol_progress', add: 1 }, easeAlarm,
+  { op: 'if', when: { op: 'signal', key: 'ruins_lower_patrol_progress', min: 3 },
+    then: [{ op: 'flag', key: 'ruins_lower_patrol_safe', value: true }, say('txt_ruins_lower_secured')],
+    else: [say('txt_ruins_lower_progress')] }
+];
 
 export const ruinsExpedition = {
   locations: {
@@ -187,6 +201,74 @@ export const ruinsExpedition = {
         { op: 'relation', from: 'org_village', add: 4 }, say('txt_ruins_lower_public')
       ]
     },
+    // A short, finite three-sortie expedition. Investigation trades speed
+    // for safety, swordsmanship trades injury risk for silver. Repeated failed
+    // checks cannot mint resources, and the world remembers completed sorties.
+    act_ruins_lower_silent_patrol: {
+      name: '불빛을 낮추고 봉인실의 남은 통로를 정찰한다 (기력 2, 2시간)',
+      requires: and(at('loc_ruins_lower_vault'), patrolOpen, light,
+        { op: 'skill', skill: 'investigation', min: 1 },
+        { op: 'signal', key: 'ruins_lower_alarm', max: 1 }, stamina(2)),
+      check: { stat: 'per', skill: 'investigation', tags: ['investigation'], difficulty: 'normal' },
+      minutes: 120,
+      outcomes: {
+        great: [{ op: 'resource', resource: 'stamina', add: -2 },
+          { op: 'proficiency', id: 'investigation', add: 15 },
+          { op: 'item', item: 'item_herbal_salve', add: 1 }, ...finishPatrol],
+        success: [{ op: 'resource', resource: 'stamina', add: -2 },
+          { op: 'proficiency', id: 'investigation', add: 10 }, ...finishPatrol],
+        partial: [{ op: 'resource', resource: 'stamina', add: -2 },
+          { op: 'proficiency', id: 'investigation', add: 3 },
+          { op: 'hp', add: -1 }, raiseAlarm, say('txt_ruins_lower_patrol_fail')],
+        fail: [{ op: 'resource', resource: 'stamina', add: -2 },
+          { op: 'hp', add: -2 }, raiseAlarm, say('txt_ruins_lower_patrol_fail')]
+      }
+    },
+    act_ruins_lower_armed_patrol: {
+      name: '검을 뽑아 봉인실의 잔당을 몰아낸다 (기력 3, 90분)',
+      requires: and(at('loc_ruins_lower_vault'), patrolOpen, equippedSword,
+        { op: 'skill', skill: 'swordsmanship', min: 1 }, stamina(3)),
+      check: { stat: 'str', skill: 'swordsmanship', tags: ['combat'], difficulty: 'normal' },
+      minutes: 90,
+      outcomes: {
+        great: [{ op: 'resource', resource: 'stamina', add: -3 },
+          { op: 'proficiency', id: 'combat', add: 15 },
+          { op: 'money', add: 4 }, ...finishPatrol],
+        success: [{ op: 'resource', resource: 'stamina', add: -3 },
+          { op: 'proficiency', id: 'combat', add: 10 },
+          { op: 'money', add: 3 }, ...finishPatrol],
+        partial: [{ op: 'resource', resource: 'stamina', add: -3 },
+          guardedDamage(-1, -3), raiseAlarm, say('txt_ruins_lower_patrol_fail')],
+        fail: [{ op: 'resource', resource: 'stamina', add: -3 },
+          guardedDamage(-2, -5), raiseAlarm, say('txt_ruins_lower_patrol_fail')]
+      }
+    },
+    act_ruins_lower_calm_alarm: {
+      name: '소란이 가라앉을 때까지 몸을 숨긴다 (기력 1, 90분)',
+      requires: and(at('loc_ruins_lower_vault'), patrolOpen,
+        { op: 'signal', key: 'ruins_lower_alarm', min: 1 }, stamina(1)),
+      minutes: 90,
+      effects: [{ op: 'resource', resource: 'stamina', add: -1 },
+        { op: 'signal', key: 'ruins_lower_alarm', add: -1 }, say('txt_ruins_lower_alarm_eased')]
+    },
+    act_ruins_lower_rest_safe: {
+      name: '안전해진 지하 방에서 몸을 추스른다 (1시간)',
+      requires: and(at('loc_ruins_lower_vault'), flag('ruins_lower_patrol_safe')),
+      minutes: 60,
+      effects: [{ op: 'hp', add: 3 }, { op: 'resource', resource: 'stamina', add: 4 },
+        say('txt_ruins_lower_rest_safe')]
+    },
+    act_ruins_lower_report_watch: {
+      name: '마을에 지하 통로의 안전 확보를 알린다 (30분)',
+      requires: and(at('loc_village'), flag('ruins_lower_patrol_safe'),
+        not(flag('ruins_lower_patrol_reported'))),
+      minutes: 30,
+      effects: [{ op: 'flag', key: 'ruins_lower_patrol_reported', value: true },
+        { op: 'money', add: 5 }, { op: 'relation', from: 'org_village', add: 5 },
+        { op: 'if', when: { op: 'signal', key: 'road_trouble', min: 1 },
+          then: [{ op: 'signal', key: 'road_trouble', add: -1 }] },
+        say('txt_ruins_lower_report_watch')]
+    },
     act_rest_ruins_cellar_refuge: {
       name: '정비된 피난처에서 쉬며 회복한다 (1시간)',
       requires: and(at('loc_ruins_cellar'), flag('ruins_cellar_refuge')),
@@ -212,6 +294,12 @@ export const ruinsExpedition = {
     txt_ruins_lower_breach_fail: '철문이 튕겨 나온다. 방어 자세가 무너지면 더 크게 다친다.',
     txt_ruins_lower_tracks: '이전에 열렸던 문틈과 발자국을 따라 지하로 내려가는 길을 기억한다.',
     txt_ruins_lower_salvaged: '녹슨 선반에서 쓸 만한 철검과 연고를 챙긴다. 마을의 새 통로로 정비할 물자는 남지 않는다.',
-    txt_ruins_lower_public: '통로를 보강하고 마을 쪽 출구를 정리한다. 이후 이곳은 누구나 지날 수 있는 공용길이 된다.'
+    txt_ruins_lower_public: '통로를 보강하고 마을 쪽 출구를 정리한다. 이후 이곳은 누구나 지날 수 있는 공용길이 된다.',
+    txt_ruins_lower_progress: '봉인실의 남은 길목 하나를 확보했다. 아직 위험한 통로가 남아 있다.',
+    txt_ruins_lower_secured: '마지막 어둠 속 통로까지 정리했다. 이제 이 방에서 쉬어도 기습당할 염려가 줄었다.',
+    txt_ruins_lower_patrol_fail: '통로 안쪽에서 돌이 굴러 떨어진다. 흔적을 놓쳤고 소란만 커졌다.',
+    txt_ruins_lower_alarm_eased: '벽 뒤에 숨은 채 발소리가 멀어질 때까지 기다렸다. 다시 조용히 움직일 수 있다.',
+    txt_ruins_lower_rest_safe: '확보한 방의 구석에서 상처를 씻고 잠시 눈을 붙였다.',
+    txt_ruins_lower_report_watch: '마을에 안전해진 지하 통로를 알렸다. 사람들은 보수를 모아 주고, 북쪽 길목에도 한결 안심하고 나선다.'
   }
 };
