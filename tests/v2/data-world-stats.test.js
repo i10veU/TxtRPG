@@ -83,6 +83,7 @@ function testEveryCheckNamesADefinedStat() {
     "choice_final_battle.opt_final_chief_second_wind": ["dex", "dex"],
     "choice_final_battle.opt_final_right_hand_pattern_pursuit": ["dex", "dex"],
     "choice_final_battle.opt_final_right_hand_second_wind": ["dex", "dex"],
+    act_cistern_force_sluice: ["str", null],
     act_gallery_brute_first: ["str", null],
     act_gallery_brute_second: ["dex", null],
     act_gallery_scout_first: ["str", null],

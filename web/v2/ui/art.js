@@ -196,6 +196,18 @@ const COMPOSE = {
     { op: 'rocks', x0: 0.12, x1: 0.92, base: 0.96, n: 15, seed: 'gallery:fallen' },
     { op: 'mist', y: 0.88, h: 0.1 }
   ],
+  // Waterwheel arches and a low stone basin, visible only after arrival.
+  // The scene is independent of undiscovered valve state and exit knowledge.
+  loc_ruins_cistern: () => [
+    ...hills('ruins:cistern', { far: 0.54, mid: 0.67 }),
+    { op: 'ground', tone: 'near', y: 0.84, seed: 'cistern:floor' },
+    { op: 'arch', x: 0.26, base: 0.82, w: 0.2, h: 0.56, broken: true },
+    { op: 'arch', x: 0.73, base: 0.83, w: 0.22, h: 0.59, broken: true },
+    { op: 'wall', x0: 0.32, x1: 0.68, base: 0.88, h: 0.18, gate: 0.51 },
+    { op: 'pool', x: 0.5, y: 0.92, rx: 0.22, ry: 0.06, clear: false },
+    { op: 'rocks', x0: 0.1, x1: 0.92, base: 0.98, n: 12, seed: 'cistern:stones' },
+    { op: 'mist', y: 0.88, h: 0.08 }
+  ],
   loc_ruins_watchpost: () => [
     ...hills('ruins:watchpost', { far: 0.44, mid: 0.6 }),
     { op: 'ground', tone: 'near', y: 0.78, seed: 'watchpost:floor' },

@@ -4684,7 +4684,7 @@ export const worldData = {
         { minRank: 5, label: "Adept" }
       ],
       // V2-Core-142 (M7): the realm's name -- the apex (a title: it opens nothing, the world answers it)
-      unlocks: [{ id: "unl_north_road_survey", kind: "action" }, { id: "unl_trailcraft", kind: "action" }, { id: "unl_caravan_pathfinder", kind: "action" }, { id: "unl_ruins_cellar_route", kind: "action" }, { id: "unl_ruins_lower_route", kind: "action" }, { id: "unl_ruins_signal_chamber_route", kind: "action" }, { id: "unl_ruins_raider_tracked", kind: "action" }, { id: "unl_keen_eye", kind: "action" }, { id: "unl_road_lead", kind: "action" }, { id: "unl_guarded_stance", kind: "action" }, { id: "unl_breakthrough_cut", kind: "action" }, { id: "unl_tempo_break", kind: "action" }, { id: "unl_watchpost_first_bout", kind: "action" }, { id: "unl_watchpost_second_wind", kind: "action" }, { id: "unl_watchpost_pursuit", kind: "action" }, { id: "unl_gallery_brute_read", kind: "action" }, { id: "unl_gallery_scout_read", kind: "action" }, { id: "unl_gallery_watch_records", kind: "action" }, { id: "unl_realm_renown", kind: "title" }],
+      unlocks: [{ id: "unl_north_road_survey", kind: "action" }, { id: "unl_trailcraft", kind: "action" }, { id: "unl_caravan_pathfinder", kind: "action" }, { id: "unl_ruins_cellar_route", kind: "action" }, { id: "unl_ruins_lower_route", kind: "action" }, { id: "unl_ruins_signal_chamber_route", kind: "action" }, { id: "unl_ruins_raider_tracked", kind: "action" }, { id: "unl_keen_eye", kind: "action" }, { id: "unl_road_lead", kind: "action" }, { id: "unl_guarded_stance", kind: "action" }, { id: "unl_breakthrough_cut", kind: "action" }, { id: "unl_tempo_break", kind: "action" }, { id: "unl_watchpost_first_bout", kind: "action" }, { id: "unl_watchpost_second_wind", kind: "action" }, { id: "unl_watchpost_pursuit", kind: "action" }, { id: "unl_gallery_brute_read", kind: "action" }, { id: "unl_gallery_scout_read", kind: "action" }, { id: "unl_gallery_watch_records", kind: "action" }, { id: "unl_ruins_cistern_route", kind: "action" }, { id: "unl_cistern_valve_marks", kind: "action" }, { id: "unl_cistern_watch_route", kind: "action" }, { id: "unl_realm_renown", kind: "title" }],
       // V2-Core-56 (Gate 4 = C, D-85): resources belong to the growth system. Stamina pays for the
       // fight's techniques (the counter 3, the old wound 2); a character without the entry is full
       resources: [{ id: "stamina", max: 6 }]
@@ -5314,6 +5314,9 @@ export const worldData = {
     lbl_unlock_unl_gallery_brute_read: "쇠몽둥이 약탈자의 검세 관찰",
     lbl_unlock_unl_gallery_scout_read: "단검 척후병의 검세 관찰",
     lbl_unlock_unl_gallery_watch_records: "회랑 경계 장부 해독",
+    lbl_unlock_unl_ruins_cistern_route: "잠긴 수문실로 내려가는 길",
+    lbl_unlock_unl_cistern_valve_marks: "수문의 압력 눈금 해독",
+    lbl_unlock_unl_cistern_watch_route: "수문실에서 감시 초소로 나가는 길",
     lbl_unlock_unl_realm_renown: "왕국이 아는 이름 (남쪽 변경의 수호자)",
     lbl_res_stamina: "기력",
     lbl_slot_hand: "손",
