@@ -1,0 +1,100 @@
+import assert from 'node:assert/strict';
+import { createInitialState, step, view, validateState, checkDataCompatibility } from '../../web/v2/core/engine.js';
+import { evaluateCondition } from '../../web/v2/core/rules.js';
+import { buildSaveRecord, parseLoadedRecord } from '../../web/v2/storage/idb.js';
+import { worldData } from '../../web/v2/data/world.js';
+
+const hero = s => s.actors[s.player.actorId];
+const act = actionId => ({ type: 'perform', actionId });
+const available = (s, id) => view(s, worldData).actions.some(a => a.actionId === id && a.available);
+const route = (s, from, to) => {
+  const link = worldData.locations[from].links.find(l => l.to === to);
+  return Boolean(link) && evaluateCondition(link.requires, { state: s, data: worldData, actorId: s.player.actorId, contextKind: 'player' });
+};
+const saved = s => parseLoadedRecord(JSON.parse(JSON.stringify(buildSaveRecord('signal-chamber', s, { savedAt: 1 }))));
+function run(s, action) {
+  const r = step(s, action, worldData);
+  assert.equal(r.events.some(e => e.type === 'action.rejected'), false, JSON.stringify(r.events));
+  assert.deepEqual(validateState(r.state), []);
+  assert.deepEqual(checkDataCompatibility(r.state, worldData), []);
+  return r;
+}
+function checkOutcome(s, id, success) {
+  for (let seed = 1; seed < 700; seed++) {
+    const before = structuredClone(s); before.rng.seed = seed;
+    const result = run(before, act(id));
+    const tier = result.events.find(e => e.type === 'check.resolved')?.data.tier;
+    if (['great', 'success'].includes(tier) === success) return { before, after: result.state, tier };
+  }
+  assert.fail(`no ${success ? 'success' : 'failure'} for ${id}`);
+}
+const base = createInitialState({ worldSeed: 'signal-chamber-492', data: worldData }).state;
+hero(base).locationId = 'loc_ruins_watchpost';
+hero(base).money = 14;
+hero(base).inventory.item_lantern = 1;
+hero(base).inventory.item_iron_sword = 1;
+hero(base).growth.growth_wanderer.skills = { investigation: 1, swordsmanship: 1 };
+base.flags = { ...base.flags, ruins_watchpost_open: true, ruins_watchpost_resolved: true,
+  ruins_watchpost_restored: true, ruins_cellar_resolved: true };
+const armed = run(base, act('act_equip_iron_sword')).state;
+assert.equal(route(armed, 'loc_ruins_watchpost', 'loc_ruins_signal_chamber'), false);
+assert.equal(available(armed, 'act_ruins_signal_survey_entrance'), true);
+assert.equal(available(armed, 'act_ruins_signal_break_entrance'), true);
+const failed = checkOutcome(armed, 'act_ruins_signal_survey_entrance', false);
+assert.equal(failed.after.flags.ruins_signal_chamber_open, undefined);
+assert.equal(route(failed.after, 'loc_ruins_watchpost', 'loc_ruins_signal_chamber'), false);
+assert.equal(failed.after.rng.cursor, failed.before.rng.cursor + 2);
+const surveyed = checkOutcome(armed, 'act_ruins_signal_survey_entrance', true);
+const broken = checkOutcome(armed, 'act_ruins_signal_break_entrance', true);
+assert.equal(surveyed.after.flags.ruins_signal_chamber_open, true);
+assert.equal(surveyed.after.flags.ruins_signal_chamber_noisy, undefined);
+assert.equal(broken.after.flags.ruins_signal_chamber_noisy, true);
+assert.equal(route(surveyed.after, 'loc_ruins_watchpost', 'loc_ruins_signal_chamber'), true);
+assert.deepEqual(run(surveyed.before, act('act_ruins_signal_survey_entrance')).state, surveyed.after);
+assert.deepEqual(saved(surveyed.after), surveyed.after);
+const entered = run(surveyed.after, { type: 'move', to: 'loc_ruins_signal_chamber' }).state;
+assert.equal(hero(entered).locationId, 'loc_ruins_signal_chamber');
+assert.equal(available(entered, 'act_ruins_signal_mark_passage'), true);
+assert.equal(available(entered, 'act_ruins_signal_salvage_armory'), true);
+assert.equal(route(entered, 'loc_ruins_watchpost', 'loc_ruins_cellar'), false);
+const marked = run(entered, act('act_ruins_signal_mark_passage')).state;
+assert.equal(marked.flags.ruins_signal_chamber_resolved, true);
+assert.equal(marked.flags.ruins_signal_public_passage, true);
+assert.equal(route(marked, 'loc_ruins_watchpost', 'loc_ruins_cellar'), true);
+assert.equal(route(marked, 'loc_ruins_cellar', 'loc_ruins_watchpost'), true);
+assert.equal(hero(marked).money, hero(entered).money - 3);
+assert.equal(available(marked, 'act_ruins_signal_salvage_armory'), false);
+assert.deepEqual(marked.rng, entered.rng);
+assert.deepEqual(saved(marked), marked);
+const looted = run(entered, act('act_ruins_signal_salvage_armory')).state;
+assert.equal(looted.flags.ruins_signal_chamber_resolved, true);
+assert.equal(looted.flags.ruins_signal_armory_looted, true);
+assert.equal(looted.flags.ruins_signal_public_passage, undefined);
+assert.equal(hero(looted).inventory.item_steel_sword, (hero(entered).inventory.item_steel_sword ?? 0) + 1);
+assert.equal(hero(looted).inventory.item_herbal_salve, (hero(entered).inventory.item_herbal_salve ?? 0) + 1);
+assert.equal(route(looted, 'loc_ruins_watchpost', 'loc_ruins_cellar'), false);
+assert.equal(available(looted, 'act_ruins_signal_mark_passage'), false);
+assert.deepEqual(saved(looted), looted);
+const noisyInside = run(broken.after, { type: 'move', to: 'loc_ruins_signal_chamber' }).state;
+assert.equal(available(noisyInside, 'act_ruins_signal_mark_passage'), false);
+assert.equal(available(noisyInside, 'act_ruins_signal_repair_passage'), true);
+const repaired = run(noisyInside, act('act_ruins_signal_repair_passage')).state;
+assert.equal(hero(repaired).money, hero(noisyInside).money - 5);
+assert.equal(route(repaired, 'loc_ruins_watchpost', 'loc_ruins_cellar'), true);
+const successorStart = structuredClone(marked);
+hero(successorStart).alive = false;
+successorStart.pending = { kind: 'newCharacter' };
+const successor = run(successorStart, { type: 'startCharacter', templateId: 'start_wanderer' }).state;
+assert.equal(successor.flags.ruins_signal_public_passage, true);
+assert.equal(hero(successor).growth.growth_wanderer.unlocks?.unl_ruins_signal_chamber_route, undefined);
+assert.equal(route(successor, 'loc_ruins_watchpost', 'loc_ruins_cellar'), true, 'public infrastructure survives succession');
+const undiscoveredHeir = structuredClone(surveyed.after);
+hero(undiscoveredHeir).alive = false; undiscoveredHeir.pending = { kind: 'newCharacter' };
+const heir = run(undiscoveredHeir, { type: 'startCharacter', templateId: 'start_wanderer' }).state;
+assert.equal(route(heir, 'loc_ruins_watchpost', 'loc_ruins_signal_chamber'), false, 'private map not inherited');
+hero(heir).locationId = 'loc_ruins_watchpost';
+assert.equal(available(heir, 'act_ruins_signal_follow_tracks'), true);
+const found = run(heir, act('act_ruins_signal_follow_tracks')).state;
+assert.equal(route(found, 'loc_ruins_watchpost', 'loc_ruins_signal_chamber'), true);
+assert.equal(JSON.stringify(view(marked, worldData)).includes('npc_ruins_raider'), false);
+console.log('Signal chamber: two entry tactics, exclusive mastery rewards, persistent shortcut, successor knowledge, RNG, Save PASS');

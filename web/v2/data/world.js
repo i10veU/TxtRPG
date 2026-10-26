@@ -998,6 +998,7 @@ function finalOptions(key, foe, leads) {
 
 import { ruinsExpedition } from './ruins-expedition.js';
 import { ruinsWatchpost } from './ruins-watchpost.js';
+import { ruinsSignalChamber } from './ruins-signal-chamber.js';
 import { ruinsRaider } from './ruins-raider.js';
 import { ruinsGuideConvoy, northTradeReliefTransfer, northTradeCharterDepotAllocation, northTradeCharterProcurement, northTradeCharterReturn } from './ruins-guide-convoy.js';
 
@@ -1586,6 +1587,7 @@ export const worldData = {
   locations: {
     ...ruinsExpedition.locations,
     ...ruinsWatchpost.locations,
+    ...ruinsSignalChamber.locations,
     loc_village: {
       name: "변경 마을",
       links: [
@@ -1672,6 +1674,7 @@ export const worldData = {
   actions: {
     ...ruinsExpedition.actions,
     ...ruinsWatchpost.actions,
+    ...ruinsSignalChamber.actions,
     ...ruinsRaider.actions,
     ...ruinsGuideConvoy.actions,
     act_observe_village: {
@@ -4577,7 +4580,7 @@ export const worldData = {
         { minRank: 5, label: "Adept" }
       ],
       // V2-Core-142 (M7): the realm's name -- the apex (a title: it opens nothing, the world answers it)
-      unlocks: [{ id: "unl_north_road_survey", kind: "action" }, { id: "unl_trailcraft", kind: "action" }, { id: "unl_caravan_pathfinder", kind: "action" }, { id: "unl_ruins_cellar_route", kind: "action" }, { id: "unl_ruins_lower_route", kind: "action" }, { id: "unl_ruins_raider_tracked", kind: "action" }, { id: "unl_keen_eye", kind: "action" }, { id: "unl_road_lead", kind: "action" }, { id: "unl_guarded_stance", kind: "action" }, { id: "unl_breakthrough_cut", kind: "action" }, { id: "unl_realm_renown", kind: "title" }],
+      unlocks: [{ id: "unl_north_road_survey", kind: "action" }, { id: "unl_trailcraft", kind: "action" }, { id: "unl_caravan_pathfinder", kind: "action" }, { id: "unl_ruins_cellar_route", kind: "action" }, { id: "unl_ruins_lower_route", kind: "action" }, { id: "unl_ruins_signal_chamber_route", kind: "action" }, { id: "unl_ruins_raider_tracked", kind: "action" }, { id: "unl_keen_eye", kind: "action" }, { id: "unl_road_lead", kind: "action" }, { id: "unl_guarded_stance", kind: "action" }, { id: "unl_breakthrough_cut", kind: "action" }, { id: "unl_realm_renown", kind: "title" }],
       // V2-Core-56 (Gate 4 = C, D-85): resources belong to the growth system. Stamina pays for the
       // fight's techniques (the counter 3, the old wound 2); a character without the entry is full
       resources: [{ id: "stamina", max: 6 }]
@@ -4819,6 +4822,7 @@ export const worldData = {
   texts: {
     ...ruinsExpedition.texts,
     ...ruinsWatchpost.texts,
+    ...ruinsSignalChamber.texts,
     ...ruinsRaider.texts,
     ...ruinsGuideConvoy.texts,
     txt_observe_village: "사람들 틈에 섞여 귀를 연다. 낯선 얼굴을 흘끔거리긴 해도 어디서 왔느냐고 묻는 이는 없다. 다들 제 걱정이 더 크다.",
