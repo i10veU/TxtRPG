@@ -75,6 +75,8 @@ function testChecksReadSkills() {
     act_trace_ruins_cellar: ["investigation", null],
     act_ruins_lower_scout: ["investigation", null],
     act_ruins_lower_breach: ["swordsmanship", null],
+    act_ruins_lower_silent_patrol: ["investigation", null],
+    act_ruins_lower_armed_patrol: ["swordsmanship", null],
     act_confront_leader: [null, null],
     act_castle_spar_trial: ["swordsmanship", null],
     act_castle_breakthrough_trial: ["swordsmanship", null],
