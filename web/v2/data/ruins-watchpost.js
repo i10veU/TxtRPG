@@ -45,7 +45,9 @@ export const ruinsWatchpost = {
       name: '폐허의 오래된 감시 초소',
       links: [
         { to: 'loc_ruins_gallery', minutes: 35 },
-        { to: 'loc_village', minutes: 25, requires: flag('ruins_watchpost_restored') }
+        { to: 'loc_village', minutes: 25, requires: flag('ruins_watchpost_restored') },
+        { to: 'loc_ruins_signal_chamber', minutes: 15, requires: { op: 'unlock', id: 'unl_ruins_signal_chamber_route' } },
+        { to: 'loc_ruins_cellar', minutes: 35, requires: flag('ruins_signal_public_passage') }
       ]
     }
   },

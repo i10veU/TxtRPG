@@ -43,6 +43,7 @@ export const ruinsExpedition = {
       name: '폐허 아래 매몰 창고',
       links: [
         { to: 'loc_ruins', minutes: 20 },
+        { to: 'loc_ruins_watchpost', minutes: 35, requires: flag('ruins_signal_public_passage') },
         // A public refuge survives its founder; no successor inherits the private map.
         { to: 'loc_village', minutes: 20, requires: flag('ruins_cellar_refuge') },
         { to: 'loc_ruins_lower_vault', minutes: 25, requires: { op: 'or', of: [lowerMapped, flag('ruins_lower_public')] } }
