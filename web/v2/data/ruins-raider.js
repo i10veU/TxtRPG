@@ -21,6 +21,10 @@ const calmRoad = { op: 'if', when: signal('road_trouble', { min: 1 }),
   then: [{ op: 'signal', key: 'road_trouble', add: -1 }] };
 const stopPatrol = [{ op: 'flag', key: 'ruins_raider_cleared', value: true }];
 const say = textId => ({ op: 'narrate', textId });
+// A successful local defence is remembered by the enemy, up to two. The
+// second repulse makes the next attack target the mill's *real* merchant cargo.
+const rememberRepulse = { op: 'if', when: signal('ruins_raider_repulsions', { max: 1 }),
+  then: [{ op: 'signal', key: 'ruins_raider_repulsions', add: 1 }] };
 
 export const ruinsRaider = {
   npcs: {
@@ -42,7 +46,8 @@ export const ruinsRaider = {
   },
   rumors: {
     rum_raider_watchpost_sighting: { factId: 'fact_raider_watchpost_sighting', claim: 'seen_watchpost' },
-    rum_raider_village_sighting: { factId: 'fact_raider_village_sighting', claim: 'seen_village' }
+    rum_raider_village_sighting: { factId: 'fact_raider_village_sighting', claim: 'seen_village' },
+    rum_raider_mill_sighting: { factId: 'fact_raider_mill_sighting', claim: 'seen_mill' }
   },
   events: {
     // Patrol: gallery -> watchpost -> village (only if the public passage is
@@ -55,14 +60,11 @@ export const ruinsRaider = {
       catchUp: true,
       effects: [
         { op: 'if', when: signal('ruins_raider_stage', { eq: 0 }), then: [
-          // A prepared watchpost snare catches the returning raider on its
-          // next actual visit. No RNG, remote narration, or hidden location UI.
           { op: 'if', when: flag('ruins_raider_ambush_armed'), then: [
             { op: 'move', subject: 'npc_ruins_raider', to: 'loc_ruins' },
             { op: 'flag', key: 'ruins_raider_ambush_armed', value: false },
             { op: 'flag', key: 'ruins_raider_ambush_caught', value: true },
-            ...stopPatrol, calmRoad,
-            { op: 'relation', from: 'org_village', add: 3 }
+            ...stopPatrol, calmRoad, { op: 'relation', from: 'org_village', add: 3 }
           ], else: [
             { op: 'move', subject: 'npc_ruins_raider', to: 'loc_ruins_watchpost' },
             { op: 'flag', key: 'ruins_raider_watchpost_tracks', value: true },
@@ -74,48 +76,76 @@ export const ruinsRaider = {
           { op: 'if', when: signal('ruins_raider_stage', { eq: 1 }), then: [
             { op: 'flag', key: 'ruins_raider_watchpost_recent', value: false },
             { op: 'if', when: flag('ruins_watchpost_restored'), then: [
-              // The village faction responds to a reported sighting by
-              // dispatching paid sentries. This protects exactly one future
-              // raid and forces a retreat, without magically killing the NPC.
-              { op: 'if', when: flag('ruins_raider_sentries_ready'), then: [
-                { op: 'flag', key: 'ruins_raider_sentries_ready', value: false },
-                { op: 'move', subject: 'npc_ruins_raider', to: 'loc_ruins_gallery' },
-                { op: 'signal', key: 'ruins_raider_stage', add: -1 },
-                calmRoad, { op: 'relation', from: 'org_village', add: 2 }
-              ], else: [
-              // A warning protects exactly one arrival. The raider survives
-              // and can try again; the player must choose a lasting solution.
-              { op: 'if', when: flag('ruins_raider_village_warned'), then: [
-                { op: 'flag', key: 'ruins_raider_village_warned', value: false },
-                { op: 'move', subject: 'npc_ruins_raider', to: 'loc_ruins_gallery' },
-                { op: 'signal', key: 'ruins_raider_stage', add: -1 }
-              ], else: [
-                { op: 'move', subject: 'npc_ruins_raider', to: 'loc_village' },
-                { op: 'flag', key: 'ruins_raider_village_sighting', value: true },
-                { op: 'flag', key: 'ruins_raider_village_recent', value: true },
-                // A previous interview cannot authorize a new mobilization.
-                { op: 'flag', key: 'ruins_raider_village_report_current', value: false },
-                { op: 'signal', key: 'ruins_raider_stage', add: 1 },
-                { op: 'if', when: signal('north_mill_relief_stock', { min: 1 }), then: [
-                  { op: 'signal', key: 'north_mill_relief_stock', add: -1 },
-                  { op: 'if', when: signal('road_trouble', { max: 1 }), then: [
-                    { op: 'signal', key: 'road_trouble', add: 1 }
+              // After two genuine repulsions, the raider avoids the guarded
+              // village and strikes the mill. A paid mill patrol can protect
+              // the next arrival, but never destroys the hostile actor.
+              { op: 'if', when: signal('ruins_raider_repulsions', { min: 2 }), then: [
+                { op: 'if', when: flag('ruins_raider_mill_patrol_ready'), then: [
+                  { op: 'flag', key: 'ruins_raider_mill_patrol_ready', value: false },
+                  { op: 'move', subject: 'npc_ruins_raider', to: 'loc_ruins_gallery' },
+                  { op: 'signal', key: 'ruins_raider_stage', add: -1 },
+                  calmRoad, { op: 'relation', from: 'org_mill_hamlet', add: 2 }
+                ], else: [
+                  { op: 'move', subject: 'npc_ruins_raider', to: 'loc_mill_hamlet' },
+                  { op: 'signal', key: 'ruins_raider_stage', add: 2 },
+                  { op: 'flag', key: 'ruins_raider_mill_sighting', value: true },
+                  { op: 'flag', key: 'ruins_raider_mill_recent', value: true },
+                  { op: 'flag', key: 'ruins_raider_mill_report_current', value: false },
+                  { op: 'if', when: and(signal('north_trade_stage', { eq: 2 }),
+                    signal('north_trade_stock', { min: 1 })), then: [
+                    { op: 'signal', key: 'north_trade_stock', add: -1 },
+                    { op: 'if', when: signal('road_trouble', { max: 1 }), then: [
+                      { op: 'signal', key: 'road_trouble', add: 1 }
+                    ] }
                   ] }
                 ] }
-              ] } ] }
+              ], else: [
+                { op: 'if', when: flag('ruins_raider_sentries_ready'), then: [
+                  { op: 'flag', key: 'ruins_raider_sentries_ready', value: false },
+                  { op: 'move', subject: 'npc_ruins_raider', to: 'loc_ruins_gallery' },
+                  { op: 'signal', key: 'ruins_raider_stage', add: -1 },
+                  rememberRepulse, calmRoad, { op: 'relation', from: 'org_village', add: 2 }
+                ], else: [
+                  { op: 'if', when: flag('ruins_raider_village_warned'), then: [
+                    { op: 'flag', key: 'ruins_raider_village_warned', value: false },
+                    { op: 'move', subject: 'npc_ruins_raider', to: 'loc_ruins_gallery' },
+                    { op: 'signal', key: 'ruins_raider_stage', add: -1 },
+                    rememberRepulse
+                  ], else: [
+                    { op: 'move', subject: 'npc_ruins_raider', to: 'loc_village' },
+                    { op: 'flag', key: 'ruins_raider_village_sighting', value: true },
+                    { op: 'flag', key: 'ruins_raider_village_recent', value: true },
+                    { op: 'flag', key: 'ruins_raider_village_report_current', value: false },
+                    { op: 'signal', key: 'ruins_raider_stage', add: 1 },
+                    { op: 'if', when: signal('north_mill_relief_stock', { min: 1 }), then: [
+                      { op: 'signal', key: 'north_mill_relief_stock', add: -1 },
+                      { op: 'if', when: signal('road_trouble', { max: 1 }), then: [
+                        { op: 'signal', key: 'road_trouble', add: 1 }
+                      ] }
+                    ] }
+                  ] }
+                ] }
+              ] }
             ], else: [
               { op: 'move', subject: 'npc_ruins_raider', to: 'loc_ruins_gallery' },
               { op: 'signal', key: 'ruins_raider_stage', add: -1 }
             ] }
           ], else: [
-            { op: 'flag', key: 'ruins_raider_village_recent', value: false },
-            { op: 'move', subject: 'npc_ruins_raider', to: 'loc_ruins_gallery' },
-            { op: 'signal', key: 'ruins_raider_stage', add: -2 }
+            { op: 'if', when: signal('ruins_raider_stage', { eq: 3 }), then: [
+              { op: 'flag', key: 'ruins_raider_mill_recent', value: false },
+              { op: 'move', subject: 'npc_ruins_raider', to: 'loc_ruins_gallery' },
+              { op: 'signal', key: 'ruins_raider_stage', add: -3 }
+            ], else: [
+              { op: 'flag', key: 'ruins_raider_village_recent', value: false },
+              { op: 'move', subject: 'npc_ruins_raider', to: 'loc_ruins_gallery' },
+              { op: 'signal', key: 'ruins_raider_stage', add: -2 }
+            ] }
           ] }
         ] }
       ]
     }
   },
+
   actions: {
     // The clock bounds freshness by the NPC's next actual patrol leg, not
     // the player's time of questioning. Event catch-up must not manufacture
@@ -143,10 +173,36 @@ export const ruinsRaider = {
             say('txt_ruins_raider_village_report_recent')], else: [say('txt_ruins_raider_village_report_old')] }
       ]
     },
+    act_ruins_raider_ask_miller: {
+      name: '방앗간 주인에게 상단을 덮친 낯선 사람의 소식을 듣는다 (15분)',
+      requires: and(at('loc_mill_hamlet'), flag('ruins_raider_mill_sighting')),
+      minutes: 15,
+      effects: [
+        { op: 'rumor', rumor: 'rum_raider_mill_sighting', source: 'npc_miller', confidence: 85 },
+        { op: 'if', when: flag('ruins_raider_mill_recent'), then: [
+          { op: 'flag', key: 'ruins_raider_mill_report_current', value: true },
+          say('txt_ruins_raider_mill_report_recent')
+        ], else: [say('txt_ruins_raider_mill_report_old')] }
+      ]
+    },
+    act_ruins_raider_hire_mill_patrol: {
+      name: '최근 목격담으로 물레방아 마을의 상단 경비를 고용한다 (은화 2, 기력 1, 60분)',
+      requires: and(active, at('loc_mill_hamlet'), flag('ruins_raider_mill_recent'),
+        flag('ruins_raider_mill_report_current'),
+        { op: 'rumor', rumor: 'rum_raider_mill_sighting', source: 'npc_miller' },
+        not(flag('ruins_raider_mill_patrol_ready')), { op: 'money', min: 2 }, stamina(1)),
+      minutes: 60,
+      effects: [
+        { op: 'money', add: -2 }, { op: 'resource', resource: 'stamina', add: -1 },
+        { op: 'flag', key: 'ruins_raider_mill_patrol_ready', value: true },
+        { op: 'relation', from: 'org_mill_hamlet', add: 1 },
+        say('txt_ruins_raider_mill_patrol_hired')
+      ]
+    },
     act_ruins_raider_organize_sentries: {
       name: '최근 목격 정보를 근거로 마을 경계대를 고용한다 (은화 3, 기력 1, 60분)',
       requires: and(active, at('loc_village'), flag('ruins_raider_village_recent'),
-        flag('ruins_raider_village_report_current'),
+        flag('ruins_raider_village_report_current'), signal('ruins_raider_repulsions', { max: 1 }),
         { op: 'rumor', rumor: 'rum_raider_village_sighting', source: 'npc_ruins_village_guard' },
         not(flag('ruins_raider_sentries_ready')), { op: 'money', min: 3 }, stamina(1)),
       minutes: 60,
@@ -200,7 +256,7 @@ export const ruinsRaider = {
       name: '마을 창고지기에게 다음 약탈에 대비하라고 경고한다 (기력 1, 45분)',
       requires: and(active, at('loc_village'), flag('ruins_watchpost_restored'),
         { op: 'unlock', id: 'unl_ruins_raider_tracked' },
-        not(flag('ruins_raider_village_warned')), stamina(1)),
+        not(flag('ruins_raider_village_warned')), signal('ruins_raider_repulsions', { max: 1 }), stamina(1)),
       minutes: 45,
       effects: [
         { op: 'resource', resource: 'stamina', add: -1 },
@@ -295,6 +351,9 @@ export const ruinsRaider = {
     }
   },
   texts: {
+    txt_ruins_raider_mill_report_recent: '방앗간 주인이 이번 순찰에 상단 물자를 노린 침입자를 봤다고 한다. 다음 귀환에 대비해 상단 경비를 고용할 수 있다.',
+    txt_ruins_raider_mill_report_old: '방앗간 주인은 예전 상단 약탈을 기억한다. 지금도 이곳에 있다고 장담할 수는 없다.',
+    txt_ruins_raider_mill_patrol_hired: '상단 경비가 물레방아 마을의 짐마차를 지키기로 했다. 다음 우회 습격 한 번을 막을 것이다.',
     txt_ruins_raider_watch_report_recent: '초소 경계병이 이번 순찰 중 본 침입자를 증언한다. 다음 순찰이 시작되기 전의 정보다. 지금 위치를 보장하지는 않는다.',
     txt_ruins_raider_watch_report_old: '초소 경계병은 이전 순찰에서 침입자를 봤다고 한다. 지금도 그곳에 있다는 뜻은 아니다.',
     txt_ruins_raider_village_report_recent: '창고 경계병이 이번 순찰 중 마을에 나타난 약탈자를 증언한다. 경계대를 동원할 수 있는 시점이다.',
