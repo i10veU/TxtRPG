@@ -4652,6 +4652,7 @@ export const worldData = {
     // rumor subjects are not omniscient live NPC location facts.
     fact_raider_watchpost_sighting: {},
     fact_raider_village_sighting: {},
+    fact_raider_mill_sighting: {},
     fact_royal_city: {},
     // V2-Core-149 (D-127): the word north arrived; the remnants regrouped / scattered
     fact_fate_word: {},
@@ -5210,6 +5211,7 @@ export const worldData = {
     lbl_rumor_rum_frontier_seen_town: "성읍 사람들이 변경 쪽 길로 사람이 올라왔다고 한다",
     lbl_rumor_rum_frontier_seen_far_bank: "길목 사람들이 남쪽 변경에서 온 나그네를 이야기한다",
     lbl_rumor_rum_raider_watchpost_sighting: "감시 초소 경계병이 침입자를 목격했다고 한다",
+    lbl_rumor_rum_raider_mill_sighting: "방앗간 주인이 상단 물자를 노린 약탈자를 목격했다고 한다",
     lbl_rumor_rum_raider_village_sighting: "마을 경계병이 창고 근처의 약탈자를 목격했다고 한다",
     lbl_rumor_rum_bandits_legend: "도적 떼가 모두 베어졌다",
     lbl_rumor_rum_leader_old_wound: "두목의 옆구리에 오래된 상처가 있다",
