@@ -38,13 +38,17 @@ export const ruinsWatchpost = {
       name: '폐허 아래 옛 회랑',
       links: [
         { to: 'loc_ruins_lower_vault', minutes: 30 },
-        { to: 'loc_ruins_watchpost', minutes: 35, requires: flag('ruins_watchpost_open') }
+        { to: 'loc_ruins_watchpost', minutes: 35, requires: flag('ruins_watchpost_open') },
+        { to: 'loc_ruins_cistern', minutes: 20, requires: { op: 'unlock', id: 'unl_ruins_cistern_route' } }
       ]
     },
     loc_ruins_watchpost: {
       name: '폐허의 오래된 감시 초소',
       links: [
         { to: 'loc_ruins_gallery', minutes: 35 },
+        { to: 'loc_ruins_cistern', minutes: 12, requires: { op: 'and', of: [
+          flag('ruins_cistern_sluice_open'), { op: 'unlock', id: 'unl_cistern_watch_route' }
+        ] } },
         { to: 'loc_village', minutes: 25, requires: flag('ruins_watchpost_restored') },
         { to: 'loc_ruins_signal_chamber', minutes: 15, requires: { op: 'unlock', id: 'unl_ruins_signal_chamber_route' } },
         { to: 'loc_ruins_cellar', minutes: 35, requires: flag('ruins_signal_public_passage') }
