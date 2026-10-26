@@ -1207,6 +1207,10 @@ export const worldData = {
         { op: "if", when: { op: "signal", key: "north_trade_stage", eq: 0 },
           then: [
             { op: "signal", key: "north_trade_stage", add: 1 },
+            // Each REAL new departure brings a bounded six-silver operating
+            // allocation. Old saves default to zero until the next departure.
+            { op: "if", when: { op: "signal", key: "ruins_guide_caravan_treasury", max: 6 },
+              then: [{ op: "signal", key: "ruins_guide_caravan_treasury", add: 6 }] },
             { op: "if", when: { op: "signal", key: "north_trade_stock", max: 0 },
               then: [{ op: "signal", key: "north_trade_stock", add: 2 }] }
           ], else: [

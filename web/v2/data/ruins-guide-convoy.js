@@ -6,6 +6,7 @@ const npcAt = id => ({ op: 'location', subject: 'npc_ruins_raider', at: id });
 const flag = key => ({ op: 'flag', key });
 const signal = (key, args) => ({ op: 'signal', key, ...args });
 const and = (...of) => ({ op: 'and', of });
+const or = (...of) => ({ op: 'or', of });
 const not = of => ({ op: 'not', of });
 const stamina = min => ({ op: 'resource', resource: 'stamina', min });
 const bread = min => ({ op: 'item', item: 'item_mill_bread', min });
@@ -18,6 +19,21 @@ const wagonWaiting = and(flag('north_road_guided'), signal('north_trade_stage', 
 const onWagon = and(flag('ruins_raider_guide_recruited'), flag('ruins_guide_on_convoy'),
   wagonWaiting, at('loc_far_bank'), npcAt('loc_far_bank'));
 const reduceDanger = { op: 'signal', key: 'road_trouble', add: -1 };
+// Demand comes from the actual mill shortage, not a new omniscient clock.
+// The merchant can only promise wages it can pay. The treasury is a bounded
+// world signal replenished on actual new caravan departures, or by investment.
+const shortageDemand = and(flag('north_supply_relief_pact'),
+  signal('north_relief_losses', { min: 2 }),
+  not(flag('north_relief_shortage_recovered')),
+  signal('north_mill_relief_stock', { max: 1 }));
+const canPay = (ordinary, shortage) => or(
+  and(shortageDemand, signal('ruins_guide_caravan_treasury', { min: shortage })),
+  and(not(shortageDemand), signal('ruins_guide_caravan_treasury', { min: ordinary })));
+const wage = (ordinary, shortage) => ({ op: 'if', when: shortageDemand,
+  then: [{ op: 'signal', key: 'ruins_guide_caravan_treasury', add: -shortage },
+    { op: 'money', add: shortage }],
+  else: [{ op: 'signal', key: 'ruins_guide_caravan_treasury', add: -ordinary },
+    { op: 'money', add: ordinary }] });
 // Career progress belongs to the persistent world and is capped at three
 // successful journeys; neither failed checks nor mere boarding count.
 const gainExperience = { op: 'if', when: signal('ruins_guide_experience', { max: 2 }),
@@ -90,29 +106,41 @@ export const ruinsGuideConvoy = {
         { op: 'move', to: 'loc_far_bank' }, narrate('txt_ruins_guide_priority_boarded')
       ]
     },
+    // A deliberate financing choice: the player invests their OWN money in
+    // the real caravan, then may earn it back only by completing contracts.
+    act_ruins_guide_capitalize_caravan: {
+      name: '북부 상단 운송 자금에 은화 4를 출자한다 (30분)',
+      requires: and(onWagon, { op: 'money', min: 4 },
+        signal('ruins_guide_caravan_treasury', { max: 8 })),
+      minutes: 30,
+      effects: [{ op: 'money', add: -4 },
+        { op: 'signal', key: 'ruins_guide_caravan_treasury', add: 4 },
+        narrate('txt_ruins_guide_caravan_capitalized')]
+    },
     act_ruins_guide_safe_freight: {
-      name: '표지석 길로 상단의 안전 운송 계약을 완수한다 (기력 1, 60분, 은화 2)',
+      name: '표지석 길로 상단의 안전 운송 계약을 완수한다 (기력 1, 60분, 은화 2~3)',
       requires: and(onWagon, flag('ruins_guide_waymarks'),
         signal('ruins_guide_experience', { min: 2 }),
-        signal('north_trade_stock', { min: 1 }), signal('road_trouble', { min: 1 }), stamina(1)),
+        signal('north_trade_stock', { min: 1 }), signal('road_trouble', { min: 1 }),
+        canPay(2, 3), stamina(1)),
       minutes: 60,
       effects: [{ op: 'resource', resource: 'stamina', add: -1 },
-        { op: 'money', add: 2 }, { op: 'relation', from: 'npc_north_caravan_driver', add: 2 },
+        wage(2, 3), { op: 'relation', from: 'npc_north_caravan_driver', add: 2 },
         gainTrust, ...arrive, narrate('txt_ruins_guide_safe_freight')]
     },
     act_ruins_guide_urgent_freight: {
-      name: '위험한 길로 긴급 화물 호위 계약을 맡는다 (기력 2, 90분, 은화 5~7)',
+      name: '위험한 길로 긴급 화물 호위 계약을 맡는다 (기력 2, 90분, 은화 5~8)',
       requires: and(onWagon, signal('road_trouble', { min: 2 }),
-        signal('north_trade_stock', { min: 1 }),
+        signal('north_trade_stock', { min: 1 }), canPay(7, 8),
         { op: 'skill', skill: 'swordsmanship', min: 1 }, sword, stamina(2)),
       check: { stat: 'str', skill: 'swordsmanship', tags: ['combat'], difficulty: 'hard' },
       minutes: 90,
       outcomes: {
         great: [{ op: 'resource', resource: 'stamina', add: -2 },
-          { op: 'proficiency', id: 'combat', add: 15 }, { op: 'money', add: 7 },
+          { op: 'proficiency', id: 'combat', add: 15 }, wage(7, 8),
           gainTrust, ...arrive, narrate('txt_ruins_guide_urgent_success')],
         success: [{ op: 'resource', resource: 'stamina', add: -2 },
-          { op: 'proficiency', id: 'combat', add: 10 }, { op: 'money', add: 5 },
+          { op: 'proficiency', id: 'combat', add: 10 }, wage(5, 6),
           gainTrust, ...arrive, narrate('txt_ruins_guide_urgent_success')],
         partial: [{ op: 'resource', resource: 'stamina', add: -2 }, { op: 'hp', add: -1 },
           { op: 'signal', key: 'north_trade_stock', add: -1 },
@@ -204,6 +232,7 @@ export const ruinsGuideConvoy = {
     }
   },
   texts: {
+    txt_ruins_guide_caravan_capitalized: '내 은화를 상단의 실제 운송 자금으로 맡겼다. 계약의 품삯은 이 유한한 자금에서만 지급되며, 운행이 새로 시작되면 상단의 영업 자금이 보충된다.',
     txt_ruins_guide_priority_boarded: '상단 마부가 오랜 호위 계약을 기억하고 짐칸에 자리를 내주었다. 식량을 추가로 내지 않고 길잡이와 강 건너 길목에 도착했다.',
     txt_ruins_guide_safe_freight: '표지석을 따라 화물을 안전하게 인도했다. 마부가 정해진 품삯을 지불하고 다음 운송도 맡기겠다고 약속했다.',
     txt_ruins_guide_urgent_success: '위험한 지름길에서 화물을 지켜냈다. 상단은 큰 품삯을 지불하고 길잡이의 계약 이력을 높이 평가했다.',
