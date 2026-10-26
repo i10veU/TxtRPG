@@ -196,6 +196,45 @@ export const ruinsGuideConvoy = {
         { op: 'signal', key: 'ruins_guide_caravan_treasury', add: 4 },
         narrate('txt_ruins_guide_fund_procurement')]
     },
+    // A second recovery route for an insolvent merchant: the player can
+    // personally purchase one REAL castle-granary bundle and carry it across
+    // the map. The bundle is an inventory item, not teleporting warehouse
+    // stock. The two destinations compete for the same finite crate.
+    act_ruins_guide_buy_personal_grain: {
+      name: '성읍 창고에서 구휼 곡물 한 꾸러미를 직접 산다 (은화 2, 20분)',
+      requires: and(at('loc_castle_town'), charter, procurementActive,
+        castleGrain({ min: 1 }), not({ op: 'item', item: 'item_castle_grain_crate', min: 1 }),
+        { op: 'money', min: 2 }),
+      minutes: 20,
+      effects: [{ op: 'money', add: -2 },
+        { op: 'signal', key: 'north_castle_grain_stock', add: -1 },
+        { op: 'item', item: 'item_castle_grain_crate', add: 1 },
+        narrate('txt_ruins_guide_personal_grain_bought')]
+    },
+    act_ruins_guide_deliver_personal_mill: {
+      name: '직접 운반한 성읍 곡물을 물레방아 공동 창고에 전달한다 (30분)',
+      requires: and(at('loc_mill_hamlet'), millSpace,
+        { op: 'item', item: 'item_castle_grain_crate', min: 1 }),
+      minutes: 30,
+      effects: [{ op: 'item', item: 'item_castle_grain_crate', add: -1 },
+        { op: 'signal', key: 'north_mill_relief_stock', add: 1 },
+        { op: 'relation', from: 'npc_miller', add: 2 },
+        { op: 'if', when: signal('ruins_guide_player_relief_deliveries', { max: 2 }),
+          then: [{ op: 'signal', key: 'ruins_guide_player_relief_deliveries', add: 1 }] },
+        narrate('txt_ruins_guide_personal_mill_delivered')]
+    },
+    act_ruins_guide_deliver_personal_depot: {
+      name: '직접 운반한 성읍 곡물을 강 건너 보급소에 맡긴다 (20분)',
+      requires: and(at('loc_far_bank'), signal('north_waystation_stock', { max: 2 }),
+        { op: 'item', item: 'item_castle_grain_crate', min: 1 }),
+      minutes: 20,
+      effects: [{ op: 'item', item: 'item_castle_grain_crate', add: -1 },
+        { op: 'signal', key: 'north_waystation_stock', add: 1 },
+        { op: 'relation', from: 'npc_north_caravan_driver', add: 2 },
+        { op: 'if', when: signal('ruins_guide_player_relief_deliveries', { max: 2 }),
+          then: [{ op: 'signal', key: 'ruins_guide_player_relief_deliveries', add: 1 }] },
+        narrate('txt_ruins_guide_personal_depot_delivered')]
+    },
     act_ruins_guide_cancel_mill_order: {
       name: '상단 식량 배송 예약을 취소한다 (환불 없음, 10분)',
       requires: and(at('loc_mill_hamlet'), pendingOrder),
@@ -385,6 +424,9 @@ export const ruinsGuideConvoy = {
     }
   },
   texts: {
+    txt_ruins_guide_personal_grain_bought: '성읍 창고의 실제 곡물 한 꾸러미를 샀다. 상단 자금이 바닥나도 내가 직접 길을 건너 필요한 곳에 가져갈 수 있다. 곡물은 내 짐에 실려 있다.',
+    txt_ruins_guide_personal_mill_delivered: '성읍에서 직접 가져온 곡물을 물레방아 공동 창고에 내려놓았다. 방앗간 주인은 먼 길의 수고를 기억한다.',
+    txt_ruins_guide_personal_depot_delivered: '성읍에서 직접 가져온 곡물을 강 건너 보급소에 맡겼다. 이제 구휼 마차가 실제 보급소 재고를 마을로 운반할 수 있다.',
     txt_ruins_guide_fund_procurement: '다음 성읍 출발 때 식량을 사도록 상단에 은화를 보탰다. 마부는 성읍 창고의 실제 재고와 마을의 수요를 살핀 뒤 조달할 것이다.',
     txt_ruins_guide_charter_depot: '상단 마부와 강 건너 보급 우선 계약을 맺었다. 이제 상단이 성읍에서 새로 출발할 때마다 실제 화물 한 묶음을 보급소로 돌린다. 마을의 선결제 식량은 마지막까지 지킨다.',
     txt_ruins_guide_charter_mill: '상단 마부에게 다음 운행부터 마을의 창고를 먼저 채우라고 일렀다. 상단이 실제로 마을까지 도착해야 식량이 들어온다.',
