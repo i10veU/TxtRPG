@@ -1,0 +1,77 @@
+import assert from 'node:assert/strict';
+import { createInitialState, step, view, validateState, checkDataCompatibility } from '../../web/v2/core/engine.js';
+import { buildSaveRecord, parseLoadedRecord } from '../../web/v2/storage/idb.js';
+import { worldData } from '../../web/v2/data/world.js';
+const act = actionId => ({ type: 'perform', actionId });
+const hero = s => s.actors[s.player.actorId];
+const available = (s, id) => view(s, worldData).actions.some(a => a.actionId === id && a.available);
+const run = (s, action) => {
+  const result = step(s, action, worldData);
+  assert.ok(!result.events.some(e => e.type === 'action.rejected'), JSON.stringify(result.events));
+  assert.deepEqual(validateState(result.state), []);
+  assert.deepEqual(checkDataCompatibility(result.state, worldData), []);
+  return result.state;
+};
+const saved = s => parseLoadedRecord(JSON.parse(JSON.stringify(buildSaveRecord('guide-budget', s, { savedAt: 1 }))));
+const seed = createInitialState({ worldSeed: 'guide-budget-486', data: worldData }).state;
+seed.flags = { ...seed.flags, north_road_guided: true, ruins_raider_cleared: true,
+  ruins_raider_guide_recruited: true, ruins_guide_waymarks: true, north_supply_relief_pact: true };
+seed.signals = { ...seed.signals, north_trade_stage: 1, north_trade_stock: 2,
+  road_trouble: 3, ruins_guide_experience: 3, north_relief_losses: 2,
+  north_mill_relief_stock: 0, ruins_guide_caravan_treasury: 1 };
+seed.actors.npc_ruins_raider.locationId = 'loc_river_ford';
+hero(seed).locationId = 'loc_river_ford';
+hero(seed).money = 15;
+hero(seed).inventory.item_mill_bread = 8;
+hero(seed).inventory.item_iron_sword = 1;
+hero(seed).loadout = { slot_hand: 'item_iron_sword' };
+hero(seed).growth.growth_wanderer.skills = { swordsmanship: 1 };
+hero(seed).growth.growth_wanderer.stats.str = 30;
+const boarded = run(seed, act('act_ruins_guide_board_convoy'));
+assert.equal(available(boarded, 'act_ruins_guide_safe_freight'), false, 'cannot pay wages from an empty treasury');
+assert.equal(available(boarded, 'act_ruins_guide_urgent_freight'), false, 'cannot promise more than budget');
+assert.equal(available(boarded, 'act_ruins_guide_capitalize_caravan'), true, 'player can finance a real caravan');
+const financed = run(boarded, act('act_ruins_guide_capitalize_caravan'));
+assert.equal(financed.signals.ruins_guide_caravan_treasury, 5);
+assert.equal(hero(financed).money, hero(boarded).money - 4);
+assert.equal(available(financed, 'act_ruins_guide_safe_freight'), true);
+const safe = run(financed, act('act_ruins_guide_safe_freight'));
+assert.equal(hero(safe).money, hero(financed).money + 3, 'shortage increases safe wages');
+assert.equal(safe.signals.ruins_guide_caravan_treasury, 2);
+assert.equal(safe.signals.north_trade_stock, 1, 'existing relief transfers only real cargo');
+assert.deepEqual(saved(safe), safe);
+assert.deepEqual(run(financed, act('act_ruins_guide_safe_freight')), safe);
+assert.equal(safe.rng.cursor, financed.rng.cursor);
+const wealthy = structuredClone(boarded);
+wealthy.signals.ruins_guide_caravan_treasury = 12;
+const urgent = run(wealthy, act('act_ruins_guide_urgent_freight'));
+assert.ok(hero(urgent).money <= hero(wealthy).money + 8, 'wage has a strict upper bound');
+assert.ok(urgent.signals.ruins_guide_caravan_treasury >= 4, 'wage comes out of real budget');
+assert.deepEqual(saved(urgent), urgent);
+const ordinary = structuredClone(wealthy);
+ordinary.signals.north_relief_losses = 0;
+assert.equal(available(ordinary, 'act_ruins_guide_safe_freight'), true);
+const normal = run(ordinary, act('act_ruins_guide_safe_freight'));
+assert.equal(hero(normal).money, hero(ordinary).money + 2);
+assert.equal(normal.signals.ruins_guide_caravan_treasury, 10);
+const dry = structuredClone(boarded);
+dry.signals.ruins_guide_caravan_treasury = 0;
+assert.equal(available(dry, 'act_ruins_guide_safe_freight'), false);
+assert.equal(available(dry, 'act_ruins_guide_urgent_freight'), false);
+assert.equal(available(dry, 'act_ruins_guide_veteran_crossing'), true, 'nonpaid crossing stays available');
+assert.equal(JSON.stringify(view(safe, worldData)).includes('npc_ruins_raider'), false);
+console.log('Guide caravan budget: finite capital, demand-sensitive wages, investment, Save, RNG, projection PASS');
+// Merchant capital is replenished only when the real route departs, and never
+// exceeds twelve silver. A legacy Save without the signal remains valid.
+const legacy = structuredClone(seed);
+delete legacy.signals.ruins_guide_caravan_treasury;
+legacy.signals.north_trade_stage = 0;
+legacy.signals.road_trouble = 0;
+const departed = run(legacy, { type: 'wait', minutes: 1440 });
+assert.equal(departed.signals.ruins_guide_caravan_treasury, 6);
+assert.equal(departed.signals.north_trade_stage, 1);
+const funded = structuredClone(legacy);
+funded.signals.ruins_guide_caravan_treasury = 10;
+const cappedDeparture = run(funded, { type: 'wait', minutes: 1440 });
+assert.equal(cappedDeparture.signals.ruins_guide_caravan_treasury, 10);
+assert.deepEqual(saved(cappedDeparture), cappedDeparture);

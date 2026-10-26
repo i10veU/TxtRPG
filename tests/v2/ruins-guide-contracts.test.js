@@ -19,7 +19,7 @@ initial.flags = { ...initial.flags, north_road_guided: true, ruins_raider_cleare
   north_supply_relief_pact: true };
 initial.signals = { ...initial.signals, north_trade_stage: 1, north_trade_stock: 2,
   north_relief_losses: 2, north_mill_relief_stock: 0, road_trouble: 3,
-  ruins_guide_experience: 3 };
+  ruins_guide_experience: 3, ruins_guide_caravan_treasury: 12 };
 initial.actors.npc_ruins_raider.locationId = 'loc_river_ford';
 me(initial).locationId = 'loc_river_ford';
 me(initial).inventory.item_mill_bread = 8;
@@ -36,7 +36,7 @@ assert.equal(can(boarded, 'act_ruins_guide_urgent_freight'), true);
 assert.equal(can(boarded, 'act_ruins_guide_relief_freight'), true);
 const safe = play(boarded, P('act_ruins_guide_safe_freight'));
 assert.equal(safe.signals.north_trade_stage, 2);
-assert.equal(me(safe).money, silver + 2);
+assert.equal(me(safe).money, silver + 3);
 assert.equal(safe.signals.ruins_guide_merchant_trust, 1);
 assert.equal(safe.signals.north_trade_stock, stock - 1, 'ordinary shortage relief still transfers exactly one bundle');
 assert.equal(safe.signals.north_mill_relief_stock, 1);
@@ -52,7 +52,7 @@ assert.equal(relief.rng.cursor, boarded.rng.cursor);
 assert.deepEqual(save(relief), relief);
 const risky = play(boarded, P('act_ruins_guide_urgent_freight'));
 assert.equal(risky.signals.north_trade_stage, 2);
-assert.ok(me(risky).money >= silver + 5);
+assert.ok(me(risky).money >= silver + 6);
 assert.equal(risky.signals.ruins_guide_merchant_trust, 1);
 assert.ok(risky.rng.cursor > boarded.rng.cursor);
 assert.deepEqual(save(risky), risky);
