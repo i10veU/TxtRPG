@@ -959,6 +959,22 @@ function finalOptions(key, foe, leads) {
       })
     },
     {
+      id: `opt_final_${key}_tempo_break`,
+      name: "칼등으로 상대의 호흡을 끊는다 (기력 2)",
+      requires: leading({ op: "and", of: [
+        { op: "unlock", id: "unl_tempo_break" }, HAS_DRAWN_SWORD,
+        STAMINA_AT_LEAST(2), { op: "resource", subject: foe, resource: "stamina", min: 3 }
+      ] }),
+      check: check(10, "dex"),
+      minutes: 5,
+      outcomes: payStamina(2, {
+        great: exchange([{ op: "resource", subject: foe, resource: "stamina", add: -3 }, hitFoe(-4), say("txt_tempo_break_hit")]),
+        success: exchange([{ op: "resource", subject: foe, resource: "stamina", add: -3 }, hitFoe(-2), say("txt_tempo_break_hit")]),
+        partial: exchange([{ op: "resource", subject: foe, resource: "stamina", add: -1 }, hitSelf(-1), say("txt_tempo_break_graze")]),
+        fail: exchange([hitSelf(-3), say("txt_tempo_break_miss")])
+      })
+    },
+    {
       id: `opt_final_${key}_breakthrough`,
       name: "돌파 검술로 빈틈을 찌른다 (기력 3)",
       requires: leading({ op: "and", of: [{ op: "unlock", id: "unl_breakthrough_cut" }, HAS_DRAWN_SWORD, STAMINA_AT_LEAST(3)] }),
@@ -4474,6 +4490,25 @@ export const worldData = {
             fail: fightExchange([hitSelf(-2), say("txt_guarded_stance_block")])
           })
         },
+        // A late-game control technique learned from the signal chamber.
+        // A successful cut spends the opponent's finite stamina, denying
+        // future heavy blows. Low damage makes it a deliberate tactical trade.
+        {
+          id: "opt_fight_tempo_break",
+          name: "칼등으로 상대의 호흡을 끊는다 (기력 2)",
+          requires: { op: "and", of: [
+            { op: "unlock", id: "unl_tempo_break" }, HAS_DRAWN_SWORD,
+            STAMINA_AT_LEAST(2), { op: "resource", subject: LEADER, resource: "stamina", min: 3 }
+          ] },
+          check: { stat: "dex", skill: "swordsmanship", tags: ["combat"], difficulty: FIGHT_DIFFICULTY(10, "dex") },
+          minutes: 5,
+          outcomes: payStamina(2, {
+            great: fightExchange([{ op: "resource", subject: LEADER, resource: "stamina", add: -3 }, hitLeader(-4), say("txt_tempo_break_hit")]),
+            success: fightExchange([{ op: "resource", subject: LEADER, resource: "stamina", add: -3 }, hitLeader(-2), say("txt_tempo_break_hit")]),
+            partial: fightExchange([{ op: "resource", subject: LEADER, resource: "stamina", add: -1 }, hitSelf(-1), say("txt_tempo_break_graze")]),
+            fail: fightExchange([hitSelf(-3), say("txt_tempo_break_miss")])
+          })
+        },
         // Offensive sword technique: stronger than a normal strike but expensive
         // and dangerous on a missed opening. Personal unlock + equipped weapon.
         {
@@ -4580,7 +4615,7 @@ export const worldData = {
         { minRank: 5, label: "Adept" }
       ],
       // V2-Core-142 (M7): the realm's name -- the apex (a title: it opens nothing, the world answers it)
-      unlocks: [{ id: "unl_north_road_survey", kind: "action" }, { id: "unl_trailcraft", kind: "action" }, { id: "unl_caravan_pathfinder", kind: "action" }, { id: "unl_ruins_cellar_route", kind: "action" }, { id: "unl_ruins_lower_route", kind: "action" }, { id: "unl_ruins_signal_chamber_route", kind: "action" }, { id: "unl_ruins_raider_tracked", kind: "action" }, { id: "unl_keen_eye", kind: "action" }, { id: "unl_road_lead", kind: "action" }, { id: "unl_guarded_stance", kind: "action" }, { id: "unl_breakthrough_cut", kind: "action" }, { id: "unl_realm_renown", kind: "title" }],
+      unlocks: [{ id: "unl_north_road_survey", kind: "action" }, { id: "unl_trailcraft", kind: "action" }, { id: "unl_caravan_pathfinder", kind: "action" }, { id: "unl_ruins_cellar_route", kind: "action" }, { id: "unl_ruins_lower_route", kind: "action" }, { id: "unl_ruins_signal_chamber_route", kind: "action" }, { id: "unl_ruins_raider_tracked", kind: "action" }, { id: "unl_keen_eye", kind: "action" }, { id: "unl_road_lead", kind: "action" }, { id: "unl_guarded_stance", kind: "action" }, { id: "unl_breakthrough_cut", kind: "action" }, { id: "unl_tempo_break", kind: "action" }, { id: "unl_realm_renown", kind: "title" }],
       // V2-Core-56 (Gate 4 = C, D-85): resources belong to the growth system. Stamina pays for the
       // fight's techniques (the counter 3, the old wound 2); a character without the entry is full
       resources: [{ id: "stamina", max: 6 }]
@@ -5060,6 +5095,9 @@ export const worldData = {
     txt_guarded_stance_block: "상대의 검이 방어 자세를 흔든다. 반격에는 실패했지만 급소를 피하고 피해를 줄였다.",
     txt_castle_breakthrough_pass: "사범의 검을 밀어내고 빈틈을 파고든다. 위험을 감수한 빠른 돌파를 인정받았다. 이 검술은 검을 쥔 채 기력을 쏟아야 한다.",
     txt_castle_breakthrough_retry: "공격을 서두르다 반격을 허용했다. 비용과 기력은 돌아오지 않지만, 다음 대련에서 파고들 틈은 조금 더 보인다.",
+    txt_tempo_break_hit: "칼등으로 상대의 공격 박자를 끊었다. 숨이 흐트러진 상대는 힘을 모으지 못한다.",
+    txt_tempo_break_graze: "상대의 호흡은 잠깐 흐트러졌지만, 칼날이 스치며 상처를 입었다.",
+    txt_tempo_break_miss: "공격의 박자를 잘못 읽었다. 빈틈을 내주고 말았다.",
     txt_breakthrough_cut_hit: "검끝을 낮게 숨긴 채 순식간에 파고들어 깊은 상처를 남겼다. 기력을 크게 소모했지만 주도권을 잡았다.",
     txt_breakthrough_cut_trade: "상대의 방어를 뚫었지만 빈틈을 내주어 나도 베였다. 공격적인 검술의 대가다.",
     txt_breakthrough_cut_fail: "무리하게 파고든 순간 반격을 정면으로 받았다. 다음에는 공격과 방어의 균형을 다시 판단해야 한다.",
@@ -5188,11 +5226,13 @@ export const worldData = {
     lbl_unlock_unl_caravan_pathfinder: "상단 길잡이",
     lbl_unlock_unl_ruins_cellar_route: "매몰 창고 길잡이",
     lbl_unlock_unl_ruins_lower_route: "지하 봉인실 길잡이",
+    lbl_unlock_unl_ruins_signal_chamber_route: "신호실 길잡이",
     lbl_unlock_unl_ruins_raider_tracked: "떠돌이 약탈자 추적",
     lbl_unlock_unl_keen_eye: "예리한 눈",
     lbl_unlock_unl_road_lead: "상단을 이끌 자격",
     lbl_unlock_unl_guarded_stance: "방어 검술 자세",
     lbl_unlock_unl_breakthrough_cut: "돌파 검술",
+    lbl_unlock_unl_tempo_break: "호흡 끊기 검술",
     lbl_unlock_unl_realm_renown: "왕국이 아는 이름 (남쪽 변경의 수호자)",
     lbl_res_stamina: "기력",
     lbl_slot_hand: "손",

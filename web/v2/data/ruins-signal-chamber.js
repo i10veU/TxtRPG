@@ -102,6 +102,25 @@ export const ruinsSignalChamber = {
       minutes: 180,
       effects: [{ op: 'money', add: -5 }, { op: 'resource', resource: 'stamina', add: -2 }, ...publicRoute]
     },
+    // The chamber's worn stone timing marks teach a personal, non-canonical
+    // sword technique. It is available after either physical ending; the
+    // public route and the private armory remain mutually exclusive.
+    act_ruins_signal_learn_tempo_break: {
+      name: '신호실의 검흔을 따라 상대의 호흡을 끊는 검술을 익힌다 (은화 2, 기력 2, 90분)',
+      requires: and(at('loc_ruins_signal_chamber'), roomOpen,
+        flag('ruins_signal_chamber_resolved'),
+        not({ op: 'unlock', id: 'unl_tempo_break' }),
+        sword, { op: 'skill', skill: 'swordsmanship', min: 1 },
+        { op: 'money', min: 2 }, stamina(2)),
+      minutes: 90,
+      effects: [
+        { op: 'money', add: -2 },
+        { op: 'resource', resource: 'stamina', add: -2 },
+        { op: 'proficiency', id: 'combat', add: 10 },
+        { op: 'unlock', id: 'unl_tempo_break' },
+        say('txt_ruins_signal_tempo_learned')
+      ]
+    },
     act_ruins_signal_salvage_armory: {
       name: '신호실의 남은 무기와 연고를 챙기고 통로를 닫는다 (기력 2, 90분)',
       requires: and(at('loc_ruins_signal_chamber'), unresolved, stamina(2)),
@@ -125,6 +144,7 @@ export const ruinsSignalChamber = {
     txt_ruins_signal_break_failed: '검이 돌틈에 걸리고 무너진 돌이 어깨를 친다. 뚜껑은 아직 닫혀 있다.',
     txt_ruins_signal_tracked: '열려 있는 판 아래 발자국과 손때를 확인했다. 이제 신호실의 출입구를 기억한다.',
     txt_ruins_signal_passage_marked: '돌을 걷어내고 길 표식을 세웠다. 초소와 매몰 창고 사이에 마을 사람도 다닐 수 있는 길이 생겼다.',
+    txt_ruins_signal_tempo_learned: '돌벽의 끊긴 검흔을 따라 발을 옮겼다. 상대가 힘을 모으는 순간 칼등으로 리듬을 끊는 법을 깨달았다.',
     txt_ruins_signal_salvaged: '무기함에서 강철 검과 약초 연고를 꺼냈다. 돌문을 닫자 지름길을 정비할 자재는 더 이상 남지 않았다.'
   }
 };

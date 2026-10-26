@@ -204,6 +204,16 @@ const COMPOSE = {
     { op: 'rocks', x0: 0.06, x1: 0.95, base: 0.97, n: 11, seed: 'watchpost:rubble' },
     { op: 'mist', y: 0.9, h: 0.08 }
   ],
+  // A discovered underground signal room: broken lintel, stone grooves and
+  // an old arch. No loot or undiscovered exit is projected into the picture.
+  loc_ruins_signal_chamber: () => [
+    ...hills('ruins:signal', { far: 0.53, mid: 0.65 }),
+    { op: 'ground', tone: 'near', y: 0.84, seed: 'signal:floor' },
+    { op: 'arch', x: 0.5, base: 0.85, w: 0.4, h: 0.58, broken: true },
+    { op: 'wall', x0: 0.12, x1: 0.87, base: 0.93, h: 0.1, gate: 0.5 },
+    { op: 'rocks', x0: 0.08, x1: 0.92, base: 0.98, n: 10, seed: 'signal:stones' },
+    { op: 'mist', y: 0.87, h: 0.09 }
+  ],
   // 숲속 샘: a pool under tall pines; murky while the well is fouled, clear once it is not
   loc_forest_spring: (m) => [
     { op: "ridge", tone: "far", base: 0.38, amp: 0.14, rough: 2.4, seed: "spring:far" },
