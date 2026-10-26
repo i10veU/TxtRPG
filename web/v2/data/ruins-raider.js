@@ -61,6 +61,15 @@ export const ruinsRaider = {
       cooldown: 720,
       catchUp: true,
       effects: [
+        // The player can fund a permanent sentry after securing the gallery.
+        // On the next real patrol tick, a sentry intercepts an approaching
+        // raider; no off-screen observation or phantom ration is created.
+        { op: 'if', when: and(flag('ruins_gallery_watch_posted'),
+          signal('ruins_raider_stage', { max: 1 })), then: [
+          { op: 'move', subject: 'npc_ruins_raider', to: 'loc_ruins' },
+          { op: 'flag', key: 'ruins_gallery_watch_intercepted', value: true },
+          ...stopPatrol, calmRoad, { op: 'relation', from: 'org_village', add: 2 }
+        ], else: [
         { op: 'if', when: signal('ruins_raider_stage', { eq: 0 }), then: [
           { op: 'if', when: flag('ruins_raider_ambush_armed'), then: [
             { op: 'move', subject: 'npc_ruins_raider', to: 'loc_ruins' },
@@ -143,6 +152,7 @@ export const ruinsRaider = {
               { op: 'signal', key: 'ruins_raider_stage', add: -2 }
             ] }
           ] }
+        ] }
         ] }
       ]
     }

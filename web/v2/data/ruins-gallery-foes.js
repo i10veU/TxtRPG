@@ -95,7 +95,48 @@ export const ruinsGalleryFoes = {
       correct0: '내려치기를 받아친다', correct1: '횡베기를 옆으로 피한다', damage0: 4, damage1: 3 }),
     ...encounter({ key: 'scout', foe: 'npc_gallery_scout', name: '단검 척후병',
       stance0: 'txt_gallery_scout_feint', stance1: 'txt_gallery_scout_lunge',
-      correct0: '허초를 기다렸다 반격한다', correct1: '돌진을 역으로 끊는다', damage0: 3, damage1: 4 })
+      correct0: '허초를 기다렸다 반격한다', correct1: '돌진을 역으로 끊는다', damage0: 3, damage1: 4 }),
+    // Defeating the physical foes exposes a finite cache and an abandoned
+    // watch ledger. The ledger is character knowledge; its outcome is world
+    // history. Public protection and private salvage consume the same cache.
+    act_gallery_read_watch_records: {
+      name: '회랑에 남은 경계 장부와 약탈품을 조사한다 (기력 1, 20분)',
+      requires: and(gallery, { op: 'flag', key: 'ruins_gallery_secured' },
+        not({ op: 'unlock', id: 'unl_gallery_watch_records' }), stamina(1)),
+      minutes: 20,
+      effects: [{ op: 'resource', resource: 'stamina', add: -1 },
+        { op: 'unlock', id: 'unl_gallery_watch_records' },
+        { op: 'proficiency', id: 'investigation', add: 6 },
+        say('txt_gallery_watch_records')]
+    },
+    act_gallery_post_watch: {
+      name: '회랑 물자로 경계 초소를 세우고 마을 경계병을 배치한다 (은화 3, 기력 2, 90분)',
+      requires: and(gallery, { op: 'flag', key: 'ruins_gallery_secured' },
+        { op: 'unlock', id: 'unl_gallery_watch_records' },
+        { op: 'flag', key: 'ruins_watchpost_restored' },
+        not({ op: 'flag', key: 'ruins_gallery_aftermath_resolved' }),
+        { op: 'money', min: 3 }, stamina(2)),
+      minutes: 90,
+      effects: [{ op: 'money', add: -3 }, { op: 'resource', resource: 'stamina', add: -2 },
+        { op: 'flag', key: 'ruins_gallery_aftermath_resolved', value: true },
+        { op: 'flag', key: 'ruins_gallery_watch_posted', value: true },
+        { op: 'relation', from: 'org_village', add: 3 },
+        { op: 'relation', from: 'npc_elder', add: 2 },
+        say('txt_gallery_watch_posted')]
+    },
+    act_gallery_take_cache: {
+      name: '회랑의 남은 약탈품을 챙기고 경계 시설은 포기한다 (기력 2, 90분)',
+      requires: and(gallery, { op: 'flag', key: 'ruins_gallery_secured' },
+        { op: 'unlock', id: 'unl_gallery_watch_records' },
+        not({ op: 'flag', key: 'ruins_gallery_aftermath_resolved' }), stamina(2)),
+      minutes: 90,
+      effects: [{ op: 'resource', resource: 'stamina', add: -2 },
+        { op: 'money', add: 6 }, { op: 'item', item: 'item_herbal_salve', add: 1 },
+        { op: 'flag', key: 'ruins_gallery_aftermath_resolved', value: true },
+        { op: 'flag', key: 'ruins_gallery_cache_taken', value: true },
+        { op: 'relation', from: 'org_village', add: -1 },
+        say('txt_gallery_cache_taken')]
+    }
   },
   texts: {
     txt_gallery_brute_overhead: '쇠몽둥이 약탈자가 양손을 높이 든다. 내려치기가 예고된다.',
@@ -112,6 +153,9 @@ export const ruinsGalleryFoes = {
     txt_gallery_scout_miss: '단검의 빠른 반격에 상처를 입었다.',
     txt_gallery_brute_defeated: '쇠몽둥이 약탈자를 쓰러뜨리고 빼앗긴 은화 2를 회수했다.',
     txt_gallery_scout_defeated: '단검 척후병을 쓰러뜨리고 빼앗긴 은화 2를 회수했다.',
-    txt_gallery_secured: '회랑의 마지막 적을 제압했다. 주민들이 안전한 길을 다시 이용할 수 있게 되었다.'
+    txt_gallery_secured: '회랑의 마지막 적을 제압했다. 주민들이 안전한 길을 다시 이용할 수 있게 되었다.',
+    txt_gallery_watch_records: '남겨진 장부에는 마을 식량 창고까지 이어지는 약탈 경로가 그려져 있다. 남은 목재로 경계병의 초소를 만들거나 약탈품을 가져갈 수 있지만, 둘 다 할 자재는 없다.',
+    txt_gallery_watch_posted: '장부를 마을에 보내고 경계병을 불렀다. 회랑의 남은 목재로 초소를 세웠다. 경계병은 약탈자가 다시 지나갈 때 길을 막기로 한다.',
+    txt_gallery_cache_taken: '남은 은화와 연고를 챙겼다. 경계 초소를 세울 자재는 더 이상 남지 않았다. 약탈자의 다음 행선지는 막지 못한다.'
   }
 };
