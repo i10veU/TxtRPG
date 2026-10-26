@@ -4607,6 +4607,7 @@ export const worldData = {
     item_flour_sack: { name: "밀가루 자루" },
     item_mill_bread: { name: "물레방아 빵" },
     item_waystation_supply_crate: { name: "길목 보급 상자 (봉인됨)" },
+    item_castle_grain_crate: { name: "성읍 구휼 곡물 꾸러미" },
     // V2-Core-74 (#180): the elder's letter for the ferry (kept, not spent)
     item_passage_letter: { name: "원로의 통행 편지" },
     item_merchant_note: { name: "상인의 짐표" }
