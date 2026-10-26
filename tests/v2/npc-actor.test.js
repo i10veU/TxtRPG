@@ -65,7 +65,7 @@ function packWith(patch) {
 function testSeeded() {
   const before = structuredClone(worldData);
   const state = start();
-  assert.deepStrictEqual(Object.keys(state.actors).sort(), ["npc_band_lieutenant", "npc_bandit_leader", "npc_ruins_raider", "player_1"]); // V2-Core-140: the chief's right hand
+  assert.deepStrictEqual(Object.keys(state.actors).sort(), ["npc_band_lieutenant", "npc_bandit_leader", "npc_gallery_brute", "npc_gallery_scout", "npc_ruins_raider", "player_1"]); // V2-Core-140: the chief's right hand
   assert.deepStrictEqual(state.actors.npc_bandit_leader, LEADER);
   assert.strictEqual(state.actors.player_1.kind, "player");
   assert.deepStrictEqual(state.player, { actorId: "player_1", characterCount: 1 });
