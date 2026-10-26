@@ -724,12 +724,10 @@ const NORTH_TRADE_RIDE_FUNDS = { op: "or", of: [
 
 // A merchant caravan may donate one of its own bundles to an actual village
 // shortage; it cannot manufacture public rations or overfill the mill.
-const NORTH_TRADE_RELIEF_TRANSFER = { op: "if", when: { op: "and", of: [
-  NORTH_RELIEF_SHORTAGE, NORTH_MILL_RELIEF_SPACE, NORTH_TRADE_HAS_CARGO
-] }, then: [
-  { op: "signal", key: "north_trade_stock", add: -1 },
-  { op: "signal", key: "north_mill_relief_stock", add: 1 }
-] };
+// One shared, finite allocation policy for scheduled arrivals and player
+// crossings. Paid mill orders take priority; otherwise preserve historical
+// shortage relief. No order or cargo is created by a mere time tick.
+const NORTH_TRADE_RELIEF_TRANSFER = northTradeReliefTransfer;
 
 // Successful exploration earns a personal pathfinder credential and takes the
 // actual caravan to the mill. Failure leaves its world position and cargo intact.
@@ -1001,7 +999,7 @@ function finalOptions(key, foe, leads) {
 import { ruinsExpedition } from './ruins-expedition.js';
 import { ruinsWatchpost } from './ruins-watchpost.js';
 import { ruinsRaider } from './ruins-raider.js';
-import { ruinsGuideConvoy } from './ruins-guide-convoy.js';
+import { ruinsGuideConvoy, northTradeReliefTransfer } from './ruins-guide-convoy.js';
 
 export const worldData = {
   formatVersion: 1,

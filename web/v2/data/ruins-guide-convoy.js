@@ -42,13 +42,32 @@ const gainExperience = { op: 'if', when: signal('ruins_guide_experience', { max:
 // Only completed contracts grant it, up to the permanent priority-boarding tier.
 const gainTrust = { op: 'if', when: signal('ruins_guide_merchant_trust', { max: 2 }),
   then: [{ op: 'signal', key: 'ruins_guide_merchant_trust', add: 1 }] };
-// Preserve the existing north-trade relief contract: the merchant transfers
-// one of its OWN finite bundles, and only when a genuine shortage exists.
-const transferRelief = { op: 'if', when: and(flag('north_supply_relief_pact'),
-  signal('north_relief_losses', { min: 2 }), not(flag('north_relief_shortage_recovered')),
-  signal('north_mill_relief_stock', { max: 1 }), signal('north_trade_stock', { min: 1 })),
-  then: [{ op: 'signal', key: 'north_trade_stock', add: -1 },
-    { op: 'signal', key: 'north_mill_relief_stock', add: 1 }] };
+// A player-funded mill order is fulfilled only by the real merchant wagon
+// crossing the far bank. It takes priority over ordinary shortage relief,
+// but never consumes more than one finite bundle per arrival.
+const millSpace = signal('north_mill_relief_stock', { max: 1 });
+const merchantCargo = signal('north_trade_stock', { min: 1 });
+const pendingOrder = flag('ruins_guide_mill_order_pending');
+const orderSettled = { op: 'if', when: pendingOrder, then: [
+  { op: 'flag', key: 'ruins_guide_mill_order_pending', value: false },
+  { op: 'relation', from: 'npc_miller', add: 2 },
+  { op: 'if', when: signal('ruins_guide_mill_orders_delivered', { max: 2 }),
+    then: [{ op: 'signal', key: 'ruins_guide_mill_orders_delivered', add: 1 }] }
+] };
+const physicalDelivery = [
+  { op: 'signal', key: 'north_trade_stock', add: -1 },
+  { op: 'signal', key: 'north_mill_relief_stock', add: 1 }
+];
+const historicalShortage = and(flag('north_supply_relief_pact'),
+  signal('north_relief_losses', { min: 2 }),
+  not(flag('north_relief_shortage_recovered')));
+// Exported to the main pack so scheduled merchant movement and all player
+// crossings use exactly the same allocation rule, without a circular import.
+export const northTradeReliefTransfer = { op: 'if', when: and(millSpace, merchantCargo),
+  then: [{ op: 'if', when: pendingOrder,
+    then: [...physicalDelivery, orderSettled],
+    else: [{ op: 'if', when: historicalShortage, then: physicalDelivery }] }] };
+const transferRelief = northTradeReliefTransfer;
 const arrive = [
   { op: 'signal', key: 'north_trade_stage', add: 1 },
   { op: 'move', subject: 'npc_ruins_raider', to: 'loc_mill_hamlet' },
@@ -106,6 +125,31 @@ export const ruinsGuideConvoy = {
         { op: 'move', to: 'loc_far_bank' }, narrate('txt_ruins_guide_priority_boarded')
       ]
     },
+    // The mill's actual empty public warehouse creates demand. The player
+    // pays the merchant up front; the next physical arrival allocates one
+    // finite bundle before discretionary shortage transfers. An unsafe road
+    // or full store keeps the order pending rather than teleporting goods.
+    act_ruins_guide_mill_supply_order: {
+      name: '물레방아 마을의 빈 창고에 상단 식량 배송을 예약한다 (은화 3, 30분)',
+      requires: and(at('loc_mill_hamlet'), flag('north_road_guided'),
+        flag('north_supply_relief_pact'), not(pendingOrder),
+        signal('north_mill_relief_stock', { max: 0 }),
+        signal('north_trade_stage', { max: 1 }),
+        signal('ruins_guide_caravan_treasury', { max: 9 }),
+        { op: 'money', min: 3 }),
+      minutes: 30,
+      effects: [{ op: 'money', add: -3 },
+        { op: 'signal', key: 'ruins_guide_caravan_treasury', add: 3 },
+        { op: 'flag', key: 'ruins_guide_mill_order_pending', value: true },
+        narrate('txt_ruins_guide_mill_supply_ordered')]
+    },
+    act_ruins_guide_cancel_mill_order: {
+      name: '상단 식량 배송 예약을 취소한다 (환불 없음, 10분)',
+      requires: and(at('loc_mill_hamlet'), pendingOrder),
+      minutes: 10,
+      effects: [{ op: 'flag', key: 'ruins_guide_mill_order_pending', value: false },
+        narrate('txt_ruins_guide_mill_supply_canceled')]
+    },
     // A deliberate financing choice: the player invests their OWN money in
     // the real caravan, then may earn it back only by completing contracts.
     act_ruins_guide_capitalize_caravan: {
@@ -160,6 +204,7 @@ export const ruinsGuideConvoy = {
       effects: [{ op: 'resource', resource: 'stamina', add: -1 },
         { op: 'signal', key: 'north_trade_stock', add: -1 },
         { op: 'signal', key: 'north_mill_relief_stock', add: 1 },
+        orderSettled,
         { op: 'relation', from: 'org_mill_hamlet', add: 3 },
         gainTrust, ...arriveWithDedicatedRelief, narrate('txt_ruins_guide_relief_freight')]
     },
@@ -232,6 +277,8 @@ export const ruinsGuideConvoy = {
     }
   },
   texts: {
+    txt_ruins_guide_mill_supply_ordered: '빈 공동 창고를 채우기 위해 상단에 은화를 선지급했다. 상단이 실제 화물을 싣고 마을에 도착해야 한 묶음이 전달된다. 길이 막히면 배송도 늦어진다.',
+    txt_ruins_guide_mill_supply_canceled: '마을의 식량 예약을 취소했다. 상단이 이미 받은 운송 예약금은 돌려받지 못한다.',
     txt_ruins_guide_caravan_capitalized: '내 은화를 상단의 실제 운송 자금으로 맡겼다. 계약의 품삯은 이 유한한 자금에서만 지급되며, 운행이 새로 시작되면 상단의 영업 자금이 보충된다.',
     txt_ruins_guide_priority_boarded: '상단 마부가 오랜 호위 계약을 기억하고 짐칸에 자리를 내주었다. 식량을 추가로 내지 않고 길잡이와 강 건너 길목에 도착했다.',
     txt_ruins_guide_safe_freight: '표지석을 따라 화물을 안전하게 인도했다. 마부가 정해진 품삯을 지불하고 다음 운송도 맡기겠다고 약속했다.',
