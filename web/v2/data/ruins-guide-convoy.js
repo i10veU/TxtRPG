@@ -51,6 +51,35 @@ const pendingOrder = flag('ruins_guide_mill_order_pending');
 const charter = flag('ruins_guide_supply_charter');
 const depotPriority = flag('ruins_guide_depot_priority');
 const charterMillPriority = and(charter, not(depotPriority));
+// Chartered merchants switch to physical castle-market procurement after
+// their first real return. The legacy unchartered route remains compatible.
+const procurementActive = flag('ruins_guide_procurement_active');
+const castleGrain = (args) => signal('north_castle_grain_stock', args);
+const capital = (args) => signal('ruins_guide_caravan_treasury', args);
+const urgentProcurement = or(pendingOrder, shortageDemand,
+  and(charterMillPriority, signal('north_mill_relief_stock', { max: 1 })),
+  and(depotPriority, signal('north_waystation_stock', { max: 1 })));
+// One bundle costs two silver from the actual caravan treasury and is removed
+// from the castle granary. Never create cargo when either resource is missing.
+const buyBundle = [
+  { op: 'signal', key: 'north_castle_grain_stock', add: -1 },
+  { op: 'signal', key: 'ruins_guide_caravan_treasury', add: -2 },
+  { op: 'signal', key: 'north_trade_stock', add: 1 }
+];
+export const northTradeCharterProcurement = { op: 'if', when: procurementActive,
+  then: [{ op: 'if', when: and(urgentProcurement, castleGrain({ min: 2 }),
+    capital({ min: 4 }), signal('north_trade_stock', { max: 1 })),
+    then: [...buyBundle, ...buyBundle],
+    else: [{ op: 'if', when: and(castleGrain({ min: 1 }), capital({ min: 2 }),
+      signal('north_trade_stock', { max: 2 })), then: buyBundle }] }] };
+// The castle's real granary is restocked on a completed route, up to four
+// bundles. Procurement cannot consume more than was actually produced.
+export const northTradeCharterReturn = { op: 'if', when: charter, then: [
+  { op: 'flag', key: 'ruins_guide_procurement_active', value: true },
+  { op: 'if', when: castleGrain({ max: 2 }), then: [
+    { op: 'signal', key: 'north_castle_grain_stock', add: 2 }
+  ] }
+] };
 // At each REAL castle departure, the chartered merchant may reserve a
 // physical cargo bundle for the far-bank depot. A paid mill order protects
 // the last bundle, and the shared warehouse cap prevents duplication.
@@ -155,6 +184,17 @@ export const ruinsGuideConvoy = {
         { op: 'signal', key: 'ruins_guide_caravan_treasury', add: 3 },
         { op: 'flag', key: 'ruins_guide_mill_order_pending', value: true },
         narrate('txt_ruins_guide_mill_supply_ordered')]
+    },
+    // This capital is invested in the same finite procurement budget, not
+    // minted as merchant cargo. Accessible when the caravan is elsewhere.
+    act_ruins_guide_fund_procurement: {
+      name: '상단의 다음 성읍 식량 조달에 자금을 보탠다 (은화 4, 20분)',
+      requires: and(at('loc_mill_hamlet'), charter, procurementActive,
+        capital({ max: 8 }), { op: 'money', min: 4 }),
+      minutes: 20,
+      effects: [{ op: 'money', add: -4 },
+        { op: 'signal', key: 'ruins_guide_caravan_treasury', add: 4 },
+        narrate('txt_ruins_guide_fund_procurement')]
     },
     act_ruins_guide_cancel_mill_order: {
       name: '상단 식량 배송 예약을 취소한다 (환불 없음, 10분)',
@@ -345,6 +385,7 @@ export const ruinsGuideConvoy = {
     }
   },
   texts: {
+    txt_ruins_guide_fund_procurement: '다음 성읍 출발 때 식량을 사도록 상단에 은화를 보탰다. 마부는 성읍 창고의 실제 재고와 마을의 수요를 살핀 뒤 조달할 것이다.',
     txt_ruins_guide_charter_depot: '상단 마부와 강 건너 보급 우선 계약을 맺었다. 이제 상단이 성읍에서 새로 출발할 때마다 실제 화물 한 묶음을 보급소로 돌린다. 마을의 선결제 식량은 마지막까지 지킨다.',
     txt_ruins_guide_charter_mill: '상단 마부에게 다음 운행부터 마을의 창고를 먼저 채우라고 일렀다. 상단이 실제로 마을까지 도착해야 식량이 들어온다.',
     txt_ruins_guide_charter_depot_priority: '상단의 다음 운행은 다시 강 건너 보급소에 우선 배정된다. 빈 짐칸에서 식량이 생겨나는 일은 없다.',
