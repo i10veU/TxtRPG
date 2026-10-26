@@ -48,6 +48,19 @@ const gainTrust = { op: 'if', when: signal('ruins_guide_merchant_trust', { max: 
 const millSpace = signal('north_mill_relief_stock', { max: 1 });
 const merchantCargo = signal('north_trade_stock', { min: 1 });
 const pendingOrder = flag('ruins_guide_mill_order_pending');
+const charter = flag('ruins_guide_supply_charter');
+const depotPriority = flag('ruins_guide_depot_priority');
+const charterMillPriority = and(charter, not(depotPriority));
+// At each REAL castle departure, the chartered merchant may reserve a
+// physical cargo bundle for the far-bank depot. A paid mill order protects
+// the last bundle, and the shared warehouse cap prevents duplication.
+export const northTradeCharterDepotAllocation = { op: 'if', when: and(
+  charter, depotPriority, signal('north_waystation_stock', { max: 2 }),
+  merchantCargo, or(not(pendingOrder), signal('north_trade_stock', { min: 2 }))
+), then: [
+  { op: 'signal', key: 'north_trade_stock', add: -1 },
+  { op: 'signal', key: 'north_waystation_stock', add: 1 }
+] };
 const orderSettled = { op: 'if', when: pendingOrder, then: [
   { op: 'flag', key: 'ruins_guide_mill_order_pending', value: false },
   { op: 'relation', from: 'npc_miller', add: 2 },
@@ -66,7 +79,7 @@ const historicalShortage = and(flag('north_supply_relief_pact'),
 export const northTradeReliefTransfer = { op: 'if', when: and(millSpace, merchantCargo),
   then: [{ op: 'if', when: pendingOrder,
     then: [...physicalDelivery, orderSettled],
-    else: [{ op: 'if', when: historicalShortage, then: physicalDelivery }] }] };
+    else: [{ op: 'if', when: or(historicalShortage, charterMillPriority), then: physicalDelivery }] }] };
 const transferRelief = northTradeReliefTransfer;
 const arrive = [
   { op: 'signal', key: 'north_trade_stage', add: 1 },
@@ -149,6 +162,41 @@ export const ruinsGuideConvoy = {
       minutes: 10,
       effects: [{ op: 'flag', key: 'ruins_guide_mill_order_pending', value: false },
         narrate('txt_ruins_guide_mill_supply_canceled')]
+    },
+    // A permanent merchant charter turns the player's strategic choice into
+    // autonomous allocation on later trips. The fee goes to the same finite
+    // merchant treasury used to pay freight wages, not a new currency pool.
+    act_ruins_guide_charter_depot: {
+      name: '상단과 강 건너 보급 우선 계약을 맺는다 (은화 3, 30분)',
+      requires: and(at('loc_mill_hamlet'), flag('north_road_guided'), not(charter),
+        signal('ruins_guide_caravan_treasury', { max: 9 }), { op: 'money', min: 3 }),
+      minutes: 30,
+      effects: [{ op: 'money', add: -3 },
+        { op: 'signal', key: 'ruins_guide_caravan_treasury', add: 3 },
+        { op: 'flag', key: 'ruins_guide_supply_charter', value: true },
+        { op: 'flag', key: 'ruins_guide_depot_priority', value: true },
+        { op: 'relation', from: 'npc_north_caravan_driver', add: 2 },
+        narrate('txt_ruins_guide_charter_depot')]
+    },
+    act_ruins_guide_prioritize_mill: {
+      name: '상단의 다음 보급을 물레방아 마을에 우선 배정한다 (은화 1, 20분)',
+      requires: and(at('loc_mill_hamlet'), charter, depotPriority,
+        signal('ruins_guide_caravan_treasury', { max: 11 }), { op: 'money', min: 1 }),
+      minutes: 20,
+      effects: [{ op: 'money', add: -1 },
+        { op: 'signal', key: 'ruins_guide_caravan_treasury', add: 1 },
+        { op: 'flag', key: 'ruins_guide_depot_priority', value: false },
+        narrate('txt_ruins_guide_charter_mill')]
+    },
+    act_ruins_guide_prioritize_depot: {
+      name: '상단의 다음 보급을 강 건너 보급소에 우선 배정한다 (은화 1, 20분)',
+      requires: and(at('loc_mill_hamlet'), charter, not(depotPriority),
+        signal('ruins_guide_caravan_treasury', { max: 11 }), { op: 'money', min: 1 }),
+      minutes: 20,
+      effects: [{ op: 'money', add: -1 },
+        { op: 'signal', key: 'ruins_guide_caravan_treasury', add: 1 },
+        { op: 'flag', key: 'ruins_guide_depot_priority', value: true },
+        narrate('txt_ruins_guide_charter_depot_priority')]
     },
     // Competing regional demand: unload ONE real merchant bundle at the far-
     // bank depot instead of carrying it onward to the mill. The depot's
@@ -297,6 +345,9 @@ export const ruinsGuideConvoy = {
     }
   },
   texts: {
+    txt_ruins_guide_charter_depot: '상단 마부와 강 건너 보급 우선 계약을 맺었다. 이제 상단이 성읍에서 새로 출발할 때마다 실제 화물 한 묶음을 보급소로 돌린다. 마을의 선결제 식량은 마지막까지 지킨다.',
+    txt_ruins_guide_charter_mill: '상단 마부에게 다음 운행부터 마을의 창고를 먼저 채우라고 일렀다. 상단이 실제로 마을까지 도착해야 식량이 들어온다.',
+    txt_ruins_guide_charter_depot_priority: '상단의 다음 운행은 다시 강 건너 보급소에 우선 배정된다. 빈 짐칸에서 식량이 생겨나는 일은 없다.',
     txt_ruins_guide_waystation_provisions: '강 건너 보급소가 비어 있어 북부 상단의 실제 화물 한 묶음을 이곳에 내렸다. 상단의 남은 짐은 물레방아 마을로 향한다. 이미 대금을 받은 마을의 마지막 예약 화물은 따로 지킨다.',
     txt_ruins_guide_mill_supply_ordered: '빈 공동 창고를 채우기 위해 상단에 은화를 선지급했다. 상단이 실제 화물을 싣고 마을에 도착해야 한 묶음이 전달된다. 길이 막히면 배송도 늦어진다.',
     txt_ruins_guide_mill_supply_canceled: '마을의 식량 예약을 취소했다. 상단이 이미 받은 운송 예약금은 돌려받지 못한다.',
