@@ -80,6 +80,8 @@ function testChecksReadSkills() {
     act_ruins_watch_find_gallery: ["investigation", null],
     act_ruins_watch_sneak: ["investigation", null],
     act_ruins_watch_breach: ["swordsmanship", null],
+    act_ruins_signal_survey_entrance: ["investigation", null],
+    act_ruins_signal_break_entrance: ["swordsmanship", null],
     act_ruins_raider_read_tracks: ["investigation", null],
     act_ruins_raider_track: ["investigation", null],
     act_ruins_raider_intercept: ["swordsmanship", null],
@@ -95,6 +97,7 @@ function testChecksReadSkills() {
     "choice_fight_leader.opt_fight_counter": ["swordsmanship", null],
     "choice_fight_leader.opt_fight_guarded_stance": ["swordsmanship", null],
     "choice_fight_leader.opt_fight_breakthrough": ["swordsmanship", null],
+    "choice_fight_leader.opt_fight_tempo_break": ["swordsmanship", null],
     "choice_fight_leader.opt_fight_weak_spot": ["swordsmanship", null], // V2-Core-55
     // V2-Core-140: the last fight, against the chief or his right hand -- the first fight's exchanges
     "choice_final_battle.opt_final_chief_strike": ["swordsmanship", null],
@@ -104,12 +107,14 @@ function testChecksReadSkills() {
     "choice_final_battle.opt_final_chief_counter": ["swordsmanship", null],
     "choice_final_battle.opt_final_chief_guarded_stance": ["swordsmanship", null],
     "choice_final_battle.opt_final_chief_breakthrough": ["swordsmanship", null],
+    "choice_final_battle.opt_final_chief_tempo_break": ["swordsmanship", null],
     "choice_final_battle.opt_final_right_hand_strike": ["swordsmanship", null],
     "choice_final_battle.opt_final_right_hand_with_village": ["swordsmanship", null],
     "choice_final_battle.opt_final_right_hand_sword_cut": ["swordsmanship", null],
     "choice_final_battle.opt_final_right_hand_counter": ["swordsmanship", null],
     "choice_final_battle.opt_final_right_hand_guarded_stance": ["swordsmanship", null],
     "choice_final_battle.opt_final_right_hand_breakthrough": ["swordsmanship", null],
+    "choice_final_battle.opt_final_right_hand_tempo_break": ["swordsmanship", null],
     // V2-Core-64 (#160): the well and the spring are searched with the investigation skill; the
     // miasma is endured with CON alone
     act_inspect_well: ["investigation", null],
