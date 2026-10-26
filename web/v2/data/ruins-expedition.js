@@ -52,7 +52,8 @@ export const ruinsExpedition = {
       name: '매몰 창고 아래 봉인된 방',
       links: [
         { to: 'loc_ruins_cellar', minutes: 25 },
-        { to: 'loc_village', minutes: 30, requires: flag('ruins_lower_public') }
+        { to: 'loc_village', minutes: 30, requires: flag('ruins_lower_public') },
+        { to: 'loc_ruins_gallery', minutes: 30, requires: flag('ruins_watch_gallery_open') }
       ]
     }
   },

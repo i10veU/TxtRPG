@@ -999,6 +999,7 @@ function finalOptions(key, foe, leads) {
 }
 
 import { ruinsExpedition } from './ruins-expedition.js';
+import { ruinsWatchpost } from './ruins-watchpost.js';
 
 export const worldData = {
   formatVersion: 1,
@@ -1565,10 +1566,12 @@ export const worldData = {
 
   locations: {
     ...ruinsExpedition.locations,
+    ...ruinsWatchpost.locations,
     loc_village: {
       name: "변경 마을",
       links: [
         { to: "loc_market", minutes: 15 },
+        { to: "loc_ruins_watchpost", minutes: 25, requires: { op: "flag", key: "ruins_watchpost_restored" } },
         // V2-Core-53 (D-82): a lantern, or night vision (the scout's trait)
         { to: "loc_ruins", minutes: 45, requires: LIGHT_OR_NIGHT_VISION },
         { to: 'loc_ruins_cellar', minutes: 20, requires: { op: 'flag', key: 'ruins_cellar_refuge' } },
@@ -1649,6 +1652,7 @@ export const worldData = {
 
   actions: {
     ...ruinsExpedition.actions,
+    ...ruinsWatchpost.actions,
     act_observe_village: {
       name: "마을 사람들 사이에 섞여 귀를 기울인다",
       requires: { op: "location", at: "loc_village" },
@@ -4785,6 +4789,7 @@ export const worldData = {
 
   texts: {
     ...ruinsExpedition.texts,
+    ...ruinsWatchpost.texts,
     txt_observe_village: "사람들 틈에 섞여 귀를 연다. 낯선 얼굴을 흘끔거리긴 해도 어디서 왔느냐고 묻는 이는 없다. 다들 제 걱정이 더 크다.",
     txt_buy_lantern: "상인에게 은화를 건네고 낡은 등불을 받는다. 심지는 짧아도 폐허 안을 비추기엔 충분하다.",
     txt_buy_iron_sword: "상인에게 은화 세 닢을 건네고 손때 묻은 철검을 받는다.",
