@@ -1,3 +1,4 @@
+import { ruinsGalleryFoes } from './ruins-gallery-foes.js';
 // Provisional, unnamed hostile scavenger. This is an NPC actor, not a new
 // canon faction. Its location is world state and advances only on timed event
 // ticks; view() never projects its location, health or private route.
@@ -28,6 +29,7 @@ const rememberRepulse = { op: 'if', when: signal('ruins_raider_repulsions', { ma
 
 export const ruinsRaider = {
   npcs: {
+    ...ruinsGalleryFoes.npcs,
     // Dialogue-only witnesses. Reports are available only after a physical
     // NPC visit, and learned only through a face-to-face conversation.
     npc_ruins_watch_guard: { name: '감시 초소 경계병' },
@@ -147,6 +149,7 @@ export const ruinsRaider = {
   },
 
   actions: {
+    ...ruinsGalleryFoes.actions,
     // The clock bounds freshness by the NPC's next actual patrol leg, not
     // the player's time of questioning. Event catch-up must not manufacture
     // an exact observation timestamp (long and short waits must agree).
@@ -403,6 +406,7 @@ export const ruinsRaider = {
     }
   },
   texts: {
+    ...ruinsGalleryFoes.texts,
     txt_ruins_raider_reconciled: '방앗간 주인이 빵과 은화를 받아 약탈자의 새 일자리를 마련했다. 그는 살아서 마을에 남고, 상단 약탈을 그만두기로 했다.',
     txt_ruins_raider_guide_recruited: '발자국을 읽는 법을 아는 방랑자가 그에게 새로운 일을 제안했다. 약탈자는 강 건너 길목에서 위험한 길을 안내하는 길잡이가 되었다.',
     txt_ruins_raider_guide_escorted: '길잡이가 바퀴 자국과 새 발자국을 구별해 위험한 강변길을 안내했다. 식량은 소모되었지만 길은 조금 더 안전해졌다.',

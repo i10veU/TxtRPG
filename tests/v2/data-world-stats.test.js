@@ -77,6 +77,20 @@ function testActors() {
 function testEveryCheckNamesADefinedStat() {
   const mapping = Object.fromEntries(checkSpecs(worldData).map(({ where, spec }) => [where, [spec.stat, spec.difficulty?.opposed?.stat ?? null]]));
   assert.deepStrictEqual(mapping, {
+    "choice_fight_leader.opt_fight_pattern_pursuit": ["dex", "dex"],
+    "choice_fight_leader.opt_fight_second_wind": ["dex", "dex"],
+    "choice_final_battle.opt_final_chief_pattern_pursuit": ["dex", "dex"],
+    "choice_final_battle.opt_final_chief_second_wind": ["dex", "dex"],
+    "choice_final_battle.opt_final_right_hand_pattern_pursuit": ["dex", "dex"],
+    "choice_final_battle.opt_final_right_hand_second_wind": ["dex", "dex"],
+    act_gallery_brute_first: ["str", null],
+    act_gallery_brute_second: ["dex", null],
+    act_gallery_scout_first: ["str", null],
+    act_gallery_scout_second: ["dex", null],
+    act_watch_drill_press: ["str", null],
+    act_watch_drill_tempo: ["dex", null],
+    act_watch_pattern_bait: ["dex", null],
+    act_watch_pattern_brace: ["dex", null],
     act_investigate_ruins: ["int", null],
     act_trace_ruins_cellar: ["per", null],
     act_ruins_lower_scout: ["per", null],
