@@ -975,6 +975,21 @@ function finalOptions(key, foe, leads) {
       }
     },
     {
+      id: `opt_final_${key}_pattern_pursuit`,
+      name: '기력이 빠진 적의 빈틈을 추격한다 (기력 2)',
+      requires: leading({ op: 'and', of: [
+        { op: 'unlock', id: 'unl_watchpost_pursuit' }, HAS_DRAWN_SWORD,
+        STAMINA_AT_LEAST(2), { op: 'resource', subject: foe, resource: 'stamina', max: 2 }
+      ] }),
+      check: check(10, 'dex'), minutes: 5,
+      outcomes: payStamina(2, {
+        great: exchange([hitFoe(-8), say('txt_watch_pattern_pursuit')]),
+        success: exchange([hitFoe(-6), say('txt_watch_pattern_pursuit')]),
+        partial: exchange([hitFoe(-2), hitSelf(-1), say('txt_watch_pattern_pursuit_trade')]),
+        fail: exchange([hitSelf(-2), say('txt_watch_pattern_pursuit_miss')])
+      })
+    },
+    {
       id: `opt_final_${key}_tempo_break`,
       name: "칼등으로 상대의 호흡을 끊는다 (기력 2)",
       requires: leading({ op: "and", of: [
@@ -4529,6 +4544,22 @@ export const worldData = {
           }
         },
         {
+          id: 'opt_fight_pattern_pursuit',
+          name: '기력이 빠진 두목의 빈틈을 추격한다 (기력 2)',
+          requires: { op: 'and', of: [
+            { op: 'unlock', id: 'unl_watchpost_pursuit' }, HAS_DRAWN_SWORD,
+            STAMINA_AT_LEAST(2), { op: 'resource', subject: LEADER, resource: 'stamina', max: 2 }
+          ] },
+          check: { stat: 'dex', skill: 'swordsmanship', tags: ['combat'], difficulty: FIGHT_DIFFICULTY(10, 'dex') },
+          minutes: 5,
+          outcomes: payStamina(2, {
+            great: fightExchange([hitLeader(-8), say('txt_watch_pattern_pursuit')]),
+            success: fightExchange([hitLeader(-6), say('txt_watch_pattern_pursuit')]),
+            partial: fightExchange([hitLeader(-2), hitSelf(-1), say('txt_watch_pattern_pursuit_trade')]),
+            fail: fightExchange([hitSelf(-2), say('txt_watch_pattern_pursuit_miss')])
+          })
+        },
+        {
           id: "opt_fight_tempo_break",
           name: "칼등으로 상대의 호흡을 끊는다 (기력 2)",
           requires: { op: "and", of: [
@@ -4650,7 +4681,7 @@ export const worldData = {
         { minRank: 5, label: "Adept" }
       ],
       // V2-Core-142 (M7): the realm's name -- the apex (a title: it opens nothing, the world answers it)
-      unlocks: [{ id: "unl_north_road_survey", kind: "action" }, { id: "unl_trailcraft", kind: "action" }, { id: "unl_caravan_pathfinder", kind: "action" }, { id: "unl_ruins_cellar_route", kind: "action" }, { id: "unl_ruins_lower_route", kind: "action" }, { id: "unl_ruins_signal_chamber_route", kind: "action" }, { id: "unl_ruins_raider_tracked", kind: "action" }, { id: "unl_keen_eye", kind: "action" }, { id: "unl_road_lead", kind: "action" }, { id: "unl_guarded_stance", kind: "action" }, { id: "unl_breakthrough_cut", kind: "action" }, { id: "unl_tempo_break", kind: "action" }, { id: "unl_watchpost_first_bout", kind: "action" }, { id: "unl_watchpost_second_wind", kind: "action" }, { id: "unl_realm_renown", kind: "title" }],
+      unlocks: [{ id: "unl_north_road_survey", kind: "action" }, { id: "unl_trailcraft", kind: "action" }, { id: "unl_caravan_pathfinder", kind: "action" }, { id: "unl_ruins_cellar_route", kind: "action" }, { id: "unl_ruins_lower_route", kind: "action" }, { id: "unl_ruins_signal_chamber_route", kind: "action" }, { id: "unl_ruins_raider_tracked", kind: "action" }, { id: "unl_keen_eye", kind: "action" }, { id: "unl_road_lead", kind: "action" }, { id: "unl_guarded_stance", kind: "action" }, { id: "unl_breakthrough_cut", kind: "action" }, { id: "unl_tempo_break", kind: "action" }, { id: "unl_watchpost_first_bout", kind: "action" }, { id: "unl_watchpost_second_wind", kind: "action" }, { id: "unl_watchpost_pursuit", kind: "action" }, { id: "unl_realm_renown", kind: "title" }],
       // V2-Core-56 (Gate 4 = C, D-85): resources belong to the growth system. Stamina pays for the
       // fight's techniques (the counter 3, the old wound 2); a character without the entry is full
       resources: [{ id: "stamina", max: 6 }]
@@ -4893,6 +4924,9 @@ export const worldData = {
     ...ruinsExpedition.texts,
     ...ruinsWatchpost.texts,
     ...ruinsSignalChamber.texts,
+    txt_watch_pattern_pursuit: '상대의 기력이 다한 순간 발을 밀어 넣어 빈틈을 베었다.',
+    txt_watch_pattern_pursuit_trade: '빈틈을 노렸지만 검끝이 스쳤다. 서로 상처를 주고받았다.',
+    txt_watch_pattern_pursuit_miss: '빈틈을 좇다가 거리를 놓쳤다. 반격에 몸이 흔들린다.',
     ...ruinsWatchpostDrill.texts,
     ...ruinsRaider.texts,
     ...ruinsGuideConvoy.texts,
@@ -5272,6 +5306,7 @@ export const worldData = {
     lbl_unlock_unl_tempo_break: "호흡 끊기 검술",
     lbl_unlock_unl_watchpost_first_bout: "초소 첫 대련 승리",
     lbl_unlock_unl_watchpost_second_wind: "기세 전환",
+    lbl_unlock_unl_watchpost_pursuit: "빈틈 추격 검술",
     lbl_unlock_unl_realm_renown: "왕국이 아는 이름 (남쪽 변경의 수호자)",
     lbl_res_stamina: "기력",
     lbl_slot_hand: "손",

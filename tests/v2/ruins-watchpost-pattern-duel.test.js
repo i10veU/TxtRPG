@@ -1,0 +1,64 @@
+import assert from 'node:assert/strict';
+import { createInitialState, step, view, validateState } from '../../web/v2/core/engine.js';
+import { buildSaveRecord, parseLoadedRecord } from '../../web/v2/storage/idb.js';
+import { worldData } from '../../web/v2/data/world.js';
+const P = actionId => ({ type: 'perform', actionId });
+const C = optionId => ({ type: 'choose', optionId });
+const me = s => s.actors[s.player.actorId];
+const grow = s => me(s).growth.growth_wanderer;
+const can = (s, id) => view(s, worldData).actions.some(a => a.actionId === id && a.available);
+const save = s => parseLoadedRecord(JSON.parse(JSON.stringify(buildSaveRecord('pattern', s, { savedAt: 1 }))));
+function play(s, action) {
+  const r = step(s, action, worldData);
+  assert.ok(!r.events.some(e => e.type === 'action.rejected'), JSON.stringify(r.events));
+  assert.deepEqual(validateState(r.state), []);
+  return r.state;
+}
+const base = createInitialState({ worldSeed: 'pattern-495', data: worldData }).state;
+me(base).locationId = 'loc_ruins_watchpost';
+me(base).inventory.item_iron_sword = 1;
+me(base).loadout = { hand: 'item_iron_sword' };
+me(base).hp = { current: 50, max: 50 };
+base.flags = { ...base.flags, ruins_watchpost_restored: true };
+grow(base).skills = { ...grow(base).skills, swordsmanship: 5 };
+grow(base).stats.dex = 20;
+grow(base).unlocks = { ...grow(base).unlocks, unl_watchpost_second_wind: true };
+assert.ok(can(base, 'act_watch_pattern_begin'));
+const started = play(base, P('act_watch_pattern_begin'));
+assert.deepEqual(save(started), started);
+assert.equal(started.signals.watch_pattern_tell, 1);
+assert.equal(play(started, P('act_watch_pattern_read')).signals.watch_pattern_tell, 1);
+assert.equal(play(started, P('act_watch_pattern_yield')).signals.watch_pattern_active, 0);
+let winner;
+for (let seed = 1; seed <= 200 && !winner; seed++) {
+  const s = structuredClone(base); s.rng.seed = seed;
+  const a = play(play(s, P('act_watch_pattern_begin')), P('act_watch_pattern_brace'));
+  if (a.signals.watch_pattern_guard !== 2 || a.signals.watch_pattern_tell !== 2) continue;
+  const b = play(a, P('act_watch_pattern_bait'));
+  if (b.signals.watch_pattern_guard === 0) winner = { seed, state: b };
+}
+assert.ok(winner, 'reading both telegraphs must permit a win');
+const won = play(winner.state, P('act_watch_pattern_finish'));
+assert.equal(grow(won).unlocks.unl_watchpost_pursuit, true);
+assert.equal(can(won, 'act_watch_pattern_begin'), false);
+assert.deepEqual(save(won), won);
+const fight = structuredClone(won);
+me(fight).locationId = 'loc_ruins';
+grow(fight).resources.stamina.current = 5;
+fight.actors.npc_bandit_leader.growth.growth_wanderer.resources.stamina.current = 0;
+fight.pending = { kind: 'choice', choiceId: 'choice_fight_leader', sourceId: 'act_fight_leader' };
+const after = play(fight, C('opt_fight_pattern_pursuit'));
+assert.deepEqual(play(save(fight), C('opt_fight_pattern_pursuit')), after);
+assert.equal(after.rng.cursor, fight.rng.cursor + 2);
+assert.equal(grow(after).resources.stamina.current, 3);
+const blocked = structuredClone(fight);
+blocked.actors.npc_bandit_leader.growth.growth_wanderer.resources.stamina.current = 5;
+assert.ok(step(blocked, C('opt_fight_pattern_pursuit'), worldData).events.some(e => e.type === 'action.rejected'));
+for (const key of ['chief', 'right_hand'])
+  assert.ok(worldData.choices.choice_final_battle.options.some(o => o.id === `opt_final_${key}_pattern_pursuit`));
+const heirState = structuredClone(won);
+me(heirState).alive = false;
+heirState.pending = { kind: 'newCharacter' };
+assert.equal(grow(play(heirState, { type: 'startCharacter', templateId: 'start_wanderer' })).unlocks?.unl_watchpost_pursuit, undefined);
+assert.equal(JSON.stringify(view(won, worldData)).includes('watch_pattern_tell'), false);
+console.log(`Pattern duel and pursuit PASS (seed ${winner.seed})`);
