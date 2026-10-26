@@ -186,6 +186,24 @@ const COMPOSE = {
     { op: 'rocks', x0: 0.12, x1: 0.9, base: 0.92, n: 12, seed: 'lower:stones' },
     { op: 'mist', y: 0.87, h: 0.1 }
   ],
+  // New optional underground passages are drawn only when the player arrives.
+  // Geometry never depends on undiscovered route flags or hidden loot.
+  loc_ruins_gallery: () => [
+    ...hills('ruins:gallery', { far: 0.48, mid: 0.63 }),
+    { op: 'ground', tone: 'near', y: 0.82, seed: 'gallery:floor' },
+    { op: 'arch', x: 0.25, base: 0.83, w: 0.19, h: 0.53, broken: true },
+    { op: 'arch', x: 0.73, base: 0.83, w: 0.2, h: 0.59, broken: true },
+    { op: 'rocks', x0: 0.12, x1: 0.92, base: 0.96, n: 15, seed: 'gallery:fallen' },
+    { op: 'mist', y: 0.88, h: 0.1 }
+  ],
+  loc_ruins_watchpost: () => [
+    ...hills('ruins:watchpost', { far: 0.44, mid: 0.6 }),
+    { op: 'ground', tone: 'near', y: 0.78, seed: 'watchpost:floor' },
+    { op: 'arch', x: 0.48, base: 0.78, w: 0.32, h: 0.61, broken: true },
+    { op: 'wall', x0: 0.13, x1: 0.86, base: 0.88, h: 0.12, gate: 0.5 },
+    { op: 'rocks', x0: 0.06, x1: 0.95, base: 0.97, n: 11, seed: 'watchpost:rubble' },
+    { op: 'mist', y: 0.9, h: 0.08 }
+  ],
   // 숲속 샘: a pool under tall pines; murky while the well is fouled, clear once it is not
   loc_forest_spring: (m) => [
     { op: "ridge", tone: "far", base: 0.38, amp: 0.14, rough: 2.4, seed: "spring:far" },
