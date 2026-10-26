@@ -18,6 +18,10 @@ const wagonWaiting = and(flag('north_road_guided'), signal('north_trade_stage', 
 const onWagon = and(flag('ruins_raider_guide_recruited'), flag('ruins_guide_on_convoy'),
   wagonWaiting, at('loc_far_bank'), npcAt('loc_far_bank'));
 const reduceDanger = { op: 'signal', key: 'road_trouble', add: -1 };
+// Career progress belongs to the persistent world and is capped at three
+// successful journeys; neither failed checks nor mere boarding count.
+const gainExperience = { op: 'if', when: signal('ruins_guide_experience', { max: 2 }),
+  then: [{ op: 'signal', key: 'ruins_guide_experience', add: 1 }] };
 // Preserve the existing north-trade relief contract: the merchant transfers
 // one of its OWN finite bundles, and only when a genuine shortage exists.
 const transferRelief = { op: 'if', when: and(flag('north_supply_relief_pact'),
@@ -29,7 +33,7 @@ const arrive = [
   { op: 'signal', key: 'north_trade_stage', add: 1 },
   { op: 'move', subject: 'npc_ruins_raider', to: 'loc_mill_hamlet' },
   { op: 'move', to: 'loc_mill_hamlet' },
-  reduceDanger, transferRelief
+  reduceDanger, gainExperience, transferRelief
 ];
 const narrate = textId => ({ op: 'narrate', textId });
 
@@ -39,10 +43,12 @@ export const ruinsGuideConvoy = {
     // leaves the region. Event names sort after the merchant's daily tick.
     evt_ruins_guide_convoy_arrive: {
       trigger: and(flag('ruins_guide_on_convoy'), signal('north_trade_stage', { eq: 2 }), npcAt('loc_far_bank')),
-      effects: [{ op: 'move', subject: 'npc_ruins_raider', to: 'loc_mill_hamlet' }]
+      cooldown: 720,
+      effects: [{ op: 'move', subject: 'npc_ruins_raider', to: 'loc_mill_hamlet' }, gainExperience]
     },
     evt_ruins_guide_convoy_return: {
       trigger: and(flag('ruins_guide_on_convoy'), signal('north_trade_stage', { eq: 0 })),
+      cooldown: 720,
       effects: [{ op: 'move', subject: 'npc_ruins_raider', to: 'loc_river_ford' },
         { op: 'flag', key: 'ruins_guide_on_convoy', value: false }]
     }
@@ -60,6 +66,37 @@ export const ruinsGuideConvoy = {
         { op: 'move', subject: 'npc_ruins_raider', to: 'loc_far_bank' },
         { op: 'move', to: 'loc_far_bank' }, narrate('txt_ruins_guide_boarded')
       ]
+    },
+    // Two completed journeys unlock a costly, permanent piece of road
+    // infrastructure. This is a world consequence, not a private NPC leak.
+    act_ruins_guide_establish_waymarks: {
+      name: '길잡이와 물레방아 우회로에 표지석을 세운다 (은화 4, 빵 2, 기력 1, 90분)',
+      requires: and(flag('ruins_raider_guide_recruited'), at('loc_mill_hamlet'),
+        npcAt('loc_mill_hamlet'), signal('ruins_guide_experience', { min: 2 }),
+        not(flag('ruins_guide_waymarks')), { op: 'money', min: 4 }, bread(2), stamina(1)),
+      minutes: 90,
+      effects: [
+        { op: 'money', add: -4 }, { op: 'item', item: 'item_mill_bread', add: -2 },
+        { op: 'resource', resource: 'stamina', add: -1 },
+        { op: 'flag', key: 'ruins_guide_waymarks', value: true },
+        { op: 'relation', from: 'org_mill_hamlet', add: 3 },
+        { op: 'if', when: signal('road_trouble', { min: 1 }),
+          then: [{ op: 'signal', key: 'road_trouble', add: -1 }] },
+        { op: 'if', when: signal('road_trouble', { min: 1 }),
+          then: [{ op: 'signal', key: 'road_trouble', add: -1 }] },
+        narrate('txt_ruins_guide_waymarks_built')
+      ]
+    },
+    // The established route trades high-risk wages and training for a
+    // deterministic, faster crossing on the actual merchant wagon.
+    act_ruins_guide_veteran_crossing: {
+      name: '길잡이가 익힌 표지석 우회로로 상단을 안전하게 이끈다 (기력 1, 60분)',
+      requires: and(onWagon, flag('ruins_guide_waymarks'),
+        signal('ruins_guide_experience', { min: 2 }), signal('road_trouble', { min: 1 }), stamina(1)),
+      minutes: 60,
+      effects: [{ op: 'resource', resource: 'stamina', add: -1 },
+        { op: 'proficiency', id: 'investigation', add: 5 },
+        ...arrive, narrate('txt_ruins_guide_veteran_crossing')]
     },
     act_ruins_guide_scout_convoy: {
       name: '길잡이와 우회로를 탐색해 상단을 이끈다 (기력 2, 120분)',
@@ -99,6 +136,8 @@ export const ruinsGuideConvoy = {
     }
   },
   texts: {
+    txt_ruins_guide_waymarks_built: '두 차례의 원정에서 익힌 위험한 굽이를 표지석으로 표시했다. 마을은 길잡이의 경험을 신뢰하고 도로의 위험이 줄었다.',
+    txt_ruins_guide_veteran_crossing: '길잡이는 자신이 세운 표지석을 따라 상단을 안전하게 이끌었다. 품삯은 없지만 도로를 빠르게 건넜다.',
     txt_ruins_guide_boarded: '길잡이와 식량을 나누고 북부 상단의 짐수레에 합류했다. 강 건너 길목에서 어느 방식으로 위험한 도로를 건널지 결정해야 한다.',
     txt_ruins_guide_scout_success: '길잡이가 오래된 발자국을 읽고 나는 새 우회로를 찾았다. 상단이 실제 짐을 싣고 마을에 도착했다.',
     txt_ruins_guide_scout_failed: '갈림길의 흔적을 잘못 읽었다. 상단은 여전히 길목에서 기다리며, 다시 조사할 수 있다.',
