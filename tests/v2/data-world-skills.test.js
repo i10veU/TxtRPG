@@ -71,6 +71,15 @@ function testSchema() {
 function testChecksReadSkills() {
   const named = Object.fromEntries(checkSpecs().map(([where, spec]) => [where, [spec.skill ?? null, spec.proficiency ?? null]]));
   assert.deepStrictEqual(named, {
+    "choice_fight_leader.opt_fight_pattern_pursuit": ["swordsmanship", null],
+    "choice_final_battle.opt_final_chief_pattern_pursuit": ["swordsmanship", null],
+    "choice_final_battle.opt_final_right_hand_pattern_pursuit": ["swordsmanship", null],
+    act_gallery_brute_first: ["swordsmanship", null],
+    act_gallery_brute_second: ["swordsmanship", null],
+    act_gallery_scout_first: ["swordsmanship", null],
+    act_gallery_scout_second: ["swordsmanship", null],
+    act_watch_pattern_bait: ["swordsmanship", null],
+    act_watch_pattern_brace: ["swordsmanship", null],
     act_investigate_ruins: ["investigation", null],
     act_trace_ruins_cellar: ["investigation", null],
     act_ruins_lower_scout: ["investigation", null],
