@@ -90,6 +90,8 @@ function testEveryCheckNamesADefinedStat() {
     act_ruins_raider_track: ["per", null],
     act_ruins_raider_intercept: ["str", null],
     act_ruins_raider_divert: ["per", null],
+    act_ruins_guide_scout_convoy: ["per", null],
+    act_ruins_guide_defend_convoy: ["str", null],
     act_confront_leader: ["wis", "wis"],
     act_castle_spar_trial: ["dex", null],
     act_castle_breakthrough_trial: ["str", null],

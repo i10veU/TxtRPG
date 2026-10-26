@@ -84,6 +84,8 @@ function testChecksReadSkills() {
     act_ruins_raider_track: ["investigation", null],
     act_ruins_raider_intercept: ["swordsmanship", null],
     act_ruins_raider_divert: ["investigation", null],
+    act_ruins_guide_scout_convoy: ["investigation", null],
+    act_ruins_guide_defend_convoy: ["swordsmanship", null],
     act_confront_leader: [null, null],
     act_castle_spar_trial: ["swordsmanship", null],
     act_castle_breakthrough_trial: ["swordsmanship", null],
