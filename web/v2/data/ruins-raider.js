@@ -199,6 +199,58 @@ export const ruinsRaider = {
         say('txt_ruins_raider_mill_patrol_hired')
       ]
     },
+    // After a witnessed attack the player may settle the dispute or recruit
+    // the living raider. These are mutually exclusive, persistent resolutions.
+    // The witness gate is character knowledge; actor position stays private.
+    act_ruins_raider_make_peace: {
+      name: '빵과 은화로 약탈자를 설득해 방앗간에 정착시킨다 (빵 2, 은화 3, 기력 1, 60분)',
+      requires: and(active, at('loc_mill_hamlet'), npcAt('loc_mill_hamlet'),
+        flag('ruins_raider_mill_recent'), flag('ruins_raider_mill_report_current'),
+        { op: 'rumor', rumor: 'rum_raider_mill_sighting', source: 'npc_miller' },
+        { op: 'item', item: 'item_mill_bread', min: 2 }, { op: 'money', min: 3 }, stamina(1)),
+      minutes: 60,
+      effects: [
+        { op: 'item', item: 'item_mill_bread', add: -2 }, { op: 'money', add: -3 },
+        { op: 'resource', resource: 'stamina', add: -1 },
+        ...stopPatrol, { op: 'flag', key: 'ruins_raider_reconciled', value: true },
+        { op: 'flag', key: 'ruins_raider_mill_recent', value: false },
+        { op: 'move', subject: 'npc_ruins_raider', to: 'loc_mill_hamlet' },
+        { op: 'relation', from: 'org_mill_hamlet', add: 4 }, calmRoad,
+        say('txt_ruins_raider_reconciled')
+      ]
+    },
+    act_ruins_raider_recruit_guide: {
+      name: '조사 경험을 살려 약탈자를 강 건너 길잡이로 고용한다 (은화 6, 기력 2, 90분)',
+      requires: and(active, at('loc_mill_hamlet'), npcAt('loc_mill_hamlet'),
+        flag('ruins_raider_mill_recent'), flag('ruins_raider_mill_report_current'),
+        { op: 'rumor', rumor: 'rum_raider_mill_sighting', source: 'npc_miller' },
+        { op: 'skill', skill: 'investigation', min: 1 },
+        { op: 'money', min: 6 }, stamina(2)),
+      minutes: 90,
+      effects: [
+        { op: 'money', add: -6 }, { op: 'resource', resource: 'stamina', add: -2 },
+        ...stopPatrol, { op: 'flag', key: 'ruins_raider_guide_recruited', value: true },
+        { op: 'flag', key: 'ruins_raider_mill_recent', value: false },
+        { op: 'move', subject: 'npc_ruins_raider', to: 'loc_river_ford' },
+        { op: 'relation', from: 'org_mill_hamlet', add: 2 },
+        say('txt_ruins_raider_guide_recruited')
+      ]
+    },
+    // A long-term, paid service rather than an unlimited coin or food source.
+    // Only real bread is consumed and road danger must still exist.
+    act_ruins_raider_guide_escort: {
+      name: '고용한 길잡이와 함께 위험한 강변길을 정찰한다 (빵 1, 기력 1, 45분)',
+      requires: and(at('loc_river_ford'), npcAt('loc_river_ford'),
+        flag('ruins_raider_guide_recruited'), signal('road_trouble', { min: 1 }),
+        { op: 'item', item: 'item_mill_bread', min: 1 }, stamina(1)),
+      minutes: 45,
+      effects: [
+        { op: 'item', item: 'item_mill_bread', add: -1 },
+        { op: 'resource', resource: 'stamina', add: -1 },
+        { op: 'proficiency', id: 'investigation', add: 8 }, calmRoad,
+        say('txt_ruins_raider_guide_escorted')
+      ]
+    },
     act_ruins_raider_organize_sentries: {
       name: '최근 목격 정보를 근거로 마을 경계대를 고용한다 (은화 3, 기력 1, 60분)',
       requires: and(active, at('loc_village'), flag('ruins_raider_village_recent'),
@@ -351,6 +403,9 @@ export const ruinsRaider = {
     }
   },
   texts: {
+    txt_ruins_raider_reconciled: '방앗간 주인이 빵과 은화를 받아 약탈자의 새 일자리를 마련했다. 그는 살아서 마을에 남고, 상단 약탈을 그만두기로 했다.',
+    txt_ruins_raider_guide_recruited: '발자국을 읽는 법을 아는 방랑자가 그에게 새로운 일을 제안했다. 약탈자는 강 건너 길목에서 위험한 길을 안내하는 길잡이가 되었다.',
+    txt_ruins_raider_guide_escorted: '길잡이가 바퀴 자국과 새 발자국을 구별해 위험한 강변길을 안내했다. 식량은 소모되었지만 길은 조금 더 안전해졌다.',
     txt_ruins_raider_mill_report_recent: '방앗간 주인이 이번 순찰에 상단 물자를 노린 침입자를 봤다고 한다. 다음 귀환에 대비해 상단 경비를 고용할 수 있다.',
     txt_ruins_raider_mill_report_old: '방앗간 주인은 예전 상단 약탈을 기억한다. 지금도 이곳에 있다고 장담할 수는 없다.',
     txt_ruins_raider_mill_patrol_hired: '상단 경비가 물레방아 마을의 짐마차를 지키기로 했다. 다음 우회 습격 한 번을 막을 것이다.',
