@@ -999,7 +999,7 @@ function finalOptions(key, foe, leads) {
 import { ruinsExpedition } from './ruins-expedition.js';
 import { ruinsWatchpost } from './ruins-watchpost.js';
 import { ruinsRaider } from './ruins-raider.js';
-import { ruinsGuideConvoy, northTradeReliefTransfer } from './ruins-guide-convoy.js';
+import { ruinsGuideConvoy, northTradeReliefTransfer, northTradeCharterDepotAllocation } from './ruins-guide-convoy.js';
 
 export const worldData = {
   formatVersion: 1,
@@ -1210,7 +1210,11 @@ export const worldData = {
             { op: "if", when: { op: "signal", key: "ruins_guide_caravan_treasury", max: 6 },
               then: [{ op: "signal", key: "ruins_guide_caravan_treasury", add: 6 }] },
             { op: "if", when: { op: "signal", key: "north_trade_stock", max: 0 },
-              then: [{ op: "signal", key: "north_trade_stock", add: 2 }] }
+              then: [{ op: "signal", key: "north_trade_stock", add: 2 }] },
+            // A signed regional charter governs the REAL newly loaded cargo.
+            // This is after replenishment, so old Saves and unchartered routes
+            // retain their previous behavior.
+            northTradeCharterDepotAllocation
           ], else: [
             { op: "if", when: { op: "signal", key: "north_trade_stage", eq: 1 },
               then: [
