@@ -150,6 +150,26 @@ export const ruinsGuideConvoy = {
       effects: [{ op: 'flag', key: 'ruins_guide_mill_order_pending', value: false },
         narrate('txt_ruins_guide_mill_supply_canceled')]
     },
+    // Competing regional demand: unload ONE real merchant bundle at the far-
+    // bank depot instead of carrying it onward to the mill. The depot's
+    // autonomous relief wagon may later consume it. A prepaid mill order
+    // always retains the last bundle; no invisible cargo is created.
+    act_ruins_guide_waystation_provisions: {
+      name: '북부 상단의 화물 한 묶음을 강 건너 보급소에 배분한다 (은화 2, 20분)',
+      requires: and(at('loc_far_bank'), flag('north_road_guided'),
+        signal('north_trade_stage', { eq: 1 }), merchantCargo,
+        signal('north_waystation_stock', { max: 1 }),
+        or(not(pendingOrder), signal('north_trade_stock', { min: 2 })),
+        signal('ruins_guide_caravan_treasury', { max: 10 }),
+        { op: 'money', min: 2 }),
+      minutes: 20,
+      effects: [{ op: 'money', add: -2 },
+        { op: 'signal', key: 'ruins_guide_caravan_treasury', add: 2 },
+        { op: 'signal', key: 'north_trade_stock', add: -1 },
+        { op: 'signal', key: 'north_waystation_stock', add: 1 },
+        { op: 'relation', from: 'npc_north_caravan_driver', add: 1 },
+        narrate('txt_ruins_guide_waystation_provisions')]
+    },
     // A deliberate financing choice: the player invests their OWN money in
     // the real caravan, then may earn it back only by completing contracts.
     act_ruins_guide_capitalize_caravan: {
@@ -277,6 +297,7 @@ export const ruinsGuideConvoy = {
     }
   },
   texts: {
+    txt_ruins_guide_waystation_provisions: '강 건너 보급소가 비어 있어 북부 상단의 실제 화물 한 묶음을 이곳에 내렸다. 상단의 남은 짐은 물레방아 마을로 향한다. 이미 대금을 받은 마을의 마지막 예약 화물은 따로 지킨다.',
     txt_ruins_guide_mill_supply_ordered: '빈 공동 창고를 채우기 위해 상단에 은화를 선지급했다. 상단이 실제 화물을 싣고 마을에 도착해야 한 묶음이 전달된다. 길이 막히면 배송도 늦어진다.',
     txt_ruins_guide_mill_supply_canceled: '마을의 식량 예약을 취소했다. 상단이 이미 받은 운송 예약금은 돌려받지 못한다.',
     txt_ruins_guide_caravan_capitalized: '내 은화를 상단의 실제 운송 자금으로 맡겼다. 계약의 품삯은 이 유한한 자금에서만 지급되며, 운행이 새로 시작되면 상단의 영업 자금이 보충된다.',
