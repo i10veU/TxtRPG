@@ -959,6 +959,22 @@ function finalOptions(key, foe, leads) {
       })
     },
     {
+      id: `opt_final_${key}_second_wind`,
+      name: "기세를 전환해 숨을 고른다 (기력 2 이하)",
+      requires: leading({ op: "and", of: [
+        { op: "unlock", id: "unl_watchpost_second_wind" },
+        { op: "resource", resource: "stamina", max: 2 }
+      ] }),
+      check: check(11, "dex"),
+      minutes: 5,
+      outcomes: {
+        great: exchange([{ op: "resource", resource: "stamina", add: 4 }, say("txt_watch_second_wind")]),
+        success: exchange([{ op: "resource", resource: "stamina", add: 3 }, foeHits(1), say("txt_watch_second_wind")]),
+        partial: exchange([{ op: "resource", resource: "stamina", add: 2 }, foeHits(2), say("txt_watch_second_wind")]),
+        fail: exchange([{ op: "resource", resource: "stamina", add: 1 }, foeHits(3), say("txt_watch_second_wind")])
+      }
+    },
+    {
       id: `opt_final_${key}_tempo_break`,
       name: "칼등으로 상대의 호흡을 끊는다 (기력 2)",
       requires: leading({ op: "and", of: [
@@ -1015,6 +1031,7 @@ function finalOptions(key, foe, leads) {
 import { ruinsExpedition } from './ruins-expedition.js';
 import { ruinsWatchpost } from './ruins-watchpost.js';
 import { ruinsSignalChamber } from './ruins-signal-chamber.js';
+import { ruinsWatchpostDrill } from './ruins-watchpost-drill.js';
 import { ruinsRaider } from './ruins-raider.js';
 import { ruinsGuideConvoy, northTradeReliefTransfer, northTradeCharterDepotAllocation, northTradeCharterProcurement, northTradeCharterReturn } from './ruins-guide-convoy.js';
 
@@ -1111,6 +1128,7 @@ export const worldData = {
   // three hits take the 10-HP wanderer to 0, which is the existing `hp`
   // Effect's own death trigger (D-34), not a new mechanic.
   events: {
+    ...ruinsWatchpostDrill.events,
     ...ruinsRaider.events,
     ...ruinsGuideConvoy.events,
     // J3 (#426): the elder needs a full day after hearing first-hand arrows
@@ -1691,6 +1709,7 @@ export const worldData = {
     ...ruinsExpedition.actions,
     ...ruinsWatchpost.actions,
     ...ruinsSignalChamber.actions,
+    ...ruinsWatchpostDrill.actions,
     ...ruinsRaider.actions,
     ...ruinsGuideConvoy.actions,
     act_observe_village: {
@@ -4494,6 +4513,22 @@ export const worldData = {
         // A successful cut spends the opponent's finite stamina, denying
         // future heavy blows. Low damage makes it a deliberate tactical trade.
         {
+          id: "opt_fight_second_wind",
+          name: "기세를 전환해 숨을 고른다 (기력 2 이하)",
+          requires: { op: "and", of: [
+            { op: "unlock", id: "unl_watchpost_second_wind" },
+            { op: "resource", resource: "stamina", max: 2 }
+          ] },
+          check: { stat: "dex", skill: "swordsmanship", tags: ["combat"], difficulty: FIGHT_DIFFICULTY(11, "dex") },
+          minutes: 5,
+          outcomes: {
+            great: fightExchange([{ op: "resource", resource: "stamina", add: 4 }, say("txt_watch_second_wind")]),
+            success: fightExchange([{ op: "resource", resource: "stamina", add: 3 }, leaderHits(1), say("txt_watch_second_wind")]),
+            partial: fightExchange([{ op: "resource", resource: "stamina", add: 2 }, leaderHits(2), say("txt_watch_second_wind")]),
+            fail: fightExchange([{ op: "resource", resource: "stamina", add: 1 }, leaderHits(3), say("txt_watch_second_wind")])
+          }
+        },
+        {
           id: "opt_fight_tempo_break",
           name: "칼등으로 상대의 호흡을 끊는다 (기력 2)",
           requires: { op: "and", of: [
@@ -4615,7 +4650,7 @@ export const worldData = {
         { minRank: 5, label: "Adept" }
       ],
       // V2-Core-142 (M7): the realm's name -- the apex (a title: it opens nothing, the world answers it)
-      unlocks: [{ id: "unl_north_road_survey", kind: "action" }, { id: "unl_trailcraft", kind: "action" }, { id: "unl_caravan_pathfinder", kind: "action" }, { id: "unl_ruins_cellar_route", kind: "action" }, { id: "unl_ruins_lower_route", kind: "action" }, { id: "unl_ruins_signal_chamber_route", kind: "action" }, { id: "unl_ruins_raider_tracked", kind: "action" }, { id: "unl_keen_eye", kind: "action" }, { id: "unl_road_lead", kind: "action" }, { id: "unl_guarded_stance", kind: "action" }, { id: "unl_breakthrough_cut", kind: "action" }, { id: "unl_tempo_break", kind: "action" }, { id: "unl_realm_renown", kind: "title" }],
+      unlocks: [{ id: "unl_north_road_survey", kind: "action" }, { id: "unl_trailcraft", kind: "action" }, { id: "unl_caravan_pathfinder", kind: "action" }, { id: "unl_ruins_cellar_route", kind: "action" }, { id: "unl_ruins_lower_route", kind: "action" }, { id: "unl_ruins_signal_chamber_route", kind: "action" }, { id: "unl_ruins_raider_tracked", kind: "action" }, { id: "unl_keen_eye", kind: "action" }, { id: "unl_road_lead", kind: "action" }, { id: "unl_guarded_stance", kind: "action" }, { id: "unl_breakthrough_cut", kind: "action" }, { id: "unl_tempo_break", kind: "action" }, { id: "unl_watchpost_first_bout", kind: "action" }, { id: "unl_watchpost_second_wind", kind: "action" }, { id: "unl_realm_renown", kind: "title" }],
       // V2-Core-56 (Gate 4 = C, D-85): resources belong to the growth system. Stamina pays for the
       // fight's techniques (the counter 3, the old wound 2); a character without the entry is full
       resources: [{ id: "stamina", max: 6 }]
@@ -4858,6 +4893,7 @@ export const worldData = {
     ...ruinsExpedition.texts,
     ...ruinsWatchpost.texts,
     ...ruinsSignalChamber.texts,
+    ...ruinsWatchpostDrill.texts,
     ...ruinsRaider.texts,
     ...ruinsGuideConvoy.texts,
     txt_observe_village: "사람들 틈에 섞여 귀를 연다. 낯선 얼굴을 흘끔거리긴 해도 어디서 왔느냐고 묻는 이는 없다. 다들 제 걱정이 더 크다.",
@@ -5091,6 +5127,7 @@ export const worldData = {
     txt_castle_guard_drill: "성읍의 낡은 연습장에서 방패 없는 방어 자세와 발놀림을 반복한다. 은화를 낸 만큼 사범의 지도를 받고, 땀과 기력을 쏟아 검술의 기본을 다진다.",
     txt_castle_spar_pass: "사범의 검끝을 흘려 보내고 빈틈에 검을 멈춰 세운다. 그는 방어 자세를 인정하며 실전에서도 쓸 수 있다고 고개를 끄덕인다.",
     txt_castle_spar_retry: "대련에서 밀려 넘어졌다. 은화와 기력은 돌아오지 않지만 몸이 기억한 실수는 남는다. 다시 준비하면 도전할 수 있다.",
+    txt_watch_second_wind: "상대의 공격을 버티며 숨을 고르고 다시 검을 쥔다.",
     txt_guarded_stance_hit: "검을 가까이 붙여 공격을 흘리고 짧게 반격한다. 강한 일격은 아니지만 몸을 지키며 빈틈을 찔렀다.",
     txt_guarded_stance_block: "상대의 검이 방어 자세를 흔든다. 반격에는 실패했지만 급소를 피하고 피해를 줄였다.",
     txt_castle_breakthrough_pass: "사범의 검을 밀어내고 빈틈을 파고든다. 위험을 감수한 빠른 돌파를 인정받았다. 이 검술은 검을 쥔 채 기력을 쏟아야 한다.",
@@ -5233,6 +5270,8 @@ export const worldData = {
     lbl_unlock_unl_guarded_stance: "방어 검술 자세",
     lbl_unlock_unl_breakthrough_cut: "돌파 검술",
     lbl_unlock_unl_tempo_break: "호흡 끊기 검술",
+    lbl_unlock_unl_watchpost_first_bout: "초소 첫 대련 승리",
+    lbl_unlock_unl_watchpost_second_wind: "기세 전환",
     lbl_unlock_unl_realm_renown: "왕국이 아는 이름 (남쪽 변경의 수호자)",
     lbl_res_stamina: "기력",
     lbl_slot_hand: "손",

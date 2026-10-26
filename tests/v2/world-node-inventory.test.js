@@ -116,12 +116,13 @@ const supplyCrateExtension = Number(Boolean(worldData.items.item_waystation_supp
 const personalGrainExtension = Number(Boolean(worldData.items.item_castle_grain_crate));
 // Two physical-event witness reports: 2 dialogue NPCs, 2 facts, 2 rumors.
 const raiderSightingExtension = Number(Boolean(worldData.npcs.npc_ruins_watch_guard && worldData.npcs.npc_ruins_village_guard && worldData.rumors.rum_raider_village_sighting));
+const watchDrillExtension = Number(Boolean(worldData.events.evt_watch_drill_rota));
 const millDetourExtension = Number(Boolean(worldData.facts.fact_raider_mill_sighting && worldData.rumors.rum_raider_mill_sighting));
 assert.deepEqual(Object.fromEntries(Object.entries(actual.fiveKinds).map(([kind, row]) => [kind, row.count])), {
-  Entity: 13 + 2 * raiderSightingExtension, Location: 16, Resource: 14 + supplyCrateExtension + personalGrainExtension, Event: 33 + herbalistExtension,
+  Entity: 13 + 2 * raiderSightingExtension, Location: 16, Resource: 14 + supplyCrateExtension + personalGrainExtension, Event: 33 + herbalistExtension + watchDrillExtension,
   Knowledge: 96 + 2 * herbalistExtension + 4 * worldWordExtension + 2 * springTrapExtension + 4 * raiderSightingExtension + 2 * millDetourExtension
 });
-assert.equal(actual.totalUniqueNodes, 172 + 3 * herbalistExtension + 4 * worldWordExtension + 2 * springTrapExtension + supplyCrateExtension + personalGrainExtension + 6 * raiderSightingExtension + 2 * millDetourExtension);
+assert.equal(actual.totalUniqueNodes, 172 + 3 * herbalistExtension + watchDrillExtension + 4 * worldWordExtension + 2 * springTrapExtension + supplyCrateExtension + personalGrainExtension + 6 * raiderSightingExtension + 2 * millDetourExtension);
 assert.equal(actual.definitions.orgs, 3);
 assert.equal(actual.definitions.growthResources, 1);
 assert.equal(actual.extractedEdges, 94 + herbalistExtension + 2 * worldWordExtension + springTrapExtension + 2 * raiderSightingExtension + millDetourExtension, "authored NPC starts and each declared rumor are structural");
