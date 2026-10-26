@@ -1046,6 +1046,7 @@ function finalOptions(key, foe, leads) {
 import { ruinsExpedition } from './ruins-expedition.js';
 import { ruinsWatchpost } from './ruins-watchpost.js';
 import { ruinsSignalChamber } from './ruins-signal-chamber.js';
+import { ruinsCistern } from './ruins-cistern.js';
 import { ruinsWatchpostDrill } from './ruins-watchpost-drill.js';
 import { ruinsRaider } from './ruins-raider.js';
 import { ruinsGuideConvoy, northTradeReliefTransfer, northTradeCharterDepotAllocation, northTradeCharterProcurement, northTradeCharterReturn } from './ruins-guide-convoy.js';
@@ -1637,6 +1638,7 @@ export const worldData = {
     ...ruinsExpedition.locations,
     ...ruinsWatchpost.locations,
     ...ruinsSignalChamber.locations,
+    ...ruinsCistern.locations,
     loc_village: {
       name: "변경 마을",
       links: [
@@ -1724,6 +1726,7 @@ export const worldData = {
     ...ruinsExpedition.actions,
     ...ruinsWatchpost.actions,
     ...ruinsSignalChamber.actions,
+    ...ruinsCistern.actions,
     ...ruinsWatchpostDrill.actions,
     ...ruinsRaider.actions,
     ...ruinsGuideConvoy.actions,
@@ -4924,6 +4927,7 @@ export const worldData = {
     ...ruinsExpedition.texts,
     ...ruinsWatchpost.texts,
     ...ruinsSignalChamber.texts,
+    ...ruinsCistern.texts,
     txt_watch_pattern_pursuit: '상대의 기력이 다한 순간 발을 밀어 넣어 빈틈을 베었다.',
     txt_watch_pattern_pursuit_trade: '빈틈을 노렸지만 검끝이 스쳤다. 서로 상처를 주고받았다.',
     txt_watch_pattern_pursuit_miss: '빈틈을 좇다가 거리를 놓쳤다. 반격에 몸이 흔들린다.',
