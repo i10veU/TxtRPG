@@ -93,6 +93,8 @@ export const ruinsRaider = {
                 { op: 'move', subject: 'npc_ruins_raider', to: 'loc_village' },
                 { op: 'flag', key: 'ruins_raider_village_sighting', value: true },
                 { op: 'flag', key: 'ruins_raider_village_recent', value: true },
+                // A previous interview cannot authorize a new mobilization.
+                { op: 'flag', key: 'ruins_raider_village_report_current', value: false },
                 { op: 'signal', key: 'ruins_raider_stage', add: 1 },
                 { op: 'if', when: signal('north_mill_relief_stock', { min: 1 }), then: [
                   { op: 'signal', key: 'north_mill_relief_stock', add: -1 },
@@ -137,12 +139,14 @@ export const ruinsRaider = {
       effects: [
         { op: 'rumor', rumor: 'rum_raider_village_sighting', source: 'npc_ruins_village_guard', confidence: 85 },
         { op: 'if', when: flag('ruins_raider_village_recent'),
-          then: [say('txt_ruins_raider_village_report_recent')], else: [say('txt_ruins_raider_village_report_old')] }
+          then: [{ op: 'flag', key: 'ruins_raider_village_report_current', value: true },
+            say('txt_ruins_raider_village_report_recent')], else: [say('txt_ruins_raider_village_report_old')] }
       ]
     },
     act_ruins_raider_organize_sentries: {
       name: '최근 목격 정보를 근거로 마을 경계대를 고용한다 (은화 3, 기력 1, 60분)',
       requires: and(active, at('loc_village'), flag('ruins_raider_village_recent'),
+        flag('ruins_raider_village_report_current'),
         { op: 'rumor', rumor: 'rum_raider_village_sighting', source: 'npc_ruins_village_guard' },
         not(flag('ruins_raider_sentries_ready')), { op: 'money', min: 3 }, stamina(1)),
       minutes: 60,
