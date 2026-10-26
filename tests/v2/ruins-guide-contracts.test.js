@@ -1,0 +1,85 @@
+import assert from 'node:assert/strict';
+import { createInitialState, step, view, validateState, checkDataCompatibility } from '../../web/v2/core/engine.js';
+import { buildSaveRecord, parseLoadedRecord } from '../../web/v2/storage/idb.js';
+import { worldData } from '../../web/v2/data/world.js';
+const P = actionId => ({ type: 'perform', actionId });
+const me = s => s.actors[s.player.actorId];
+const can = (s, id) => view(s, worldData).actions.some(a => a.actionId === id && a.available);
+const play = (s, action) => {
+  const r = step(s, action, worldData);
+  assert.ok(!r.events.some(e => e.type === 'action.rejected'), JSON.stringify(r.events));
+  assert.deepEqual(validateState(r.state), []);
+  assert.deepEqual(checkDataCompatibility(r.state, worldData), []);
+  return r.state;
+};
+const save = s => parseLoadedRecord(JSON.parse(JSON.stringify(buildSaveRecord('guide-contracts', s, { savedAt: 1 }))));
+const initial = createInitialState({ worldSeed: 'guide-contracts-485', data: worldData }).state;
+initial.flags = { ...initial.flags, north_road_guided: true, ruins_raider_cleared: true,
+  ruins_raider_guide_recruited: true, ruins_guide_waymarks: true,
+  north_supply_relief_pact: true };
+initial.signals = { ...initial.signals, north_trade_stage: 1, north_trade_stock: 2,
+  north_relief_losses: 2, north_mill_relief_stock: 0, road_trouble: 3,
+  ruins_guide_experience: 3 };
+initial.actors.npc_ruins_raider.locationId = 'loc_river_ford';
+me(initial).locationId = 'loc_river_ford';
+me(initial).inventory.item_mill_bread = 8;
+me(initial).inventory.item_iron_sword = 1;
+me(initial).loadout = { slot_hand: 'item_iron_sword' };
+me(initial).growth.growth_wanderer.skills = { swordsmanship: 1 };
+me(initial).growth.growth_wanderer.stats.str = 30;
+me(initial).money = 12;
+const boarded = play(initial, P('act_ruins_guide_board_convoy'));
+const stock = boarded.signals.north_trade_stock;
+const silver = me(boarded).money;
+assert.equal(can(boarded, 'act_ruins_guide_safe_freight'), true);
+assert.equal(can(boarded, 'act_ruins_guide_urgent_freight'), true);
+assert.equal(can(boarded, 'act_ruins_guide_relief_freight'), true);
+const safe = play(boarded, P('act_ruins_guide_safe_freight'));
+assert.equal(safe.signals.north_trade_stage, 2);
+assert.equal(me(safe).money, silver + 2);
+assert.equal(safe.signals.ruins_guide_merchant_trust, 1);
+assert.equal(safe.signals.north_trade_stock, stock - 1, 'ordinary shortage relief still transfers exactly one bundle');
+assert.equal(safe.signals.north_mill_relief_stock, 1);
+assert.equal(safe.rng.cursor, boarded.rng.cursor);
+assert.deepEqual(save(safe), safe);
+assert.deepEqual(play(boarded, P('act_ruins_guide_safe_freight')), safe);
+const relief = play(boarded, P('act_ruins_guide_relief_freight'));
+assert.equal(relief.signals.north_trade_stock, stock - 1, 'dedicated relief must not double transfer');
+assert.equal(relief.signals.north_mill_relief_stock, 1);
+assert.equal(me(relief).money, silver);
+assert.equal(relief.signals.ruins_guide_merchant_trust, 1);
+assert.equal(relief.rng.cursor, boarded.rng.cursor);
+assert.deepEqual(save(relief), relief);
+const risky = play(boarded, P('act_ruins_guide_urgent_freight'));
+assert.equal(risky.signals.north_trade_stage, 2);
+assert.ok(me(risky).money >= silver + 5);
+assert.equal(risky.signals.ruins_guide_merchant_trust, 1);
+assert.ok(risky.rng.cursor > boarded.rng.cursor);
+assert.deepEqual(save(risky), risky);
+let failed;
+for (let seed = 1; seed <= 100 && !failed; seed++) {
+  const weak = structuredClone(boarded);
+  weak.rng.seed = seed; weak.rng.cursor = 0;
+  me(weak).growth.growth_wanderer.stats.str = 0;
+  const result = play(weak, P('act_ruins_guide_urgent_freight'));
+  if (result.signals.north_trade_stage === 1) failed = { before: weak, after: result };
+}
+assert.ok(failed, 'risky contract must have a genuine failure branch');
+assert.equal(failed.after.signals.north_trade_stock, failed.before.signals.north_trade_stock - 1);
+assert.equal(me(failed.after).money, me(failed.before).money);
+assert.equal(failed.after.actors.npc_ruins_raider.locationId, 'loc_far_bank');
+assert.deepEqual(save(failed.after), failed.after);
+const trusted = structuredClone(initial);
+trusted.signals.ruins_guide_merchant_trust = 3;
+assert.equal(can(trusted, 'act_ruins_guide_priority_boarding'), true);
+const priority = play(trusted, P('act_ruins_guide_priority_boarding'));
+assert.equal(me(priority).inventory.item_mill_bread, me(trusted).inventory.item_mill_bread);
+assert.equal(me(priority).locationId, 'loc_far_bank');
+assert.equal(priority.flags.ruins_guide_on_convoy, true);
+assert.equal(can(priority, 'act_ruins_guide_priority_boarding'), false);
+assert.deepEqual(save(priority), priority);
+const cap = structuredClone(boarded);
+cap.signals.ruins_guide_merchant_trust = 3;
+assert.equal(play(cap, P('act_ruins_guide_safe_freight')).signals.ruins_guide_merchant_trust, 3);
+assert.equal(JSON.stringify(view(safe, worldData)).includes('npc_ruins_raider'), false);
+console.log('Guide contracts: safe/urgent/relief, cargo conservation, capped trust, priority boarding, Save, RNG, projection PASS');

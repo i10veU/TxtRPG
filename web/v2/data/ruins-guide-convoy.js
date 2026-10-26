@@ -22,6 +22,10 @@ const reduceDanger = { op: 'signal', key: 'road_trouble', add: -1 };
 // successful journeys; neither failed checks nor mere boarding count.
 const gainExperience = { op: 'if', when: signal('ruins_guide_experience', { max: 2 }),
   then: [{ op: 'signal', key: 'ruins_guide_experience', add: 1 }] };
+// Trust is public, inherited merchant standing, not private NPC knowledge.
+// Only completed contracts grant it, up to the permanent priority-boarding tier.
+const gainTrust = { op: 'if', when: signal('ruins_guide_merchant_trust', { max: 2 }),
+  then: [{ op: 'signal', key: 'ruins_guide_merchant_trust', add: 1 }] };
 // Preserve the existing north-trade relief contract: the merchant transfers
 // one of its OWN finite bundles, and only when a genuine shortage exists.
 const transferRelief = { op: 'if', when: and(flag('north_supply_relief_pact'),
@@ -35,6 +39,9 @@ const arrive = [
   { op: 'move', to: 'loc_mill_hamlet' },
   reduceDanger, gainExperience, transferRelief
 ];
+// Dedicated relief transfers a finite bundle explicitly. It must NOT also
+// run the ordinary arrival transfer, or one contract could move two bundles.
+const arriveWithDedicatedRelief = arrive.filter(effect => effect !== transferRelief);
 const narrate = textId => ({ op: 'narrate', textId });
 
 export const ruinsGuideConvoy = {
@@ -66,6 +73,67 @@ export const ruinsGuideConvoy = {
         { op: 'move', subject: 'npc_ruins_raider', to: 'loc_far_bank' },
         { op: 'move', to: 'loc_far_bank' }, narrate('txt_ruins_guide_boarded')
       ]
+    },
+    // Three mutually exclusive contracts for ONE actual caravan crossing:
+    // safe wages, hazardous high pay, or finite famine relief. The shared
+    // north_trade_stage advances once, so rewards cannot be claimed twice.
+    act_ruins_guide_priority_boarding: {
+      name: '상단의 신뢰를 이용해 식량 부담 없이 우선 승차한다 (기력 1, 30분)',
+      requires: and(flag('ruins_raider_guide_recruited'), not(flag('ruins_guide_on_convoy')),
+        at('loc_river_ford'), npcAt('loc_river_ford'), wagonWaiting,
+        signal('ruins_guide_merchant_trust', { min: 3 }), stamina(1)),
+      minutes: 30,
+      effects: [
+        { op: 'resource', resource: 'stamina', add: -1 },
+        { op: 'flag', key: 'ruins_guide_on_convoy', value: true },
+        { op: 'move', subject: 'npc_ruins_raider', to: 'loc_far_bank' },
+        { op: 'move', to: 'loc_far_bank' }, narrate('txt_ruins_guide_priority_boarded')
+      ]
+    },
+    act_ruins_guide_safe_freight: {
+      name: '표지석 길로 상단의 안전 운송 계약을 완수한다 (기력 1, 60분, 은화 2)',
+      requires: and(onWagon, flag('ruins_guide_waymarks'),
+        signal('ruins_guide_experience', { min: 2 }),
+        signal('north_trade_stock', { min: 1 }), signal('road_trouble', { min: 1 }), stamina(1)),
+      minutes: 60,
+      effects: [{ op: 'resource', resource: 'stamina', add: -1 },
+        { op: 'money', add: 2 }, { op: 'relation', from: 'npc_north_caravan_driver', add: 2 },
+        gainTrust, ...arrive, narrate('txt_ruins_guide_safe_freight')]
+    },
+    act_ruins_guide_urgent_freight: {
+      name: '위험한 길로 긴급 화물 호위 계약을 맡는다 (기력 2, 90분, 은화 5~7)',
+      requires: and(onWagon, signal('road_trouble', { min: 2 }),
+        signal('north_trade_stock', { min: 1 }),
+        { op: 'skill', skill: 'swordsmanship', min: 1 }, sword, stamina(2)),
+      check: { stat: 'str', skill: 'swordsmanship', tags: ['combat'], difficulty: 'hard' },
+      minutes: 90,
+      outcomes: {
+        great: [{ op: 'resource', resource: 'stamina', add: -2 },
+          { op: 'proficiency', id: 'combat', add: 15 }, { op: 'money', add: 7 },
+          gainTrust, ...arrive, narrate('txt_ruins_guide_urgent_success')],
+        success: [{ op: 'resource', resource: 'stamina', add: -2 },
+          { op: 'proficiency', id: 'combat', add: 10 }, { op: 'money', add: 5 },
+          gainTrust, ...arrive, narrate('txt_ruins_guide_urgent_success')],
+        partial: [{ op: 'resource', resource: 'stamina', add: -2 }, { op: 'hp', add: -1 },
+          { op: 'signal', key: 'north_trade_stock', add: -1 },
+          narrate('txt_ruins_guide_urgent_failed')],
+        fail: [{ op: 'resource', resource: 'stamina', add: -2 }, { op: 'hp', add: -2 },
+          { op: 'signal', key: 'north_trade_stock', add: -1 },
+          narrate('txt_ruins_guide_urgent_failed')]
+      }
+    },
+    act_ruins_guide_relief_freight: {
+      name: '상단의 실제 식량 한 묶음을 구휼 창고에 긴급 수송한다 (기력 1, 75분)',
+      requires: and(onWagon, flag('north_supply_relief_pact'),
+        signal('north_relief_losses', { min: 2 }), not(flag('north_relief_shortage_recovered')),
+        signal('north_mill_relief_stock', { max: 1 }),
+        signal('north_trade_stock', { min: 1 }), signal('road_trouble', { min: 1 }), stamina(1)),
+      minutes: 75,
+      effects: [{ op: 'resource', resource: 'stamina', add: -1 },
+        { op: 'signal', key: 'north_trade_stock', add: -1 },
+        { op: 'signal', key: 'north_mill_relief_stock', add: 1 },
+        { op: 'relation', from: 'org_mill_hamlet', add: 3 },
+        gainTrust, ...arriveWithDedicatedRelief, narrate('txt_ruins_guide_relief_freight')]
     },
     // Two completed journeys unlock a costly, permanent piece of road
     // infrastructure. This is a world consequence, not a private NPC leak.
@@ -136,6 +204,11 @@ export const ruinsGuideConvoy = {
     }
   },
   texts: {
+    txt_ruins_guide_priority_boarded: '상단 마부가 오랜 호위 계약을 기억하고 짐칸에 자리를 내주었다. 식량을 추가로 내지 않고 길잡이와 강 건너 길목에 도착했다.',
+    txt_ruins_guide_safe_freight: '표지석을 따라 화물을 안전하게 인도했다. 마부가 정해진 품삯을 지불하고 다음 운송도 맡기겠다고 약속했다.',
+    txt_ruins_guide_urgent_success: '위험한 지름길에서 화물을 지켜냈다. 상단은 큰 품삯을 지불하고 길잡이의 계약 이력을 높이 평가했다.',
+    txt_ruins_guide_urgent_failed: '급한 길목에서 습격을 막지 못했다. 실제 상단 화물 한 묶음을 잃었고 운송은 중단되었다.',
+    txt_ruins_guide_relief_freight: '상단의 실제 화물 한 묶음을 물레방아 마을 구휼 창고로 옮겼다. 마을의 신뢰는 얻었지만 운송 품삯은 받지 않았다.',
     txt_ruins_guide_waymarks_built: '두 차례의 원정에서 익힌 위험한 굽이를 표지석으로 표시했다. 마을은 길잡이의 경험을 신뢰하고 도로의 위험이 줄었다.',
     txt_ruins_guide_veteran_crossing: '길잡이는 자신이 세운 표지석을 따라 상단을 안전하게 이끌었다. 품삯은 없지만 도로를 빠르게 건넜다.',
     txt_ruins_guide_boarded: '길잡이와 식량을 나누고 북부 상단의 짐수레에 합류했다. 강 건너 길목에서 어느 방식으로 위험한 도로를 건널지 결정해야 한다.',
