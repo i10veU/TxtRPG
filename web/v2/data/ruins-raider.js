@@ -24,6 +24,10 @@ const say = textId => ({ op: 'narrate', textId });
 
 export const ruinsRaider = {
   npcs: {
+    // Dialogue-only witnesses. Reports are available only after a physical
+    // NPC visit, and learned only through a face-to-face conversation.
+    npc_ruins_watch_guard: { name: '감시 초소 경계병' },
+    npc_ruins_village_guard: { name: '마을 창고 경계병' },
     npc_ruins_raider: {
       name: '폐허의 떠돌이 약탈자',
       actor: {
@@ -35,6 +39,10 @@ export const ruinsRaider = {
         } }
       }
     }
+  },
+  rumors: {
+    rum_raider_watchpost_sighting: { factId: 'fact_raider_watchpost_sighting', claim: 'seen_watchpost' },
+    rum_raider_village_sighting: { factId: 'fact_raider_village_sighting', claim: 'seen_village' }
   },
   events: {
     // Patrol: gallery -> watchpost -> village (only if the public passage is
@@ -58,11 +66,23 @@ export const ruinsRaider = {
           ], else: [
             { op: 'move', subject: 'npc_ruins_raider', to: 'loc_ruins_watchpost' },
             { op: 'flag', key: 'ruins_raider_watchpost_tracks', value: true },
+            { op: 'flag', key: 'ruins_raider_watchpost_sighting', value: true },
+            { op: 'flag', key: 'ruins_raider_watchpost_recent', value: true },
             { op: 'signal', key: 'ruins_raider_stage', add: 1 }
           ] }
         ], else: [
           { op: 'if', when: signal('ruins_raider_stage', { eq: 1 }), then: [
+            { op: 'flag', key: 'ruins_raider_watchpost_recent', value: false },
             { op: 'if', when: flag('ruins_watchpost_restored'), then: [
+              // The village faction responds to a reported sighting by
+              // dispatching paid sentries. This protects exactly one future
+              // raid and forces a retreat, without magically killing the NPC.
+              { op: 'if', when: flag('ruins_raider_sentries_ready'), then: [
+                { op: 'flag', key: 'ruins_raider_sentries_ready', value: false },
+                { op: 'move', subject: 'npc_ruins_raider', to: 'loc_ruins_gallery' },
+                { op: 'signal', key: 'ruins_raider_stage', add: -1 },
+                calmRoad, { op: 'relation', from: 'org_village', add: 2 }
+              ], else: [
               // A warning protects exactly one arrival. The raider survives
               // and can try again; the player must choose a lasting solution.
               { op: 'if', when: flag('ruins_raider_village_warned'), then: [
@@ -71,6 +91,8 @@ export const ruinsRaider = {
                 { op: 'signal', key: 'ruins_raider_stage', add: -1 }
               ], else: [
                 { op: 'move', subject: 'npc_ruins_raider', to: 'loc_village' },
+                { op: 'flag', key: 'ruins_raider_village_sighting', value: true },
+                { op: 'flag', key: 'ruins_raider_village_recent', value: true },
                 { op: 'signal', key: 'ruins_raider_stage', add: 1 },
                 { op: 'if', when: signal('north_mill_relief_stock', { min: 1 }), then: [
                   { op: 'signal', key: 'north_mill_relief_stock', add: -1 },
@@ -78,12 +100,13 @@ export const ruinsRaider = {
                     { op: 'signal', key: 'road_trouble', add: 1 }
                   ] }
                 ] }
-              ] }
+              ] } ] }
             ], else: [
               { op: 'move', subject: 'npc_ruins_raider', to: 'loc_ruins_gallery' },
               { op: 'signal', key: 'ruins_raider_stage', add: -1 }
             ] }
           ], else: [
+            { op: 'flag', key: 'ruins_raider_village_recent', value: false },
             { op: 'move', subject: 'npc_ruins_raider', to: 'loc_ruins_gallery' },
             { op: 'signal', key: 'ruins_raider_stage', add: -2 }
           ] }
@@ -92,6 +115,44 @@ export const ruinsRaider = {
     }
   },
   actions: {
+    // The clock bounds freshness by the NPC's next actual patrol leg, not
+    // the player's time of questioning. Event catch-up must not manufacture
+    // an exact observation timestamp (long and short waits must agree).
+    // Reports are character knowledge with an explicit NPC source; neither
+    // conversation reads the actor's current private location.
+    act_ruins_raider_ask_watch_guard: {
+      name: '감시 초소 경계병에게 마지막 목격 소식을 듣는다 (15분)',
+      requires: and(at('loc_ruins_watchpost'), flag('ruins_raider_watchpost_sighting')),
+      minutes: 15,
+      effects: [
+        { op: 'rumor', rumor: 'rum_raider_watchpost_sighting', source: 'npc_ruins_watch_guard', confidence: 85 },
+        { op: 'if', when: flag('ruins_raider_watchpost_recent'),
+          then: [say('txt_ruins_raider_watch_report_recent')], else: [say('txt_ruins_raider_watch_report_old')] }
+      ]
+    },
+    act_ruins_raider_ask_village_guard: {
+      name: '마을 경계병에게 마지막 약탈자 목격 소식을 듣는다 (15분)',
+      requires: and(at('loc_village'), flag('ruins_raider_village_sighting')),
+      minutes: 15,
+      effects: [
+        { op: 'rumor', rumor: 'rum_raider_village_sighting', source: 'npc_ruins_village_guard', confidence: 85 },
+        { op: 'if', when: flag('ruins_raider_village_recent'),
+          then: [say('txt_ruins_raider_village_report_recent')], else: [say('txt_ruins_raider_village_report_old')] }
+      ]
+    },
+    act_ruins_raider_organize_sentries: {
+      name: '최근 목격 정보를 근거로 마을 경계대를 고용한다 (은화 3, 기력 1, 60분)',
+      requires: and(active, at('loc_village'), flag('ruins_raider_village_recent'),
+        { op: 'rumor', rumor: 'rum_raider_village_sighting', source: 'npc_ruins_village_guard' },
+        not(flag('ruins_raider_sentries_ready')), { op: 'money', min: 3 }, stamina(1)),
+      minutes: 60,
+      effects: [
+        { op: 'money', add: -3 }, { op: 'resource', resource: 'stamina', add: -1 },
+        { op: 'flag', key: 'ruins_raider_sentries_ready', value: true },
+        { op: 'relation', from: 'org_village', add: 1 },
+        say('txt_ruins_raider_sentries_hired')
+      ]
+    },
     // Evidence is only observable at the watchpost after the NPC has
     // physically visited it. The action unlocks a personal route inference,
     // not the current private actor position or an omniscient timeline.
@@ -230,6 +291,11 @@ export const ruinsRaider = {
     }
   },
   texts: {
+    txt_ruins_raider_watch_report_recent: '초소 경계병이 이번 순찰 중 본 침입자를 증언한다. 다음 순찰이 시작되기 전의 정보다. 지금 위치를 보장하지는 않는다.',
+    txt_ruins_raider_watch_report_old: '초소 경계병은 이전 순찰에서 침입자를 봤다고 한다. 지금도 그곳에 있다는 뜻은 아니다.',
+    txt_ruins_raider_village_report_recent: '창고 경계병이 이번 순찰 중 마을에 나타난 약탈자를 증언한다. 경계대를 동원할 수 있는 시점이다.',
+    txt_ruins_raider_village_report_old: '창고 경계병은 이전 순찰의 약탈자 목격담을 전한다. 이미 오래된 소식으로는 경계대를 동원할 수 없다.',
+    txt_ruins_raider_sentries_hired: '마을이 은화를 모아 경계대를 배치했다. 다음 습격이 오면 식량을 지키고 침입자를 쫓아낼 것이다.',
     txt_ruins_raider_tracks_read: '흙에 찍힌 자국과 마차 바퀴 흔적을 대조했다. 이 자는 초소를 주기적으로 지나지만 지금 어디 있는지는 알 수 없다. 돌아올 때를 대비해 덫을 놓을 수 있다.',
     txt_ruins_raider_tracks_unclear: '오래된 발자국과 새 발자국을 구별하지 못했다. 다음에는 빛을 더 낮춰 살펴야겠다.',
     txt_ruins_raider_ambush_armed: '빵 두 덩이를 미끼로 삼아 초소의 무너진 기둥 아래 덫을 설치했다. 놈이 다시 이곳을 지나면 걸릴 것이다.',
