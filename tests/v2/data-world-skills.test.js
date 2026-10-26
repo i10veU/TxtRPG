@@ -80,6 +80,7 @@ function testChecksReadSkills() {
     act_ruins_watch_find_gallery: ["investigation", null],
     act_ruins_watch_sneak: ["investigation", null],
     act_ruins_watch_breach: ["swordsmanship", null],
+    act_ruins_raider_read_tracks: ["investigation", null],
     act_ruins_raider_track: ["investigation", null],
     act_ruins_raider_intercept: ["swordsmanship", null],
     act_ruins_raider_divert: ["investigation", null],

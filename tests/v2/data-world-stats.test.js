@@ -86,6 +86,7 @@ function testEveryCheckNamesADefinedStat() {
     act_ruins_watch_find_gallery: ["per", null],
     act_ruins_watch_sneak: ["per", null],
     act_ruins_watch_breach: ["str", null],
+    act_ruins_raider_read_tracks: ["per", null],
     act_ruins_raider_track: ["per", null],
     act_ruins_raider_intercept: ["str", null],
     act_ruins_raider_divert: ["per", null],
