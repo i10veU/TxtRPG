@@ -42,6 +42,68 @@ export const ruinsFieldDisciplines = {
         { op: 'unlock', id: 'unl_ford_vanguard' },
         { op: 'proficiency', id: 'combat', add: 12 }, say('txt_ford_vanguard_joined')]
     },
+    // Mastery requires completed world service AND a developed personal skill.
+    // Both unlocks are character-owned; the causeway built afterward is not.
+    act_mill_surveyor_master_route: {
+      name: '실제 곡물 배송 경험으로 상급 물길 조사관 자격을 얻는다 (은화 2, 기력 2, 90분)',
+      requires: and(at('loc_mill_hamlet'), unlock('unl_ford_surveyor'),
+        not(unlock('unl_ford_master_surveyor')), flag('ford_flood_delivered'),
+        { op: 'skill', skill: 'investigation', min: 2 },
+        { op: 'money', min: 2 }, stamina(2)),
+      minutes: 90,
+      effects: [{ op: 'money', add: -2 }, { op: 'resource', resource: 'stamina', add: -2 },
+        { op: 'unlock', id: 'unl_ford_master_surveyor' },
+        { op: 'proficiency', id: 'investigation', add: 15 }, say('txt_ford_master_surveyor')]
+    },
+    act_mill_vanguard_master_guard: {
+      name: '상급 검세와 강나루 호위 경험으로 수비 검술을 완성한다 (은화 2, 기력 2, 90분)',
+      requires: and(at('loc_mill_hamlet'), unlock('unl_ford_vanguard'),
+        not(unlock('unl_ford_master_vanguard')), flag('ford_flood_guarded'),
+        unlock('unl_watchpost_pursuit'), { op: 'skill', skill: 'swordsmanship', min: 2 },
+        sword, { op: 'money', min: 2 }, stamina(2)),
+      minutes: 90,
+      effects: [{ op: 'money', add: -2 }, { op: 'resource', resource: 'stamina', add: -2 },
+        { op: 'unlock', id: 'unl_ford_master_vanguard' },
+        { op: 'proficiency', id: 'combat', add: 15 }, say('txt_ford_master_vanguard')]
+    },
+    // The world owns the crossing; each traveller must still learn the way
+    // in person. This keeps private maps out of successors and PlayerView.
+    act_ford_build_public_causeway: {
+      name: '상급 조사관이 강나루의 공용 둑길을 놓는다 (은화 4, 기력 2, 120분)',
+      requires: and(at('loc_river_ford'), unlock('unl_ford_master_surveyor'),
+        flag('ford_flood_beacons'), not(flag('ford_public_causeway')),
+        { op: 'money', min: 4 }, stamina(2)),
+      minutes: 120,
+      effects: [{ op: 'money', add: -4 }, { op: 'resource', resource: 'stamina', add: -2 },
+        { op: 'flag', key: 'ford_public_causeway', value: true },
+        { op: 'unlock', id: 'unl_ford_public_causeway_read' },
+        { op: 'relation', from: 'org_mill_hamlet', add: 3 },
+        { op: 'proficiency', id: 'investigation', add: 10 }, say('txt_ford_public_causeway_built')]
+    },
+    act_ford_inspect_public_causeway: {
+      name: '강나루에서 공용 둑길의 실제 통행 표식을 확인한다 (15분)',
+      requires: and(at('loc_river_ford'), flag('ford_public_causeway'),
+        not(unlock('unl_ford_public_causeway_read'))),
+      minutes: 15,
+      effects: [{ op: 'unlock', id: 'unl_ford_public_causeway_read' },
+        say('txt_ford_public_causeway_read')]
+    },
+    act_ford_public_causeway_to_mill: {
+      name: '확인한 공용 둑길로 물레방아 마을에 건넌다 (기력 1, 30분)',
+      requires: and(at('loc_river_ford'), flag('ford_public_causeway'),
+        unlock('unl_ford_public_causeway_read'), stamina(1)),
+      minutes: 30,
+      effects: [{ op: 'resource', resource: 'stamina', add: -1 },
+        { op: 'move', to: 'loc_mill_hamlet' }, say('txt_ford_public_causeway_crossed')]
+    },
+    act_mill_public_causeway_to_ford: {
+      name: '확인한 공용 둑길로 강나루에 돌아간다 (기력 1, 30분)',
+      requires: and(at('loc_mill_hamlet'), flag('ford_public_causeway'),
+        unlock('unl_ford_public_causeway_read'), stamina(1)),
+      minutes: 30,
+      effects: [{ op: 'resource', resource: 'stamina', add: -1 },
+        { op: 'move', to: 'loc_river_ford' }, say('txt_ford_public_causeway_crossed')]
+    },
     act_ford_surveyor_mark_safe_current: {
       name: '조사관의 수류 지식으로 안전한 강둑 표식을 세운다 (은화 1, 기력 1, 60분)',
       requires: and(route, unlock('unl_ford_surveyor'),
@@ -77,6 +139,11 @@ export const ruinsFieldDisciplines = {
     }
   },
   texts: {
+    txt_ford_master_surveyor: '곡물 배송과 물길 조사의 실적을 인정받아 상급 조사관이 되었다. 강나루의 공용 둑길을 직접 놓을 수 있다.',
+    txt_ford_master_vanguard: '강나루의 실제 호위와 초소의 상급 검세를 결합했다. 최후의 전투에서 무리한 공격 대신 대형을 지키며 반격할 수 있다.',
+    txt_ford_public_causeway_built: '강둑을 보강하고 통행 표식을 세웠다. 누구든 현장에서 둑길을 확인하면 건널 수 있다. 이 시설은 후대에도 남는다.',
+    txt_ford_public_causeway_read: '강나루에서 둑길의 표식과 안전한 발판을 직접 확인했다. 이제 물레방아 마을과 왕복할 수 있다.',
+    txt_ford_public_causeway_crossed: '직접 확인한 공용 둑길을 따라 물살을 피해 건넜다.',
     txt_ford_surveyor_joined: '배수 기록과 물길 지식을 인정받아 물길 조사관이 되었다. 위험한 강가에서 더 적은 자재로 표식을 세우고, 안전한 표식이 남아 있으면 지름길을 이용할 수 있다.',
     txt_ford_vanguard_joined: '실전 검술을 인정받아 호위 검객이 되었다. 예고된 내려치기를 안정적으로 받아치고, 강가의 심부름꾼을 직접 호위할 수 있다.',
     txt_ford_surveyor_marked: '흐름을 계산해 최소한의 자재로 안전한 물길에 경고 표식을 남겼다. 실제 심부름꾼의 이동은 시간이 흐른 뒤 확인해야 한다.',
