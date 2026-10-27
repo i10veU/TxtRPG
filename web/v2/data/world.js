@@ -1050,6 +1050,7 @@ import { ruinsCistern } from './ruins-cistern.js';
 import { ruinsWatchpostDrill } from './ruins-watchpost-drill.js';
 import { ruinsRaider } from './ruins-raider.js';
 import { ruinsFordFlood } from './ruins-ford-flood.js';
+import { ruinsFieldDisciplines } from './ruins-field-disciplines.js';
 import { ruinsGuideConvoy, northTradeReliefTransfer, northTradeCharterDepotAllocation, northTradeCharterProcurement, northTradeCharterReturn } from './ruins-guide-convoy.js';
 
 export const worldData = {
@@ -1732,6 +1733,7 @@ export const worldData = {
     ...ruinsWatchpostDrill.actions,
     ...ruinsRaider.actions,
     ...ruinsFordFlood.actions,
+    ...ruinsFieldDisciplines.actions,
     ...ruinsGuideConvoy.actions,
     act_observe_village: {
       name: "마을 사람들 사이에 섞여 귀를 기울인다",
@@ -4687,7 +4689,7 @@ export const worldData = {
         { minRank: 5, label: "Adept" }
       ],
       // V2-Core-142 (M7): the realm's name -- the apex (a title: it opens nothing, the world answers it)
-      unlocks: [{ id: "unl_north_road_survey", kind: "action" }, { id: "unl_trailcraft", kind: "action" }, { id: "unl_caravan_pathfinder", kind: "action" }, { id: "unl_ruins_cellar_route", kind: "action" }, { id: "unl_ruins_lower_route", kind: "action" }, { id: "unl_ruins_signal_chamber_route", kind: "action" }, { id: "unl_ruins_raider_tracked", kind: "action" }, { id: "unl_keen_eye", kind: "action" }, { id: "unl_road_lead", kind: "action" }, { id: "unl_guarded_stance", kind: "action" }, { id: "unl_breakthrough_cut", kind: "action" }, { id: "unl_tempo_break", kind: "action" }, { id: "unl_watchpost_first_bout", kind: "action" }, { id: "unl_watchpost_second_wind", kind: "action" }, { id: "unl_watchpost_pursuit", kind: "action" }, { id: "unl_gallery_brute_read", kind: "action" }, { id: "unl_gallery_scout_read", kind: "action" }, { id: "unl_gallery_watch_records", kind: "action" }, { id: "unl_ruins_cistern_route", kind: "action" }, { id: "unl_cistern_valve_marks", kind: "action" }, { id: "unl_cistern_watch_route", kind: "action" }, { id: "unl_cistern_side_flow", kind: "action" }, { id: "unl_cistern_side_ledge", kind: "action" }, { id: "unl_cistern_vault_ladder", kind: "action" }, { id: "unl_cistern_flood_chart", kind: "action" }, { id: "unl_ford_flood_route", kind: "action" }, { id: "unl_realm_renown", kind: "title" }],
+      unlocks: [{ id: "unl_north_road_survey", kind: "action" }, { id: "unl_trailcraft", kind: "action" }, { id: "unl_caravan_pathfinder", kind: "action" }, { id: "unl_ruins_cellar_route", kind: "action" }, { id: "unl_ruins_lower_route", kind: "action" }, { id: "unl_ruins_signal_chamber_route", kind: "action" }, { id: "unl_ruins_raider_tracked", kind: "action" }, { id: "unl_keen_eye", kind: "action" }, { id: "unl_road_lead", kind: "action" }, { id: "unl_guarded_stance", kind: "action" }, { id: "unl_breakthrough_cut", kind: "action" }, { id: "unl_tempo_break", kind: "action" }, { id: "unl_watchpost_first_bout", kind: "action" }, { id: "unl_watchpost_second_wind", kind: "action" }, { id: "unl_watchpost_pursuit", kind: "action" }, { id: "unl_gallery_brute_read", kind: "action" }, { id: "unl_gallery_scout_read", kind: "action" }, { id: "unl_gallery_watch_records", kind: "action" }, { id: "unl_ruins_cistern_route", kind: "action" }, { id: "unl_cistern_valve_marks", kind: "action" }, { id: "unl_cistern_watch_route", kind: "action" }, { id: "unl_cistern_side_flow", kind: "action" }, { id: "unl_cistern_side_ledge", kind: "action" }, { id: "unl_cistern_vault_ladder", kind: "action" }, { id: "unl_cistern_flood_chart", kind: "action" }, { id: "unl_ford_flood_route", kind: "action" }, { id: "unl_ford_surveyor", kind: "action" }, { id: "unl_ford_vanguard", kind: "action" }, { id: "unl_realm_renown", kind: "title" }],
       // V2-Core-56 (Gate 4 = C, D-85): resources belong to the growth system. Stamina pays for the
       // fight's techniques (the counter 3, the old wound 2); a character without the entry is full
       resources: [{ id: "stamina", max: 6 }]
@@ -4938,6 +4940,7 @@ export const worldData = {
     ...ruinsWatchpostDrill.texts,
     ...ruinsRaider.texts,
     ...ruinsFordFlood.texts,
+    ...ruinsFieldDisciplines.texts,
     ...ruinsGuideConvoy.texts,
     txt_observe_village: "사람들 틈에 섞여 귀를 연다. 낯선 얼굴을 흘끔거리긴 해도 어디서 왔느냐고 묻는 이는 없다. 다들 제 걱정이 더 크다.",
     txt_buy_lantern: "상인에게 은화를 건네고 낡은 등불을 받는다. 심지는 짧아도 폐허 안을 비추기엔 충분하다.",
@@ -5327,6 +5330,8 @@ export const worldData = {
     lbl_unlock_unl_cistern_vault_ladder: "수문실과 봉인실을 잇는 공용 사다리",
     lbl_unlock_unl_cistern_flood_chart: "강나루 배수 기록 해독",
     lbl_unlock_unl_ford_flood_route: "강나루 급류 안전 경로",
+    lbl_unlock_unl_ford_surveyor: "물길 조사관의 현장 전문화",
+    lbl_unlock_unl_ford_vanguard: "호위 검객의 현장 전문화",
     lbl_unlock_unl_realm_renown: "왕국이 아는 이름 (남쪽 변경의 수호자)",
     lbl_res_stamina: "기력",
     lbl_slot_hand: "손",

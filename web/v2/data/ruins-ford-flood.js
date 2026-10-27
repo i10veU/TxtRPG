@@ -37,7 +37,7 @@ export const ruinsFordFlood = {
       effects: [{ op: 'if', when: signal('ford_flood_stage', { eq: 0 }),
         then: [{ op: 'signal', key: 'ford_flood_stage', add: 1 }],
         else: [{ op: 'if', when: signal('ford_flood_stage', { eq: 1 }), then: [
-          { op: 'if', when: flag('ford_flood_beacons'), then: [
+          { op: 'if', when: { op: 'or', of: [flag('ford_flood_beacons'), flag('ford_flood_guarded')] }, then: [
             { op: 'move', subject: 'npc_ford_grain_runner', to: 'loc_mill_hamlet' },
             { op: 'flag', key: 'ford_flood_courier_safe', value: true }
           ], else: [
