@@ -16,7 +16,7 @@ function play(s, action) {
 }
 const start = createInitialState({ worldSeed: 'ford-flood-501', data: worldData }).state;
 assert.ok(start.actors.npc_ford_grain_runner, 'physical courier should exist with finite cargo');
-assert.equal(start.actors.npc_ford_grain_runner.inventory.item_castle_grain_crate, 1);
+assert.equal(start.actors.npc_ford_grain_runner.inventory.item_waystation_supply_crate, 1);
 assert.equal(can(start, 'act_cistern_decode_flood_records'), false);
 const base = structuredClone(start);
 me(base).locationId = 'loc_ruins_cistern';
@@ -48,9 +48,9 @@ assert.deepEqual(save(protectedState), protectedState);
 const safe = play(protectedState, { type: 'wait', minutes: 720 });
 const lost = play(selfishState, { type: 'wait', minutes: 720 });
 assert.equal(safe.actors.npc_ford_grain_runner.locationId, 'loc_mill_hamlet');
-assert.equal(safe.actors.npc_ford_grain_runner.inventory.item_castle_grain_crate, 1);
+assert.equal(safe.actors.npc_ford_grain_runner.inventory.item_waystation_supply_crate, 1);
 assert.equal(lost.actors.npc_ford_grain_runner.locationId, 'loc_crossroads');
-assert.equal(lost.actors.npc_ford_grain_runner.inventory.item_castle_grain_crate ?? 0, 0);
+assert.equal(lost.actors.npc_ford_grain_runner.inventory.item_waystation_supply_crate ?? 0, 0);
 assert.equal(safe.flags.ford_flood_resolved, true);
 assert.equal(lost.flags.ford_flood_resolved, true);
 assert.equal(can(safe, 'act_mill_unload_ford_courier'), false, 'the player must meet the courier in person');
@@ -59,7 +59,7 @@ me(atMill).locationId = 'loc_mill_hamlet';
 assert.ok(can(atMill, 'act_mill_unload_ford_courier'));
 const delivered = play(atMill, P('act_mill_unload_ford_courier'));
 assert.equal(delivered.signals.north_mill_relief_stock, atMill.signals.north_mill_relief_stock + 1);
-assert.equal(delivered.actors.npc_ford_grain_runner.inventory.item_castle_grain_crate ?? 0, 0);
+assert.equal(delivered.actors.npc_ford_grain_runner.inventory.item_waystation_supply_crate ?? 0, 0);
 assert.equal(can(delivered, 'act_mill_unload_ford_courier'), false);
 assert.deepEqual(play(save(atMill), P('act_mill_unload_ford_courier')), delivered);
 assert.deepEqual(play(save(protectedState), { type: 'wait', minutes: 720 }), safe);
@@ -70,7 +70,7 @@ assert.deepEqual(play(save(midWait), { type: 'wait', minutes: 360 }), safe, 'spl
 const fullWarehouse = structuredClone(atMill);
 fullWarehouse.signals.north_mill_relief_stock = 3;
 assert.equal(can(fullWarehouse, 'act_mill_unload_ford_courier'), false, 'full warehouse preserves the physical crate');
-assert.equal(fullWarehouse.actors.npc_ford_grain_runner.inventory.item_castle_grain_crate, 1);
+assert.equal(fullWarehouse.actors.npc_ford_grain_runner.inventory.item_waystation_supply_crate, 1);
 assert.deepEqual(safe.rng, lost.rng);
 const heirStart = structuredClone(safe);
 me(heirStart).alive = false;

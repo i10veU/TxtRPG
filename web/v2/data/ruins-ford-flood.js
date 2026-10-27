@@ -11,7 +11,7 @@ const unlock = id => ({ op: 'unlock', id });
 const signal = (key, args = {}) => ({ op: 'signal', key, ...args });
 const stamina = min => ({ op: 'resource', resource: 'stamina', min });
 const say = textId => ({ op: 'narrate', textId });
-const cargo = { op: 'item', subject: 'npc_ford_grain_runner', item: 'item_castle_grain_crate', min: 1 };
+const cargo = { op: 'item', subject: 'npc_ford_grain_runner', item: 'item_waystation_supply_crate', min: 1 };
 const atFord = at('loc_river_ford');
 const choiceReady = and(atFord, unlock('unl_ford_flood_route'),
   not(flag('ford_flood_decided')), npcAt('loc_river_ford'), cargo);
@@ -20,7 +20,7 @@ export const ruinsFordFlood = {
   npcs: {
     npc_ford_grain_runner: { name: '강나루의 곡물 심부름꾼', actor: {
       locationId: 'loc_river_ford', hp: { max: 8 },
-      inventory: { item_castle_grain_crate: 1 },
+      inventory: { item_waystation_supply_crate: 1 },
       growth: { growth_wanderer: {
         stats: { str: 9, dex: 10, con: 10, int: 9, wis: 10, per: 10 },
         resources: { stamina: { current: 5, max: 5 } }
@@ -42,7 +42,7 @@ export const ruinsFordFlood = {
             { op: 'flag', key: 'ford_flood_courier_safe', value: true }
           ], else: [
             { op: 'move', subject: 'npc_ford_grain_runner', to: 'loc_crossroads' },
-            { op: 'item', subject: 'npc_ford_grain_runner', item: 'item_castle_grain_crate', add: -1 },
+            { op: 'item', subject: 'npc_ford_grain_runner', item: 'item_waystation_supply_crate', add: -1 },
             { op: 'flag', key: 'ford_flood_cargo_lost', value: true }
           ] },
           { op: 'signal', key: 'ford_flood_stage', add: 1 },
@@ -94,7 +94,7 @@ export const ruinsFordFlood = {
         cargo, signal('north_mill_relief_stock', { max: 2 }), stamina(1)),
       minutes: 30,
       effects: [{ op: 'resource', resource: 'stamina', add: -1 },
-        { op: 'item', subject: 'npc_ford_grain_runner', item: 'item_castle_grain_crate', add: -1 },
+        { op: 'item', subject: 'npc_ford_grain_runner', item: 'item_waystation_supply_crate', add: -1 },
         { op: 'signal', key: 'north_mill_relief_stock', add: 1 },
         { op: 'flag', key: 'ford_flood_delivered', value: true },
         { op: 'relation', from: 'org_mill_hamlet', add: 2 },
