@@ -78,6 +78,7 @@ function testChecksReadSkills() {
     act_cistern_force_sluice: ["swordsmanship", null],
     act_cistern_warden_heavy: ["swordsmanship", null],
     act_cistern_warden_quick: ["swordsmanship", null],
+    act_ford_school_guard_practicum: ["swordsmanship", null],
     act_gallery_brute_first: ["swordsmanship", null],
     act_gallery_brute_second: ["swordsmanship", null],
     act_gallery_scout_first: ["swordsmanship", null],
