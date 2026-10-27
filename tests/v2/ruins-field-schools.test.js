@@ -1,0 +1,78 @@
+import assert from 'node:assert/strict';
+import { createInitialState, step, view, validateState, checkDataCompatibility } from '../../web/v2/core/engine.js';
+import { buildSaveRecord, parseLoadedRecord } from '../../web/v2/storage/idb.js';
+import { worldData } from '../../web/v2/data/world.js';
+
+const P = actionId => ({ type: 'perform', actionId });
+const me = state => state.actors[state.player.actorId];
+const can = (state, id) => view(state, worldData).actions.some(a => a.actionId === id && a.available);
+const act = (state, action) => {
+  const result = step(state, action, worldData);
+  assert.ok(!result.events.some(e => e.type === 'action.rejected'), JSON.stringify(result.events));
+  assert.deepEqual(validateState(result.state), []);
+  assert.deepEqual(checkDataCompatibility(result.state, worldData), []);
+  return result.state;
+};
+const save = state => parseLoadedRecord(JSON.parse(JSON.stringify(buildSaveRecord('field-schools-505', state, { savedAt: 1 }))));
+const initial = createInitialState({ worldSeed: 'field-schools-505', data: worldData }).state;
+me(initial).locationId = 'loc_mill_hamlet';
+me(initial).money = 20;
+me(initial).inventory = { item_flour_sack: 2, item_mill_bread: 3, item_iron_sword: 1 };
+me(initial).loadout = { hand: 'item_iron_sword' };
+me(initial).growth.growth_wanderer.resources.stamina = { current: 20, max: 20 };
+
+const survey = structuredClone(initial);
+me(survey).growth.growth_wanderer.unlocks = { unl_ford_master_surveyor: true };
+assert.ok(can(survey, 'act_mill_found_survey_school'));
+const built = act(survey, P('act_mill_found_survey_school'));
+assert.equal(built.flags.ford_survey_school, true);
+assert.equal(me(built).inventory.item_flour_sack, 1);
+assert.equal(me(built).money, 15);
+assert.ok(!can(built, 'act_mill_found_guard_school'));
+assert.deepEqual(act(save(survey), P('act_mill_found_survey_school')), built);
+assert.deepEqual(built.rng, survey.rng);
+
+// A later character sees the physical school, but must pay and learn in person.
+const dying = structuredClone(built);
+me(dying).alive = false;
+dying.pending = { kind: 'newCharacter' };
+const heir = act(dying, { type: 'startCharacter', templateId: 'start_wanderer' });
+assert.equal(heir.flags.ford_survey_school, true);
+assert.ok(!me(heir).growth.growth_wanderer.unlocks?.unl_ford_school_survey);
+me(heir).locationId = 'loc_mill_hamlet';
+me(heir).money = 3;
+me(heir).growth.growth_wanderer.resources.stamina = { current: 10, max: 10 };
+assert.ok(can(heir, 'act_mill_study_survey_school'));
+assert.ok(!can(heir, 'act_mill_join_ford_surveyors'));
+const trained = act(heir, P('act_mill_study_survey_school'));
+assert.equal(me(trained).growth.growth_wanderer.skills.investigation, 1);
+assert.ok(me(trained).growth.growth_wanderer.unlocks.unl_ford_school_survey);
+assert.ok(can(trained, 'act_mill_join_ford_surveyors'));
+assert.ok(!can(trained, 'act_mill_study_survey_school'));
+const experienced = structuredClone(heir);
+me(experienced).growth.growth_wanderer.skills = { investigation: 2 };
+assert.ok(!can(experienced, 'act_mill_study_survey_school'), 'basic lesson must not grant a free advanced rank');
+assert.deepEqual(act(save(heir), P('act_mill_study_survey_school')), trained);
+assert.deepEqual(trained.rng, heir.rng);
+
+const guard = structuredClone(initial);
+me(guard).growth.growth_wanderer.unlocks = { unl_ford_master_vanguard: true };
+assert.ok(can(guard, 'act_mill_found_guard_school'));
+const yard = act(guard, P('act_mill_found_guard_school'));
+assert.equal(yard.flags.ford_guard_school, true);
+assert.equal(me(yard).inventory.item_mill_bread, 1);
+assert.ok(!can(yard, 'act_mill_found_survey_school'));
+const novice = structuredClone(yard);
+me(novice).growth.growth_wanderer.unlocks = {};
+me(novice).growth.growth_wanderer.skills = {};
+assert.ok(can(novice, 'act_mill_study_guard_school'));
+const practiced = act(novice, P('act_mill_study_guard_school'));
+assert.equal(me(practiced).growth.growth_wanderer.skills.swordsmanship, 1);
+assert.ok(can(practiced, 'act_mill_join_ford_vanguard'));
+const trainedGuard = structuredClone(novice);
+me(trainedGuard).growth.growth_wanderer.skills = { swordsmanship: 2 };
+assert.ok(!can(trainedGuard, 'act_mill_study_guard_school'));
+assert.ok(!can(practiced, 'act_mill_study_guard_school'));
+assert.deepEqual(act(save(novice), P('act_mill_study_guard_school')), practiced);
+assert.ok(!JSON.stringify(view(initial, worldData)).includes('ford_survey_school'));
+console.log('Field schools PASS: exclusive physical facilities, heirs learn privately, career access, finite cost, Save/RNG');
