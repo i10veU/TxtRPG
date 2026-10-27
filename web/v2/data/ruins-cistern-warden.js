@@ -86,6 +86,16 @@ export const ruinsCisternWarden = {
         { op: 'if', when: alive, then: [rotate, tell] }
       ]
     },
+    act_cistern_warden_vanguard_parry: {
+      name: '호위 검객의 안정된 자세로 내려치기를 받아친다 (기력 2, 10분)',
+      requires: and(ready, { op: 'unlock', id: 'unl_ford_vanguard' }, stance(0), stamina(2)),
+      minutes: 10,
+      effects: [
+        { op: 'resource', resource: 'stamina', add: -2 },
+        ...strike(3, 'txt_cistern_warden_vanguard_parry'),
+        { op: 'if', when: alive, then: [rotate, tell] }
+      ]
+    },
     act_cistern_warden_salvage: {
       name: '도굴꾼이 지키던 배수 기록과 응급 물자를 회수한다 (기력 1, 30분)',
       requires: and(at, light, flag('ruins_cistern_warden_defeated'),
@@ -101,6 +111,7 @@ export const ruinsCisternWarden = {
     }
   },
   texts: {
+    txt_cistern_warden_vanguard_parry: '호위 검객의 검세로 무거운 내려치기를 정면에서 흘려 보내고 반격했다.',
     txt_cistern_warden_overhead: '물에 젖은 도굴꾼이 검을 높이 든다. 다음은 무거운 내려치기다.',
     txt_cistern_warden_sweep: '도굴꾼이 발을 넓게 벌리고 검을 낮춘다. 다음은 횡베기다.',
     txt_cistern_warden_hit: '예고된 공격을 읽고 빈틈을 정확히 찔렀다.',
