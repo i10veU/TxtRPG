@@ -122,12 +122,13 @@ const cisternWardenExtension = Number(Boolean(worldData.npcs.npc_cistern_warden)
 const fordCourierExtension = Number(Boolean(worldData.npcs.npc_ford_grain_runner && worldData.events.evt_ford_flood_courier));
 const cisternSideLadderExtension = Number(Boolean(worldData.actions.act_cistern_build_side_ladder));
 const watchDrillExtension = Number(Boolean(worldData.events.evt_watch_drill_rota));
+const masterContractExtension = Number(Boolean(worldData.events.evt_ford_master_contract_rota));
 const millDetourExtension = Number(Boolean(worldData.facts.fact_raider_mill_sighting && worldData.rumors.rum_raider_mill_sighting));
 assert.deepEqual(Object.fromEntries(Object.entries(actual.fiveKinds).map(([kind, row]) => [kind, row.count])), {
-  Entity: 13 + 2 * raiderSightingExtension + 2 * galleryFoesExtension + cisternWardenExtension + fordCourierExtension, Location: 16 + cisternExtension, Resource: 14 + supplyCrateExtension + personalGrainExtension, Event: 33 + herbalistExtension + watchDrillExtension + fordCourierExtension,
+  Entity: 13 + 2 * raiderSightingExtension + 2 * galleryFoesExtension + cisternWardenExtension + fordCourierExtension, Location: 16 + cisternExtension, Resource: 14 + supplyCrateExtension + personalGrainExtension, Event: 33 + herbalistExtension + watchDrillExtension + fordCourierExtension + masterContractExtension,
   Knowledge: 96 + 2 * herbalistExtension + 4 * worldWordExtension + 2 * springTrapExtension + 4 * raiderSightingExtension + 2 * millDetourExtension
 });
-assert.equal(actual.totalUniqueNodes, 172 + 3 * herbalistExtension + watchDrillExtension + 4 * worldWordExtension + 2 * springTrapExtension + supplyCrateExtension + personalGrainExtension + 6 * raiderSightingExtension + 2 * millDetourExtension + 2 * galleryFoesExtension + cisternExtension + cisternWardenExtension + 2 * fordCourierExtension);
+assert.equal(actual.totalUniqueNodes, 172 + 3 * herbalistExtension + watchDrillExtension + masterContractExtension + 4 * worldWordExtension + 2 * springTrapExtension + supplyCrateExtension + personalGrainExtension + 6 * raiderSightingExtension + 2 * millDetourExtension + 2 * galleryFoesExtension + cisternExtension + cisternWardenExtension + 2 * fordCourierExtension);
 assert.equal(actual.definitions.orgs, 3);
 assert.equal(actual.definitions.growthResources, 1);
 assert.equal(actual.extractedEdges, 94 + herbalistExtension + 2 * worldWordExtension + springTrapExtension + 2 * raiderSightingExtension + millDetourExtension + 2 * galleryFoesExtension + 4 * cisternExtension + 2 * cisternSideLadderExtension + cisternWardenExtension + fordCourierExtension, "authored NPC starts and each declared rumor are structural");
