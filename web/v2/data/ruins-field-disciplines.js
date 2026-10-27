@@ -84,6 +84,44 @@ export const ruinsFieldDisciplines = {
         { op: 'proficiency', id: 'combat', add: 12 },
         { op: 'unlock', id: 'unl_ford_school_guard' }, say('txt_ford_guard_school_trained')]
     },
+    // A school graduate can learn the ford through first-hand fieldwork,
+    // without receiving a predecessor's private cistern chart. This opens a
+    // real rescue route for successors who never entered the ruins.
+    act_ford_school_survey_practicum: {
+      name: '물길 학교의 측량법으로 강나루를 실측한다 (기력 1, 60분)',
+      requires: and(at('loc_river_ford'), unlock('unl_ford_school_survey'),
+        not(unlock('unl_ford_flood_route')),
+        { op: 'skill', skill: 'investigation', min: 1 }, stamina(1)),
+      minutes: 60,
+      effects: [{ op: 'resource', resource: 'stamina', add: -1 },
+        { op: 'unlock', id: 'unl_ford_flood_route' },
+        { op: 'proficiency', id: 'investigation', add: 10 },
+        say('txt_ford_school_survey_practicum')]
+    },
+    // Guard-school pupils may scout the same crossing faster, but their
+    // physical riverbank drill uses the existing combat check and can injure
+    // them. No failed check creates a world route or private chart knowledge.
+    act_ford_school_guard_practicum: {
+      name: '검술 교습장의 호위 진형으로 강나루를 정찰한다 (기력 2, 35분·부상 위험)',
+      requires: and(at('loc_river_ford'), unlock('unl_ford_school_guard'), sword,
+        not(unlock('unl_ford_flood_route')),
+        { op: 'skill', skill: 'swordsmanship', min: 1 }, stamina(2)),
+      check: { stat: 'dex', skill: 'swordsmanship', tags: ['combat'], difficulty: 'normal' },
+      minutes: 35,
+      outcomes: {
+        great: [{ op: 'resource', resource: 'stamina', add: -2 },
+          { op: 'unlock', id: 'unl_ford_flood_route' },
+          { op: 'proficiency', id: 'combat', add: 12 }, say('txt_ford_school_guard_practicum')],
+        success: [{ op: 'resource', resource: 'stamina', add: -2 },
+          { op: 'unlock', id: 'unl_ford_flood_route' },
+          { op: 'proficiency', id: 'combat', add: 12 }, say('txt_ford_school_guard_practicum')],
+        partial: [{ op: 'resource', resource: 'stamina', add: -2 }, { op: 'hp', add: -1 },
+          { op: 'unlock', id: 'unl_ford_flood_route' },
+          { op: 'proficiency', id: 'combat', add: 6 }, say('txt_ford_school_guard_bruised')],
+        fail: [{ op: 'resource', resource: 'stamina', add: -2 }, { op: 'hp', add: -2 },
+          { op: 'proficiency', id: 'combat', add: 4 }, say('txt_ford_school_guard_bruised')]
+      }
+    },
     act_mill_join_ford_surveyors: {
       name: '물레방아 마을에서 물길 조사관으로 전문화한다 (은화 2, 기력 2, 90분)',
       requires: and(at('loc_mill_hamlet'), uncommitted,
@@ -209,7 +247,8 @@ export const ruinsFieldDisciplines = {
     act_ford_surveyor_mark_safe_current: {
       name: '조사관의 수류 지식으로 안전한 강둑 표식을 세운다 (은화 1, 기력 1, 60분)',
       requires: and(route, unlock('unl_ford_surveyor'),
-        unlock('unl_cistern_flood_chart'), { op: 'money', min: 1 }, stamina(1)),
+        { op: 'or', of: [unlock('unl_cistern_flood_chart'), unlock('unl_ford_school_survey')] },
+        { op: 'money', min: 1 }, stamina(1)),
       minutes: 60,
       effects: [{ op: 'money', add: -1 }, { op: 'resource', resource: 'stamina', add: -1 },
         { op: 'flag', key: 'ford_flood_decided', value: true },
@@ -241,6 +280,9 @@ export const ruinsFieldDisciplines = {
     }
   },
   texts: {
+    txt_ford_school_survey_practicum: '학교에서 배운 측량법으로 물가의 수위 자국을 직접 재었다. 이제 이 강나루의 위험한 흐름을 안다. 선대의 배수 장부는 여전히 알지 못한다.',
+    txt_ford_school_guard_practicum: '강둑을 따라 방패 없는 호위 진형을 연습하며 급류와 안전한 발판을 확인했다. 이제 이곳의 곡물 운송을 직접 호위할 수 있다.',
+    txt_ford_school_guard_bruised: '젖은 강돌에 발이 미끄러져 다쳤다. 위험한 호위 진형은 대가를 치른다. 직접 확인한 만큼만 기억에 남는다.',
     txt_ford_survey_school_built: '곡물과 은화를 내어 물길 학교를 열었다. 이곳의 표식과 교재는 후대에도 남지만, 배움은 각자가 직접 얻어야 한다.',
     txt_ford_guard_school_built: '마을에 공용 검술 교습장을 세웠다. 다음 세대도 검을 쥐고 이곳에서 기초 호위를 배울 수 있다.',
     txt_ford_survey_school_trained: '공용 물길 학교에서 흐름과 측량의 기초를 배웠다. 직접 발견하지 않은 수문실의 비밀은 알게 되지 않는다.',

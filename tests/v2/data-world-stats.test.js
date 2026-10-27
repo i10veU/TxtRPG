@@ -87,6 +87,7 @@ function testEveryCheckNamesADefinedStat() {
     act_cistern_force_sluice: ["str", null],
     act_cistern_warden_heavy: ["str", null],
     act_cistern_warden_quick: ["dex", null],
+    act_ford_school_guard_practicum: ["dex", null],
     act_gallery_brute_first: ["str", null],
     act_gallery_brute_second: ["dex", null],
     act_gallery_scout_first: ["str", null],
