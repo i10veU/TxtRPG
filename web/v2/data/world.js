@@ -1049,6 +1049,7 @@ import { ruinsSignalChamber } from './ruins-signal-chamber.js';
 import { ruinsCistern } from './ruins-cistern.js';
 import { ruinsWatchpostDrill } from './ruins-watchpost-drill.js';
 import { ruinsRaider } from './ruins-raider.js';
+import { ruinsFordFlood } from './ruins-ford-flood.js';
 import { ruinsGuideConvoy, northTradeReliefTransfer, northTradeCharterDepotAllocation, northTradeCharterProcurement, northTradeCharterReturn } from './ruins-guide-convoy.js';
 
 export const worldData = {
@@ -1146,6 +1147,7 @@ export const worldData = {
   events: {
     ...ruinsWatchpostDrill.events,
     ...ruinsRaider.events,
+    ...ruinsFordFlood.events,
     ...ruinsGuideConvoy.events,
     // J3 (#426): the elder needs a full day after hearing first-hand arrows
     // before villagers can mark the worst miasma pockets. This is a public,
@@ -1729,6 +1731,7 @@ export const worldData = {
     ...ruinsCistern.actions,
     ...ruinsWatchpostDrill.actions,
     ...ruinsRaider.actions,
+    ...ruinsFordFlood.actions,
     ...ruinsGuideConvoy.actions,
     act_observe_village: {
       name: "마을 사람들 사이에 섞여 귀를 기울인다",
@@ -4879,6 +4882,7 @@ export const worldData = {
   // (D-77, V2-Core-47). A full NPC scheduler is still out of scope (Issue #74).
   npcs: {
     ...ruinsRaider.npcs,
+    ...ruinsFordFlood.npcs,
     npc_elder: { name: "마을 원로" },
     // V2-Core-64 (#160): dialogue only (no actor: a new actor would not be in a 0.3.0 save)
     npc_herbalist: { name: "약초꾼" },
@@ -4933,6 +4937,7 @@ export const worldData = {
     txt_watch_pattern_pursuit_miss: '빈틈을 좇다가 거리를 놓쳤다. 반격에 몸이 흔들린다.',
     ...ruinsWatchpostDrill.texts,
     ...ruinsRaider.texts,
+    ...ruinsFordFlood.texts,
     ...ruinsGuideConvoy.texts,
     txt_observe_village: "사람들 틈에 섞여 귀를 연다. 낯선 얼굴을 흘끔거리긴 해도 어디서 왔느냐고 묻는 이는 없다. 다들 제 걱정이 더 크다.",
     txt_buy_lantern: "상인에게 은화를 건네고 낡은 등불을 받는다. 심지는 짧아도 폐허 안을 비추기엔 충분하다.",
