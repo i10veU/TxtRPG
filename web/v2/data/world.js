@@ -959,6 +959,21 @@ function finalOptions(key, foe, leads) {
       })
     },
     {
+      id: `opt_final_${key}_vanguard_hold`,
+      name: '상급 호위 검객의 방진으로 버티며 반격한다 (기력 2)',
+      requires: leading({ op: 'and', of: [
+        { op: 'unlock', id: 'unl_ford_master_vanguard' }, HAS_DRAWN_SWORD,
+        STAMINA_AT_LEAST(2)
+      ] }),
+      check: check(10, 'dex'), minutes: 5,
+      outcomes: payStamina(2, {
+        great: exchange([hitFoe(-6), say('txt_ford_master_vanguard_counter')]),
+        success: exchange([hitFoe(-4), say('txt_ford_master_vanguard_counter')]),
+        partial: exchange([hitFoe(-2), hitSelf(-1), say('txt_ford_master_vanguard_block')]),
+        fail: exchange([hitSelf(-2), say('txt_ford_master_vanguard_block')])
+      })
+    },
+    {
       id: `opt_final_${key}_second_wind`,
       name: "기세를 전환해 숨을 고른다 (기력 2 이하)",
       requires: leading({ op: "and", of: [
@@ -4689,7 +4704,7 @@ export const worldData = {
         { minRank: 5, label: "Adept" }
       ],
       // V2-Core-142 (M7): the realm's name -- the apex (a title: it opens nothing, the world answers it)
-      unlocks: [{ id: "unl_north_road_survey", kind: "action" }, { id: "unl_trailcraft", kind: "action" }, { id: "unl_caravan_pathfinder", kind: "action" }, { id: "unl_ruins_cellar_route", kind: "action" }, { id: "unl_ruins_lower_route", kind: "action" }, { id: "unl_ruins_signal_chamber_route", kind: "action" }, { id: "unl_ruins_raider_tracked", kind: "action" }, { id: "unl_keen_eye", kind: "action" }, { id: "unl_road_lead", kind: "action" }, { id: "unl_guarded_stance", kind: "action" }, { id: "unl_breakthrough_cut", kind: "action" }, { id: "unl_tempo_break", kind: "action" }, { id: "unl_watchpost_first_bout", kind: "action" }, { id: "unl_watchpost_second_wind", kind: "action" }, { id: "unl_watchpost_pursuit", kind: "action" }, { id: "unl_gallery_brute_read", kind: "action" }, { id: "unl_gallery_scout_read", kind: "action" }, { id: "unl_gallery_watch_records", kind: "action" }, { id: "unl_ruins_cistern_route", kind: "action" }, { id: "unl_cistern_valve_marks", kind: "action" }, { id: "unl_cistern_watch_route", kind: "action" }, { id: "unl_cistern_side_flow", kind: "action" }, { id: "unl_cistern_side_ledge", kind: "action" }, { id: "unl_cistern_vault_ladder", kind: "action" }, { id: "unl_cistern_flood_chart", kind: "action" }, { id: "unl_ford_flood_route", kind: "action" }, { id: "unl_ford_surveyor", kind: "action" }, { id: "unl_ford_vanguard", kind: "action" }, { id: "unl_realm_renown", kind: "title" }],
+      unlocks: [{ id: "unl_north_road_survey", kind: "action" }, { id: "unl_trailcraft", kind: "action" }, { id: "unl_caravan_pathfinder", kind: "action" }, { id: "unl_ruins_cellar_route", kind: "action" }, { id: "unl_ruins_lower_route", kind: "action" }, { id: "unl_ruins_signal_chamber_route", kind: "action" }, { id: "unl_ruins_raider_tracked", kind: "action" }, { id: "unl_keen_eye", kind: "action" }, { id: "unl_road_lead", kind: "action" }, { id: "unl_guarded_stance", kind: "action" }, { id: "unl_breakthrough_cut", kind: "action" }, { id: "unl_tempo_break", kind: "action" }, { id: "unl_watchpost_first_bout", kind: "action" }, { id: "unl_watchpost_second_wind", kind: "action" }, { id: "unl_watchpost_pursuit", kind: "action" }, { id: "unl_gallery_brute_read", kind: "action" }, { id: "unl_gallery_scout_read", kind: "action" }, { id: "unl_gallery_watch_records", kind: "action" }, { id: "unl_ruins_cistern_route", kind: "action" }, { id: "unl_cistern_valve_marks", kind: "action" }, { id: "unl_cistern_watch_route", kind: "action" }, { id: "unl_cistern_side_flow", kind: "action" }, { id: "unl_cistern_side_ledge", kind: "action" }, { id: "unl_cistern_vault_ladder", kind: "action" }, { id: "unl_cistern_flood_chart", kind: "action" }, { id: "unl_ford_flood_route", kind: "action" }, { id: "unl_ford_surveyor", kind: "action" }, { id: "unl_ford_vanguard", kind: "action" }, { id: "unl_ford_master_surveyor", kind: "action" }, { id: "unl_ford_master_vanguard", kind: "action" }, { id: "unl_ford_public_causeway_read", kind: "action" }, { id: "unl_realm_renown", kind: "title" }],
       // V2-Core-56 (Gate 4 = C, D-85): resources belong to the growth system. Stamina pays for the
       // fight's techniques (the counter 3, the old wound 2); a character without the entry is full
       resources: [{ id: "stamina", max: 6 }]
@@ -4940,6 +4955,8 @@ export const worldData = {
     ...ruinsWatchpostDrill.texts,
     ...ruinsRaider.texts,
     ...ruinsFordFlood.texts,
+    txt_ford_master_vanguard_counter: '방진을 유지하며 검끝을 흘리고 상대의 빈틈을 짧게 베었다.',
+    txt_ford_master_vanguard_block: '방진을 지키느라 반격이 얕았다. 그래도 치명적인 공격은 피했다.',
     ...ruinsFieldDisciplines.texts,
     ...ruinsGuideConvoy.texts,
     txt_observe_village: "사람들 틈에 섞여 귀를 연다. 낯선 얼굴을 흘끔거리긴 해도 어디서 왔느냐고 묻는 이는 없다. 다들 제 걱정이 더 크다.",
@@ -5332,6 +5349,9 @@ export const worldData = {
     lbl_unlock_unl_ford_flood_route: "강나루 급류 안전 경로",
     lbl_unlock_unl_ford_surveyor: "물길 조사관의 현장 전문화",
     lbl_unlock_unl_ford_vanguard: "호위 검객의 현장 전문화",
+    lbl_unlock_unl_ford_master_surveyor: "상급 물길 조사관의 둑길 건설 기술",
+    lbl_unlock_unl_ford_master_vanguard: "상급 호위 검객의 방진 반격술",
+    lbl_unlock_unl_ford_public_causeway_read: "현장에서 확인한 공용 둑길",
     lbl_unlock_unl_realm_renown: "왕국이 아는 이름 (남쪽 변경의 수호자)",
     lbl_res_stamina: "기력",
     lbl_slot_hand: "손",
