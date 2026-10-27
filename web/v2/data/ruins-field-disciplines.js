@@ -13,6 +13,7 @@ const sword = { op: 'or', of: [
   { op: 'item', item: 'item_steel_sword', equipped: true }
 ] };
 const uncommitted = and(not(unlock('unl_ford_surveyor')), not(unlock('unl_ford_vanguard')));
+const noSchool = and(not(flag('ford_survey_school')), not(flag('ford_guard_school')));
 const route = and(at('loc_river_ford'), unlock('unl_ford_flood_route'),
   not(flag('ford_flood_decided')),
   { op: 'location', subject: 'npc_ford_grain_runner', at: 'loc_river_ford' },
@@ -37,10 +38,57 @@ export const ruinsFieldDisciplines = {
     }
   },
   actions: {
+    // A master can establish exactly one public school for the world. The
+    // building persists across succession; each pupil must personally train.
+    // Neither school teaches the cistern's private flood-chart knowledge.
+    act_mill_found_survey_school: {
+      name: '상급 조사관으로 마을의 공용 물길 학교를 설립한다 (밀가루 1, 은화 5, 기력 3, 150분)',
+      requires: and(at('loc_mill_hamlet'), noSchool, unlock('unl_ford_master_surveyor'),
+        { op: 'item', item: 'item_flour_sack', min: 1 }, { op: 'money', min: 5 }, stamina(3)),
+      minutes: 150,
+      effects: [{ op: 'item', item: 'item_flour_sack', add: -1 }, { op: 'money', add: -5 },
+        { op: 'resource', resource: 'stamina', add: -3 },
+        { op: 'flag', key: 'ford_survey_school', value: true },
+        { op: 'relation', from: 'org_mill_hamlet', add: 3 }, say('txt_ford_survey_school_built')]
+    },
+    act_mill_found_guard_school: {
+      name: '상급 호위 검객으로 마을의 공용 검술 교습장을 설립한다 (빵 2, 은화 5, 기력 3, 150분)',
+      requires: and(at('loc_mill_hamlet'), noSchool, unlock('unl_ford_master_vanguard'),
+        { op: 'item', item: 'item_mill_bread', min: 2 }, { op: 'money', min: 5 }, stamina(3)),
+      minutes: 150,
+      effects: [{ op: 'item', item: 'item_mill_bread', add: -2 }, { op: 'money', add: -5 },
+        { op: 'resource', resource: 'stamina', add: -3 },
+        { op: 'flag', key: 'ford_guard_school', value: true },
+        { op: 'relation', from: 'org_mill_hamlet', add: 3 }, say('txt_ford_guard_school_built')]
+    },
+    act_mill_study_survey_school: {
+      name: '공용 물길 학교에서 기초 조사를 배운다 (은화 1, 기력 2, 90분)',
+      requires: and(at('loc_mill_hamlet'), flag('ford_survey_school'),
+        not(unlock('unl_ford_school_survey')),
+        not({ op: 'skill', skill: 'investigation', min: 1 }), { op: 'money', min: 1 }, stamina(2)),
+      minutes: 90,
+      effects: [{ op: 'money', add: -1 }, { op: 'resource', resource: 'stamina', add: -2 },
+        { op: 'skill', skill: 'investigation', add: 1 },
+        { op: 'proficiency', id: 'investigation', add: 12 },
+        { op: 'unlock', id: 'unl_ford_school_survey' }, say('txt_ford_survey_school_trained')]
+    },
+    act_mill_study_guard_school: {
+      name: '공용 검술 교습장에서 기초 호위를 배운다 (은화 1, 기력 2, 90분)',
+      requires: and(at('loc_mill_hamlet'), flag('ford_guard_school'),
+        not(unlock('unl_ford_school_guard')), sword,
+        not({ op: 'skill', skill: 'swordsmanship', min: 1 }),
+        { op: 'money', min: 1 }, stamina(2)),
+      minutes: 90,
+      effects: [{ op: 'money', add: -1 }, { op: 'resource', resource: 'stamina', add: -2 },
+        { op: 'skill', skill: 'swordsmanship', add: 1 },
+        { op: 'proficiency', id: 'combat', add: 12 },
+        { op: 'unlock', id: 'unl_ford_school_guard' }, say('txt_ford_guard_school_trained')]
+    },
     act_mill_join_ford_surveyors: {
       name: '물레방아 마을에서 물길 조사관으로 전문화한다 (은화 2, 기력 2, 90분)',
       requires: and(at('loc_mill_hamlet'), uncommitted,
-        unlock('unl_cistern_flood_chart'), { op: 'skill', skill: 'investigation', min: 1 },
+        { op: 'or', of: [unlock('unl_cistern_flood_chart'), unlock('unl_ford_school_survey')] },
+        { op: 'skill', skill: 'investigation', min: 1 },
         { op: 'money', min: 2 }, stamina(2)),
       minutes: 90,
       effects: [{ op: 'money', add: -2 }, { op: 'resource', resource: 'stamina', add: -2 },
@@ -193,6 +241,10 @@ export const ruinsFieldDisciplines = {
     }
   },
   texts: {
+    txt_ford_survey_school_built: '곡물과 은화를 내어 물길 학교를 열었다. 이곳의 표식과 교재는 후대에도 남지만, 배움은 각자가 직접 얻어야 한다.',
+    txt_ford_guard_school_built: '마을에 공용 검술 교습장을 세웠다. 다음 세대도 검을 쥐고 이곳에서 기초 호위를 배울 수 있다.',
+    txt_ford_survey_school_trained: '공용 물길 학교에서 흐름과 측량의 기초를 배웠다. 직접 발견하지 않은 수문실의 비밀은 알게 되지 않는다.',
+    txt_ford_guard_school_trained: '교습장의 검술 연습으로 호위의 기초를 익혔다. 이 경험은 이 캐릭터의 것이며 후계자에게 자동으로 전해지지 않는다.',
     txt_ford_master_relief_delivered: '실제로 운반한 밀가루 자루를 구호 창고에 넘겼다. 창고의 물자는 하나 늘었고 조사 실적이 쌓였다. 다음 의뢰는 하루 뒤에 맡을 수 있다.',
     txt_ford_master_guard_patrol: '빵을 지참해 상단 길을 순찰했다. 길의 위험이 낮아지고, 적의 습격 징후가 있으면 기존 경계망이 다음 이동 때 대응한다. 다음 의뢰는 하루 뒤에 맡을 수 있다.',
     txt_ford_master_surveyor: '곡물 배송과 물길 조사의 실적을 인정받아 상급 조사관이 되었다. 강나루의 공용 둑길을 직접 놓을 수 있다.',
