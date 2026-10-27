@@ -17,10 +17,25 @@ const route = and(at('loc_river_ford'), unlock('unl_ford_flood_route'),
   not(flag('ford_flood_decided')),
   { op: 'location', subject: 'npc_ford_grain_runner', at: 'loc_river_ford' },
   { op: 'item', subject: 'npc_ford_grain_runner', item: 'item_waystation_supply_crate', min: 1 });
+const signal = (key, bounds = {}) => ({ op: 'signal', key, ...bounds });
 const waymarks = and(unlock('unl_ford_surveyor'), unlock('unl_ford_flood_route'),
   flag('ford_flood_beacons'), stamina(1));
 
 export const ruinsFieldDisciplines = {
+  events: {
+    // A single physical commission per 24 hours, shared by the two mutually
+    // exclusive careers. The first tick arms the rest; the next clears it.
+    evt_ford_master_contract_rota: {
+      trigger: signal('ford_master_contract_used', { min: 1 }),
+      restartWhen: and(signal('ford_master_contract_used', { min: 1 }),
+        signal('ford_master_contract_resting', { max: 0 })),
+      cooldown: 1440,
+      effects: [{ op: 'if', when: signal('ford_master_contract_resting', { max: 0 }),
+        then: [{ op: 'signal', key: 'ford_master_contract_resting', add: 1 }],
+        else: [{ op: 'signal', key: 'ford_master_contract_used', add: -1 },
+          { op: 'signal', key: 'ford_master_contract_resting', add: -1 }] }]
+    }
+  },
   actions: {
     act_mill_join_ford_surveyors: {
       name: '물레방아 마을에서 물길 조사관으로 전문화한다 (은화 2, 기력 2, 90분)',
@@ -65,6 +80,45 @@ export const ruinsFieldDisciplines = {
       effects: [{ op: 'money', add: -2 }, { op: 'resource', resource: 'stamina', add: -2 },
         { op: 'unlock', id: 'unl_ford_master_vanguard' },
         { op: 'proficiency', id: 'combat', add: 15 }, say('txt_ford_master_vanguard')]
+    },
+    // Repeatable world-service work uses inventory actually held by the
+    // character. Flour becomes one real unit of mill relief (bounded to 3),
+    // while a bread-funded guard patrol lowers existing road danger and can
+    // intercept the existing raider on its next physical route tick.
+    act_mill_master_survey_relief: {
+      name: '상급 조사관으로 밀가루 자루를 구호 창고에 납품한다 (밀가루 1, 기력 2, 75분)',
+      requires: and(at('loc_mill_hamlet'), unlock('unl_ford_master_surveyor'),
+        signal('ford_master_contract_used', { max: 0 }),
+        signal('north_mill_relief_stock', { max: 2 }),
+        { op: 'item', item: 'item_flour_sack', min: 1 }, stamina(2)),
+      minutes: 75,
+      effects: [{ op: 'item', item: 'item_flour_sack', add: -1 },
+        { op: 'resource', resource: 'stamina', add: -2 },
+        { op: 'signal', key: 'north_mill_relief_stock', add: 1 },
+        { op: 'signal', key: 'ford_master_contract_used', add: 1 },
+        { op: 'relation', from: 'org_mill_hamlet', add: 1 },
+        { op: 'proficiency', id: 'investigation', add: 12 },
+        say('txt_ford_master_relief_delivered')]
+    },
+    act_mill_master_guard_caravan: {
+      name: '상급 호위 검객으로 빵을 지참해 위험한 상단 길을 순찰한다 (빵 1, 기력 2, 75분)',
+      requires: and(at('loc_mill_hamlet'), unlock('unl_ford_master_vanguard'), sword,
+        signal('ford_master_contract_used', { max: 0 }),
+        signal('road_trouble', { min: 1 }),
+        { op: 'item', item: 'item_mill_bread', min: 1 }, stamina(2)),
+      minutes: 75,
+      effects: [{ op: 'item', item: 'item_mill_bread', add: -1 },
+        { op: 'resource', resource: 'stamina', add: -2 },
+        { op: 'signal', key: 'road_trouble', add: -1 },
+        { op: 'signal', key: 'ford_master_contract_used', add: 1 },
+        { op: 'if', when: and(flag('ruins_watchpost_open'),
+          not(flag('ruins_raider_cleared')), { op: 'alive', subject: 'npc_ruins_raider' },
+          signal('ruins_raider_repulsions', { min: 2 }),
+          not(flag('ruins_raider_mill_patrol_ready'))),
+          then: [{ op: 'flag', key: 'ruins_raider_mill_patrol_ready', value: true }] },
+        { op: 'relation', from: 'org_mill_hamlet', add: 1 },
+        { op: 'proficiency', id: 'combat', add: 12 },
+        say('txt_ford_master_guard_patrol')]
     },
     // The world owns the crossing; each traveller must still learn the way
     // in person. This keeps private maps out of successors and PlayerView.
@@ -139,6 +193,8 @@ export const ruinsFieldDisciplines = {
     }
   },
   texts: {
+    txt_ford_master_relief_delivered: '실제로 운반한 밀가루 자루를 구호 창고에 넘겼다. 창고의 물자는 하나 늘었고 조사 실적이 쌓였다. 다음 의뢰는 하루 뒤에 맡을 수 있다.',
+    txt_ford_master_guard_patrol: '빵을 지참해 상단 길을 순찰했다. 길의 위험이 낮아지고, 적의 습격 징후가 있으면 기존 경계망이 다음 이동 때 대응한다. 다음 의뢰는 하루 뒤에 맡을 수 있다.',
     txt_ford_master_surveyor: '곡물 배송과 물길 조사의 실적을 인정받아 상급 조사관이 되었다. 강나루의 공용 둑길을 직접 놓을 수 있다.',
     txt_ford_master_vanguard: '강나루의 실제 호위와 초소의 상급 검세를 결합했다. 최후의 전투에서 무리한 공격 대신 대형을 지키며 반격할 수 있다.',
     txt_ford_public_causeway_built: '강둑을 보강하고 통행 표식을 세웠다. 누구든 현장에서 둑길을 확인하면 건널 수 있다. 이 시설은 후대에도 남는다.',

@@ -1164,6 +1164,7 @@ export const worldData = {
     ...ruinsWatchpostDrill.events,
     ...ruinsRaider.events,
     ...ruinsFordFlood.events,
+    ...ruinsFieldDisciplines.events,
     ...ruinsGuideConvoy.events,
     // J3 (#426): the elder needs a full day after hearing first-hand arrows
     // before villagers can mark the worst miasma pockets. This is a public,
