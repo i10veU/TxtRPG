@@ -74,6 +74,7 @@ function testChecksReadSkills() {
     "choice_fight_leader.opt_fight_pattern_pursuit": ["swordsmanship", null],
     "choice_final_battle.opt_final_chief_pattern_pursuit": ["swordsmanship", null],
     "choice_final_battle.opt_final_right_hand_pattern_pursuit": ["swordsmanship", null],
+    act_cistern_trace_side_risky: ["investigation", null],
     act_cistern_force_sluice: ["swordsmanship", null],
     act_gallery_brute_first: ["swordsmanship", null],
     act_gallery_brute_second: ["swordsmanship", null],

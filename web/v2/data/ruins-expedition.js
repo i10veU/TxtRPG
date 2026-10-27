@@ -54,7 +54,10 @@ export const ruinsExpedition = {
       links: [
         { to: 'loc_ruins_cellar', minutes: 25 },
         { to: 'loc_village', minutes: 30, requires: flag('ruins_lower_public') },
-        { to: 'loc_ruins_gallery', minutes: 30, requires: flag('ruins_watch_gallery_open') }
+        { to: 'loc_ruins_gallery', minutes: 30, requires: flag('ruins_watch_gallery_open') },
+        { to: 'loc_ruins_cistern', minutes: 10, requires: { op: 'and', of: [
+          flag('ruins_cistern_side_ladder'), { op: 'unlock', id: 'unl_cistern_vault_ladder' }
+        ] } }
       ]
     }
   },
